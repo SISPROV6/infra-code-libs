@@ -1,0 +1,36 @@
+h5 {
+	font-size: 16px;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.arrow-pos-size {
+	background-color: white;
+	border: none;
+	width: 15px;
+	height: 15px;
+	transition: 0.3s;
+}
+
+.invertImage {
+	transform: rotate(180deg);
+}
+
+span {
+	background-color: white !important;
+}
+
+button {
+	color: black;
+	text-decoration: none;
+}
+
+button:hover {
+	color: black;
+	text-decoration: none;
+}
+
+button:focus {
+	color: black;
+	text-decoration: none;
+}
