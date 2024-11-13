@@ -1,0 +1,65 @@
+name: Deploy no NPM
+
+on:
+  push:
+    branches:
+      - main
+      - test
+      - next
+
+jobs:
+  publish:
+    name: Deploy e publicação para NPM
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 2  # Garante que todo o histórico de commits seja trazido
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20'
+        registry-url: 'https://registry.npmjs.org'
+
+    - name: Check if projects/ngx-sp-infra/package.json is modified
+      id: changes
+      run: |
+        if git diff --name-only HEAD~1 HEAD | grep -q "projects/ngx-sp-infra/package.json"; then
+          echo "projects/ngx-sp-infra/package.json foi modificado."
+          echo "should_publish=true" >> $GITHUB_ENV
+        else
+          echo "projects/ngx-sp-infra/package.json não foi modificado."
+          echo "should_publish=false" >> $GITHUB_ENV
+        fi
+
+    - name: Install dependencies
+      if: env.should_publish == 'true'
+      run: npm install
+
+    - name: Build the library and add tags
+      if: env.should_publish == 'true'
+      run: npm run build
+
+    - name: Get the version tag
+      run: |
+        TAG=$(node scripts/tag.js)
+        echo "Tag encontrada: $TAG"
+        echo "TAG=$TAG" >> $GITHUB_ENV
+
+    - name: Publish to NPM
+      if: env.should_publish == 'true'
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      run: |
+        cd dist/ngx-sp-infra
+        
+        if [ "${{ github.ref }}" == "refs/heads/main" ]; then
+          npm publish --access public --tag latest
+        elif [ "${{ github.ref }}" == "refs/heads/test" ]; then
+          npm publish --access public --tag test
+        elif [ "${{ github.ref }}" == "refs/heads/next" ]; then
+          npm publish --access public --tag next
+        fi
