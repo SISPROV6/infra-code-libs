@@ -12,7 +12,6 @@
   - [Manual](#manual)
   - [Automatizada](#automatizada)
 - [Automatização de Publicação](#automatização-de-publicação)
-- [Contribuição](#contribuição)
 
 ## Introdução
 Este projeto engloba funcionalidades genéricas da nossa infraestrutura como código (infra-as-code) que podem ser reutilizadas em outros projetos.
@@ -126,13 +125,3 @@ A automatização da publicação é realizada utilizando GitHub Actions.
 - Workflow: Um workflow específico é configurado para observar as branches main e test. Quando há um commit nessas branches, ele verifica as alterações e, caso o diretório dist tenha sido modificado, a ação de publicação no NPM é disparada automaticamente.
 - Etapas: O workflow inclui etapas como a instalação de dependências, execução de builds, e a publicação no NPM. Tudo é gerenciado através de scripts e do token de autenticação NPM armazenado nos segredos do GitHub.
 - Segurança: Apenas commits em branches específicas acionam a publicação, garantindo que somente código aprovado chegue ao NPM.
-
-## Contribuição
-Se você deseja contribuir para a biblioteca, siga estas etapas:
-
-1. Faça um clone do repositório.
-2. Crie uma branch para sua feature ou correção com base na main.
-3. Faça suas alterações e teste-as localmente (verifique o tópico de [Testes](#testes)).
-4. Faça um `git commit` e `git push` na sua branch.
-5. Abra um PR (Pull Request) para a branch test (ou main caso seja uma correção)
-6. Caso ela seja aprovada e o merge feito, siga as etapas no tópido de [Publicação](#publicação)
