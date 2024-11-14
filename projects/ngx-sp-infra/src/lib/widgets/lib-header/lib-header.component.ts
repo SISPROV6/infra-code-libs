@@ -67,7 +67,7 @@ export class LibHeaderComponent implements OnInit, OnChanges {
 
   /** Título principal da página
    * @default "Título desconhecido..." */
-  @Input() public pageTitle: string = "Título desconhecido...";
+  @Input() public pageTitle: string = "Título desconhecido";
 
   /** Modo em que o Header será inicializado.
    * Impacta em algumas situações como por exemplo a exibição dos botões padrão e o título
