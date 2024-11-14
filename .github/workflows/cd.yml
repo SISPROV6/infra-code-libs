@@ -3,8 +3,11 @@ name: CD
 run-name: CD
 
 on:
- repository_dispatch:
-    types: [CI]
+  workflow_run:
+    workflows: ["CI"]
+    types: [requested]
+    branches:
+      - next-workflow
 
 jobs:
   on-success:
