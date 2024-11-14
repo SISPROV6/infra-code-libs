@@ -6,13 +6,13 @@ name: CD
 run-name: CD
 
 on:
-  push:
-    branches:
-      - next-workflow
-  #workflow_run:
-  #  workflows: ["CI"]
-  #  types:
-  #    - completed
+#  push:
+#    branches:
+#      - next-workflow
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
 
 jobs:
   on-success:
