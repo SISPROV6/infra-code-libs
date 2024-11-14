@@ -4,11 +4,10 @@ import { LibHeaderComponent } from './lib-header.component';
 describe('AppComponent', () => {
    let component: LibHeaderComponent;
    let fixture: ComponentFixture<LibHeaderComponent>;
-   let location: Location;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ LibHeaderComponent ],
+      declarations: [ LibHeaderComponent ],
     }).compileComponents();
 
     // Use runInInjectionContext para garantir que a injeção funciona corretamente
@@ -17,7 +16,6 @@ describe('AppComponent', () => {
       fixture = TestBed.createComponent(LibHeaderComponent);
       component = fixture.componentInstance;
 
-      location = TestBed.inject(Location);
       fixture.detectChanges();
     });
   });
