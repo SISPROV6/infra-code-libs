@@ -8,6 +8,7 @@ on:
       - main
       - next
       - test
+      - next-workflow
 
 jobs:
   run-tests:
