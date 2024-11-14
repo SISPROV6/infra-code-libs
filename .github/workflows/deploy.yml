@@ -1,8 +1,12 @@
-name: Deploy no NPM
+name: CD
 
 on:
   workflow_run:
-    workflows: ["Execução de Testes Unitários"]
+    workflows: [CI]
+    branches:
+      - main
+      - next
+      - test
     types:
       - completed
 
