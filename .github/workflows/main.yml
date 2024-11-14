@@ -1,4 +1,4 @@
-name: CI
+name: CI/CD
 
 on:
   push:
@@ -31,9 +31,8 @@ jobs:
   deploy-package:
     needs: run-tests  # Garantia que o job de deploy (CD) só execute após os testes (CI)
     if: ${{ success() }}  # Executa apenas se o job anterior for bem-sucedido
-    name: Deploy e publicação para NPM
+    
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
