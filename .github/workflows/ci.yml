@@ -1,6 +1,6 @@
-name: CD
+name: CI
 
-run-name: CD
+run-name: CI
 
 on:
   push:
