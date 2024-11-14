@@ -32,6 +32,6 @@ jobs:
       - name: Chamar pipeline de CD
         uses: peter-evans/repository-dispatch@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.MY_PERSONAL_TOKEN }}
           event-type: trigger-cd
 
