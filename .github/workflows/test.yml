@@ -1,4 +1,4 @@
-name: Execução de Testes Unitários
+name: CI
 
 on:
   push:
