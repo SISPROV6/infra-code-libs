@@ -1,14 +1,14 @@
 name: Deploy no NPM
 
 on:
-  push:
-    branches:
-      - main
-      - test
-      - next
+  workflow_run:
+    workflows: ["Execução de Testes Unitários"]
+    types:
+      - completed
 
 jobs:
   publish:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     name: Deploy e publicação para NPM
     runs-on: ubuntu-latest
 
