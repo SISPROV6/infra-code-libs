@@ -1,29 +1,45 @@
-name: CD
+name: CI/CD
 
 on:
-  workflow_run:
-    workflows: [CI]
+  push:
     branches:
       - main
       - next
       - test
-    types:
-      - completed
 
 jobs:
-  publish:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    name: Deploy e publicação para NPM
+  run-tests:
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+        
+      - name: Instalar dependências
+        run: npm install
+        
+      - name: Executar testes
+        run: npm run test:headless
+
+
+  deploy-package:
+    needs: run-tests  # Garantia que o job de deploy (CD) só execute após os testes (CI)
+    if: ${{ success() }}  # Executa apenas se o job anterior for bem-sucedido
+    
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         fetch-depth: 2  # Garante que todo o histórico de commits seja trazido
 
     - name: Set up Node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v4
       with:
         node-version: '20'
         registry-url: 'https://registry.npmjs.org'
