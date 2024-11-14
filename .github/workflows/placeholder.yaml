@@ -1,9 +1,22 @@
 name: PLACEHOLDER
 
 on:
-  workflow_run:
-    workflows: [CI]
-    types: [completed]
+  workflow_dispatch:
+    inputs: 
+      workflow2_name:
+        description: 'Workflow2 Name for Triggering'
+        required: true
+        default: 'CI'
+      
+      workflow2_github_account:
+        description: 'GitHub Account Owner'
+        required: true
+        default: 'S0lturn3'
+      
+      workflow2_repo_github:
+        description: 'GitHub Repository Name'
+        required: true
+        default: 'infra-code-libs'
 
 jobs:
   on-success:
