@@ -1,5 +1,4 @@
 name: CI
-
 run-name: CI
 
 on:
@@ -25,3 +24,10 @@ jobs:
         
       - name: Executar testes
         run: npm run test:headless
+
+      - name: Chamar pipeline de CD
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          event-type: trigger-cd
+
