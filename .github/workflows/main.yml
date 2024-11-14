@@ -1,18 +1,27 @@
-permissions:
-  contents: read
-  actions: write
+name: CI
 
-name: CD
-run-name: CD
+run-name: CI
 
 on:
-  workflow_run:
-    workflows: ["CI"]
-    types:
-      - completed
+  push:
+    branches:
+      - next-workflow
 
 jobs:
-  on-success:
+  run-tests:
     runs-on: ubuntu-latest
     steps:
-      - run: echo 'Workflow triggered'
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+        
+      - name: Instalar dependências
+        run: npm install
+        
+      - name: Executar testes
+        run: npm run test:headless
