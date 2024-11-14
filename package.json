@@ -7,6 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "test:headless": "ng test --watch=false --browsers=ChromeHeadless",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "build:patch": "cd projects/ngx-sp-infra/src/scripts/ && node version.js patch && node tag.js && cd ../../../../ && ng build && node projects/ngx-sp-infra/src/scripts/commit.js",
