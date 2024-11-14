@@ -23,8 +23,8 @@ $form-check-input-checked-bg-color: #3767b2;      // Cor de fundo dos inputs de 
 
 input[type="checkbox"].form-check-input:checked:not([role="switch"]) { background-color: #3767b2 !important; }
 
-input[type="checkbox"].form-check-input { border-color: #6C757D !important; }
-input[type="radio"].form-check-input { border-color: #6C757D !important; }
+input[type="checkbox"].form-check-input { border-color: #6C757D; }
+input[type="radio"].form-check-input { border-color: #6C757D; }
 /* #endregion INPUT RELATED COLORS */
 
 /* #endregion OVERRIDE BOOTSTRAP VARIABLES */
