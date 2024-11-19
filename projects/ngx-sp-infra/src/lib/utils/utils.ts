@@ -439,7 +439,7 @@ export class Utils {
     const regex = /(\d+|\D+)/g;
 
     const stringA = this.propertyIsNullUndefinedOrEmpty(a) ? "" : a;
-    const stringB = this.propertyIsNullUndefinedOrEmpty(b) ? "" : a;
+    const stringB = this.propertyIsNullUndefinedOrEmpty(b) ? "" : b;
 
     const aParts = stringA.toString().match(regex) || [];
     const bParts = stringB.toString().match(regex) || [];

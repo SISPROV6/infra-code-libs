@@ -24,7 +24,7 @@
                      </div>
                   </th>
 
-                  <th *ngFor="let header of headersList" scope="col"
+                  <th *ngFor="let header of headers" scope="col"
                   class="align-middle text-dark-grey {{ header.customClasses }}
                      {{ headersUseOldWidth
                         ? header.col && header.col > 0 ? 'col-'+header.col : 'col'
@@ -56,16 +56,16 @@
          <!-- #region PAGINAÇÃO -->
          <div *ngIf="usePagination && recordsList.length > 0" class="d-flex mt-2"
             [ngClass]="{
-               'justify-content-start': paginationPlacement === 'start',
-               'justify-content-center': paginationPlacement === 'center',
-               'justify-content-end': paginationPlacement === 'end',
-               'justify-content-between': paginationPlacement === 'between'
+               'justify-content-start': placement === 'start',
+               'justify-content-center': placement === 'center',
+               'justify-content-end': placement === 'end',
+               'justify-content-between': placement === 'between'
             }">
             <div class="d-flex align-items-center">
-               <label class="me-2" style="white-space: nowrap;"> Itens por página </label>
-               <select class="form-select select-search" (change)="onSelectChange($event)">
-                  <option *ngFor="let count of countOptions; let i = index" [value]="count"
-                     [selected]="countOptions ? (countOptions.length > 0 && i == 0) : false">{{ count }}</option>
+               <label for="countSelect" class="me-2" style="white-space: nowrap;"> Itens por página </label>
+               <select id="countSelect" class="form-select select-search" (change)="onSelectChange($event)">
+                  <option *ngFor="let count of counts; let i = index" [value]="count"
+                     [selected]="counts ? (counts.length > 0 && i === 0) : false">{{ count }}</option>
                </select>
             </div>
 
