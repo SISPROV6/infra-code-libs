@@ -17,7 +17,7 @@ function removeExistingTag(version, repo) {
 
 /** Cria uma nova tag e faz o push para o Git.
  * @param {string} version - A versão da nova tag a ser criada. */
-function createAndPushTag(version) {
+function createAndPushTag(version, repo) {
    try {
       execSync(`git tag v${version}`, { stdio: 'inherit' });
       execSync(`git push ${repo} v${version}`, { stdio: 'inherit' });
@@ -59,15 +59,18 @@ const rl = readline.createInterface({
 // Pergunta ao usuário se ele deseja prosseguir com o commit da tag
 rl.question("\nVocê quer commitar a tag de versão? (S/N): ", (answer) => {
    if (answer.trim().toUpperCase() === "S") {
+
       rl.question("Informe o nome do repositório remoto (se nada informado usará github): ", (repoName) => {
          const repo = repoName.trim() || "github"; // Se não for informada, usar o "github"
-         commitTag(repo);
+
+         if (repo) commitTag(repo);
+         else commitTag("github");
+
          rl.close();
       });
    }
    else {
       console.log("Tag não commitada por escolha do usuário. Prosseguindo com processo...\n");
+      rl.close();
    }
-
-  rl.close();
 });
