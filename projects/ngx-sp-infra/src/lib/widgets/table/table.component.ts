@@ -24,7 +24,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   // #region ==========> PROPRIEDADES <==========
 
   // #region PRIVATE
-  private _paginationID?: string;
+  private _paginationID: string = "libTablePagination";
   private _recordsList: unknown[] | undefined;
 
   private _currentPage: number = 1;
@@ -76,12 +76,10 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
    * @default true */
   @Input() public showCounter: boolean = true;
 
-  /** Informa um ID para a paginação da tabela específica. Deve ser utilizada em caso de múltiplas tabelas na mesma tela. */
+  /** Informa um ID para a paginação da tabela específica. DEVE ser utilizada em caso de paginação visível. */
   @Input()
-  public get paginationID(): string | undefined { return this._paginationID; }
-  public set paginationID(value: string | undefined) {
-    this._paginationID = value || 'libTablePagination';
-  }
+  public get paginationID(): string { return this._paginationID; }
+  public set paginationID(value: string) { this._paginationID = value; }
 
 
   /** Evento emitido quando o número de itens por página é alterado. */
