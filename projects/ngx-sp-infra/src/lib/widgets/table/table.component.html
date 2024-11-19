@@ -71,7 +71,7 @@
 
             <!-- Controle de paginação -->
             <pagination-controls
-               [id]="paginationID ?? ''"
+               [id]="paginationID"
                class="sp-pagination mt-3"
                (pageChange)="page = $event; pageChange.emit($event)"
                previousLabel="«&nbsp;&nbsp;&nbsp;" nextLabel="&nbsp;&nbsp;&nbsp;»"
