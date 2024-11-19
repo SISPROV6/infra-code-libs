@@ -263,8 +263,9 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 	// Obtém o valor de uma propriedade específica de um objeto
 	private getProperty(obj: any, path: string | string[]): string {
 		if (typeof path === 'string') path = path.split('.');
-		
-    return path.reduce((value, property) => value ? value[property] : '', obj).toString();
+
+    const property = path.reduce((value, property) => value ? value[property] : '', obj);
+    return property ? property.toString() : "";
     // .toString() adicionado para permitir todos os tipos de dados
 	}
 	//#endregion Ordering, Sorting ou apenas Ordenação
