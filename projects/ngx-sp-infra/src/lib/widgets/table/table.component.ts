@@ -24,8 +24,8 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   // #region ==========> PROPRIEDADES <==========
 
   // #region PRIVATE
-  private _paginationID?: string;
-  private _recordsList: any[] | undefined;
+  private _paginationID: string = "libTablePagination";
+  private _recordsList: unknown[] | undefined;
 
   private _currentPage: number = 1;
   private _currentItemsPerPage: number = 0;
@@ -48,20 +48,20 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   /** Lista de registros a serem exibidos na tabela.
    * @required */
   @Input({ alias: 'list', required: true })
-  public get recordsList(): any[] | undefined { return this._recordsList; }
-  public set recordsList(value: any[] | undefined) { this._recordsList = value; }
+  public get recordsList(): unknown[] | undefined { return this._recordsList; }
+  public set recordsList(value: unknown[] | undefined) { this._recordsList = value; }
 
   /** Opções de contagem de itens por página disponíveis para o usuário.
    * @required */
-  @Input('counts') public countOptions?: number[];
+  @Input() public counts?: number[];
 
   /** Posicionamento dos controles de paginação.
    * @default 'end' */
-  @Input('placement') public paginationPlacement: 'start' | 'center' | 'end' | 'between' = 'end';
+  @Input() public placement: 'start' | 'center' | 'end' | 'between' = 'end';
 
   /** Lista de cabeçalhos para as colunas da tabela, incluindo o nome, a largura da coluna e classes customizadas.
    * @required */
-  @Input({ alias: 'headers', required: true }) public headersList!: {
+  @Input({ required: true }) public headers!: {
     name: string,
     col?: number,
     widthClass?: string,
@@ -76,12 +76,10 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
    * @default true */
   @Input() public showCounter: boolean = true;
 
-  /** Informa um ID para a paginação da tabela específica. Deve ser utilizada em caso de múltiplas tabelas na mesma tela. */
+  /** Informa um ID para a paginação da tabela específica. DEVE ser utilizada em caso de paginação visível. */
   @Input()
-  public get paginationID(): string | undefined { return this._paginationID; }
-  public set paginationID(value: string | undefined) {
-    this._paginationID = value || 'libTablePagination';
-  }
+  public get paginationID(): string { return this._paginationID; }
+  public set paginationID(value: string) { this._paginationID = value; }
 
 
   /** Evento emitido quando o número de itens por página é alterado. */
@@ -112,7 +110,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
   public get itemsDisplayText(): string {
     if (this.recordsList && this.recordsList.length === 0) { return `Exibindo ${this.recordsList?.length ?? 0} registros`; }
-    return `Exibindo ${ this.countOptions ? this.firstItemOfPage+"-"+this.lastItemOfPage + " de" : "" } ${this.recordsList?.length ?? 0} registros`;
+    return `Exibindo ${ this.counts ? this.firstItemOfPage+"-"+this.lastItemOfPage + " de" : "" } ${this.recordsList?.length ?? 0} registros`;
   }
 
   
@@ -155,10 +153,10 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
   // #region ==========> UTILITÁRIOS <==========
   private validateHeaders(): void {
-    const headersUseOldWidth: boolean = this.headersList.every(header => header.col && header.col != undefined);
+    const headersUseOldWidth: boolean = this.headers.every(header => header.col && header.col != undefined);
     
-    const headersUseCol: boolean = this.headersList.every(header => header.widthClass && header.widthClass.includes('col-'));
-    const headersUsePercent: boolean = this.headersList.every(header => header.widthClass && header.widthClass.includes('w-'));
+    const headersUseCol: boolean = this.headers.every(header => header.widthClass && header.widthClass.includes('col-'));
+    const headersUsePercent: boolean = this.headers.every(header => header.widthClass && header.widthClass.includes('w-'));
 
     if (headersUseOldWidth) { this.headersUseOldWidth = true; }
     else {
@@ -172,7 +170,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
   private updateCounterInfo(): void {
     if (this.recordsList && this.showCounter && this.usePagination) {
-      this.itemsPerPage = this.countOptions ? this.countOptions[0] : this.recordsList.length;
+      this.itemsPerPage = this.counts ? this.counts[0] : this.recordsList.length;
     }
     else if (!this.recordsList && this.showCounter && this.usePagination) {
       this.itemsPerPage = 1;
@@ -191,7 +189,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
   /** Reseta a paginação da listagem com base no número atual de registros.
    * @param list Lista de registros para resetar a paginação. */
-  public resetPagination(list: any[]): void {
+  public resetPagination(list: unknown[]): void {
     const startIndex = (this.page - 1) * this.itemsPerPage;
     if (list.length <= startIndex) this.page = 1;
   }
@@ -232,26 +230,25 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
       // ERICK: Novo método de ordenação que abrange também números
       const attribute = this.currentSortColumn;
-      
-      this.recordsList = recordsList.sort((a, b) => {
+      recordsList.sort((a, b) => {
         const propertyA = this.getProperty(a, attribute).toUpperCase();
         const propertyB = this.getProperty(b, attribute).toUpperCase();
 
         return Utils.alphanumericSort(propertyA, propertyB, this.sortDirection[attribute])
       });
-
+      
       // LÓGICA DEPRECIADA
-			// gruposList.sort((a, b) => {
+			// recordsList.sort((a, b) => {
 			// 	const attribute = this.currentSortColumn;
 			// 	const direction = this.sortDirection[attribute];
-
+        
 			// 	return this.compareProperties(a, b, attribute, direction);
 			// });
 		}
 	}
 
 	// Compara os valores das propriedades entre dois objetos
-	private compareProperties(a: any, b: any, attribute: string, direction: string): number {
+	private compareProperties(a: unknown, b: unknown, attribute: string, direction: string): number {
 		const propertyA = this.getProperty(a, attribute).toUpperCase();
 		const propertyB = this.getProperty(b, attribute).toUpperCase();
 
@@ -264,8 +261,9 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 	// Obtém o valor de uma propriedade específica de um objeto
 	private getProperty(obj: any, path: string | string[]): string {
 		if (typeof path === 'string') path = path.split('.');
-		
-    return path.reduce((value, property) => value ? value[property] : '', obj).toString();
+
+    const property = path.reduce((value, property) => value ? value[property] : '', obj);
+    return property ? property.toString() : "";
     // .toString() adicionado para permitir todos os tipos de dados
 	}
 	//#endregion Ordering, Sorting ou apenas Ordenação

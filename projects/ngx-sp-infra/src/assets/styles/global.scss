@@ -1326,8 +1326,8 @@ input[type="checkbox"].form-check-input:checked:not([role="switch"]) {
   background-color: vars.$root-sp-default !important;
 }
 
-input[type="checkbox"].form-check-input { border-color: #6C757D !important; }
-input[type="radio"].form-check-input { border-color: #6C757D !important; }
+input[type="checkbox"].form-check-input { border-color: #6C757D; }
+input[type="radio"].form-check-input { border-color: #6C757D; }
 // #endregion CHECKBOX
 
 .glb-fit-content {

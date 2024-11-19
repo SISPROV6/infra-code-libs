@@ -3,10 +3,10 @@ const execSync = require('child_process').execSync;
 
 /** Remove a tag existente do Git e da origem remota.
  * @param {string} version - A versão da tag a ser removida. */
-function removeExistingTag(version) {
+function removeExistingTag(version, repo) {
    try {
       execSync(`git tag -d v${version}`, { stdio: 'inherit' });
-    execSync(`git push --delete origin v${version}`, { stdio: 'inherit' });
+    execSync(`git push --delete ${repo} v${version}`, { stdio: 'inherit' });
     console.log(`\n\nTag v${version} removida com sucesso.`);
   }
   catch (error) {
@@ -17,17 +17,17 @@ function removeExistingTag(version) {
 
 /** Cria uma nova tag e faz o push para o Git.
  * @param {string} version - A versão da nova tag a ser criada. */
-function createAndPushTag(version) {
+function createAndPushTag(version, repo) {
    try {
       execSync(`git tag v${version}`, { stdio: 'inherit' });
-      execSync(`git push origin v${version}`, { stdio: 'inherit' });
+      execSync(`git push ${repo} v${version}`, { stdio: 'inherit' });
       console.log(`\n\nTag v${version} criada e enviada com sucesso.`);
    }
    catch (error) { throw new Error(`\n\nErro ao criar ou enviar a tag: ${error.message}`); }
 }
 
 /** Função principal para commit da tag de versão. */
-function commitTag() {
+function commitTag(repo) {
   // Lê e inicializa o package.json
   const packageJson = JSON.parse(fs.readFileSync('../../package.json', 'utf8'));
   const newVersion = packageJson.version;
@@ -40,8 +40,8 @@ function commitTag() {
 
    // Remover tags antigas (se existirem) e criar a nova tag
    try {
-    removeExistingTag(newVersion);
-    createAndPushTag(newVersion);
+    removeExistingTag(newVersion, repo);
+    createAndPushTag(newVersion, repo);
     console.log("\nTag de versão commitada e enviada com sucesso!");
    }
    catch (error) { console.log("\n\nErro no processo de commit da tag:", error.message); }
@@ -58,8 +58,19 @@ const rl = readline.createInterface({
 
 // Pergunta ao usuário se ele deseja prosseguir com o commit da tag
 rl.question("\nVocê quer commitar a tag de versão? (S/N): ", (answer) => {
-   if (answer.trim().toUpperCase() === "S") commitTag();
-  else console.log("Tag não commitada por escolha do usuário. Prosseguindo com processo...\n");
+   if (answer.trim().toUpperCase() === "S") {
 
-  rl.close();
+      rl.question("Informe o nome do repositório remoto (se nada informado usará github): ", (repoName) => {
+         const repo = repoName.trim() || "github"; // Se não for informada, usar o "github"
+
+         if (repo) commitTag(repo);
+         else commitTag("github");
+
+         rl.close();
+      });
+   }
+   else {
+      console.log("Tag não commitada por escolha do usuário. Prosseguindo com processo...\n");
+      rl.close();
+   }
 });
