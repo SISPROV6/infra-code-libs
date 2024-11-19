@@ -55,6 +55,11 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
   protected set ariaExpanded(value: boolean) {
     this._ariaExpanded = value;
     this.adjustDropdownWidth();
+    
+    if (value === false) {
+      this.textoPesquisa = "";
+      this._searchInput.nativeElement.value = "";
+    }
   }
 
   protected innerControl: FormControl = new FormControl<string | number | null>(null);
@@ -82,8 +87,8 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
    * @alias 'control'
    * @type {FormControl<any> | AbstractControl<any>} */
   @Input({ alias: 'control', required: true })
-  public get outerControl(): FormControl<any> { return this._outerControl }
-  public set outerControl(value: FormControl<any> | AbstractControl<any>) {
+  public get outerControl(): FormControl<unknown> { return this._outerControl }
+  public set outerControl(value: FormControl<unknown> | AbstractControl<unknown>) {
     this._outerControl = value as FormControl;
 
     // Cancela a subscrição anterior (se houver) para evitar múltiplas subscrições
@@ -97,7 +102,7 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
   /** (obrigatório) Lista de registros que serão exibidos no combo, enquanto eles estiverem carregando será exibido um spinner
    * @alias 'list'
    * @type {RecordCombobox[]} */
-  @Input({ alias: 'list', required: true }) public comboboxList?: RecordCombobox[];
+  @Input({ required: true }) public list?: RecordCombobox[];
 
   /** (opcional) Texto do rótulo que será exibido acima do combo. Caso não informado nada será exibido
    * @type {string} */
@@ -129,20 +134,20 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
    * @alias 'mainPlaceholder'
    * @type {string}
    * @default "Selecione uma opção..." */
-  @Input('mainPlaceholder') public mainInputPlaceholder?: string = "Selecione uma opção...";
+  @Input() public mainPlaceholder?: string = "Selecione uma opção...";
 
   /** (opcional) Placeholder do campo de pesquisa dentro do combo
    * @alias 'searchPlaceholder'
    * @type {string}
    * @default "Pesquisa..." */
-  @Input('searchPlaceholder') public searchInputPlaceholder?: string = "Pesquisa...";
+  @Input() public searchPlaceholder?: string = "Pesquisa...";
 
   /** (opcional) Define o tema de cor do componente, como "primary", "success", ou "danger"
    * @alias 'theme'
    * @type {string}
    * @default "primary"
   */
-  @Input('theme') public colorTheme?: string = "primary";
+  @Input() public theme?: string = "primary";
 
   /** (opcional) Define se o tipo de retorno ao selecionar uma opção será o Record inteiro ou apenas o ID.
    * @type {boolean}
@@ -154,17 +159,18 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
    * @example Ao ser emitido, o componente pai pode refazer o GET da lista, por exemplo.
    * @emits EventEmitter<string> que leva o valor string da pesquisa feita para ser enviada para o GET
    * @type {EventEmitter<string>} */
-  @Output() public onReloadList: EventEmitter<string> = new EventEmitter<string>();
+  @Output() public reloadListChange: EventEmitter<string> = new EventEmitter<string>();
 
 
   /** Evento emitido ao selecionar um registro da lista do combobox
    * @example Ao ser emitido, o componente pai pode realizar uma validação com o valor selecionado.
    * @emits EventEmitter<string|number|null> que leva o valor string da pesquisa feita para ser enviada para o GET
    * @type {EventEmitter<string | number | null>} */
-  @Output() public onChange: EventEmitter<RecordCombobox | string | number | null> = new EventEmitter<RecordCombobox | string | number | null>();
+  @Output() public changeValue: EventEmitter<RecordCombobox | string | number | null> = new EventEmitter<RecordCombobox | string | number | null>();
   
 
   @ViewChild('mainInput') private _mainInput!: ElementRef;
+  @ViewChild('searchInput') private _searchInput!: ElementRef;
   @ViewChild('dropdownMenu') private _dropdownMenu!: ElementRef;
   // #endregion PUBLIC
 
@@ -202,7 +208,7 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
 
   // O que fazer quando o evento de redimensionamento ocorrer
   @HostListener('window:resize', ['$event'])
-  onResize(event: Event): void { this.adjustDropdownWidth() }
+  onResize(): void { this.adjustDropdownWidth() }
   // #endregion ==========> INITIALIZATION <==========
 
 
@@ -220,7 +226,7 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
     this.ariaExpanded = false;
     this.setControlStatus(this.innerControl.status);
     
-    this.onChange.emit(this.returnRecord ? item as RecordCombobox : item.ID);
+    this.changeValue.emit(this.returnRecord ? item as RecordCombobox : item.ID);
   }
 
   public clearValue(): void {
@@ -234,16 +240,16 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
     this.ariaExpanded = false;
     this.setControlStatus(this.innerControl.status);
 
-    this.onChange.emit(null);
+    this.changeValue.emit(null);
   }
 
   private updateSelectedValue(value?: string | number | null): void {
     this.innerControl.setValue(null); // Limpa o campo antes de qualquer coisa
     const selectedValue: string | number | null = value ?? this._outerControl.value;
 
-    if (!this.comboboxList || (selectedValue === null && selectedValue === '')) return;
+    if (!this.list || (selectedValue === null && selectedValue === '')) return;
 
-    const initializedValue = this.comboboxList.find(item => item.ID === selectedValue)
+    const initializedValue = this.list.find(item => item.ID === selectedValue)
     if (initializedValue) this.innerControl.setValue(
       `${initializedValue.AdditionalStringProperty1 && initializedValue.AdditionalStringProperty1 != '' ? initializedValue.AdditionalStringProperty1 : ""}${this.separator === undefined ? " " : " "+this.separator+" "}${initializedValue.LABEL}`
     );
@@ -306,7 +312,7 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
     }
   }
 
-  public reloadList(): void { this.onReloadList.emit(this.textoPesquisa) }
+  public reloadList(): void { this.reloadListChange.emit(this.textoPesquisa) }
   // #endregion ==========> UTILS <==========
 
 }
