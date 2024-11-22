@@ -7,7 +7,6 @@
     "registry": "https://npm.pkg.github.com/@ngx-sispro"
   },
   "author": "SISPRO P&D",
-  "private": true,
   "keywords": [
     "Infra",
     "Sispro",
