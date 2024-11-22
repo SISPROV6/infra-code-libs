@@ -14,7 +14,7 @@ export class ContentContainerComponent implements OnInit, OnChanges {
   // #endregion PRIVATE
 
   // #region PUBLIC
-  @Input('tabs') public navTabsList?: string[];
+  @Input() public tabs?: string[];
   @Input() public containerTitle?: string;
   
   @Input()
@@ -55,18 +55,18 @@ export class ContentContainerComponent implements OnInit, OnChanges {
   // #region ==========> UTILS <==========
   private setTab(): void {
     // Se não houverem múltiplas abas, inicializa com a primeira para evitar problemas de renderização
-    if (!this.navTabsList || this.navTabsList.length <= 0) {
+    if (!this.tabs || this.tabs.length <= 0) {
       this.currentContent = 0;
       return;
     }
 
     // Validação se há uma informação de aba já preenchida...
     if (!Utils.propertyIsNullUndefinedOrEmpty(this.currentTab)) {
-      const tabIndex = this.navTabsList.findIndex(tab => tab === this.currentTab);
+      const tabIndex = this.tabs.findIndex(tab => tab === this.currentTab);
       
       // Se a aba preenchida não for encontrada dentro da lista de abas disponíveis, define como a primeira
       if (tabIndex === -1) {
-        this.currentTab = this.navTabsList[0];
+        this.currentTab = this.tabs[0];
         this.currentContent = 0;
         return;
       }
@@ -76,7 +76,7 @@ export class ContentContainerComponent implements OnInit, OnChanges {
     }
     // ...caso não haja, define a propriedade como a primeira aba e conteúdo
     else {
-      this.currentTab = this.navTabsList[0];
+      this.currentTab = this.tabs[0];
       this.currentContent = 0;
     }
   }
