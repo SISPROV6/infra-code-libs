@@ -1,6 +1,6 @@
 {
   "name": "ngx-sp-infra",
-  "version": "3.7.8-next",
+  "version": "4.0.0-test",
   "description": "Biblioteca de utilitários da Infra.",
   "license": "Proprietary",
   "publishConfig": {
