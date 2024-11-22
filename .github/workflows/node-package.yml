@@ -41,7 +41,7 @@ jobs:
       with:
         node-version: '20'
         registry-url: 'https://npm.pkg.github.com/'
-        scope: '@ngx-sispro'
+        scope: '@sisprov6'
     - run: npm install
     - run: npm run build
     - run: |
