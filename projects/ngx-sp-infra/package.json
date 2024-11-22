@@ -1,10 +1,10 @@
 {
   "name": "ngx-sp-infra",
-  "version": "4.0.0-test",
+  "version": "4.0.2-test",
   "description": "Biblioteca de utilitários da Infra.",
   "license": "Proprietary",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/@ngx-sispro"
+    "registry": "https://npm.pkg.github.com/@SISPROV6"
   },
   "author": "SISPRO P&D",
   "keywords": [
