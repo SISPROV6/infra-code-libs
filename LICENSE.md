@@ -22,9 +22,5 @@ Este software, incluindo mas não se limitando a código-fonte, arquivos de conf
 6. **Limitação de Responsabilidade**  
    Em nenhuma hipótese, (Seu Nome/Organização) será responsável por quaisquer danos, diretos ou indiretos, incluindo mas não se limitando a lucros cessantes, perda de dados ou interrupção de negócios, decorrentes do uso deste software.
 
-7. **Contato**  
-   Para obter permissão ou informações adicionais, entre em contato com:  
-   (Seu e-mail ou canal oficial)
-
-8. **Termo Final**  
+7. **Termo Final**  
    O uso deste software implica na aceitação dos termos desta licença.
