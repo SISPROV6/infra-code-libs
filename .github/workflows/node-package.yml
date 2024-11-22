@@ -43,7 +43,10 @@ jobs:
         registry-url: 'https://npm.pkg.github.com/'
         scope: '@SISPROV6'
     - run: npm install
-    - run: npm publish
+    - run: npm run build
+    - run: |
+        cd dist/ngx-sp-infra
+        npm publish --tag test
       env:
         NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
