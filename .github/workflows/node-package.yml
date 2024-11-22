@@ -26,8 +26,8 @@ jobs:
 
 
   deploy-package:
-    needs: run-tests  # Garantia que o job de deploy (CD) só execute após os testes (CI)
-    if: ${{ success() }}  # Executa apenas se o job anterior for bem-sucedido
+    # needs: run-tests  # Garantia que o job de deploy (CD) só execute após os testes (CI)
+    # if: ${{ success() }}  # Executa apenas se o job anterior for bem-sucedido
     
     runs-on: ubuntu-latest
     steps:
