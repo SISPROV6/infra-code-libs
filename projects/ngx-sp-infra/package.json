@@ -1,6 +1,6 @@
 {
   "name": "@sisprov6/ngx-sp-infra",
-  "version": "4.0.5-test",
+  "version": "4.0.7-test",
   "description": "Biblioteca de utilitários da Infra.",
   "license": "Proprietary",
   "publishConfig": {
@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/SISPROV6/ngx-sp-infra"
+    "url": "https://github.com/SISPROV6/infra-code-libs.git"
   },
   "sideEffects": false
 }
