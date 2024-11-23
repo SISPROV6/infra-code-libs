@@ -68,7 +68,7 @@ jobs:
         echo "Tag encontrada: $TAG"
         echo "TAG=$TAG" >> $GITHUB_ENV
 
-    - name: Publish to NPM
+    - name: Publish to GitHub Packages
       if: env.should_publish == 'true'
       env:
         NODE_AUTH_TOKEN: ${{ secrets.PACKAGES }}
