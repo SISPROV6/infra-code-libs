@@ -43,6 +43,7 @@ export * from './lib/models/basic-ret-types/ret-string';
 export * from './lib/models/basic-ret-types/ret-string-list';
 
 export * from './lib/models/transfer-list/list-transfer-config.model';
+export * from './lib/models/filtros-aplicados/filtros-aplicados.model';
 
 
 /** Pipes */
@@ -55,6 +56,7 @@ export * from './lib/pipes/filter-multiple-choice.pipe';
 export * from './lib/pipes/order-sort.pipe';
 export * from './lib/pipes/phone-format.pipe';
 export * from './lib/pipes/title-case-pipe.pipe';
+export * from './lib/pipes/format-by-type.pipe';
 
 
 /** Directives */
@@ -73,11 +75,13 @@ export * from './lib/utils/settings.service';
 export * from './lib/utils/utils';
 
 
+
 /** Services */
 export * from './lib/service/modal-utils.service';
 export * from './lib/service/ip-service.service';
 export * from './lib/service/file.service';
 export * from './lib/service/table-selection.service';
+export * from './lib/utils/filtros-aplicados.service';
 
 
 /** Validators */
@@ -123,9 +127,8 @@ export * from './lib/widgets/input-trim/input-trim.component';
 
 export * from './lib/widgets/lib-transfer-list/lib-transfer-list.component';
 export * from './lib/widgets/lib-transfer-list/inner-list/inner-list.component';
+export * from './lib/widgets/applied-filters/applied-filters.component';
 
-
-// #region Widgets portados
 export * from './lib/widgets/combobox-multiple-choice/combobox-multiple-choice.component';
 export * from './lib/widgets/custom-acordion/custom-acordion.component';
 export * from './lib/widgets/dropdown-options/dropdown-options.component';
@@ -136,4 +139,3 @@ export * from './lib/widgets/search-filters/search-filters.component';
 export * from './lib/widgets/side-tabs-generic/side-tabs-generic.component';
 export * from './lib/widgets/simple-search/simple-search.component';
 export * from './lib/templates/simple-header/simple-header.component';
-// #endregion Widgets portados

@@ -70,6 +70,8 @@ import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import { PageNotAuthorizedComponent } from './components/page-not-authorized/page-not-authorized.component';
 import { LibTransferListComponent } from './widgets/lib-transfer-list/lib-transfer-list.component';
 import { InnerListComponent } from './widgets/lib-transfer-list/inner-list/inner-list.component';
+import { AppliedFiltersComponent } from './widgets/applied-filters/applied-filters.component';
+import { FormatByTypePipe } from './pipes/format-by-type.pipe';
 
 @NgModule({
   declarations: [
@@ -115,7 +117,6 @@ import { InnerListComponent } from './widgets/lib-transfer-list/inner-list/inner
     LibTransferListComponent,
     InnerListComponent,
 
-    // #region Componentes portados (ainda serão organizados)
     ComboboxMultipleChoiceComponent,
     CustomAcordionComponent,
     DropdownOptionsComponent,
@@ -138,7 +139,9 @@ import { InnerListComponent } from './widgets/lib-transfer-list/inner-list/inner
     FooterComponent,
     HeaderComponent,
     SimpleHeaderComponent,
-    // #endregion Componentes portados (ainda serão organizados)
+
+    AppliedFiltersComponent,
+    FormatByTypePipe,
   ],
   imports: [
     CommonModule,
@@ -192,7 +195,6 @@ import { InnerListComponent } from './widgets/lib-transfer-list/inner-list/inner
     LibTransferListComponent,
     InnerListComponent,
 
-    // #region Componentes portados (ainda serão organizados)
     ComboboxMultipleChoiceComponent,
     CustomAcordionComponent,
     DropdownOptionsComponent,
@@ -215,7 +217,9 @@ import { InnerListComponent } from './widgets/lib-transfer-list/inner-list/inner
     FooterComponent,
     HeaderComponent,
     SimpleHeaderComponent,
-    // #endregion Componentes portados (ainda serão organizados)
+
+    AppliedFiltersComponent,
+    FormatByTypePipe,
   ],
   providers: [],
 })
