@@ -53,5 +53,5 @@ describe('AppComponent', () => {
     fixture.detectChanges(); // Atualiza a visualização após a entrada
   
     expect(header.pageTitle).toBe("Título fornecido pelo pai");
-  });  
+  });
 });
