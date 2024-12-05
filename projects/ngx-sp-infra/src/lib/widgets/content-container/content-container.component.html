@@ -1,8 +1,10 @@
 @if (tabs && tabs.length > 0) {
    <div class="nav nav-tabs" id="nav-tab" role="tablist">
       @for (item of tabs; track $index) {
-         <button [class]="currentTab === item ? 'nav-link active' : 'nav-link'" (click)="currentTab = item; currentContent = $index"
-            id="nav-tab-{{$index}}" type="button" role="tab" aria-controls="nav-home" aria-selected="true"> {{ item }} </button>
+         <button id="nav-tab-{{$index}}" type="button" role="tab" aria-controls="nav-home" aria-selected="true"
+            [class]="currentTab === item ? 'nav-link active' : 'nav-link'"
+            [ngClass]="{ 'tx-lib-light': documentation().theme === 'dark', 'tx-lib-dark': documentation().theme === 'light' }"
+            (click)="currentTab = item; currentContent = $index" > {{ item }} </button>
       }
    </div>
 }
