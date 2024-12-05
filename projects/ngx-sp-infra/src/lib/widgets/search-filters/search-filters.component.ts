@@ -27,9 +27,9 @@ export class SearchFiltersComponent {
   // VERIFICAR NECESSIDADE
   @Input() public basicFilters: BasicFilters = new BasicFilters();
   
-  search: string = '';
-  selected: any ;
-  isActive: boolean = true;
+  public search: string = '';
+  public selected: any ;
+  public isActive: boolean = true;
   // #endregion PUBLIC
 
   // #endregion ==========> PROPERTIES <==========
@@ -48,8 +48,8 @@ export class SearchFiltersComponent {
       this.basicFilters.IS_ATIVO = this.isActive;
 
       this._executeGetBySearch.emit(basicFilters);
-
-    } else {
+    }
+    else {
       this._executeGetBySearch.emit(this.search.trim());
     }
   }
@@ -61,8 +61,6 @@ export class SearchFiltersComponent {
     this._EMIT_CLEAR_EXTRA_INPUT.emit();
     this.executeGetBySearch();
   }
-  
   // #endregion ==========> UTILITIES <==========
-
 
 }
