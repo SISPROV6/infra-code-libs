@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges, input } from '@angular/core';
 import { Utils } from '../../utils/utils';
 
 @Component({
@@ -14,6 +14,10 @@ export class ContentContainerComponent implements OnInit, OnChanges {
   // #endregion PRIVATE
 
   // #region PUBLIC
+
+  /** Parâmetro secreto que informa se o componente deve adotar comportamento/visual igual exibido no portal de documentação */
+  public documentation = input<{ use: boolean; theme: 'dark' | 'light' }>({ use: false, theme: 'light' });
+  
   @Input() public tabs?: string[];
   @Input() public containerTitle?: string;
   
