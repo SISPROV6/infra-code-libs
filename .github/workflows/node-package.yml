@@ -3,6 +3,7 @@ name: GitHub Package | CI/CD
 on:
   push:
     branches:
+      - next
       - test
 
 jobs:
