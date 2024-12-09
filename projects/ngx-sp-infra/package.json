@@ -1,12 +1,8 @@
 {
-  "name": "@sisprov6/ngx-sp-infra",
-  "version": "4.1.1-test",
+  "name": "ngx-sp-infra",
+  "version": "3.9.0",
   "description": "Biblioteca de utilitários da Infra.",
-  "license": "Proprietary",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/@SISPROV6"
-  },
-  "author": "SISPRO P&D",
+  "author": "P&D",
   "keywords": [
     "Infra",
     "Sispro",
@@ -21,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/SISPROV6/infra-code-libs.git"
+    "url": "https://github.com/SISPROV6/ngx-sp-infra"
   },
   "sideEffects": false
 }
