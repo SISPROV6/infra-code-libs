@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LibHeaderComponent } from './lib-header.component';
 
-describe('AppComponent', () => {
+describe('Componente de Header', () => {
    let component: LibHeaderComponent;
    let fixture: ComponentFixture<LibHeaderComponent>;
 
@@ -53,5 +53,5 @@ describe('AppComponent', () => {
     fixture.detectChanges(); // Atualiza a visualização após a entrada
   
     expect(header.pageTitle).toBe("Título fornecido pelo pai");
-  });  
+  });
 });
