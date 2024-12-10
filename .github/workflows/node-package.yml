@@ -72,14 +72,14 @@ jobs:
     - name: Publish to GitHub Packages
       if: env.should_publish == 'true'
       env:
-        NODE_AUTH_TOKEN: ${{ secrets.PACKAGES }}
+        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_PACKAGE }}
       run: |
         cd dist/ngx-sp-infra
         
         if [ "${{ github.ref }}" == "refs/heads/main" ]; then
-          npm publish --access public --tag latest
+          npm publish --tag latest
         elif [ "${{ github.ref }}" == "refs/heads/test" ]; then
-          npm publish --access public --tag test
+          npm publish --tag test
         elif [ "${{ github.ref }}" == "refs/heads/next" ]; then
-          npm publish --access public --tag next
+          npm publish --tag next
         fi
