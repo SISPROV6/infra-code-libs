@@ -1,6 +1,6 @@
 {
-  "name": "@sp-libs/ngx-sp-infra",
-  "version": "4.1.15-test",
+  "name": "@sisprov6/ngx-sp-infra",
+  "version": "4.1.16-test",
   "description": "Biblioteca de utilitários da Infra.",
   "license": "Proprietary",
   "publishConfig": {
