@@ -77,9 +77,9 @@ jobs:
         cd dist/ngx-sp-infra
         
         if [ "${{ github.ref }}" == "refs/heads/main" ]; then
-          npm publish --tag latest
+          npm publish --access public --tag latest
         elif [ "${{ github.ref }}" == "refs/heads/test" ]; then
-          npm publish --tag test
+          npm publish --access public --tag test
         elif [ "${{ github.ref }}" == "refs/heads/next" ]; then
-          npm publish --tag next
+          npm publish --access public --tag next
         fi
