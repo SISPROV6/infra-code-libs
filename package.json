@@ -1,9 +1,7 @@
 {
   "name": "infra-code-libs",
-  "version": "2.0.3",
+  "version": "2.0.5",
   "workspaces": [
-    "@sisprov6/ngx-sp-infra",
-    "@sispro/ngx-sp-infra",
     "ngx-sp-infra",
     "ngx-sp-auth"
   ],
