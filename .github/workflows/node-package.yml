@@ -42,7 +42,7 @@ jobs:
       with:
         node-version: '20'
         registry-url: 'https://npm.pkg.github.com/'
-        scope: '@sisprov6'
+        scope: '@sp-libs'
 
     - name: Check if projects/ngx-sp-infra/package.json is modified
       id: changes

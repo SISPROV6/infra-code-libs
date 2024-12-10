@@ -22,7 +22,7 @@
     "projects/ngx-sp-infra/src/assets/styles",
     "dist"
   ],
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "^17.3.12",
     "@angular/common": "^17.3.12",
