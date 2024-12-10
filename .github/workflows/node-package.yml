@@ -72,7 +72,7 @@ jobs:
     - name: Publish to GitHub Packages
       if: env.should_publish == 'true'
       env:
-        NODE_AUTH_TOKEN: ${{ secrets.PACKAGES }}
+        NODE_AUTH_TOKEN: ${{ secrets.SP_LIBS_PACKAGE }}
       run: |
         cd dist/ngx-sp-infra
         

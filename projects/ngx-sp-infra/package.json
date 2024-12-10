@@ -1,6 +1,6 @@
 {
   "name": "@sp-libs/ngx-sp-infra",
-  "version": "4.1.13-test",
+  "version": "4.1.14-test",
   "description": "Biblioteca de utilitários da Infra.",
   "license": "Proprietary",
   "publishConfig": {
