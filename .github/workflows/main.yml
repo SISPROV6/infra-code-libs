@@ -72,7 +72,7 @@ jobs:
     - name: Publish to NPM
       if: env.should_publish == 'true'
       env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH }}
       run: |
         cd dist/ngx-sp-infra
         
