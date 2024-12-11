@@ -1,7 +1,6 @@
 {
-  "name": "@sisprov6/ngx-sp-infra",
-  "version": "4.2.8-test",
-  "description": "Biblioteca de utilitários da Infra.",
+  "name": "@sisprov6/ngx-sp-auth",
+  "version": "0.0.2",
   "license": "Proprietary",
   "publishConfig": {
     "@sisprov6:registry": "https://npm.pkg.github.com/",
@@ -9,13 +8,14 @@
   },
   "author": "SISPRO P&D",
   "keywords": [
-    "Infra",
+    "Autenticação",
     "Sispro",
     "Utilitários",
     "P&D",
     "angular",
     "typescript",
-    "bootstrap"
+    "bootstrap",
+    "auth"
   ],
   "bugs": {
     "email": "sispropesqdesenv@sispro.com.br"

@@ -10,6 +10,9 @@
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
     "paths": {
+      "ngx-sp-auth": [
+        "./dist/ngx-sp-auth"
+      ],
       "ngx-sp-infra": [
         "./dist/ngx-sp-infra"
       ]
