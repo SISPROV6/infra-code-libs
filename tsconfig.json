@@ -10,6 +10,9 @@
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
     "paths": {
+      "core": [
+        "./dist/core"
+      ],
       "ngx-sp-auth": [
         "./dist/ngx-sp-auth"
       ],
