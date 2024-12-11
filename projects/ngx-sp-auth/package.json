@@ -1,6 +1,6 @@
 {
   "name": "@sisprov6/ngx-sp-auth",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "Proprietary",
   "publishConfig": {
     "@sisprov6:registry": "https://npm.pkg.github.com/",
