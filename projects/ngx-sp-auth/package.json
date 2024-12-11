@@ -1,0 +1,28 @@
+{
+  "name": "@sisprov6/ngx-sp-auth",
+  "version": "0.0.1",
+  "license": "Proprietary",
+  "publishConfig": {
+    "@sisprov6:registry": "https://npm.pkg.github.com/",
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "author": "SISPRO P&D",
+  "keywords": [
+    "Autenticação",
+    "Sispro",
+    "Utilitários",
+    "P&D",
+    "angular",
+    "typescript",
+    "bootstrap",
+    "auth"
+  ],
+  "bugs": {
+    "email": "sispropesqdesenv@sispro.com.br"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SISPROV6/infra-code-libs.git"
+  },
+  "sideEffects": false
+}
