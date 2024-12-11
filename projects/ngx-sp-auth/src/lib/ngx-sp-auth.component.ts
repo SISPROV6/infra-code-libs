@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { NgxSpAuthService } from 'ngx-sp-auth';
+import { NgxSpAuthService } from './ngx-sp-auth.service';
 
 @Component({
   selector: 'lib-ngx-sp-auth',
@@ -15,5 +15,5 @@ import { NgxSpAuthService } from 'ngx-sp-auth';
 export class NgxSpAuthComponent {
 
   private authService = inject(NgxSpAuthService);
-  
+
 }
