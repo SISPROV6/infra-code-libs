@@ -1,0 +1,16 @@
+{
+  "name": "@sisprov6/core",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^17.3.0",
+    "@angular/core": "^17.3.0",
+    "@angular-devkit/schematics": "^17.3.0"
+  },
+  "files": [
+    "dist/",
+    "schematics/"
+  ],
+  "sideEffects": false,
+
+  "schematics": "./schematics/collection.json"
+}

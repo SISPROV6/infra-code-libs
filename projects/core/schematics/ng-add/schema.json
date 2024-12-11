@@ -1,0 +1,13 @@
+{
+   "$schema": "http://json-schema.org/schema",
+   "id": "NgAddSchema",
+   "type": "object",
+   "properties": {
+     "action": {
+       "type": "string",
+       "description": "Especificar se deve instalar as bibliotecas ou atualizá-las para as versões mais recentes",
+       "enum": ["install", "update"],
+       "default": "install"
+     }
+   }
+} 

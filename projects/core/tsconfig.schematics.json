@@ -1,0 +1,9 @@
+{
+   "compilerOptions": {
+     "target": "ES2015",
+     "module": "CommonJS",
+     "declaration": true,
+     "outDir": "../../dist/core/schematics"
+   },
+   "include": ["./schematics/ng-add/**/*.ts"]
+}
