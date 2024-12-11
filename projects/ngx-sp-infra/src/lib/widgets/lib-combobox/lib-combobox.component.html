@@ -1,21 +1,22 @@
 <!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 
-<label *ngIf="labelText && labelText !== ''" [for]="comboboxID" [libRequired]="isRequired" [requiredID]="comboboxID ?? ''" class="form-label fw-bold">{{ labelText }}</label>
+<label *ngIf="labelText && labelText !== ''" class="form-label fw-bold" [id]="labelID"
+   [for]="comboboxID" [libRequired]="isRequired">{{ labelText }}</label>
 <div class="input-group dropdown flex-fill glb-max-height-350px">
 
    <!-- Este elemento ng-content com o atributo [btnLeft] permite que o usuário final forneça conteúdo personalizado para ser exibido no lado esquerdo do combobox de pesquisa.
    Ao usar o atributo [btnLeft], o usuário pode facilmente adicionar botões ou outros elementos para melhorar a funcionalidade ou aparência do combobox de pesquisa. -->
    <ng-content select="[btnLeft]"></ng-content>
 
-   <input  #mainInput class="form-select text-start rounded-end cursor-pointer" type="text" data-bs-toggle="dropdown" [placeholder]="mainPlaceholder"
-            [formControl]="innerControl" data-bs-auto-close="outside" aria-expanded="false" readonly [class.is-invalid]="invalidControl"
-            [id]="comboboxID"
+   <input  #mainInput class="form-select text-start rounded-end cursor-pointer" type="text"
+            data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" readonly
+            [placeholder]="mainPlaceholder" [formControl]="innerControl" [class.is-invalid]="invalidControl" [id]="comboboxID"
             (click)="ariaExpanded = !ariaExpanded; searchInput.focus()" (focus)="searchInput.focus()">
 
    <ul  #dropdownMenu  class="dropdown-menu p-2 glb-max-height-350px overflow-y-scroll z-index-1020" [class.show]="ariaExpanded">
       <div class="input-group mb-2">
-         <input #searchInput (input)="textoPesquisa = searchInput.value" type="text" id="searchInput" class="form-control glb-input-no-glow" [placeholder]="searchPlaceholder" (keyup.enter)="reloadList()">
+         <input #searchInput (input)="textoPesquisa = searchInput.value" type="text" id="searchInput-{{comboboxID}}" class="form-control glb-input-no-glow" [placeholder]="searchPlaceholder" (keyup.enter)="reloadList()">
          <button class="btn btn-{{theme}}" (click)="reloadList()"> <app-svg-storage svgName="lupa" svgSize="medium-small" /> </button>
       </div>
 

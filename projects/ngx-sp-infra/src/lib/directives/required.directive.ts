@@ -55,11 +55,16 @@ export class RequiredDirective implements OnInit, OnChanges {
   set showMarker(value: boolean | string) { this._showMarker = value !== false && value !== 'false'; /* Qualquer valor diferente de false será tratado como true*/ }
   get showMarker(): boolean { return this._showMarker; }
 
-  /** Identificador único para o elemento <span> criado. */
-  @Input("requiredID") spanID: string = "";
+  /** [DEPRECIADO] Identificador único para o elemento <span> criado. */
+  @Input() requiredID: string = "";
+
+  private _spanID!: string;
+  //@Input() labelID!: string;
 
 
   ngOnInit(): void {
+    this._spanID = `required-span-${Math.random() * 100}`;
+
     if (this.showMarker) {
       this.addMarker();
     }
@@ -75,20 +80,20 @@ export class RequiredDirective implements OnInit, OnChanges {
 
   /** Adiciona o marcador de asterisco ao elemento <label>. */
   private addMarker(): void {
-    if (document.getElementById(this.spanID)) { return; }
+    if (document.getElementById(this._spanID)) { return; }
 
     const spanElement = document.createElement("span");
     spanElement.className = "text-danger";
     spanElement.innerHTML = " *";
-    spanElement.id = this.spanID;
+    spanElement.id = this._spanID;
     this._renderer.appendChild(this._elementRef.nativeElement, spanElement);
   }
 
   /** Remove o marcador de asterisco do elemento <label>. */
   private removeMarker(): void {
-    if (this.spanID === "") { return; }
+    if (this._spanID === "") { return; }
 
-    const spanElement = document.getElementById(this.spanID);
+    const spanElement = document.getElementById(this._spanID);
     if (spanElement !== null) { this._renderer.removeChild(this._elementRef.nativeElement, spanElement); }
   }
 }

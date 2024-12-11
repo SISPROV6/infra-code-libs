@@ -70,7 +70,8 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
   protected dirty: boolean = false;
   protected touched: boolean = false;
 
-  protected comboboxID?: string;
+  protected comboboxID!: string;
+  protected labelID!: string;
   // #endregion PROTECTED
 
   // #region PRIVATE
@@ -169,9 +170,9 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
   @Output() public changeValue: EventEmitter<RecordCombobox | string | number | null> = new EventEmitter<RecordCombobox | string | number | null>();
   
 
-  @ViewChild('mainInput') private _mainInput!: ElementRef;
-  @ViewChild('searchInput') private _searchInput!: ElementRef;
-  @ViewChild('dropdownMenu') private _dropdownMenu!: ElementRef;
+  @ViewChild('mainInput') private _mainInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('searchInput') private _searchInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('dropdownMenu') private _dropdownMenu!: ElementRef<HTMLDivElement>;
   // #endregion PUBLIC
 
   // #endregion ==========> PROPERTIES <==========
@@ -182,6 +183,7 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
 
   ngOnInit(): void {
     this.comboboxID = `lib-combobox-${Math.random() * 100}`;
+    this.labelID = `${Math.random() * 100}`;
 
     this.adjustDropdownWidth();
 
