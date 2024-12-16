@@ -1,0 +1,85 @@
+name: GitHub Package | CI/CD
+
+on:
+  push:
+    branches:
+      - next
+      - test
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+        
+      - name: Instalar dependências
+        run: npm install
+        
+      - name: Executar testes
+        run: npm run test:headless
+
+
+  deploy-package:
+    needs: run-tests  # Garantia que o job de deploy (CD) só execute após os testes (CI)
+    if: ${{ success() }}  # Executa apenas se o job anterior for bem-sucedido
+    
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 2  # Garante que todo o histórico de commits seja trazido
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        registry-url: 'https://npm.pkg.github.com/'
+        scope: '@sisprov6'
+
+    - name: Check if projects/ngx-sp-infra/package.json is modified
+      id: changes
+      run: |
+        if git diff --name-only HEAD~1 HEAD | grep -q "projects/ngx-sp-infra/package.json"; then
+          echo "projects/ngx-sp-infra/package.json foi modificado."
+          echo "should_publish=true" >> $GITHUB_ENV
+        else
+          echo "projects/ngx-sp-infra/package.json não foi modificado."
+          echo "should_publish=false" >> $GITHUB_ENV
+        fi
+
+    - name: Install dependencies
+      if: env.should_publish == 'true'
+      run: npm install
+
+    - name: Build the library and add tags
+      if: env.should_publish == 'true'
+      run: npm run build
+
+    - name: Get the version tag
+      run: |
+        TAG=$(node scripts/tag.js)
+        echo "Tag encontrada: $TAG"
+        echo "TAG=$TAG" >> $GITHUB_ENV
+
+    - name: Publish to GitHub Packages
+      if: env.should_publish == 'true'
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.PACKAGES }}
+      run: |
+        cd dist/ngx-sp-infra
+        
+        if [ "${{ github.ref }}" == "refs/heads/main" ]; then
+          npm publish --tag latest
+        elif [ "${{ github.ref }}" == "refs/heads/test" ]; then
+          npm publish --tag test
+        elif [ "${{ github.ref }}" == "refs/heads/next" ]; then
+          npm publish --tag next
+        fi
