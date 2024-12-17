@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BasicFilters } from '../../models/basic-filters';
 
 @Component({
-  selector: 'app-search-filters',
+  selector: 'app-search-filters, lib-basic-filters',
   templateUrl: './search-filters.component.html',
   styleUrls: ['./search-filters.component.scss']
 })
@@ -36,7 +36,7 @@ export class SearchFiltersComponent {
   @Input() public basicFilters: BasicFilters = new BasicFilters();
   
   public search: string = '';
-  public selected: any;
+  public selected: unknown;
   public isActive: boolean = true;
   // #endregion PUBLIC
 
@@ -44,7 +44,7 @@ export class SearchFiltersComponent {
 
 
   // #region ==========> UTILITIES <==========
-  protected applyFilters(): void {
+  public applyFilters(): void {
     if (this.useIsActive && this.useIsActive === true) {
       const basicFilters: BasicFilters = {
         TEXTO_PESQUISA: this.search.trim(),
@@ -58,7 +58,7 @@ export class SearchFiltersComponent {
     }
   }
 
-  protected clearFilters() {
+  public clearFilters() {
     this.search = '';
     this.isActive = true;
     this.selected = '';
@@ -67,7 +67,7 @@ export class SearchFiltersComponent {
   }
 
 
-  protected syncFilters(): void {
+  public syncFilters(): void {
     this.basicFilters.TEXTO_PESQUISA = this.search.trim();
     this.basicFilters.IS_ATIVO = this.isActive;
   }
