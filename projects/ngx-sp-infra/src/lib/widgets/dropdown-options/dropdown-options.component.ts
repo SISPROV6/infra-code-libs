@@ -3,7 +3,7 @@ import { RecordCombobox } from '../../models/combobox/record-combobox';
 
 
 @Component({
-  selector: 'app-dropdown-options',
+  selector: 'app-dropdown-options, lib-dropdown-options',
   templateUrl: './dropdown-options.component.html',
   styleUrl: './dropdown-options.component.scss'
 })

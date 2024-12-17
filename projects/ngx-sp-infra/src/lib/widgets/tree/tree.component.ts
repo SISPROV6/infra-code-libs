@@ -1,15 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { TreeItem } from "./models/tree-item";
 
 @Component({
-  selector: "app-tree",
+  selector: "app-tree, lib-tree",
   templateUrl: "./tree.component.html",
   styleUrls: ["./tree.component.scss"]
 })
-export class TreeComponent implements OnInit {
+export class TreeComponent {
   constructor() {}
-
-  ngOnInit(): void {}
 
   // #region ==========> PROPERTIES <==========
 

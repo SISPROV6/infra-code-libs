@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ElementRef, Renderer2 } from '@angular/core';
 
 @Component({
-  selector: 'app-field-control-error',
+  selector: 'app-field-control-error, lib-control-error',
   templateUrl: './field-control-error.component.html',
   styleUrls: ['./field-control-error.component.css']
 })

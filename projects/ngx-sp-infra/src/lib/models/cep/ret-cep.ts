@@ -1,4 +1,4 @@
-import { IError } from '../ierror';
+import { IError } from '../utils/ierror';
 import { EnderecoByCep } from './endereco-by-cep';
 
 export class RetCep implements IError {

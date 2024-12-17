@@ -1,4 +1,4 @@
-import { IError } from "./ierror";
+import { IError } from "../utils/ierror";
 import { ReportFile } from "./report-file";
 
 export class RetReportFile implements IError {

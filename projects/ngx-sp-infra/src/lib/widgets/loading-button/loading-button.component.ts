@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-loading-button',
+  selector: 'app-loading-button, lib-loading-button',
   template: `
     <img class="button-spinner" src="assets/imgs/spinner.gif" *ngIf="isLoading">
   `,

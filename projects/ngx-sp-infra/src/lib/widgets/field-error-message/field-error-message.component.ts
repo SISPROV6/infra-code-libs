@@ -1,15 +1,15 @@
-import { AbstractControl, FormControl } from '@angular/forms';
+import { AbstractControl } from '@angular/forms';
 import { Component, Input, OnInit, ElementRef, Renderer2 } from '@angular/core';
 
 import { FormUtils } from '../../utils/form-utils';
 
 @Component({
-  selector: 'app-field-error-message',
+  selector: 'app-field-error-message, lib-error-message',
   templateUrl: './field-error-message.component.html',
   styleUrls: ['./field-error-message.component.css']
 })
 export class FieldErrorMessageComponent implements OnInit {
-  @Input('customMessage') public customErrorMessage?: string;
+  @Input() public customMessage?: string;
   @Input() control?: AbstractControl | null;
   @Input() label?: string;
 
@@ -22,9 +22,10 @@ export class FieldErrorMessageComponent implements OnInit {
 
   public get errorMessage() {
     for (const propertyName in this.control?.errors) {
+      // eslint-disable-next-line no-prototype-builtins
       if (this.control?.errors.hasOwnProperty(propertyName) &&
         (this.control?.dirty || this.control?.touched)) {
-          return FormUtils.getErrorMessage(propertyName, this.control?.errors[propertyName], this.customErrorMessage, this.label);
+          return FormUtils.getErrorMessage(propertyName, this.control?.errors[propertyName], this.customMessage, this.label);
       }
     }
 

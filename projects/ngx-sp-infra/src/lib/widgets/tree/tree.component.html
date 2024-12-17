@@ -4,8 +4,8 @@
 
   <div class="input-group glb-search-input my-3">
     <span class="input-group-text search px-2 glb-bg-color-white">
-      <app-svg-storage svgName="search" svgColor="gray" svgSize="medium-small"
-        class="d-flex align-items-center"></app-svg-storage>
+      <lib-icon iconName="search" iconColor="gray" iconSize="medium-small"
+        class="d-flex align-items-center"></lib-icon>
     </span>
     <input type="text" class="form-control border-left-none ps-0" [(ngModel)]="search">
   </div>
@@ -15,7 +15,7 @@
 <ul class="tree-view">
   <ng-container *ngFor="let item of items | TreeFilter : search; index as i">
     <div class="container py-1" [class]="!item.has_children ? 'children' : null ">
-      <app-svg-storage
+      <lib-icon
         class="chevron"
         *ngIf="item.has_children"
         [class]="item.aplicClass ? 'rotate' : null"
@@ -23,9 +23,9 @@
           onExpand(item);
           item.aplicClass ? (item.aplicClass = false) : (item.aplicClass = true)
         "
-        svgSize="medium-small"
-        svgName="chevron-right"
-      ></app-svg-storage>
+        iconSize="medium-small"
+        iconName="chevron-right"
+      ></lib-icon>
       <!-- CHECKBOX -->
       <ng-template [ngIf]="checkbox">
         <input

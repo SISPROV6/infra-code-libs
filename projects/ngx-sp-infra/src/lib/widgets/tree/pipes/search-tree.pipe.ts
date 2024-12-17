@@ -5,7 +5,6 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'TreeFilter',
   pure: true,
 })
-
 export class SearchTreePipe implements PipeTransform {
 
   public transform(items: TreeItem[], search: string): TreeItem[] {

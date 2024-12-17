@@ -20,7 +20,7 @@
    <ul  #dropdownMenu  class="dropdown-menu p-2 glb-max-height-350px overflow-y-scroll" [class.show]="ariaExpanded">
       <div class="input-group mb-2">
          <input #searchInput (input)="textoPesquisa = searchInput.value" type="text" id="searchInput" class="form-control glb-input-no-glow" [placeholder]="searchInputPlaceholder" (keyup.enter)="reloadList(searchInput.value)">
-         <button class="btn btn-{{colorTheme}}" (click)="reloadList(searchInput.value)"> <app-svg-storage svgName="lupa" svgSize="medium-small" /> </button>
+         <button class="btn btn-{{colorTheme}}" (click)="reloadList(searchInput.value)"> <lib-icon iconName="lupa" iconSize="medium-small" /> </button>
       </div>
 
       @if (comboboxList) {

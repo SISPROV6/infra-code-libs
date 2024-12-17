@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 /**
@@ -46,12 +46,9 @@ import { FormGroup } from '@angular/forms';
   templateUrl: './lib-header.component.html',
   styleUrls: ['./lib-header.component.scss']
 })
-export class LibHeaderComponent implements OnInit, OnChanges {
+export class LibHeaderComponent {
   constructor() { }
 
-  ngOnInit(): void { }
-
-  ngOnChanges(changes: SimpleChanges): void { }
 
 
   // #region ==========> PROPERTIES <==========
@@ -84,14 +81,17 @@ export class LibHeaderComponent implements OnInit, OnChanges {
   @Input() public showSpinner: boolean = false;
 
 
-  /** Emissor de evento ao clicar no "Cancelar" */
+  /** [DEPRECIADO EM BREVE] Emissor de evento ao clicar no "Cancelar". Será depreciado em breve, utilize 'return'. */
 	@Output() public onReturn = new EventEmitter<void>();
+	@Output() public return = new EventEmitter<void>();
 
-  /** Emissor de evento ao clicar no "Salvar" em modo de criação */
+  /** [DEPRECIADO EM BREVE] Emissor de evento ao clicar no "Salvar" em modo de criação. Será depreciado em breve, utilize 'create'. */
   @Output() public onCreate = new EventEmitter<void>();
+  @Output() public create = new EventEmitter<void>();
 
-  /** Emissor de evento ao clicar no "Salvar" em modo de edição */
+  /** [DEPRECIADO EM BREVE] Emissor de evento ao clicar no "Salvar" em modo de edição. Será depreciado em breve, utilize 'update'. */
   @Output() public onUpdate = new EventEmitter<void>();
+  @Output() public update = new EventEmitter<void>();
   // #endregion PUBLIC
 
   // #endregion ==========> PROPERTIES <==========
@@ -100,15 +100,24 @@ export class LibHeaderComponent implements OnInit, OnChanges {
   // #region ==========> UTILITIES <==========
 
   /** Emite um evento para retornar à página anterior */
-  public return(): void { this.onReturn.emit() }
+  protected emitReturn(): void {
+    this.onReturn.emit()
+    this.return.emit();
+  }
 
   /** Emite um evento quando o botão de "Salvar" em modo de criação foi clicado */
-  public create(): void { this.onCreate.emit() }
+  protected emitCreate(): void {
+    this.onCreate.emit();
+    this.create.emit();
+  }
 
   /** Emite um evento quando o botão de "Salvar" em modo de edição foi clicado */
-  public update(): void { this.onUpdate.emit() }
+  protected emitUpdate(): void {
+    this.onUpdate.emit();
+    this.update.emit();
+  }
 
-  public setSaveText(): string {
+  protected setSaveText(): string {
     if (this.mode == "list") return "Adicionar";
     else return "Salvar";
   }

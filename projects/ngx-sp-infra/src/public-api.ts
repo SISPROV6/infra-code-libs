@@ -15,24 +15,24 @@ export * from './lib/message/message.service';
 export * from './lib/message/message-enum';
 
 /** Models */
-export * from './lib/models/DownloadArquivos';
-export * from './lib/models/email-model';
-export * from './lib/models/ierror';
-export * from './lib/models/ipagination';
-export * from './lib/models/report-file';
-export * from './lib/models/ret-error';
-export * from './lib/models/ret-feedback-message';
-export * from './lib/models/ret-report-file';
+export * from './lib/models/files/DownloadArquivos';
+export * from './lib/models/utils/email-model';
+export * from './lib/models/utils/ierror';
+export * from './lib/models/utils/ipagination';
+export * from './lib/models/reports/report-file';
+export * from './lib/models/utils/ret-error';
+export * from './lib/models/utils/ret-feedback-message';
+export * from './lib/models/reports/ret-report-file';
 export * from './lib/models/combobox/record-combobox';
 export * from './lib/models/combobox/ret-records-combobox';
 export * from './lib/models/icons/icon.model';
 export * from './lib/models/forms/custom-form-control';
 
-export * from './lib/models/basic-filters';
-export * from './lib/models/file-model';
-export * from './lib/models/infra-estabelecimento';
-export * from './lib/models/multi-status-list';
-export * from './lib/models/ret-estabelecimentos';
+export * from './lib/models/filters/basic-filters';
+export * from './lib/models/files/file-model';
+export * from './lib/models/estabelecimento-modal/infra-estabelecimento';
+export * from './lib/models/misc/multi-status-list';
+export * from './lib/models/estabelecimento-modal/ret-estabelecimentos';
 
 export * from './lib/models/cep/endereco-by-cep';
 export * from './lib/models/cep/ret-cep';
@@ -90,9 +90,7 @@ export * from './lib/validators/cpf-cnpj.validator';
 
 
 /** Templates */
-export * from './lib/templates/footer/footer.component';
-export * from './lib/templates/header/header.component';
-//export * from './lib/templates/simple-header/simple-header.component';
+export * from './lib/components/footer/footer.component';
 
 
 /** Components */
@@ -103,14 +101,13 @@ export * from './lib/components/page-not-authorized/page-not-authorized.componen
 export * from './lib/widgets/breadcrumb/infra-breadcrumb/infra-breadcrumb.component';
 export * from './lib/widgets/breadcrumb/infra-breadcrumb-item/infra-breadcrumb-item.component';
 export * from './lib/widgets/breadcrumb/portalrh-breadcrumb/breadcrumb.component';
-export * from './lib/widgets/click-outside/clickoutside.directive';
+export * from './lib/directives/click-outside.directive';
 export * from './lib/widgets/combobox/combobox.component';
 export * from './lib/widgets/field-control-error/field-control-error.component';
 export * from './lib/widgets/field-error-message/field-error-message.component';
 export * from './lib/widgets/loading/loading.component';
 export * from './lib/widgets/loading-button/loading-button.component';
 export * from './lib/widgets/ordering/ordering.component';
-export * from './lib/widgets/svg-storage/svg-storage.component';
 export * from './lib/widgets/tree/tree.component';
 export * from './lib/widgets/tree/models/ret-tree';
 export * from './lib/widgets/tree/models/tree-item';
@@ -138,4 +135,3 @@ export * from './lib/widgets/pagination/pagination.component';
 export * from './lib/widgets/search-filters/search-filters.component';
 export * from './lib/widgets/side-tabs-generic/side-tabs-generic.component';
 export * from './lib/widgets/simple-search/simple-search.component';
-export * from './lib/templates/simple-header/simple-header.component';
