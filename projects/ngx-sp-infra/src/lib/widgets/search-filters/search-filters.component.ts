@@ -14,21 +14,29 @@ export class SearchFiltersComponent {
   // #region ==========> PROPERTIES <==========
 
   // #region PRIVATE
-  @Output() private _executeGetBySearch: EventEmitter<any> = new EventEmitter<any>();
 
+  /** Evento emitido quando o botão 'Pesquisar' ou 'Limpar' forem clicados. Retornam o valor da pesquisa, seja ela apenas a pesquisa de texto ou a pesquisa e o checkbox de status.
+   * @returns Se a propriedade 'useIsActive' estiver false retorna´ra uma string, caso estiver true (valor padrão ou explícito) retornará a estrutura 'BasicFilters'. */
+  @Output() private _executeGetBySearch: EventEmitter<string | BasicFilters> = new EventEmitter<string | BasicFilters>();
+
+  /** Evento emitido quando o botão de 'Limpar' for clicado. Serve para sinalizar o compoenente pai que deve limpar o valor de quaisquer inputs customizados que foram adicionados por meio do <ng-content>. */
   @Output() private readonly _EMIT_CLEAR_EXTRA_INPUT: EventEmitter<void> = new EventEmitter<void>();
+
   // #endregion PRIVATE
   
   // #region PUBLIC
-  @Input() public placeholder: string = '';
-  @Input() public useIsActive: boolean = true;
-  @Input() public useNewStyles: boolean = false;
 
-  // VERIFICAR NECESSIDADE
+  /** Placeholder a ser exibido no campo de pesquisa de texto. */
+  @Input() public placeholder: string = '';
+
+  /** Informa se o componente utilizará o checkbox de status ou não. Esta informação influencia no tipo de retorno do evento '_executeGetBySearch'. */
+  @Input() public useIsActive?: boolean = true;
+
+  /** [EXPERIMENTAL] Valores externos do filtro de pesquisa, ainda em fase de testes, servirão para compartilhar os mesmos valores da pesquisa entre componente pai e filho sem a necessidade de '@Inputs' e '@Outputs'. */
   @Input() public basicFilters: BasicFilters = new BasicFilters();
   
   public search: string = '';
-  public selected: any ;
+  public selected: any;
   public isActive: boolean = true;
   // #endregion PUBLIC
 
@@ -36,16 +44,12 @@ export class SearchFiltersComponent {
 
 
   // #region ==========> UTILITIES <==========
-  public executeGetBySearch(): void {
-    if (this.useIsActive) {
+  protected applyFilters(): void {
+    if (this.useIsActive && this.useIsActive === true) {
       const basicFilters: BasicFilters = {
         TEXTO_PESQUISA: this.search.trim(),
         IS_ATIVO: this.isActive
       };
-
-      // VERIFICAR NECESSIDADE
-      this.basicFilters.TEXTO_PESQUISA = this.search.trim();
-      this.basicFilters.IS_ATIVO = this.isActive;
 
       this._executeGetBySearch.emit(basicFilters);
     }
@@ -54,12 +58,18 @@ export class SearchFiltersComponent {
     }
   }
 
-  clearFilters() {
+  protected clearFilters() {
     this.search = '';
     this.isActive = true;
     this.selected = '';
     this._EMIT_CLEAR_EXTRA_INPUT.emit();
-    this.executeGetBySearch();
+    this.applyFilters();
+  }
+
+
+  protected syncFilters(): void {
+    this.basicFilters.TEXTO_PESQUISA = this.search.trim();
+    this.basicFilters.IS_ATIVO = this.isActive;
   }
   // #endregion ==========> UTILITIES <==========
 

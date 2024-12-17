@@ -33,12 +33,12 @@ import {
 	private _events: Array<string> = ['click'];
     
 	constructor(
-	  private _el: ElementRef,
-	  private _ngZone: NgZone,
-	  @Inject(DOCUMENT) private document: Document) {
-	  this._initOnClickBody = this._initOnClickBody.bind(this);
-	  this._onClickBody = this._onClickBody.bind(this);
-	  this._onWindowBlur = this._onWindowBlur.bind(this);
+		private _el: ElementRef,
+		private _ngZone: NgZone,
+		@Inject(DOCUMENT) private document: Document) {
+		this._initOnClickBody = this._initOnClickBody.bind(this);
+		this._onClickBody = this._onClickBody.bind(this);
+		this._onWindowBlur = this._onWindowBlur.bind(this);
 	}
     
 	ngOnInit() {
