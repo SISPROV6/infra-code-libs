@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-dynamic-input',
+  selector: 'app-dynamic-input, lib-dynamic-input',
   templateUrl: './dynamic-input.component.html',
   styleUrls: ['./dynamic-input.component.scss']
 })

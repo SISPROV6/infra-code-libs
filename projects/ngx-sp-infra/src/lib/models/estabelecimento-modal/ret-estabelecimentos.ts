@@ -1,4 +1,4 @@
-import { IError } from "./ierror";
+import { IError } from "../utils/ierror";
 import { InfraEstabelecimentoFavoritoDefault } from "./infra-estabelecimento";
 
 export class RetEstabelecimentosModal implements IError {

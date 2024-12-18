@@ -7,7 +7,7 @@ import { Component, ElementRef, OnInit } from '@angular/core';
  */
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
-  selector: 'li[infra-breadcrumb-item]',
+  selector: 'li[infra-breadcrumb-item], li[lib-infra-breadcrumb-item]',
   templateUrl: './infra-breadcrumb-item.component.html',
   styleUrls: ['./infra-breadcrumb-item.component.css']
 })

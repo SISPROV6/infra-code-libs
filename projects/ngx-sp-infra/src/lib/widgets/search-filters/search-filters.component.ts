@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { BasicFilters } from '../../models/basic-filters';
+import { BasicFilters } from '../../models/filters/basic-filters';
 
 @Component({
   selector: 'app-search-filters, lib-basic-filters',

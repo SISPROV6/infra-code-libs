@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 
 @Component( {
-      selector: 'app-custom-acordion',
+      selector: 'app-custom-acordion, lib-acordion',
       templateUrl: './custom-acordion.component.html',
       styleUrls: [ './custom-acordion.component.scss' ],
 } )

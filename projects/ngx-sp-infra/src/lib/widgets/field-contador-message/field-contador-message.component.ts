@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 
 @Component({
-  selector: 'lib-field-contador-message',
+  selector: 'lib-field-contador-message, lib-contador',
   standalone: false,
   templateUrl: './field-contador-message.component.html',
   styleUrls: ['./field-contador-message.component.css']

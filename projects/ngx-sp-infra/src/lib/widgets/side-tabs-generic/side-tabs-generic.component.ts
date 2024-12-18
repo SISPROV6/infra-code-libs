@@ -9,7 +9,7 @@ interface CustomIconsConfig {
 }
 
 @Component({
-  selector: 'app-side-tabs-generic',
+  selector: 'app-side-tabs-generic, lib-side-tabs',
   templateUrl: './side-tabs-generic.component.html',
   styleUrls: ['./side-tabs-generic.component.scss']
 })

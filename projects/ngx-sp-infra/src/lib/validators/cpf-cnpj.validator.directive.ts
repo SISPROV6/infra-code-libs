@@ -4,7 +4,7 @@ import { CpfCnpjValidator } from './cpf-cnpj.validator';
 
 
 @Directive({
-    selector: '[appCpfCnpjValidate][ngModel]',
+    selector: '[appCpfCnpjValidate][ngModel], [libCpfCnpjValidate][ngModel]',
     providers: [{
         provide: NG_VALIDATORS,
         useExisting: CpfCnpjValidatorDirective,

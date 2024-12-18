@@ -1,25 +1,25 @@
 <ng-template [ngIf]="sortDirection !== 'desc'">
-  <app-svg-storage
+  <lib-icon
     (click)="sort()"
-    [svgName]="'arrow-up'"
+    [iconName]="'arrow-up'"
     [class.rotate]="sortDirection !== ''"
-    [svgColor]="getSvgColor()"
+    [iconColor]="getSvgColor()"
     tooltip="Ascendente"
     style="cursor: pointer;"
-    [svgSize]="20"
-  ></app-svg-storage>
+    [iconSize]="20"
+  ></lib-icon>
   <!-- Ordenar Ascendente -->
 </ng-template>
 
 <ng-template [ngIf]="sortDirection === 'desc'">
-  <app-svg-storage
+  <lib-icon
     (click)="sort()"
-    [svgName]="'arrow-down'"
+    [iconName]="'arrow-down'"
     [class.rotate]="true"
-    [svgColor]="'blue'"
+    [iconColor]="'blue'"
     tooltip="Descendente"
     style="cursor: pointer;"
-    [svgSize]="20"
-  ></app-svg-storage>
+    [iconSize]="20"
+  ></lib-icon>
   <!-- Ordenar Descendente -->
 </ng-template>

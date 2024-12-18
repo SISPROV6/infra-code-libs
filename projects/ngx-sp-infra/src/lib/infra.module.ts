@@ -1,4 +1,3 @@
-import { HeaderComponent } from './templates/header/header.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -20,19 +19,17 @@ import { FieldErrorMessageComponent } from './widgets/field-error-message/field-
 import { LoadingButtonComponent } from './widgets/loading-button/loading-button.component';
 import { LoadingComponent } from './widgets/loading/loading.component';
 import { TreeComponent } from './widgets/tree/tree.component';
-import { SvgStorageComponent } from './widgets/svg-storage/svg-storage.component';
 import { ToUrlPipe } from './pipes/to-url.pipe';
 import { CpfCnpjPipe } from './pipes/cpf-cnpj.pipe';
 import { FilterByPipe } from './widgets/combobox/pipes/filter-by.pipe';
 import { LimitToPipe } from './widgets/combobox/pipes/limit-to.pipe';
 import { SearchTreePipe } from './widgets/tree/pipes/search-tree.pipe';
-import { ClickOutsideDirective } from './widgets/click-outside/clickoutside.directive';
+import { ClickOutsideDirective } from './directives/click-outside.directive';
 import { OrderingComponent } from './widgets/ordering/ordering.component';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 import { SearchComboboxComponent } from './widgets/search-combobox/search-combobox.component';
 import { RequiredDirective } from './directives/required.directive';
-import { SimpleHeaderComponent } from './templates/simple-header/simple-header.component';
 import { LibIconsComponent } from './widgets/lib-icons/lib-icons.component';
 import { TextFilterPipe } from './pipes/text-filter.pipe';
 import { ContentContainerComponent } from './widgets/content-container/content-container.component';
@@ -62,7 +59,7 @@ import { FilterMultipleChoicePipe } from './pipes/filter-multiple-choice.pipe';
 import { OrderSortPipe } from './pipes/order-sort.pipe';
 import { PhoneFormatPipe } from './pipes/phone-format.pipe';
 import { TitleCasePipe } from './pipes/title-case-pipe.pipe';
-import { FooterComponent } from './templates/footer/footer.component';
+import { FooterComponent } from './components/footer/footer.component';
 import { LibHeaderComponent } from './widgets/lib-header/lib-header.component';
 import { InputTrimComponent } from './widgets/input-trim/input-trim.component';
 import { NgxCurrencyDirective } from 'ngx-currency';
@@ -91,7 +88,6 @@ import { FormatByTypePipe } from './pipes/format-by-type.pipe';
     InfraBreadcrumbItemComponent,
     BreadcrumbComponent,
     ComboboxComponent,
-    SvgStorageComponent,
     NavProdutosComponent,
     TreeComponent,
     ToUrlPipe,
@@ -102,7 +98,7 @@ import { FormatByTypePipe } from './pipes/format-by-type.pipe';
     ClickOutsideDirective,
     OrderingComponent,
     SearchComboboxComponent,
-    LibComboboxComponent, // Novo combobox, substituirá o Search futuramente
+    LibComboboxComponent,
     RequiredDirective,
     LibHeaderComponent,
     LibIconsComponent,
@@ -113,10 +109,8 @@ import { FormatByTypePipe } from './pipes/format-by-type.pipe';
     LibSpinnerComponent,
     LoadingBtnDirective,
     InputTrimComponent,
-
     LibTransferListComponent,
     InnerListComponent,
-
     ComboboxMultipleChoiceComponent,
     CustomAcordionComponent,
     DropdownOptionsComponent,
@@ -126,20 +120,14 @@ import { FormatByTypePipe } from './pipes/format-by-type.pipe';
     SearchFiltersComponent,
     SideTabsGenericComponent,
     SimpleSearchComponent,
-
     DisableControlDirective,
     HighlightDirective,
-
     DecimalCommaPipe,
     FilterMultipleChoicePipe,
     OrderSortPipe,
     PhoneFormatPipe,
     TitleCasePipe,
-
     FooterComponent,
-    HeaderComponent,
-    SimpleHeaderComponent,
-
     AppliedFiltersComponent,
     FormatByTypePipe,
   ],
@@ -174,7 +162,6 @@ import { FormatByTypePipe } from './pipes/format-by-type.pipe';
     NavProdutosComponent,
     BreadcrumbComponent,
     ComboboxComponent,
-    SvgStorageComponent,
     TreeComponent,
     ToUrlPipe,
     CpfCnpjPipe,
@@ -191,10 +178,8 @@ import { FormatByTypePipe } from './pipes/format-by-type.pipe';
     TableComponent,
     LibSpinnerComponent,
     LoadingBtnDirective,
-
     LibTransferListComponent,
     InnerListComponent,
-
     ComboboxMultipleChoiceComponent,
     CustomAcordionComponent,
     DropdownOptionsComponent,
@@ -204,20 +189,14 @@ import { FormatByTypePipe } from './pipes/format-by-type.pipe';
     SearchFiltersComponent,
     SideTabsGenericComponent,
     SimpleSearchComponent,
-
     DisableControlDirective,
     HighlightDirective,
-
     DecimalCommaPipe,
     FilterMultipleChoicePipe,
     OrderSortPipe,
     PhoneFormatPipe,
     TitleCasePipe,
-
     FooterComponent,
-    HeaderComponent,
-    SimpleHeaderComponent,
-
     AppliedFiltersComponent,
     FormatByTypePipe,
   ],

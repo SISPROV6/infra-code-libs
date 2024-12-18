@@ -1,4 +1,4 @@
-import { IError } from '../ierror';
+import { IError } from '../utils/ierror';
 
 export class RetStringList implements IError {
   Error: boolean = false;

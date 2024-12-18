@@ -17,8 +17,8 @@
 
         @if (mode !== 'list') {
           @if (!hideButtons || !hideButtons.includes("Cancelar")) {
-            <a data-cy="libHeader-cancelar-btn" class="btn d-flex flex-row align-items-center btn-outline-primary" (click)="return()">
-              <app-svg-storage svgName="fechar"></app-svg-storage>
+            <a data-cy="libHeader-cancelar-btn" class="btn d-flex flex-row align-items-center btn-outline-primary" (click)="emitReturn()">
+              <lib-icon iconName="fechar"></lib-icon>
               <span class="ms-2">Cancelar</span>
             </a>
           }
@@ -26,14 +26,14 @@
             @if (formGroup && !formGroup.valid) {
               <div class="me-0" tooltip="Há um campo inválido no formulário, preencha-o corretamente para prosseguir!">
                 <a data-cy="libHeader-salvar-btn" class="btn btn-primary d-flex flex-row align-items-center disabled" type="button">
-                  <app-svg-storage svgName="disquete"></app-svg-storage>
+                  <lib-icon iconName="disquete"></lib-icon>
                   <span class="ms-2"> Salvar </span>
                 </a>
               </div>
             }
             @else if (!showSpinner) {
-              <a data-cy="libHeader-salvar-btn" class="btn btn-primary d-flex flex-row align-items-center" (click)="mode === 'add' ? create() : update()">
-                <app-svg-storage svgName="disquete"></app-svg-storage>
+              <a data-cy="libHeader-salvar-btn" class="btn btn-primary d-flex flex-row align-items-center" (click)="mode === 'add' ? emitCreate() : emitUpdate()">
+                <lib-icon iconName="disquete"></lib-icon>
                 <span class="ms-2"> Salvar </span>
               </a>
             } @else {
