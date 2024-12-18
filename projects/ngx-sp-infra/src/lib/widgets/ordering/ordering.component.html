@@ -1,7 +1,7 @@
 <ng-template [ngIf]="sortDirection !== 'desc'">
   <lib-icon
     (click)="sort()"
-    [iconName]="'arrow-up'"
+    [iconName]="'seta-cima'"
     [class.rotate]="sortDirection !== ''"
     [iconColor]="getSvgColor()"
     tooltip="Ascendente"
@@ -14,7 +14,7 @@
 <ng-template [ngIf]="sortDirection === 'desc'">
   <lib-icon
     (click)="sort()"
-    [iconName]="'arrow-down'"
+    [iconName]="'seta-baixo'"
     [class.rotate]="true"
     [iconColor]="'blue'"
     tooltip="Descendente"

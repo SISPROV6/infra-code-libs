@@ -2,7 +2,7 @@
    <div class="filter-list-text pe-1 fw-bold fs-6">Filtros:</div>
    <div class="filter-list ps-1 d-flex flex-row flex-wrap gap-2 px-1">
       @for (filtro of filtrosAplicados; track $index) {
-         <button *ngIf="filtro.value !== null" class="btn btn-sm btn-outline-{{theme}} rounded-pill gap-2 position-relative">
+         <button *ngIf="filtro.value !== undefined && filtro.value !== null && filtro.value !== ''" class="btn btn-sm btn-outline-{{theme}} rounded-pill gap-2 position-relative">
             <b>{{ aliasNames[$index] }}</b>: {{ filtro.value | formatByType }}
 
             <span *ngIf="Array.isArray(filtro.value) && filtro.value.length > 1" class="badge text-bg-{{theme}}"
