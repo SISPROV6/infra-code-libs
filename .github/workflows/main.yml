@@ -83,4 +83,6 @@ jobs:
           npm publish --access public --tag test
         elif [ "${{ github.ref }}" == "refs/heads/next" ]; then
           npm publish --access public --tag next
+        elif [ "${{ github.ref }}" == "refs/heads/fixes" ]; then
+          npm publish --access public --tag fix
         fi
