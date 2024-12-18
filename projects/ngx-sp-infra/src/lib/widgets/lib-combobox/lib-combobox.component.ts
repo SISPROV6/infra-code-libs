@@ -21,7 +21,7 @@ import { RecordCombobox } from '../../models/combobox/record-combobox';
  * - Inicialização de um valor selecionado, se fornecido.
  * 
  * ## Inputs:
- * - `outerControl` (FormControl | AbstractControl): Control para seleção dos valores, atualizará automaticamente o control do componente pai também
+ * - `control` (FormControl | AbstractControl): Control para seleção dos valores, atualizará automaticamente o control do componente pai também
  * - `comboboxList` (RecordCombobox[]): Lista de registros que serão exibidos no combo, enquanto eles estiverem carregando será exibido um spinner
  * - `labelText` (string): Texto do rótulo que será exibido acima do combo. Caso não informado nada será exibido
  * - `disabled` (boolean): Define se o campo está desabilitado. Deve ser usado para validações de habilitação dinâmica do campo
@@ -87,9 +87,9 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
   /** (obrigatório) Control para seleção dos valores, atualizará automaticamente o control do componente pai também
    * @alias 'control'
    * @type {FormControl<any> | AbstractControl<any>} */
-  @Input({ alias: 'control', required: true })
-  public get outerControl(): FormControl<unknown> { return this._outerControl }
-  public set outerControl(value: FormControl<unknown> | AbstractControl<unknown>) {
+  @Input({ required: true })
+  public get control(): FormControl<unknown> { return this._outerControl }
+  public set control(value: FormControl<unknown> | AbstractControl<unknown>) {
     this._outerControl = value as FormControl;
 
     // Cancela a subscrição anterior (se houver) para evitar múltiplas subscrições
@@ -196,11 +196,11 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes["comboboxList"]?.currentValue) this.updateSelectedValue();
+    if (changes["list"]?.currentValue) this.updateSelectedValue();
     if (changes["libRequired"]?.currentValue != undefined) this.setValidator();
-    if (changes["outerControl"]?.currentValue) {
+    if (changes["control"]?.currentValue) {
       this.setValidator();
-      this.updateSelectedValue((changes["outerControl"].currentValue as FormControl).value);
+      this.updateSelectedValue((changes["control"].currentValue as FormControl).value);
     }
   }
 
@@ -246,15 +246,21 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
   }
 
   private updateSelectedValue(value?: string | number | null): void {
+    console.log("this.innerControl", this.innerControl);
     this.innerControl.setValue(null); // Limpa o campo antes de qualquer coisa
+    
     const selectedValue: string | number | null = value ?? this._outerControl.value;
-
+    console.log("selectedValue", selectedValue);
+    
     if (!this.list || (selectedValue === null && selectedValue === '')) return;
-
+    
     const initializedValue = this.list.find(item => item.ID === selectedValue)
+    console.log("initializedValue", initializedValue);
+    
     if (initializedValue) this.innerControl.setValue(
       `${initializedValue.AdditionalStringProperty1 && initializedValue.AdditionalStringProperty1 != '' ? initializedValue.AdditionalStringProperty1 : ""}${this.separator === undefined ? " " : " "+this.separator+" "}${initializedValue.LABEL}`
     );
+    console.log("this.innerControl", this.innerControl);
   }
 
   private adjustDropdownWidth(): void {
