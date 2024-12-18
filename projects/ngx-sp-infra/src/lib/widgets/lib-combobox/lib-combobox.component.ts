@@ -249,11 +249,9 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
     this.innerControl.setValue(null); // Limpa o campo antes de qualquer coisa
     
     const selectedValue: string | number | null = value ?? this._outerControl.value;
-    
     if (!this.list || (selectedValue === null && selectedValue === '')) return;
     
     const initializedValue = this.list.find(item => item.ID === selectedValue)
-    
     if (initializedValue) this.innerControl.setValue(
       `${initializedValue.AdditionalStringProperty1 && initializedValue.AdditionalStringProperty1 != '' ? initializedValue.AdditionalStringProperty1 : ""}${this.separator === undefined ? "" : " "+this.separator+" "}${initializedValue.LABEL}`
     );

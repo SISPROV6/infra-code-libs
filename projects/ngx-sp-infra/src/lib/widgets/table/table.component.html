@@ -75,7 +75,8 @@
                class="sp-pagination mt-3"
                (pageChange)="page = $event; pageChange.emit($event)"
                previousLabel="«&nbsp;&nbsp;&nbsp;" nextLabel="&nbsp;&nbsp;&nbsp;»"
-               [maxSize]="5">
+               [maxSize]="5"
+               (pageBoundsCorrection)="page = $event">
             </pagination-controls>
          </div>
          <!-- #endregion PAGINAÇÃO -->
