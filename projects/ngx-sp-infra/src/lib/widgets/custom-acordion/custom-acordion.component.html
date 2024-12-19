@@ -1,18 +1,12 @@
 <accordion [isAnimated]="true" [class.mt-3]="haveMarginTop">
-	<accordion-group [panelClass]="customClass" [isOpen]="isOpen ?? false" style="padding: 0px">
-		<button class="btn btn-link btn-block justify-content-between d-flex w-100 shadow-none" (click)="setIsOpen()" 
-			style="align-items:center; padding-left: 0px; padding-right: 0px;" accordion-heading type="button">
-			<div>
-				<h5> {{name}} </h5>
-			</div>
-			<div *ngIf="haveArrow">
-				<span class="badge badge-secondary bg-secondary float-right pull-right">
-					<img src="assets/icons/down-arrow.svg" alt="" [class]="posicaoIcon ? 'invertImage' : ''" #icon class="arrow-pos-size"/>
-				</span>
-			</div>
+	<accordion-group class="p-0" [isOpen]="isOpen ?? false">
+		<button accordion-heading class="btn btn-link d-flex align-items-center justify-content-between w-100 px-0 fw-bold" (click)="setIsOpen()">
+			{{ name }}
+			<lib-icon *ngIf="haveArrow" #icon iconName="seta-{{iconDirection}}" />
 		</button>
 
 		<div>
+			<!-- Este conteúdo abaixo será o conteúdo customizado informado pelo componente pai -->
 			<ng-content></ng-content>
 		</div>
 	</accordion-group>
