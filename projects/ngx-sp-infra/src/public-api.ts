@@ -135,3 +135,4 @@ export * from './lib/widgets/pagination/pagination.component';
 export * from './lib/widgets/search-filters/search-filters.component';
 export * from './lib/widgets/side-tabs-generic/side-tabs-generic.component';
 export * from './lib/widgets/simple-search/simple-search.component';
+export * from './lib/widgets/lib-nav-produtos/lib-nav-produtos.component';
