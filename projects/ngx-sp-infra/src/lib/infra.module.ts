@@ -69,6 +69,7 @@ import { LibTransferListComponent } from './widgets/lib-transfer-list/lib-transf
 import { InnerListComponent } from './widgets/lib-transfer-list/inner-list/inner-list.component';
 import { AppliedFiltersComponent } from './widgets/applied-filters/applied-filters.component';
 import { FormatByTypePipe } from './pipes/format-by-type.pipe';
+import { LibNavProdutosComponent } from './widgets/lib-nav-produtos/lib-nav-produtos.component';
 
 @NgModule({
   declarations: [
@@ -130,6 +131,7 @@ import { FormatByTypePipe } from './pipes/format-by-type.pipe';
     FooterComponent,
     AppliedFiltersComponent,
     FormatByTypePipe,
+    LibNavProdutosComponent,
   ],
   imports: [
     CommonModule,
@@ -199,6 +201,7 @@ import { FormatByTypePipe } from './pipes/format-by-type.pipe';
     FooterComponent,
     AppliedFiltersComponent,
     FormatByTypePipe,
+    LibNavProdutosComponent,
   ],
   providers: [],
 })

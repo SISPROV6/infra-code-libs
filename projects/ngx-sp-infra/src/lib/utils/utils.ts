@@ -472,6 +472,7 @@ export class Utils {
 
 
 
+  // #region ==========> VALIDAÇÕES DE VAZIO <==========
 
   /** Retorna se a variável informada é === null || undefined || "" (string vazia) */
   public static propertyIsNullUndefinedOrEmpty(value: any): boolean {
@@ -496,5 +497,7 @@ export class Utils {
     if (value === null || value === " ") return true;
     return false;
   }
+
+  // #endregion ==========> VALIDAÇÕES DE VAZIO <==========
 
 }
