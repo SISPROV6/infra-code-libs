@@ -10,8 +10,8 @@ export class Params {
 export class NavItem {
   caminho: string = '';
   label: string = '';
-  params?: Params[];
-  isTargetSelf?: boolean;
+  queryParams?: Params[] = [];
+  isTargetSelf?: boolean = false;
 }
 // #endregion EXPORT CLASSES
 
@@ -83,8 +83,8 @@ export class LibNavProdutosComponent implements OnInit {
   // #region ==========> UTILS <==========
   public onNavigate(item: NavItem, isProduction: boolean = false, hostName: string = 'localhost:4200'): void {
     const route: string =
-      item.params != undefined && item.params!.length > 0
-        ? item.caminho + this.normalizeParams(item.params)
+      item.queryParams != undefined && item.queryParams!.length > 0
+        ? item.caminho + this.normalizeParams(item.queryParams)
         : item.caminho;
 
     let url: string = route;
