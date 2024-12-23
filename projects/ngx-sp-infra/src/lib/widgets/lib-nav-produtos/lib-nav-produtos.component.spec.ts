@@ -51,7 +51,7 @@ describe('Coponente: lib-nav-produtos', () => {
   });
   
   it('deve construir a URL correta em onNavigate', () => {
-    const navItem: NavItem = { caminho: '/path', label: 'Label', queryParams: [{ paramName: 'param1', paramValue: 'value1' }] };
+    const navItem: NavItem = { caminho: '/path', label: 'Label', params: [{ paramName: 'param1', paramValue: 'value1' }] };
 
     spyOn(window, 'open');
     component.onNavigate(navItem, true, 'http://example.com');
