@@ -87,15 +87,11 @@ export class LibNavProdutosComponent implements OnInit {
 
   ngOnInit(): void {
     this.activeItem = this.router.url;
-
-    console.log("navItems: ", this.navItems);
   }
   // #endregion ==========> INITIALIZATION <==========
   
   // #region ==========> UTILS <==========
-  public onNavigate(item: NavItem, isProduction: boolean = false, hostName: string = 'localhost:4200'): void {
-    console.log("item: ", item);
-    
+  public onNavigate(item: NavItem, isProduction: boolean = false, hostName: string = 'https://siscandesv6.sispro.com.br'): void {
     const route: string =
     item.params != undefined && item.params!.length > 0
     ? item.caminho + this.normalizeParams(item.params)
@@ -117,8 +113,6 @@ export class LibNavProdutosComponent implements OnInit {
   }
   
   public normalizeParams(params: Params[] | undefined): string {
-    console.log("params: ", params);
-
     if (params != undefined) {
       let urlString = '?';
       
