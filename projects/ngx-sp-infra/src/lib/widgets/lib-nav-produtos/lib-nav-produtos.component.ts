@@ -10,7 +10,7 @@ export class Params {
 export class NavItem {
   caminho: string = '';
   label: string = '';
-  queryParams?: Params[] = [];
+  params?: Params[] = [];
   isTargetSelf?: boolean = false;
 }
 // #endregion EXPORT CLASSES
@@ -33,15 +33,15 @@ export class NavItem {
  * @param hostname Hostname do ambiente atual ou de produção (depende do que foi informado na isProduction).
  * 
  * @example ```html
- * <lib-nav-produtos [navItems]="[
+ * <lib-navigation [navItems]="[
  *    {caminho: '/SisproErpCloud/Corporativo/empresas/editar/' + this.infraEmpresaID , label: 'Empresa' },
  *    {caminho: '/SisproErpCloud/Contabilidade/perfilDaEmpresa', params: [ {paramName :'InfraEmpresaId', paramValue : infraEmpresaID} ] , label: 'Contábil'  },
  *    {caminho: '/SisproErpCloud/Corporativo/home' , label: 'Estoque'  },
- * ]"></lib-nav-produtos>
+ * ]"></lib-navigation>
  * ```
  */
 @Component({
-  selector: 'lib-nav-produtos',
+  selector: 'lib-navigation',
   template: `
     <ul class="menu">
       @for (item of navItems; track $index) {
@@ -77,16 +77,20 @@ export class LibNavProdutosComponent implements OnInit {
 
   ngOnInit(): void {
     this.activeItem = this.router.url;
+
+    console.log("navItems: ", this.navItems);
   }
   // #endregion ==========> INITIALIZATION <==========
-
+  
   // #region ==========> UTILS <==========
   public onNavigate(item: NavItem, isProduction: boolean = false, hostName: string = 'localhost:4200'): void {
+    console.log("item: ", item);
+    
     const route: string =
-      item.queryParams != undefined && item.queryParams!.length > 0
-        ? item.caminho + this.normalizeParams(item.queryParams)
-        : item.caminho;
-
+    item.params != undefined && item.params!.length > 0
+    ? item.caminho + this.normalizeParams(item.params)
+    : item.caminho;
+    
     let url: string = route;
 
     if (!isProduction) {
@@ -98,20 +102,22 @@ export class LibNavProdutosComponent implements OnInit {
     else {
       url = `${hostName}` + route;
     }
-
+    
     window.open(url, item.isTargetSelf ? '_self' : '_blank');
   }
-
+  
   public normalizeParams(params: Params[] | undefined): string {
+    console.log("params: ", params);
+
     if (params != undefined) {
       let urlString = '?';
-
+      
       for (let index = 0; index < params.length; index++) {
         urlString += params[index].paramName + '=' + params[index].paramValue;
-
+        
         if (index != params.length - 1) urlString += '&';
       }
-
+      
       return urlString;
     }
     else return '';
