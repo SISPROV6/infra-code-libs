@@ -19,6 +19,8 @@ export class NavItem {
  * @description Componente que exibe opções de navegação entre produtos.
  * O usuário precisa apenas informar quais são as opções de navegação e o componente se encarrega de exibir.
  * 
+ * @param isProduction Indica se o ambiente é de produção ou não. Dentro dos projetos, deve ser buscado do arquivo 'environment'.
+ * @param hostname Hostname do ambiente atual ou de produção (depende do que foi informado na isProduction).
  * @param navItems Lista de itens de navegação que serão exibidos. Cada NavItem tem a seguinte estrutura:
  * ```typescript
  * export class NavItem {
@@ -29,15 +31,23 @@ export class NavItem {
  * }
  * ```
  * 
- * @param isProduction Indica se o ambiente é de produção ou não. Dentro dos projetos, deve ser buscado do arquivo 'environment'.
- * @param hostname Hostname do ambiente atual ou de produção (depende do que foi informado na isProduction).
- * 
  * @example ```html
+ * <!-- Recomenda-se utilizar desta forma direta no HTML apenas se não houverem paramêtros da URL com a propriedade params. Caso contrário utilize uma variável do .ts -->
  * <lib-navigation [navItems]="[
  *    {caminho: '/SisproErpCloud/Corporativo/empresas/editar/' + this.infraEmpresaID , label: 'Empresa' },
  *    {caminho: '/SisproErpCloud/Contabilidade/perfilDaEmpresa', params: [ {paramName :'InfraEmpresaId', paramValue : infraEmpresaID} ] , label: 'Contábil'  },
  *    {caminho: '/SisproErpCloud/Corporativo/home' , label: 'Estoque'  },
- * ]"></lib-navigation>
+ * ]"/>
+ * ```
+ * 
+ * Para criar a variável via .ts declare-a assim:
+ * ```typescript
+ * public navItems: NavItems[] = [];  // Pode popular a lista na própria declaração ou utilizar um método que faz isso
+ * ```
+ * 
+ * E utilize-a assim:
+ * ```html
+ * <lib-navigation [navItems]="navItems"/>
  * ```
  */
 @Component({
