@@ -91,7 +91,7 @@ export class LibNavProdutosComponent implements OnInit {
   // #endregion ==========> INITIALIZATION <==========
   
   // #region ==========> UTILS <==========
-  public onNavigate(item: NavItem, isProduction: boolean = false, hostName: string = 'https://siscandesv6.sispro.com.br'): void {
+  public onNavigate(item: NavItem): void {
     const route: string =
     item.params != undefined && item.params!.length > 0
     ? item.caminho + this.normalizeParams(item.params)
@@ -99,14 +99,14 @@ export class LibNavProdutosComponent implements OnInit {
     
     let url: string = route;
 
-    if (!isProduction) {
+    if (!this.isProduction) {
       const urlArr: string[] = route.split('/');
 
       urlArr.splice(0, 3);
       url = urlArr.join('/');
     }
     else {
-      url = `${hostName}` + route;
+      url = `${this.hostname}` + route;
     }
     
     window.open(url, item.isTargetSelf ? '_self' : '_blank');
