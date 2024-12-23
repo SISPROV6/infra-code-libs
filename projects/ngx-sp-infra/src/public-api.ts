@@ -44,6 +44,7 @@ export * from './lib/models/basic-ret-types/ret-string-list';
 
 export * from './lib/models/transfer-list/list-transfer-config.model';
 export * from './lib/models/filtros-aplicados/filtros-aplicados.model';
+export * from './lib/widgets/lib-nav-produtos/models/NavigationOptions.model';
 
 
 /** Pipes */
