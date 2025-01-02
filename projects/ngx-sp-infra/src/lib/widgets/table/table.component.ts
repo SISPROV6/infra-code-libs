@@ -1,5 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Utils } from '../../utils/utils';
+import { TableHeaderStructure } from './models/header-structure.model';
 
 /**
  * Componente de Tabela Customizável
@@ -11,8 +15,6 @@ import { Utils } from '../../utils/utils';
  * mudanças na página ou no número de itens exibidos.
  *
  * @selector lib-table
- * @templateUrl ./table.component.html
- * @styleUrl ./table.component.scss
 */
 @Component({
   selector: 'lib-table',
@@ -47,9 +49,9 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   
   /** Lista de registros a serem exibidos na tabela.
    * @required */
-  @Input({ alias: 'list', required: true })
-  public get recordsList(): unknown[] | undefined { return this._recordsList; }
-  public set recordsList(value: unknown[] | undefined) { this._recordsList = value; }
+  @Input({ required: true })
+  public get list(): unknown[] | undefined { return this._recordsList; }
+  public set list(value: unknown[] | undefined) { this._recordsList = value; }
 
   /** Opções de contagem de itens por página disponíveis para o usuário.
    * @required */
@@ -60,14 +62,9 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() public placement: 'start' | 'center' | 'end' | 'between' = 'end';
 
   /** Lista de cabeçalhos para as colunas da tabela, incluindo o nome, a largura da coluna e classes customizadas.
-   * @required */
-  @Input({ required: true }) public headers!: {
-    name: string,
-    col?: number,
-    widthClass?: string,
-    customClasses?: string,
-    orderColumn?: string
-  }[];
+   * @see TableHeaderStructure
+  */
+  @Input({ required: true }) public headers!: TableHeaderStructure[];
 
   /** Mensagem customizada para lista vazia */
   @Input() public emptyListMessage?: string;
@@ -76,7 +73,20 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
    * @default true */
   @Input() public showCounter: boolean = true;
 
-  /** Informa um ID para a paginação da tabela específica. DEVE ser utilizada em caso de paginação visível. */
+  /**
+   * DEVE ser utilizada em caso de paginação visível.
+   * 
+   * Informa um ID para a paginação da tabela específica, usada para distinguir tabelas distintas.
+   * 
+   * Não está como required pois caso a paginação não seja visível não deve ser obrigatório.
+   * 
+   * Por obrigatoriedade neste contexto refiro-me ao usar o seletor no seu HTML
+   * 
+   * @example
+   * ```html
+   * <lib-table paginationID="simpleTableExample"></lib-table>
+   * ```
+  */
   @Input()
   public get paginationID(): string { return this._paginationID; }
   public set paginationID(value: string) { this._paginationID = value; }
@@ -90,6 +100,9 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
   /** Evento emitido quando o checkbox de seleção se alterar. */
   @Output() public selectionChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  /** Caso seja usado um ícone na coluna e a opção ```headers.icon.emitClick``` for true, ao clicar nela emite este evento que leva consigo o nome da coluna em questão. */
+  @Output() public iconClick: EventEmitter<string> = new EventEmitter<string>();
 
 
   /** Página atual da tabela. */
@@ -105,12 +118,12 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
     return (this.page - 1) * this.itemsPerPage + 1;
   }
   public get lastItemOfPage(): number {
-    return Math.min(this.page * this.itemsPerPage, this.recordsList?.length ?? 0);
+    return Math.min(this.page * this.itemsPerPage, this.list?.length ?? 0);
   }
 
   public get itemsDisplayText(): string {
-    if (this.recordsList && this.recordsList.length === 0) { return `Exibindo ${this.recordsList?.length ?? 0} registros`; }
-    return `Exibindo ${ this.counts ? this.firstItemOfPage+"-"+this.lastItemOfPage + " de" : "" } ${this.recordsList?.length ?? 0} registros`;
+    if (this.list && this.list.length === 0) { return `Exibindo ${this.list?.length ?? 0} registros`; }
+    return `Exibindo ${ this.counts ? this.firstItemOfPage+"-"+this.lastItemOfPage + " de" : "" } ${this.list?.length ?? 0} registros`;
   }
 
   
@@ -132,6 +145,20 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   ngOnInit(): void {
     this.updateCounterInfo();
     this.validateHeaders();
+
+    if (this.paginationID === "simpleTableWithIcon") {
+      console.log("Lista de headers:", this.headers);
+
+      console.log("Lista de headers com ícone:", this.headers.find(h => {
+        return h.icon !== undefined
+      }));
+      
+      console.log("Segundo header:", this.headers[1]);
+
+      console.log("Ícone do segundo header:", this.headers[1].icon);
+
+      console.log("Nome do ícone do segundo header:", this.headers[1].icon?.name);
+    }
   }
 
   ngAfterViewInit(): void {
@@ -142,7 +169,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
    * @param changes Objeto que contém as mudanças nas entradas do componente. */
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['recordsList'] && changes['recordsList'].currentValue) {
-      this.resetPagination(this.recordsList ?? []);
+      this.resetPagination(this.list ?? []);
       this.updateCounterInfo();
     }
 
@@ -169,10 +196,10 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   private updateCounterInfo(): void {
-    if (this.recordsList && this.showCounter && this.usePagination) {
-      this.itemsPerPage = this.counts ? this.counts[0] : this.recordsList.length;
+    if (this.list && this.showCounter && this.usePagination) {
+      this.itemsPerPage = this.counts ? this.counts[0] : this.list.length;
     }
-    else if (!this.recordsList && this.showCounter && this.usePagination) {
+    else if (!this.list && this.showCounter && this.usePagination) {
       this.itemsPerPage = 1;
     }
   }
@@ -225,8 +252,8 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
 	// Função de ordenação dos dados da tabela
 	private sortData() {
-		if (this.recordsList) {
-			const recordsList = this.recordsList;
+		if (this.list) {
+			const recordsList = this.list;
 
       // ERICK: Novo método de ordenação que abrange também números
       const attribute = this.currentSortColumn;

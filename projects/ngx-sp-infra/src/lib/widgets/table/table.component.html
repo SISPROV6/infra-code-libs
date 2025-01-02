@@ -1,14 +1,20 @@
-@if (recordsList) {
+@if (list) {
    <div class="table-list w-100 position-relative">
 
       <!-- Trechos de texto acima da table -->
       @if (showCounter) {
          <div class="mb-2 d-flex align-items-center">
-            <!-- Exibe o número de itens mostrados e o total de registros -->
-            <span> {{ itemsDisplayText }} </span>
-      
-            <!-- Exibe a badge informando quantos registros foram selecionados -->
-            <span *ngIf="selectedCount && selectedCount > 0" class="ms-2 badge text-bg-primary">{{ selectedCount }} registros selecionados</span>
+            <div class="col-6">
+               <!-- Exibe o número de itens mostrados e o total de registros -->
+               <span> {{ itemsDisplayText }} </span>
+
+               <!-- Exibe a badge informando quantos registros foram selecionados -->
+               <span *ngIf="selectedCount && selectedCount > 0" class="ms-2 badge text-bg-primary">{{ selectedCount }} registros selecionados</span>
+            </div>
+
+            <div class="col d-flex flex-row align-items-center justify-content-end">
+               <ng-content select="[rightSideContent]"></ng-content>
+            </div>
          </div>
       }
 
@@ -25,11 +31,29 @@
                   </th>
 
                   <th *ngFor="let header of headers" scope="col"
-                  class="align-middle text-dark-grey {{ header.customClasses }}
-                     {{ headersUseOldWidth
-                        ? header.col && header.col > 0 ? 'col-'+header.col : 'col'
-                        : header.widthClass }}" >
-                     {{ header.name }}
+                     class="align-middle text-dark-grey {{ header.customClasses }}
+                        {{ headersUseOldWidth
+                           ? header.col && header.col > 0 ? 'col-'+header.col : 'col'
+                           : header.widthClass }}" >
+
+                     @if (header.icon !== undefined) {
+                        <lib-icon *ngIf="header.icon.side === 'L'" iconSize="small"
+                           [iconName]="header.icon.name"
+                           [iconColor]="header.icon.theme !== 'currentColor' && header.icon.theme ? header.icon.theme : 'currentColor'"
+                           [tooltip]="header.icon.tooltip"
+                           (click)="header.icon.emitClick ? iconClick.emit(header.name) : null"  />
+                        {{ header.name }}
+                        <lib-icon *ngIf="header.icon.side === 'R' || !header.icon.side" iconSize="small"
+                           [iconName]="header.icon.name"
+                           [iconColor]="header.icon.theme !== 'currentColor' && header.icon.theme ? header.icon.theme : 'currentColor'"
+                           [tooltip]="header.icon.tooltip"
+                           [class.cursor-pointer]="header.icon.emitClick"
+                           (click)="header.icon.emitClick ? iconClick.emit(header.name) : null"  />
+                     }
+                     @else {
+                        {{ header.name }}
+                     }
+
 
                      <app-ordering *ngIf="header.orderColumn" [(sortDirection)]="sortDirection[header.orderColumn]"
                         (sortChange)="onSortChange({ direction: $event.direction, column: header.orderColumn })"></app-ordering>
@@ -38,7 +62,7 @@
             </thead>
 
             <tbody class="bg-light fade-in-row">
-               @if (recordsList.length > 0) {
+               @if (list.length > 0) {
                   <!-- Conteúdo das linhas da tabela -->
                   <ng-content select="[innerRows]"></ng-content>
                }
@@ -54,7 +78,7 @@
          </table>
 
          <!-- #region PAGINAÇÃO -->
-         <div *ngIf="usePagination && recordsList.length > 0" class="d-flex mt-2"
+         <div *ngIf="usePagination && list.length > 0" class="d-flex mt-2"
             [ngClass]="{
                'justify-content-start': placement === 'start',
                'justify-content-center': placement === 'center',

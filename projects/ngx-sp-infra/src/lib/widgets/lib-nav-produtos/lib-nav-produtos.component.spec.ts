@@ -52,11 +52,17 @@ describe('Coponente: lib-nav-produtos', () => {
   
   it('deve construir a URL correta em onNavigate', () => {
     const navItem: NavItem = { caminho: '/path', label: 'Label', params: [{ paramName: 'param1', paramValue: 'value1' }] };
+    
+    component.navItems = [ navItem ];
+    component.hostname = "http://example.com";
+    component.isProduction = true;
+
+    fixture.detectChanges();
 
     spyOn(window, 'open');
     component.onNavigate(navItem);
 
-    expect(window.open).toHaveBeenCalledWith('https://siscandesv6.sispro.com.br/path?param1=value1', '_blank');
+    expect(window.open).toHaveBeenCalledWith('http://example.com/path?param1=value1', '_blank');
   });
   
   it('deve retornar a string de consulta correta em normalizeParams', () => {
