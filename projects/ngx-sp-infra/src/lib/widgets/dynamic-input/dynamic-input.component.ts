@@ -13,7 +13,9 @@ export class DynamicInputComponent {
   // #region ==========> PROPERTIES <==========
 
   // #region PUBLIC
-  @Input() public typeInput?: string;
+  @Input() public disableInput?: boolean;
+  @Input() public typeInput?: 'date' | 'integer' | 'decimal' | 'phone' | 'text' | 'longtext' | 'time' | 'datetime' = "text";
+
   @Input() public qtInteiros?: number;
   @Input() public qtDecimais?: number;
   @Input() public txConteudoCarac: string = '';
