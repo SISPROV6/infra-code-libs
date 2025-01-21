@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, OnDestroy } from '@angular/core';
 
 @Component({
-  selector: 'app-simple-search',
+  selector: 'app-simple-search, lib-simple-search',
   templateUrl: './simple-search.component.html',
   styleUrls: ['./simple-search.component.scss']
 })

@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RecordCombobox } from '../../models/combobox/record-combobox';
 
 @Component({
-  selector: 'app-combobox-multiple-choice',
+  selector: 'app-combobox-multiple-choice, lib-combobox-multiple',
   templateUrl: './combobox-multiple-choice.component.html',
   styleUrls: ['./combobox-multiple-choice.component.scss']
 })
