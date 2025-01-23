@@ -4,11 +4,11 @@
     [iconName]="'seta-cima'"
     [class.rotate]="sortDirection !== ''"
     [iconColor]="getSvgColor()"
-    tooltip="Ascendente"
+    tooltip="Crescente"
     style="cursor: pointer;"
     [iconSize]="20"
   ></lib-icon>
-  <!-- Ordenar Ascendente -->
+  <!-- Ordenar Crescente -->
 </ng-template>
 
 <ng-template [ngIf]="sortDirection === 'desc'">
@@ -17,9 +17,9 @@
     [iconName]="'seta-baixo'"
     [class.rotate]="true"
     [iconColor]="'blue'"
-    tooltip="Descendente"
+    tooltip="Decrescente"
     style="cursor: pointer;"
     [iconSize]="20"
   ></lib-icon>
-  <!-- Ordenar Descendente -->
+  <!-- Ordenar Decrescente -->
 </ng-template>
