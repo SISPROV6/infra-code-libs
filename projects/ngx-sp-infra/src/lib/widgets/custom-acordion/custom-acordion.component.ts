@@ -41,8 +41,8 @@ export class CustomAcordionComponent implements OnInit {
       ngOnInit(): void {       
             //this.posicaoIcon = this.isOpen;
             
-            if (this.isOpen) this.iconDirection = 'baixo';
-            else this.iconDirection = 'cima';
+            if (this.isOpen) this.iconDirection = 'cima';
+            else this.iconDirection = 'baixo';
       }
       // #endregion ==========> INITIALIZATION <==========
 
