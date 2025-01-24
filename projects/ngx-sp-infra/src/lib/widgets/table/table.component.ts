@@ -146,19 +146,17 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
     this.updateCounterInfo();
     this.validateHeaders();
 
-    if (this.paginationID === "simpleTableWithIcon") {
-      console.log("Lista de headers:", this.headers);
-
-      console.log("Lista de headers com ícone:", this.headers.find(h => {
-        return h.icon !== undefined
-      }));
+    // Usado pra debug
+    // if (this.paginationID === "simpleTableWithIcon") {
+    //   console.log("Lista de headers:", this.headers);
+    //   console.log("Lista de headers com ícone:", this.headers.find(h => {
+    //     return h.icon !== undefined
+    //   }));
       
-      console.log("Segundo header:", this.headers[1]);
-
-      console.log("Ícone do segundo header:", this.headers[1].icon);
-
-      console.log("Nome do ícone do segundo header:", this.headers[1].icon?.name);
-    }
+    //   console.log("Segundo header:", this.headers[1]);
+    //   console.log("Ícone do segundo header:", this.headers[1].icon);
+    //   console.log("Nome do ícone do segundo header:", this.headers[1].icon?.name);
+    // }
   }
 
   ngAfterViewInit(): void {
@@ -168,12 +166,12 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   /** Monitora as mudanças nas entradas do componente e realiza ajustes, como resetar a paginação ou validar o layout das colunas.
    * @param changes Objeto que contém as mudanças nas entradas do componente. */
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['recordsList'] && changes['recordsList'].currentValue) {
+    if (changes['list'] && changes['list'].currentValue) {
       this.resetPagination(this.list ?? []);
       this.updateCounterInfo();
     }
 
-    if (changes['headersList']) { this.validateHeaders(); }
+    if (changes['headers']) { this.validateHeaders(); }
   }
   // #endregion ==========> INICIALIZAÇÃO <==========
 
@@ -182,7 +180,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   private validateHeaders(): void {
     const headersUseOldWidth: boolean = this.headers.every(header => header.col && header.col != undefined);
     
-    const headersUseCol: boolean = this.headers.every(header => header.widthClass && header.widthClass.includes('col-'));
+    const headersUseCol: boolean = this.headers.every(header => header.widthClass && header.widthClass.includes('col'));
     const headersUsePercent: boolean = this.headers.every(header => header.widthClass && header.widthClass.includes('w-'));
 
     if (headersUseOldWidth) { this.headersUseOldWidth = true; }
@@ -190,7 +188,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
       this.headersUseOldWidth = false;
 
       if (!headersUseCol && !headersUsePercent) {
-        console.error("A largura das colunas está em um formato inválido. Certifique-se que todas elas utilizam apenas 'col-' ou 'w-'");
+        console.warn("Erro <lib-table>: A largura das colunas está em um formato inválido. Certifique-se que todas elas utilizam apenas 'col-'/'col-[n]' ou 'w-'. Elas não podem ser usadas alternadamente.");
       }
     }
   }
