@@ -38,7 +38,7 @@ export class OrderingComponent implements OnInit {
 
   // Obtém a cor do ícone com base na direção de ordenação atual
   getSvgColor(): string {
-    return this.sortDirection === 'asc' ? 'blue' : 'lightgray';
+    return this.sortDirection === 'asc' ? 'blue' : 'gray';
   }
 
   constructor() {}
