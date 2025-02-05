@@ -30,7 +30,7 @@ export class TenantService {
 
 
   // #region ==========> UTILS <==========
-  public validateTenant(tenantId: number): void {
+  public validateTenant(tenantId?: number): void {
     if (!tenantId || tenantId === 0) {
       console.log(tenantId);
       

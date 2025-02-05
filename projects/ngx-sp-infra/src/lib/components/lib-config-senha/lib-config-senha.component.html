@@ -6,7 +6,7 @@
 <lib-container>
 
   <div innerContent1>
-    <form *ngIf="infraSegConfigData; else loading" [formGroup]="form">
+    <form *ngIf="$infraSegConfigRecord; else loading" [formGroup]="form">
 
       <div class="d-flex justify-content-start align-items-center">
         <div class="mb-3">

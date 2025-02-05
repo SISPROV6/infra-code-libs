@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
@@ -19,16 +19,15 @@ export class LibConfigSenhaComponent implements OnInit {
   // #region ==========> PROPERTIES <==========
 
   // #region PRIVATE
-  // [...]
+  private _localTenantId = JSON.parse(localStorage["user_auth_v6"]).__tokenPayload.tenantId ?? 0;
   // #endregion PRIVATE
 
   // #region PUBLIC
-  @Input({ required: true }) public tenantId: number = 0;
+  // @Input() public customTenantID: number = 0;
 
-  
   public menuGroup!: string;
   public keyWorld!: string;
-  public infraSegConfigData!: InfraSegConfig;
+  public $infraSegConfigRecord?: InfraSegConfig;
   public initialLevel!: number;
   // #endregion PUBLIC
 
@@ -54,8 +53,6 @@ export class LibConfigSenhaComponent implements OnInit {
     LEVEL: new FormControl<number>(0)
   });
 
-
-  // public get TENANT_ID(): number { return this.form.get('TENANT_ID')?.value }
   public get ID(): number { return this.form.get('ID')?.value }
   public get LEVEL(): number { return this.form.get('LEVEL')?.value }
   // #endregion FORM FIELDS
@@ -78,8 +75,8 @@ export class LibConfigSenhaComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this._dominio.validateTenant(this.tenantId);
-    this.getInitialConfigSenha();
+    this._dominio.validateTenant(this._localTenantId);
+    this.getInfraSegConfig();
     
     this._route.data.subscribe(response => {
       this.keyWorld = (response['keyWorld'])
@@ -95,26 +92,27 @@ export class LibConfigSenhaComponent implements OnInit {
   // #endregion PREPARATION
 
   // #region GET
-  getInitialConfigSenha() {
-    this.getInfraSegConfig();
-  }
-
   private getInfraSegConfig(): void {
-    this._configuracaoSenhaService.getInfraSegConfig(this.tenantId).subscribe({
+    this._configuracaoSenhaService.getInfraSegConfig().subscribe({
       next: response => {
-        this.infraSegConfigData = response.InfraSegConfig;
+        this.$infraSegConfigRecord = response.InfraSegConfig;
 
-        this.form.setValue(response.InfraSegConfig);
+        this.form.patchValue({
+          ...this.form,
+          ...response.InfraSegConfig
+        });
 
         this.initialLevel = response.InfraSegConfig.LEVEL || 0;
-        this.form.get('TENANT_ID')?.setValue(this.tenantId);
+        
+        console.log("this._localTenantId", this._localTenantId);
+        this.form.controls['TENANT_ID'].setValue(this._localTenantId);
 
         this.onSelectLevel(this.LEVEL);
       },
       error: error => {
         // this._projectUtilservice.showHttpError(error)
         this.onSelectLevel(this.LEVEL);
-        this.infraSegConfigData = new InfraSegConfig();
+        this.$infraSegConfigRecord = new InfraSegConfig();
 
         throw new Error(error);
       }
@@ -136,8 +134,8 @@ export class LibConfigSenhaComponent implements OnInit {
           // if (this.ID != 0) this._messageService.showAlertSuccess('Configuração de senha alterada com sucesso!');
           // else              this._messageService.showAlertSuccess('Configuração de senha criada com sucesso!');
 
-          this._configuracaoSenhaService.getInfraSegConfig(this.tenantId);
-          this.getInitialConfigSenha();
+          this._configuracaoSenhaService.getInfraSegConfig();
+          this.getInfraSegConfig();
         },
         error: error => {
           // this._projectUtilservice.showHttpError(error);
@@ -254,8 +252,7 @@ export class LibConfigSenhaComponent implements OnInit {
 
   }
 
-  
-  onSubmit() {
+  public onSubmit() {
     this.createOrUpdateInfraSegConfig();
   }
   // #endregion ==========> UTILS <==========
