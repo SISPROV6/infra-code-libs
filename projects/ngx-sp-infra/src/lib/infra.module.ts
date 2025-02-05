@@ -133,6 +133,7 @@ import { LibConfigSenhaComponent } from './components/lib-config-senha/lib-confi
     AppliedFiltersComponent,
     FormatByTypePipe,
     LibNavProdutosComponent,
+
     LibConfigSenhaComponent,
   ],
   imports: [
@@ -204,6 +205,8 @@ import { LibConfigSenhaComponent } from './components/lib-config-senha/lib-confi
     AppliedFiltersComponent,
     FormatByTypePipe,
     LibNavProdutosComponent,
+
+    LibConfigSenhaComponent,
   ],
   providers: [],
 })
