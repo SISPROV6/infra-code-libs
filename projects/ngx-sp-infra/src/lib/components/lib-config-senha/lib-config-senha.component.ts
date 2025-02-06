@@ -7,6 +7,7 @@ import { MessageService } from '../../message/message.service';
 import { InfraSegConfig } from '../../models/config-senha/7Db/InfraSegConfig.record';
 import { ConfiguracaoSenhaService } from '../../service/configuracao-senha.service';
 import { TenantService } from '../../service/tenant.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'lib-config-senha',
@@ -63,9 +64,8 @@ export class LibConfigSenhaComponent implements OnInit {
   constructor(
     private _configuracaoSenhaService: ConfiguracaoSenhaService,
     private _messageService: MessageService,
-    // private _route: ActivatedRoute,
-    private _dominio: TenantService
-
+    private _dominio: TenantService,
+    private _title: Title
     
     // private _projectUtilservice: ProjectUtilservice,
     // private _projectService: ProjectService,
@@ -74,6 +74,8 @@ export class LibConfigSenhaComponent implements OnInit {
   }
   
   ngOnInit(): void {
+    this._title.setTitle("Configuração de Senha");
+    
     this._dominio.validateTenant(this._localTenantId);
     this.getInfraSegConfig();
   }
