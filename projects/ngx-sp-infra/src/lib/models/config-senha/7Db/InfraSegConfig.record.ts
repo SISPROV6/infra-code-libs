@@ -10,5 +10,5 @@ export class InfraSegConfig {
   public QTNTENTATIVA : number =-1;
   public QTNREPETICAO: number = -1;
   public IS_DROPSESSION : boolean = false;
-  public LEVEL: number= 0;
+  public Level: number= 0;
 }

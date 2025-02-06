@@ -11,25 +11,25 @@
       <div class="d-flex justify-content-start align-items-center">
         <div class="mb-3">
           <h2 class="fs-5">Atualmente seu nível de segurança é 
-              <span class="rounded text-white p-1 strong fw-bold"
+              <span class="rounded text-white p-1 px-2 fw-bold"
                 [ngClass]="{
-                  'bg-danger': initialLevel === 0,
-                  'bg-warning': initialLevel === 1,
-                  'bg-success': initialLevel === 2,
-                  'bg-primary': initialLevel === 3,
+                  'bg-danger': initialLevel === 1,
+                  'bg-warning': initialLevel === 2,
+                  'bg-success': initialLevel === 3,
+                  'bg-primary': initialLevel === 4,
                 }" >
 
                 @switch (initialLevel) {
-                  @case (0) { Baixo }
-                  @case (1) { <span class="text-dark">Médio</span> }
-                  @case (2) { Alto }
-                  @case (3) { Personalizado }
+                  @case (1) { Baixo }
+                  @case (2) { Médio }
+                  @case (3) { Alto }
+                  @case (4) { Personalizado }
                 }
 
-                <!-- <strong *ngIf="initialLevel === 0"> Baixo </strong>
-                <strong class="text-dark" *ngIf="initialLevel === 1"> Médio </strong>
-                <strong *ngIf="initialLevel === 2"> Alto </strong>
-                <strong *ngIf="initialLevel === 3"> Personalizado </strong> -->
+                <!-- <strong *ngIf="initialLevel === 1"> Baixo </strong>
+                <strong class="text-dark" *ngIf="initialLevel === 2"> Médio </strong>
+                <strong *ngIf="initialLevel === 3"> Alto </strong>
+                <strong *ngIf="initialLevel === 4"> Personalizado </strong> -->
               </span>
           </h2>
         </div>
@@ -38,17 +38,17 @@
         <div class="card-body">
             <h3 class="card-subtitle mb-2 text-muted fs-6">Selecione um nível de segurança abaixo:</h3>
 
-            <input formControlName="LEVEL" type="radio" class="btn-check" name="LEVEL" id="option1" autocomplete="off" [value]="0" (change)="onSelectLevel(LEVEL)" >
-            <label [class.btn-outline-danger]="LEVEL === 0" [class.bg-danger]="LEVEL === 0" class="btn btn-secondary m-2" for="option1"><lib-icon iconName="cadeado-aberto-outline"/> Baixo </label>
+            <input formControlName="Level" type="radio" class="btn-check" name="Level" id="option1" autocomplete="off" [value]="1" (change)="onSelectLevel(Level)" >
+            <label [class.btn-outline-danger]="Level === 1" [class.bg-danger]="Level === 1" class="btn btn-secondary m-2" for="option1"><lib-icon iconName="cadeado-aberto-outline"/> Baixo </label>
 
-            <input formControlName="LEVEL" type="radio" class="btn-check" name="LEVEL" id="option2" autocomplete="off" [value]="1" (change)="onSelectLevel(LEVEL)" >
-            <label [class.bg-warning]="LEVEL === 1" [class.btn-outline-warning]="LEVEL === 1" class=" btn btn-secondary m-2" for="option2"><lib-icon iconName="cadeado-semiaberto-outline"/> Médio</label>
+            <input formControlName="Level" type="radio" class="btn-check" name="Level" id="option2" autocomplete="off" [value]="2" (change)="onSelectLevel(Level)" >
+            <label [class.bg-warning]="Level === 2" [class.btn-outline-warning]="Level === 2" class=" btn btn-secondary text-light m-2" for="option2"><lib-icon iconName="cadeado-semiaberto-outline"/> Médio</label>
 
-            <input formControlName="LEVEL" (change)="onSelectLevel(LEVEL)" type="radio" class="btn-check" name="LEVEL" id="option3" autocomplete="off" [value]="2" >
-            <label [class.btn-outline-success]="LEVEL === 2" [class.bg-success]="LEVEL === 2" class="btn btn-secondary m-2" for="option3"><lib-icon iconName="cadeado-outline"/> Alto</label>
+            <input formControlName="Level" type="radio" class="btn-check" name="Level" id="option3" autocomplete="off" [value]="3" (change)="onSelectLevel(Level)" >
+            <label [class.btn-outline-success]="Level === 3" [class.bg-success]="Level === 3" class="btn btn-secondary m-2" for="option3"><lib-icon iconName="cadeado-outline"/> Alto</label>
 
-            <input formControlName="LEVEL" (change)="onSelectLevel(LEVEL)" type="radio" class="btn-check" name="LEVEL" id="option4" autocomplete="off" [value]="3" >
-            <label [class.btn-outline-primary]="LEVEL === 3" [class.bg-primary]="LEVEL === 3" class="btn btn-secondary m-2" for="option4"><lib-icon iconName="chave"/> Personalizado</label>
+            <input formControlName="Level" type="radio" class="btn-check" name="Level" id="option4" autocomplete="off" [value]="4" (change)="onSelectLevel(Level)" >
+            <label [class.btn-outline-primary]="Level === 4" [class.bg-primary]="Level === 4" class="btn btn-secondary m-2" for="option4"><lib-icon iconName="chave"/> Personalizado</label>
         </div>
     </div>
 
@@ -59,15 +59,15 @@
             <div class="col-3">
                 <div class="form-check form-switch">
                     <label class="form-check-label" for="numeros"> Números </label>
-                    <input formControlName="IS_NUMEROS" class="form-check-input" type="checkbox" role="switch" id="numeros">
+                    <input formControlName="Is_Numeros" class="form-check-input" type="checkbox" role="switch" id="numeros">
                 </div>
                 <div class="form-check form-switch">
                     <label class="form-check-label" for="letraMaiuscula"> Letra Maúscula </label>
-                    <input formControlName="IS_LETRASMAIUSCULAS" class="form-check-input" type="checkbox" role="switch" id="letraMaiuscula">
+                    <input formControlName="Is_LetrasMaiusculas" class="form-check-input" type="checkbox" role="switch" id="letraMaiuscula">
                 </div>
                 <div class="form-check form-switch">
                     <label class="form-check-label" for="caracteresEspeciais">Caractere especial</label>
-                    <input formControlName="IS_CARACTERESESPECIAIS" class="form-check-input" type="checkbox" role="switch" id="caracteresEspeciais">
+                    <input formControlName="Is_CaracteresEspeciais" class="form-check-input" type="checkbox" role="switch" id="caracteresEspeciais">
                 </div>
             </div>
 
@@ -76,24 +76,24 @@
                     <lib-icon iconName="info" iconSize="small" iconColor="blue" tooltip="Informe a quantidade em dias que a senha será válida, após este período a senha deverá ser trocada pelo usuário." />
                     Validade em dias
                 </label>
-                <input formControlName="QTNTROCASENHA" type="number" class="form-control form-input" id="qtnTrocaSenhaInput" tooltip="Informe a quantidade em dias que a senha será válida, após este período a senha deverá ser trocada pelo usuário." >
-                <app-field-error-message [control]="form.get('QTNTROCASENHA')"></app-field-error-message>
+                <input formControlName="QtnTrocaSenha" type="number" class="form-control form-input" id="qtnTrocaSenhaInput" tooltip="Informe a quantidade em dias que a senha será válida, após este período a senha deverá ser trocada pelo usuário." >
+                <app-field-error-message [control]="form.get('QtnTrocaSenha')"></app-field-error-message>
             </div>
             <div class="col-3">
                 <label libRequired class="form-label form-control-sm" for="qtnMinimaInput">
                     <lib-icon iconName="info" iconSize="small" iconColor="blue" tooltip="Informe a quantidade mínima de caracteres que a senha deve ter." />
                     Tamanho mínimo
                 </label>
-                <input formControlName="QTNMINIMA" type="number" class="form-control form-input" id="qtnMinimaInput" tooltip="Informe a quantidade mínima de caracteres que a senha deve ter.">
-                <app-field-error-message [control]="form.get('QTNMINIMA')"></app-field-error-message>
+                <input formControlName="QtnMinima" type="number" class="form-control form-input" id="qtnMinimaInput" tooltip="Informe a quantidade mínima de caracteres que a senha deve ter.">
+                <app-field-error-message [control]="form.get('QtnMinima')"></app-field-error-message>
             </div>
             <div class="col-3">
                 <label libRequired class="form-label form-control-sm" for="qtnRepeticaoInput">
                   <lib-icon iconName="info" iconSize="small" iconColor="blue" tooltip="Informe quantas senhas diferentes o usuário deverá usar antes que possa repetir alguma já utilizada." />
                   Repetição
                 </label>
-                <input formControlName="QTNREPETICAO" type="number" class="form-control form-input" id="qtnRepeticaoInput" tooltip="Informe quantas senhas diferentes o usuário deverá usar antes que possa repetir alguma já utilizada.">
-                <app-field-error-message [control]="form.get('QTNREPETICAO')"></app-field-error-message>
+                <input formControlName="QtnRepeticao" type="number" class="form-control form-input" id="qtnRepeticaoInput" tooltip="Informe quantas senhas diferentes o usuário deverá usar antes que possa repetir alguma já utilizada.">
+                <app-field-error-message [control]="form.get('QtnRepeticao')"></app-field-error-message>
             </div>
             
             <!-- <div class="container col row">
@@ -108,7 +108,7 @@
         <div class="row">
             <!-- <div class="col-2 form-check form-switch">
                 <label class="form-check-label" for="isDropSessionCheck"> Derrubar multiplas sessões</label>
-                <input class="form-check-input" id="isDropSessionCheck" formControlName="IS_DROPSESSION" type="checkbox" role="switch" [value]="IS_DROPSESSION">
+                <input class="form-check-input" id="isDropSessionCheck" formControlName="Is_DropSession" type="checkbox" role="switch">
             </div> -->
             
             <div class="col-3">
@@ -116,16 +116,16 @@
                     <lib-icon iconName="info" iconSize="small" iconColor="blue" tooltip="Informe quantos dias um usuário poderá ficar sem entrar no sistema, ao exceder este número o usuário será desativado perdendo o acesso ao sistema, e somente os Administradores poderão ativá-lo novamente." />
                     Dias de Inatividade
                 </label>
-                <input  id="diasInatividadeInput" formControlName="QTNINATIVIDADE" type="number" class="form-control form-input" tooltip="Informe quantos dias um usuário poderá ficar sem entrar no sistema, ao exceder este número o usuário será desativado perdendo o acesso ao sistema, e somente os Administradores poderão ativá-lo novamente.">
-                <app-field-error-message [control]="form.get('QTNINATIVIDADE')"></app-field-error-message>
+                <input  id="diasInatividadeInput" formControlName="QtnInatividade" type="number" class="form-control form-input" tooltip="Informe quantos dias um usuário poderá ficar sem entrar no sistema, ao exceder este número o usuário será desativado perdendo o acesso ao sistema, e somente os Administradores poderão ativá-lo novamente.">
+                <app-field-error-message [control]="form.get('QtnInatividade')"></app-field-error-message>
             </div>
             <div class="col-3">
                 <label libRequired class="form-label form-control-sm" for="tentativasDeAcessoInput">
                     <lib-icon iconName="info" iconSize="small" iconColor="blue" tooltip="Informe a quantidade de tentativas consecutivas de acesso ao sistema sem sucesso antes de bloquear o usuário, exigindo que ele faça uma recuperação de senha." />
                     Tentativas de acesso
                 </label>
-                <input id="tentativasDeAcessoInput" formControlName="QTNTENTATIVA" type="number" class="form-control form-input" tooltip="Informe a quantidade de tentativas consecutivas de acesso ao sistema sem sucesso antes de bloquear o usuário, exigindo que ele faça uma recuperação de senha.">
-                <app-field-error-message [control]="form.get('QTNTENTATIVA')"></app-field-error-message>
+                <input id="tentativasDeAcessoInput" formControlName="QtnTentativa" type="number" class="form-control form-input" tooltip="Informe a quantidade de tentativas consecutivas de acesso ao sistema sem sucesso antes de bloquear o usuário, exigindo que ele faça uma recuperação de senha.">
+                <app-field-error-message [control]="form.get('QtnTentativa')"></app-field-error-message>
             </div>
 
             <!-- <div class="container col-6 row">

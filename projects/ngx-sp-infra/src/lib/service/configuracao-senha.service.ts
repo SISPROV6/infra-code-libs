@@ -37,10 +37,7 @@ export class ConfiguracaoSenhaService {
 
   // #region GET
   public getInfraSegConfig(): Observable<RetInfraSegConfig>{
-    console.log(this._authToken);
-    
     const params = new HttpParams().set('TENANT_ID', this._authToken!.__tenantId);
-    console.log(params);
 
     const headers = this._HTTP_HEADERS
       .set('Authorization', `Bearer ${this._authToken?.__authToken}`);
@@ -54,8 +51,6 @@ export class ConfiguracaoSenhaService {
 
   // #region POST
   public createOrUpdateInfraSegConfig(record: InfraSegConfig): Observable<RetInfraSegConfig> {
-    console.log(this._authToken);
-    
     const headers = this._HTTP_HEADERS
       .set('Authorization', `Bearer ${this._authToken?.__authToken}`);
 
