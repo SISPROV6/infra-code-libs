@@ -62,7 +62,7 @@ jobs:
 
     - name: Build the library and add tags
       if: env.should_publish == 'true'
-      run: npm run build
+      run: npm run build ngx-sp-infra
 
     - name: Get the version tag
       run: |
