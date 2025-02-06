@@ -138,3 +138,4 @@ export * from './lib/widgets/search-filters/search-filters.component';
 export * from './lib/widgets/side-tabs-generic/side-tabs-generic.component';
 export * from './lib/widgets/simple-search/simple-search.component';
 export * from './lib/widgets/lib-nav-produtos/lib-nav-produtos.component';
+export * from './lib/components/lib-config-senha/lib-config-senha.component';

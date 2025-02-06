@@ -70,6 +70,7 @@ import { InnerListComponent } from './widgets/lib-transfer-list/inner-list/inner
 import { AppliedFiltersComponent } from './widgets/applied-filters/applied-filters.component';
 import { FormatByTypePipe } from './pipes/format-by-type.pipe';
 import { LibNavProdutosComponent } from './widgets/lib-nav-produtos/lib-nav-produtos.component';
+import { LibConfigSenhaComponent } from './components/lib-config-senha/lib-config-senha.component';
 
 @NgModule({
   declarations: [
@@ -132,6 +133,8 @@ import { LibNavProdutosComponent } from './widgets/lib-nav-produtos/lib-nav-prod
     AppliedFiltersComponent,
     FormatByTypePipe,
     LibNavProdutosComponent,
+
+    LibConfigSenhaComponent,
   ],
   imports: [
     CommonModule,
@@ -202,6 +205,8 @@ import { LibNavProdutosComponent } from './widgets/lib-nav-produtos/lib-nav-prod
     AppliedFiltersComponent,
     FormatByTypePipe,
     LibNavProdutosComponent,
+
+    LibConfigSenhaComponent,
   ],
   providers: [],
 })
