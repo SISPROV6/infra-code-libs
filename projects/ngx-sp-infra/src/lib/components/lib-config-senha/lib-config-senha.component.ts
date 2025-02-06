@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 
 import { FormUtils } from '../../utils/form-utils';
 import { MessageService } from '../../message/message.service';
@@ -19,12 +18,14 @@ export class LibConfigSenhaComponent implements OnInit {
   // #region ==========> PROPERTIES <==========
 
   // #region PRIVATE
-  private _localTenantId = JSON.parse(localStorage["user_auth_v6"]).__tokenPayload.tenantId ?? 0;
+  private readonly user_auth_v6 = localStorage["user_auth_v6"] ?? "{}";
+  private readonly __tokenPayload = JSON.parse(this.user_auth_v6).__tokenPayload ?? { tenantId: 1579 };
+
+  private _localTenantId = this.__tokenPayload.tenantId ?? 0;
   // #endregion PRIVATE
 
   // #region PUBLIC
   public menuGroup!: string;
-  public keyWorld!: string;
   public $infraSegConfigRecord?: InfraSegConfig;
   public initialLevel!: number;
   // #endregion PUBLIC
@@ -62,7 +63,7 @@ export class LibConfigSenhaComponent implements OnInit {
   constructor(
     private _configuracaoSenhaService: ConfiguracaoSenhaService,
     private _messageService: MessageService,
-    private _route: ActivatedRoute,
+    // private _route: ActivatedRoute,
     private _dominio: TenantService
 
     
@@ -75,10 +76,6 @@ export class LibConfigSenhaComponent implements OnInit {
   ngOnInit(): void {
     this._dominio.validateTenant(this._localTenantId);
     this.getInfraSegConfig();
-    
-    this._route.data.subscribe(response => {
-      this.keyWorld = (response['keyWorld'])
-    })
   }
   // #endregion ==========> INITIALIZATION <==========
 
@@ -91,17 +88,12 @@ export class LibConfigSenhaComponent implements OnInit {
       next: response => {
         this.$infraSegConfigRecord = response.InfraSegConfig;
 
-        console.log(this.$infraSegConfigRecord);
-        console.log(response);
         this.form.patchValue({
           ...this.form.value,
           ...response.InfraSegConfig
         });
-        console.log(this.form);
         
         this.initialLevel = response.InfraSegConfig.Level || 1;
-        console.log(this.initialLevel);
-
         this.form.controls['Tenant_Id'].setValue(this._localTenantId);
 
         this.onSelectLevel(this.Level);

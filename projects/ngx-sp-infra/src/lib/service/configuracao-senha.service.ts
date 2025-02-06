@@ -20,7 +20,7 @@ export class ConfiguracaoSenhaService {
   private readonly _HTTP_HEADERS = new HttpHeaders()
     .set('Content-Type', 'application/json');
 
-  private _authToken?: AuthToken = JSON.parse(localStorage["user_auth_v6"]);
+  private _authToken?: AuthToken = JSON.parse(localStorage["user_auth_v6"] ?? "{}");
   // #endregion PRIVATE
 
   // #endregion ==========> PROPERTIES <==========
