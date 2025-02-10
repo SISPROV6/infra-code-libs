@@ -24,7 +24,7 @@
          <li *ngIf="innerControl.value !== '' && innerControl.value !== null" class="dropdown-item" (click)="clearValue()"> <span class="fw-bold">Limpar opção selecionada</span> </li>
          @for (item of list | textFilter:textoPesquisa; track $index) {
             <li class="dropdown-item" (click)="setValue(item)">
-               <span *ngIf="item.AdditionalStringProperty1 && item.AdditionalStringProperty1 !== ''" class="glb-fs-12 fw-bold d-inline-block w-125">
+               <span *ngIf="item.AdditionalStringProperty1 && item.AdditionalStringProperty1 !== ''" class="glb-fs-12 d-inline-block w-125" [class.fw-bold]="additionalStringBold">
                   {{ item.AdditionalStringProperty1 + (separator === undefined ? "" : " "+separator) }}
                </span> {{ item.LABEL }}
             </li>

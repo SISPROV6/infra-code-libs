@@ -156,6 +156,12 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
   */
   @Input() public returnRecord?: boolean = false;
 
+  /** (opcional) Define se o código extra chamado 'AdditionalStringProperty1' será exibido em negrito ou não.
+   * @type { boolean }
+   * @default true
+  */
+  @Input() public additionalStringBold?: boolean = true;
+
   /** Evento emitido ao recarregar a lista de registros
    * @example Ao ser emitido, o componente pai pode refazer o GET da lista, por exemplo.
    * @emits EventEmitter<string> que leva o valor string da pesquisa feita para ser enviada para o GET
@@ -268,21 +274,28 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
    * Por padrão ele priorizará a propriedade libRequired para esta validação. */
   private setValidator(): void {
     if (this.libRequired !== undefined) {
+      console.log("this.libRequired !== undefined");
+      
       if (this.libRequired) {
+        console.log("this.libRequired");
         this.innerControl.addValidators(Validators.required);
         this.isRequired = true;
       }
       else {
+        console.log("else this.libRequired");
         this.innerControl.removeValidators(Validators.required);
         this.isRequired = false;
       }
     }
     else {
+      console.log("else this.libRequired !== undefined");
       if (this._outerControl.hasValidator(Validators.required)) {
+        console.log("this._outerControl.hasValidator(Validators.required)");
         this.innerControl.addValidators(Validators.required);
         this.isRequired = true;
       }
       else {
+        console.log("else this._outerControl.hasValidator(Validators.required)");
         this.innerControl.removeValidators(Validators.required);
         this.isRequired = false;
       }
