@@ -274,28 +274,21 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
    * Por padrão ele priorizará a propriedade libRequired para esta validação. */
   private setValidator(): void {
     if (this.libRequired !== undefined) {
-      console.log("this.libRequired !== undefined");
-      
       if (this.libRequired) {
-        console.log("this.libRequired");
         this.innerControl.addValidators(Validators.required);
         this.isRequired = true;
       }
       else {
-        console.log("else this.libRequired");
         this.innerControl.removeValidators(Validators.required);
         this.isRequired = false;
       }
     }
     else {
-      console.log("else this.libRequired !== undefined");
       if (this._outerControl.hasValidator(Validators.required)) {
-        console.log("this._outerControl.hasValidator(Validators.required)");
         this.innerControl.addValidators(Validators.required);
         this.isRequired = true;
       }
       else {
-        console.log("else this._outerControl.hasValidator(Validators.required)");
         this.innerControl.removeValidators(Validators.required);
         this.isRequired = false;
       }
@@ -323,7 +316,6 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
         this.invalidControl = false;
         this.innerControl.disable();
         break;
-
     }
   }
 

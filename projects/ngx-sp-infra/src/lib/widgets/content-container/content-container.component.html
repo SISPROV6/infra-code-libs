@@ -1,20 +1,61 @@
-@if (tabs && tabs.length > 0) {
-   <div class="nav nav-tabs" id="nav-tab" role="tablist">
-      @for (item of tabs; track $index) {
-         <button id="nav-tab-{{$index}}" type="button" role="tab" aria-controls="nav-home" aria-selected="true"
-            [class]="currentTab === item ? 'nav-link active' : 'nav-link'"
-            [ngClass]="{ 'tx-lib-light': documentation().theme === 'dark', 'tx-lib-dark': documentation().theme === 'light' }"
-            (click)="currentTab = item; currentContent = $index" > {{ item }} </button>
-      }
-   </div>
+@if ((tabs && tabs.length > 0) || (advancedTabs && advancedTabs.length > 0)) {
+
+   @if (isTabsString) {
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+         @for (tabName of tabs; track $index) {
+            <button id="nav-tab-{{$index}}" type="button" role="tab" aria-controls="nav-home" aria-selected="true"
+               [class]="currentTab === tabName ? 'nav-link active' : 'nav-link'"
+               [ngClass]="{ 'tx-lib-light': documentation().theme === 'dark', 'tx-lib-dark': documentation().theme === 'light' }"
+               (click)="currentTab = tabName; currentContent = $index" > {{ tabName }} </button>
+         }
+      </div>
+   }
+   @else {
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+         @for (tab of advancedTabs; track $index) {
+
+            @switch(tab.type) {
+               @case('text') {
+                  <button *ngIf="tab.visible" id="nav-tab-{{$index}}" type="button" role="tab" aria-controls="nav-home" aria-selected="true"
+                     [class]="currentTab === tab.name ? 'nav-link active' : 'nav-link'"
+                     [class.disabled]="tab.available === false" [class.tx-lib-muted]="!tab.available"
+                     [ngClass]="{ 'tx-lib-light': documentation().theme === 'dark', 'tx-lib-dark': documentation().theme === 'light' }"
+                     (click)="currentTab = tab.name; currentContent = $index" [attr.tabindex]="$index" > {{ tab.name }} </button>
+               }
+
+               @case('link') {
+                  <a *ngIf="tab.visible" id="nav-tab-{{$index}}" type="button" role="tab" aria-controls="nav-home" aria-selected="true"
+                     [class]="currentTab === tab.name ? 'nav-link active' : 'nav-link'"
+                     [class.disabled]="tab.available === false" [class.tx-lib-muted]="!tab.available"
+                     [ngClass]="{ 'tx-lib-light': documentation().theme === 'dark', 'tx-lib-dark': documentation().theme === 'light' }"
+                     (click)="currentTab = tab.name; currentContent = $index" (keyup.enter)="null" [attr.tabindex]="$index"
+                     [routerLink]="tab.linkText" routerLinkActive="router-link-active" tooltip="Esta aba redireciona para um link externo" >
+
+                     <span class="me-2"> {{ tab.name }} </span>
+                     <lib-icon iconName="acessoexterno" [iconSize]="16" />
+                  </a>
+               }
+
+               @default {
+                  <button *ngIf="tab.visible" id="nav-tab-{{$index}}" type="button" role="tab" aria-controls="nav-home" aria-selected="true"
+                     [class]="currentTab === tab.name ? 'nav-link active' : 'nav-link'"
+                     [class.disabled]="tab.available === false" [class.tx-lib-muted]="!tab.available"
+                     [ngClass]="{ 'tx-lib-light': documentation().theme === 'dark', 'tx-lib-dark': documentation().theme === 'light' }"
+                     (click)="currentTab = tab.name; currentContent = $index" [attr.tabindex]="$index" > {{ tab.name }} </button>
+               }
+            }
+
+         }
+      </div>
+   }
 }
 
 <div class="content-container tab p-3 mb-3"
    [ngClass]="{
-      'tab': tabs && tabs.length > 0,
-      'rounded': currentContent !== 0 && (tabs && tabs.length > 0)
+      'tab': (tabs && tabs.length > 0) || (advancedTabs && advancedTabs.length > 0),
+      'rounded': currentContent !== 0 && ((tabs && tabs.length > 0) || (advancedTabs && advancedTabs.length > 0))
    }" >
-   <h5 *ngIf="containerTitle && (!tabs || tabs.length === 0)"
+   <h5 *ngIf="containerTitle && ((!tabs || tabs.length === 0) && (!advancedTabs || advancedTabs.length === 0))"
       class="fw-bold border-bottom mb-3 pb-3"> {{ containerTitle }} </h5>
 
    @switch (currentContent) {

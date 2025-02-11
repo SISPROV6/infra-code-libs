@@ -47,6 +47,8 @@ export * from './lib/models/filtros-aplicados/filtros-aplicados.model';
 export * from './lib/widgets/lib-nav-produtos/models/navigation-options.model';
 export * from './lib/widgets/table/models/header-structure.model';
 
+export * from './lib/models/container/container-tabs.model';
+
 
 /** Pipes */
 export * from './lib/pipes/cpf-cnpj.pipe';
