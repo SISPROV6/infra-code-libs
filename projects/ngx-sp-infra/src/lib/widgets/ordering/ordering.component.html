@@ -1,0 +1,25 @@
+<ng-template [ngIf]="sortDirection !== 'desc'">
+  <lib-icon
+    (click)="sort()"
+    [iconName]="'seta-cima'"
+    [class.rotate]="sortDirection !== ''"
+    [iconColor]="getSvgColor()"
+    tooltip="Crescente"
+    style="cursor: pointer;"
+    [iconSize]="20"
+  ></lib-icon>
+  <!-- Ordenar Crescente -->
+</ng-template>
+
+<ng-template [ngIf]="sortDirection === 'desc'">
+  <lib-icon
+    (click)="sort()"
+    [iconName]="'seta-baixo'"
+    [class.rotate]="true"
+    [iconColor]="'blue'"
+    tooltip="Decrescente"
+    style="cursor: pointer;"
+    [iconSize]="20"
+  ></lib-icon>
+  <!-- Ordenar Decrescente -->
+</ng-template>

@@ -1,0 +1,13 @@
+<accordion [isAnimated]="true" [class.mt-3]="haveMarginTop" (click)="setIsOpen()" >
+	<accordion-group class="p-0" [isOpen]="isOpen ?? false" >
+		<button accordion-heading class="btn btn-link d-flex align-items-center justify-content-between w-100 px-0 fw-bold" >
+			{{ name }}
+			<lib-icon *ngIf="haveArrow" #icon iconName="seta-{{iconDirection}}" />
+		</button>
+
+		<div>
+			<!-- Este conteúdo abaixo será o conteúdo customizado informado pelo componente pai -->
+			<ng-content></ng-content>
+		</div>
+	</accordion-group>
+</accordion>

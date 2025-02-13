@@ -1,0 +1,48 @@
+<div class="h-100 w-100 border rounded">
+   <div class="list-title">
+      <span class="fw-bold fs-5"> {{ title }} </span>
+      <span class="glb-text-dark-disabled"> {{this.selected.length}}/{{list ? list.length : "?"}} selecionados </span>
+   </div>
+
+
+   <div *ngIf="useSearch" class="input-group">
+      <input #listSearch type="text" class="form-control m-0 rounded-0" [placeholder]="searchPlaceholder"
+         (input)="textoPesquisa = listSearch.value">
+      <button class="btn btn-outline-primary rounded-0" tooltip="Limpar pesquisa"
+         (click)="listSearch.value = ''; textoPesquisa = ''"> <lib-icon iconName="lixeira" /> </button>
+   </div>
+
+
+   <div class="mb-2 p-0">
+      <lib-table divBorderClass="rounded-0" tableBorderClass="border-top-0 border-start-0 border-end-0"
+         [useSelection]="useSelection ?? true" [selection]="selecaoGeral" [selectedCount]="this.selected.length"
+         [paginationID]="paginationID" [list]="list" [showCounter]="false" [counts]="counts ?? [ 5, 10, 20 ]"
+         [headers]="[
+            { name: identifierColumn ?? 'Código', widthClass: 'col-3' },
+            { name: labelColumn ?? 'Descrição', widthClass: 'col-9' }
+         ]"
+         (selectionChange)="definirSelecaoTotal(list, $event); updateSelected()"
+         (itemsPerPageChange)="itemsPerPage = $event"
+         (pageChange)="page = $event" >
+         @for (item of list! | textFilter:textoPesquisa | paginate: { id: paginationID, itemsPerPage: itemsPerPage, currentPage: page }; track item.ID) {
+            <tr innerRows class="align-middle">
+              <td *ngIf="useSelection">
+                  <div class="form-check">
+                     <input class="form-check-input" type="checkbox" [ngModel]="selecaoMap.get(item.ID)"
+                        (ngModelChange)="inverterSelecao(item.ID); updateSelected()" [attr.aria-checked]="selecaoMap.get(item.ID)">
+                  </div>
+              </td>
+              <td> {{ item.ID }} </td>
+               <td class="text-start"> {{ item.LABEL }} </td>
+            </tr>
+        }
+        @empty {
+         <tr innerRows>
+            <td colspan="12" class="align-middle text-center p-4 text-dark-grey">
+               <span> Não há dados para serem listados. </span>
+            </td>
+         </tr>
+        }
+      </lib-table>
+   </div>
+</div>

@@ -1,0 +1,20 @@
+<div *ngIf="filtrosAplicados && filtrosAplicados.length > 0" class="d-flex flex-row my-3">
+   <div class="filter-list-text pe-1 fw-bold fs-6">Filtros:</div>
+   <div class="filter-list ps-1 d-flex flex-row flex-wrap gap-2 px-1">
+      @for (filtro of filtrosAplicados; track $index) {
+         <button *ngIf="filtro.value !== undefined && filtro.value !== null && filtro.value !== ''" class="btn btn-sm btn-outline-{{theme}} rounded-pill gap-2 position-relative">
+            <b>{{ aliasNames[$index] }}</b>: {{ filtro.value | formatByType }}
+
+            <span *ngIf="Array.isArray(filtro.value) && filtro.value.length > 1" class="badge text-bg-{{theme}}"
+               [tooltip]="filtro.value.join(', ')" >
+               {{ filtro.value.length }} selecionados
+            </span>
+
+            <lib-icon iconName="fechar" iconSize="small" tooltip="Limpar este campo" (click)="clearFilter(filtro.label)" />
+         </button>
+      }
+      @empty {
+         <span>Nenhum filtro efetivamente aplicado</span>
+      }
+   </div>
+</div>

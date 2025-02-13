@@ -1,0 +1,20 @@
+<div class="d-flex flex-row">
+  <button class="chevron d-flex m-0 p-0 align-items-start" (click)="backToPrimary()"> 
+    <lib-icon iconName="seta-esquerda" iconSize="small"/>
+  </button>
+
+  <div class="d-flex flex-column flex-row">
+    <li *ngIf="modulo != null">
+      <img class="ms-1 mb-2" src="{{ modulo.icon }}" alt="{{ modulo.label }}">
+      <span>{{ modulo.label }}</span>
+    </li>
+    <div *ngIf="modulo && modulo.secondary_level != null">
+      <li *ngFor="let moduloItem of modulo.secondary_level;" (click)="redirectToModulo(moduloItem.URL)">
+        <a class="dropdown-item mb-2 ms-2">
+          <img src="{{ moduloItem.icon }}" alt="{{ moduloItem.label }}">
+          {{ moduloItem.label }}
+        </a>
+      <li>
+    </div>
+  </div>
+</div>

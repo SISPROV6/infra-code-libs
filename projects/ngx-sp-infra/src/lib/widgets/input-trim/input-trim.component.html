@@ -1,0 +1,8 @@
+<input
+  type="text"
+  [formControl]="control"
+  [placeholder]="placeholder"
+  class="form-control"
+  [class.is-invalid]="control.invalid && control.touched"
+  [ngClass]="{'text-uppercase': uppercase}"
+>

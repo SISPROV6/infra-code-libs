@@ -1,0 +1,25 @@
+<div class="d-flex flex-{{direction}} gap-2 w-100">
+   <lib-inner-list #firstList [class]="firstListClass" [title]="availableListConfig.title ?? 'Lista de opções disponíveis'" [list]="availableListConfig.list"
+      [counts]="availableListConfig.listCounts" [useSearch]="availableListConfig.useSearch" [useSelection]="true"
+      [searchPlaceholder]="availableListConfig.searchPlaceholder ?? 'Digite aqui para filtrar os dados'" [paginationID]="availableListID"
+      [identifierColumn]="availableListConfig.identifierColumn" [labelColumn]="availableListConfig.labelColumn"
+      (selectionChange)="firstListSelected = $event" />
+
+   <div class="col gap-2 align-items-center justify-content-center d-flex flex-{{iconDirections}}">
+      <button class="btn btn-{{isFirstListSelectionEmpty ? 'outline-' : ''}}primary" tooltip="Selecionar marcados" [disabled]="isFirstListSelectionEmpty"
+         (click)="selecionarRegistros()" >
+         <lib-icon [iconName]="selectIconName" />
+      </button>
+
+      <button *ngIf="!oneWay" class="btn btn-{{isSecondListSelectionEmpty ? 'outline-' : ''}}primary" tooltip="Remover da seleção" [disabled]="isSecondListSelectionEmpty"
+         (click)="removerSelecao()">
+         <lib-icon [iconName]="revertIconName" />
+      </button>
+   </div>
+
+   <lib-inner-list #secondList [class]="secondListClass" [title]="selectedListConfig.title ?? 'Lista de opções selecionadas'" [list]="selectedListConfig.list"
+      [counts]="selectedListConfig.listCounts" [useSearch]="selectedListConfig.useSearch" [useSelection]="!oneWay"
+      [identifierColumn]="selectedListConfig.identifierColumn" [labelColumn]="selectedListConfig.labelColumn"
+      [searchPlaceholder]="selectedListConfig.searchPlaceholder ?? 'Digite aqui para filtrar os dados'" [paginationID]="selectedListID"
+      (selectionChange)="secondListSelected = $event" />
+</div>
