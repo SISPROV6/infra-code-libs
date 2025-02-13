@@ -2,7 +2,7 @@ import { IMenuItemStructure } from "../../components/menu-lateral/model/imenu-it
 
 export interface IMenuConfig {
     menuOptions: IMenuItemStructure[];
-    isMenuStatic: boolean; 
+    isMenuStatic: boolean;
     initializeMenu(currentRoute: string, customList?: IMenuItemStructure[]): IMenuItemStructure[];
     initializeMenuDropdown(primaryDropdownList: Array<any>): Array<any>[];
 }

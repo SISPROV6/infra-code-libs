@@ -13,13 +13,8 @@
             </div>
 
             <div class="col d-flex flex-row align-items-center justify-content-end">
-               <ng-content select="[rightSideContent], [upperContent]"></ng-content>
+               <ng-content select="[rightSideContent]"></ng-content>
             </div>
-         </div>
-      }
-      @else {
-         <div class="mb-2">
-            <ng-content select="[upperContentFill]"></ng-content>
          </div>
       }
 

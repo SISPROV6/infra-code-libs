@@ -1,29 +1,25 @@
-<div class="d-flex flex-row w-100">
-
-  <!-- #region SEARCH -->
-  <div class="input-group search-input">
-    <span class="input-group-text search px-2 glb-bg-color-white"> <lib-icon iconName="lupa" iconColor="gray" iconSize="medium-small" class="d-flex align-items-center"/> </span>
-    <input type="text" class="form-control border-left-none ps-0" data-cy="searchFilters-input" [placeholder]="placeholder" [(ngModel)]="search"
-      (ngModelChange)="syncFilters()" (keyup.enter)="applyFilters()" >
-  </div>
-  <!-- #endregion SEARCH -->
-  
-  <!-- #region CAMPOS DE FILTRO CUSTOMIZADO -->
-  <ng-content></ng-content>
-  <!-- #endregion CAMPOS DE FILTRO CUSTOMIZADO -->
-  
-  <!-- #region FILTERS -->
-  <div class="d-flex filter-buttons ms-3">
-    <button data-cy="searchFilters-clear-btn" class="btn me-2 clear btn-outline-primary" (click)="clearFilters()"> Limpar </button>
-    <button data-cy="searchFilters-search-btn" class="btn ms-2 btn-outline-primary" (click)="applyFilters()"> Pesquisar </button>
-  </div>
-  <div *ngIf="useIsActive" class="d-flex filter-switch align-items-center ms-3">
-    <label class="form-check-label me-2" for="flexSwitchCheckChecked"> Ativos </label>
-    <div class="form-check form-switch">
-      <input data-cy="searchFilters-active-checkbox" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" [(ngModel)]="isActive"
-        (ngModelChange)="syncFilters()" (click)="isActive = !isActive; applyFilters()" >
-    </div>
-  </div>
-  <!-- #endregion FILTERS -->
-
+<!-- #region SEARCH -->
+<div class="input-group search-input">
+  <span class="input-group-text search px-2 glb-bg-color-white"> <lib-icon iconName="lupa" iconColor="gray" iconSize="medium-small" class="d-flex align-items-center"/> </span>
+  <input type="text" class="form-control border-left-none ps-0" data-cy="searchFilters-input" [placeholder]="placeholder" [(ngModel)]="search"
+    (ngModelChange)="syncFilters()" (keyup.enter)="applyFilters()" >
 </div>
+<!-- #endregion SEARCH -->
+
+<!-- #region CAMPOS DE FILTRO CUSTOMIZADO -->
+<ng-content></ng-content>
+<!-- #endregion CAMPOS DE FILTRO CUSTOMIZADO -->
+
+<!-- #region FILTERS -->
+<div class="d-flex filter-buttons ms-3">
+  <button data-cy="searchFilters-clear-btn" class="btn me-2 clear btn-outline-primary" (click)="clearFilters()"> Limpar </button>
+  <button data-cy="searchFilters-search-btn" class="btn ms-2 btn-outline-primary" (click)="applyFilters()"> Pesquisar </button>
+</div>
+<div *ngIf="useIsActive" class="d-flex filter-switch align-items-center ms-3">
+  <label class="form-check-label me-2" for="flexSwitchCheckChecked"> Ativos </label>
+  <div class="form-check form-switch">
+    <input data-cy="searchFilters-active-checkbox" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" [(ngModel)]="isActive"
+      (ngModelChange)="syncFilters()" (click)="isActive = !isActive; applyFilters()" >
+  </div>
+</div>
+<!-- #endregion FILTERS -->

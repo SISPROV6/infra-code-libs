@@ -1,15 +1,13 @@
-name: CI/CD
+name: GitHub Package | CI/CD
 
 on:
   push:
     branches:
-      - fixes
-      - main
       - next
       - test
 
 jobs:
-  run-unit-tests:
+  run-tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout do código
@@ -29,7 +27,7 @@ jobs:
 
 
   deploy-package:
-    needs: run-unit-tests  # Garantia que o job de deploy (CD) só execute após os testes (CI)
+    needs: run-tests  # Garantia que o job de deploy (CD) só execute após os testes (CI)
     if: ${{ success() }}  # Executa apenas se o job anterior for bem-sucedido
     
     runs-on: ubuntu-latest
@@ -43,7 +41,8 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '20'
-        registry-url: 'https://registry.npmjs.org'
+        registry-url: 'https://npm.pkg.github.com/'
+        scope: '@sisprov6'
 
     - name: Check if projects/ngx-sp-infra/package.json is modified
       id: changes
@@ -70,19 +69,17 @@ jobs:
         echo "Tag encontrada: $TAG"
         echo "TAG=$TAG" >> $GITHUB_ENV
 
-    - name: Publish to NPM
+    - name: Publish to GitHub Packages
       if: env.should_publish == 'true'
       env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH }}
+        NODE_AUTH_TOKEN: ${{ secrets.PACKAGES }}
       run: |
         cd dist/ngx-sp-infra
         
         if [ "${{ github.ref }}" == "refs/heads/main" ]; then
-          npm publish --access public --tag latest
+          npm publish --tag latest
         elif [ "${{ github.ref }}" == "refs/heads/test" ]; then
-          npm publish --access public --tag test
+          npm publish --tag test
         elif [ "${{ github.ref }}" == "refs/heads/next" ]; then
-          npm publish --access public --tag next
-        elif [ "${{ github.ref }}" == "refs/heads/fixes" ]; then
-          npm publish --access public --tag fix
+          npm publish --tag next
         fi

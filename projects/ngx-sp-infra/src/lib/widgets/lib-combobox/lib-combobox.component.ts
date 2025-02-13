@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, SimpleChanges, ViewChild, OnChanges } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl, FormControlStatus, Validators } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
@@ -155,12 +155,6 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
    * @default false
   */
   @Input() public returnRecord?: boolean = false;
-
-  /** (opcional) Define se o código extra chamado 'AdditionalStringProperty1' será exibido em negrito ou não.
-   * @type { boolean }
-   * @default true
-  */
-  @Input() public additionalStringBold?: boolean = true;
 
   /** Evento emitido ao recarregar a lista de registros
    * @example Ao ser emitido, o componente pai pode refazer o GET da lista, por exemplo.
