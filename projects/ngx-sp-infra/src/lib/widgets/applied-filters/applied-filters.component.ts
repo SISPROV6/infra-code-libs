@@ -44,7 +44,14 @@ export class AppliedFiltersComponent {
 
   // #region ==========> UTILS <==========
   public clearFilter(control: string) {
-    this.removeFilter.emit({ control: control, value: this.valueToReset })
+    console.log("control:", control);
+    console.log("filtrosAplicados:", this.filtrosAplicados);
+    console.log("filtrosAplicadosInterno:", this.filtrosAplicadosInterno);
+    
+    this.removeFilter.emit({ control: control, value: this.valueToReset });
+
+    const todosVazios = this.filtrosAplicadosInterno?.every(f => f.value === this.valueToReset);
+    if (todosVazios) delete this.filtrosAplicadosInterno;
   }
   // #endregion ==========> UTILS <==========
 

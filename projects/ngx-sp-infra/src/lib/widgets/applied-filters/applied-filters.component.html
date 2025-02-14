@@ -1,7 +1,7 @@
-<div *ngIf="filtrosAplicados && filtrosAplicados.length > 0" class="d-flex flex-row my-3">
+<div *ngIf="filtrosAplicadosInterno && filtrosAplicadosInterno.length > 0" class="d-flex flex-row my-3">
    <div class="filter-list-text pe-1 fw-bold fs-6">Filtros:</div>
    <div class="filter-list ps-1 d-flex flex-row flex-wrap gap-2 px-1">
-      @for (filtro of filtrosAplicados; track $index) {
+      @for (filtro of filtrosAplicadosInterno; track $index) {
          <button *ngIf="filtro.value !== undefined && filtro.value !== null && filtro.value !== ''" class="btn btn-sm btn-outline-{{theme}} rounded-pill gap-2 position-relative">
             <b>{{ aliasNames[$index] }}</b>: {{ filtro.value | formatByType }}
 
@@ -10,7 +10,7 @@
                {{ filtro.value.length }} selecionados
             </span>
 
-            <lib-icon iconName="fechar" iconSize="small" tooltip="Limpar este campo" (click)="clearFilter(filtro.label)" />
+            <lib-icon iconName="fechar" iconSize="small" tooltip="Limpar este campo" (click)="filtro.value = valueToReset; clearFilter(filtro.label)" />
          </button>
       }
       @empty {

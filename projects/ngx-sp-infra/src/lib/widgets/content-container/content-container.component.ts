@@ -131,12 +131,8 @@ export class ContentContainerComponent implements OnInit, OnChanges {
 
 
   private validateType(): void {
-    console.log("this.tabs:", this.tabs);
-    console.log("this.advancedTabs:", this.advancedTabs);
     if (this.tabs && this.advancedTabs) throw new Error("Não utilize ambas listas. Preencha 'tabs' ou 'advancedTabs'!");
-
     this.isTabsString = (this.tabs && !this.advancedTabs) ?? false;
-    console.log("this.isTypeString:", this.isTabsString);
   }
   // #endregion ==========> UTILS <==========
 

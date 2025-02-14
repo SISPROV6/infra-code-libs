@@ -32,8 +32,6 @@ export class TenantService {
   // #region ==========> UTILS <==========
   public validateTenant(tenantId?: number): void {
     if (!tenantId || tenantId === 0) {
-      console.log(tenantId);
-      
       this._messageService.showAlertInfo("Você deve selecionar um domínio para executar esta opção.")
       console.error("Você deve selecionar um domínio para executar esta opção.");
 
