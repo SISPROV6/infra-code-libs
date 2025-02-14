@@ -12,10 +12,20 @@ export class AppliedFiltersComponent {
 
   // #region PROTECTED
   protected get Array(): typeof Array { return Array; }
+
+  public filtrosAplicadosInterno?: FiltrosAplicadosModel[] = [];
   // #endregion PROTECTED
 
   // #region PUBLIC
-  @Input({ required: true }) filtrosAplicados?: FiltrosAplicadosModel[];
+  @Input({ required: true })
+  public get filtrosAplicados(): FiltrosAplicadosModel[] | undefined { return this.filtrosAplicadosInterno; }
+  public set filtrosAplicados(value: FiltrosAplicadosModel[] | undefined) {
+    // Aqui eu estou criando uma cópia dos valores que são recebidos
+    // pois quando usamos a mesma referência do objeto original ele sempre se alterará com base no valor do original,
+    // não importa quantas cópias existam
+    this.filtrosAplicadosInterno = value ? value.map(obj => ({ ...obj })) : undefined;
+  }
+  
   @Input({ required: true }) aliasNames: string[] = [];
   
   @Input() valueToReset: null | string = null;
