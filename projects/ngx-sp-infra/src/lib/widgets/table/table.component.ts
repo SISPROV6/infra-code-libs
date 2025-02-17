@@ -145,18 +145,6 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   ngOnInit(): void {
     this.updateCounterInfo();
     this.validateHeaders();
-
-    // Usado pra debug
-    // if (this.paginationID === "simpleTableWithIcon") {
-    //   console.log("Lista de headers:", this.headers);
-    //   console.log("Lista de headers com ícone:", this.headers.find(h => {
-    //     return h.icon !== undefined
-    //   }));
-      
-    //   console.log("Segundo header:", this.headers[1]);
-    //   console.log("Ícone do segundo header:", this.headers[1].icon);
-    //   console.log("Nome do ícone do segundo header:", this.headers[1].icon?.name);
-    // }
   }
 
   ngAfterViewInit(): void {
@@ -177,6 +165,11 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
 
   // #region ==========> UTILITÁRIOS <==========
+  public emitPageBoundsCorrection(page: number): void {
+    this.pageChange.emit(page);
+  }
+
+
   private validateHeaders(): void {
     const headersUseOldWidth: boolean = this.headers.every(header => header.col && header.col != undefined);
     

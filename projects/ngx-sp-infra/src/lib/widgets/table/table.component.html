@@ -83,14 +83,14 @@
          </table>
 
          <!-- #region PAGINAÇÃO -->
-         <div *ngIf="usePagination && list.length > 0" class="d-flex mt-2"
+         <div *ngIf="usePagination && list.length > 0" class="d-flex flex-wrap mt-2"
             [ngClass]="{
                'justify-content-start': placement === 'start',
                'justify-content-center': placement === 'center',
                'justify-content-end': placement === 'end',
                'justify-content-between': placement === 'between'
             }">
-            <div class="d-flex align-items-center">
+            <div class="d-flex align-items-center me-2">
                <label for="countSelect" class="me-2" style="white-space: nowrap;"> Itens por página </label>
                <select id="countSelect" class="form-select select-search" (change)="onSelectChange($event)">
                   <option *ngFor="let count of counts; let i = index" [value]="count"
@@ -99,13 +99,17 @@
             </div>
 
             <!-- Controle de paginação -->
-            <pagination-controls
-               [id]="paginationID"
+            <pagination-controls [id]="paginationID"
                class="sp-pagination mt-3"
-               (pageChange)="page = $event; pageChange.emit($event)"
-               previousLabel="«&nbsp;&nbsp;&nbsp;" nextLabel="&nbsp;&nbsp;&nbsp;»"
+               previousLabel="«&nbsp;&nbsp;&nbsp;"
+               nextLabel="&nbsp;&nbsp;&nbsp;»"
+               screenReaderPaginationLabel="Paginação"
+               screenReaderPageLabel="Página"
+               screenReaderCurrentLabel="Você está na página"
                [maxSize]="5"
-               (pageBoundsCorrection)="page = $event">
+               [responsive]="true"
+               (pageChange)="page = $event; pageChange.emit($event)"
+               (pageBoundsCorrection)="page = $event; emitPageBoundsCorrection($event)" >
             </pagination-controls>
          </div>
          <!-- #endregion PAGINAÇÃO -->

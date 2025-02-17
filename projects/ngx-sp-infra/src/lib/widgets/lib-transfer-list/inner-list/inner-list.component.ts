@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { TableComponent } from '../../table/table.component';
 import { RecordCombobox } from '../../../models/combobox/record-combobox';
@@ -7,7 +8,7 @@ import { RecordCombobox } from '../../../models/combobox/record-combobox';
   templateUrl: './inner-list.component.html',
   styleUrl: './inner-list.component.scss'
 })
-export class InnerListComponent implements OnInit, OnChanges {
+export class InnerListComponent {
 
   // #region ==========> PROPERTIES <==========
 
@@ -62,9 +63,13 @@ export class InnerListComponent implements OnInit, OnChanges {
   // #region ==========> INITIALIZATION <==========
   constructor() { }
 
-  ngOnInit(): void { }
+  // ngOnInit(): void {
+  //   // 
+  // }
 
-  ngOnChanges(changes: SimpleChanges): void { }
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   // 
+  // }
   // #endregion ==========> INITIALIZATION <==========
 
 

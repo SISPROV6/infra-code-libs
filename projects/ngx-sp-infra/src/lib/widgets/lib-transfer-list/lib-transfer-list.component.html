@@ -6,7 +6,7 @@
       (selectionChange)="firstListSelected = $event" />
 
    <div class="col gap-2 align-items-center justify-content-center d-flex flex-{{iconDirections}}">
-      <button class="btn btn-{{isFirstListSelectionEmpty ? 'outline-' : ''}}primary" tooltip="Selecionar marcados" [disabled]="isFirstListSelectionEmpty"
+      <button class="btn btn-{{isFirstListSelectionEmpty ? 'outline-' : ''}}primary" tooltip="Incluir na seleção" [disabled]="isFirstListSelectionEmpty"
          (click)="selecionarRegistros()" >
          <lib-icon [iconName]="selectIconName" />
       </button>

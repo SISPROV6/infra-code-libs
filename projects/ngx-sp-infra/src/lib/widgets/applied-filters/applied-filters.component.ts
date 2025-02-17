@@ -20,6 +20,7 @@ export class AppliedFiltersComponent {
   @Input({ required: true })
   public get filtrosAplicados(): FiltrosAplicadosModel[] | undefined { return this.filtrosAplicadosInterno; }
   public set filtrosAplicados(value: FiltrosAplicadosModel[] | undefined) {
+    
     // Aqui eu estou criando uma cópia dos valores que são recebidos
     // pois quando usamos a mesma referência do objeto original ele sempre se alterará com base no valor do original,
     // não importa quantas cópias existam
@@ -44,10 +45,6 @@ export class AppliedFiltersComponent {
 
   // #region ==========> UTILS <==========
   public clearFilter(control: string) {
-    console.log("control:", control);
-    console.log("filtrosAplicados:", this.filtrosAplicados);
-    console.log("filtrosAplicadosInterno:", this.filtrosAplicadosInterno);
-    
     this.removeFilter.emit({ control: control, value: this.valueToReset });
 
     const todosVazios = this.filtrosAplicadosInterno?.every(f => f.value === this.valueToReset);

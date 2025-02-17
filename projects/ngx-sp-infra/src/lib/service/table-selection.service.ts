@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { SelectionModel } from '../models/table/selection-model.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'any'
 })
 export class TableSelectionService {
 

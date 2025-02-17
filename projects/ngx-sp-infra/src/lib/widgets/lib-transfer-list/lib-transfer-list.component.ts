@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { RecordCombobox } from './../../models/combobox/record-combobox';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 
@@ -84,7 +85,8 @@ export class LibTransferListComponent implements OnInit, OnChanges {
     destino: any[],
     origemConfig: TransferListConfig,
     origemSelecionados: any[],
-    componenteOrigem?: InnerListComponent
+    componenteOrigem?: InnerListComponent,
+    componenteDestino?: InnerListComponent,
   ): void {
       origemSelecionados.forEach(item => destino.push(item));
       destino.sort((a, b) => Utils.alphanumericSort(a.ID, b.ID));
@@ -103,7 +105,19 @@ export class LibTransferListComponent implements OnInit, OnChanges {
         // Reseta a paginação
         componenteOrigem.page = 1;
       }
+      if (componenteDestino) {
+        componenteDestino.selected = [];
+        componenteDestino.selecaoGeral = false;
+        componenteDestino.selecaoMap = componenteDestino.initSelecao(destino);
 
+        // Reseta a paginação
+        componenteDestino.page = 1;
+      }
+
+      console.log("componenteDestino", componenteDestino);
+      console.log("destino", destino);
+
+      
       this.firstListChange.emit(this.availableListConfig.list);
       this.secondListChange.emit(this.selectedListConfig.list);
   }
@@ -113,7 +127,8 @@ export class LibTransferListComponent implements OnInit, OnChanges {
       this.selectedListConfig.list,
       this.availableListConfig,
       this.firstListSelected,
-      this.firstListComponent);
+      this.firstListComponent,
+      this.secondListComponent);
   }
 
   public removerSelecao(): void {
@@ -121,7 +136,8 @@ export class LibTransferListComponent implements OnInit, OnChanges {
       this.availableListConfig.list,
       this.selectedListConfig,
       this.secondListSelected,
-      this.secondListComponent);
+      this.secondListComponent,
+      this.firstListComponent);
   }
 
 

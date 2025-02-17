@@ -24,7 +24,7 @@
          (selectionChange)="definirSelecaoTotal(list, $event); updateSelected()"
          (itemsPerPageChange)="itemsPerPage = $event"
          (pageChange)="page = $event" >
-         @for (item of list! | textFilter:textoPesquisa | paginate: { id: paginationID, itemsPerPage: itemsPerPage, currentPage: page }; track item.ID) {
+         @for (item of list! | textFilter:textoPesquisa | paginate: { id: paginationID, itemsPerPage: itemsPerPage, currentPage: page }; track item) {
             <tr innerRows class="align-middle">
               <td *ngIf="useSelection">
                   <div class="form-check">
