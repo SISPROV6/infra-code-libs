@@ -864,6 +864,47 @@ export class IconsList {
       { nome:"projecao-financeira-objeto", categoria: "Cor fixa", tags: [], svg: `<svg width="${size}" height="${size}" viewBox="0 0 66 66" fill="none" xmlns=" http://www.w3.org/2000/svg"> <rect x="4" y="4" width="58" height="58" rx="28" fill="#CCDDEE"/> <rect x="4" y="4" width="58" height="58" rx="28" stroke="#E6EEF6" stroke-width="8"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M33.7541 20.0092H34.4342C34.5129 20.0092 34.5961 20.0092 34.6702 20C40.9111 19.9863 45.9815 24.9859 46 31.1736V31.8454H34.5591C34.3463 31.8454 34.1474 31.7632 33.9993 31.6215C33.842 31.4753 33.7541 31.265 33.7541 31.0502V20.0092ZM30.8673 22.9613H31.5428V34.1578H43.1456V34.8296C43.0299 41.0996 37.8207 46.0946 31.4919 45.9986H31.2467C25.0058 45.9712 19.9724 40.9351 20.0001 34.7473C20.0001 28.2443 24.8763 22.9613 30.8673 22.9613Z" fill="#3767B2"/> </svg>` },
       { nome:"mais-quadro", categoria: "", tags: [], svg: `<svg width="${size}" height="${size}" viewBox="0 0 18 18" fill="none" xmlns=" http://www.w3.org/2000/svg"> <path d="M9 5.66667V12.3333M5.66667 9H12.3333M3.16667 1.5H14.8333C15.7538 1.5 16.5 2.24619 16.5 3.16667V14.8333C16.5 15.7538 15.7538 16.5 14.8333 16.5H3.16667C2.24619 16.5 1.5 15.7538 1.5 14.8333V3.16667C1.5 2.24619 2.24619 1.5 3.16667 1.5Z" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/> </svg>` },
       { nome:"menos-quadro", categoria: "", tags: [], svg: `<svg width="${size}" height="${size}" viewBox="0 0 18 17" fill="none" xmlns=" http://www.w3.org/2000/svg"> <path d="M5.66667 8.5H12.3333M3.16667 1H14.8333C15.7538 1 16.5 1.74619 16.5 2.66667V14.3333C16.5 15.2538 15.7538 16 14.8333 16H3.16667C2.24619 16 1.5 15.2538 1.5 14.3333V2.66667C1.5 1.74619 2.24619 1 3.16667 1Z" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/> </svg>` },
+      
+      
+      // ÍCONES PARA RH (19/02)
+      { nome:"face-without-mouth", categoria: "", tags: [], svg: `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${size}" height="${size}" viewBox="0 0 36 36" aria-hidden="true" role="img" class="iconify iconify--twemoji" preserveAspectRatio="xMidYMid meet"><path fill="#FFCC4D" d="M36 18c0 9.941-8.059 18-18 18c-9.94 0-18-8.059-18-18C0 8.06 8.06 0 18 0c9.941 0 18 8.06 18 18"/><ellipse fill="#664500" cx="11.5" cy="16.5" rx="2.5" ry="3.5"/><ellipse fill="#664500" cx="24.5" cy="16.5" rx="2.5" ry="3.5"/></svg>` },
+
+      { nome:"slightly-smiling-face", categoria: "", tags: [], svg: `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${size}" height="${size}" viewBox="0 0 36 36" aria-hidden="true" role="img" class="iconify iconify--twemoji" preserveAspectRatio="xMidYMid meet"><circle fill="#FFCC4D" cx="18" cy="18" r="18"/><path fill="#664500" d="M10.515 23.621C10.56 23.8 11.683 28 18 28c6.318 0 7.44-4.2 7.485-4.379a.499.499 0 0 0-.237-.554a.505.505 0 0 0-.6.077C24.629 23.163 22.694 25 18 25s-6.63-1.837-6.648-1.855a.502.502 0 0 0-.598-.081a.5.5 0 0 0-.239.557z"/><ellipse fill="#664500" cx="12" cy="13.5" rx="2.5" ry="3.5"/><ellipse fill="#664500" cx="24" cy="13.5" rx="2.5" ry="3.5"/></svg>` },
+
+      { nome:"grinning-face-with-smiling-eyes", categoria: "", tags: [], svg: `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${size}" height="${size}" viewBox="0 0 36 36" aria-hidden="true" role="img" class="iconify iconify--twemoji" preserveAspectRatio="xMidYMid meet"><path fill="#FFCC4D" d="M36 18c0 9.941-8.059 18-18 18c-9.94 0-18-8.059-18-18C0 8.06 8.06 0 18 0c9.941 0 18 8.06 18 18"/><path fill="#664500" d="M28.457 17.797c-.06-.135-1.499-3.297-4.457-3.297c-2.957 0-4.397 3.162-4.457 3.297a.503.503 0 0 0 .755.605c.012-.009 1.262-.902 3.702-.902c2.426 0 3.674.881 3.702.901a.498.498 0 0 0 .755-.604zm-12 0c-.06-.135-1.499-3.297-4.457-3.297c-2.957 0-4.397 3.162-4.457 3.297a.499.499 0 0 0 .754.605C8.31 18.393 9.559 17.5 12 17.5c2.426 0 3.674.881 3.702.901a.498.498 0 0 0 .755-.604zM18 22c-3.623 0-6.027-.422-9-1c-.679-.131-2 0-2 2c0 4 4.595 9 11 9c6.404 0 11-5 11-9c0-2-1.321-2.132-2-2c-2.973.578-5.377 1-9 1z"/><path fill="#FFF" d="M9 23s3 1 9 1s9-1 9-1s-2 4-9 4s-9-4-9-4z"/></svg>` },
+
+      { nome:"grinning-squinting-face", categoria: "", tags: [], svg: `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${size}" height="${size}" viewBox="0 0 36 36" aria-hidden="true" role="img" class="iconify iconify--twemoji" preserveAspectRatio="xMidYMid meet"><path fill="#FFCC4D" d="M36 18c0 9.941-8.059 18-18 18c-9.94 0-18-8.059-18-18C0 8.06 8.06 0 18 0c9.941 0 18 8.06 18 18"/><path fill="#664500" d="M18 22c-3.623 0-6.027-.422-9-1c-.679-.131-2 0-2 2c0 4 4.595 9 11 9c6.404 0 11-5 11-9c0-2-1.321-2.132-2-2c-2.973.578-5.377 1-9 1z"/><path fill="#FFF" d="M9 23s3 1 9 1s9-1 9-1s-2 4-9 4s-9-4-9-4z"/><path fill="#664500" d="M6.001 20a1 1 0 0 1-.601-1.799c.143-.107 2.951-2.183 6.856-2.933C9.781 14.027 7.034 14 6.999 14A1.001 1.001 0 0 1 7 12c.221 0 5.452.038 8.707 3.293A1 1 0 0 1 15 17c-4.613 0-8.363 2.772-8.4 2.8a.996.996 0 0 1-.599.2zm23.998-.001a.998.998 0 0 1-.598-.198C29.363 19.772 25.59 17 21 17a.999.999 0 0 1-.707-1.707C23.549 12.038 28.779 12 29 12a1 1 0 0 1 .002 2c-.036 0-2.783.027-5.258 1.268c3.905.75 6.713 2.825 6.855 2.933a1 1 0 0 1-.6 1.798z"/></svg>` },
+
+      { nome:"pouting-face", categoria: "", tags: [], svg: `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${size}" height="${size}" viewBox="0 0 36 36" aria-hidden="true" role="img" class="iconify iconify--twemoji" preserveAspectRatio="xMidYMid meet"><path fill="#DA2F47" d="M36 18c0 9.941-8.059 18-18 18c-9.94 0-18-8.059-18-18C0 8.06 8.06 0 18 0c9.941 0 18 8.06 18 18"/><path fill="#292F33" d="M25.485 29.879C25.44 29.7 24.317 25.5 18 25.5c-6.318 0-7.44 4.2-7.485 4.379a.499.499 0 0 0 .237.554a.507.507 0 0 0 .6-.077c.019-.019 1.954-1.856 6.648-1.856s6.63 1.837 6.648 1.855a.502.502 0 0 0 .598.081a.5.5 0 0 0 .239-.557zm-9.778-12.586C12.452 14.038 7.221 14 7 14a1.001 1.001 0 0 0-.001 2c.029 0 1.925.022 3.983.737c-.593.64-.982 1.634-.982 2.763c0 1.934 1.119 3.5 2.5 3.5s2.5-1.566 2.5-3.5c0-.174-.019-.34-.037-.507c.013 0 .025.007.037.007a.999.999 0 0 0 .707-1.707zM29 14c-.221 0-5.451.038-8.707 3.293A.999.999 0 0 0 21 19c.013 0 .024-.007.036-.007c-.016.167-.036.333-.036.507c0 1.934 1.119 3.5 2.5 3.5s2.5-1.566 2.5-3.5c0-1.129-.389-2.123-.982-2.763A13.928 13.928 0 0 1 29.002 16A1 1 0 0 0 29 14z"/></svg>` },
+
+
+
+      // ÍCONES DE EXTENSÃO DE ARQUIVOS (19/02)
+      // { nome:"", categoria: "Cor fixa", tags: [], svg: `` },
+      // { nome:"", categoria: "Cor fixa", tags: [], svg: `` },
+      // { nome:"", categoria: "Cor fixa", tags: [], svg: `` },
+      // { nome:"", categoria: "Cor fixa", tags: [], svg: `` },
+      // { nome:"", categoria: "Cor fixa", tags: [], svg: `` },
+      // { nome:"", categoria: "Cor fixa", tags: [], svg: `` },
+      // { nome:"", categoria: "Cor fixa", tags: [], svg: `` },
+      // { nome:"", categoria: "Cor fixa", tags: [], svg: `` },
+      // { nome:"", categoria: "Cor fixa", tags: [], svg: `` },
+      // { nome:"", categoria: "Cor fixa", tags: [], svg: `` },
+      // { nome:"", categoria: "Cor fixa", tags: [], svg: `` },
+      // { nome:"", categoria: "Cor fixa", tags: [], svg: `` },
+      // { nome:"", categoria: "Cor fixa", tags: [], svg: `` },
+      // { nome:"", categoria: "Cor fixa", tags: [], svg: `` },
+      // { nome:"", categoria: "Cor fixa", tags: [], svg: `` },
+      // { nome:"", categoria: "Cor fixa", tags: [], svg: `` },
+      // { nome:"", categoria: "Cor fixa", tags: [], svg: `` },
+      // { nome:"", categoria: "Cor fixa", tags: [], svg: `` },
+      // { nome:"", categoria: "Cor fixa", tags: [], svg: `` },
+      // { nome:"", categoria: "Cor fixa", tags: [], svg: `` },
+      // { nome:"", categoria: "Cor fixa", tags: [], svg: `` },
+      // { nome:"", categoria: "Cor fixa", tags: [], svg: `` },
+      // { nome:"", categoria: "Cor fixa", tags: [], svg: `` },
+      // { nome:"", categoria: "Cor fixa", tags: [], svg: `` },
+      // { nome:"", categoria: "Cor fixa", tags: [], svg: `` },
 
       ];
       // #endregion LISTA COMPLETA DE ÍCONES - ÍCONES NOVOS DEVEM SER ADICIONADOS AQUI
