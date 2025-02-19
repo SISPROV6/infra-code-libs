@@ -71,6 +71,7 @@ import { AppliedFiltersComponent } from './widgets/applied-filters/applied-filte
 import { FormatByTypePipe } from './pipes/format-by-type.pipe';
 import { LibNavProdutosComponent } from './widgets/lib-nav-produtos/lib-nav-produtos.component';
 import { LibConfigSenhaComponent } from './components/lib-config-senha/lib-config-senha.component';
+import { PasswordPolicyComponent } from './widgets/password-policy/password-policy.component';
 
 @NgModule({
   declarations: [
@@ -135,6 +136,7 @@ import { LibConfigSenhaComponent } from './components/lib-config-senha/lib-confi
     LibNavProdutosComponent,
 
     LibConfigSenhaComponent,
+    PasswordPolicyComponent,
   ],
   imports: [
     CommonModule,
@@ -207,6 +209,7 @@ import { LibConfigSenhaComponent } from './components/lib-config-senha/lib-confi
     LibNavProdutosComponent,
 
     LibConfigSenhaComponent,
+    PasswordPolicyComponent,
   ],
   providers: [],
 })

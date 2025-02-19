@@ -54,10 +54,10 @@ export class NavItem {
   selector: 'lib-navigation',
   template: `
     <ul class="menu">
-      @for (item of navItems; track $index) {
-      <li class="menu-item" [class.active]="activeItem === item.caminho">
-        <a class="glb-cursor-pointer" (click)="onNavigate(item)" (keydown.enter)="onNavigate(item)" [tabindex]="$index" >{{ item.label }}</a>
-      </li>
+      @for(item of navItems; track $index) {
+        <li class="menu-item" [class.active]="item.caminho.includes(activeItem)" >
+          <a class="glb-cursor-pointer" (click)="onNavigate(item)" (keydown.enter)="onNavigate(item)" [tabindex]="$index">{{ item.label }}</a>
+        </li>
       }
     </ul>
   `,
