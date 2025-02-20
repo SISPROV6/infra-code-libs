@@ -53,21 +53,22 @@
     </div>
 
     <div class="border rounded p-3 mb-4">
-        <h3 class="card-subtitle mb-2 text-muted fs-6">Senha:</h3>
+        <h3 class="card-subtitle mb-2 text-muted fs-6">A senha deve conter:</h3>
 
         <div class="row">
             <div class="col-3">
                 <div class="form-check form-switch">
-                    <label class="form-check-label" for="numeros"> Números </label>
+                    <label class="form-check-label" for="numeros"> Número </label>
                     <input formControlName="Is_Numeros" class="form-check-input" type="checkbox" role="switch" id="numeros">
                 </div>
                 <div class="form-check form-switch">
-                    <label class="form-check-label" for="letraMaiuscula"> Letra Maúscula </label>
+                    <label class="form-check-label" for="letraMaiuscula"> Letra Maiúscula </label>
                     <input formControlName="Is_LetrasMaiusculas" class="form-check-input" type="checkbox" role="switch" id="letraMaiuscula">
                 </div>
                 <div class="form-check form-switch">
                     <label class="form-check-label" for="caracteresEspeciais">Caractere especial</label>
                     <input formControlName="Is_CaracteresEspeciais" class="form-check-input" type="checkbox" role="switch" id="caracteresEspeciais">
+                    <lib-icon class="ms-1" iconName="info" iconColor="blue" iconSize="small" tooltip="Caracteres disponíveis: ! @ # $ % & * ( ) _ + = [ ] { } | ?" />
                 </div>
             </div>
 

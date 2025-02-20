@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+
 import { TableComponent } from '../../table/table.component';
 import { RecordCombobox } from '../../../models/combobox/record-combobox';
 
@@ -33,6 +34,7 @@ export class InnerListComponent {
 
   @Input() searchPlaceholder?: string = "";
   @Input() useSearch?: boolean = true;
+  @Input() search?: boolean = true;
   @Input() useSelection?: boolean = true;
 
   @Input()
