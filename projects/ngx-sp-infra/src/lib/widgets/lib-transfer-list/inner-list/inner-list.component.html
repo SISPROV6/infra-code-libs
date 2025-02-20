@@ -6,19 +6,19 @@
 
 
    <div *ngIf="useSearch" class="input-group">
-      <input #listSearch type="text" class="form-control m-0 rounded-0" [placeholder]="searchPlaceholder"
-         (input)="textoPesquisa = listSearch.value">
+      <input #listSearch type="text" class="form-control m-0 rounded-0" [placeholder]="searchPlaceholder + ' (ENTER para pesquisar)'"
+         (keyup.enter)="handleSearch()" [(ngModel)]="textoPesquisa" >
       <button class="btn btn-outline-primary rounded-0" tooltip="Limpar pesquisa"
-         (click)="listSearch.value = ''; textoPesquisa = ''"> <lib-icon iconName="lixeira" /> </button>
+         (click)="textoPesquisa = ''; handleSearch()"> <lib-icon iconName="lixeira" /> </button>
       <button class="btn btn-outline-primary rounded-0" tooltip="Pesquisar"
-         (click)="listSearch.value = ''; textoPesquisa = ''"> <lib-icon iconName="lupa" /> </button>
+         (click)="handleSearch()"> <lib-icon iconName="lupa" /> </button>
    </div>
 
 
    <div class="mb-2 p-0">
       <lib-table divBorderClass="rounded-0" tableBorderClass="border-top-0 border-start-0 border-end-0"
          [useSelection]="useSelection ?? true" [selection]="selecaoGeral" [selectedCount]="this.selected.length"
-         [paginationID]="paginationID" [list]="list" [showCounter]="false" [counts]="counts ?? [ 5, 10, 20 ]"
+         [paginationID]="paginationID" [list]="registrosFiltrados" [showCounter]="false" [counts]="counts ?? [ 5, 10, 20 ]"
          [headers]="[
             { name: identifierColumn ?? 'Código', widthClass: 'col-3' },
             { name: labelColumn ?? 'Descrição', widthClass: 'col-9' }
@@ -26,7 +26,7 @@
          (selectionChange)="definirSelecaoTotal(list, $event); updateSelected()"
          (itemsPerPageChange)="itemsPerPage = $event"
          (pageChange)="page = $event" >
-         @for (item of list! | textFilter:textoPesquisa | paginate: { id: paginationID, itemsPerPage: itemsPerPage, currentPage: page }; track item) {
+         @for (item of registrosFiltrados! | paginate: { id: paginationID, itemsPerPage: itemsPerPage, currentPage: page }; track item) {
             <tr innerRows class="align-middle">
               <td *ngIf="useSelection">
                   <div class="form-check">

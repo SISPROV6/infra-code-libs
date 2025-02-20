@@ -29,9 +29,13 @@ export class LibTransferListComponent implements OnInit, OnChanges {
   
   @Input() direction: "row" | "column" = "row";
   @Input() oneWay: boolean = false;
+
+  @Input() useBackendSearch?: boolean = false;
   
   @Output() firstListChange: EventEmitter<any[]> = new EventEmitter<any[]>();
   @Output() secondListChange: EventEmitter<any[]> = new EventEmitter<any[]>();
+
+  @Output() emitSearch: EventEmitter<string> = new EventEmitter<string>();
   
   @ViewChild('firstList') firstListComponent?: InnerListComponent;
   @ViewChild('secondList') secondListComponent?: InnerListComponent;
@@ -88,38 +92,40 @@ export class LibTransferListComponent implements OnInit, OnChanges {
     componenteOrigem?: InnerListComponent,
     componenteDestino?: InnerListComponent,
   ): void {
-      origemSelecionados.forEach(item => destino.push(item));
-      destino.sort((a, b) => Utils.alphanumericSort(a.ID, b.ID));
-      origemSelecionados.forEach(selectedItem => {
-          const index = origem.findIndex(item => item === selectedItem);
-          if (index !== -1) origem.splice(index, 1);
-      });
-      
-      // Limpa os selecionados
-      origemSelecionados.length = 0;
-      if (componenteOrigem) {
-        componenteOrigem.selected = [];
-        componenteOrigem.selecaoGeral = false;
-        componenteOrigem.selecaoMap = componenteOrigem.initSelecao(origemConfig.list);
+    
+    origemSelecionados.forEach(item => destino.push(item));
+    // destino = [ ...origemSelecionados ];
+    
+    destino.sort((a, b) => Utils.alphanumericSort(a.ID, b.ID));
+    
+    origemSelecionados.forEach(selectedItem => {
+      const index = origem.findIndex(item => item === selectedItem);
+      if (index !== -1) origem.splice(index, 1);
+    });
 
-        // Reseta a paginação
-        componenteOrigem.page = 1;
-      }
-      if (componenteDestino) {
-        componenteDestino.selected = [];
-        componenteDestino.selecaoGeral = false;
-        componenteDestino.selecaoMap = componenteDestino.initSelecao(destino);
+    // Limpa os selecionados
+    origemSelecionados.length = 0;
+    if (componenteOrigem) {
+      componenteOrigem.selected = [];
+      componenteOrigem.selecaoGeral = false;
+      componenteOrigem.selecaoMap = componenteOrigem.initSelecao(origemConfig.list);
 
-        // Reseta a paginação
-        componenteDestino.page = 1;
-      }
+      // Reseta a paginação
+      componenteOrigem.page = 1;
+      componenteOrigem.filterList("");
+    }
+    if (componenteDestino) {
+      componenteDestino.selected = [];
+      componenteDestino.selecaoGeral = false;
+      componenteDestino.selecaoMap = componenteDestino.initSelecao(destino);
 
-      console.log("componenteDestino", componenteDestino);
-      console.log("destino", destino);
-
-      
-      this.firstListChange.emit(this.availableListConfig.list);
-      this.secondListChange.emit(this.selectedListConfig.list);
+      // Reseta a paginação
+      componenteDestino.page = 1;
+      componenteDestino.filterList("");
+    }
+    
+    this.firstListChange.emit(this.availableListConfig.list);
+    this.secondListChange.emit(this.selectedListConfig.list);
   }
 
   public selecionarRegistros(): void {
