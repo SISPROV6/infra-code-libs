@@ -5,6 +5,12 @@ import fs from 'fs';
 
 
 const currentBranch = execSync('git rev-parse --abbrev-ref HEAD').toString().trim();
+let respostaProjeto = "";
+let respostaVersao = "";
+let respostaIsExecutaTestes = true;
+let respostaRemoteRepo = "";
+let respostaMensagemOpcional = "";
+
 
 // #region ATUALIZAR VERSÃO DO PROJETO
 
@@ -18,36 +24,60 @@ const handleTag = () => {
   return tag;
 }
 
-function updateVersion(projeto, suffix) {
-  // Lê e inicializa o package.json
-  let packageJson = JSON.parse(fs.readFileSync(`../projects/${projeto}/package.json`, 'utf8'));
-  
-  // Remove, atualiza e readiciona o sufixo à versão + Atualiza a versão sem criar uma nova tag do Git
-  const versionHasTag = packageJson.version.includes('-');
-  
-  if (versionHasTag) execSync(`cd ../projects/${projeto} && npm version ${suffix} --no-git-tag-version`, { stdio: 'inherit' }); // Primeira atualização de versão pois ela apenas remove a tag
-  execSync(`cd ../projects/${projeto} && npm version ${suffix} --no-git-tag-version`, { stdio: 'inherit' });
-  
-  packageJson = JSON.parse(fs.readFileSync(`../projects/${projeto}/package.json`, 'utf8'));
+function updateVersion() {
+  try {
+    // Lê e inicializa o package.json
+    let packageJson = JSON.parse(fs.readFileSync(`../projects/${respostaProjeto}/package.json`, 'utf8'));
+    
+    // Remove, atualiza e readiciona o sufixo à versão + Atualiza a versão sem criar uma nova tag do Git
+    const versionHasTag = packageJson.version.includes('-');
+    
+    if (versionHasTag) execSync(`cd ../projects/${respostaProjeto} && npm version ${respostaVersao} --no-git-tag-version`, { stdio: 'inherit' }); // Primeira atualização de versão pois ela apenas remove a tag
+    execSync(`cd ../projects/${respostaProjeto} && npm version ${respostaVersao} --no-git-tag-version`, { stdio: 'inherit' });
+    
+    packageJson = JSON.parse(fs.readFileSync(`../projects/${respostaProjeto}/package.json`, 'utf8'));
 
-  const tag = handleTag();
-  const newVersion = `${packageJson.version}${tag}`;
-  packageJson.version = newVersion;
+    const tag = handleTag();
+    const newVersion = `${packageJson.version}${tag}`;
+    packageJson.version = newVersion;
 
-  // Escreve a nova versão no package.json
-  fs.writeFileSync(`../projects/${projeto}/package.json`, JSON.stringify(packageJson, null, 2) + '\n');
+    // Escreve a nova versão no package.json
+    fs.writeFileSync(`../projects/${respostaProjeto}/package.json`, JSON.stringify(packageJson, null, 2) + '\n');
 
-  console.log(chalk.green(`✅ Nova versão: ${packageJson.version}\n`));
+    console.log(chalk.green(`✅ Nova versão: ${packageJson.version}\n`));
+  }
+  catch (error) {
+    console.error(chalk.red('\n❌ Erro ao atualizar versão:', error.message));
+    throw new Error("\n❌ Erro ao atualizar versão:', error.message");
+  }
 }
 
 // #endregion ATUALIZAR VERSÃO DO PROJETO
 
+// #region EXECUTA TESTES UNITÁRIOS
+
+function executarTestes() {
+  if (respostaIsExecutaTestes) {
+    try {
+      console.log(chalk.yellow('\n🧪 Executando testes unitários...'));
+      execSync('ng test --watch=false --browsers=ChromeHeadless', { stdio: 'inherit' });
+      console.log(chalk.green('\n✅ Todos os testes passaram com sucesso!\n'));
+    }
+    catch (error) {
+      console.log(chalk.red('\n❌ Testes falharam. Deploy abortado.\nRecomenda-se executar os testes manualmente e corrigir problemas antes de realizar um deploy novamente.'));
+      throw new Error(`\n❌ Testes falharam. Deploy abortado.\nRecomenda-se executar os testes manualmente e corrigir problemas antes de realizar um deploy novamente.`);
+    }
+  }
+}
+
+// #endregion EXECUTA TESTES UNITÁRIOS
+
 // #region COMMIT DE TAGS
 
-function removeExistingTag(version, repo, formattedTag) {
+function removeExistingTag(version, formattedTag) {
   try {
     execSync(`git tag -d ${formattedTag}-v${version}`, { stdio: 'inherit' });
-    execSync(`git push --delete ${repo} ${formattedTag}-v${version}`, { stdio: 'inherit' });
+    execSync(`git push --delete ${respostaRemoteRepo} ${formattedTag}-v${version}`, { stdio: 'inherit' });
     
     console.log(chalk.green(`\n✔ Tag '${formattedTag}-v${version}' removida com sucesso!`));
   }
@@ -59,10 +89,10 @@ function removeExistingTag(version, repo, formattedTag) {
   }
 }
 
-function createAndPushTag(version, repo, formattedTag) {
+function createAndPushTag(version, formattedTag) {
   try {
     execSync(`git tag ${formattedTag}-v${version}`, { stdio: 'inherit' });
-    execSync(`git push ${repo} ${formattedTag}-v${version}`, { stdio: 'inherit' });
+    execSync(`git push ${respostaRemoteRepo} ${formattedTag}-v${version}`, { stdio: 'inherit' });
     
     console.log(chalk.green(`\n✅ Tag '${formattedTag}-v${version}' criada e commitada com sucesso!`));
   }
@@ -71,8 +101,8 @@ function createAndPushTag(version, repo, formattedTag) {
   }
 }
 
-function commitTag(projeto, repo) {
-  const packageJson = JSON.parse(fs.readFileSync(`../projects/${projeto}/package.json`, 'utf8'));
+function commitTag() {
+  const packageJson = JSON.parse(fs.readFileSync(`../projects/${respostaProjeto}/package.json`, 'utf8'));
 
   if (!packageJson.version) {
     console.log(chalk.red("\n❌ A versão no package.json está inválida ou não foi encontrada."));
@@ -80,12 +110,10 @@ function commitTag(projeto, repo) {
   }
   
   try {
-    let formattedTag = projeto == 'ngx-sp-infra' ? 'infra' : 'auth';
+    let formattedTag = respostaProjeto == 'ngx-sp-infra' ? 'infra' : 'auth';
 
-    removeExistingTag(packageJson.version, repo, formattedTag);
-    createAndPushTag(packageJson.version, repo, formattedTag);
-    
-    console.log(chalk.green("\n✅ Tag de versão commitada e enviada com sucesso!"));
+    removeExistingTag(packageJson.version, formattedTag);
+    createAndPushTag(packageJson.version, formattedTag);
   }
   catch (error) {
     console.log(chalk.red("\n❌ Erro no processo de commit da tag:", error.message));
@@ -97,13 +125,13 @@ function commitTag(projeto, repo) {
 
 // #region COMMIT E PUSH DOS ARQUIVOS
 
-function commitFiles(repo, projeto, mensagemCommit) {
+function commitFiles() {
   try {
-    const packageJson = JSON.parse(fs.readFileSync(`../projects/${projeto}/package.json`, 'utf8'));
-    
-    execSync('git add .', { stdio: 'inherit' });
-    execSync(`git commit --allow-empty -m "${projeto} | v${packageJson.version} | Commit automático" -m "${mensagemCommit}"`, { stdio: 'inherit' });
-    execSync(`git push ${repo} ${currentBranch}`, { stdio: 'inherit' });
+    const packageJson = JSON.parse(fs.readFileSync(`../projects/${respostaProjeto}/package.json`, 'utf8'));
+
+    execSync('cd ../ && git add .', { stdio: 'inherit' });
+    execSync(`cd ../ && git commit --allow-empty -m "${respostaProjeto} | v${packageJson.version} | Commit automático" -m "${respostaMensagemOpcional}"`, { stdio: 'inherit' });
+    execSync(`cd ../ && git push ${respostaRemoteRepo} ${currentBranch}`, { stdio: 'inherit' });
     
     console.log(chalk.green('✅ Commit e push realizados com sucesso!\n'));
   }
@@ -114,6 +142,7 @@ function commitFiles(repo, projeto, mensagemCommit) {
 }
 
 // #endregion COMMIT E PUSH DOS ARQUIVOS
+
 
 async function main() {
   console.log(chalk.blue('\n🚀 Processo de Deploy da Lib Angular 🚀\n'));
@@ -127,10 +156,8 @@ async function main() {
         name: 'projeto'
       }
     ]).then(async answers => {
-      // Valida se deve cancelar a execução ou não...
-      if (answers.projeto === 'Cancelar') throw new Error();
+      if (answers.projeto === 'Cancelar') throw new Error("\n❌ Processo cancelado pelo usuário.");
 
-      // Caso contrário, segue o fluxo...
       const respostas = await inquirer.prompt([
         {
           message: 'Qual versão deve ser incrementada?',
@@ -139,19 +166,13 @@ async function main() {
           name: 'versao'
         },
         {
-          message: 'Você confirma a atualização da versão?',
-          type: 'confirm',
-          default: true,
-          name: 'confirmaVersao'
-        },
-        {
           message: 'Deseja rodar testes unitários antes da publicação?',
           type: 'confirm',
           default: true,
           name: 'executaTestes'
         },
         {
-          message: 'Para quais repos o commit deve ser feito?',
+          message: 'Para qual repo os commits devem ser feitos? (github = "https://github.com/SISPROV6/infra-code-libs", azure = "https://SisproERP@dev.azure.com/SisproERP/PeD/_git/infra-code-libs")',
           type: 'list',
           choices: ['github', 'azure'],
           name: 'repo'
@@ -163,42 +184,57 @@ async function main() {
         }
       ]);
 
-      // Atualiza versão
-      try {
+
+      respostaProjeto = answers.projeto;
+      respostaVersao = respostas.versao;
+      respostaIsExecutaTestes = respostas.executaTestes;
+      respostaRemoteRepo = respostas.repo;
+      respostaMensagemOpcional = respostas.mensagemCommit;
+
+      console.log(`\n\nRevise os dados informados:
+  - Projeto a ser publicado: ${chalk.blueBright(respostaProjeto)}
+  - Versão a ser incrementada: ${chalk.blueBright(respostaVersao)}
+  - Nome do repositório remoto: ${chalk.blueBright(respostaRemoteRepo)}
+  - Executar testes automatizados? ${chalk.blueBright(respostaIsExecutaTestes ? 'Sim' : 'Não')}
+  - Mensagem opcional de commit: ${chalk.italic.blueBright(respostaMensagemOpcional == '' ? 'Nenhuma' : `"${respostaMensagemOpcional}"`)}\n`);
+      
+      await inquirer.prompt([ {
+          message: 'Você confirma estas informações?',
+          type: 'confirm',
+          default: true,
+          name: 'confirmaDeploy'
+        }
+      ]).then(confirma => {
+        if (!confirma.confirmaDeploy) throw new Error("\n❌ Processo cancelado pelo usuário.");
+        
+        console.log(chalk.yellow('\n🎲 Iniciando processo...'));
+
+        // Atualiza versão do projeto com ou sem tags
         console.log(chalk.yellow('\n🔄 Atualizando versão...'));
-        updateVersion(answers.projeto, respostas.versao);
-      }
-      catch (error) {
-        console.error(chalk.red('❌ Erro ao atualizar versão:', error.message));
-        return;
-      }
-    
-      // Rodar testes
-      if (respostas.executaTestes) {
-        try {
-          console.log(chalk.yellow('\n🧪 Executando testes unitários...'));
-          execSync('ng test --watch=false --browsers=ChromeHeadless', { stdio: 'inherit' });
-          console.log(chalk.green('✅ Testes passaram com sucesso!\n'));
-        }
-        catch (error) {
-          console.error(chalk.red('❌ Testes falharam. Deploy abortado.'));
-          return;
-        }
-      }
+        updateVersion();
       
-      // Commit e push da tag
-      console.log(chalk.yellow('\n📤 Realizando commit das tags de versão...'));
-      commitTag(answers.projeto, respostas.repo);
-      
-      // Commit e push
-      console.log(chalk.yellow('\n📦 Commitando alterações...'));
-      commitFiles(respostas.repo, answers.projeto, respostas.mensagemCommit);
+        // Rodar testes unitários
+        console.log(chalk.yellow('\n🧪 Executando testes unitários...'));
+        executarTestes();
+        
+        // Commit e push da tag de versão
+        console.log(chalk.yellow('\n📤 Realizando commit das tags de versão...'));
+        commitTag();
+        
+        // Commit e push dos arquivos
+        console.log(chalk.yellow('\n📦 Commitando alterações...'));
+        commitFiles();
+      });
+    })
+    .catch(error => {
+      if (error.message.includes('User force closed the prompt')) throw new Error("\n❌ Processo cancelado pelo usuário.");
+      else throw error.message;
     })
 
-    console.log(chalk.blue('\n🚀 Deploy acionado no pipeline! Acompanhe pelo GitHub Actions/Azure Pipelines.\n'));
+    console.log(chalk.blue('\n\n🚀 Deploy acionado no pipeline! Acompanhe pelo GitHub Actions/Azure Pipelines.\n'));
   }
   catch (error) {
-    console.log(chalk.red('\n❌ Processo cancelado pelo usuário.'));
+    console.log(chalk.red(error.message));
   }
 }
 
