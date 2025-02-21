@@ -44,27 +44,27 @@ function updateVersion(projeto, suffix) {
 
 // #region COMMIT DE TAGS
 
-function removeExistingTag(version, repo) {
+function removeExistingTag(version, repo, formattedTag) {
   try {
-    execSync(`git tag -d v${version}`, { stdio: 'inherit' });
-    execSync(`git push --delete ${repo} v${version}`, { stdio: 'inherit' });
+    execSync(`git tag -d ${formattedTag}-v${version}`, { stdio: 'inherit' });
+    execSync(`git push --delete ${repo} ${formattedTag}-v${version}`, { stdio: 'inherit' });
     
-    console.log(chalk.green(`\n✔ Tag v${version} removida com sucesso!`));
+    console.log(chalk.green(`\n✔ Tag '${formattedTag}-v${version}' removida com sucesso!`));
   }
   catch (error) {
     if (!error.message.includes('Command failed')) {
       throw new Error(`\n❌ Erro ao tentar remover a tag do repositório remoto: ${error.message}`);
     }
-    console.log(chalk.yellow(`\nTag v${version} não existe no repositório remoto, prosseguindo com a criação da nova tag...`));
+    console.log(chalk.yellow(`\nTag '${formattedTag}-v${version}' não existe no repositório remoto, prosseguindo com a criação da nova tag...`));
   }
 }
 
-function createAndPushTag(version, repo) {
+function createAndPushTag(version, repo, formattedTag) {
   try {
-    execSync(`git tag v${version}`, { stdio: 'inherit' });
-    execSync(`git push ${repo} v${version}`, { stdio: 'inherit' });
+    execSync(`git tag ${formattedTag}-v${version}`, { stdio: 'inherit' });
+    execSync(`git push ${repo} ${formattedTag}-v${version}`, { stdio: 'inherit' });
     
-    console.log(chalk.green(`\n✅ Tag v${version} criada e commitada com sucesso!`));
+    console.log(chalk.green(`\n✅ Tag '${formattedTag}-v${version}' criada e commitada com sucesso!`));
   }
   catch (error) {
     throw new Error(`\n❌ Erro ao criar ou enviar a tag: ${error.message}`);
@@ -80,8 +80,10 @@ function commitTag(projeto, repo) {
   }
   
   try {
-    removeExistingTag(packageJson.version, repo);
-    createAndPushTag(packageJson.version, repo);
+    let formattedTag = projeto == 'ngx-sp-infra' ? 'infra' : 'auth';
+
+    removeExistingTag(packageJson.version, repo, formattedTag);
+    createAndPushTag(packageJson.version, repo, formattedTag);
     
     console.log(chalk.green("\n✅ Tag de versão commitada e enviada com sucesso!"));
   }
@@ -100,7 +102,7 @@ function commitFiles(repo, projeto, mensagemCommit) {
     const packageJson = JSON.parse(fs.readFileSync(`../projects/${projeto}/package.json`, 'utf8'));
     
     execSync('git add .', { stdio: 'inherit' });
-    execSync(`git commit --allow-empty -m "${projeto} v${packageJson.version} | Commit automático" -m "${mensagemCommit}"`, { stdio: 'inherit' });
+    execSync(`git commit --allow-empty -m "${projeto} | v${packageJson.version} | Commit automático" -m "${mensagemCommit}"`, { stdio: 'inherit' });
     execSync(`git push ${repo} ${currentBranch}`, { stdio: 'inherit' });
     
     console.log(chalk.green('✅ Commit e push realizados com sucesso!\n'));
@@ -121,7 +123,7 @@ async function main() {
       {
         message: 'Qual projeto você irá publicar?',
         type: 'list',
-        choices: ['ngx-sp-auth', 'ngx-sp-infra', 'Cancelar'],
+        choices: ['ngx-sp-infra', 'ngx-sp-auth', 'Cancelar'],
         name: 'projeto'
       }
     ]).then(async answers => {
@@ -192,12 +194,12 @@ async function main() {
       console.log(chalk.yellow('\n📦 Commitando alterações...'));
       commitFiles(respostas.repo, answers.projeto, respostas.mensagemCommit);
     })
+
+    console.log(chalk.blue('\n🚀 Deploy acionado no pipeline! Acompanhe pelo GitHub Actions/Azure Pipelines.\n'));
   }
   catch (error) {
     console.log(chalk.red('\n❌ Processo cancelado pelo usuário.'));
   }
-
-  console.log(chalk.blue('\n🚀 Deploy acionado no pipeline! Acompanhe pelo GitHub Actions/Azure Pipelines.\n'));
 }
 
 main();
