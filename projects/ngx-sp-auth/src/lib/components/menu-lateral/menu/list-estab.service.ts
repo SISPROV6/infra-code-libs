@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { merge, Observable, of, tap } from 'rxjs';
 
-import { CacheName } from 'src/app/project/utils/cache-name';
 import { IEstabelecimento } from '../model/iestabelecimento.model';
 
 @Injectable({
@@ -11,11 +10,13 @@ import { IEstabelecimento } from '../model/iestabelecimento.model';
 export class ListEstabService {
   private storage: Storage;
 
-  public readonly menuKey = `${ CacheName.cacheName }_ListaEstabs`; 
+  public cacheName: string = "";
+
+  public readonly menuKey = `${this.cacheName}_ListaEstabs`;
 
   baseUrl = "assets/jsons/lista-estabs.json";
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
     this.storage = window.localStorage;
   }
 
@@ -27,10 +28,9 @@ export class ListEstabService {
       })
     );
 
-  
     // Caso o menu já esteja gravado no local, é retornado ele no observable e logo em seguida
     // é realizada a chamada HTTP para buscar o mais novo menu.
-    if (iMenu) {     
+    if (iMenu) {
       let obs: Observable<IEstabelecimento[]> = of(iMenu!);
       let obsMerged: Observable<IEstabelecimento[]> = merge(obs, httpCall);
 
@@ -60,4 +60,11 @@ export class ListEstabService {
   remove(): void {
     this.storage.removeItem(this.menuKey);
   }
+
+  public getCacheName(cacheName: string): void {
+    //passando propriedades do produto para a service
+    this.cacheName = cacheName;
+  }
+
+
 }

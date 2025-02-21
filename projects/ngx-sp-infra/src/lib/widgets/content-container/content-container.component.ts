@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges, input } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, input } from '@angular/core';
 import { Utils } from '../../utils/utils';
 import { ContainerTabsModel } from '../../models/container/container-tabs.model';
 

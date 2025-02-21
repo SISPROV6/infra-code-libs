@@ -4,9 +4,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 import { IMenuItemStructure } from '../components/menu-lateral/model/imenu-item-structure.model';
 import { IMenu } from '../components/menu-lateral/model/imenu.model';
-import { MenuConfig } from '../components/menu-lateral/model/menu-config-record';
 import { environment } from '../environments/environments';
 import { AuthStorageService } from '../storage/auth-storage.service';
+import { MenuConfigService } from './menu-config.service';
 import { IMenuService } from './models/icustom-menu-service';
 
 @Injectable(
@@ -38,7 +38,8 @@ export class CustomMenuService {
     private _menuItems: IMenuItemStructure[] = [];
     private menuList: IMenu[] = [];
     private menuLateralUpdated: IMenuItemStructure[] = [];
-    public menuConfig!: MenuConfig;
+    //verificar esse cara aqui
+    public menuConfig: MenuConfigService;
 
     /** Obtém as opções do menu. */
     public get menuItems(): IMenuItemStructure[] {
@@ -64,12 +65,14 @@ export class CustomMenuService {
 
 
     constructor(
+        private _menuConfig: MenuConfigService,
         private _authStorageService: AuthStorageService,
         private _router: Router,
+
     ) {
         // inicializações do Menu Dinâmico
         this.currentURL = this._router.url;
-
+        this.menuConfig = _menuConfig;
     }
 
     public ConfigurarCustomMenuService(RealcustomMenuService: IMenuService): void {

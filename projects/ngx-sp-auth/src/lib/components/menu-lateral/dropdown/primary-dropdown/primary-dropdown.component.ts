@@ -39,6 +39,7 @@ export class PrimaryDropdownComponent implements OnInit {
       ) { }
 
       ngOnInit(): void {
+            console.log('ngOnInit');
             this.buttonWasClicked.subscribe(() => { this.selectDataState = true });
 
             // Resolver colisão de eventos

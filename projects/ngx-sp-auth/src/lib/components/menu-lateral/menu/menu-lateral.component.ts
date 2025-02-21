@@ -3,7 +3,7 @@ import { Component, ContentChild, OnInit, TemplateRef, ViewChild } from '@angula
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { filter, Subject } from 'rxjs';
 import { CustomMenuService } from '../../../custom/custom-menu.service';
-import { MenuConfig } from '../model/menu-config-record';
+//import { MenuConfig } from '../../../custom/models/imenu-config';
 
 import { BsModalService } from 'ngx-bootstrap/modal';
 
@@ -16,6 +16,7 @@ import { MenuServicesService } from '../menu-services.service';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { AuthService } from '../../../auth.service';
+import { MenuConfigService } from '../../../custom/menu-config.service';
 import { PrimaryDropdownComponent } from '../dropdown/primary-dropdown/primary-dropdown.component';
 import { IMenuItemStructure } from '../model/imenu-item-structure.model';
 import { ISubmenuItemStructure } from '../model/isubmenu-item-structure.model';
@@ -51,6 +52,7 @@ export class MenuLateralComponent implements OnInit {
     private _menuServices: MenuServicesService,
     private _messageService: MessageService,
     //private _projectUtilService: ProjectUtilservice,
+    private _menuConfigService: MenuConfigService,
     private _router: Router,
     private _authService: AuthService
   ) {
@@ -66,7 +68,7 @@ export class MenuLateralComponent implements OnInit {
     });
 
     if (!this.menuDynamic) {
-      this.menuConfig = new MenuConfig(true, this._router.url);
+      this.menuConfig._isMenuStatic = true;
 
       // Método com customizações para inicialização do Menu Estático
       this._customMenuService.menuStaticOnInit();
@@ -130,7 +132,7 @@ export class MenuLateralComponent implements OnInit {
   // propriedades iniciadas quando passar o CustomMenuService
 
   public menuDynamic: boolean = false;
-  public menuConfig!: MenuConfig;
+  public menuConfig: MenuConfigService = new MenuConfigService;
 
   // #endregion PUBLIC
 
