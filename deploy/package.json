@@ -1,0 +1,14 @@
+{
+  "name": "deploy",
+  "version": "1.0.5",
+  "exports": "./index.js",
+  "type": "module",
+  "keywords": [],
+  "author": "ecoliveira@sispro.com.br",
+  "license": "ISC",
+  "description": "Projeto Node.js para deploy de bibliotecas npm",
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "inquirer": "^12.4.2"
+  }
+}
