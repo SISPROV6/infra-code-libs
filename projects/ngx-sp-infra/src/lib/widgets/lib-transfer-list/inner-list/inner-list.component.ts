@@ -51,7 +51,7 @@ export class InnerListComponent implements OnChanges {
     this.selecaoMap = this.initSelecao(value);
     this.updateSelected();
 
-    this.filterList("setter");
+    this.filterList();
   }
   
   @Output() selectionChange: EventEmitter<any[]> = new EventEmitter<any[]>();
@@ -81,16 +81,14 @@ export class InnerListComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes["list"].currentValue) {
-      this.filterList("onChanges");
+      this.filterList();
     }
   }
   // #endregion ==========> INITIALIZATION <==========
 
 
   // #region ==========> UTILS <==========
-  public filterList(origin: string): void {
-    console.log(`${origin} | filtrou lado:`, this.side);
-    
+  public filterList(): void {
     if (!this.textoPesquisa) {
       this.registrosFiltrados = [ ...this.list ];
     }
@@ -101,9 +99,6 @@ export class InnerListComponent implements OnChanges {
         || (e.AdditionalStringProperty2 && e.AdditionalStringProperty2.toLocaleString().toLocaleLowerCase().includes(this.textoPesquisa.toLocaleLowerCase()))
       );
     }
-
-    console.log(`${origin} | Lado: ${this.side} - list`, this.list);
-    console.log(`${origin} | Lado: ${this.side} - registrosFiltrados`, this.registrosFiltrados);
   }
 
 
@@ -160,7 +155,7 @@ export class InnerListComponent implements OnChanges {
 
   public handleSearch(): void {
     if (this.useBackendSearch) this.emitSearch.emit(this.textoPesquisa);
-    else this.filterList("handleSearch");
+    else this.filterList();
   }
   
   // #endregion ==========> UTILS <==========

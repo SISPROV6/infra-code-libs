@@ -112,7 +112,7 @@ export class LibTransferListComponent implements OnInit, OnChanges {
 
       // Reseta a paginação
       componenteOrigem.page = 1;
-      componenteOrigem.filterList("");
+      componenteOrigem.filterList();
     }
     if (componenteDestino) {
       componenteDestino.selected = [];
@@ -121,7 +121,7 @@ export class LibTransferListComponent implements OnInit, OnChanges {
 
       // Reseta a paginação
       componenteDestino.page = 1;
-      componenteDestino.filterList("");
+      componenteDestino.filterList();
     }
     
     this.firstListChange.emit(this.availableListConfig.list);
