@@ -59,7 +59,6 @@ function updateVersion() {
 function executarTestes() {
   if (respostaIsExecutaTestes) {
     try {
-      console.log(chalk.yellow('\n🧪 Executando testes unitários...'));
       execSync('ng test --watch=false --browsers=ChromeHeadless', { stdio: 'inherit' });
       console.log(chalk.green('\n✅ Todos os testes passaram com sucesso!\n'));
     }
@@ -207,7 +206,7 @@ async function main() {
       ]).then(confirma => {
         if (!confirma.confirmaDeploy) throw new Error("\n❌ Processo cancelado pelo usuário.");
         
-        console.log(chalk.yellow('\n🎲 Iniciando processo...'));
+        console.log(chalk.yellow('\n🎲 Iniciando processo...\n'));
 
         // Atualiza versão do projeto com ou sem tags
         console.log(chalk.yellow('\n🔄 Atualizando versão...'));
