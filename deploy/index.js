@@ -204,7 +204,7 @@ async function main() {
           name: 'confirmaDeploy'
         }
       ]).then(confirma => {
-        if (!confirma.confirmaDeploy) throw new Error("\n❌ Processo cancelado pelo usuário.");
+        if (confirma.confirmaDeploy != true) throw new Error("\n❌ Processo cancelado pelo usuário.");
         
         console.log(chalk.yellow('\n🎲 Iniciando processo...\n'));
 
@@ -227,7 +227,7 @@ async function main() {
     })
     .catch(error => {
       if (error.message.includes('User force closed the prompt')) throw new Error("\n❌ Processo cancelado pelo usuário.");
-      else throw error.message;
+      else throw error;
     })
 
     console.log(chalk.blue('\n\n🚀 Deploy acionado no pipeline! Acompanhe pelo GitHub Actions/Azure Pipelines.\n'));
