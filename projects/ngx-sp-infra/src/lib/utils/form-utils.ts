@@ -41,13 +41,9 @@ export class FormUtils {
 
       control?.setValue(currentValue);
       
-      if (control instanceof UntypedFormGroup || control instanceof UntypedFormArray) {
-        // this.validateFields(control);
-      }
-  
+      if (control instanceof UntypedFormGroup || control instanceof UntypedFormArray) this.validateFields(control);
     });
-  
-  }     
+  }
       
   /** Obtém a mensagem de erro conforme o validador utilizado */
   static getErrorMessage(validatorName: string, validatorValue?: any, customErrorMessage?: string, fieldName?: string): string {
