@@ -34,15 +34,15 @@ export class FormUtils {
   
       const currentValue = control?.value;
 
-      // control?.reset();
+      control?.reset();
 
-      // control?.markAsDirty();
-      // control?.markAsTouched();
+      control?.markAsDirty();
+      control?.markAsTouched();
 
       control?.setValue(currentValue);
       
       if (control instanceof UntypedFormGroup || control instanceof UntypedFormArray) {
-        this.validateFields(control);
+        // this.validateFields(control);
       }
   
     });
