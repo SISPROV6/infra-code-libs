@@ -44,6 +44,20 @@
           }
         }
       }
+    },
+    "ngx-sp-auth": {
+      "projectType": "library",
+      "root": "projects/ngx-sp-auth",
+      "sourceRoot": "projects/ngx-sp-auth/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/ngx-sp-auth/ng-package.json"
+          }
+        }
+      }
     }
   },
   "schematics": {

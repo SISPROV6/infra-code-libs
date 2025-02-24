@@ -1,20 +1,12 @@
-import { CommonModule } from '@angular/common';
 
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { InfraModule } from 'ngx-sp-infra';
-import { environment } from '../../../../environments/environments';
-
+//import { environment } from '../../../../environments/environments';
 // import { ProjectUtilservice } from 'src/app/project/utils/project-utils.service';
 
 @Component({
       selector: 'app-secondary-dropdown',
       templateUrl: './secondary-dropdown.component.html',
       styleUrls: ['./secondary-dropdown.component.scss'],
-      standalone: true,
-      imports: [
-            InfraModule,
-            CommonModule
-      ],
 })
 export class SecondaryDropdownComponent implements OnInit {
 
@@ -32,7 +24,7 @@ export class SecondaryDropdownComponent implements OnInit {
       }
 
       public redirectToModulo(modulo: string): void {
-            const url: string = `${environment.hostName}/SisproErpCloud/${modulo}`;
+            const url: string = `https://siscandesv6.sispro.com.br/SisproErpCloud/${modulo}`;
 
             window.open(url, '_blank');
       }

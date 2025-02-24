@@ -28,13 +28,13 @@ export class FormUtils {
   }
 
   /** Valida todos os campos do formulário */
-  static validateFields(formGroup: UntypedFormGroup | UntypedFormArray): void {
+  static validateFields(formGroup: UntypedFormGroup | UntypedFormArray, isReset: boolean = true): void {
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
   
       const currentValue = control?.value;
 
-      control?.reset();
+      if (isReset === true) control?.reset();
 
       control?.markAsDirty();
       control?.markAsTouched();

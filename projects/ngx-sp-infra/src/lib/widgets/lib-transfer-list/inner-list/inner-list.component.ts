@@ -93,7 +93,7 @@ export class InnerListComponent implements OnChanges {
       this.registrosFiltrados = [ ...this.list ?? [] ];
     }
     else {
-      this.registrosFiltrados = (this.list ?? []).filter(e => e.LABEL.toLocaleLowerCase().includes(this.textoPesquisa.toLocaleLowerCase()) 
+      this.registrosFiltrados = this.list.filter(e => e.LABEL.toLocaleLowerCase().includes(this.textoPesquisa.toLocaleLowerCase()) 
         || e.ID.toLocaleString().toLocaleLowerCase().includes(this.textoPesquisa.toLocaleLowerCase())
         || (e.AdditionalStringProperty1 && e.AdditionalStringProperty1.toLocaleString().toLocaleLowerCase().includes(this.textoPesquisa.toLocaleLowerCase()))
         || (e.AdditionalStringProperty2 && e.AdditionalStringProperty2.toLocaleString().toLocaleLowerCase().includes(this.textoPesquisa.toLocaleLowerCase()))

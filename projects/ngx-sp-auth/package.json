@@ -1,12 +1,8 @@
 {
   "name": "ngx-sp-auth",
   "version": "0.0.1",
+
   "peerDependencies": {
-    "@angular/common": "^17.3.0",
-    "@angular/core": "^17.3.0"
-  },
-  "dependencies": {
-    "tslib": "^2.3.0",
     "ngx-sp-infra": "^3.13.3-next",
     "ngx-toastr": "^19.0.0"
   },

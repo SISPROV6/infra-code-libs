@@ -1,58 +1,33 @@
-import { CommonModule } from '@angular/common';
 import { Component, ContentChild, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
-import { filter, Subject } from 'rxjs';
-import { CustomMenuService } from '../../../custom/custom-menu.service';
-//import { MenuConfig } from '../../../custom/models/imenu-config';
-
+import { NavigationEnd, Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import { MessageService } from 'ngx-sp-infra';
+import { filter, Subject } from 'rxjs';
+import { LibCustomMenuService } from './../../../custom/custom-menu.service';
 
-import { InfraModule, MessageService } from 'ngx-sp-infra';
-import { environment } from '../../../environments/environments';
+//import { environment } from '../../../environments/environments';
 //import { ProjectUtilservice } from 'src/app/project/utils/project-utils.service';
-import { AuthStorageService } from '../../../storage/auth-storage.service';
-import { MenuServicesService } from '../menu-services.service';
-
-import { PopoverModule } from 'ngx-bootstrap/popover';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { AuthService } from '../../../auth.service';
 import { MenuConfigService } from '../../../custom/menu-config.service';
-import { PrimaryDropdownComponent } from '../dropdown/primary-dropdown/primary-dropdown.component';
+import { AuthStorageService } from '../../../storage/auth-storage.service';
+import { MenuServicesService } from '../menu-services.service';
 import { IMenuItemStructure } from '../model/imenu-item-structure.model';
 import { ISubmenuItemStructure } from '../model/isubmenu-item-structure.model';
 import { Usuario_IMG } from '../model/usuario-img';
-import { DynamicMenuComponent } from '../submenus/dynamic-menu/dynamic-menu.component';
-import { NotifSubmenuComponent } from '../submenus/notif-submenu/notif-submenu.component';
-import { SelecaoEstabelecimentosModalComponent } from './selecao-estabelecimentos-modal/selecao-estabelecimentos-modal.component';
 
 @Component({
   selector: 'app-menu-lateral',
   templateUrl: './menu-lateral.component.html',
   styleUrls: ['./menu-lateral.component.scss'],
-  standalone: true,
-  imports: [
-    PopoverModule,
-    TooltipModule,
-    InfraModule,
-    SelecaoEstabelecimentosModalComponent,
-    NotifSubmenuComponent,
-    DynamicMenuComponent,
-    PrimaryDropdownComponent,
-    // AuthRoutingModule, 
-    CommonModule,
-    RouterLink,
-    RouterOutlet
-  ],
 })
 export class MenuLateralComponent implements OnInit {
   constructor(
-    public _customMenuService: CustomMenuService,
+    public _customMenuService: LibCustomMenuService,
     private _authStorageService: AuthStorageService,
     private _bsModalService: BsModalService,
     private _menuServices: MenuServicesService,
     private _messageService: MessageService,
     //private _projectUtilService: ProjectUtilservice,
-    private _menuConfigService: MenuConfigService,
     private _router: Router,
     private _authService: AuthService
   ) {
@@ -62,13 +37,16 @@ export class MenuLateralComponent implements OnInit {
 
   public ngOnInit(): void {
 
+    console.log(this.menuConfig)
+
     // Inscreva-se no evento NavigationEnd para receber notificações quando a rota mudar, serve para atualizar a seleção do menu corretamente
     this._router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: any) => {
       this._customMenuService.menuItems = this._customMenuService.menuConfig.updateRouteSelection(this._router.url, this._customMenuService.menuItems)
     });
 
-    if (!this.menuDynamic) {
-      this.menuConfig._isMenuStatic = true;
+    if (!this._customMenuService.menuDynamic) {
+      this._customMenuService.menuConfig.setMenuStatic(true);
+      this._customMenuService.menuItems = this._customMenuService.menuConfig.initializeMenu(this._router.url);    
 
       // Método com customizações para inicialização do Menu Estático
       this._customMenuService.menuStaticOnInit();
@@ -95,7 +73,7 @@ export class MenuLateralComponent implements OnInit {
 
   // #region PUBLIC
 
-  @ViewChild('menuLink') public menuLink: HTMLAnchorElement = new HTMLAnchorElement;
+  @ViewChild('menuLink') public menuLink?: HTMLAnchorElement;
   @ContentChild(TemplateRef) public desiredContent?: TemplateRef<any>;
 
   public readonly MODAL_ESTABELECIMENTO: number = 1;
@@ -232,10 +210,20 @@ export class MenuLateralComponent implements OnInit {
     }
   }
 
+  // public onClickedOutside(e: Event, ref: HTMLDivElement): void {
+  //   ref.classList.remove("opened-sub");
+  //   this.submenuList = [];
+  // }
+
   public onClickedOutside(e: Event, ref: HTMLDivElement): void {
-    ref.classList.remove("opened-sub");
-    this.submenuList = [];
-  }
+    if (ref) {
+        ref.classList.remove("opened-sub");
+        this.submenuList = [];
+    } else {
+        console.log(ref)
+        console.warn('ref is undefined or null');
+    }
+}
 
   // #region MENU FOOTER USER IMAGE
   private validateCachedImg(footerImg: Usuario_IMG | null): boolean {
@@ -260,11 +248,10 @@ export class MenuLateralComponent implements OnInit {
   }
 
   public getExternalUrl(url: string) {
-    return `${environment.hostName}/SisproErpCloud/${url}`;
+    return `https://siscandesv6.sispro.com.br/SisproErpCloud/${url}`;
   }
 
   // #endregion ==========> UTILITIES <==========
-
 
   // #region ==========> MODALS <==========
 

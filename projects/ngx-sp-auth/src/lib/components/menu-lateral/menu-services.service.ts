@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject, take, tap } from 'rxjs';
 
 import { RetError, RetEstabelecimentosModal } from 'ngx-sp-infra';
-import { environment } from '../../environments/environments';
+// import { environment } from '../../environments/environments';
 import { AuthStorageService } from '../../storage/auth-storage.service';
 
 import { RetEstabelecimentoSession } from './model/ret-estabelecimento-session';
@@ -16,7 +16,7 @@ import { Usuario_IMG } from './model/usuario-img';
   providedIn: 'root'
 })
 export class MenuServicesService {
-  private readonly _BASE_URL: string = `${environment.SpInfra2ErpWS}`; // SpInfra2AplicWS
+  private readonly _BASE_URL: string = "https://siscandesv6.sispro.com.br/SisproErpCloud/Service_Private/Infra/SpInfra2ErpWS/api"; // SpInfra2AplicWS
   private readonly _HTTP_HEADERS = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(
@@ -24,7 +24,7 @@ export class MenuServicesService {
     private _httpClient: HttpClient
   ) {
     //verificar se é a melhor solucão
-    this._BASE_URL = !environment.production ? this._BASE_URL : `${environment.SpInfra2ErpWS}`;
+    //this._BASE_URL = !environment.production ? this._BASE_URL : `${environment.SpInfra2ErpWS}`;
   }
 
   // #region ==========> SERVICES <==========

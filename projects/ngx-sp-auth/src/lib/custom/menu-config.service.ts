@@ -40,6 +40,9 @@ export class MenuConfigService {
         return this.menu;
     }
 
+    public setMenuStatic(isStaticMenu: boolean) {
+        this._isMenuStatic = isStaticMenu;
+    }
 
     public updateRouteSelection(currentRoute: string, currentList: IMenuItemStructure[]): IMenuItemStructure[] {
         currentList.forEach((item) => {

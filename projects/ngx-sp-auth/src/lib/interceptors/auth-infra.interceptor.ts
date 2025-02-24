@@ -1,8 +1,9 @@
 import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { EnvironmentService } from './../environments/environments.service';
 
 import { Observable } from "rxjs";
-import { environment } from "../environments/environments";
+//import { environment } from "../environments/environments";
 
 import { CheckUrlAndMethodService } from "ngx-sp-infra";
 
@@ -15,13 +16,14 @@ import { CheckUrlAndMethodService } from "ngx-sp-infra";
 export class AuthInfraInterceptor implements HttpInterceptor {
 
     constructor(
-        private authCheckService: CheckUrlAndMethodService
+        private authCheckService: CheckUrlAndMethodService,
+        private _environmentService: EnvironmentService
     ) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         let changedReq: HttpRequest<any> = req;
 
-        if (this.authCheckService.needsAuthRequest(req.url, req.method, environment.needsAuthInfra)) {
+        if (this.authCheckService.needsAuthRequest(req.url, req.method, this._environmentService.needsAuthInfra)) {
             // Adiciona as autenticações necessárias ao servidor. Autenticação básica.
             let headers: HttpHeaders = req.headers.set(
                 "Authorization",

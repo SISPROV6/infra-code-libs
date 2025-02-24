@@ -1,29 +1,20 @@
-import { CommonModule } from '@angular/common';
 import { Component, ContentChild, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-
-import { environment } from '../../../../environments/environments';
-//import { ProjectUtilservice } from 'src/app/project/utils/project-utils.service';
+import { Router } from '@angular/router';
 import { IMenuItemStructure } from '../../model/imenu-item-structure.model';
 
 @Component({
   selector: 'app-dynamic-menu',
   templateUrl: './dynamic-menu.component.html',
   styleUrls: ['./dynamic-menu.component.scss'],
-  standalone: true,
-  imports: [
-    // AuthRoutingModule, 
-    CommonModule,
-    RouterLink
-  ],
 })
+
 export class DynamicMenuComponent implements OnInit {
 
   @Output() selectTemplate: EventEmitter<any> = new EventEmitter;
 
-  @Input() submenuRef: HTMLDivElement = new HTMLDivElement;
+  @Input() submenuRef!: HTMLDivElement;
 
-  @Input() recebeParam: Function = new Function;
+  @Input() recebeParam!: Function;
 
   @Input() titleSubmenu = "";
 
@@ -40,7 +31,7 @@ export class DynamicMenuComponent implements OnInit {
   @ContentChild(TemplateRef) desiredContent?: TemplateRef<any>;
 
   constructor(public router: Router,
-    //private _projectUtilService: ProjectUtilservice
+
   ) { }
 
   ngOnInit(): void { }
@@ -63,7 +54,7 @@ export class DynamicMenuComponent implements OnInit {
   }
 
   public getExternalUrl(url: string) {
-    return `${environment.hostName}/SisproErpCloud/${url}`;
+    return `https://siscandesv6.sispro.com.br/SisproErpCloud/${url}`;
   }
 
 }

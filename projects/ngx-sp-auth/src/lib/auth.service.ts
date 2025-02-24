@@ -27,9 +27,11 @@ export class AuthService {
 
   // #region PRIVATE
 
-  private readonly _HOSTNAME: any = window.location.hostname.includes("localhost")
-    ? `http://${window.location.hostname}`
-    : `https://${window.location.hostname}`;
+  // private readonly _HOSTNAME: any = window.location.hostname.includes("localhost")
+  //   ? `http://${window.location.hostname}`
+  //   : `https://${window.location.hostname}`;
+
+  private readonly _HOSTNAME: any = "https://siscandesv6.sispro.com.br";
 
   private readonly _BASE_URL: string = `${this._HOSTNAME}/SisproErpCloud/Service_Private/Infra/SpInfra2LoginWS/api/LoginSisproERP`; // SpInfra2WS
   private readonly _HTTP_HEADERS = new HttpHeaders().set('Content-Type', 'application/json');
@@ -49,6 +51,9 @@ export class AuthService {
     private _ipServiceService: IpServiceService,
   ) {
     //this._BASE_URL = !environment.production ? this._BASE_URL : `${environment.SpInfra2LoginWS}/LoginSisproERP`;
+    this._BASE_URL.includes("localhost") || this._BASE_URL.includes('127.0.0.1')
+      ? this._BASE_URL
+      : this._BASE_URL = "https://siscandesv6.sispro.com.br/SisproErpCloud/Service_Private/Infra/SpInfra2LoginWS/api/LoginSisproERP";
 
     this.getParms();
   }
@@ -187,7 +192,6 @@ export class AuthService {
           }
 
         })
-
       );
   }
 
