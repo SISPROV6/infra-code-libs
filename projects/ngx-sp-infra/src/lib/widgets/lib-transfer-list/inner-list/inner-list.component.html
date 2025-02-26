@@ -6,7 +6,7 @@
 
 
    <div *ngIf="useSearch" class="input-group">
-      <input #listSearch type="text" class="form-control m-0 rounded-0" [placeholder]="searchPlaceholder"
+      <input #listSearch type="text" class="form-control m-0 rounded-0" [placeholder]="searchPlaceholder + ' (ENTER para pesquisar)'"
          (keyup.enter)="handleSearch()" [(ngModel)]="textoPesquisa" >
       <button class="btn btn-outline-primary rounded-0" tooltip="Limpar pesquisa"
          (click)="textoPesquisa = ''; handleSearch()"> <lib-icon iconName="lixeira" /> </button>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -14,7 +14,7 @@ import { FormUtils, MessageService } from 'ngx-sp-infra';
 import { AuthService } from '../../auth.service';
 import { EnvironmentService } from '../../environments/environments.service';
 // import { environment } from '../../environments/environments';
-import { CustomPropriedadesLogin } from '../../models/custom-propriedades-login';
+import { LibCustomLoginService } from '../../custom/custom-login.service';
 import { ServerService } from '../../server/server.service';
 import { AuthStorageService } from '../../storage/auth-storage.service';
 
@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
 		private _serverService: ServerService,
 		private _environmentService: EnvironmentService,
 		private _authStorageService: AuthStorageService,
+		public _customLoginService: LibCustomLoginService,
 		private _title: Title,
 		private _router: Router,
 		private _toastrService: ToastrService
@@ -64,7 +65,7 @@ export class LoginComponent implements OnInit {
 
 	//propriedades que vão receber os valores do customLoginService ####VERIFICAR DEPOIS####
 
-	@Input() customPropriedadesLogin!: CustomPropriedadesLogin;
+	// @Input() customPropriedadesLogin?: CustomPropriedadesLogin;
 
 	// #endregion PUBLIC
 
@@ -127,14 +128,14 @@ export class LoginComponent implements OnInit {
 
 	ngOnInit(): void {
 
-		this._title.setTitle(this.customPropriedadesLogin.loginPageTitle);
+		this._title.setTitle(this._customLoginService.loginPageTitle);
 
-		if (this.customPropriedadesLogin.loginTitle != "") {
-			document.getElementById("title")!.innerHTML = this.customPropriedadesLogin.loginTitle;
+		if (this._customLoginService.loginTitle != "") {
+			document.getElementById("title")!.innerHTML = this._customLoginService.loginTitle;
 		}
 
-		if (this.customPropriedadesLogin.loginSubtitle != "") {
-			document.getElementById("subtitle")!.innerHTML = this.customPropriedadesLogin.loginSubtitle;
+		if (this._customLoginService.loginSubtitle != "") {
+			document.getElementById("subtitle")!.innerHTML = this._customLoginService.loginSubtitle;
 		}
 		this.createForm();
 	}
@@ -154,9 +155,9 @@ export class LoginComponent implements OnInit {
 		}
 		else {
 			this.form = this._formBuilder.group({
-				dominio: [this.customPropriedadesLogin.loginDesenvDomain, [Validators.required, Validators.maxLength(50)]],
-				usuario: [this.customPropriedadesLogin.loginDesenvUser, [Validators.required, Validators.maxLength(100)]],
-				senha: [this.customPropriedadesLogin.loginDesenvPassword, [Validators.required, Validators.maxLength(100)]]
+				dominio: [this._customLoginService.loginDesenvDomain, [Validators.required, Validators.maxLength(50)]],
+				usuario: [this._customLoginService.loginDesenvUser, [Validators.required, Validators.maxLength(100)]],
+				senha: [this._customLoginService.loginDesenvPassword, [Validators.required, Validators.maxLength(100)]]
 			});
 		}
 	}
@@ -307,7 +308,7 @@ export class LoginComponent implements OnInit {
 			next: (response) => {
 				this.closeForgottenPasswordModal();
 
-				let param: string = btoa(`false$${ this.dominio }$${ this.usuario }$${3}`);
+				let param: string = btoa(`false$${this.dominio}$${this.usuario}$${3}`);
 
 				this._router.navigate([`auth/login/novaSenha/${param}`]);
 
