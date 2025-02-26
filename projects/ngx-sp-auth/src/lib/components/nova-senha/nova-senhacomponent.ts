@@ -62,9 +62,9 @@ export class NovaSenhaComponent implements OnInit {
 	public primeiroAcessoText: string = "Este é o seu primeiro acesso. Por favor,<br>Insira abaixo o código enviado pare seu<br>e-mail para definir sua senha."
 	public senhaExpiradaText: string = "Sua senha expirou e precisa ser atualizada.<br>Enviamos um código para o seu e-mail.<br>Insira-o abaixo para definir sua senha."
 
-	public cadeadoImg = './assets/Property1-cadeado.png';
-	public maoImg = 'assets/Property1-mao.png';
-	public calendarioImg = 'assets/Property1-calendariofino.png';
+	public cadeadoImg = 'assets/imgs/Property1-cadeado.png';
+	public maoImg = 'assets/imgs/Property1-mao.png';
+	public calendarioImg = 'assets/imgs/Property1-calendariofino.png';
 
 	// #region PRIVATE
 

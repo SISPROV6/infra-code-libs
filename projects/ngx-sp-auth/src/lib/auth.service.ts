@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { LibCustomLoginService } from '../lib/custom/custom-login.service';
 
 import { Observable } from 'rxjs';
 import { map, take, tap } from 'rxjs/operators';
@@ -48,6 +49,7 @@ export class AuthService {
     private _httpClient: HttpClient,
     private _router: Router,
     private _authStorageService: AuthStorageService,
+    private _customLoginService: LibCustomLoginService,
     private _ipServiceService: IpServiceService,
   ) {
     //this._BASE_URL = !environment.production ? this._BASE_URL : `${environment.SpInfra2LoginWS}/LoginSisproERP`;
@@ -179,11 +181,11 @@ export class AuthService {
             this._authStorageService.isExternalLogin = false;
 
             // Método com customizações para inicializações do Login
-            this.authLogin();
+            this._customLoginService.authLogin();
 
             if (this._authStorageService.urlRedirect == '' || this._authStorageService.urlRedirect == '/' || this._authStorageService.urlRedirect == '/auth/login') {
               // Método com customizações para redirecionamento da tela inicial após login ok
-              this.authNavigateToPage(this._router);
+              this._customLoginService.authNavigateToPage(this._router);
             } else {
               this._router.navigate([this._authStorageService.urlRedirect]);
             }
@@ -248,7 +250,7 @@ export class AuthService {
     localStorage.removeItem('configsServerPassword');
 
     // Método com customizações para inicializações do Logout
-    this.authLogout();
+    this._customLoginService.authLogout();
 
     this._router.navigate(["/auth/login"]);
   }
@@ -297,11 +299,11 @@ export class AuthService {
           this._authStorageService.isExternalLogin = false;
 
           // Método com customizações para inicializações do Login
-          this.authLogin();
+          this._customLoginService.authLogin();
 
           if (this._authStorageService.urlRedirect == '' || this._authStorageService.urlRedirect == '/' || this._authStorageService.urlRedirect == '/auth/login') {
             // Método com customizações para redirecionamento da tela inicial após login ok
-            this.authNavigateToPage(this._router);
+            this._customLoginService.authNavigateToPage(this._router);
           } else {
             this._router.navigate([this._authStorageService.urlRedirect]);
           }
@@ -431,9 +433,7 @@ export class AuthService {
           }
 
         })
-
       );
-
   }
 
   // #endregion POST
@@ -441,29 +441,6 @@ export class AuthService {
   // #endregion ==========> SERVICE METHODS <==========
 
   // #region ==========> UTILS <==========
-
-
-  /** Propriedades e Métodos que recebem valores do custom login service **/
-
-  public authLogin(callback?: () => void): void {
-    if (callback) {
-      callback();
-    }
-  }
-
-  public authLogout(callback?: () => void): void {
-    if (callback) {
-      callback();
-    }
-  }
-
-  public authNavigateToPage(router: Router, callback?: (router: Router) => void): void {
-    if (callback) {
-      callback(router);
-    } else {
-      router.navigate(["/home"]);
-    }
-  }
 
   // #endregion ==========> UTILS <==========
 }

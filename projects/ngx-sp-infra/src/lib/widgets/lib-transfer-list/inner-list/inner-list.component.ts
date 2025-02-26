@@ -90,7 +90,7 @@ export class InnerListComponent implements OnChanges {
   // #region ==========> UTILS <==========
   public filterList(): void {
     if (!this.textoPesquisa) {
-      this.registrosFiltrados = [ ...this.list ?? [] ];
+      this.registrosFiltrados = [ ...this.list ];
     }
     else {
       this.registrosFiltrados = this.list.filter(e => e.LABEL.toLocaleLowerCase().includes(this.textoPesquisa.toLocaleLowerCase()) 

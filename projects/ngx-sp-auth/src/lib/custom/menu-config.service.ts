@@ -33,6 +33,10 @@ export class MenuConfigService {
      * @returns As opções do menu inicializadas.
      */
 
+    public setMenuStatic(isStaticMenu: boolean) {
+        this._isMenuStatic = isStaticMenu;
+    }
+
     public initializeMenu(currentRoute: string, customList?: IMenuItemStructure[]): IMenuItemStructure[] {
         if (this.storedInitializeMenu) {
             this.menu = this.storedInitializeMenu(currentRoute, customList);
@@ -40,9 +44,6 @@ export class MenuConfigService {
         return this.menu;
     }
 
-    public setMenuStatic(isStaticMenu: boolean) {
-        this._isMenuStatic = isStaticMenu;
-    }
 
     public updateRouteSelection(currentRoute: string, currentList: IMenuItemStructure[]): IMenuItemStructure[] {
         currentList.forEach((item) => {
