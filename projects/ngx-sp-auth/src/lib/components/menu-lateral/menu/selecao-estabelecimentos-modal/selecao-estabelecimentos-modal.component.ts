@@ -1,14 +1,12 @@
-import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output, TemplateRef } from '@angular/core';
 
 import { BsModalService } from 'ngx-bootstrap/modal';
 
-import { InfraEstabelecimentoFavoritoDefault, InfraModule, MessageService } from 'ngx-sp-infra';
+import { InfraEstabelecimentoFavoritoDefault, MessageService } from 'ngx-sp-infra';
 //import { ProjectUtilservice } from 'src/app/project/utils/project-utils.service';
 import { AuthStorageService } from '../../../../storage/auth-storage.service';
 
-import { NgxPaginationModule } from 'ngx-pagination';
-import { CustomMenuService } from '../../../../custom/custom-menu.service';
+import { LibCustomMenuService } from '../../../../custom/custom-menu.service';
 import { MenuServicesService } from '../../menu-services.service';
 
 
@@ -16,18 +14,12 @@ import { MenuServicesService } from '../../menu-services.service';
   selector: 'selecao-estabelecimentos-modal',
   templateUrl: './selecao-estabelecimentos-modal.component.html',
   styleUrls: ['./selecao-estabelecimentos-modal.component.scss'],
-  standalone: true,
-  imports: [
-    NgxPaginationModule,
-    InfraModule,
-    CommonModule
-  ],
 })
 export class SelecaoEstabelecimentosModalComponent implements OnInit {
   constructor(
     private _authStorageService: AuthStorageService,
     private _bsModalService: BsModalService,
-    private _customMenuService: CustomMenuService,
+    private _customMenuService: LibCustomMenuService,
     private _menuServicesService: MenuServicesService,
     private _messageService: MessageService,
     //private _projectUtilService: ProjectUtilservice

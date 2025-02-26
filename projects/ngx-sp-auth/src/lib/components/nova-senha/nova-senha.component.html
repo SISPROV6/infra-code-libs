@@ -1,44 +1,55 @@
-<div id="main-container" class="d-flex flex-row align-content-center justify-content-center">
-	<!-- #region MAIN CONTENT -->
-	<div class="px-3 py-4 mb-4 w-50 glb-main-container">
-		<form [formGroup]="form">
-			<div class="row">
-				<div class="col-12 mb-3">
-					<label for="inputCode" class="form-label"> Código de validação <span class="text-danger">*</span></label>
-					<input type="text" id="inputCode" class="form-control" formControlName="code"
-						[class.is-invalid]="FormUtils.isInvalidField(form.get('code'))">
-					<app-field-error-message [control]="form.get('code')" label="Código de validação"></app-field-error-message>				
+<body>
+	<div id="main-container">
+		<!-- #region MAIN CONTENT -->
+		<div class="glb-main-container password-container">
+			<div class="password-info-container">
+				<div class="img mb-3">
+					<img [src]="statusSenha == 2 ? calendarioImg : statusSenha == 1 ? maoImg : statusSenha == 3 ? cadeadoImg : '' " width="125.69" height="122">
+				</div>
+				<div class="text">
+					<h4>{{statusSenha == 2 ? 'Senha expirada' : statusSenha == 1 ? 'Primeiro acesso' : statusSenha == 3 ? 'Esqueceu sua senha?' : ''}}</h4>
+					<p [innerHTML]="statusSenha == 2 ? senhaExpiradaText : statusSenha == 1 ? primeiroAcessoText : statusSenha == 3 ? esqueceuSenhaText : '' "></p>
 				</div>
 			</div>
-
-			<div class="row">
-				<div class="col-12 mb-3">
-					<label for="inputPassword" class="form-label"> Digite uma nova Senha <span class="text-danger">*</span></label>
-					<input type="password" id="inputPassword" class="form-control" formControlName="password"
-						[class.is-invalid]="FormUtils.isInvalidField(form.get('password'))">
-					<app-field-error-message [control]="form.get('password')" label="{{ passwordLabel }}"></app-field-error-message>				
+			<form [formGroup]="form">
+				<div class="row">
+					<div class="col-12 mb-3">
+						<label for="inputCode" class="form-label"> Código de validação <span class="text-danger">*</span></label>
+						<input type="text" placeholder="Insira seu código aqui..." id="inputCode" class="form-control" formControlName="code"
+							[class.is-invalid]="FormUtils.isInvalidField(form.get('code'))">
+						<app-field-error-message [control]="form.get('code')" label="Código de validação"></app-field-error-message>				
+					</div>
 				</div>
-			</div>
-			
-			<div class="row">
-				<div class="col-12 mb-3">
-					<label for="inputConfirmPassword" class="form-label"> Confirme sua nova Senha <span class="text-danger">*</span></label>
-					<input type="password" id="inputConfirmPassword" class="form-control" formControlName="confirmPassword"
-						[class.is-invalid]="FormUtils.isInvalidField(form.get('confirmPassword'))">
-					<app-field-error-message [control]="form.get('confirmPassword')" label="Confirme sua Senha"></app-field-error-message>				
+	
+				<div class="row">
+					<div class="col-12 mb-3">
+						<label for="inputPassword" class="form-label"> Digite uma nova Senha <span class="text-danger">*</span></label>
+						<input type="password" placeholder="Digite sua nova senha..." id="inputPassword" class="form-control" formControlName="password"
+							[class.is-invalid]="FormUtils.isInvalidField(form.get('password'))">
+						<app-field-error-message [control]="form.get('password')" label="{{ passwordLabel }}"></app-field-error-message>				
+					</div>
 				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-12 mb-3">
-					<button type="button" class="btn glb-btn-dark-disabled modal-button" (click)="cancelar()">							<span> Cancelar </span>
-					</button>
-					<button type="button" class="btn btn-primary modal-button ms-3" (click)="sendPassword()">
-						<span> Confirmar </span>
-					</button>
+				
+				<div class="row">
+					<div class="col-12 mb-3">
+						<label for="inputConfirmPassword" class="form-label"> Confirme sua nova Senha <span class="text-danger">*</span></label>
+						<input type="password" placeholder="Digite a senha novamente..." id="inputConfirmPassword" class="form-control" formControlName="confirmPassword"
+							[class.is-invalid]="FormUtils.isInvalidField(form.get('confirmPassword'))">
+						<app-field-error-message [control]="form.get('confirmPassword')" label="Confirme sua Senha"></app-field-error-message>				
+					</div>
 				</div>
-			</div>
-		</form>
+	
+					<div class="btns">
+						<button type="button" class="btn btn-primary modal-button" (click)="sendPassword()">
+							<span> Redefinir senha </span>
+						</button>
+						<button type="button" class="btn modal-button cancelar-btn" (click)="cancelar()">							
+							<span><span class="icon"><lib-icon iconName="p-seta-esquerda" [iconSize]="20"/></span>Voltar para a tela de login</span>
+						</button>
+					</div>
+			</form>
+		</div>
+		<!-- #endregion MAIN CONTENT -->
 	</div>
-	<!-- #endregion MAIN CONTENT -->
-</div>
+	</body>
+	

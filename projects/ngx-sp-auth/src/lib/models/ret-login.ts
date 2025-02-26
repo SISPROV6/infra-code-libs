@@ -15,6 +15,7 @@ export class RetLogin implements IError {
   InitializePassword: boolean = false;
   InfraInAuthTypeId: number = 0;
   InfraIn2FaTypeId?: number | null;
-  Is2FaEnabled: boolean = false; 
-  FeedbackMessage: string = ''; 
+  Is2FaEnabled: boolean = false;
+  FeedbackMessage: string = '';
+  statusSenha: number = 0
 }

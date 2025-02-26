@@ -1,45 +1,42 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
-import { Subscription, map, take, timer } from 'rxjs';
+
+import { map, Subscription, take, timer } from 'rxjs';
 
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 
-import { FormUtils, InfraModule } from 'ngx-sp-infra';
 //import { CustomLoginService } from 'src/app/project/custom/login/custom-login.service';
-import { MessageService } from 'ngx-sp-infra';
-import { ServerService } from '../../server/server.service';
-
+import { FormUtils, MessageService } from 'ngx-sp-infra';
 import { AuthService } from '../../auth.service';
-import { environment } from '../../environments/environments';
+import { EnvironmentService } from '../../environments/environments.service';
+// import { environment } from '../../environments/environments';
+import { LibCustomLoginService } from '../../custom/custom-login.service';
+import { ServerService } from '../../server/server.service';
 import { AuthStorageService } from '../../storage/auth-storage.service';
 
 @Component({
-	selector: 'app-login',
+	selector: 'lib-login',
 	templateUrl: './login.component.html',
 	styleUrls: ['./login.component.scss'],
-	standalone: true,
-	imports: [
-		ReactiveFormsModule,
-		InfraModule,
-		CommonModule
-	],
+	standalone: false,
 	preserveWhitespaces: true,
 })
 export class LoginComponent implements OnInit {
 
 	constructor(
-		//public _customLoginService: CustomLoginService, 
+		//public _customLoginService: CustomLoginService,
 		private _bsModalService: BsModalService,
 		private _messageService: MessageService,
 		private _formBuilder: FormBuilder,
 		private _authService: AuthService,
 		private _serverService: ServerService,
+		private _environmentService: EnvironmentService,
 		private _authStorageService: AuthStorageService,
+		public _customLoginService: LibCustomLoginService,
 		private _title: Title,
 		private _router: Router,
 		private _toastrService: ToastrService
@@ -68,15 +65,7 @@ export class LoginComponent implements OnInit {
 
 	//propriedades que vão receber os valores do customLoginService ####VERIFICAR DEPOIS####
 
-	public loginTitle: string = "Chega de planilhas <br /> e papéis!";
-	public loginSubtitle: string = "Você no <strong>controle</strong> <br /> do <strong>ciclo de vida</strong> <br /> dos seus <strong>contratos</strong> <br /> de <strong>onde estiver.</strong>";
-	public loginBackground: string = "../../../../assets/imgs/imgwithoutoverlay.png";
-	public loginLogotipo: string = "assets/imgs/LogotipoSisproDefault.svg";
-	public loginAltLogotipo: string = "Login - SisproV6 Corporativo";
-	public loginPageTitle: string = "Login - SisproV6 Corporativo";
-	public loginDesenvDomain: string = "sisprov6";
-	public loginDesenvUser: string = "admin";
-	public loginDesenvPassword: string = "admin";
+	// @Input() customPropriedadesLogin?: CustomPropriedadesLogin;
 
 	// #endregion PUBLIC
 
@@ -139,16 +128,15 @@ export class LoginComponent implements OnInit {
 
 	ngOnInit(): void {
 
-		this._title.setTitle(this.loginPageTitle);
+		this._title.setTitle(this._customLoginService.loginPageTitle);
 
-		if (this.loginTitle != "") {
-			document.getElementById("title")!.innerHTML = this.loginTitle;
+		if (this._customLoginService.loginTitle != "") {
+			document.getElementById("title")!.innerHTML = this._customLoginService.loginTitle;
 		}
 
-		if (this.loginSubtitle != "") {
-			document.getElementById("subtitle")!.innerHTML = this.loginSubtitle;
+		if (this._customLoginService.loginSubtitle != "") {
+			document.getElementById("subtitle")!.innerHTML = this._customLoginService.loginSubtitle;
 		}
-
 		this.createForm();
 	}
 
@@ -158,7 +146,7 @@ export class LoginComponent implements OnInit {
 	private createForm(): void {
 
 		//  Dados originais de Login
-		if (environment.production) {
+		if (this._environmentService.production) {
 			this.form = this._formBuilder.group({
 				dominio: ['', [Validators.required, Validators.maxLength(50)]],
 				usuario: ['', [Validators.required, Validators.maxLength(100)]],
@@ -167,9 +155,9 @@ export class LoginComponent implements OnInit {
 		}
 		else {
 			this.form = this._formBuilder.group({
-				dominio: [this.loginDesenvDomain, [Validators.required, Validators.maxLength(50)]],
-				usuario: [this.loginDesenvUser, [Validators.required, Validators.maxLength(100)]],
-				senha: [this.loginDesenvPassword, [Validators.required, Validators.maxLength(100)]]
+				dominio: [this._customLoginService.loginDesenvDomain, [Validators.required, Validators.maxLength(50)]],
+				usuario: [this._customLoginService.loginDesenvUser, [Validators.required, Validators.maxLength(100)]],
+				senha: [this._customLoginService.loginDesenvPassword, [Validators.required, Validators.maxLength(100)]]
 			});
 		}
 	}
@@ -207,7 +195,7 @@ export class LoginComponent implements OnInit {
 	// Obtém a Url do Config Erp
 	public geturlErpConfig(): string {
 		// verificar depois 
-		return `${environment.hostName}/SisproErpCloud/ConfigErp`;
+		return `${this._environmentService.hostName}/SisproErpCloud/ConfigErp`;
 	}
 
 	/*
@@ -227,13 +215,14 @@ export class LoginComponent implements OnInit {
 
 					//this._projectUtilservice.showHttpError(error);
 					this._messageService.showAlertDanger(error);
+
+					//pode ser substituido por console.error
 					throw new Error(error)
 				},
 			})
 		} else {
 			FormUtils.validateFields(this.form);
 		}
-
 	}
 
 	// #endregion GET
@@ -319,7 +308,7 @@ export class LoginComponent implements OnInit {
 			next: (response) => {
 				this.closeForgottenPasswordModal();
 
-				let param: string = btoa(`false$${this.dominio}$${this.usuario}`);
+				let param: string = btoa(`false$${this.dominio}$${this.usuario}$${3}`);
 
 				this._router.navigate([`auth/login/novaSenha/${param}`]);
 
