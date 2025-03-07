@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Validator, AbstractControl } from '@angular/forms';
 import { ValidationErrors } from '@angular/forms';
 
@@ -34,8 +35,9 @@ export class CpfCnpjValidator implements Validator {
   * Valida um CPF ou CNPJ de acordo com seu dígito verificador.
   */
   static validate(c: AbstractControl): ValidationErrors | null {
-
-    const cpfCnpj = c.value.replace(/\D/g, '');
+    let cpfCnpj: any = "";
+    
+    if (c.value) cpfCnpj = c.value.replace(/\D/g, '');
 
     if (cpfCnpj === '') {
       return null;
