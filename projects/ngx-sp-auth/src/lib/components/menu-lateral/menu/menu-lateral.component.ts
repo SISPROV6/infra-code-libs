@@ -37,8 +37,6 @@ export class MenuLateralComponent implements OnInit {
 
   public ngOnInit(): void {
 
-    console.log(this.menuConfig)
-
     // Inscreva-se no evento NavigationEnd para receber notificações quando a rota mudar, serve para atualizar a seleção do menu corretamente
     this._router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: any) => {
       this._customMenuService.menuItems = this._customMenuService.menuConfig.updateRouteSelection(this._router.url, this._customMenuService.menuItems)
@@ -46,7 +44,7 @@ export class MenuLateralComponent implements OnInit {
 
     if (!this._customMenuService.menuDynamic) {
       this._customMenuService.menuConfig.setMenuStatic(true);
-      this._customMenuService.menuItems = this._customMenuService.menuConfig.initializeMenu(this._router.url);    
+      this._customMenuService.menuItems = this._customMenuService.menuConfig.initializeMenu(this._router.url);
 
       // Método com customizações para inicialização do Menu Estático
       this._customMenuService.menuStaticOnInit();
@@ -136,7 +134,7 @@ export class MenuLateralComponent implements OnInit {
 
   private getMenuUserImg(): void {
     this._menuServices.getImagemMenu().subscribe({
-      next: response => { this.footerUserImgSrc = response.InfraUsuarioImg.IMAGEM; },
+      next: response => { this.footerUserImgSrc = response.InfraUsuarioImg.Imagem; },
       error: error => {
         //this._projectUtilService.showHttpError(error);
         this._messageService.showAlertDanger(error);
@@ -217,13 +215,12 @@ export class MenuLateralComponent implements OnInit {
 
   public onClickedOutside(e: Event, ref: HTMLDivElement): void {
     if (ref) {
-        ref.classList.remove("opened-sub");
-        this.submenuList = [];
+      ref.classList.remove("opened-sub");
+      this.submenuList = [];
     } else {
-        console.log(ref)
-        console.warn('ref is undefined or null');
+      console.warn('ref is undefined or null');
     }
-}
+  }
 
   // #region MENU FOOTER USER IMAGE
   private validateCachedImg(footerImg: Usuario_IMG | null): boolean {

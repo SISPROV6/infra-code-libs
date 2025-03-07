@@ -7,6 +7,7 @@ import { BehaviorSubject, Observable, take, tap } from 'rxjs';
 import { Utils } from 'ngx-sp-infra';
 import { RetToken } from '../models/ret-token';
 import { Token } from '../models/token';
+import { LibCustomStorageService } from '../custom/custom-storage.service';
 
 @Injectable(
   { providedIn: 'root' }
@@ -14,9 +15,7 @@ import { Token } from '../models/token';
 export class AuthStorageService {
 
 
-  private readonly _HOSTNAME: any = window.location.hostname.includes("localhost")
-    ? `http://${window.location.hostname}`
-    : `https://${window.location.hostname}`;
+  private readonly _HOSTNAME: any = "https://siscandesv6.sispro.com.br";
 
   private readonly _BASE_URL: string = `${this._HOSTNAME}/SisproErpCloud/Service_Private/Infra/SpInfra2LoginWS/api/LoginSisproERP`; // SpInfra2WS
 
@@ -33,13 +32,14 @@ export class AuthStorageService {
 
   constructor(
     private _httpBackend: HttpBackend,
+    private _customStorageService: LibCustomStorageService
   ) {
     this._httpClient = new HttpClient(_httpBackend);
 
     //this._BASE_URL = !environment.production ? this._BASE_URL : `${environment.SpInfra2LoginWS}/LoginSisproERP`;
 
     // Método com customizações para inicializações da storage
-    this.storageConstructor()
+    this._customStorageService.storageConstructor()
 
     const expectedLocalAuthStorage = localStorage.getItem(this.__local_key);
 
@@ -282,7 +282,7 @@ export class AuthStorageService {
     localStorage.setItem(this.__local_key, this.toJson());
 
     // Método com customizações para salvar informações na storage
-    this.storageSaveLocalInstance();
+    this._customStorageService.storageSaveLocalInstance();
 
     this.__notSaving();
   }
@@ -370,7 +370,7 @@ export class AuthStorageService {
       this.ignoreCheckLogin = false;
     } else {
       // Método com customizações para inicializações da AutoStorage
-      this.storageInitializeAutoStorage();
+      this._customStorageService.storageInitializeAutoStorage();
     }
 
     this.isLoggedInSub.next(true);
@@ -400,7 +400,7 @@ export class AuthStorageService {
     localStorage.removeItem(this.__local_key);
 
     // Método com customizações para finalizações da storage
-    this.storageLogout();
+    this._customStorageService.storageLogout();
   }
 
   private getNewTokenBack(): Observable<RetToken> {
@@ -511,54 +511,6 @@ export class AuthStorageService {
   // #region Métodos Customizadas para o Componente auth-storage.service.ts
 
   // Método executado no auth-storage.service.ts - método: constructor ()
-  // Utilizado para inicializações diversas
-  public storageConstructor(callback?: () => void): void {
-    if (callback) {
-      callback();
-    }
-  }
-
-  // Método executado no auth-storage.service.ts - método: saveLocalInstance ()
-  // Utilizado para salvar informações no localStorage
-  public storageSaveLocalInstance(callback?: () => void): void {
-    if (callback) {
-      callback();
-    }
-  }
-
-  // Método executado no auth-storage.service.ts - método: logout ()
-  // Utilizado para inicializar informações no localStorage na logout da aplicação
-  public storageLogout(callback?: () => void): void {
-    if (callback) {
-      callback();
-    }
-  }
-
-  // Método executado no auth-storage.service.ts - método: reCheckLogin ()
-  // Utilizado para inicializações diversas quando o Login exeutado via Pré Portal
-  public storageInitializeAutoStorage(callback?: () => void): void {
-    if (callback) {
-      callback();
-    }
-  }
-
-  // Método executado para salvar as propriedades no LocalStorage (não deve ser modificado)
-  private async __authStorageSaveLocalInstance(): Promise<void> {
-
-    if (this.__isSaving) {
-      return
-    }
-    this.__isSaving = true
-
-    this.storageSaveLocalInstance();
-
-    this.__authStorageNotSaving()
-  }
-
-  // Método executado para salvar as propriedades no LocalStorage (não deve ser modificado)
-  private async __authStorageNotSaving(): Promise<void> {
-    this.__isSaving = false
-  }
 
   // #endregion ==========> UTILS <==========
 

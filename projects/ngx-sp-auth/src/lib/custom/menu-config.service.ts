@@ -72,11 +72,11 @@ export class MenuConfigService {
 
     public ConfigurarMenuConfig(menuConfig: IMenuConfig): void {
 
-        //passando propriedades do produto para a lib
+        //passando propriedades do projeto para a lib
         this._menuOptions = menuConfig.menuOptions;
         this._isMenuStatic = menuConfig.isMenuStatic;
 
-        //passando implementação dos métodos do produto para a lib
+        //passando implementação dos métodos do projeto para a lib
         this.storedInitializeMenu = menuConfig.initializeMenu;
         this.storedInitializeMenuDropdown = menuConfig.initializeMenuDropdown;
     }
