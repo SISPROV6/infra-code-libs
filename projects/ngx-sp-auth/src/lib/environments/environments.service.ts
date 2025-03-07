@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-//import { IEnvironments } from "ngx-sp-auth";
 import { IEnvironments } from "./models/ienvironments";
 
 @Injectable(

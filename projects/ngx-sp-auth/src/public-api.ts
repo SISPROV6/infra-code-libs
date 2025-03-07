@@ -6,6 +6,7 @@ export * from './lib/components/menu-lateral/menu-services.service';
 export * from './lib/components/menu-lateral/menu/list-estab.service';
 export * from './lib/custom/custom-login.service';
 export * from './lib/custom/custom-menu.service';
+export * from './lib/custom/custom-storage.service';
 export * from './lib/custom/menu-config.service';
 export * from './lib/environments/environments.service';
 export * from './lib/server/server.service';
@@ -31,6 +32,7 @@ export * from './lib/custom/models/icustom-menu-service';
 export * from './lib/custom/models/imenu-config';
 export * from './lib/environments/models/ienvironments';
 export * from './lib/models/custom-propriedades-login';
+export * from './lib/custom/models/icustom-storage-service';
 
 
 /** Guards */

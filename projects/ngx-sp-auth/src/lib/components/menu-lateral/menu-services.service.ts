@@ -76,7 +76,7 @@ export class MenuServicesService {
             throw Error(response.ErrorMessage);
           }
 
-          this.saveImageToStorage(response.InfraUsuarioImg.IMAGEM, response.InfraUsuarioImg.FILENAME);
+          this.saveImageToStorage(response.InfraUsuarioImg.Imagem, response.InfraUsuarioImg.FileName);
         })
       )
   }
