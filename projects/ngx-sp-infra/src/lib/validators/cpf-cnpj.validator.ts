@@ -36,7 +36,6 @@ export class CpfCnpjValidator implements Validator {
   */
   static validate(c: AbstractControl): ValidationErrors | null {
     let cpfCnpj: any = "";
-    
     if (c.value) cpfCnpj = c.value.replace(/\D/g, '');
 
     if (cpfCnpj === '') {
