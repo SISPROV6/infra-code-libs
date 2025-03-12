@@ -79,9 +79,9 @@ export class FormUtils {
    * @summary Mapeia os valores de um formulário reativo para um objeto de modelo.
    *
    * @description
-   * O método `mapFormToModel` recebe um objeto de modelo e um `FormGroup` do Angular, 
-   * e retorna um novo objeto que combina as propriedades do modelo original com os valores 
-   * atuais do formulário. Este método é útil para atualizar dinamicamente as propriedades 
+   * O método `mapFormToModel` recebe um objeto de modelo e um `FormGroup` do Angular,
+   * e retorna um novo objeto que combina as propriedades do modelo original com os valores
+   * atuais do formulário. Este método é útil para atualizar dinamicamente as propriedades
    * de um modelo com base nos valores inseridos pelo usuário em um formulário.
    * 
    * Se o objeto `record` ou o `formGroup` forem nulos ou indefinidos, o método retornará `null`.
