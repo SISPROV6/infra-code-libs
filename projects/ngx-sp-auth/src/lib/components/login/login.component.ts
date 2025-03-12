@@ -2,18 +2,13 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-
-
 import { map, Subscription, take, timer } from 'rxjs';
-
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 
-//import { CustomLoginService } from 'src/app/project/custom/login/custom-login.service';
 import { FormUtils, MessageService } from 'ngx-sp-infra';
 import { AuthService } from '../../auth.service';
 import { EnvironmentService } from '../../environments/environments.service';
-// import { environment } from '../../environments/environments';
 import { LibCustomLoginService } from '../../custom/custom-login.service';
 import { ServerService } from '../../server/server.service';
 import { AuthStorageService } from '../../storage/auth-storage.service';
@@ -28,7 +23,6 @@ import { AuthStorageService } from '../../storage/auth-storage.service';
 export class LoginComponent implements OnInit {
 
 	constructor(
-		//public _customLoginService: CustomLoginService,
 		private _bsModalService: BsModalService,
 		private _messageService: MessageService,
 		private _formBuilder: FormBuilder,
@@ -249,7 +243,7 @@ export class LoginComponent implements OnInit {
 
 				//Incialização de Senha
 				if (response.InitializePassword) {
-					let param: string = btoa(`true$${this.dominio}$${this.usuario}`);
+					let param: string = btoa(`true$${ this.dominio }$${ this.usuario }$${response.statusSenha}`);
 
 					this._router.navigate([`auth/login/novaSenha/${param}`]);
 
@@ -308,7 +302,7 @@ export class LoginComponent implements OnInit {
 			next: (response) => {
 				this.closeForgottenPasswordModal();
 
-				let param: string = btoa(`false$${this.dominio}$${this.usuario}$${3}`);
+				let param: string = btoa(`false$${this.dominioFgtPsw}$${this.usuarioFgtPsw}$${3}`);
 
 				this._router.navigate([`auth/login/novaSenha/${param}`]);
 

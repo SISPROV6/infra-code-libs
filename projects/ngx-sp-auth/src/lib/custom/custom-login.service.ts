@@ -27,7 +27,7 @@ export class LibCustomLoginService {
      * Utilizado para inicializações diversas
      */
     public authLogin(): void {
-        this.storedAuthLogin
+        this.storedAuthLogin();
     }
 
     /**
@@ -35,7 +35,7 @@ export class LibCustomLoginService {
      * Utilizado para inicializações diversas
      */
     public authLogout(): void {
-        this.storedAuthLogout
+        this.storedAuthLogout();
     }
 
     /**
@@ -57,7 +57,7 @@ export class LibCustomLoginService {
 
     public ConfigurarCustomLogin(customLoginService: ICustomLoginService): void {
 
-        //passando propriedades do produto para a lib
+        //passando propriedades do projeto para a lib
         this.loginTitle = customLoginService.loginTitle
 
         this.loginSubtitle = customLoginService.loginSubtitle
@@ -76,7 +76,7 @@ export class LibCustomLoginService {
 
         this.loginDesenvPassword = customLoginService.loginDesenvPassword
 
-        //passando implementação dos métodos do produto para a lib
+        //passando implementação dos métodos do projeto para a lib
         this.storedAuthLogin = customLoginService.authLogin;
         this.storedAuthLogout = customLoginService.authLogout;
     }

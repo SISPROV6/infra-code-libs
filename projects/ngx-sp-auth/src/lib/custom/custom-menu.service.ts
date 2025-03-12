@@ -4,7 +4,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 import { IMenuItemStructure } from '../components/menu-lateral/model/imenu-item-structure.model';
 import { IMenu } from '../components/menu-lateral/model/imenu.model';
-// import { environment } from '../environments/environments';
 import { AuthStorageService } from '../storage/auth-storage.service';
 import { MenuConfigService } from './menu-config.service';
 import { ICustomMenuService } from './models/icustom-menu-service';
@@ -77,14 +76,14 @@ export class LibCustomMenuService {
 
     public ConfigurarCustomMenuService(RealcustomMenuService: ICustomMenuService): void {
 
-        //passando propriedades do produto para a lib
+        //passando propriedades do projeto para a lib
         this.menuDynamic = RealcustomMenuService.menuDynamic;
         this.moduleName = RealcustomMenuService.moduleName;
         this.moduleImg = RealcustomMenuService.moduleImg;
         this.moduleSvg = RealcustomMenuService.moduleSvg;
         this.themeColor = RealcustomMenuService.themeColor;
 
-        //passando implementação dos métodos do produto para a lib
+        //passando implementação dos métodos do projeto para a lib
         this.storedMenuStaticOnInit = RealcustomMenuService.menuStaticOnInit;
         this.storedMenuopenExpansibleMenu = RealcustomMenuService.menuopenExpansibleMenu;
         this.storedMenuDynamicOnInit = RealcustomMenuService.menuDynamicOnInit;

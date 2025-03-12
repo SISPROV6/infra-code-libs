@@ -16,7 +16,7 @@ export class ConfiguracaoSenhaService {
   // #region ==========> PROPERTIES <==========
 
   // #region PRIVATE
-  private readonly _BASE_URL: string = `https://siscandesv6.sispro.com.br/SisproErpCloud/Service_Private/Infra/SpInfra2ConfigErpWS/api/InfraSegConfig`; // SpInfra2ConfigErpWS
+  private readonly _BASE_URL: string = `https://${ window.location.hostname }/SisproErpCloud/Service_Private/Infra/SpInfra2ConfigErpWS/api/InfraSegConfig`; // SpInfra2ConfigErpWS
   private readonly _HTTP_HEADERS = new HttpHeaders()
     .set('Content-Type', 'application/json');
 
