@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { FormUtils, InfraModule, MessageService } from 'ngx-sp-infra';
+import { FormUtils, MessageService } from 'ngx-sp-infra';
 import { AuthService } from '../../auth.service';
 import { ServerService } from '../../server/server.service';
 import { AuthStorageService } from '../../storage/auth-storage.service';
@@ -12,18 +12,12 @@ import { AuthStorageService } from '../../storage/auth-storage.service';
 	selector: 'app-nova-senha',
 	templateUrl: './nova-senha.component.html',
 	styleUrls: ['./nova-senha.component.scss'],
-	standalone: true,
-	imports: [
-		ReactiveFormsModule,
-		InfraModule,
-	],
 	preserveWhitespaces: true,
 })
 export class NovaSenhaComponent implements OnInit {
 
 	constructor(
 		private _formBuilder: FormBuilder,
-
 		private _messageService: MessageService,
 		private _serverService: ServerService,
 		private _authService: AuthService,
@@ -40,6 +34,21 @@ export class NovaSenhaComponent implements OnInit {
 		this.createForm();
 
 		this.getParmsFromRoute();
+
+		this.form.get('password')?.disable();
+		this.form.get('confirmPassword')?.disable();
+
+		this.form.get('code')?.setValue('');
+
+		this.form.get('code')?.valueChanges.subscribe(value => {
+			if (value && value.length === 6) {
+				this.form.get('password')?.enable();
+				this.form.get('confirmPassword')?.enable();
+			} else {
+				this.form.get('password')?.disable();
+				this.form.get('confirmPassword')?.disable();
+			}
+		});
 	}
 
 	// #region ==========> PROPERTIES <==========
@@ -48,6 +57,14 @@ export class NovaSenhaComponent implements OnInit {
 	private domain: string | null = "";
 	private user: string | null = "";
 	private createPassword: boolean = false;
+
+	public esqueceuSenhaText: string = "Enviamos um código para o seu e-mail.<br>Insira-o abaixo para redefinir sua senha."
+	public primeiroAcessoText: string = "Este é o seu primeiro acesso. Por favor,<br>Insira abaixo o código enviado pare seu<br>e-mail para definir sua senha."
+	public senhaExpiradaText: string = "Sua senha expirou e precisa ser atualizada.<br>Enviamos um código para o seu e-mail.<br>Insira-o abaixo para definir sua senha."
+
+	public cadeadoImg = 'assets/imgs/Property1-cadeado.png';
+	public maoImg = 'assets/imgs/Property1-mao.png';
+	public calendarioImg = 'assets/imgs/Property1-calendariofino.png';
 
 	// #region PRIVATE
 
@@ -62,6 +79,8 @@ export class NovaSenhaComponent implements OnInit {
 	}
 
 	public passwordLabel: string = "";
+
+	public statusSenha: number = 0;
 
 	// #region FORM DATA
 
@@ -193,6 +212,9 @@ export class NovaSenhaComponent implements OnInit {
 
 			var params = param.split('$');
 
+			let numero: number = +params[params.length - 1].slice(-1)
+			this.statusSenha = numero;
+
 			this.createPassword = (params[0] == 'true' ? true : false);
 			this.domain = params[1];
 			this.user = params[2];
@@ -216,10 +238,6 @@ export class NovaSenhaComponent implements OnInit {
 
 		this._router.navigate(["/auth/login"]);
 	}
-
-
-
-
 
 	// #endregion UTILIDADES
 

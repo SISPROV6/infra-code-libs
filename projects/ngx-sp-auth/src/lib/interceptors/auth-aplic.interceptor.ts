@@ -1,8 +1,9 @@
 import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { EnvironmentService } from './../environments/environments.service';
 
 import { Observable, from, lastValueFrom } from 'rxjs';
-import { environment } from '../environments/environments';
+//import { environment } from '../environments/environments';
 
 import { CheckUrlAndMethodService } from 'ngx-sp-infra';
 import { AuthStorageService } from '../storage/auth-storage.service';
@@ -17,30 +18,31 @@ import { AuthStorageService } from '../storage/auth-storage.service';
   { providedIn: 'root' }
 )
 export class AuthAplicInterceptor implements HttpInterceptor {
-  
+
   constructor(
     private authCheckService: CheckUrlAndMethodService,
+    private _environmentService: EnvironmentService,
     private token: AuthStorageService
   ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-      // convert promise to observable using 'from' operator
+    // convert promise to observable using 'from' operator
     return from(this.handle(req, next))
   }
 
   async handle(req: HttpRequest<any>, next: HttpHandler) {
     let changedReq: HttpRequest<any> = req;
 
-    if (this.authCheckService.needsAuthRequest(req.url, req.method, environment.needsAuthAplic)) {
+    if (this.authCheckService.needsAuthRequest(req.url, req.method, this._environmentService.needsAuthAplic)) {
       // Verifica se o Token precisa ser renovado
-      await this.token.renewToken();        
- 
+      await this.token.renewToken();
+
       // Adiciona as autenticações necessárias ao servidor.
       let headers: HttpHeaders = req.headers.set(
         'Authorization',
-        `Bearer ${ this.token.authToken }`
+        `Bearer ${this.token.authToken}`
       );
- 
+
       changedReq = req.clone({ headers: headers });
     }
 
@@ -64,6 +66,6 @@ export class AuthAplicInterceptor implements HttpInterceptor {
 
     return next.handle(changedReq);
   }
-  */ 
- 
+  */
+
 }

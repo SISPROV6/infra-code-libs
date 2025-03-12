@@ -4,17 +4,16 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 import { IMenuItemStructure } from '../components/menu-lateral/model/imenu-item-structure.model';
 import { IMenu } from '../components/menu-lateral/model/imenu.model';
-import { environment } from '../environments/environments';
 import { AuthStorageService } from '../storage/auth-storage.service';
 import { MenuConfigService } from './menu-config.service';
-import { IMenuService } from './models/icustom-menu-service';
+import { ICustomMenuService } from './models/icustom-menu-service';
 
 @Injectable(
     { providedIn: 'root' }
 )
-export class CustomMenuService {
+export class LibCustomMenuService {
 
-    public menuService!: IMenuService;
+    public menuService!: ICustomMenuService;
 
     // #region Propriedade Customizadas do Menu
 
@@ -32,7 +31,7 @@ export class CustomMenuService {
 
     // #region Propriedade do Menu
 
-    private readonly _MENU_BASE_URL: string = `${environment.SpInfra2ErpWS}`;
+    private readonly _MENU_BASE_URL: string = "https://siscandesv6.sispro.com.br/SisproErpCloud/Service_Private/Infra/SpInfra2ErpWS/api";
 
     private currentURL: string = "";
     private _menuItems: IMenuItemStructure[] = [];
@@ -75,16 +74,16 @@ export class CustomMenuService {
         this.menuConfig = _menuConfig;
     }
 
-    public ConfigurarCustomMenuService(RealcustomMenuService: IMenuService): void {
+    public ConfigurarCustomMenuService(RealcustomMenuService: ICustomMenuService): void {
 
-        //passando propriedades do produto para a lib
+        //passando propriedades do projeto para a lib
         this.menuDynamic = RealcustomMenuService.menuDynamic;
         this.moduleName = RealcustomMenuService.moduleName;
         this.moduleImg = RealcustomMenuService.moduleImg;
         this.moduleSvg = RealcustomMenuService.moduleSvg;
         this.themeColor = RealcustomMenuService.themeColor;
 
-        //passando implementação dos métodos do produto para a lib
+        //passando implementação dos métodos do projeto para a lib
         this.storedMenuStaticOnInit = RealcustomMenuService.menuStaticOnInit;
         this.storedMenuopenExpansibleMenu = RealcustomMenuService.menuopenExpansibleMenu;
         this.storedMenuDynamicOnInit = RealcustomMenuService.menuDynamicOnInit;

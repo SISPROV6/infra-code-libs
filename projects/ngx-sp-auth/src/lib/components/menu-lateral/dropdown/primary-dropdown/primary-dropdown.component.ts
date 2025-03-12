@@ -1,32 +1,19 @@
-import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { CustomMenuService } from '../../../../custom/custom-menu.service';
+import { LibCustomMenuService } from '../../../../custom/custom-menu.service';
 //import { ProjectUtilservice } from 'src/app/project/utils/project-utils.service';
-import { environment } from '../../../../environments/environments';
-import { SecondaryDropdownComponent } from '../secondary-dropdown/secondary-dropdown.component';
+//import { environment } from '../../../../environments/environments';
 
 @Component({
       selector: 'app-primary-dropdown',
       templateUrl: './primary-dropdown.component.html',
       styleUrls: ['./primary-dropdown.component.scss'],
-      standalone: true,
-      imports: [
-            SecondaryDropdownComponent,
-            CommonModule
-      ],
 })
 export class PrimaryDropdownComponent implements OnInit {
 
       public selectDataState!: boolean;
       public modulo: any;
-
-
-      //propriedades que vão receber dados do customMenuService
-
-
-
 
       @Input() buttonWasClicked: Observable<boolean> = new Observable;
 
@@ -34,12 +21,11 @@ export class PrimaryDropdownComponent implements OnInit {
       ]
 
       constructor(
-            private _customMenuService: CustomMenuService,
+            private _customMenuService: LibCustomMenuService,
             //private _projectUtilservice: ProjectUtilservice
       ) { }
 
       ngOnInit(): void {
-            console.log('ngOnInit');
             this.buttonWasClicked.subscribe(() => { this.selectDataState = true });
 
             // Resolver colisão de eventos
@@ -80,13 +66,13 @@ export class PrimaryDropdownComponent implements OnInit {
       }
 
       public redirectToPrePortal(): void {
-            const url: string = `${environment.hostName}/SisproErpCloud/PrePortal`;
+            const url: string = `https://siscandesv6.sispro.com.br/SisproErpCloud/PrePortal`;
 
             window.open(url, '_blank');
       }
 
       public redirectToModulo(modulo: string): void {
-            const url: string = `${environment.hostName}/SisproErpCloud/${modulo}`;
+            const url: string = `https://siscandesv6.sispro.com.br/SisproErpCloud/${modulo}`;
 
             window.open(url, '_blank');
       }
