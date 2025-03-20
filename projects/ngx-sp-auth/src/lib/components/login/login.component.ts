@@ -428,7 +428,5 @@ export class LoginComponent implements OnInit {
 	public closeForgottenPasswordModal(): void {
 		this._bsModalService.hide(this.idFgtPsw);
 	}
-
 	// #endregion ==========> MODALS <==========
-
 }
