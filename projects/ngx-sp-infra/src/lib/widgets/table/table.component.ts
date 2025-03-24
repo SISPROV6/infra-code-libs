@@ -73,6 +73,10 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
    * @default true */
   @Input() public showCounter: boolean = true;
 
+  /** Informa se as rows da tabela devem ter o efeito de hover.
+   * @default true */
+  @Input() public hoverable: boolean = true;
+
   /**
    * DEVE ser utilizada em caso de paginação visível.
    * 

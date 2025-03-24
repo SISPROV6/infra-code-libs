@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
@@ -213,5 +213,6 @@ import { PasswordPolicyComponent } from './widgets/password-policy/password-poli
     PasswordPolicyComponent,
   ],
   providers: [],
+  // schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class InfraModule { }
