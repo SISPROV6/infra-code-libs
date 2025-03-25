@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, HostListener, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { take, tap } from 'rxjs';
 
 @Component({
   selector: 'lib-search-input',
@@ -33,7 +32,6 @@ export class SearchInputComponent implements OnInit, AfterViewInit {
   loadRoutes(): void {
     this.http.get<{ label: string, route: string }[]>('assets/jsons/routes.json').subscribe(
       data => {
-        console.log(data);
         this.items = data;
       }, error => {
         console.error('Error loading routes:', error);
