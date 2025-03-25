@@ -70,6 +70,7 @@ export * from './lib/directives/highlight.directive';
 export * from './lib/directives/loading-btn.directive';
 export * from './lib/directives/required.directive';
 export * from './lib/widgets/field-contador-message/field-contador-message.component';
+export * from './lib/directives/text-truncate.directive';
 
 
 /** Utils */
@@ -144,3 +145,5 @@ export * from './lib/widgets/lib-nav-produtos/lib-nav-produtos.component';
 
 export * from './lib/components/lib-config-senha/lib-config-senha.component';
 export * from './lib/widgets/password-policy/password-policy.component';
+
+export * from './lib/widgets/search-input/search-input.component';

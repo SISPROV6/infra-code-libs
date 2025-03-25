@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
@@ -73,6 +73,8 @@ import { LibSpinnerComponent } from './widgets/spinner/spinner.component';
 
 import { LibConfigSenhaComponent } from './components/lib-config-senha/lib-config-senha.component';
 import { PasswordPolicyComponent } from './widgets/password-policy/password-policy.component';
+import { TextTruncateDirective } from './directives/text-truncate.directive';
+import { SearchInputComponent } from './widgets/search-input/search-input.component';
 
 @NgModule({
   declarations: [
@@ -138,6 +140,8 @@ import { PasswordPolicyComponent } from './widgets/password-policy/password-poli
 
     LibConfigSenhaComponent,
     PasswordPolicyComponent,
+    TextTruncateDirective,
+    SearchInputComponent,
   ],
   imports: [
     CommonModule,
@@ -211,6 +215,8 @@ import { PasswordPolicyComponent } from './widgets/password-policy/password-poli
 
     LibConfigSenhaComponent,
     PasswordPolicyComponent,
+    TextTruncateDirective,
+    SearchInputComponent,
   ],
   providers: [],
   // schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
