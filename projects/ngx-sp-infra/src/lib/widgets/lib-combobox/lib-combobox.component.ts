@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl, FormControlStatus, Validators } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
@@ -42,8 +42,7 @@ import { RecordCombobox } from '../../models/combobox/record-combobox';
     .form-label { font-size: 16px !important; }
     .z-index-1020 { z-index: 1020 !important; }
     .cursor-pointer { cursor: pointer !important; }
-  `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  `
 })
 export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
 
@@ -205,8 +204,9 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
   ngOnChanges(changes: SimpleChanges): void {
     if (changes["list"]?.currentValue) this.updateSelectedValue();
     if (changes["libRequired"]?.currentValue != undefined) this.setValidator();
-    if (changes["separator"].currentValue != undefined) this.updateSelectedValue(this.control.value as string | number);
-    
+
+    if (changes["separator"].currentValue != undefined) this.updateSelectedValue(this.control.value as string | number, false);
+
     if (changes["control"]?.currentValue) {
       this.setValidator();
       this.updateSelectedValue((changes["control"].currentValue as FormControl).value);
@@ -254,7 +254,7 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
     this.changeValue.emit(null);
   }
 
-  private updateSelectedValue(value?: string | number | null): void {
+  private updateSelectedValue(value?: string | number | null, noChange: boolean = true): void {
     this.innerControl.setValue(null); // Limpa o campo antes de qualquer coisa
     
     const selectedValue: string | number | null = value ?? this._outerControl.value;
@@ -262,7 +262,8 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
     
     const initializedValue = this.list.find(item => item.ID === selectedValue)
     if (initializedValue) this.innerControl.setValue(
-      `${initializedValue.AdditionalStringProperty1 && initializedValue.AdditionalStringProperty1 != '' ? initializedValue.AdditionalStringProperty1 : ""}${this.separator === undefined ? "" : " "+this.separator+" "}${initializedValue.LABEL}`
+      `${initializedValue.AdditionalStringProperty1 && initializedValue.AdditionalStringProperty1 != '' ? initializedValue.AdditionalStringProperty1 : ""}${this.separator === undefined ? "" : " "+this.separator+" "}${initializedValue.LABEL}`,
+      { emitEvent: noChange }
     );
   }
 
