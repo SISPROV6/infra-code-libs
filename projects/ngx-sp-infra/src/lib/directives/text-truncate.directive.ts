@@ -6,6 +6,7 @@ import { Directive, ElementRef, Input, OnChanges, OnInit, SimpleChanges } from '
 export class TextTruncateDirective implements OnInit, OnChanges {
 
   private formatType = (): string => { return typeof this.truncateLimit === 'string' ? this.truncateLimit : `${this.truncateLimit}px`; }
+  private applyTooltip = (): void => { this._elementRef.nativeElement.setAttribute('tooltip', this._elementRef.nativeElement.innerText); }
   
   constructor(
     /** Referência ao elemento DOM ao qual a diretiva está associada. */
@@ -47,6 +48,10 @@ export class TextTruncateDirective implements OnInit, OnChanges {
     this._elementRef.nativeElement.style.textOverflow = 'ellipsis';
     this._elementRef.nativeElement.style.whiteSpace = 'nowrap';
     this._elementRef.nativeElement.style.maxWidth = this.formatType();
+
+    console.log(this._elementRef.nativeElement);
+
+    this.applyTooltip();
   }
 
 }
