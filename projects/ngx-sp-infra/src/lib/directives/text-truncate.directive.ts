@@ -6,11 +6,11 @@ import { Directive, ElementRef, Input, OnChanges, OnInit, SimpleChanges } from '
 export class TextTruncateDirective implements OnInit, OnChanges {
 
   private formatType = (): string => { return typeof this.truncateLimit === 'string' ? this.truncateLimit : `${this.truncateLimit}px`; }
-  private applyTooltip = (): void => { this._elementRef.nativeElement.setAttribute('tooltip', this._elementRef.nativeElement.innerText); }
+  // private applyTooltip = (): void => { this._elementRef.nativeElement.setAttribute('tooltip', this._elementRef.nativeElement.innerText); }
   
   constructor(
     /** Referência ao elemento DOM ao qual a diretiva está associada. */
-    private _elementRef: ElementRef<HTMLElement>,
+    private _elementRef: ElementRef<HTMLSpanElement>,
   ) { }
 
   /** Se um valor for informado, deve cortar o texto com base em uma largura determinada e em seu lugar deve aplicar o ellipsis "...".
@@ -48,10 +48,6 @@ export class TextTruncateDirective implements OnInit, OnChanges {
     this._elementRef.nativeElement.style.textOverflow = 'ellipsis';
     this._elementRef.nativeElement.style.whiteSpace = 'nowrap';
     this._elementRef.nativeElement.style.maxWidth = this.formatType();
-
-    console.log(this._elementRef.nativeElement);
-
-    this.applyTooltip();
   }
 
 }

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { Utils } from '../../utils/utils';
 import { TableHeaderStructure } from './models/header-structure.model';
 
@@ -137,6 +137,10 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() divBorderClass: string = "rounded-bottom rounded";
   @Input() tableBorderClass: string = "";
   
+
+  @ViewChild('emptyListTd') emptyListTD?: ElementRef<HTMLTableCellElement>;
+
+  // public colspanWidth: string = (this.headers ? this.headers.length + (this.useSelection ? 1 : 0) : 12).toString();
   // #endregion PUBLIC
 
   // #endregion ==========> PROPRIEDADES <==========
@@ -153,6 +157,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
   ngAfterViewInit(): void {
     this.cdr.detectChanges();  // Forçar uma nova detecção após a renderização
+    this.updateColspanWidth();
   }
 
   /** Monitora as mudanças nas entradas do componente e realiza ajustes, como resetar a paginação ou validar o layout das colunas.
@@ -163,7 +168,10 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
       this.updateCounterInfo();
     }
 
-    if (changes['headers']) { this.validateHeaders(); }
+    if (changes['headers']) {
+      this.validateHeaders();
+      this.updateColspanWidth();
+    }
   }
   // #endregion ==========> INICIALIZAÇÃO <==========
 
@@ -196,6 +204,14 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
     }
     else if (!this.list && this.showCounter && this.usePagination) {
       this.itemsPerPage = 1;
+    }
+  }
+
+
+  private updateColspanWidth(): void {
+    if (this.emptyListTD && this.headers) {
+      let colspanWidth = (this.headers ? this.headers.length + (this.useSelection ? 1 : 0) : 12).toString();
+      this.emptyListTD.nativeElement.setAttribute('colspan', colspanWidth);
     }
   }
 

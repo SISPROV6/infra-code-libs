@@ -18,9 +18,7 @@
          </div>
       }
       @else {
-         <div class="mb-2">
-            <ng-content select="[upperContentFill]"></ng-content>
-         </div>
+         <ng-content select="[upperContentFill]" class="mb-2"></ng-content>
       }
 
       <!-- Container da tabela -->
@@ -29,7 +27,7 @@
             <thead>
                <tr>
                   <!-- Itera sobre a lista de cabeçalhos para criar as colunas -->
-                  <th *ngIf="useSelection" >
+                  <th *ngIf="useSelection" scope="col" class="col-1">
                      <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="tableCheckAll" [(ngModel)]="selection" (ngModelChange)="selectionChange.emit($event)">
                      </div>
@@ -74,7 +72,7 @@
                @else {
                   <!-- Mensagem de ausência de registros -->
                   <tr>
-                     <td colspan="12" class="align-middle text-center p-4 text-dark-grey">
+                     <td #emptyListTd class="align-middle text-center p-4 text-dark-grey">
                         <span> {{ emptyListMessage ? emptyListMessage : "Não há dados para serem listados." }} </span>
                      </td>
                   </tr>

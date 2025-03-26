@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { RecordCombobox } from './../../models/combobox/record-combobox';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { RecordCombobox } from './../../models/combobox/record-combobox';
 
 import { TransferListConfig } from '../../models/transfer-list/list-transfer-config.model';
 
@@ -27,7 +27,6 @@ export class LibTransferListComponent implements OnInit, OnChanges {
   @Input({ required: true }) availableListConfig!: TransferListConfig;
   @Input({ required: true }) selectedListConfig!: TransferListConfig;
   
-  @Input() direction: "row" | "column" = "row";
   @Input() oneWay: boolean = false;
 
   @Input() useBackendSearch?: boolean = false;
@@ -44,25 +43,12 @@ export class LibTransferListComponent implements OnInit, OnChanges {
   public firstListSelected: any[] = [];
   public secondListSelected: any[] = [];
 
-  public get iconDirections(): "row" | "column" { return this.direction === 'row' ? 'column' : 'row'; }
-  public get selectIconName(): "seta-direita" | "seta-baixo" { return this.direction == 'row' ? 'seta-direita' : 'seta-baixo'; }
-  public get revertIconName(): "seta-esquerda" | "seta-cima" { return this.direction == 'row' ? 'seta-esquerda' : 'seta-cima'; }
 
   public get isFirstListSelectionEmpty(): boolean { return this.firstListSelected.length === 0; }
   public get isSecondListSelectionEmpty(): boolean { return this.secondListSelected.length === 0; }
 
-  public get firstListClass(): string {
-    return !this.availableListConfig.customClass ?
-      this.direction === "row" ?
-        "col-6" : "col"
-      : this.availableListConfig.customClass;
-  }
-  public get secondListClass(): string {
-    return !this.selectedListConfig.customClass ?
-      this.direction === "row" ?
-        "col-5" : "col"
-      : this.selectedListConfig.customClass;
-  }
+  public get firstListClass(): string { return this.availableListConfig.customClass ?? "col" }
+  public get secondListClass(): string { return this.selectedListConfig.customClass ?? "col" }
   // #endregion PUBLIC
 
   // #endregion ==========> PROPERTIES <==========

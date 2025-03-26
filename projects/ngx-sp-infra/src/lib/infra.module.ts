@@ -72,8 +72,8 @@ import { SimpleSearchComponent } from './widgets/simple-search/simple-search.com
 import { LibSpinnerComponent } from './widgets/spinner/spinner.component';
 
 import { LibConfigSenhaComponent } from './components/lib-config-senha/lib-config-senha.component';
-import { PasswordPolicyComponent } from './widgets/password-policy/password-policy.component';
 import { TextTruncateDirective } from './directives/text-truncate.directive';
+import { PasswordPolicyComponent } from './widgets/password-policy/password-policy.component';
 import { SearchInputComponent } from './widgets/search-input/search-input.component';
 
 @NgModule({
@@ -147,7 +147,7 @@ import { SearchInputComponent } from './widgets/search-input/search-input.compon
     CommonModule,
     ModalModule.forRoot(),
     AccordionModule.forRoot(),
-    TooltipModule.forRoot(),
+    TooltipModule,
     FormsModule,
 		NgxCurrencyDirective,
     NgxMaskDirective, 

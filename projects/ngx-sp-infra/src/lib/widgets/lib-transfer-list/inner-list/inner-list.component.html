@@ -4,14 +4,10 @@
       <span class="glb-text-dark-disabled"> {{this.selected.length}}/{{list ? list.length : "?"}} selecionados </span>
    </div>
 
-
    <div *ngIf="useSearch" class="input-group">
-      <input #listSearch type="text" class="form-control m-0 rounded-0" [placeholder]="searchPlaceholder + ' (ENTER para pesquisar)'"
-         (keyup.enter)="handleSearch()" [(ngModel)]="textoPesquisa" >
-      <button class="btn btn-outline-primary rounded-0" tooltip="Limpar pesquisa"
-         (click)="textoPesquisa = ''; handleSearch()"> <lib-icon iconName="lixeira" /> </button>
-      <button class="btn btn-outline-primary rounded-0" tooltip="Pesquisar"
-         (click)="handleSearch()"> <lib-icon iconName="lupa" /> </button>
+      <input #listSearch type="text" class="form-control m-0 rounded-0" [placeholder]="searchPlaceholder" (keyup.enter)="handleSearch()" [(ngModel)]="textoPesquisa" >
+      <button class="btn btn-outline-primary rounded-0" tooltip="Limpar pesquisa" (click)="textoPesquisa = ''; handleSearch()"> <lib-icon iconName="lixeira" /> </button>
+      <button class="btn btn-outline-primary rounded-0" tooltip="Pesquisar" (click)="handleSearch()"> <lib-icon iconName="lupa" /> </button>
    </div>
 
 
@@ -21,7 +17,7 @@
          [paginationID]="paginationID" [list]="registrosFiltrados" [showCounter]="false" [counts]="counts ?? [ 5, 10, 20 ]"
          [headers]="[
             { name: identifierColumn ?? 'Código', widthClass: 'col-3' },
-            { name: labelColumn ?? 'Descrição', widthClass: 'col-9' }
+            { name: labelColumn ?? 'Descrição', widthClass: 'col' }
          ]"
          (selectionChange)="definirSelecaoTotal(list, $event); updateSelected()"
          (itemsPerPageChange)="itemsPerPage = $event"
@@ -30,8 +26,7 @@
             <tr innerRows class="align-middle">
               <td *ngIf="useSelection">
                   <div class="form-check">
-                     <input class="form-check-input" type="checkbox" [ngModel]="selecaoMap.get(item.ID)"
-                        (ngModelChange)="inverterSelecao(item.ID); updateSelected()" [attr.aria-checked]="selecaoMap.get(item.ID)">
+                     <input class="form-check-input" type="checkbox" [ngModel]="selecaoMap.get(item.ID)" (ngModelChange)="inverterSelecao(item.ID); updateSelected()" [attr.aria-checked]="selecaoMap.get(item.ID)">
                   </div>
               </td>
               <td> <span [libTextTruncate]="'100%'">{{ item.ID }}</span> </td>
@@ -40,7 +35,7 @@
         }
         @empty {
          <tr innerRows>
-            <td colspan="12" class="align-middle text-center p-4 text-dark-grey">
+            <td class="align-middle text-center p-4 text-dark-grey">
                <span> Não há dados para serem listados. </span>
             </td>
          </tr>
