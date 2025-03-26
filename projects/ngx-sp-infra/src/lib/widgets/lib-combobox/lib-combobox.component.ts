@@ -42,7 +42,8 @@ import { RecordCombobox } from '../../models/combobox/record-combobox';
     .form-label { font-size: 16px !important; }
     .z-index-1020 { z-index: 1020 !important; }
     .cursor-pointer { cursor: pointer !important; }
-  `
+  `,
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
 
@@ -72,6 +73,7 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
 
   protected comboboxID!: string;
   protected labelID!: string;
+  private _labelText: string | null | undefined;
   // #endregion PROTECTED
 
   // #region PRIVATE
@@ -106,8 +108,13 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
   @Input({ required: true }) public list?: RecordCombobox[];
 
   /** (opcional) Texto do rótulo que será exibido acima do combo. Caso não informado nada será exibido
-   * @type {string} */
-  @Input() public labelText?: string;
+   * @type {string | null | undefined} */
+  @Input()
+  public get labelText(): string | null | undefined { return this._labelText; }
+  public set labelText(value: string | null | undefined) {
+    this._labelText = value;
+    this.changeSeparator(value);
+  }
 
   /** (opcional) Texto ou caractere separador entre a informação de ID e LABEL
    * @example " - "
@@ -204,9 +211,7 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
   ngOnChanges(changes: SimpleChanges): void {
     if (changes["list"]?.currentValue) this.updateSelectedValue();
     if (changes["libRequired"]?.currentValue != undefined) this.setValidator();
-
-    if (changes["separator"].currentValue != undefined) this.updateSelectedValue(this.control.value as string | number, false);
-
+    
     if (changes["control"]?.currentValue) {
       this.setValidator();
       this.updateSelectedValue((changes["control"].currentValue as FormControl).value);
@@ -265,6 +270,23 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
       `${initializedValue.AdditionalStringProperty1 && initializedValue.AdditionalStringProperty1 != '' ? initializedValue.AdditionalStringProperty1 : ""}${this.separator === undefined ? "" : " "+this.separator+" "}${initializedValue.LABEL}`,
       { emitEvent: noChange }
     );
+  }
+
+  private changeSeparator(newSeparator: string | null | undefined): void {
+    if (this.labelText === 'Incorporação') console.log(newSeparator);
+
+    const initializedValue = this.list ? this.list.find(item => item.ID === this._outerControl.value) : null;
+    if (this.labelText === 'Incorporação') console.log(initializedValue);
+    
+    let formattedValue: string | null = null;
+
+    if (initializedValue) {
+      formattedValue = `${initializedValue.AdditionalStringProperty1 && initializedValue.AdditionalStringProperty1 !== '' ? initializedValue.AdditionalStringProperty1 : ""}${newSeparator === undefined || newSeparator === null ? "" : " "+newSeparator+" "}${initializedValue.LABEL}`;
+      if (this.labelText === 'Incorporação') console.log(formattedValue);
+    }
+
+    if (initializedValue) this.innerControl.setValue(formattedValue, { emitEvent: false });
+    if (this.labelText === 'Incorporação') console.log(this.innerControl);
   }
 
   private adjustDropdownWidth(): void {
