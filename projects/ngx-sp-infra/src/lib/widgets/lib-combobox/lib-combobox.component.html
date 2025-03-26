@@ -1,7 +1,11 @@
 <!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 
-<label *ngIf="labelText && labelText !== ''" class="form-label fw-bold" [id]="labelID" [for]="comboboxID" [libRequired]="isRequired">{{ labelText }}</label>
+<label *ngIf="labelText && labelText !== ''" class="form-label fw-bold d-flex align-items-center gap-1" [id]="labelID" [for]="comboboxID" [libRequired]="isRequired">
+   <ng-content select="lib-icon[iconLeft]"></ng-content>
+   {{ labelText }}
+   <ng-content select="lib-icon[iconRight]"></ng-content>
+</label>
 
 <div class="input-group dropdown flex-fill glb-max-height-350px">
 
