@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 
-import { TableComponent } from '../../table/table.component';
 import { RecordCombobox } from '../../../models/combobox/record-combobox';
+import { TableComponent } from '../../table/table.component';
 
 @Component({
   selector: 'lib-inner-list',
@@ -58,7 +58,16 @@ export class InnerListComponent implements OnChanges {
   @Output() emitSearch: EventEmitter<string> = new EventEmitter<string>();
   
   @ViewChild(TableComponent) public tableComponent?: TableComponent;
+
+
+  @ViewChild('textIDElement') public textIDElement?: ElementRef<HTMLSpanElement>;
+  @ViewChild('textLabelElement') public textLabelElement?: ElementRef<HTMLSpanElement>;
   
+  @ViewChild('emptyListCell') public emptyListCell?: ElementRef<HTMLTableCellElement>;
+  
+  public textIDTooltip: string = "";
+  public textLabelTooltip: string = "";
+
   
   public selected: any[] = [];
   
@@ -72,19 +81,16 @@ export class InnerListComponent implements OnChanges {
   // #endregion ==========> PROPERTIES <==========
 
 
-  // #region ==========> INITIALIZATION <==========
   constructor() { }
-
-  // ngOnInit(): void {
-  //   // 
-  // }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes["list"].currentValue) {
       this.filterList();
+      this.updateColspanWidth();
+
+      this.setTextTooltip();
     }
   }
-  // #endregion ==========> INITIALIZATION <==========
 
 
   // #region ==========> UTILS <==========
@@ -152,12 +158,30 @@ export class InnerListComponent implements OnChanges {
   // #endregion SELEÇÃO
 
 
-
   public handleSearch(): void {
     if (this.useBackendSearch) this.emitSearch.emit(this.textoPesquisa);
     else this.filterList();
   }
   
+
+  private updateColspanWidth(): void {
+    if (this.emptyListCell) {
+      const colspanWidth = 2 + (this.useSelection ? 1 : 0).toString();
+      this.emptyListCell.nativeElement.setAttribute('colspan', colspanWidth);
+    }
+  }
+
+  private setTextTooltip(): void {
+    if (this.textIDElement) {
+      const tooltipContent = this.textIDElement.nativeElement.scrollWidth > this.textIDElement.nativeElement.clientWidth ? this.textIDElement.nativeElement.innerText : ''
+      this.textIDTooltip = tooltipContent;
+    }
+    
+    if (this.textLabelElement) {
+      const tooltipContent = this.textLabelElement.nativeElement.scrollWidth > this.textLabelElement.nativeElement.clientWidth ? this.textLabelElement.nativeElement.innerText : ''
+      this.textLabelTooltip = tooltipContent;
+    }
+  }
   // #endregion ==========> UTILS <==========
 
 }

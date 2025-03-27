@@ -24,21 +24,14 @@
          (pageChange)="page = $event" >
          @for (item of registrosFiltrados! | paginate: { id: paginationID, itemsPerPage: itemsPerPage, currentPage: page }; track item) {
             <tr innerRows class="align-middle">
-              <td *ngIf="useSelection">
+               <td *ngIf="useSelection">
                   <div class="form-check">
                      <input class="form-check-input" type="checkbox" [ngModel]="selecaoMap.get(item.ID)" (ngModelChange)="inverterSelecao(item.ID); updateSelected()" [attr.aria-checked]="selecaoMap.get(item.ID)">
                   </div>
-              </td>
-              <td> <span [libTextTruncate]="'100%'">{{ item.ID }}</span> </td>
-               <td class="text-start"> <span [libTextTruncate]="'100%'">{{ item.LABEL }}</span> </td>
+               </td>
+               <td> <span #textIDElement [libTextTruncate]="'100%'" [tooltip]="textIDTooltip">{{ item.ID }}</span> </td>
+               <td class="text-start"> <span #textLabelElement [libTextTruncate]="'100%'" [tooltip]="textLabelTooltip">{{ item.LABEL }}</span> </td>
             </tr>
-        }
-        @empty {
-         <tr innerRows>
-            <td class="align-middle text-center p-4 text-dark-grey">
-               <span> Não há dados para serem listados. </span>
-            </td>
-         </tr>
         }
       </lib-table>
    </div>

@@ -273,20 +273,14 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
   }
 
   private changeSeparator(newSeparator: string | null | undefined): void {
-    if (this.labelText === 'Incorporação') console.log(newSeparator);
-
     const initializedValue = this.list ? this.list.find(item => item.ID === this._outerControl.value) : null;
-    if (this.labelText === 'Incorporação') console.log(initializedValue);
-    
     let formattedValue: string | null = null;
 
     if (initializedValue) {
       formattedValue = `${initializedValue.AdditionalStringProperty1 && initializedValue.AdditionalStringProperty1 !== '' ? initializedValue.AdditionalStringProperty1 : ""}${newSeparator === undefined || newSeparator === null ? "" : " "+newSeparator+" "}${initializedValue.LABEL}`;
-      if (this.labelText === 'Incorporação') console.log(formattedValue);
     }
 
     if (initializedValue) this.innerControl.setValue(formattedValue, { emitEvent: false });
-    if (this.labelText === 'Incorporação') console.log(this.innerControl);
   }
 
   private adjustDropdownWidth(): void {
