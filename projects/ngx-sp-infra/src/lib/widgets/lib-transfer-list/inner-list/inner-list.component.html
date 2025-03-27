@@ -29,8 +29,8 @@
                      <input class="form-check-input" type="checkbox" [ngModel]="selecaoMap.get(item.ID)" (ngModelChange)="inverterSelecao(item.ID); updateSelected()" [attr.aria-checked]="selecaoMap.get(item.ID)">
                   </div>
                </td>
-               <td> <span #textIDElement [libTextTruncate]="'100%'" [tooltip]="textIDTooltip">{{ item.ID }}</span> </td>
-               <td class="text-start"> <span #textLabelElement [libTextTruncate]="'100%'" [tooltip]="textLabelTooltip">{{ item.LABEL }}</span> </td>
+               <td> <span #textIDElement [libTextTruncate]="'100%'" >{{ item.ID }}</span> </td>
+               <td class="text-start"> <span #textLabelElement [libTextTruncate]="'100%'" tooltip="{{item.LABEL}}">{{ item.LABEL }}</span> </td>
             </tr>
         }
       </lib-table>

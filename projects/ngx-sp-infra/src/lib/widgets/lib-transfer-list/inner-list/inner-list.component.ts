@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 
 import { RecordCombobox } from '../../../models/combobox/record-combobox';
 import { TableComponent } from '../../table/table.component';
@@ -52,6 +52,7 @@ export class InnerListComponent implements OnChanges {
     this.updateSelected();
 
     this.filterList();
+    this.setTextTooltip();
   }
   
   @Output() selectionChange: EventEmitter<any[]> = new EventEmitter<any[]>();
@@ -81,15 +82,14 @@ export class InnerListComponent implements OnChanges {
   // #endregion ==========> PROPERTIES <==========
 
 
-  constructor() { }
+  constructor( private _cdr: ChangeDetectorRef ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes["list"].currentValue) {
       this.filterList();
-      this.updateColspanWidth();
-
-      this.setTextTooltip();
     }
+    
+    this.setTextTooltip();
   }
 
 
@@ -162,25 +162,24 @@ export class InnerListComponent implements OnChanges {
     if (this.useBackendSearch) this.emitSearch.emit(this.textoPesquisa);
     else this.filterList();
   }
-  
 
-  private updateColspanWidth(): void {
-    if (this.emptyListCell) {
-      const colspanWidth = 2 + (this.useSelection ? 1 : 0).toString();
-      this.emptyListCell.nativeElement.setAttribute('colspan', colspanWidth);
-    }
-  }
-
+  /** ERICK: Não está sendo utilizado pois apesar de funcionar, seu comportamento é instável... vou mantê-lo aqui para caso eu consiga reaproveitar no futuro */
   private setTextTooltip(): void {
+    this._cdr.detectChanges();  // Forçar uma nova detecção antes da atualização do tooltip
+
     if (this.textIDElement) {
       const tooltipContent = this.textIDElement.nativeElement.scrollWidth > this.textIDElement.nativeElement.clientWidth ? this.textIDElement.nativeElement.innerText : ''
       this.textIDTooltip = tooltipContent;
     }
+
+    this._cdr.detectChanges();  // Forçar uma nova detecção após a atualização do tooltip
     
     if (this.textLabelElement) {
       const tooltipContent = this.textLabelElement.nativeElement.scrollWidth > this.textLabelElement.nativeElement.clientWidth ? this.textLabelElement.nativeElement.innerText : ''
       this.textLabelTooltip = tooltipContent;
     }
+
+    this._cdr.detectChanges();  // Forçar uma nova detecção após a atualização do tooltip
   }
   // #endregion ==========> UTILS <==========
 
