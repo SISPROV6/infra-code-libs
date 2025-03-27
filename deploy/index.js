@@ -223,7 +223,7 @@ async function main() {
         commitTag();
         
         // Commit e push dos arquivos
-        console.log(chalk.yellow(`\n📦 ${respostaIsExecutaTestes ? '4.' : '3.'} Commitando alterações...`));
+        console.log(chalk.yellow(`\n\n📦 ${respostaIsExecutaTestes ? '4.' : '3.'} Commitando alterações...`));
         commitFiles();
       });
     })
