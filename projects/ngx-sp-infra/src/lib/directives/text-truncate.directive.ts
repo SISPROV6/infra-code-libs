@@ -1,7 +1,8 @@
 import { Directive, ElementRef, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 @Directive({
-  selector: '[libTextTruncate], [textTruncate]'
+    selector: '[libTextTruncate], [textTruncate]',
+    standalone: true
 })
 export class TextTruncateDirective implements OnInit, OnChanges {
 

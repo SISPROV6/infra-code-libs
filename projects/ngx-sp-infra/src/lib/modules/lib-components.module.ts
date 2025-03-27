@@ -8,13 +8,16 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { FooterComponent } from '../components/footer/footer.component';
+import { PageNotAuthorizedComponent } from '../components/page-not-authorized/page-not-authorized.component';
+import { LibConfigSenhaComponent } from './../components/lib-config-senha/lib-config-senha.component';
 
 @NgModule({
-  declarations: [
-    // FooterComponent,
-    // PageNotAuthorizedComponent,
-  ],
   imports: [
+    FooterComponent,
+    LibConfigSenhaComponent,
+    PageNotAuthorizedComponent,
+
     CommonModule,
     ModalModule.forRoot(),
     AccordionModule.forRoot(),
@@ -28,8 +31,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
     RouterModule
   ],
   exports: [
-    // FooterComponent,
-    // PageNotAuthorizedComponent,
+    FooterComponent,
+    LibConfigSenhaComponent,
+    PageNotAuthorizedComponent,
   ]
 })
 export class LibComponentsModule { }

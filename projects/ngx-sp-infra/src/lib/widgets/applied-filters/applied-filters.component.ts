@@ -1,10 +1,16 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FiltrosAplicadosModel } from '../../models/filtros-aplicados/filtros-aplicados.model';
+import { NgIf } from '@angular/common';
+import { TooltipDirective } from 'ngx-bootstrap/tooltip';
+import { LibIconsComponent } from '../lib-icons/lib-icons.component';
+import { FormatByTypePipe } from '../../pipes/format-by-type.pipe';
 
 @Component({
-  selector: 'lib-applied-filters',
-  templateUrl: './applied-filters.component.html',
-  styleUrl: './applied-filters.component.scss'
+    selector: 'lib-applied-filters',
+    templateUrl: './applied-filters.component.html',
+    styleUrl: './applied-filters.component.scss',
+    standalone: true,
+    imports: [NgIf, TooltipDirective, LibIconsComponent, FormatByTypePipe]
 })
 export class AppliedFiltersComponent {
 

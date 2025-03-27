@@ -4,9 +4,10 @@ import { AbstractControl } from '@angular/forms';
 import { FormUtils } from '../../utils/form-utils';
 
 @Component({
-  selector: 'app-field-error-message, lib-error-message',
-  templateUrl: './field-error-message.component.html',
-  styleUrls: ['./field-error-message.component.css']
+    selector: 'app-field-error-message, lib-error-message',
+    templateUrl: './field-error-message.component.html',
+    styleUrls: ['./field-error-message.component.css'],
+    standalone: true
 })
 export class FieldErrorMessageComponent implements OnInit {
   @Input() public customMessage?: string;

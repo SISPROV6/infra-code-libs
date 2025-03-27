@@ -4,6 +4,12 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, Renderer2, SimpleChanges, ViewChild } from '@angular/core';
 import { Utils } from '../../utils/utils';
 import { TableHeaderStructure } from './models/header-structure.model';
+import { NgIf, NgFor, NgClass } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { LibIconsComponent } from '../lib-icons/lib-icons.component';
+import { TooltipDirective } from 'ngx-bootstrap/tooltip';
+import { OrderingComponent } from '../ordering/ordering.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 /**
  * Componente de Tabela Customizável
@@ -17,9 +23,11 @@ import { TableHeaderStructure } from './models/header-structure.model';
  * @selector lib-table
 */
 @Component({
-  selector: 'lib-table',
-  templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss']
+    selector: 'lib-table',
+    templateUrl: './table.component.html',
+    styleUrls: ['./table.component.scss'],
+    standalone: true,
+    imports: [NgIf, FormsModule, NgFor, LibIconsComponent, TooltipDirective, OrderingComponent, NgClass, NgxPaginationModule]
 })
 export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 

@@ -2,7 +2,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'titlecase'
+    name: 'titlecase',
+    standalone: true
 })
 export class TitleCasePipe implements PipeTransform {
   transform(value: string | null): string {

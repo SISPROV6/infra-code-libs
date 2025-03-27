@@ -4,11 +4,12 @@ import { IconsList } from '../../models/icons/icon.model';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
-  selector: 'lib-icon',
-  template: `
+    selector: 'lib-icon',
+    template: `
     <span [style.color]="color" [innerHTML]="safeSVG"></span>
   `,
-  styles: ``
+    styles: ``,
+    standalone: true
 })
 export class LibIconsComponent implements OnInit, OnChanges {
 

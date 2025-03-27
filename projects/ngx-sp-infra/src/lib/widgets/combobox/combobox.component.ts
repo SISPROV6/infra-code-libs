@@ -12,21 +12,26 @@ import {
   ChangeDetectorRef,
   forwardRef
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { FilterByPipe } from './pipes/filter-by.pipe';
+import { NgClass, NgIf, NgFor } from '@angular/common';
+import { LibIconsComponent } from '../lib-icons/lib-icons.component';
+import { LimitToPipe } from './pipes/limit-to.pipe';
 
 
 @Component({
-  selector: 'app-combobox',
-  templateUrl: './combobox.component.html',
-  styleUrls: ['./combobox.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => ComboboxComponent),
-      multi: true,
-    },
-  ]
+    selector: 'app-combobox',
+    templateUrl: './combobox.component.html',
+    styleUrls: ['./combobox.component.scss'],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => ComboboxComponent),
+            multi: true,
+        },
+    ],
+    standalone: true,
+    imports: [NgClass, LibIconsComponent, NgIf, FormsModule, NgFor, FilterByPipe, LimitToPipe]
 })
 export class ComboboxComponent implements OnInit, OnChanges, AfterViewInit {
 

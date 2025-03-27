@@ -1,4 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { NgFor, NgIf, NgClass } from '@angular/common';
+import { LibIconsComponent } from '../lib-icons/lib-icons.component';
+import { TooltipDirective } from 'ngx-bootstrap/tooltip';
 
 interface CustomIconsConfig {
   class: string;
@@ -9,9 +12,11 @@ interface CustomIconsConfig {
 }
 
 @Component({
-  selector: 'app-side-tabs-generic, lib-side-tabs',
-  templateUrl: './side-tabs-generic.component.html',
-  styleUrls: ['./side-tabs-generic.component.scss']
+    selector: 'app-side-tabs-generic, lib-side-tabs',
+    templateUrl: './side-tabs-generic.component.html',
+    styleUrls: ['./side-tabs-generic.component.scss'],
+    standalone: true,
+    imports: [NgFor, NgIf, LibIconsComponent, NgClass, TooltipDirective]
 })
 export class SideTabsGenericComponent implements OnInit {
   constructor() { }

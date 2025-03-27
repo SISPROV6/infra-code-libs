@@ -77,9 +77,19 @@ import { PasswordPolicyComponent } from './widgets/password-policy/password-poli
 import { SearchInputComponent } from './widgets/search-input/search-input.component';
 
 @NgModule({
-  declarations: [
+  imports: [
+    CommonModule,
+    ModalModule.forRoot(),
+    AccordionModule.forRoot(),
+    TooltipModule,
+    FormsModule,
+    NgxCurrencyDirective,
+    NgxMaskDirective,
+    NgxMaskPipe,
+    NgxPaginationModule,
+    ReactiveFormsModule,
+    RouterModule,
     PageNotAuthorizedComponent,
-    
     LoadingComponent,
     FieldControlErrorComponent,
     FieldErrorMessageComponent,
@@ -137,28 +147,13 @@ import { SearchInputComponent } from './widgets/search-input/search-input.compon
     AppliedFiltersComponent,
     FormatByTypePipe,
     LibNavProdutosComponent,
-
     LibConfigSenhaComponent,
     PasswordPolicyComponent,
     TextTruncateDirective,
-    SearchInputComponent,
-  ],
-  imports: [
-    CommonModule,
-    ModalModule.forRoot(),
-    AccordionModule.forRoot(),
-    TooltipModule,
-    FormsModule,
-		NgxCurrencyDirective,
-    NgxMaskDirective, 
-		NgxMaskPipe,
-    NgxPaginationModule,
-    ReactiveFormsModule,
-    RouterModule
+    SearchInputComponent
   ],
   exports: [
     PageNotAuthorizedComponent,
-    
     LoadingComponent,
     FieldControlErrorComponent,
     FieldErrorMessageComponent,
@@ -212,13 +207,11 @@ import { SearchInputComponent } from './widgets/search-input/search-input.compon
     AppliedFiltersComponent,
     FormatByTypePipe,
     LibNavProdutosComponent,
-
     LibConfigSenhaComponent,
     PasswordPolicyComponent,
     TextTruncateDirective,
     SearchInputComponent,
   ],
   providers: [],
-  // schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class InfraModule { }

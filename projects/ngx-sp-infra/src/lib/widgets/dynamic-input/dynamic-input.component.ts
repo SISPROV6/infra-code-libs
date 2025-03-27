@@ -1,9 +1,15 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { NgSwitch, NgSwitchCase } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { NgxMaskDirective } from 'ngx-mask';
+import { NgxCurrencyDirective } from 'ngx-currency';
 
 @Component({
-  selector: 'app-dynamic-input, lib-dynamic-input',
-  templateUrl: './dynamic-input.component.html',
-  styleUrls: ['./dynamic-input.component.scss']
+    selector: 'app-dynamic-input, lib-dynamic-input',
+    templateUrl: './dynamic-input.component.html',
+    styleUrls: ['./dynamic-input.component.scss'],
+    standalone: true,
+    imports: [NgSwitch, NgSwitchCase, FormsModule, NgxMaskDirective, NgxCurrencyDirective]
 })
 export class DynamicInputComponent {
 

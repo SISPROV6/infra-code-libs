@@ -13,14 +13,14 @@ describe('Componente: lib-dynamic-input', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DynamicInputComponent ],
-      imports: [
+    imports: [
         FormsModule,
         NgxMaskDirective,
-        NgxCurrencyDirective
-      ],
-      providers: [ provideNgxMask() ]
-    }).compileComponents();
+        NgxCurrencyDirective,
+        DynamicInputComponent
+    ],
+    providers: [provideNgxMask()]
+}).compileComponents();
 
     fixture = TestBed.createComponent(DynamicInputComponent);
     component = fixture.componentInstance;

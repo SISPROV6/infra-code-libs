@@ -1,13 +1,14 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
-  selector: 'lib-spinner',
-  template: `
+    selector: 'lib-spinner',
+    template: `
     <div class="spinner-{{type}} {{theme ? 'text-'+theme : ''}} {{size}}" role="status">
       <span class="visually-hidden">{{ text }}</span>
     </div>
   `,
-  styles: ``
+    styles: ``,
+    standalone: true
 })
 export class LibSpinnerComponent implements OnChanges {
 

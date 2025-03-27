@@ -1,11 +1,13 @@
 import { Component, EventEmitter, Input, Output, OnChanges } from '@angular/core';
 import { PasswordRequirementsRecord } from './models/passwordRequirementsRecord';
 import { CheckPasswordRecord } from './models/checkPasswordRecord';
+import { NgClass, NgIf } from '@angular/common';
+import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 
 @Component({
-  selector: 'lib-password-policy',
-  templateUrl: './password-policy.component.html',
-  styles: `
+    selector: 'lib-password-policy',
+    templateUrl: './password-policy.component.html',
+    styles: `
     .requirements {
       list-style: none;
       color: #842029;
@@ -20,7 +22,9 @@ import { CheckPasswordRecord } from './models/checkPasswordRecord';
       color: #212529;
       font-size: 15px;
     }
-  `
+  `,
+    standalone: true,
+    imports: [NgClass, NgIf, LibIconsComponent]
 })
 export class PasswordPolicyComponent implements OnChanges {
 

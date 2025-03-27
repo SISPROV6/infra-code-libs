@@ -1,7 +1,8 @@
 import { AfterViewInit, Directive, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 
 @Directive({
-  selector: 'button[libLoading], a[libLoading]'
+    selector: 'button[libLoading], a[libLoading]',
+    standalone: true
 })
 export class LoadingBtnDirective implements OnInit, AfterViewInit {
   

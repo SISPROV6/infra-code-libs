@@ -15,8 +15,7 @@ describe('Componente: Formulário de configuração de senhas', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    declarations: [LibConfigSenhaComponent],
-    imports: [InfraModule],
+    imports: [InfraModule, LibConfigSenhaComponent],
     providers: [ConfiguracaoSenhaService, BsModalService, MessageService, TenantService, provideHttpClient(withInterceptorsFromDi())]
 })
     .compileComponents();

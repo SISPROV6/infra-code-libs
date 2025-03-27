@@ -1,11 +1,17 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, input } from '@angular/core';
 import { Utils } from '../../utils/utils';
 import { ContainerTabsModel } from '../../models/container/container-tabs.model';
+import { NgClass, NgIf } from '@angular/common';
+import { RouterLinkActive, RouterLink } from '@angular/router';
+import { TooltipDirective } from 'ngx-bootstrap/tooltip';
+import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 
 @Component({
-  selector: 'lib-container',
-  templateUrl: './content-container.component.html',
-  styleUrls: ['./content-container.component.scss']
+    selector: 'lib-container',
+    templateUrl: './content-container.component.html',
+    styleUrls: ['./content-container.component.scss'],
+    standalone: true,
+    imports: [NgClass, NgIf, RouterLinkActive, TooltipDirective, RouterLink, LibIconsComponent]
 })
 export class ContentContainerComponent implements OnInit, OnChanges {
   // #region ==========> PROPERTIES <==========

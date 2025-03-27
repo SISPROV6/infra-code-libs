@@ -3,11 +3,15 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { FormsModule } from '@angular/forms';
+import { NgFor } from '@angular/common';
 
 @Component({
-  selector: 'app-save',
-  templateUrl: './save.component.html',
-  styleUrls: ['./save.component.scss'],
+    selector: 'app-save',
+    templateUrl: './save.component.html',
+    styleUrls: ['./save.component.scss'],
+    standalone: true,
+    imports: [FormsModule, NgFor],
 })
 export class SaveComponent implements OnInit {
   @Input() title?: string;

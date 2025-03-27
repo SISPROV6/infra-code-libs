@@ -51,8 +51,8 @@ export class NavItem {
  * ```
  */
 @Component({
-  selector: 'lib-navigation',
-  template: `
+    selector: 'lib-navigation',
+    template: `
     <ul class="menu">
       @for(item of navItems; track $index) {
         <li class="menu-item" [class.active]="item.caminho.includes(activeItem)" >
@@ -61,7 +61,8 @@ export class NavItem {
       }
     </ul>
   `,
-  styleUrl: './lib-nav-produtos.component.scss',
+    styleUrl: './lib-nav-produtos.component.scss',
+    standalone: true,
 })
 export class LibNavProdutosComponent implements OnInit {
   // #region ==========> PROPERTIES <==========

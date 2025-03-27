@@ -4,7 +4,8 @@ import { Pipe, PipeTransform } from '@angular/core';
  * filters an array based on searctext
  */
 @Pipe({
-   name: 'filterBy'
+    name: 'filterBy',
+    standalone: true
 })
 export class FilterByPipe implements PipeTransform {
    public transform(array: any[], searchText?: string, keyName?: string) {
