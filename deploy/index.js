@@ -1,7 +1,7 @@
-import inquirer from 'inquirer';
 import chalk from 'chalk';
 import { execSync } from 'child_process';
 import fs from 'fs';
+import inquirer from 'inquirer';
 
 
 const currentBranch = execSync('git rev-parse --abbrev-ref HEAD').toString().trim();
@@ -58,6 +58,8 @@ function updateVersion() {
 
 function executarTestes() {
   if (respostaIsExecutaTestes) {
+    console.log(chalk.yellow('\n🧪 2. Executando testes unitários...'));
+    
     try {
       execSync('ng test --watch=false --browsers=ChromeHeadless', { stdio: 'inherit' });
       console.log(chalk.green('\n✅ Todos os testes passaram com sucesso!\n'));
@@ -84,7 +86,7 @@ function removeExistingTag(version, formattedTag) {
     if (!error.message.includes('Command failed')) {
       throw new Error(`\n❌ Erro ao tentar remover a tag do repositório remoto: ${error.message}`);
     }
-    console.log(chalk.yellow(`\nTag '${formattedTag}-v${version}' não existe no repositório remoto, prosseguindo com a criação da nova tag...`));
+    console.log(chalk.yellow(`Tag '${formattedTag}-v${version}' não existe no repositório remoto, prosseguindo com a criação da nova tag...`));
   }
 }
 
@@ -132,7 +134,7 @@ function commitFiles() {
     execSync(`cd ../ && git commit --allow-empty -m "${respostaProjeto} | v${packageJson.version} | Commit automático" -m "${respostaMensagemOpcional}"`, { stdio: 'inherit' });
     execSync(`cd ../ && git push ${respostaRemoteRepo} ${currentBranch}`, { stdio: 'inherit' });
     
-    console.log(chalk.green('✅ Commit e push realizados com sucesso!\n'));
+    console.log(chalk.green('\n✅ Commit e push realizados com sucesso!\n'));
   }
   catch (error) {
     console.error(chalk.red('❌ Erro ao realizar commit:', error.message));
@@ -206,22 +208,22 @@ async function main() {
       ]).then(confirma => {
         if (!confirma.confirmaDeploy) throw new Error("\n❌ Processo cancelado pelo usuário.");
         
-        console.log(chalk.yellow('\n🎲 Iniciando processo...\n'));
+        execSync(`cls`, { stdio: 'inherit' });
+        console.log(chalk.yellow('🎲 Iniciando processo...\n'));
 
         // Atualiza versão do projeto com ou sem tags
-        console.log(chalk.yellow('\n🔄 Atualizando versão...'));
+        console.log(chalk.yellow('\n🔄 1. Atualizando versão...'));
         updateVersion();
       
         // Rodar testes unitários
-        console.log(chalk.yellow('\n🧪 Executando testes unitários...'));
         executarTestes();
         
         // Commit e push da tag de versão
-        console.log(chalk.yellow('\n📤 Realizando commit das tags de versão...'));
+        console.log(chalk.yellow(`\n📤 ${respostaIsExecutaTestes ? '3.' : '2.'} Realizando commit das tags de versão...\n`));
         commitTag();
         
         // Commit e push dos arquivos
-        console.log(chalk.yellow('\n📦 Commitando alterações...'));
+        console.log(chalk.yellow(`\n📦 ${respostaIsExecutaTestes ? '4.' : '3.'} Commitando alterações...`));
         commitFiles();
       });
     })
