@@ -1,5 +1,5 @@
+import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import { Component, Input, OnInit, ElementRef, Renderer2 } from '@angular/core';
 
 import { FormUtils } from '../../utils/form-utils';
 
@@ -11,6 +11,8 @@ import { FormUtils } from '../../utils/form-utils';
 export class FieldErrorMessageComponent implements OnInit {
   @Input() public customMessage?: string;
   @Input() control?: AbstractControl | null;
+
+  /** DEPRECIADO */
   @Input() label?: string;
 
 

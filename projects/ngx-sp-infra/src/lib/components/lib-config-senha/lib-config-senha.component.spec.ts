@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 import { MessageService } from '../../message/message.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -15,10 +15,10 @@ describe('Componente: Formulário de configuração de senhas', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LibConfigSenhaComponent ],
-      imports: [ HttpClientModule, InfraModule ],
-      providers: [ ConfiguracaoSenhaService, BsModalService, MessageService, TenantService ]
-    })
+    declarations: [LibConfigSenhaComponent],
+    imports: [InfraModule],
+    providers: [ConfiguracaoSenhaService, BsModalService, MessageService, TenantService, provideHttpClient(withInterceptorsFromDi())]
+})
     .compileComponents();
     
     fixture = TestBed.createComponent(LibConfigSenhaComponent);

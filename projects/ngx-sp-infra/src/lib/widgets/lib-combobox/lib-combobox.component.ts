@@ -42,8 +42,7 @@ import { RecordCombobox } from '../../models/combobox/record-combobox';
     .form-label { font-size: 16px !important; }
     .z-index-1020 { z-index: 1020 !important; }
     .cursor-pointer { cursor: pointer !important; }
-  `,
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  `
 })
 export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
 
