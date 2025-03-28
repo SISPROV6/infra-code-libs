@@ -5,48 +5,51 @@ import { RouterModule } from '@angular/router';
 
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { ModalModule } from 'ngx-bootstrap/modal';
-
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { NgxCurrencyDirective } from 'ngx-currency';
+import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 import { ClickOutsideDirective } from './directives/click-outside.directive';
+import { CopyClipboardDirective } from './directives/copy-clipboard.directive';
+import { DisableControlDirective } from './directives/disable-control.directive';
+import { HighlightDirective } from './directives/highlight.directive';
+import { LoadingBtnDirective } from './directives/loading-btn.directive';
+import { RequiredDirective } from './directives/required.directive';
+
 import { AlertComponent } from './message/alert/alert.component';
 import { ConfirmModalComponent } from './message/confirm-modal/confirm-modal.component';
 import { ConfirmComponent } from './message/confirm/confirm.component';
 import { SaveComponent } from './message/save/save.component';
+
 import { CpfCnpjPipe } from './pipes/cpf-cnpj.pipe';
+import { TextFilterPipe } from './pipes/text-filter.pipe';
 import { ToUrlPipe } from './pipes/to-url.pipe';
+
 import { InfraBreadcrumbItemComponent } from './widgets/breadcrumb/infra-breadcrumb-item/infra-breadcrumb-item.component';
 import { InfraBreadcrumbComponent } from './widgets/breadcrumb/infra-breadcrumb/infra-breadcrumb.component';
 import { BreadcrumbComponent } from './widgets/breadcrumb/portalrh-breadcrumb/breadcrumb.component';
 import { ComboboxComponent } from './widgets/combobox/combobox.component';
 import { FilterByPipe } from './widgets/combobox/pipes/filter-by.pipe';
 import { LimitToPipe } from './widgets/combobox/pipes/limit-to.pipe';
+import { ContentContainerComponent } from './widgets/content-container/content-container.component';
+import { FieldContadorMessageComponent } from './widgets/field-contador-message/field-contador-message.component';
 import { FieldControlErrorComponent } from './widgets/field-control-error/field-control-error.component';
 import { FieldErrorMessageComponent } from './widgets/field-error-message/field-error-message.component';
+import { LibComboboxComponent } from './widgets/lib-combobox/lib-combobox.component';
+import { LibIconsComponent } from './widgets/lib-icons/lib-icons.component';
 import { LoadingButtonComponent } from './widgets/loading-button/loading-button.component';
 import { LoadingComponent } from './widgets/loading/loading.component';
 import { OrderingComponent } from './widgets/ordering/ordering.component';
+import { SearchComboboxComponent } from './widgets/search-combobox/search-combobox.component';
+import { TableComponent } from './widgets/table/table.component';
 import { SearchTreePipe } from './widgets/tree/pipes/search-tree.pipe';
 import { TreeComponent } from './widgets/tree/tree.component';
 
-import { CopyClipboardDirective } from './directives/copy-clipboard.directive';
-import { RequiredDirective } from './directives/required.directive';
-import { TextFilterPipe } from './pipes/text-filter.pipe';
-import { ContentContainerComponent } from './widgets/content-container/content-container.component';
-import { LibIconsComponent } from './widgets/lib-icons/lib-icons.component';
-import { SearchComboboxComponent } from './widgets/search-combobox/search-combobox.component';
-import { TableComponent } from './widgets/table/table.component';
 
-import { NgxPaginationModule } from 'ngx-pagination';
-import { FieldContadorMessageComponent } from './widgets/field-contador-message/field-contador-message.component';
-import { LibComboboxComponent } from './widgets/lib-combobox/lib-combobox.component';
-
-import { NgxCurrencyDirective } from 'ngx-currency';
-import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import { FooterComponent } from './components/footer/footer.component';
 import { PageNotAuthorizedComponent } from './components/page-not-authorized/page-not-authorized.component';
-import { DisableControlDirective } from './directives/disable-control.directive';
-import { HighlightDirective } from './directives/highlight.directive';
-import { LoadingBtnDirective } from './directives/loading-btn.directive';
+
 import { DecimalCommaPipe } from './pipes/decimal-comma.pipe';
 import { FilterMultipleChoicePipe } from './pipes/filter-multiple-choice.pipe';
 import { FormatByTypePipe } from './pipes/format-by-type.pipe';
