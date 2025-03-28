@@ -1,9 +1,8 @@
+import { NgFor, NgIf } from "@angular/common";
 import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { TreeItem } from "./models/tree-item";
-import { NgIf, NgFor } from "@angular/common";
-import { LibIconsComponent } from "../lib-icons/lib-icons.component";
 import { FormsModule } from "@angular/forms";
-import { InfraModule } from "../../infra.module";
+import { LibIconsComponent } from "../lib-icons/lib-icons.component";
+import { TreeItem } from "./models/tree-item";
 import { SearchTreePipe } from "./pipes/search-tree.pipe";
 
 @Component({
@@ -11,7 +10,7 @@ import { SearchTreePipe } from "./pipes/search-tree.pipe";
     templateUrl: "./tree.component.html",
     styleUrls: ["./tree.component.scss"],
     standalone: true,
-    imports: [NgIf, LibIconsComponent, FormsModule, NgFor, InfraModule, SearchTreePipe]
+    imports: [NgIf, LibIconsComponent, FormsModule, NgFor, SearchTreePipe]
 })
 export class TreeComponent {
   constructor() {}
