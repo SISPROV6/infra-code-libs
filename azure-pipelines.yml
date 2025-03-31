@@ -3,11 +3,7 @@ name: ngx-sp-infra | CI/CD
 trigger:
   branches:
     include:
-      - fixes
-      - main
-      - next
-      - test
-      - v18
+      - package
 
 jobs:
 - job: run_unit_tests
