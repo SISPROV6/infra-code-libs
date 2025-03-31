@@ -1,0 +1,88 @@
+name: ngx-sp-infra | CI/CD
+
+trigger:
+  branches:
+    include:
+      - fixes
+      - main
+      - next
+      - test
+      - v18
+
+jobs:
+- job: run_unit_tests
+  displayName: 'Executar testes unitários'
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+    - checkout: self
+      displayName: 'Checkout do código'
+
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '20.x'
+      displayName: 'Set up Node.js'
+
+    - script: npm install
+      displayName: 'Instalar dependências'
+
+    - script: npm run test:headless
+      displayName: 'Executar testes'
+
+- job: deploy_package
+  displayName: 'Deploy do pacote'
+  dependsOn: run_unit_tests
+  condition: succeeded()  # Executa apenas se o job anterior foi bem-sucedido
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+    - checkout: self
+      fetchDepth: 2
+      displayName: 'Checkout do código (histórico completo)'
+
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '20.x'
+      displayName: 'Set up Node.js'
+
+    - script: |
+        if git diff --name-only HEAD~1 HEAD | grep -q "projects/ngx-sp-infra/package.json"; then
+          echo "projects/ngx-sp-infra/package.json foi modificado."
+          echo "##vso[task.setvariable variable=should_publish]true"
+        else
+          echo "projects/ngx-sp-infra/package.json não foi modificado."
+          echo "##vso[task.setvariable variable=should_publish]false"
+        fi
+      displayName: 'Checar se package.json foi modificado'
+
+    - script: npm install
+      displayName: 'Instalar dependências (quando necessário)'
+      condition: eq(variables.should_publish, 'true')
+
+    - script: npm run build ngx-sp-infra
+      displayName: 'Build da biblioteca e adição de tags'
+      condition: eq(variables.should_publish, 'true')
+
+    - script: |
+        TAG=$(node scripts/tag.js)
+        echo "Tag encontrada: $TAG"
+        echo "##vso[task.setvariable variable=TAG]$TAG"
+      displayName: 'Obter a tag da versão'
+
+    - script: |
+        cd dist/ngx-sp-infra
+        if [ "$(Build.SourceBranch)" == "refs/heads/main" ]; then
+          npm publish --access public --tag latest
+        elif [ "$(Build.SourceBranch)" == "refs/heads/test" ]; then
+          npm publish --access public --tag test
+        elif [ "$(Build.SourceBranch)" == "refs/heads/next" ]; then
+          npm publish --access public --tag next
+        elif [ "$(Build.SourceBranch)" == "refs/heads/fixes" ]; then
+          npm publish --access public --tag fix
+        elif [ "$(Build.SourceBranch)" == "refs/heads/v18" ]; then
+          npm publish --access public --tag v18-lts
+        fi
+      displayName: 'Publicar no NPM'
+      env:
+        NODE_AUTH_TOKEN: $(NPM_PUBLISH)
+      condition: eq(variables.should_publish, 'true')
