@@ -1,9 +1,14 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { AbstractControl, FormControl, FormControlStatus, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormControlStatus, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
 
 import { RecordCombobox } from '../../models/combobox/record-combobox';
+import { TextFilterPipe } from '../../pipes/text-filter.pipe';
+import { FieldErrorMessageComponent } from '../field-error-message/field-error-message.component';
+import { LibIconsComponent } from '../lib-icons/lib-icons.component';
+import { RequiredDirective } from '../../directives/required.directive';
+import { NgIf } from '@angular/common';
 
 /**
  * @component LibComboboxComponent
@@ -35,15 +40,24 @@ import { RecordCombobox } from '../../models/combobox/record-combobox';
  * - `onReloadList` (EventEmitter<string>): Evento emitido quando a lista precisa ser recarregada.
  */
 @Component({
-  selector: 'lib-combobox',
-  templateUrl: './lib-combobox.component.html',
-  styles: `
+    selector: 'lib-combobox',
+    templateUrl: './lib-combobox.component.html',
+    styles: `
     .glb-max-height-350px { max-height: 350px !important; }
     .form-label { font-size: 16px !important; }
     .z-index-1020 { z-index: 1020 !important; }
     .cursor-pointer { cursor: pointer !important; }
   `,
-  // changeDetection: ChangeDetectionStrategy.OnPush
+    standalone: true,
+    imports: [
+        NgIf,
+        RequiredDirective,
+        FormsModule,
+        ReactiveFormsModule,
+        LibIconsComponent,
+        FieldErrorMessageComponent,
+        TextFilterPipe,
+    ],
 })
 export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
 

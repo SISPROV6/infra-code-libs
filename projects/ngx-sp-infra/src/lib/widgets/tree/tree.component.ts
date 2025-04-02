@@ -1,10 +1,17 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { TreeItem } from "./models/tree-item";
+import { SearchTreePipe } from "./pipes/search-tree.pipe";
+import { InfraModule } from "../../infra.module";
+import { FormsModule } from "@angular/forms";
+import { LibIconsComponent } from "../lib-icons/lib-icons.component";
+import { NgIf, NgFor } from "@angular/common";
 
 @Component({
-  selector: "app-tree, lib-tree",
-  templateUrl: "./tree.component.html",
-  styleUrls: ["./tree.component.scss"]
+    selector: "app-tree, lib-tree",
+    templateUrl: "./tree.component.html",
+    styleUrls: ["./tree.component.scss"],
+    standalone: true,
+    imports: [NgIf, LibIconsComponent, FormsModule, NgFor, InfraModule, SearchTreePipe]
 })
 export class TreeComponent {
   constructor() {}

@@ -3,11 +3,19 @@ import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChange
 
 import { RecordCombobox } from '../../../models/combobox/record-combobox';
 import { TableComponent } from '../../table/table.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { TextTruncateDirective } from '../../../directives/text-truncate.directive';
+import { LibIconsComponent } from '../../lib-icons/lib-icons.component';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { FormsModule } from '@angular/forms';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'lib-inner-list',
-  templateUrl: './inner-list.component.html',
-  styleUrl: './inner-list.component.scss'
+    selector: 'lib-inner-list',
+    templateUrl: './inner-list.component.html',
+    styleUrl: './inner-list.component.scss',
+    standalone: true,
+    imports: [NgIf, FormsModule, TooltipModule, LibIconsComponent, TableComponent, TextTruncateDirective, NgxPaginationModule]
 })
 export class InnerListComponent implements OnChanges {
 

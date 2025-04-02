@@ -7,8 +7,8 @@ describe('Componente de Header', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LibHeaderComponent ],
-    }).compileComponents();
+    imports: [LibHeaderComponent],
+}).compileComponents();
 
     // Use runInInjectionContext para garantir que a injeção funciona corretamente
     TestBed.runInInjectionContext(() => {

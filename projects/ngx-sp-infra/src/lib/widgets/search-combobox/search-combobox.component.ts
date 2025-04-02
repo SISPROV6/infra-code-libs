@@ -1,8 +1,13 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { RecordCombobox } from "../../models/combobox/record-combobox";
 import { Subscription } from "rxjs/internal/Subscription";
+import { TextFilterPipe } from "../../pipes/text-filter.pipe";
+import { FieldErrorMessageComponent } from "../field-error-message/field-error-message.component";
+import { LibIconsComponent } from "../lib-icons/lib-icons.component";
+import { RequiredDirective } from "../../directives/required.directive";
+import { NgIf } from "@angular/common";
 
 
 /**
@@ -59,9 +64,11 @@ import { Subscription } from "rxjs/internal/Subscription";
  * - `adjustDropdownWidth()`: Ajusta a largura do dropdown para corresponder à largura do input principal.
  */
 @Component({
-  selector: 'lib-search-combobox',
-  templateUrl: './search-combobox.component.html',
-  styleUrls: ['./search-combobox.component.scss']
+    selector: 'lib-search-combobox',
+    templateUrl: './search-combobox.component.html',
+    styleUrls: ['./search-combobox.component.scss'],
+    standalone: true,
+    imports: [NgIf, RequiredDirective, FormsModule, ReactiveFormsModule, LibIconsComponent, FieldErrorMessageComponent, TextFilterPipe]
 })
 export class SearchComboboxComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
   constructor(private _formBuilder: FormBuilder) {}

@@ -1,11 +1,14 @@
 import { Component, input, output, SimpleChanges, OnChanges } from '@angular/core';
 import { RecordCombobox } from '../../models/combobox/record-combobox';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
-  selector: 'app-dropdown-options, lib-dropdown-options',
-  templateUrl: './dropdown-options.component.html',
-  styleUrl: './dropdown-options.component.scss'
+    selector: 'app-dropdown-options, lib-dropdown-options',
+    templateUrl: './dropdown-options.component.html',
+    styleUrl: './dropdown-options.component.scss',
+    standalone: true,
+    imports: [FormsModule]
 })
 export class DropdownOptionsComponent implements OnChanges {
   options = input.required<RecordCombobox[]>();

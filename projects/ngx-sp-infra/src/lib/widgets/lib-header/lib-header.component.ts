@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 
 /**
  * @description Este arquivo contém a implementação do componente SimpleHeaderComponent, um cabeçalho genérico
@@ -42,9 +44,11 @@ import { FormGroup } from '@angular/forms';
  * @note Este componente é flexível e pode ser facilmente adaptado para diferentes layouts e necessidades de página.
  */
 @Component({
-  selector: 'lib-header',
-  templateUrl: './lib-header.component.html',
-  styleUrls: ['./lib-header.component.scss']
+    selector: 'lib-header',
+    templateUrl: './lib-header.component.html',
+    styleUrls: ['./lib-header.component.scss'],
+    standalone: true,
+    imports: [LibIconsComponent, TooltipModule]
 })
 export class LibHeaderComponent {
   constructor() { }

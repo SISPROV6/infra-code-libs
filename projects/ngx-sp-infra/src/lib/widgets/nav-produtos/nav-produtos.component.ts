@@ -1,15 +1,16 @@
+import { NgFor } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'lib-nav-produtos',
-  standalone: false,
-  template: `
+    selector: 'lib-nav-produtos',
+    standalone: true,
+    template: `
 
     <ul class="menu">
       <li class="menu-item"
         *ngFor="let item of navItems"
-        [class.active]="activeItem == item.caminho"
+        [class.active]="activeItem === item.caminho"
         >
         <a [routerLink]="item.caminho" target="_blank">{{ item.label }}</a>
 
@@ -18,7 +19,8 @@ import { NavigationEnd, Router } from '@angular/router';
     </ul>
 
   `,
-  styleUrls: ['./nav-produtos.component.css']
+    styleUrls: ['./nav-produtos.component.css'],
+    imports: [NgFor, RouterLink]
 })
 export class NavProdutosComponent implements OnInit {
 

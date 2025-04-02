@@ -7,9 +7,10 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
  * 
  * Ela aceita valors não definidos em casos onde o valor vai ser trazido em outro momento.
  */
-@Pipe(
-  { name: 'toUrl' }
-)
+@Pipe({
+    name: 'toUrl',
+    standalone: true
+})
 export class ToUrlPipe implements PipeTransform {
 
   constructor(

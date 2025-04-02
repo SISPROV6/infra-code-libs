@@ -6,11 +6,16 @@ import { TransferListConfig } from '../../models/transfer-list/list-transfer-con
 
 import { Utils } from '../../utils/utils';
 import { InnerListComponent } from './inner-list/inner-list.component';
+import { NgIf } from '@angular/common';
+import { LibIconsComponent } from '../lib-icons/lib-icons.component';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @Component({
-  selector: 'lib-transfer-list',
-  templateUrl: './lib-transfer-list.component.html',
-  styleUrl: './lib-transfer-list.component.scss'
+    selector: 'lib-transfer-list',
+    templateUrl: './lib-transfer-list.component.html',
+    styleUrl: './lib-transfer-list.component.scss',
+    standalone: true,
+    imports: [InnerListComponent, TooltipModule, LibIconsComponent, NgIf]
 })
 export class LibTransferListComponent implements OnInit, OnChanges {
 

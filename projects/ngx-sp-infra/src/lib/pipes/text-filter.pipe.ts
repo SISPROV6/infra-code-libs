@@ -3,8 +3,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { RecordCombobox } from '../models/combobox/record-combobox';
 
 @Pipe({
-  name: 'textFilter',
-  pure: false
+    name: 'textFilter',
+    pure: false,
+    standalone: true
 })
 export class TextFilterPipe implements PipeTransform {
   transform(options: RecordCombobox[], search: string): any[] {

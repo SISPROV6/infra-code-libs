@@ -1,11 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, HostListener, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'lib-search-input',
-  templateUrl: './search-input.component.html',
-  styleUrl: './search-input.component.scss'
+    selector: 'lib-search-input',
+    templateUrl: './search-input.component.html',
+    styleUrl: './search-input.component.scss',
+    standalone: true,
+    imports: [FormsModule]
 })
 export class SearchInputComponent implements OnInit, AfterViewInit {
   isVisible = false;

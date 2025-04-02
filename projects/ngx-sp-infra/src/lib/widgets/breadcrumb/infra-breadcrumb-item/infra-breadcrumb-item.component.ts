@@ -6,10 +6,11 @@ import { Component, ElementRef, OnInit } from '@angular/core';
  * Deve ser utilizado em conjunto com o InfraBreadCrumb
  */
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
-  selector: 'li[infra-breadcrumb-item], li[lib-infra-breadcrumb-item]',
-  templateUrl: './infra-breadcrumb-item.component.html',
-  styleUrls: ['./infra-breadcrumb-item.component.css']
+    // eslint-disable-next-line @angular-eslint/component-selector
+    selector: 'li[infra-breadcrumb-item], li[lib-infra-breadcrumb-item]',
+    templateUrl: './infra-breadcrumb-item.component.html',
+    styleUrls: ['./infra-breadcrumb-item.component.css'],
+    standalone: true
 })
 export class InfraBreadcrumbItemComponent implements OnInit {
 
