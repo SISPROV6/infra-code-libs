@@ -80,9 +80,5 @@ jobs:
         fi
       displayName: 'Publicar no NPM'
       env:
-<<<<<<< HEAD
-        NODE_AUTH_TOKEN: $(NPM_PUBLISH)
-=======
         NODE_AUTH_TOKEN: $(AZURE_PUBLISH)
->>>>>>> 4e7f09acd607b93cda48575ed05e86920f7cac24
       condition: eq(variables.should_publish, 'true')
