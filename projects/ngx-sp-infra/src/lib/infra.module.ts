@@ -89,6 +89,7 @@ import { SearchInputComponent } from './widgets/search-input/search-input.compon
         NgxPaginationModule,
         ReactiveFormsModule,
         RouterModule,
+
         PageNotAuthorizedComponent,
         LoadingComponent,
         FieldControlErrorComponent,
