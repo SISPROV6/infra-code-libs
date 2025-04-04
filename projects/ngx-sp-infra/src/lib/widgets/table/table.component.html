@@ -22,63 +22,62 @@
       }
 
       <!-- Container da tabela -->
-      <div class="table-list overflow-hidden border-bottom-0 {{divBorderClass}}">
-         <table class="table border mb-0 {{tableBorderClass}}" [class.table-hover]="hoverable" style="table-layout: fixed;" >
-            <thead>
-               <tr>
-                  <!-- Itera sobre a lista de cabeçalhos para criar as colunas -->
-                  <th *ngIf="useSelection" scope="col" style="width: 24px;">
-                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="tableCheckAll" [(ngModel)]="selection" (ngModelChange)="selectionChange.emit($event)">
-                     </div>
-                  </th>
-
-                  <th *ngFor="let header of headers" scope="col"
-                     class="align-middle text-dark-grey {{ header.customClasses }}
-                        {{ headersUseOldWidth
-                           ? header.col && header.col > 0 ? 'col-'+header.col : 'col'
-                           : header.widthClass }}" >
-
-                     @if (header.icon !== undefined) {
-                        <lib-icon *ngIf="header.icon.side === 'L'" iconSize="small"
-                           [iconName]="header.icon.name"
-                           [iconColor]="header.icon.theme !== 'currentColor' && header.icon.theme ? header.icon.theme : 'currentColor'"
-                           [tooltip]="header.icon.tooltip"
-                           (click)="header.icon.emitClick ? iconClick.emit(header.name) : null"  />
-                        {{ header.name }}
-                        <lib-icon *ngIf="header.icon.side === 'R' || !header.icon.side" iconSize="small"
-                           [iconName]="header.icon.name"
-                           [iconColor]="header.icon.theme !== 'currentColor' && header.icon.theme ? header.icon.theme : 'currentColor'"
-                           [tooltip]="header.icon.tooltip"
-                           [class.cursor-pointer]="header.icon.emitClick"
-                           (click)="header.icon.emitClick ? iconClick.emit(header.name) : null"  />
-                     }
-                     @else {
-                        {{ header.name }}
-                     }
-
-
-                     <app-ordering *ngIf="header.orderColumn" [(sortDirection)]="sortDirection[header.orderColumn]"
-                        (sortChange)="onSortChange({ direction: $event.direction, column: header.orderColumn })"></app-ordering>
-                  </th>
-               </tr>
-            </thead>
-
-            <tbody class="bg-light fade-in-row">
-               @if (list.length > 0) {
-                  <!-- Conteúdo das linhas da tabela -->
-                  <ng-content select="[innerRows]"></ng-content>
-               }
-               @else {
-                  <!-- Mensagem de ausência de registros -->
+      <div class="table-list {{divBorderClass}}">
+         <div class="table-list-inner">
+            <table class="table mb-0 {{tableBorderClass}}" [class.table-hover]="hoverable" style="table-layout: fixed;" >
+               <thead>
                   <tr>
-                     <td #emptyListTd class="align-middle text-center p-4 text-dark-grey">
-                        {{ emptyListMessage ? emptyListMessage : "Não há dados para serem listados." }}
-                     </td>
+                     <th *ngIf="useSelection" scope="col" style="width: 24px;">
+                        <div class="form-check">
+                           <input class="form-check-input" type="checkbox" id="tableCheckAll" [(ngModel)]="selection" (ngModelChange)="selectionChange.emit($event)">
+                        </div>
+                     </th>
+   
+                     <th *ngFor="let header of headers" scope="col"
+                        class="align-middle text-dark {{ header.customClasses }}
+                           {{ headersUseOldWidth
+                              ? header.col && header.col > 0 ? 'col-'+header.col : 'col'
+                              : header.widthClass }}" >
+   
+                        @if (header.icon !== undefined) {
+                           <lib-icon *ngIf="header.icon.side === 'L'" iconSize="small"
+                              [iconName]="header.icon.name"
+                              [iconColor]="header.icon.theme !== 'currentColor' && header.icon.theme ? header.icon.theme : 'currentColor'"
+                              [tooltip]="header.icon.tooltip"
+                              (click)="header.icon.emitClick ? iconClick.emit(header.name) : null"  />
+                           {{ header.name }}
+                           <lib-icon *ngIf="header.icon.side === 'R' || !header.icon.side" iconSize="small"
+                              [iconName]="header.icon.name"
+                              [iconColor]="header.icon.theme !== 'currentColor' && header.icon.theme ? header.icon.theme : 'currentColor'"
+                              [tooltip]="header.icon.tooltip"
+                              [class.cursor-pointer]="header.icon.emitClick"
+                              (click)="header.icon.emitClick ? iconClick.emit(header.name) : null"  />
+                        }
+                        @else {
+                           {{ header.name }}
+                        }
+   
+   
+                        <app-ordering *ngIf="header.orderColumn" [(sortDirection)]="sortDirection[header.orderColumn]"
+                           (sortChange)="onSortChange({ direction: $event.direction, column: header.orderColumn })"></app-ordering>
+                     </th>
                   </tr>
-               }
-            </tbody>
-         </table>
+               </thead>
+   
+               <tbody class="bg-light fade-in-row">
+                  @if (list.length > 0) {
+                     <ng-content select="[innerRows]"></ng-content>
+                  }
+                  @else {
+                     <tr>
+                        <td #emptyListTd class="align-middle text-center p-4 text-dark-grey">
+                           {{ emptyListMessage ? emptyListMessage : "Não há dados para serem listados." }}
+                        </td>
+                     </tr>
+                  }
+               </tbody>
+            </table>
+         </div>
 
          <!-- #region PAGINAÇÃO -->
          <div *ngIf="usePagination && list.length > 0" class="d-flex flex-wrap mt-2"
@@ -112,6 +111,8 @@
          </div>
          <!-- #endregion PAGINAÇÃO -->
       </div>
+      <!-- Container da tabela -->
+      
    </div>
 } @else {
    <!-- Loader enquanto os registros são carregados -->

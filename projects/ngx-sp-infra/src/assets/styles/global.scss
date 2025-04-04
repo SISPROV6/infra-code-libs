@@ -224,13 +224,15 @@ div.main-content {
 
 // #region TABLE RECORDS
 table {
-  border-color: vars.$border-container;
 
   // #region THEAD 
   thead {
     height: 50px;
-    font-size: 1rem;
-    background-color: #E9ECEF;
+      font-size: 1rem;
+      background-color: #eee !important;
+
+      > tr { background-color: inherit !important; }
+      > tr > th { background-color: inherit !important; }
   }
 
   // #endregion THEAD 
@@ -239,11 +241,16 @@ table {
   tbody {
     font-size: .875rem;
 
-    >tr {
+    > tr {
       height: 50px;
+
+      border-color: #eee;
+      
+      &:first-of-type { border-top: hidden; }
+      &:last-of-type { border-bottom: hidden; }
     }
 
-    >tr:hover {
+    > tr:hover {
       background-color: #CCE5FF;
     }
   }
