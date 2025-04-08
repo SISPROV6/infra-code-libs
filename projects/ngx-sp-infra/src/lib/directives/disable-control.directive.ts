@@ -2,7 +2,7 @@ import { Directive, Input, OnInit } from '@angular/core';
 import { NgControl } from '@angular/forms';
 
 @Directive({
-    selector: '[disableControl]',
+    selector: '[disableControl], [libDisableControl]',
     standalone: true
 })
 export class DisableControlDirective implements OnInit {
