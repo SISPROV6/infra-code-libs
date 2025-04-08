@@ -73,6 +73,7 @@ import { LibSpinnerComponent } from './widgets/spinner/spinner.component';
 
 import { LibConfigSenhaComponent } from './components/lib-config-senha/lib-config-senha.component';
 import { TextTruncateDirective } from './directives/text-truncate.directive';
+import { CurrencyPipe } from './pipes/currency.pipe';
 import { PasswordPolicyComponent } from './widgets/password-policy/password-policy.component';
 import { SearchInputComponent } from './widgets/search-input/search-input.component';
 
@@ -142,6 +143,7 @@ import { SearchInputComponent } from './widgets/search-input/search-input.compon
         DecimalCommaPipe,
         FilterMultipleChoicePipe,
         OrderSortPipe,
+        CurrencyPipe,
         PhoneFormatPipe,
         TitleCasePipe,
         FooterComponent,
@@ -202,6 +204,7 @@ import { SearchInputComponent } from './widgets/search-input/search-input.compon
         DecimalCommaPipe,
         FilterMultipleChoicePipe,
         OrderSortPipe,
+        CurrencyPipe,
         PhoneFormatPipe,
         TitleCasePipe,
         FooterComponent,

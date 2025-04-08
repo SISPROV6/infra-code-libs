@@ -12,6 +12,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 
 import { CpfCnpjPipe } from '../pipes/cpf-cnpj.pipe';
+import { CurrencyPipe } from '../pipes/currency.pipe';
 import { DecimalCommaPipe } from '../pipes/decimal-comma.pipe';
 import { FilterMultipleChoicePipe } from '../pipes/filter-multiple-choice.pipe';
 import { FormatByTypePipe } from '../pipes/format-by-type.pipe';
@@ -39,6 +40,7 @@ import { SearchTreePipe } from '../widgets/tree/pipes/search-tree.pipe';
     RouterModule,
 
     ToUrlPipe,
+    CurrencyPipe,
     CpfCnpjPipe,
     FilterByPipe,
     LimitToPipe,
@@ -53,6 +55,7 @@ import { SearchTreePipe } from '../widgets/tree/pipes/search-tree.pipe';
   ],
   exports: [
     ToUrlPipe,
+    CurrencyPipe,
     CpfCnpjPipe,
     FilterByPipe,
     LimitToPipe,
