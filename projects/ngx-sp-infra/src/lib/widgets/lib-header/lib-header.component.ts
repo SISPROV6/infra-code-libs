@@ -1,5 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+/* eslint-disable @angular-eslint/no-output-on-prefix */
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 
@@ -48,18 +50,23 @@ import { LibIconsComponent } from '../lib-icons/lib-icons.component';
     templateUrl: './lib-header.component.html',
     styleUrls: ['./lib-header.component.scss'],
     standalone: true,
-    imports: [LibIconsComponent, TooltipModule]
+    imports: [
+      LibIconsComponent,
+      RouterModule,
+      TooltipModule,
+    ]
 })
-export class LibHeaderComponent {
-  constructor() { }
-
-
+export class LibHeaderComponent implements OnInit {
 
   // #region ==========> PROPERTIES <==========
 
   // #region PRIVATE
   // [...]
   // #endregion PRIVATE
+
+  // #region PROTECTED
+  protected auditoriaRoute?: string;
+  // #endregion PROTECTED
 
   // #region PUBLIC
 
@@ -85,6 +92,10 @@ export class LibHeaderComponent {
   @Input() public showSpinner: boolean = false;
 
 
+  /** Dados que devem ser informados caso deseje se redirecionar para a página de Auditoria. */
+  @Input() public auditoria: { Entidade: string, RegistroId?: string | number } | null = null;
+
+
   /** [DEPRECIADO EM BREVE] Emissor de evento ao clicar no "Cancelar". Será depreciado em breve, utilize 'return'. */
 	@Output() public onReturn = new EventEmitter<void>();
 	@Output() public return = new EventEmitter<void>();
@@ -99,6 +110,13 @@ export class LibHeaderComponent {
   // #endregion PUBLIC
 
   // #endregion ==========> PROPERTIES <==========
+
+
+  constructor() { }
+
+  ngOnInit(): void {
+      this.initializeAuditoriaRoute();
+  }
 
 
   // #region ==========> UTILITIES <==========
@@ -124,6 +142,19 @@ export class LibHeaderComponent {
   protected setSaveText(): string {
     if (this.mode == "list") return "Adicionar";
     else return "Salvar";
+  }
+
+
+  protected initializeAuditoriaRoute(): void {
+    // const hostName = window.location.hostname;
+    // const match = this._router.url.match(/^[^/]+\/[^/]+\/([^/]+)\/[^/]+/);
+    // const currentProduct = match ? match[1] : null;
+    
+    this.auditoriaRoute = '//siscandesv6.sispro.com.br/SisproErpCloud/Corporativo/auditoria';
+
+    if (this.auditoria) {
+      this.auditoriaRoute = `${this.auditoriaRoute}?Entidade=${this.auditoria.Entidade}${ this.auditoria.RegistroId ? "&RegistroId="+this.auditoria.RegistroId : "" }`;
+    }
   }
   // #endregion ==========> UTILITIES <==========
 

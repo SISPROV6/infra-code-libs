@@ -1,3 +1,6 @@
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+
 <div class="header zindex-sticky sticky-top mb-3 pt-3">
   <div class="row">
     <div class="w-35">
@@ -53,4 +56,10 @@
   </div>
   
   <hr class="mt-3">
+
+  @if (auditoria) {
+    <a type="button" class="text-decoration-none text-primary fw-bold mt-1" [href]="auditoriaRoute" target="_blank" >
+      <lib-icon iconName="auditoria" /> Auditoria
+    </a>
+  }
 </div>
