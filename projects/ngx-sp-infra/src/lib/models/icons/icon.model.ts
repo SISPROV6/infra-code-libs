@@ -2438,6 +2438,13 @@ export class IconsList {
 </svg>
 ` },
 
+      { nome:"etiquetas", categoria: "", tags: [], svg: `<svg width="${size}" height="${size}" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.6087 4.58551L9.56133 1.48046C9.19412 1.19875 8.68159 1.20582 8.3223 1.49755L4.37922 4.69923C4.13992 4.89353 4.0036 5.18734 4.00976 5.49553L4.21408 15.7162C4.23151 16.5878 5.27818 17.0213 5.90678 16.4172L8.26931 14.1469C8.64527 13.7856 9.23573 13.7739 9.6258 14.1199L12.3364 16.5243C12.9815 17.0966 14 16.6386 14 15.7762V5.37892C14 5.068 13.8554 4.77476 13.6087 4.58551Z" stroke="currentColor" stroke-width="0.54"/>
+<circle cx="1.02857" cy="1.02857" r="0.778571" transform="matrix(-1 0 0 1 10.0566 4)" stroke="currentColor" stroke-width="0.5"/>
+</svg>` },
+
+
+
       ];
       // #endregion LISTA COMPLETA DE ÍCONES - ÍCONES NOVOS DEVEM SER ADICIONADOS AQUI
 
