@@ -146,13 +146,16 @@ export class LibHeaderComponent implements OnInit {
 
 
   protected initializeAuditoriaRoute(): void {
-    const hostName = window.location.hostname;
     // const match = this._router.url.match(/^[^/]+\/[^/]+\/([^/]+)\/[^/]+/);
     // const currentProduct = match ? match[1] : null;
-
-    console.log(hostName);
+    const currentHostName = window.location.hostname;
     
-    if (hostName.includes('localhost')) {
+    const localHostnames: string[] = [
+      "localhost",
+      "127.0.0.1"
+    ];
+
+    if (localHostnames.includes(currentHostName)) {
       this.auditoriaRoute = 'https://siscandesv6.sispro.com.br/SisproErpCloud/Corporativo/auditoria';
 
       if (this.auditoria) {
@@ -160,7 +163,7 @@ export class LibHeaderComponent implements OnInit {
       }
     }
     else {
-      this.auditoriaRoute = `https://${hostName}/SisproErpCloud/Corporativo/auditoria`;
+      this.auditoriaRoute = `https://${currentHostName}/SisproErpCloud/Corporativo/auditoria`;
   
       if (this.auditoria) {
         this.auditoriaRoute = `${this.auditoriaRoute}?Entidade=${this.auditoria.Entidade}${ this.auditoria.RegistroId ? "&RegistroId="+this.auditoria.RegistroId : "" }`;
