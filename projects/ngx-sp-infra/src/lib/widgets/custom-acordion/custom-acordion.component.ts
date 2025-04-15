@@ -1,7 +1,7 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 import { NgIf } from '@angular/common';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 
 /**
  * Componente de acordion customizado, o seu conteúdo interno é informado pelo componente pai, podendo configurá-lo como necessário.
@@ -14,7 +14,7 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
  *    - isOpen: boolean (default: false)
  */
 @Component({
-    selector: 'app-custom-acordion, lib-acordion',
+    selector: 'app-custom-acordion, lib-acordion, lib-accordion',
     templateUrl: './custom-acordion.component.html',
     styleUrls: ['./custom-acordion.component.scss'],
     standalone: true,

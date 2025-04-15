@@ -17,27 +17,29 @@ export class FieldContadorMessageComponent implements OnInit {
 
 
   ngOnInit(): void {
+    
     if (this.control) {
-      this.control.valueChanges.subscribe(value => {
+      this.cont = this.control.value ? this.control.value.length : 0;
+      this.updateMessage();
+      
+      this.control.valueChanges.subscribe(value => {        
         this.cont = value ? value.length : 0;
         this.updateMessage();
       });
     }
   }
-
+  
   updateMessage(): void {
     if (this.cont > this.maximo) {
       this.mensagem = `Limite de caracteres excedido. (${this.cont}/${this.maximo})`;
       this.mensagemExcedida = true;
-      if (this.control) {
-        this.control.setErrors({ maxLengthExceeded: true });
-      }
+
+      if (this.control) { this.control.setErrors({ maxLengthExceeded: true }); }
     } else {
       this.mensagem = `Limite de caracteres: ${this.cont}/${this.maximo}`;
       this.mensagemExcedida = false;
-      if (this.control) {
-        this.control.setErrors(null);
-      }
+      
+      if (this.control) { this.control.setErrors(null); }
     }
   }
 
