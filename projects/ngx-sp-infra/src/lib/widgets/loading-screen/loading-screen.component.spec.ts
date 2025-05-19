@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoadingScreenComponent } from './loading-screen.component';
 
-describe('lib-loading-screen', () => {
+describe('Componente: lib-loading-screen', () => {
   let component: LoadingScreenComponent;
   let fixture: ComponentFixture<LoadingScreenComponent>;
 
@@ -23,5 +23,12 @@ describe('lib-loading-screen', () => {
     expect(component).toBeTruthy();
   });
 
+  it('deve renderizar o spinner e o backdrop', () => {
+    fixture.detectChanges();
+
+    const overlayElem: HTMLElement = fixture.nativeElement.querySelector('.loader-background');
+    
+    expect(overlayElem).toBeTruthy();
+  });
 
 });

@@ -83,4 +83,11 @@ describe('Serviço: GlobalLoadingService', () => {
     expect((service as any)._componentRef).toBeNull();
   });
 
+  it('hide() sem show() não deve lançar erro', () => {
+    const service = TestBed.inject(GlobalLoadingService);
+    
+    // Chama hide() sem ter chamado show() antes
+    expect(() => service.hide()).not.toThrow();
+  });
+
 });

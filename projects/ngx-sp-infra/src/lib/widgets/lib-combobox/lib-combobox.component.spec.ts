@@ -7,7 +7,7 @@ import { FieldErrorMessageComponent } from '../field-error-message/field-error-m
 import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 import { LibComboboxComponent } from './lib-combobox.component';
 
-describe('lib-combobox', () => {
+describe('Componente: lib-combobox', () => {
    let component: LibComboboxComponent;
    let fixture: ComponentFixture<LibComboboxComponent>;
 
