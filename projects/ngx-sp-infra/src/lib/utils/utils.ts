@@ -357,7 +357,15 @@ export class Utils {
     return formattedDate;
   }
 
-  //Transforma a string Base64 num array de bytes e faz o download do arquivo.
+
+  // #region DOWNLOAD DE ARQUIVOS
+
+  /** [SERÁ DEPRECIADO EM BREVE] Transforma a string Base64 num array de bytes e faz o download do arquivo.
+   * @param fleName Nome do arquivo a ser baixado.
+   * @param file String base64 do arquivo.
+   * 
+   * @deprecated [será depreciado em breve] Use downloadFileBlob() ou downloadFile()
+   */
   public static downloadFileBase64(fleName: string, file: string): void {
     const byteString = window.atob(file);
     const arrayBuffer = new ArrayBuffer(byteString.length);
@@ -368,13 +376,12 @@ export class Utils {
     }
 
     const blob = new Blob([int8Array]);
-
     const url = window.URL.createObjectURL(blob);
 
-    //Abio
-    //O window.open foi comentado porque no download dos arquivos digitais abria uma janela com o blob do arquivo. 
-    //Comentar não afetou o download do contra-cheque.  
-    //window.open(url);
+    // Abio
+    // O window.open foi comentado porque no download dos arquivos digitais abria uma janela com o blob do arquivo.
+    // Comentar não afetou o download do contra-cheque.
+    // window.open(url);
     const a = document.createElement('a');
 
     a.href = url;
@@ -382,17 +389,15 @@ export class Utils {
     a.download = fleName;
 
     document.body.appendChild(a);
-
     a.click();
   }
 
-  /**
-  * Abre o popup do navegador para baixar um arquivo que veio de um blob.
+  /** Abre o popup do navegador para baixar um arquivo que veio de um blob.
   * 
   * @param blob Conteúdo do arquivo binário a ser baixado.
   * @param fileName Nome do arquivo a ser salvo.
   */
-  public static downloadFile(blob: Blob, fileName: string): void {
+  public static downloadFileBlob(blob: Blob, fileName: string): void {
     const anchor = window.document.createElement('a');
 
     anchor.href = window.URL.createObjectURL(blob);
@@ -405,6 +410,24 @@ export class Utils {
     document.body.removeChild(anchor);
     window.URL.revokeObjectURL(anchor.href);
   }
+
+  /** Faz o download de um arquivo.
+   * O arquivo é baixado com o nome e extensão informados.
+   * 
+   * @param mimeType String mimeType do arquivo.
+   * @param base64 String base64 do arquivo.
+   * @param filename Nome do arquivo a ser salvo (precisa ter a extensão do arquivo).
+  */
+  public static downloadFile(mimeType: string, base64: string, filename: string): void {
+    const link = document.createElement<'a'>('a');
+
+    link.href = `data:${mimeType};base64,${base64}`;
+    link.download = filename;
+
+    link.click();
+  }
+
+  // #endregion DOWNLOAD DE ARQUIVOS
 
   public static b64DecodeUnicode(str: string): string {
     // Going backwards: from bytestream, to percent-encoding, to original string.
@@ -469,8 +492,6 @@ export class Utils {
     return 0;
   }
   // #endregion ORDENAÇÃO
-
-
 
   // #region ==========> VALIDAÇÕES DE VAZIO <==========
 
