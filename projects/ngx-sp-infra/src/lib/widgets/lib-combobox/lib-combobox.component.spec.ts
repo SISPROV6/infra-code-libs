@@ -1,7 +1,10 @@
 import { NgIf } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FieldErrorMessageComponent, LibIconsComponent, RequiredDirective, TextFilterPipe } from 'ngx-sp-infra';
+import { RequiredDirective } from '../../directives/required.directive';
+import { TextFilterPipe } from '../../pipes/text-filter.pipe';
+import { FieldErrorMessageComponent } from '../field-error-message/field-error-message.component';
+import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 import { LibComboboxComponent } from './lib-combobox.component';
 
 describe('lib-combobox', () => {
