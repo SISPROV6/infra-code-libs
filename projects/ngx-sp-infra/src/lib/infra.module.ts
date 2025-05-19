@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { LoadingScreenComponent } from './widgets/loading-screen/loading-screen.component';
 
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -153,7 +154,8 @@ import { SearchInputComponent } from './widgets/search-input/search-input.compon
         LibConfigSenhaComponent,
         PasswordPolicyComponent,
         TextTruncateDirective,
-        SearchInputComponent
+        SearchInputComponent,
+        LoadingScreenComponent,
     ],
     exports: [
         PageNotAuthorizedComponent,
@@ -215,6 +217,7 @@ import { SearchInputComponent } from './widgets/search-input/search-input.compon
         PasswordPolicyComponent,
         TextTruncateDirective,
         SearchInputComponent,
+        LoadingScreenComponent,
     ],
     providers: [],
 })
