@@ -90,6 +90,7 @@ export * from './lib/utils/utils';
 
 /** Services */
 export * from './lib/service/file.service';
+export * from './lib/service/global-loading.service';
 export * from './lib/service/ip-service.service';
 export * from './lib/service/modal-utils.service';
 export * from './lib/service/table-selection.service';
@@ -152,5 +153,6 @@ export * from './lib/widgets/simple-search/simple-search.component';
 export * from './lib/components/lib-config-senha/lib-config-senha.component';
 export * from './lib/widgets/password-policy/password-policy.component';
 
+export * from './lib/widgets/loading-screen/loading-screen.component';
 export * from './lib/widgets/search-input/search-input.component';
 

@@ -37,6 +37,7 @@ import { LibNavProdutosComponent } from '../widgets/lib-nav-produtos/lib-nav-pro
 import { InnerListComponent } from '../widgets/lib-transfer-list/inner-list/inner-list.component';
 import { LibTransferListComponent } from '../widgets/lib-transfer-list/lib-transfer-list.component';
 import { LoadingButtonComponent } from '../widgets/loading-button/loading-button.component';
+import { LoadingScreenComponent } from '../widgets/loading-screen/loading-screen.component';
 import { LoadingComponent } from '../widgets/loading/loading.component';
 import { NavProdutosComponent } from '../widgets/nav-produtos/nav-produtos.component';
 import { OrderingComponent } from '../widgets/ordering/ordering.component';
@@ -106,6 +107,7 @@ import { TreeComponent } from '../widgets/tree/tree.component';
     LibSpinnerComponent,
     TableComponent,
     TreeComponent,
+    LoadingScreenComponent,
   ],
   exports: [
     AlertComponent,
@@ -148,6 +150,7 @@ import { TreeComponent } from '../widgets/tree/tree.component';
     LibSpinnerComponent,
     TableComponent,
     TreeComponent,
+    LoadingScreenComponent,
   ]
 })
 export class LibWidgetsModule { }

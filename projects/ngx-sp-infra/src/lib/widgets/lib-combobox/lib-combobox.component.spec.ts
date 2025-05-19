@@ -7,13 +7,13 @@ import { FieldErrorMessageComponent } from '../field-error-message/field-error-m
 import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 import { LibComboboxComponent } from './lib-combobox.component';
 
-describe('lib-combobox', () => {
+describe('Componente: lib-combobox', () => {
    let component: LibComboboxComponent;
    let fixture: ComponentFixture<LibComboboxComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
+      imports: [  // Aqui eu coloquei todos os mesmos imports do componente pois vou adicionar mais testes fuutramente
         LibComboboxComponent,
         NgIf,
         RequiredDirective,
@@ -42,12 +42,13 @@ describe('lib-combobox', () => {
     expect(header).toBeTruthy();
   });
 
-  it('deve emitir o valor atualizado ao alterar o ngModel', () => {
-    spyOn(component.changePesquisa, 'emit');
+  it('deve emitir o valor atualizado corretamente ao alterar o ngModel', () => {
+    spyOn(component.changePesquisa, 'emit');  // Vai ficar espiando eventos de emit desta propriedade
 
     const input: HTMLInputElement = fixture.nativeElement.querySelector('.searchInput');
     input.value = 'Novo valor';
     input.dispatchEvent(new Event('input')); // dispara o input
+
     fixture.detectChanges(); // atualiza binding
 
     expect(component.changePesquisa.emit).toHaveBeenCalledWith('Novo valor');
