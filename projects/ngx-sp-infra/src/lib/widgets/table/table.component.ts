@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, Renderer2, SimpleChanges, ViewChild } from '@angular/core';
-import { Utils } from '../../utils/utils';
-import { TableHeaderStructure } from './models/header-structure.model';
-import { NgxPaginationModule } from 'ngx-pagination';
-import { OrderingComponent } from '../ordering/ordering.component';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 import { FormsModule } from '@angular/forms';
-import { NgIf, NgFor, NgClass } from '@angular/common';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { Utils } from '../../utils/utils';
+import { LibIconsComponent } from '../lib-icons/lib-icons.component';
+import { OrderingComponent } from '../ordering/ordering.component';
+import { TableHeaderStructure } from './models/header-structure.model';
 
 /**
  * Componente de Tabela Customizável
@@ -23,11 +23,21 @@ import { NgIf, NgFor, NgClass } from '@angular/common';
  * @selector lib-table
 */
 @Component({
-    selector: 'lib-table',
-    templateUrl: './table.component.html',
-    styleUrls: ['./table.component.scss'],
-    standalone: true,
-    imports: [NgIf, FormsModule, NgFor, LibIconsComponent, TooltipModule, OrderingComponent, NgClass, NgxPaginationModule]
+  selector: 'lib-table',
+  templateUrl: './table.component.html',
+  styleUrls: ['./table.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    FormsModule,
+    NgFor,
+    LibIconsComponent,
+    TooltipModule,
+    OrderingComponent,
+    NgClass,
+    NgxPaginationModule,
+    NgTemplateOutlet
+  ]
 })
 export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
@@ -84,6 +94,10 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   /** Informa se as rows da tabela devem ter o efeito de hover.
    * @default true */
   @Input() public hoverable: boolean = true;
+  
+  /** Informa se a table deve ser exibida com o estilo anterior à atualização.
+   * @default false */
+  @Input() public usePreviousStyle: boolean = false;
 
   /**
    * DEVE ser utilizada em caso de paginação visível.
@@ -290,14 +304,6 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
         return Utils.alphanumericSort(propertyA, propertyB, this.sortDirection[attribute])
       });
-      
-      // LÓGICA DEPRECIADA
-			// recordsList.sort((a, b) => {
-			// 	const attribute = this.currentSortColumn;
-			// 	const direction = this.sortDirection[attribute];
-        
-			// 	return this.compareProperties(a, b, attribute, direction);
-			// });
 		}
 	}
 
