@@ -4,11 +4,39 @@
 .text-dark-grey { color: #63676b !important; }
 
 
+// #region VISUAL ANTERIOR
+table.old {
+   border-color: #C4C4C4;
+
+   thead {
+      height: 50px;
+      font-size: 1rem;
+      background-color: #f9fafb !important;
+
+      > tr { background-color: #f9fafb !important; }
+      > tr > th { background-color: #f9fafb !important; }
+   }
+
+   tbody {
+      font-size: .875rem;
+
+      > tr { height: 50px; }
+      > tr:hover { background-color: #CCE5FF; }
+   }
+}
+
+table.table.old > tbody {
+   border-top: none;
+}
+// #endregion VISUAL ANTERIOR
+
+// #region VISUAL NOVO
 .table-list-inner {
    overflow: hidden;
    border-radius: 8px;
    border: 1px solid #eee;
 }
+// #endregion VISUAL NOVO
 
 
 // #region LARGURAS EM PORCENTAGEM

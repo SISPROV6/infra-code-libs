@@ -27,11 +27,11 @@
          
          @case (true) {
             <div class="table-list overflow-hidden border-bottom-0 {{divBorderClass}}">
-               <table class="table border mb-0 {{tableBorderClass}}" [class.table-hover]="hoverable" style="table-layout: fixed;" >
+               <table class="table old border mb-0 {{tableBorderClass}}" [class.table-hover]="hoverable" style="table-layout: fixed;" >
                   <thead>
                      <tr>
                      <!-- Itera sobre a lista de cabeçalhos para criar as colunas -->
-                     <th *ngIf="useSelection" scope="col" class="col-1">
+                     <th *ngIf="useSelection" scope="col" style="width: 40px; padding: 12px !important;">
                         <div class="form-check">
                            <input class="form-check-input" type="checkbox" id="tableCheckAll" [(ngModel)]="selection" (ngModelChange)="selectionChange.emit($event)">
                         </div>
@@ -124,7 +124,7 @@
                   <table class="table mb-0 {{tableBorderClass}}" [class.table-hover]="hoverable" style="table-layout: fixed;" >
                      <thead>
                         <tr>
-                           <th *ngIf="useSelection" scope="col" style="width: 24px;">
+                           <th *ngIf="useSelection" scope="col" style="width: 40px; padding: 12px;" >
                               <div class="form-check">
                                  <input class="form-check-input" type="checkbox" id="tableCheckAll" [(ngModel)]="selection" (ngModelChange)="selectionChange.emit($event)">
                               </div>
