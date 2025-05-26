@@ -1,9 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { LibIconsComponent } from '../lib-icons/lib-icons.component';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-ordering, lib-ordering',
-  templateUrl: './ordering.component.html',
-  styleUrls: ['./ordering.component.scss']
+    selector: 'app-ordering, lib-ordering',
+    templateUrl: './ordering.component.html',
+    styleUrls: ['./ordering.component.scss'],
+    standalone: true,
+    imports: [NgIf, LibIconsComponent, TooltipModule]
 })
 export class OrderingComponent implements OnInit {
 

@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'limitTo'
+    name: 'limitTo',
+    standalone: true
 })
 export class LimitToPipe implements PipeTransform {
   public transform(array: any[], itemsCount: number, startIndex: number = 0) {

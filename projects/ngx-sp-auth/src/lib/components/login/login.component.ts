@@ -2,14 +2,14 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { map, Subscription, take, timer } from 'rxjs';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
+import { map, Subscription, take, timer } from 'rxjs';
 
 import { FormUtils, MessageService } from 'ngx-sp-infra';
 import { AuthService } from '../../auth.service';
-import { EnvironmentService } from '../../environments/environments.service';
 import { LibCustomLoginService } from '../../custom/custom-login.service';
+import { EnvironmentService } from '../../environments/environments.service';
 import { ServerService } from '../../server/server.service';
 import { AuthStorageService } from '../../storage/auth-storage.service';
 
@@ -428,7 +428,5 @@ export class LoginComponent implements OnInit {
 	public closeForgottenPasswordModal(): void {
 		this._bsModalService.hide(this.idFgtPsw);
 	}
-
 	// #endregion ==========> MODALS <==========
-
 }

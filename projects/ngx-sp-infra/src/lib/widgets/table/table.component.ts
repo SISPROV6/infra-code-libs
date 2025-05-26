@@ -1,8 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, Renderer2, SimpleChanges, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { Utils } from '../../utils/utils';
+import { LibIconsComponent } from '../lib-icons/lib-icons.component';
+import { OrderingComponent } from '../ordering/ordering.component';
 import { TableHeaderStructure } from './models/header-structure.model';
 
 /**
@@ -19,7 +25,19 @@ import { TableHeaderStructure } from './models/header-structure.model';
 @Component({
   selector: 'lib-table',
   templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss']
+  styleUrls: ['./table.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    FormsModule,
+    NgFor,
+    LibIconsComponent,
+    TooltipModule,
+    OrderingComponent,
+    NgClass,
+    NgxPaginationModule,
+    NgTemplateOutlet
+  ]
 })
 export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
@@ -72,6 +90,14 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   /** Informa se o counter de registros deve aparecer ou não.
    * @default true */
   @Input() public showCounter: boolean = true;
+
+  /** Informa se as rows da tabela devem ter o efeito de hover.
+   * @default true */
+  @Input() public hoverable: boolean = true;
+  
+  /** Informa se a table deve ser exibida com o estilo anterior à atualização.
+   * @default false */
+  @Input() public usePreviousStyle: boolean = false;
 
   /**
    * DEVE ser utilizada em caso de paginação visível.
@@ -133,13 +159,20 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() divBorderClass: string = "rounded-bottom rounded";
   @Input() tableBorderClass: string = "";
   
+
+  @ViewChild('emptyListTd') emptyListTD?: ElementRef<HTMLTableCellElement>;
+
+  public colspanWidth: string = "";
   // #endregion PUBLIC
 
   // #endregion ==========> PROPRIEDADES <==========
 
 
   // #region ==========> INICIALIZAÇÃO <==========
-  constructor(private cdr: ChangeDetectorRef) { }
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private _renderer: Renderer2
+  ) { }
 
   /** Inicializa o componente e define o número inicial de itens por página. */
   ngOnInit(): void {
@@ -149,6 +182,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
   ngAfterViewInit(): void {
     this.cdr.detectChanges();  // Forçar uma nova detecção após a renderização
+    this.updateColspanWidth();
   }
 
   /** Monitora as mudanças nas entradas do componente e realiza ajustes, como resetar a paginação ou validar o layout das colunas.
@@ -157,9 +191,15 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
     if (changes['list'] && changes['list'].currentValue) {
       this.resetPagination(this.list ?? []);
       this.updateCounterInfo();
+      this.updateColspanWidth();
+    }
+    
+    if (changes['headers']) {
+      this.validateHeaders();
+      this.updateColspanWidth();
     }
 
-    if (changes['headers']) { this.validateHeaders(); }
+    this.updateColspanWidth();
   }
   // #endregion ==========> INICIALIZAÇÃO <==========
 
@@ -193,6 +233,16 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
     else if (!this.list && this.showCounter && this.usePagination) {
       this.itemsPerPage = 1;
     }
+  }
+
+
+  private updateColspanWidth(): void {
+    if (this.emptyListTD && this.headers) {
+      this.colspanWidth = (this.headers ? this.headers.length + (this.useSelection ? 1 : 0) : 12).toString();
+      this._renderer.setAttribute(this.emptyListTD.nativeElement, 'colspan', this.colspanWidth);
+    }
+
+    this.cdr.detectChanges();  // Forçar uma nova detecção após a atualização do colspan
   }
 
 
@@ -254,14 +304,6 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
         return Utils.alphanumericSort(propertyA, propertyB, this.sortDirection[attribute])
       });
-      
-      // LÓGICA DEPRECIADA
-			// recordsList.sort((a, b) => {
-			// 	const attribute = this.currentSortColumn;
-			// 	const direction = this.sortDirection[attribute];
-        
-			// 	return this.compareProperties(a, b, attribute, direction);
-			// });
 		}
 	}
 

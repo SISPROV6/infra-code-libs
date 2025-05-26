@@ -1,9 +1,12 @@
 import { Component, EventEmitter, Input, Output, OnDestroy } from '@angular/core';
+import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 
 @Component({
-  selector: 'app-simple-search, lib-simple-search',
-  templateUrl: './simple-search.component.html',
-  styleUrls: ['./simple-search.component.scss']
+    selector: 'app-simple-search, lib-simple-search',
+    templateUrl: './simple-search.component.html',
+    styleUrls: ['./simple-search.component.scss'],
+    standalone: true,
+    imports: [LibIconsComponent]
 })
 export class SimpleSearchComponent implements OnDestroy {
 

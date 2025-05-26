@@ -2,9 +2,10 @@ import { Output, EventEmitter, Input } from '@angular/core';
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-generic-modal, lib-generic-modal',
-  templateUrl: './generic-modal.component.html',
-  styleUrls: ['./generic-modal.component.scss']
+    selector: 'app-generic-modal, lib-generic-modal',
+    templateUrl: './generic-modal.component.html',
+    styleUrls: ['./generic-modal.component.scss'],
+    standalone: true
 })
 export class GenericModalComponent {
 

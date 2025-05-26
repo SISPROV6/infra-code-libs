@@ -1,9 +1,12 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
+import { LibIconsComponent } from '../../widgets/lib-icons/lib-icons.component';
 
 @Component({
-  selector: '[app-footer], app-footer, lib-footer',
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss']
+    selector: '[app-footer], app-footer, lib-footer',
+    templateUrl: './footer.component.html',
+    styleUrls: ['./footer.component.scss'],
+    standalone: true,
+    imports: [LibIconsComponent]
 })
 export class FooterComponent implements OnInit {
   constructor(private el: ElementRef) { }

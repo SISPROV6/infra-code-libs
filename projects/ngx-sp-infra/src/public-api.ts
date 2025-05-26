@@ -5,6 +5,11 @@
 /** Modules */
 export * from './lib/infra.module';
 
+export * from './lib/modules/lib-directives.module';
+export * from './lib/modules/lib-pipes.module';
+export * from './lib/modules/lib-views.module';
+export * from './lib/modules/lib-widgets.module';
+
 
 /** Message */
 export * from './lib/message/alert/alert.component';
@@ -61,6 +66,8 @@ export * from './lib/pipes/phone-format.pipe';
 export * from './lib/pipes/text-filter.pipe';
 export * from './lib/pipes/title-case-pipe.pipe';
 export * from './lib/pipes/to-url.pipe';
+export * from './lib/widgets/combobox/pipes/filter-by.pipe';
+export * from './lib/widgets/combobox/pipes/limit-to.pipe';
 
 
 /** Directives */
@@ -69,6 +76,7 @@ export * from './lib/directives/disable-control.directive';
 export * from './lib/directives/highlight.directive';
 export * from './lib/directives/loading-btn.directive';
 export * from './lib/directives/required.directive';
+export * from './lib/directives/text-truncate.directive';
 export * from './lib/widgets/field-contador-message/field-contador-message.component';
 
 
@@ -82,6 +90,7 @@ export * from './lib/utils/utils';
 
 /** Services */
 export * from './lib/service/file.service';
+export * from './lib/service/global-loading.service';
 export * from './lib/service/ip-service.service';
 export * from './lib/service/modal-utils.service';
 export * from './lib/service/table-selection.service';
@@ -140,7 +149,10 @@ export * from './lib/widgets/pagination/pagination.component';
 export * from './lib/widgets/search-filters/search-filters.component';
 export * from './lib/widgets/side-tabs-generic/side-tabs-generic.component';
 export * from './lib/widgets/simple-search/simple-search.component';
-export * from './lib/widgets/lib-nav-produtos/lib-nav-produtos.component';
 
 export * from './lib/components/lib-config-senha/lib-config-senha.component';
 export * from './lib/widgets/password-policy/password-policy.component';
+
+export * from './lib/widgets/loading-screen/loading-screen.component';
+export * from './lib/widgets/search-input/search-input.component';
+

@@ -23,9 +23,10 @@ import { Component } from '@angular/core';
  * 
  */
 @Component({
-  selector: 'infra-breadcrumb, lib-infra-breadcrumb',
-  templateUrl: './infra-breadcrumb.component.html',
-  styleUrls: ['./infra-breadcrumb.component.css']
+    selector: 'infra-breadcrumb, lib-infra-breadcrumb',
+    templateUrl: './infra-breadcrumb.component.html',
+    styleUrls: ['./infra-breadcrumb.component.css'],
+    standalone: true
 })
 export class InfraBreadcrumbComponent {
 

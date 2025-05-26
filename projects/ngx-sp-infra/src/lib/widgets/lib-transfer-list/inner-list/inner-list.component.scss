@@ -13,3 +13,37 @@
 }
 
 .text-dark-grey { color: #63676b !important; }
+
+
+.list-header {
+   padding: 1rem;
+   border-radius: 8px 8px 0 0;
+   background-color: #eeeeee;
+
+   .list-header-item {
+     font-weight: bold;
+   }
+ }
+ .list-rows {
+   border-bottom: 1px solid #eee;
+   border-radius: 0 0 8px 8px;
+   overflow: hidden;
+
+   .list-row-item {
+     padding: 1rem;
+   }
+ }
+
+
+ .styled-table {
+   border-collapse: collapse;
+   font-size: 0.9em;
+   font-family: sans-serif;
+   min-width: 400px;
+   border-radius: 8px 8px 0 0;
+   overflow: hidden;
+
+   th, td { padding: 12px 15px; }
+   tbody tr { border-bottom: 1px solid #eeeeee; }
+   tbody tr:last-of-type { border-bottom: 2px solid #eeeeee; }
+}

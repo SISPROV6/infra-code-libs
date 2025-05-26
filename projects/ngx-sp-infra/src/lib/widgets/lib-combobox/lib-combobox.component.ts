@@ -1,9 +1,14 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { AbstractControl, FormControl, FormControlStatus, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormControlStatus, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
 
+import { NgIf } from '@angular/common';
+import { RequiredDirective } from '../../directives/required.directive';
 import { RecordCombobox } from '../../models/combobox/record-combobox';
+import { TextFilterPipe } from '../../pipes/text-filter.pipe';
+import { FieldErrorMessageComponent } from '../field-error-message/field-error-message.component';
+import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 
 /**
  * @component LibComboboxComponent
@@ -42,7 +47,17 @@ import { RecordCombobox } from '../../models/combobox/record-combobox';
     .form-label { font-size: 16px !important; }
     .z-index-1020 { z-index: 1020 !important; }
     .cursor-pointer { cursor: pointer !important; }
-  `
+  `,
+  standalone: true,
+  imports: [
+    NgIf,
+    RequiredDirective,
+    FormsModule,
+    ReactiveFormsModule,
+    LibIconsComponent,
+    FieldErrorMessageComponent,
+    TextFilterPipe,
+  ],
 })
 export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
 
@@ -72,6 +87,7 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
 
   protected comboboxID!: string;
   protected labelID!: string;
+  private _labelText: string | null | undefined;
   // #endregion PROTECTED
 
   // #region PRIVATE
@@ -106,8 +122,13 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
   @Input({ required: true }) public list?: RecordCombobox[];
 
   /** (opcional) Texto do rótulo que será exibido acima do combo. Caso não informado nada será exibido
-   * @type {string} */
-  @Input() public labelText?: string;
+   * @type {string | null | undefined} */
+  @Input()
+  public get labelText(): string | null | undefined { return this._labelText; }
+  public set labelText(value: string | null | undefined) {
+    this._labelText = value;
+    this.changeSeparator(value);
+  }
 
   /** (opcional) Texto ou caractere separador entre a informação de ID e LABEL
    * @example " - "
@@ -175,6 +196,13 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
    * @type {EventEmitter<string | number | null>} */
   @Output() public changeValue: EventEmitter<RecordCombobox | string | number | null> = new EventEmitter<RecordCombobox | string | number | null>();
   
+  
+  /** Evento emitido ao mudar o valor do campo de pesquisa
+   * @example Ao ser emitido, o componente pai pode realizar uma validação ou nova query com o valor selecionado.
+   * @emits EventEmitter<string> que leva o valor string da pesquisa feita para ser enviada para o GET
+   * @type {EventEmitter<string>} */
+  @Output() public changePesquisa: EventEmitter<string> = new EventEmitter<string>();
+  
 
   @ViewChild('mainInput') private _mainInput!: ElementRef<HTMLInputElement>;
   @ViewChild('searchInput') private _searchInput!: ElementRef<HTMLInputElement>;
@@ -204,6 +232,7 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
   ngOnChanges(changes: SimpleChanges): void {
     if (changes["list"]?.currentValue) this.updateSelectedValue();
     if (changes["libRequired"]?.currentValue != undefined) this.setValidator();
+    
     if (changes["control"]?.currentValue) {
       this.setValidator();
       this.updateSelectedValue((changes["control"].currentValue as FormControl).value);
@@ -251,7 +280,7 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
     this.changeValue.emit(null);
   }
 
-  private updateSelectedValue(value?: string | number | null): void {
+  private updateSelectedValue(value?: string | number | null, noChange: boolean = true): void {
     this.innerControl.setValue(null); // Limpa o campo antes de qualquer coisa
     
     const selectedValue: string | number | null = value ?? this._outerControl.value;
@@ -259,8 +288,20 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
     
     const initializedValue = this.list.find(item => item.ID === selectedValue)
     if (initializedValue) this.innerControl.setValue(
-      `${initializedValue.AdditionalStringProperty1 && initializedValue.AdditionalStringProperty1 != '' ? initializedValue.AdditionalStringProperty1 : ""}${this.separator === undefined ? "" : " "+this.separator+" "}${initializedValue.LABEL}`
+      `${initializedValue.AdditionalStringProperty1 && initializedValue.AdditionalStringProperty1 != '' ? initializedValue.AdditionalStringProperty1 : ""}${this.separator === undefined ? "" : " "+this.separator+" "}${initializedValue.LABEL}`,
+      { emitEvent: noChange }
     );
+  }
+
+  private changeSeparator(newSeparator: string | null | undefined): void {
+    const initializedValue = this.list ? this.list.find(item => item.ID === this._outerControl.value) : null;
+    let formattedValue: string | null = null;
+
+    if (initializedValue) {
+      formattedValue = `${initializedValue.AdditionalStringProperty1 && initializedValue.AdditionalStringProperty1 !== '' ? initializedValue.AdditionalStringProperty1 : ""}${newSeparator === undefined || newSeparator === null ? "" : " "+newSeparator+" "}${initializedValue.LABEL}`;
+    }
+
+    if (initializedValue) this.innerControl.setValue(formattedValue, { emitEvent: false });
   }
 
   private adjustDropdownWidth(): void {

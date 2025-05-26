@@ -3,7 +3,9 @@
 
 .text-dark-grey { color: #63676b !important; }
 
-table {
+
+// #region VISUAL ANTERIOR
+table.old {
    border-color: #C4C4C4;
 
    thead {
@@ -23,15 +25,21 @@ table {
    }
 }
 
-table.table > tbody {
+table.table.old > tbody {
    border-top: none;
 }
+// #endregion VISUAL ANTERIOR
 
+// #region VISUAL NOVO
+.table-list-inner {
+   overflow: hidden;
+   border-radius: 8px;
+   border: 1px solid #eee;
+}
+// #endregion VISUAL NOVO
 
 
 // #region LARGURAS EM PORCENTAGEM
-
-// TODO: Esta foi a única forma que consegui fazer esta lógica funcionar. Outra forma seria usar "@for $i from 1 through 100" mas na hora de preencher o valor ele não funciona
 $percents:
    1%, 2%, 3%, 4%, 5%, 6%, 7%, 8%, 9%, 10%, 
    11%, 12%, 13%, 14%, 15%, 16%, 17%, 18%, 19%, 20%, 

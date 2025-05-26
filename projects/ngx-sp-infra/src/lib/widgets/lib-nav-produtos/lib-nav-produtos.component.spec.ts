@@ -8,8 +8,8 @@ describe('Coponente: lib-nav-produtos', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LibNavProdutosComponent ]
-    })
+    imports: [LibNavProdutosComponent]
+})
     .compileComponents();
     
     fixture = TestBed.createComponent(LibNavProdutosComponent);

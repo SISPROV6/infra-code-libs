@@ -1,0 +1,50 @@
+/* Ensure the overlay is a column layout */
+.search-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent dark background */
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center;
+  padding-top: 10px;
+  z-index: 9999;
+}
+
+/* Ensure both input and results align in a column */
+.search-wrapper {
+  display: flex;
+  flex-direction: column; /* Stack input and results */
+  align-items: center; /* Center horizontally */
+  width: 100%;
+  max-width: 800px;
+}
+
+/* Search container */
+.search-container {
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.search-results {
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-top: 10px; /* Space between input and table */
+  max-width: 800px;
+  width: 100%;
+}
+
+.scrollable-content {
+  max-height: 500px;  /* Set the desired fixed height */
+  overflow-y: auto;   /* Enable vertical scrolling when content exceeds max height */
+  border-radius: 8px; /* Ensure the border radius is applied */
+}

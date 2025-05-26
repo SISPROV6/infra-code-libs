@@ -1,19 +1,19 @@
-<div class="d-flex flex-{{direction}} gap-2 w-100">
+<div class="d-flex flex-row  w-100">
    <lib-inner-list #firstList [class]="firstListClass" [title]="availableListConfig.title ?? 'Lista de opções disponíveis'" [list]="availableListConfig.list"
       [counts]="availableListConfig.listCounts" [useSearch]="availableListConfig.useSearch" [useSelection]="true" side="left"
       [searchPlaceholder]="availableListConfig.searchPlaceholder ?? 'Digite aqui para filtrar os dados'" [paginationID]="availableListID"
       [identifierColumn]="availableListConfig.identifierColumn" [labelColumn]="availableListConfig.labelColumn" [useBackendSearch]="useBackendSearch"
       (selectionChange)="firstListSelected = $event" (emitSearch)="emitSearch.emit($event)" />
 
-   <div class="col gap-2 align-items-center justify-content-center d-flex flex-{{iconDirections}}">
-      <button class="btn btn-{{isFirstListSelectionEmpty ? 'outline-' : ''}}primary" tooltip="Incluir na seleção" [disabled]="isFirstListSelectionEmpty"
+   <div class="align-items-center justify-content-center d-flex flex-column">
+      <button class="btn rounded-0 btn-{{isFirstListSelectionEmpty ? 'outline-' : ''}}primary" tooltip="Incluir na seleção" [disabled]="isFirstListSelectionEmpty"
          (click)="selecionarRegistros()" >
-         <lib-icon [iconName]="selectIconName" />
+         <lib-icon iconName="seta-direita" />
       </button>
 
-      <button *ngIf="!oneWay" class="btn btn-{{isSecondListSelectionEmpty ? 'outline-' : ''}}primary" tooltip="Remover da seleção" [disabled]="isSecondListSelectionEmpty"
+      <button *ngIf="!oneWay" class="btn rounded-0 btn-{{isSecondListSelectionEmpty ? 'outline-' : ''}}primary" tooltip="Remover da seleção" [disabled]="isSecondListSelectionEmpty"
          (click)="removerSelecao()">
-         <lib-icon [iconName]="revertIconName" />
+         <lib-icon iconName="seta-esquerda" />
       </button>
    </div>
 

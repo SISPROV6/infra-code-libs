@@ -1,0 +1,27 @@
+@if (isVisible) {
+<div class="search-overlay">
+  <div class="search-wrapper">
+    <div class="search-container">
+      <input type="text" #searchInput [(ngModel)]="searchQuery" (input)="onSearch()"
+        placeholder="Pesquise por telas da aplicação..." class="form-control" />
+      <button (click)="closeSearch()" class="btn btn-outline-primary ms-2">Fechar</button>
+    </div>
+
+    @if (searchQuery !== '') {
+      <div class="search-results">
+        <div class="scrollable-content">
+          <ul class="list-group list-group-flush">
+            @for (item of filteredItems; track $index) {
+              <li (click)="navigateTo(item.route)" style="cursor: pointer;" class="list-group-item">{{item.label}}</li>
+            } 
+            @empty {
+              <li class="list-group-item">Nenhum registro encontrado</li>
+            }
+          </ul>
+        </div>
+      </div>
+      
+    }
+  </div>
+</div>
+}

@@ -23,7 +23,7 @@
   <ng-container *ngSwitchCase="'text'">
     <textarea type="text" maxlength="100" class="form-control" id="dynamicInput_text" placeholder="Texto Livre" rows="1"
     [disabled]="disableInput ?? false" [(ngModel)]="txConteudoCarac" (change)="sendEventUpdateCoCarac()"></textarea>
-    <div class="d-flex justify-content-end">
+    <div class="d-flex justify-content-end position-relative">
       <span class="text-muted mt-1 glb-fs-14">Caracteres restantes: {{ 100 - txConteudoCarac.length }}</span>
     </div>
   </ng-container>
@@ -31,7 +31,7 @@
   <ng-container *ngSwitchCase="'longtext'">
     <textarea type="text" maxlength="1000" class="form-control" id="dynamicInput_longtext" placeholder="Texto Livre"
     [disabled]="disableInput ?? false" [(ngModel)]="txConteudoCarac" (change)="sendEventUpdateCoCarac()"></textarea>
-    <div class="d-flex justify-content-end">
+    <div class="d-flex justify-content-end position-relative">
       <span class="text-muted mt-1 glb-fs-14">Caracteres restantes: {{ 1000 - txConteudoCarac.length }}</span>
     </div>
   </ng-container>

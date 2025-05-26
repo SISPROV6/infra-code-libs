@@ -1,7 +1,11 @@
 <!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 
-<label *ngIf="labelText && labelText !== ''" class="form-label fw-bold" [id]="labelID" [for]="comboboxID" [libRequired]="isRequired">{{ labelText }}</label>
+<label *ngIf="labelText && labelText !== ''" class="form-label fw-bold d-flex align-items-center gap-1" [id]="labelID" [for]="comboboxID" [libRequired]="isRequired">
+   <ng-content select="lib-icon[iconLeft]"></ng-content>
+   {{ labelText }}
+   <ng-content select="lib-icon[iconRight]"></ng-content>
+</label>
 
 <div class="input-group dropdown flex-fill glb-max-height-350px">
 
@@ -16,14 +20,15 @@
 
    <ul  #dropdownMenu  class="dropdown-menu p-2 glb-max-height-350px overflow-y-scroll z-index-1020" [class.show]="ariaExpanded">
       <div class="input-group mb-2">
-         <input #searchInput (input)="textoPesquisa = searchInput.value" type="text" id="searchInput-{{comboboxID}}" class="form-control glb-input-no-glow" [placeholder]="searchPlaceholder" (keyup.enter)="reloadList()">
+         <input #searchInput type="text" id="searchInput-{{comboboxID}}" class="searchInput form-control glb-input-no-glow" [placeholder]="searchPlaceholder" (keyup.enter)="reloadList()"
+         [(ngModel)]="textoPesquisa" (ngModelChange)="changePesquisa.emit(textoPesquisa)" >
          <button class="btn btn-{{theme}}" (click)="reloadList()"> <lib-icon iconName="lupa" iconSize="medium-small" /> </button>
       </div>
 
       @if (list) {
-         <li *ngIf="innerControl.value !== '' && innerControl.value !== null" class="dropdown-item" (click)="clearValue()"> <span class="fw-bold">Limpar opção selecionada</span> </li>
+         <li *ngIf="innerControl.value !== '' && innerControl.value !== null" class="dropdown-item glb-cursor-pointer" (click)="clearValue()"> <span class="fw-bold">Limpar opção selecionada</span> </li>
          @for (item of list | textFilter:textoPesquisa; track $index) {
-            <li class="dropdown-item" (click)="setValue(item)">
+            <li class="dropdown-item glb-cursor-pointer" (click)="setValue(item)">
                <span *ngIf="item.AdditionalStringProperty1 && item.AdditionalStringProperty1 !== ''" class="glb-fs-12 d-inline-block w-125" [class.fw-bold]="additionalStringBold">
                   {{ item.AdditionalStringProperty1 + (separator === undefined ? "" : " "+separator) }}
                </span> {{ item.LABEL }}

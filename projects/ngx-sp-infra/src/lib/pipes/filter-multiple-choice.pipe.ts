@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { RecordCombobox } from '../models/combobox/record-combobox';
 
 @Pipe({
-  name: 'filterMultipleChoice'
+    name: 'filterMultipleChoice',
+    standalone: true
 })
 export class FilterMultipleChoicePipe implements PipeTransform {
 

@@ -9,11 +9,9 @@ describe('Componente com badges de Filtros Aplicados', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        AppliedFiltersComponent,
-        LibIconsComponent
-      ],
-    }).compileComponents();
+    imports: [AppliedFiltersComponent,
+        LibIconsComponent],
+}).compileComponents();
 
     // Use runInInjectionContext para garantir que a injeção funciona corretamente
     TestBed.runInInjectionContext(() => {

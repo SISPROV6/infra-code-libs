@@ -5,9 +5,10 @@ import { BsModalRef } from 'ngx-bootstrap/modal'
 import { alertTypes } from '../message-enum';
 
 @Component({
-  selector: 'app-alert',
-  templateUrl: './alert.component.html',
-  styleUrls: ['./alert.component.scss']
+    selector: 'app-alert',
+    templateUrl: './alert.component.html',
+    styleUrls: ['./alert.component.scss'],
+    standalone: true
 })
 export class AlertComponent implements OnInit {
   @Input() message?: string;

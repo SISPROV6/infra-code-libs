@@ -1,13 +1,23 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
-  selector: 'lib-spinner',
-  template: `
-    <div class="spinner-{{type}} {{theme ? 'text-'+theme : ''}} {{size}}" role="status">
-      <span class="visually-hidden">{{ text }}</span>
-    </div>
+    selector: 'lib-spinner',
+    template: `
+    @switch (sizeType) {
+      @case ("class") {
+        <div class="spinner-{{type}} {{theme ? 'text-'+theme : ''}} {{_size}}" role="status">
+          <span class="visually-hidden">{{ helperText }}</span>
+        </div>
+      }
+      @case ("custom") {
+        <div class="spinner-{{type}} {{theme ? 'text-'+theme : ''}}" [style.height.px]="_size" [style.width.px]="_size" role="status">
+          <span class="visually-hidden">{{ helperText }}</span>
+        </div>
+      }
+    }
   `,
-  styles: ``
+    styles: ``,
+    standalone: true
 })
 export class LibSpinnerComponent implements OnChanges {
 
@@ -18,7 +28,9 @@ export class LibSpinnerComponent implements OnChanges {
   // #endregion PRIVATE
 
   // #region PROTECTED
-  protected _size?: string;
+  protected _size?: string | number;
+
+  protected sizeType: "class" | "custom" = "class";
   // #endregion PROTECTED
 
   // #region PUBLIC
@@ -32,11 +44,11 @@ export class LibSpinnerComponent implements OnChanges {
 
   /** Tamanho do spinner (Padrão ou pequeno)
    * @default "default" */
-  @Input() public size: "default" | "small" = "default";
+  @Input() public size: "default" | "small" | number = "default";
 
   /** Texto de ajuda, será exibido no hover em cima do spinner
    * @default "Carregando informações..." */
-  @Input() public text: string = "Carregando informações...";
+  @Input() public helperText: string = "Carregando informações...";
   // #endregion PUBLIC
 
   // #endregion ==========> PROPERTIES <==========
@@ -46,11 +58,27 @@ export class LibSpinnerComponent implements OnChanges {
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes["spinnerSize"]) {
-      if (this.size === "small") this._size = `spinner-${this.type}-sm`;
-      else if (this.size === "default") delete this._size;
+    if (changes["size"]) {
+      this.getSize();
     }
   }
   // #endregion ==========> INITIALIZATION <==========
+
+
+  private getSize(): void {
+    if (this.size === "small") {
+      this.sizeType = "class";
+      this._size = `spinner-${this.type}-sm`;
+    }
+    else if (this.size === "default") {
+      this.sizeType = "class";
+      delete this._size;
+    }
+    else {
+      this.sizeType = "custom";
+      this._size = this.size;
+    }
+    
+  }
 
 }

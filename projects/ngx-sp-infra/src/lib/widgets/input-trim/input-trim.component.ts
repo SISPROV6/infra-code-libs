@@ -1,11 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { NgClass } from '@angular/common';
 
 @Component({
-  selector: 'lib-input-trim',
-  templateUrl: './input-trim.component.html',
-  styleUrls: ['./input-trim.component.css']
+    selector: 'lib-input-trim',
+    templateUrl: './input-trim.component.html',
+    styleUrls: ['./input-trim.component.css'],
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, NgClass]
 })
 export class InputTrimComponent implements OnInit {
 

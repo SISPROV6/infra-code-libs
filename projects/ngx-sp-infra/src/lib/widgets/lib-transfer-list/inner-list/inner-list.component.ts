@@ -1,13 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 
-import { TableComponent } from '../../table/table.component';
 import { RecordCombobox } from '../../../models/combobox/record-combobox';
+import { TableComponent } from '../../table/table.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { TextTruncateDirective } from '../../../directives/text-truncate.directive';
+import { LibIconsComponent } from '../../lib-icons/lib-icons.component';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { FormsModule } from '@angular/forms';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'lib-inner-list',
-  templateUrl: './inner-list.component.html',
-  styleUrl: './inner-list.component.scss'
+    selector: 'lib-inner-list',
+    templateUrl: './inner-list.component.html',
+    styleUrl: './inner-list.component.scss',
+    standalone: true,
+    imports: [NgIf, FormsModule, TooltipModule, LibIconsComponent, TableComponent, TextTruncateDirective, NgxPaginationModule]
 })
 export class InnerListComponent implements OnChanges {
 
@@ -52,13 +60,23 @@ export class InnerListComponent implements OnChanges {
     this.updateSelected();
 
     this.filterList();
+    this.setTextTooltip();
   }
   
   @Output() selectionChange: EventEmitter<any[]> = new EventEmitter<any[]>();
   @Output() emitSearch: EventEmitter<string> = new EventEmitter<string>();
   
   @ViewChild(TableComponent) public tableComponent?: TableComponent;
+
+
+  @ViewChild('textIDElement') public textIDElement?: ElementRef<HTMLSpanElement>;
+  @ViewChild('textLabelElement') public textLabelElement?: ElementRef<HTMLSpanElement>;
   
+  @ViewChild('emptyListCell') public emptyListCell?: ElementRef<HTMLTableCellElement>;
+  
+  public textIDTooltip: string = "";
+  public textLabelTooltip: string = "";
+
   
   public selected: any[] = [];
   
@@ -72,19 +90,15 @@ export class InnerListComponent implements OnChanges {
   // #endregion ==========> PROPERTIES <==========
 
 
-  // #region ==========> INITIALIZATION <==========
-  constructor() { }
-
-  // ngOnInit(): void {
-  //   // 
-  // }
+  constructor( private _cdr: ChangeDetectorRef ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes["list"].currentValue) {
       this.filterList();
     }
+    
+    this.setTextTooltip();
   }
-  // #endregion ==========> INITIALIZATION <==========
 
 
   // #region ==========> UTILS <==========
@@ -152,12 +166,29 @@ export class InnerListComponent implements OnChanges {
   // #endregion SELEÇÃO
 
 
-
   public handleSearch(): void {
     if (this.useBackendSearch) this.emitSearch.emit(this.textoPesquisa);
     else this.filterList();
   }
-  
+
+  /** ERICK: Não está sendo utilizado pois apesar de funcionar, seu comportamento é instável... vou mantê-lo aqui para caso eu consiga reaproveitar no futuro */
+  private setTextTooltip(): void {
+    this._cdr.detectChanges();  // Forçar uma nova detecção antes da atualização do tooltip
+
+    if (this.textIDElement) {
+      const tooltipContent = this.textIDElement.nativeElement.scrollWidth > this.textIDElement.nativeElement.clientWidth ? this.textIDElement.nativeElement.innerText : ''
+      this.textIDTooltip = tooltipContent;
+    }
+
+    this._cdr.detectChanges();  // Forçar uma nova detecção após a atualização do tooltip
+    
+    if (this.textLabelElement) {
+      const tooltipContent = this.textLabelElement.nativeElement.scrollWidth > this.textLabelElement.nativeElement.clientWidth ? this.textLabelElement.nativeElement.innerText : ''
+      this.textLabelTooltip = tooltipContent;
+    }
+
+    this._cdr.detectChanges();  // Forçar uma nova detecção após a atualização do tooltip
+  }
   // #endregion ==========> UTILS <==========
 
 }

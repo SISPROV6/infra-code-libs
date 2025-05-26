@@ -1,4 +1,7 @@
+import { NgIf } from '@angular/common';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 
 /**
  * Componente de acordion customizado, o seu conteúdo interno é informado pelo componente pai, podendo configurá-lo como necessário.
@@ -10,11 +13,17 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
  *    - haveMarginTop: boolean (default: false)
  *    - isOpen: boolean (default: false)
  */
-@Component( {
-      selector: 'app-custom-acordion, lib-acordion',
-      templateUrl: './custom-acordion.component.html',
-      styleUrls: [ './custom-acordion.component.scss' ],
-} )
+@Component({
+    selector: 'app-custom-acordion, lib-acordion, lib-accordion',
+    templateUrl: './custom-acordion.component.html',
+    styleUrls: ['./custom-acordion.component.scss'],
+    standalone: true,
+    imports: [
+        AccordionModule,
+        NgIf,
+        LibIconsComponent,
+    ],
+})
 export class CustomAcordionComponent implements OnInit {
 
       // #region ==========> PROPERTIES <==========

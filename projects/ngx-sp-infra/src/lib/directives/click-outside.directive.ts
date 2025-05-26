@@ -1,3 +1,4 @@
+import { DOCUMENT } from '@angular/common';
 import {
 	Directive,
 	ElementRef,
@@ -11,9 +12,11 @@ import {
 	Output,
 	SimpleChanges,
 } from '@angular/core';
-import {DOCUMENT} from '@angular/common';
 
-@Directive({selector: '[clickOutside]'})
+@Directive({
+    selector: '[clickOutside], [libClickOutside]',
+    standalone: true
+})
 export class ClickOutsideDirective implements OnInit, OnChanges, OnDestroy {
 	@Input() clickOutsideEnabled = true;
     
