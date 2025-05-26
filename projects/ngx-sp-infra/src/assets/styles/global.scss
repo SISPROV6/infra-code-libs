@@ -223,16 +223,16 @@ div.main-content {
 }
 
 // #region TABLE RECORDS
-table {
+table.new {
 
   // #region THEAD 
   thead {
     height: 50px;
-      font-size: 1rem;
-      background-color: #eee !important;
+    font-size: 1rem;
+    background-color: #eee !important;
 
-      > tr { background-color: inherit !important; }
-      > tr > th { background-color: inherit !important; }
+    > tr { background-color: inherit !important; }
+    > tr > th { background-color: inherit !important; }
   }
 
   // #endregion THEAD 
@@ -1576,3 +1576,26 @@ input[role="switch"]:checked {
   margin-left: 0.5rem;
 }
 /************************* FIM NGX-PAGINATION *************************/
+
+
+
+/************************* INÍCIO LIB-TABLE SROLLÁVEL *************************/
+.scrollable-wrapper {
+  tbody {
+    tr[innerRows] {
+      td.fix {
+        position: sticky;
+        background: white !important;
+        z-index: 100;
+      }
+      td.fix:first-child {
+        left: 0;
+      }
+      td.fix:last-child {
+        right: 0;
+        border-left: 1px solid #C4C4C4;
+      }
+    }
+  }
+}
+/************************* FIM LIB-TABLE SROLLÁVEL *************************/
