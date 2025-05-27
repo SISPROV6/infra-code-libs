@@ -16,6 +16,9 @@ export class TableHeaderStructure {
    * - Utilizar 'w' = w-{n} (n = 1 em 1 até 100)
    */
   public widthClass?: string;
+
+  /** Largura da coluna em pixels fixos. Deve ser utilizada apenas em caso de table scrollável, caso contrário o valor não será aplicado. */
+  public widthPixels?: number;
   
   /** Utilize em caso de precisar de classes específicas para aquela coluna (será aplicada apenas á coluna no header da tabela e não no corpo).
    * @example 'text-center' para centralizar o texto da coluna.

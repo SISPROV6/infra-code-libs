@@ -40,7 +40,9 @@
                         @for (header of headers; track header.name) {
                            <th class="align-middle text-dark-grey {{ header.customClasses }}
                               {{ headersUseOldWidth ? header.col && header.col > 0 ? 'col-'+header.col : 'col' : header.widthClass }}
-                              {{ ($last && header.name === '') && scrollable ? 'fix' : '' }}" >
+                              {{ ($last && header.name === '') && scrollable ? 'fix' : '' }}"
+                              [style.width]="scrollable ? header.widthPixels ? header.widthPixels+'px' : 250+'px' : null"
+                              >
 
                               @if (header.icon !== undefined) {
                                  <lib-icon *ngIf="header.icon.side === 'L'" iconSize="small"
@@ -132,7 +134,9 @@
                            @for (header of headers; track header.name) {
                               <th scope="col" class="align-middle text-dark {{ header.customClasses }}
                                  {{ headersUseOldWidth ? header.col && header.col > 0 ? 'col-'+header.col : 'col' : header.widthClass }}
-                                 {{ ($last && header.name === '') && scrollable ? 'fix' : '' }}" >
+                                 {{ ($last && header.name === '') && scrollable ? 'fix' : '' }}"
+                                 [style.width]="scrollable ? header.widthPixels ? header.widthPixels+'px' : 250+'px' : null"
+                                 >
 
                                  @if (header.icon !== undefined) {
                                     <lib-icon *ngIf="header.icon.side === 'L'" iconSize="small"
