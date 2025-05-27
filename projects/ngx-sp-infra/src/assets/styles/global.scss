@@ -810,7 +810,6 @@ table.glb-table-neutral-border {
     }
   }
 }
-
 // #endregion TABLES 
 
 .glb-transition-3s {
@@ -1577,6 +1576,19 @@ input[role="switch"]:checked {
 }
 /************************* FIM NGX-PAGINATION *************************/
 
+
+/************************* INÍCIO LIB-TABLE *************************/
+table tbody {
+  tr[innerRows] {
+    td:first-child {
+      &:has(input[type="checkbox"]) {
+        width: 40px;
+        padding: 12px;
+      }
+    }
+  }
+}
+/************************* FIM LIB-TABLE *************************/
 
 
 /************************* INÍCIO LIB-TABLE SROLLÁVEL *************************/
