@@ -1303,7 +1303,7 @@ table.glb-table-neutral-border {
 
 // #region CHECKBOX
 input[type="checkbox"].form-check-input:checked:not([role="switch"]) {
-  background-color: vars.$root-sp-default !important;
+  background-color: #3767B2 !important;
 }
 
 input[type="checkbox"].form-check-input { border-color: #6C757D; }
