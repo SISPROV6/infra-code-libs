@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostBinding, HostListener } from '@angular/core';
 
 @Component({
   selector: 'lib-loading-screen',
@@ -11,10 +11,12 @@ import { Component, HostListener } from '@angular/core';
       position: absolute;
       top: 0;
       width: 100%;
+      height: 100%;
       background-color:rgba(255, 255, 255, 0.75) !important;
     }
     .loader-content {
       opacity: 100% !important;
+      height: 100%;
     }
   `
 })
@@ -26,6 +28,9 @@ export class LoadingScreenComponent {
 
   /** Indica se devo bloquear o unload do navegador quando ativo */
   public blockUnload: boolean = false;
+
+  
+  @HostBinding('class.h-100')
 
 
   /** 
