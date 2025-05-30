@@ -156,3 +156,6 @@ export * from './lib/widgets/password-policy/password-policy.component';
 export * from './lib/widgets/loading-screen/loading-screen.component';
 export * from './lib/widgets/search-input/search-input.component';
 
+export * from './lib/widgets/imageCropper/dialog-cropper/dialog-cropper.component';
+export * from './lib/widgets/imageCropper/image-cropper/image-cropper.component';
+
