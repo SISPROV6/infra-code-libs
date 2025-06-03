@@ -1,7 +1,7 @@
-import { Component, Input, SimpleChanges, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
-import { IconsList } from '../../models/icons/icon.model';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { IconsList } from '../../models/icons/icon.model';
 
 @Component({
     selector: 'lib-icon',
@@ -38,10 +38,11 @@ export class LibIconsComponent implements OnInit, OnChanges {
        * @argument string - HEX da cor específica
       */
     @Input()
-    public get iconColor(): 'white' | 'blue' | 'gray' | 'light-gray' | 'green' | 'light-blue' | 'yellow' | 'red' | 'currentColor' | string { return this.color; }
-    public set iconColor(value: 'white' | 'blue' | 'gray' | 'light-gray' | 'green' | 'light-blue' | 'yellow' | 'red' | 'currentColor' | string) {
+    public get iconColor(): 'white' | 'black' | 'blue' | 'gray' | 'light-gray' | 'green' | 'light-blue' | 'yellow' | 'red' | 'currentColor' | string { return this.color; }
+    public set iconColor(value: 'white' | 'black' | 'blue' | 'gray' | 'light-gray' | 'green' | 'light-blue' | 'yellow' | 'red' | 'currentColor' | string) {
       switch (value) {
         case "white": this.color = "#FFFFFF"; break;
+        case "black": this.color = "#000000"; break;
         case "blue": this.color = "#3767b2"; break;
         case "gray": this.color = "#6C757D"; break;
         case "light-gray": this.color = "#CED4DA"; break;
@@ -101,6 +102,7 @@ export class LibIconsComponent implements OnInit, OnChanges {
     else {
       switch (this.iconColor) {
         case "white": this.color = "#212529"; break;
+        case "black": this.color = "#000000"; break;
         case "blue": this.color = "#213B70"; break;
         case "gray": this.color = "#212529"; break;
         case "lightgray": this.color = "#CED4DA"; break;
@@ -111,7 +113,7 @@ export class LibIconsComponent implements OnInit, OnChanges {
         case "currentColor": this.color = "currentColor"; break;
         default: this.color = this.iconColor; break;
       }
-  
+
       this.iconsList = new IconsList(this.size, this.fill);
       this.getSVG();
     }

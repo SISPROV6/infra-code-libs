@@ -58,8 +58,8 @@ export class TableHeaderIcon {
   /** Lado em que o ícone será exibido. Pode ser 'L' para esquerda ou 'R' para direita. */
   public side?: "L" | "R" = "R";
 
-  /** Cor tema do ícone baseado nas cores disponibilizados pelo componente ```<lib-icon>```: Pode ser "currentColor", "white", "gray", "light-gray", "blue", "light-blue", "green", "yellow" ou "red". */
-  public theme?: "currentColor" | "white" | "gray" | "light-gray" | "blue" | "light-blue" | "green" | "yellow" | "red" = "currentColor";
+  /** Cor tema do ícone baseado nas cores disponibilizados pelo componente ```<lib-icon>```: Pode ser "currentColor", "white", "black", "gray", "light-gray", "blue", "light-blue", "green", "yellow" ou "red". */
+  public theme?: "currentColor" | "white" | "black" | "gray" | "light-gray" | "blue" | "light-blue" | "green" | "yellow" | "red" = "currentColor";
 
   /** Texto que será exibido ao passar o mouse sobre o ícone. */
   public tooltip?: string;
