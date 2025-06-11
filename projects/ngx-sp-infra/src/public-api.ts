@@ -156,3 +156,7 @@ export * from './lib/widgets/password-policy/password-policy.component';
 export * from './lib/widgets/loading-screen/loading-screen.component';
 export * from './lib/widgets/search-input/search-input.component';
 
+export * from './lib/widgets/sub-menu/list/list.component';
+export * from './lib/widgets/sub-menu/nav-tabs/nav-tabs.component';
+export * from './lib/widgets/sub-menu/sub-menu.component';
+
