@@ -29,6 +29,7 @@ import { FieldContadorMessageComponent } from '../widgets/field-contador-message
 import { FieldControlErrorComponent } from '../widgets/field-control-error/field-control-error.component';
 import { FieldErrorMessageComponent } from '../widgets/field-error-message/field-error-message.component';
 import { GenericModalComponent } from '../widgets/generic-modal/generic-modal.component';
+import { ImageCropperComponent } from '../widgets/imageCropper/image-cropper/image-cropper.component';
 import { InputTrimComponent } from '../widgets/input-trim/input-trim.component';
 import { LibComboboxComponent } from '../widgets/lib-combobox/lib-combobox.component';
 import { LibHeaderComponent } from '../widgets/lib-header/lib-header.component';
@@ -110,6 +111,7 @@ import { TreeComponent } from '../widgets/tree/tree.component';
     TreeComponent,
     LoadingScreenComponent,
     SubMenuComponent,
+    ImageCropperComponent,
   ],
   exports: [
     AlertComponent,
@@ -154,6 +156,7 @@ import { TreeComponent } from '../widgets/tree/tree.component';
     TreeComponent,
     LoadingScreenComponent,
     SubMenuComponent,
+    ImageCropperComponent,
   ]
 })
 export class LibWidgetsModule { }

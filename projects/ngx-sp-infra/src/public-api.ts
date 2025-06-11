@@ -160,3 +160,6 @@ export * from './lib/widgets/sub-menu/list/list.component';
 export * from './lib/widgets/sub-menu/nav-tabs/nav-tabs.component';
 export * from './lib/widgets/sub-menu/sub-menu.component';
 
+export * from './lib/widgets/imageCropper/dialog-cropper/dialog-cropper.component';
+export * from './lib/widgets/imageCropper/image-cropper/image-cropper.component';
+
