@@ -50,6 +50,7 @@ import { SearchInputComponent } from '../widgets/search-input/search-input.compo
 import { SideTabsGenericComponent } from '../widgets/side-tabs-generic/side-tabs-generic.component';
 import { SimpleSearchComponent } from '../widgets/simple-search/simple-search.component';
 import { LibSpinnerComponent } from '../widgets/spinner/spinner.component';
+import { SubMenuComponent } from '../widgets/sub-menu/sub-menu.component';
 import { TableComponent } from '../widgets/table/table.component';
 import { TreeComponent } from '../widgets/tree/tree.component';
 
@@ -109,7 +110,8 @@ import { TreeComponent } from '../widgets/tree/tree.component';
     TableComponent,
     TreeComponent,
     LoadingScreenComponent,
-    ImageCropperComponent
+    SubMenuComponent,
+    ImageCropperComponent,
   ],
   exports: [
     AlertComponent,
@@ -153,7 +155,8 @@ import { TreeComponent } from '../widgets/tree/tree.component';
     TableComponent,
     TreeComponent,
     LoadingScreenComponent,
-    ImageCropperComponent
+    SubMenuComponent,
+    ImageCropperComponent,
   ]
 })
 export class LibWidgetsModule { }

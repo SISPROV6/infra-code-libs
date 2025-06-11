@@ -1,0 +1,11 @@
+<lib-container>
+  <div class="px-5 mt-4" innerContent1>
+    @for(subMenu of navSubmenus; track $index; let subI = $index) {
+      <lib-icon  class="bold engrenagem-ajustada" iconName="{{ subMenu.icon ? subMenu.icon : 'engrenagem'}}"></lib-icon>
+      <span class="fw-bold fs-4 ms-1">{{ subMenu.titulo }}</span>
+    
+      <app-nav-tabs [subMenus]="navSubmenus[subI].subMenuItem"></app-nav-tabs>
+      <hr>
+    }
+  </div>
+</lib-container>
