@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 // import { InfraModule } from 'ngx-sp-infra';
 // import { NavTabsComponent } from './nav-tabs/nav-tabs.component';
-import { InfraModule } from 'ngx-sp-infra';
+import { ContentContainerComponent } from '../content-container/content-container.component';
+import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 import { NavTabsComponent } from './nav-tabs/nav-tabs.component';
 
 export class NavSubMenus {
@@ -22,7 +23,11 @@ export class TelaItem {
 
 @Component({
   selector: 'app-nav-sub-menu',
-  imports: [NavTabsComponent, InfraModule],
+  imports: [
+    NavTabsComponent,
+    LibIconsComponent,
+    ContentContainerComponent
+  ],
   templateUrl: './sub-menu.component.html',
   styleUrl: './sub-menu.component.scss',
   standalone: true
