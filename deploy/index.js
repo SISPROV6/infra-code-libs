@@ -1,7 +1,7 @@
-import inquirer from 'inquirer';
 import chalk from 'chalk';
 import { execSync } from 'child_process';
 import fs from 'fs';
+import inquirer from 'inquirer';
 
 
 const currentBranch = execSync('git rev-parse --abbrev-ref HEAD').toString().trim();
@@ -196,7 +196,7 @@ async function main() {
   - Nome do repositório remoto: ${chalk.blueBright(respostaRemoteRepo)}
   - Executar testes automatizados? ${chalk.blueBright(respostaIsExecutaTestes ? 'Sim' : 'Não')}
   - Mensagem opcional de commit: ${chalk.italic.blueBright(respostaMensagemOpcional == '' ? 'Nenhuma' : `"${respostaMensagemOpcional}"`)}\n`);
-      
+
       await inquirer.prompt([ {
           message: 'Você confirma estas informações?',
           type: 'confirm',
@@ -205,21 +205,21 @@ async function main() {
         }
       ]).then(confirma => {
         if (!confirma.confirmaDeploy) throw new Error("\n❌ Processo cancelado pelo usuário.");
-        
+
         console.log(chalk.yellow('\n🎲 Iniciando processo...\n'));
 
         // Atualiza versão do projeto com ou sem tags
         console.log(chalk.yellow('\n🔄 Atualizando versão...'));
         updateVersion();
-      
+
         // Rodar testes unitários
         console.log(chalk.yellow('\n🧪 Executando testes unitários...'));
         executarTestes();
-        
+
         // Commit e push da tag de versão
         console.log(chalk.yellow('\n📤 Realizando commit das tags de versão...'));
         commitTag();
-        
+
         // Commit e push dos arquivos
         console.log(chalk.yellow('\n📦 Commitando alterações...'));
         commitFiles();
