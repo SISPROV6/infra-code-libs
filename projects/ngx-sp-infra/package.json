@@ -1,6 +1,10 @@
 {
   "name": "ngx-sp-infra",
+<<<<<<< HEAD
   "version": "4.2.18",
+=======
+  "version": "4.4.0",
+>>>>>>> ac3579785bf0baa1098827b72d61aecb3ec047e1
   "description": "Biblioteca de utilitários da Infra.",
   "author": "P&D",
   "keywords": [
