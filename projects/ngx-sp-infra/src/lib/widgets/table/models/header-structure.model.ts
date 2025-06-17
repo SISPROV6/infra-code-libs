@@ -16,6 +16,9 @@ export class TableHeaderStructure {
    * - Utilizar 'w' = w-{n} (n = 1 em 1 até 100)
    */
   public widthClass?: string;
+
+  /** Largura da coluna em pixels fixos. Deve ser utilizada apenas em caso de table scrollável, caso contrário o valor não será aplicado. */
+  public widthPixels?: number;
   
   /** Utilize em caso de precisar de classes específicas para aquela coluna (será aplicada apenas á coluna no header da tabela e não no corpo).
    * @example 'text-center' para centralizar o texto da coluna.
@@ -55,8 +58,8 @@ export class TableHeaderIcon {
   /** Lado em que o ícone será exibido. Pode ser 'L' para esquerda ou 'R' para direita. */
   public side?: "L" | "R" = "R";
 
-  /** Cor tema do ícone baseado nas cores disponibilizados pelo componente ```<lib-icon>```: Pode ser "currentColor", "white", "gray", "light-gray", "blue", "light-blue", "green", "yellow" ou "red". */
-  public theme?: "currentColor" | "white" | "gray" | "light-gray" | "blue" | "light-blue" | "green" | "yellow" | "red" = "currentColor";
+  /** Cor tema do ícone baseado nas cores disponibilizados pelo componente ```<lib-icon>```: Pode ser "currentColor", "white", "black", "gray", "light-gray", "blue", "light-blue", "green", "yellow" ou "red". */
+  public theme?: "currentColor" | "white" | "black" | "gray" | "light-gray" | "blue" | "light-blue" | "green" | "yellow" | "red" = "currentColor";
 
   /** Texto que será exibido ao passar o mouse sobre o ícone. */
   public tooltip?: string;

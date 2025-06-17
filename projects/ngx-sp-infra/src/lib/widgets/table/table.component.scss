@@ -18,25 +18,64 @@ table.old {
    }
 
    tbody {
+      border-top: none;
       font-size: .875rem;
 
       > tr { height: 50px; }
       > tr:hover { background-color: #CCE5FF; }
    }
 }
-
-table.table.old > tbody {
-   border-top: none;
-}
 // #endregion VISUAL ANTERIOR
 
 // #region VISUAL NOVO
 .table-list-inner {
-   overflow: hidden;
+   // overflow: hidden;
    border-radius: 8px;
    border: 1px solid #eee;
+
+   table.new > thead {
+      > tr { background-color: #EEE !important; }
+      > tr > th { background-color: #EEE !important; }
+   }
 }
 // #endregion VISUAL NOVO
+
+
+
+// #region TABLE SCROLLÁVEL
+.scrollable-wrapper {
+  overflow-x: scroll;
+  width: 100%;
+
+  table {
+      table-layout: fixed; 
+      width: 100% !important;
+      border-collapse: collapse;
+
+      td, th {
+         vertical-align: top;
+         text-align: left;
+         width: 250px;
+         padding: 5px;
+      }
+
+      .fix {
+         position: sticky;
+         background: white !important;
+      }
+      .fix:first-child {
+         left: 0;
+         z-index: 100;
+      }
+      .fix:last-child {
+         right: 0;
+         min-width: 200px !important;
+         // width: 300px !important;
+      }
+   }
+}
+// #endregion TABLE SCROLLÁVEL
+
 
 
 // #region LARGURAS EM PORCENTAGEM

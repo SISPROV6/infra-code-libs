@@ -53,6 +53,7 @@ export * from './lib/widgets/lib-nav-produtos/models/navigation-options.model';
 export * from './lib/widgets/table/models/header-structure.model';
 
 export * from './lib/models/container/container-tabs.model';
+export * from './lib/models/queue-service/JobRequest'
 
 
 /** Pipes */
@@ -89,6 +90,7 @@ export * from './lib/utils/utils';
 
 
 /** Services */
+export * from './lib/service/queue.service';
 export * from './lib/service/file.service';
 export * from './lib/service/global-loading.service';
 export * from './lib/service/ip-service.service';
@@ -155,4 +157,11 @@ export * from './lib/widgets/password-policy/password-policy.component';
 
 export * from './lib/widgets/loading-screen/loading-screen.component';
 export * from './lib/widgets/search-input/search-input.component';
+
+export * from './lib/widgets/sub-menu/list/list.component';
+export * from './lib/widgets/sub-menu/nav-tabs/nav-tabs.component';
+export * from './lib/widgets/sub-menu/sub-menu.component';
+
+export * from './lib/widgets/imageCropper/dialog-cropper/dialog-cropper.component';
+export * from './lib/widgets/imageCropper/image-cropper/image-cropper.component';
 

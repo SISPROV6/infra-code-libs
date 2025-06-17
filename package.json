@@ -13,7 +13,6 @@
     "build:patch": "cd projects/ngx-sp-infra/src/scripts/ && node version.js patch && node tag.js && cd ../../../../ && ng test --watch=false --browsers=ChromeHeadless && node projects/ngx-sp-infra/src/scripts/commit.js",
     "build:minor": "cd projects/ngx-sp-infra/src/scripts/ && node version.js minor && node tag.js && cd ../../../../ && ng test --watch=false --browsers=ChromeHeadless && node projects/ngx-sp-infra/src/scripts/commit.js",
     "build:major": "cd projects/ngx-sp-infra/src/scripts/ && node version.js major && node tag.js && cd ../../../../ && ng test --watch=false --browsers=ChromeHeadless && node projects/ngx-sp-infra/src/scripts/commit.js",
-
     "deploy": "cd deploy/ && npm i && node index.js"
   },
   "files": [
@@ -34,6 +33,7 @@
     "bootstrap": "^5.3.3",
     "ngx-bootstrap": "^12.0.0",
     "ngx-currency": "^17.0.0",
+    "ngx-image-cropper": "^9.1.5",
     "ngx-mask": "^17.1.8",
     "ngx-pagination": "^6.0.3",
     "rxjs": "~7.8.1",

@@ -26,45 +26,46 @@
       @switch (usePreviousStyle) {
          
          @case (true) {
-            <div class="table-list overflow-hidden border-bottom-0 {{divBorderClass}}">
-               <table class="table old border mb-0 {{tableBorderClass}}" [class.table-hover]="hoverable" style="table-layout: fixed;" >
+            <div class="table-list-old border-bottom-0 {{divBorderClass}}" [class.scrollable-wrapper]="scrollable" >
+               <table class="table old border mb-0 {{tableBorderClass}}" [class.table-hover]="hoverable" >
                   <thead>
                      <tr>
-                     <!-- Itera sobre a lista de cabeçalhos para criar as colunas -->
-                     <th *ngIf="useSelection" scope="col" style="width: 40px; padding: 12px !important;">
-                        <div class="form-check">
-                           <input class="form-check-input" type="checkbox" id="tableCheckAll" [(ngModel)]="selection" (ngModelChange)="selectionChange.emit($event)">
-                        </div>
-                     </th>
+                        <!-- Itera sobre a lista de cabeçalhos para criar as colunas -->
+                        <th *ngIf="useSelection" style="width: 40px; padding: 12px !important;" [class.fix]="scrollable" >
+                           <div class="form-check">
+                              <input class="form-check-input" type="checkbox" id="tableCheckAll" [(ngModel)]="selection" (ngModelChange)="selectionChange.emit($event)">
+                           </div>
+                        </th>
 
-                     <th *ngFor="let header of headers" scope="col"
-                        class="align-middle text-dark-grey {{ header.customClasses }}
-                           {{ headersUseOldWidth
-                              ? header.col && header.col > 0 ? 'col-'+header.col : 'col'
-                              : header.widthClass }}" >
+                        @for (header of headers; track header.name) {
+                           <th class="align-middle text-dark-grey {{ header.customClasses }}
+                              {{ headersUseOldWidth ? header.col && header.col > 0 ? 'col-'+header.col : 'col' : header.widthClass }}
+                              {{ ($last && header.name === '') && scrollable ? 'fix' : '' }}"
+                              [style.width]="scrollable ? header.widthPixels ? header.widthPixels+'px' : 250+'px' : null"
+                              >
 
-                        @if (header.icon !== undefined) {
-                           <lib-icon *ngIf="header.icon.side === 'L'" iconSize="small"
-                              [iconName]="header.icon.name"
-                              [iconColor]="header.icon.theme !== 'currentColor' && header.icon.theme ? header.icon.theme : 'currentColor'"
-                              [tooltip]="header.icon.tooltip"
-                              (click)="header.icon.emitClick ? iconClick.emit(header.name) : null"  />
-                           {{ header.name }}
-                           <lib-icon *ngIf="header.icon.side === 'R' || !header.icon.side" iconSize="small"
-                              [iconName]="header.icon.name"
-                              [iconColor]="header.icon.theme !== 'currentColor' && header.icon.theme ? header.icon.theme : 'currentColor'"
-                              [tooltip]="header.icon.tooltip"
-                              [class.cursor-pointer]="header.icon.emitClick"
-                              (click)="header.icon.emitClick ? iconClick.emit(header.name) : null"  />
+                              @if (header.icon !== undefined) {
+                                 <lib-icon *ngIf="header.icon.side === 'L'" iconSize="small"
+                                    [iconName]="header.icon.name"
+                                    [iconColor]="header.icon.theme !== 'currentColor' && header.icon.theme ? header.icon.theme : 'currentColor'"
+                                    [tooltip]="header.icon.tooltip"
+                                    (click)="header.icon.emitClick ? iconClick.emit(header.name) : null"  />
+                                 {{ header.name }}
+                                 <lib-icon *ngIf="header.icon.side === 'R' || !header.icon.side" iconSize="small"
+                                    [iconName]="header.icon.name"
+                                    [iconColor]="header.icon.theme !== 'currentColor' && header.icon.theme ? header.icon.theme : 'currentColor'"
+                                    [tooltip]="header.icon.tooltip"
+                                    [class.cursor-pointer]="header.icon.emitClick"
+                                    (click)="header.icon.emitClick ? iconClick.emit(header.name) : null"  />
+                                 }
+                                 @else {
+                                    {{ header.name }}
+                                 }
+
+                              <app-ordering *ngIf="header.orderColumn" [(sortDirection)]="sortDirection[header.orderColumn]"
+                                 (sortChange)="onSortChange({ direction: $event.direction, column: header.orderColumn })"></app-ordering>
+                           </th>
                         }
-                        @else {
-                           {{ header.name }}
-                        }
-
-
-                        <app-ordering *ngIf="header.orderColumn" [(sortDirection)]="sortDirection[header.orderColumn]"
-                           (sortChange)="onSortChange({ direction: $event.direction, column: header.orderColumn })"></app-ordering>
-                     </th>
                      </tr>
                   </thead>
 
@@ -82,82 +83,83 @@
                      }
                   </tbody>
                </table>
-
-               <!-- #region PAGINAÇÃO -->
-               <div *ngIf="usePagination && list.length > 0" class="d-flex flex-wrap mt-2"
-                  [ngClass]="{
-                     'justify-content-start': placement === 'start',
-                     'justify-content-center': placement === 'center',
-                     'justify-content-end': placement === 'end',
-                     'justify-content-between': placement === 'between'
-                  }">
-                  <div class="d-flex align-items-center me-2">
-                     <label for="countSelect" class="me-2" style="white-space: nowrap;"> Itens por página </label>
-                     <select id="countSelect" class="form-select select-search" (change)="onSelectChange($event)">
-                     <option *ngFor="let count of counts; let i = index" [value]="count"
-                        [selected]="counts ? (counts.length > 0 && i === 0) : false">{{ count }}</option>
-                     </select>
-                  </div>
-
-                  <!-- Controle de paginação -->
-                  <pagination-controls [id]="paginationID"
-                     class="sp-pagination mt-3"
-                     previousLabel="«&nbsp;&nbsp;&nbsp;"
-                     nextLabel="&nbsp;&nbsp;&nbsp;»"
-                     screenReaderPaginationLabel="Paginação"
-                     screenReaderPageLabel="Página"
-                     screenReaderCurrentLabel="Você está na página"
-                     [maxSize]="5"
-                     [responsive]="true"
-                     (pageChange)="page = $event; pageChange.emit($event)"
-                     (pageBoundsCorrection)="page = $event; emitPageBoundsCorrection($event)" >
-                  </pagination-controls>
-               </div>
-            <!-- #endregion PAGINAÇÃO -->
             </div>
+
+            <!-- #region PAGINAÇÃO -->
+            <div *ngIf="usePagination && list.length > 0" class="d-flex flex-wrap mt-2"
+               [ngClass]="{
+                  'justify-content-start': placement === 'start',
+                  'justify-content-center': placement === 'center',
+                  'justify-content-end': placement === 'end',
+                  'justify-content-between': placement === 'between'
+               }">
+               <div class="d-flex align-items-center me-2">
+                  <label for="countSelect" class="me-2" style="white-space: nowrap;"> Itens por página </label>
+                  <select id="countSelect" class="form-select select-search" (change)="onSelectChange($event)">
+                  <option *ngFor="let count of counts; let i = index" [value]="count"
+                     [selected]="counts ? (counts.length > 0 && i === 0) : false">{{ count }}</option>
+                  </select>
+               </div>
+
+               <!-- Controle de paginação -->
+               <pagination-controls [id]="paginationID"
+                  class="sp-pagination mt-3"
+                  previousLabel="«&nbsp;&nbsp;&nbsp;"
+                  nextLabel="&nbsp;&nbsp;&nbsp;»"
+                  screenReaderPaginationLabel="Paginação"
+                  screenReaderPageLabel="Página"
+                  screenReaderCurrentLabel="Você está na página"
+                  [maxSize]="5"
+                  [responsive]="true"
+                  (pageChange)="page = $event; pageChange.emit($event)"
+                  (pageBoundsCorrection)="page = $event; emitPageBoundsCorrection($event)" >
+               </pagination-controls>
+            </div>
+         <!-- #endregion PAGINAÇÃO -->
          }
 
          @case (false) {
             <!-- Container da tabela -->
-            <div class="table-list {{divBorderClass}}">
+            <div class="table-list {{divBorderClass}}" [class.scrollable-wrapper]="scrollable" >
                <div class="table-list-inner">
-                  <table class="table mb-0 {{tableBorderClass}}" [class.table-hover]="hoverable" style="table-layout: fixed;" >
+                  <table class="table new mb-0 {{tableBorderClass}}" [class.table-hover]="hoverable" style="table-layout: fixed;" >
                      <thead>
                         <tr>
-                           <th *ngIf="useSelection" scope="col" style="width: 40px; padding: 12px;" >
+                           <th *ngIf="useSelection" scope="col" style="width: 40px; padding: 12px;" [class.fix]="scrollable" >
                               <div class="form-check">
                                  <input class="form-check-input" type="checkbox" id="tableCheckAll" [(ngModel)]="selection" (ngModelChange)="selectionChange.emit($event)">
                               </div>
                            </th>
-         
-                           <th *ngFor="let header of headers" scope="col"
-                              class="align-middle text-dark {{ header.customClasses }}
-                                 {{ headersUseOldWidth
-                                    ? header.col && header.col > 0 ? 'col-'+header.col : 'col'
-                                    : header.widthClass }}" >
-         
-                              @if (header.icon !== undefined) {
-                                 <lib-icon *ngIf="header.icon.side === 'L'" iconSize="small"
-                                    [iconName]="header.icon.name"
-                                    [iconColor]="header.icon.theme !== 'currentColor' && header.icon.theme ? header.icon.theme : 'currentColor'"
-                                    [tooltip]="header.icon.tooltip"
-                                    (click)="header.icon.emitClick ? iconClick.emit(header.name) : null"  />
-                                 {{ header.name }}
-                                 <lib-icon *ngIf="header.icon.side === 'R' || !header.icon.side" iconSize="small"
-                                    [iconName]="header.icon.name"
-                                    [iconColor]="header.icon.theme !== 'currentColor' && header.icon.theme ? header.icon.theme : 'currentColor'"
-                                    [tooltip]="header.icon.tooltip"
-                                    [class.cursor-pointer]="header.icon.emitClick"
-                                    (click)="header.icon.emitClick ? iconClick.emit(header.name) : null"  />
-                              }
-                              @else {
-                                 {{ header.name }}
-                              }
-         
-         
-                              <app-ordering *ngIf="header.orderColumn" [(sortDirection)]="sortDirection[header.orderColumn]"
-                                 (sortChange)="onSortChange({ direction: $event.direction, column: header.orderColumn })"></app-ordering>
-                           </th>
+
+                           @for (header of headers; track header.name) {
+                              <th scope="col" class="align-middle text-dark {{ header.customClasses }}
+                                 {{ headersUseOldWidth ? header.col && header.col > 0 ? 'col-'+header.col : 'col' : header.widthClass }}
+                                 {{ ($last && header.name === '') && scrollable ? 'fix' : '' }}"
+                                 [style.width]="scrollable ? header.widthPixels ? header.widthPixels+'px' : 250+'px' : null"
+                                 >
+
+                                 @if (header.icon !== undefined) {
+                                    <lib-icon *ngIf="header.icon.side === 'L'" iconSize="small"
+                                       [iconName]="header.icon.name"
+                                       [iconColor]="header.icon.theme !== 'currentColor' && header.icon.theme ? header.icon.theme : 'currentColor'"
+                                       [tooltip]="header.icon.tooltip"
+                                       (click)="header.icon.emitClick ? iconClick.emit(header.name) : null"  />
+                                    {{ header.name }}
+                                    <lib-icon *ngIf="header.icon.side === 'R' || !header.icon.side" iconSize="small"
+                                       [iconName]="header.icon.name"
+                                       [iconColor]="header.icon.theme !== 'currentColor' && header.icon.theme ? header.icon.theme : 'currentColor'"
+                                       [tooltip]="header.icon.tooltip"
+                                       [class.cursor-pointer]="header.icon.emitClick"
+                                       (click)="header.icon.emitClick ? iconClick.emit(header.name) : null"  />
+                                 }
+                                 @else {
+                                    {{ header.name }}
+                                 }
+
+                                 <app-ordering *ngIf="header.orderColumn" [(sortDirection)]="sortDirection[header.orderColumn]"
+                                    (sortChange)="onSortChange({ direction: $event.direction, column: header.orderColumn })"></app-ordering>
+                              </th>
+                           }
                         </tr>
                      </thead>
          
@@ -175,39 +177,39 @@
                      </tbody>
                   </table>
                </div>
-
-               <!-- #region PAGINAÇÃO -->
-               <div *ngIf="usePagination && list.length > 0" class="d-flex flex-wrap mt-2"
-                  [ngClass]="{
-                     'justify-content-start': placement === 'start',
-                     'justify-content-center': placement === 'center',
-                     'justify-content-end': placement === 'end',
-                     'justify-content-between': placement === 'between'
-                  }">
-                  <div class="d-flex align-items-center me-2">
-                     <label for="countSelect" class="me-2" style="white-space: nowrap;"> Itens por página </label>
-                     <select id="countSelect" class="form-select select-search" (change)="onSelectChange($event)">
-                        <option *ngFor="let count of counts; let i = index" [value]="count"
-                           [selected]="counts ? (counts.length > 0 && i === 0) : false">{{ count }}</option>
-                     </select>
-                  </div>
-
-                  <!-- Controle de paginação -->
-                  <pagination-controls [id]="paginationID"
-                     class="sp-pagination mt-3"
-                     previousLabel="«&nbsp;&nbsp;&nbsp;"
-                     nextLabel="&nbsp;&nbsp;&nbsp;»"
-                     screenReaderPaginationLabel="Paginação"
-                     screenReaderPageLabel="Página"
-                     screenReaderCurrentLabel="Você está na página"
-                     [maxSize]="5"
-                     [responsive]="true"
-                     (pageChange)="page = $event; pageChange.emit($event)"
-                     (pageBoundsCorrection)="page = $event; emitPageBoundsCorrection($event)" >
-                  </pagination-controls>
-               </div>
-               <!-- #endregion PAGINAÇÃO -->
             </div>
+
+            <!-- #region PAGINAÇÃO -->
+            <div *ngIf="usePagination && list.length > 0" class="d-flex flex-wrap mt-2"
+               [ngClass]="{
+                  'justify-content-start': placement === 'start',
+                  'justify-content-center': placement === 'center',
+                  'justify-content-end': placement === 'end',
+                  'justify-content-between': placement === 'between'
+               }">
+               <div class="d-flex align-items-center me-2">
+                  <label for="countSelect" class="me-2" style="white-space: nowrap;"> Itens por página </label>
+                  <select id="countSelect" class="form-select select-search" (change)="onSelectChange($event)">
+                     <option *ngFor="let count of counts; let i = index" [value]="count"
+                        [selected]="counts ? (counts.length > 0 && i === 0) : false">{{ count }}</option>
+                  </select>
+               </div>
+
+               <!-- Controle de paginação -->
+               <pagination-controls [id]="paginationID"
+                  class="sp-pagination mt-3"
+                  previousLabel="«&nbsp;&nbsp;&nbsp;"
+                  nextLabel="&nbsp;&nbsp;&nbsp;»"
+                  screenReaderPaginationLabel="Paginação"
+                  screenReaderPageLabel="Página"
+                  screenReaderCurrentLabel="Você está na página"
+                  [maxSize]="5"
+                  [responsive]="true"
+                  (pageChange)="page = $event; pageChange.emit($event)"
+                  (pageBoundsCorrection)="page = $event; emitPageBoundsCorrection($event)" >
+               </pagination-controls>
+            </div>
+            <!-- #endregion PAGINAÇÃO -->
          }
 
       }

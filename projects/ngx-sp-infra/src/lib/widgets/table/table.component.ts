@@ -99,6 +99,11 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
    * @default false */
   @Input() public usePreviousStyle: boolean = false;
 
+  /** Informa se a table deve permitir scroll lateral.
+   * Se for true, todas as colunas terão a largura fixa de 250px, ignorando valores customizados (esta definição pode mudar no futuro).
+   * @default false */
+  @Input() public scrollable: boolean = false;
+
   /**
    * DEVE ser utilizada em caso de paginação visível.
    * 
@@ -163,6 +168,12 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   @ViewChild('emptyListTd') emptyListTD?: ElementRef<HTMLTableCellElement>;
 
   public colspanWidth: string = "";
+
+
+  // #region FIXED COLUMNS
+  // [...]
+  // #endregion FIXED COLUMNS
+
   // #endregion PUBLIC
 
   // #endregion ==========> PROPRIEDADES <==========

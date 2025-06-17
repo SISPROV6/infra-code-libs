@@ -1,6 +1,6 @@
 @if (customMessage && customMessage !== "" && customMessage !== null) {
-    <div class="invalid-feedback d-block" role="alert"> {{ customMessage }} </div>
+    <div class="invalid-feedback text-danger d-block" role="alert"> {{ customMessage }} </div>
 }
 @else if (errorMessage && errorMessage !== "" && errorMessage !== null) {
-    <div class="invalid-feedback d-block" role="alert"> {{ errorMessage }} </div>
+    <div class="invalid-feedback text-danger d-block" role="alert"> {{ errorMessage }} </div>
 }

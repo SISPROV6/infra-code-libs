@@ -223,16 +223,16 @@ div.main-content {
 }
 
 // #region TABLE RECORDS
-table {
+table.new {
 
   // #region THEAD 
   thead {
     height: 50px;
-      font-size: 1rem;
-      background-color: #eee !important;
+    font-size: 1rem;
+    background-color: #eee !important;
 
-      > tr { background-color: inherit !important; }
-      > tr > th { background-color: inherit !important; }
+    > tr { background-color: inherit !important; }
+    > tr > th { background-color: inherit !important; }
   }
 
   // #endregion THEAD 
@@ -810,7 +810,6 @@ table.glb-table-neutral-border {
     }
   }
 }
-
 // #endregion TABLES 
 
 .glb-transition-3s {
@@ -1303,7 +1302,7 @@ table.glb-table-neutral-border {
 
 // #region CHECKBOX
 input[type="checkbox"].form-check-input:checked:not([role="switch"]) {
-  background-color: vars.$root-sp-default !important;
+  background-color: #3767B2 !important;
 }
 
 input[type="checkbox"].form-check-input { border-color: #6C757D; }
@@ -1576,3 +1575,39 @@ input[role="switch"]:checked {
   margin-left: 0.5rem;
 }
 /************************* FIM NGX-PAGINATION *************************/
+
+
+/************************* INÍCIO LIB-TABLE *************************/
+table tbody {
+  tr[innerRows] {
+    td:first-child {
+      &:has(input[type="checkbox"]) {
+        width: 40px;
+        padding: 12px;
+      }
+    }
+  }
+}
+/************************* FIM LIB-TABLE *************************/
+
+
+/************************* INÍCIO LIB-TABLE SROLLÁVEL *************************/
+.scrollable-wrapper {
+  tbody {
+    tr[innerRows] {
+      td.fix {
+        position: sticky;
+        background: white !important;
+        z-index: 100;
+      }
+      td.fix:first-child {
+        left: 0;
+      }
+      td.fix:last-child {
+        right: 0;
+        // border-left: 1px solid #C4C4C4;
+      }
+    }
+  }
+}
+/************************* FIM LIB-TABLE SROLLÁVEL *************************/
