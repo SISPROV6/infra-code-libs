@@ -2,10 +2,10 @@ import { Component, Input } from '@angular/core';
 import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 
 export class NavSubmenuCards {
-  titulo: string;
-  icon: string;
-  descricao: string;
-  urlPath: string;
+  titulo: string = '';
+  icon: string = '';
+  descricao: string = '';
+  urlPath: string = '';
 };
 
 @Component({
