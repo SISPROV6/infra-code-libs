@@ -1,6 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-// import { InfraModule } from 'ngx-sp-infra';
-// import { NavTabsComponent } from './nav-tabs/nav-tabs.component';
 import { ContentContainerComponent } from '../content-container/content-container.component';
 import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 import { NavTabsComponent } from './nav-tabs/nav-tabs.component';
