@@ -136,6 +136,7 @@ export * from './lib/widgets/tree/pipes/search-tree.pipe';
 export * from './lib/widgets/tree/tree.component';
 
 export * from './lib/widgets/applied-filters/applied-filters.component';
+export * from './lib/widgets/auditoria-button/auditoria-button.component';
 export * from './lib/widgets/lib-transfer-list/inner-list/inner-list.component';
 export * from './lib/widgets/lib-transfer-list/lib-transfer-list.component';
 
