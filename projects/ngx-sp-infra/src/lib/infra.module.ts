@@ -28,6 +28,7 @@ import { LoadingComponent } from './widgets/loading/loading.component';
 import { OrderingComponent } from './widgets/ordering/ordering.component';
 import { SearchTreePipe } from './widgets/tree/pipes/search-tree.pipe';
 import { TreeComponent } from './widgets/tree/tree.component';
+import { AuditoriaButtonComponent } from './widgets/auditoria-button/auditoria-button.component';
 
 import { CopyClipboardDirective } from './directives/copy-clipboard.directive';
 import { RequiredDirective } from './directives/required.directive';
@@ -156,6 +157,8 @@ import { SearchInputComponent } from './widgets/search-input/search-input.compon
         TextTruncateDirective,
         SearchInputComponent,
         LoadingScreenComponent,
+        AuditoriaButtonComponent,
+        
     ],
     exports: [
         PageNotAuthorizedComponent,
@@ -218,6 +221,7 @@ import { SearchInputComponent } from './widgets/search-input/search-input.compon
         TextTruncateDirective,
         SearchInputComponent,
         LoadingScreenComponent,
+        AuditoriaButtonComponent,
     ],
     providers: [],
 })

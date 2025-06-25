@@ -93,7 +93,7 @@ export class LibHeaderComponent implements OnInit {
 
 
   /** Dados que devem ser informados caso deseje se redirecionar para a página de Auditoria. */
-  @Input() public auditoria: { Entidade: string, RegistroId?: string | number } | null = null;
+  @Input() public auditoria: { Entidade: string, RegistroId?: string | number, IsContratos: boolean } | null = null;
 
 
   /** [DEPRECIADO EM BREVE] Emissor de evento ao clicar no "Cancelar". Será depreciado em breve, utilize 'return'. */
@@ -159,14 +159,14 @@ export class LibHeaderComponent implements OnInit {
       this.auditoriaRoute = 'https://siscandesv6.sispro.com.br/SisproErpCloud/Corporativo/auditoria';
 
       if (this.auditoria) {
-        this.auditoriaRoute = `${this.auditoriaRoute}?Entidade=${this.auditoria.Entidade}${ this.auditoria.RegistroId ? "&RegistroId="+this.auditoria.RegistroId : "" }`;
+        this.auditoriaRoute = `${this.auditoriaRoute}?Entidade=${this.auditoria.Entidade}${ this.auditoria.RegistroId ? "&RegistroId="+this.auditoria.RegistroId : "" }${this.auditoria.IsContratos ? "&IsContratos=" + this.auditoria.IsContratos : ""}`;
       }
     }
     else {
       this.auditoriaRoute = `https://${currentHostName}/SisproErpCloud/Corporativo/auditoria`;
   
       if (this.auditoria) {
-        this.auditoriaRoute = `${this.auditoriaRoute}?Entidade=${this.auditoria.Entidade}${ this.auditoria.RegistroId ? "&RegistroId="+this.auditoria.RegistroId : "" }`;
+        this.auditoriaRoute = `${this.auditoriaRoute}?Entidade=${this.auditoria.Entidade}${ this.auditoria.RegistroId ? "&RegistroId="+this.auditoria.RegistroId : "" }${this.auditoria.IsContratos ? "&IsContratos=" + this.auditoria.IsContratos : ""}`;
       }
     }
 
