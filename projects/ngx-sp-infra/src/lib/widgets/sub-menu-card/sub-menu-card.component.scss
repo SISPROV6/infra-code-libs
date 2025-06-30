@@ -12,11 +12,12 @@
 }
 
 .card {
+  width: 100%;
+  border: none;
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
   padding: 24px;
-  margin-right: 16px;
   margin-bottom: 16px;
   text-align: center;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -55,4 +56,10 @@
   font-size: 14px;
   color: #4f4f4f;
   line-height: 1.6;
+
+  /* truncate */
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
