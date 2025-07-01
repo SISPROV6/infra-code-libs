@@ -1,6 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+/* eslint-disable @angular-eslint/component-selector */
 
-import { BsModalRef } from 'ngx-bootstrap/modal'
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 import { alertTypes } from '../message-enum';
 
@@ -10,11 +12,16 @@ import { alertTypes } from '../message-enum';
     styleUrls: ['./alert.component.scss'],
     standalone: true
 })
-export class AlertComponent implements OnInit {
+export class AlertComponent implements OnInit, OnDestroy {
   @Input() message?: string;
   @Input() type?: alertTypes;
+  @Input() id: number = 0;
   
-  constructor(public _bsModalRef: BsModalRef) { }
+  constructor(
+    public _bsModalRef: BsModalRef,
+    public _bsModalService: BsModalService,
+
+  ) { }
   
   ngOnInit(): void {
     const elSpan = document.createElement('span');
@@ -31,10 +38,20 @@ export class AlertComponent implements OnInit {
     elDivMessage?.appendChild(elSpan);
   }
 
+  ngOnDestroy(): void {
+    this._bsModalRef.hide();
+  
+    this._bsModalService.hide();
+    this._bsModalService.removeBackdrop();
+  }
+
   public closeAlert(): void {
     this.message = '';
     
     this._bsModalRef.hide();
+    
+    // this._bsModalService.hide();
+    // this._bsModalService.removeBackdrop();
   }
 
 }
