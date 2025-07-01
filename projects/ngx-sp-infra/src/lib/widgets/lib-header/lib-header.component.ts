@@ -93,7 +93,7 @@ export class LibHeaderComponent implements OnInit {
 
 
   /** Dados que devem ser informados caso deseje se redirecionar para a página de Auditoria. */
-  @Input() public auditoria: { Entidade: string, RegistroId?: string | number, IsContratos: boolean } | null = null;
+  @Input() public auditoria: { Entidade: string, RegistroId?: string | number, IsContratos?: boolean } | null = null;
 
 
   /** [DEPRECIADO EM BREVE] Emissor de evento ao clicar no "Cancelar". Será depreciado em breve, utilize 'return'. */
