@@ -33,11 +33,6 @@ export class MessageService {
       id: id
     };
 
-    // Se já existe um modal aberto, não exibe outro
-    if (this.checkExistingModal()) {
-      return;
-    }
-
     const bsModalRef: BsModalRef = this.bsModalService.show(AlertComponent, {
       initialState, class: 'modal-md', id: id
     });
@@ -176,10 +171,5 @@ export class MessageService {
     } as ModalOptions;
 
     return this.bsModalService.show(elemento, options);
-  }
-
-
-  private checkExistingModal(): boolean {
-    return !!this.bsModalService.getModalsCount();
   }
 }
