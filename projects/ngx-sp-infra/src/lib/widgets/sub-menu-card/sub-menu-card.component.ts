@@ -12,7 +12,7 @@ export class NavSubmenuCards {
   selector: 'sub-menu-card',
   imports: [LibIconsComponent],
   template: `
-    <div class="max-card-menu">
+    <div class="max-card-menu row">
       @for(card of subMenuCards; track $index) {
         <a href="{{ card.urlPath }}" class="card-link col-4">
           <div class="card">
@@ -28,7 +28,7 @@ export class NavSubmenuCards {
               </div>
             </div>
             <h3 class="card-title">{{ card.titulo }}</h3>
-            <p class="card-text">
+            <p class="card-text" title="{{ card.descricao }}">
               {{ card.descricao }}
             </p>
           </div>
