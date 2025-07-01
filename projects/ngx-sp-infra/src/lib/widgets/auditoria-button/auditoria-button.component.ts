@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { LibIconsComponent } from '../lib-icons/lib-icons.component';
@@ -12,7 +12,7 @@ import { LibIconsComponent } from '../lib-icons/lib-icons.component';
   templateUrl: './auditoria-button.component.html',
   styleUrl: './auditoria-button.component.scss'
 })
-export class AuditoriaButtonComponent {
+export class AuditoriaButtonComponent implements OnInit {
 
   protected auditoriaRoute?: string;
 
