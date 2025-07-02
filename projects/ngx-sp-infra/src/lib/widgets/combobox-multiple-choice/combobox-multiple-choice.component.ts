@@ -1,16 +1,16 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
+import { NgFor, NgIf } from '@angular/common';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { RecordCombobox } from '../../models/combobox/record-combobox';
 import { FilterMultipleChoicePipe } from '../../pipes/filter-multiple-choice.pipe';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { NgIf, NgFor } from '@angular/common';
 import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 
 @Component({
     selector: 'app-combobox-multiple-choice, lib-combobox-multiple',
     templateUrl: './combobox-multiple-choice.component.html',
     styleUrls: ['./combobox-multiple-choice.component.scss'],
-    standalone: true,
+    
     imports: [LibIconsComponent, NgIf, NgFor, TooltipModule, FilterMultipleChoicePipe]
 })
 export class ComboboxMultipleChoiceComponent {

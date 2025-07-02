@@ -14,7 +14,7 @@
 
     <ng-template #secondary_dropdown>
         <div #secondary_ref (clickOutside)="onClickedOutside($event, secondary_ref)">
-            <app-secondary-dropdown [modulo]="this.modulo" (backPrimaryDropdown)="backToPrimary($event)"></app-secondary-dropdown>
+            <app-secondary-dropdown [modulo]="modulo" (backPrimaryDropdown)="backToPrimary($event)"></app-secondary-dropdown>
         </div>
     </ng-template>
 </div>

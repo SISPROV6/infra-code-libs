@@ -1,10 +1,10 @@
-import { TreeItem } from '../models/tree-item';
 import { Pipe, PipeTransform } from '@angular/core';
+import { TreeItem } from '../models/tree-item';
 
 @Pipe({
     name: 'TreeFilter',
     pure: true,
-    standalone: true,
+    
 })
 export class SearchTreePipe implements PipeTransform {
 

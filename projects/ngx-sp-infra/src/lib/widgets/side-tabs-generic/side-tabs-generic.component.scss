@@ -1,5 +1,5 @@
 @use '../../../assets/styles/variables' as var;
-@import '../../../assets/styles/global.scss';
+@use '../../../assets/styles/global.scss' as *;
 
 div.border-gray-first {
   border: 1px solid var.$border-color;

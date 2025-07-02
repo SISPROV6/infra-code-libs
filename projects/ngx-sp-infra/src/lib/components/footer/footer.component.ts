@@ -5,7 +5,7 @@ import { LibIconsComponent } from '../../widgets/lib-icons/lib-icons.component';
     selector: '[app-footer], app-footer, lib-footer',
     templateUrl: './footer.component.html',
     styleUrls: ['./footer.component.scss'],
-    standalone: true,
+    
     imports: [LibIconsComponent]
 })
 export class FooterComponent implements OnInit {
