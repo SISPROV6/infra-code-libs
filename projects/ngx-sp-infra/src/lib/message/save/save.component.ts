@@ -2,15 +2,15 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { Subject } from 'rxjs';
 
-import { BsModalRef } from 'ngx-bootstrap/modal';
 import { NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
     selector: 'app-save',
     templateUrl: './save.component.html',
     styleUrls: ['./save.component.scss'],
-    standalone: true,
+    
     imports: [FormsModule, NgFor],
 })
 export class SaveComponent implements OnInit {

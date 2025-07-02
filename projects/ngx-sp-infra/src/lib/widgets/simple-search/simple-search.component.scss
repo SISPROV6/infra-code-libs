@@ -1,5 +1,5 @@
 @use '../../../assets/styles/variables' as vars;
-@import '../../../assets/styles/global.scss';
+@use '../../../assets/styles/global.scss' as *;
 
 div.search-input {
   transition: .2s;

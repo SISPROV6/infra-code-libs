@@ -23,7 +23,7 @@
 
                 <ng-container>
                   <img *ngIf="_customMenuService.moduleImg != ''; else moduleSVG" [src]="_customMenuService.moduleImg" alt="">
-                  <span class="ps-2"> {{ this._customMenuService.moduleName }} <lib-icon iconName="seta-direita" iconColor="white" /> </span>
+                  <span class="ps-2"> {{ _customMenuService.moduleName }} <lib-icon iconName="seta-direita" iconColor="white" /> </span>
 
                   <ng-template #moduleSVG>
                     <lib-icon iconColor="white" [iconName]="_customMenuService.moduleSvg"/>

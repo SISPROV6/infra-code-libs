@@ -8,7 +8,7 @@ import { SubMenuItem, TelaItem } from '../sub-menu.component';
   imports: [ListComponent],
   templateUrl: './nav-tabs.component.html',
   styleUrl: './nav-tabs.component.scss',
-  standalone: true,
+  
 })
 export class NavTabsComponent implements OnInit {
 

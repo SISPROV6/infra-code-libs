@@ -10,7 +10,7 @@ import { LibIconsComponent } from '../lib-icons/lib-icons.component';
     selector: 'lib-container',
     templateUrl: './content-container.component.html',
     styleUrls: ['./content-container.component.scss'],
-    standalone: true,
+    
     imports: [NgClass, NgIf, RouterLinkActive, TooltipModule, RouterLink, LibIconsComponent]
 })
 export class ContentContainerComponent implements OnInit, OnChanges {

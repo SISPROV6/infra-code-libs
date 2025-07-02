@@ -1,5 +1,5 @@
-@import '../../styles/ngx-pagination';
-@import "../../styles/styles.scss";
+@use '../../styles/ngx-pagination' as *;
+@use "../../styles/styles.scss" as *;
 
 .text-dark-grey { color: #63676b !important; }
 

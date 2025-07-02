@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { Subject } from 'rxjs';
 
@@ -8,7 +8,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
     selector: 'app-confirm',
     templateUrl: './confirm.component.html',
     styleUrls: ['./confirm.component.scss'],
-    standalone: true,
+    
 })
 export class ConfirmComponent implements OnInit {
   @Input() title?: string;
