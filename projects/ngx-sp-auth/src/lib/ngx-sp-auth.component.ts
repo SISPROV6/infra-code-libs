@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'lib-ngx-sp-auth',
-  
+  standalone: true,
   imports: [],
   template: `
     <p>

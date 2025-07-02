@@ -26,7 +26,7 @@ import { TableHeaderStructure } from './models/header-structure.model';
   selector: 'lib-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
-  
+  standalone: true,
   imports: [
     NgIf,
     FormsModule,

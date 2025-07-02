@@ -50,52 +50,44 @@ describe('Serviço: GlobalLoadingService', () => {
 
 
   it('deve criar e atribuir o componente de loading quando chamar show() e não existe instância prévia', () => {
-    expect(true).toBeTruthy(); // Deixarei os testes inativos por enquanto devido ao erro de subscribe...
-
-    // const service = TestBed.inject(GlobalLoadingService);
-    // const appRef = TestBed.inject(ApplicationRef) as any as MockApplicationRef;
+    const service = TestBed.inject(GlobalLoadingService);
+    const appRef = TestBed.inject(ApplicationRef) as any as MockApplicationRef;
     
-    // service.show();
+    service.show();
 
-    // // Espera-se que attachView tenha sido chamado com algum hostView
-    // expect(appRef.attachView).toHaveBeenCalledTimes(1);
+    // Espera-se que attachView tenha sido chamado com algum hostView
+    expect(appRef.attachView).toHaveBeenCalledTimes(1);
 
-    // // Verifica que componentRef não é nulo após show()
-    // expect((service as any)._componentRef).not.toBeNull();
+    // Verifica que componentRef não é nulo após show()
+    expect((service as any)._componentRef).not.toBeNull();
   });
 
   it('não deve criar múltiplas instâncias se show() for chamado mais de uma vez', () => {
-    expect(true).toBeTruthy(); // Deixarei os testes inativos por enquanto devido ao erro de subscribe...
+    const service = TestBed.inject(GlobalLoadingService);
+    const appRef = TestBed.inject(ApplicationRef) as any as MockApplicationRef;
 
-    // const service = TestBed.inject(GlobalLoadingService);
-    // const appRef = TestBed.inject(ApplicationRef) as any as MockApplicationRef;
+    service.show();
+    service.show(); // segunda chamada deve ser ignorada
 
-    // service.show();
-    // service.show(); // segunda chamada deve ser ignorada
-
-    // expect(appRef.attachView).toHaveBeenCalledTimes(1);
+    expect(appRef.attachView).toHaveBeenCalledTimes(1);
   });
 
   it('deve remover o componente do DOM e chamar detachView em hide()', () => {
-    expect(true).toBeTruthy(); // Deixarei os testes inativos por enquanto devido ao erro de subscribe...
+    const service = TestBed.inject(GlobalLoadingService);
+    const appRef = TestBed.inject(ApplicationRef) as any as MockApplicationRef;
 
-    // const service = TestBed.inject(GlobalLoadingService);
-    // const appRef = TestBed.inject(ApplicationRef) as any as MockApplicationRef;
+    service.show();
+    service.hide();
 
-    // service.show();
-    // service.hide();
-
-    // expect(appRef.detachView).toHaveBeenCalledTimes(1);
-    // expect((service as any)._componentRef).toBeNull();
+    expect(appRef.detachView).toHaveBeenCalledTimes(1);
+    expect((service as any)._componentRef).toBeNull();
   });
 
   it('hide() sem show() não deve lançar erro', () => {
-    expect(true).toBeTruthy(); // Deixarei os testes inativos por enquanto devido ao erro de subscribe...
+    const service = TestBed.inject(GlobalLoadingService);
     
-    // const service = TestBed.inject(GlobalLoadingService);
-    
-    // // Chama hide() sem ter chamado show() antes
-    // expect(() => service.hide()).not.toThrow();
+    // Chama hide() sem ter chamado show() antes
+    expect(() => service.hide()).not.toThrow();
   });
 
 });

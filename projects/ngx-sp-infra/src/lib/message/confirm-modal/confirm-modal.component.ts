@@ -1,11 +1,11 @@
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
     selector: 'app-confirm-modal, lib-confirm-modal',
     templateUrl: './confirm-modal.component.html',
     styleUrls: ['./confirm-modal.component.scss'],
-    
+    standalone: true,
     imports: [NgIf, NgSwitch, NgSwitchCase]
 })
 export class ConfirmModalComponent {

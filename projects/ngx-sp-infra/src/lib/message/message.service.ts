@@ -1,7 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable no-empty */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { Injectable, TemplateRef } from '@angular/core';
 import { take } from 'rxjs/operators';
 
@@ -9,9 +5,9 @@ import { Observable } from 'rxjs';
 
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 
+import { alertIds, alertTypes } from './message-enum';
 import { AlertComponent } from './alert/alert.component';
 import { ConfirmComponent } from './confirm/confirm.component';
-import { alertIds, alertTypes } from './message-enum';
 import { SaveComponent } from './save/save.component';
 
 @Injectable(
@@ -30,7 +26,6 @@ export class MessageService {
     const initialState: any = {
       message: message,
       type: type,
-      id: id
     };
 
     const bsModalRef: BsModalRef = this.bsModalService.show(AlertComponent, {
@@ -42,45 +37,44 @@ export class MessageService {
     }
   }
 
-  /** Exibe uma mensagem do tipo danger */
+  // Exibe uma mensagem do tipo danger
   showAlertDanger(message: string) {
     this.showAlert(message, alertTypes.DANGER, 0, alertIds.DANGER);
   }
 
-  /** Exibe uma mesagem do tipo success */
+  // Exibe uma mesagem do tipo success
   showAlertSuccess(message: string) {
     this.showAlert(message, alertTypes.SUCCESS, 3000, alertIds.SUCCESS);
   }
 
-  /** Exibe uma mesagem do tipo info */
+  // Exibe uma mesagem do tipo info
   showAlertInfo(message: string) {
     this.showAlert(message, alertTypes.INFO, 3000, alertIds.INFO);
   }
-  /** Exibe uma mesagem do tipo primary */
+  // Exibe uma mesagem do tipo primary(
   showAlertPrimary(message: string) {
     this.showAlert(message, alertTypes.PRIMARY, 3000, alertIds.PRIMARY);
   }
 
-  /** Exibe uma mesagem do tipo secondary */
+  // Exibe uma mesagem do tipo secondary(
   showAlertSecondary(message: string) {
     this.showAlert(message, alertTypes.SECONDARY, 3000, alertIds.SECONDARY);
   }
-  /** Exibe uma mesagem do tipo warning */
+  // Exibe uma mesagem do tipo warning
   showAlertWarning(message: string) {
     this.showAlert(message, alertTypes.WARNING, 0, alertIds.WARNING);
   }
 
-  /** Exibe uma mesagem do tipo light */
+  // Exibe uma mesagem do tipo light
   showAlertLight(message: string) {
     this.showAlert(message, alertTypes.LIGHT, 0, alertIds.LIGHT);
   }
 
-  /** Exibe uma mesagem do tipo dark */
+  // Exibe uma mesagem do tipo dark
   showAlertDark(message: string) {
     this.showAlert(message, alertTypes.DARK, 0, alertIds.DARK);
   }
-
-  /** Exibe um modal de inserção no banco */
+  // Exibe um modal de inserção no banco
   showCreate(
     title: string,
     message: string,
@@ -112,7 +106,7 @@ export class MessageService {
       .pipe(take(1));
   }
 
-  /** Exibe uma mesagem do tipo confirmação */
+  // Exibe uma mesagem do tipo confirmação
   showConfirm(
     title: string,
     message: string,

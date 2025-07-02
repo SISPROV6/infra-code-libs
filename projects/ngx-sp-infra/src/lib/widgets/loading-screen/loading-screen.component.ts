@@ -2,7 +2,7 @@ import { Component, HostBinding, HostListener } from '@angular/core';
 
 @Component({
   selector: 'lib-loading-screen',
-  
+  standalone: true,
   imports: [],
   templateUrl: './loading-screen.component.html',
   styles: `

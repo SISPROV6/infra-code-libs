@@ -4,7 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 
 @Component({
     selector: 'lib-nav-produtos',
-    
+    standalone: true,
     template: `
 
     <ul class="menu">

@@ -49,7 +49,7 @@ import { LibIconsComponent } from '../lib-icons/lib-icons.component';
     selector: 'lib-header',
     templateUrl: './lib-header.component.html',
     styleUrls: ['./lib-header.component.scss'],
-    
+    standalone: true,
     imports: [
       LibIconsComponent,
       RouterModule,

@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, ElementRef, HostListener, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'lib-search-input',
     templateUrl: './search-input.component.html',
     styleUrl: './search-input.component.scss',
-    
+    standalone: true,
     imports: [FormsModule]
 })
 export class SearchInputComponent implements OnInit, AfterViewInit {

@@ -1,24 +1,22 @@
-import { NgClass, NgFor, NgIf } from '@angular/common';
 import {
-    AfterViewInit,
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    EventEmitter,
-    forwardRef,
-    HostListener,
-    Input,
-    OnChanges,
-    OnInit,
-    Output,
-    QueryList,
-    SimpleChanges,
-    ViewChildren
+  Component, OnInit, Input,
+  EventEmitter,
+  Output,
+  HostListener,
+  OnChanges,
+  SimpleChanges,
+  ViewChildren,
+  ElementRef,
+  QueryList,
+  AfterViewInit,
+  ChangeDetectorRef,
+  forwardRef
 } from '@angular/core';
-import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { LibIconsComponent } from '../lib-icons/lib-icons.component';
+import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { FilterByPipe } from './pipes/filter-by.pipe';
 import { LimitToPipe } from './pipes/limit-to.pipe';
+import { LibIconsComponent } from '../lib-icons/lib-icons.component';
+import { NgClass, NgIf, NgFor } from '@angular/common';
 
 
 @Component({
@@ -32,7 +30,7 @@ import { LimitToPipe } from './pipes/limit-to.pipe';
             multi: true,
         },
     ],
-    
+    standalone: true,
     imports: [NgClass, LibIconsComponent, NgIf, FormsModule, NgFor, FilterByPipe, LimitToPipe]
 })
 export class ComboboxComponent implements OnInit, OnChanges, AfterViewInit {

@@ -1,8 +1,8 @@
-import { NgClass, NgIf } from '@angular/common';
-import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
-import { LibIconsComponent } from '../lib-icons/lib-icons.component';
-import { CheckPasswordRecord } from './models/checkPasswordRecord';
+import { Component, EventEmitter, Input, Output, OnChanges } from '@angular/core';
 import { PasswordRequirementsRecord } from './models/passwordRequirementsRecord';
+import { CheckPasswordRecord } from './models/checkPasswordRecord';
+import { LibIconsComponent } from '../lib-icons/lib-icons.component';
+import { NgClass, NgIf } from '@angular/common';
 
 @Component({
     selector: 'lib-password-policy',
@@ -23,7 +23,7 @@ import { PasswordRequirementsRecord } from './models/passwordRequirementsRecord'
       font-size: 15px;
     }
   `,
-    
+    standalone: true,
     imports: [NgClass, NgIf, LibIconsComponent]
 })
 export class PasswordPolicyComponent implements OnChanges {

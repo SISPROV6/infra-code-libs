@@ -9,7 +9,7 @@ import { SearchTreePipe } from "./pipes/search-tree.pipe";
     selector: "app-tree, lib-tree",
     templateUrl: "./tree.component.html",
     styleUrls: ["./tree.component.scss"],
-    
+    standalone: true,
     imports: [NgIf, LibIconsComponent, FormsModule, NgFor, SearchTreePipe]
 })
 export class TreeComponent {

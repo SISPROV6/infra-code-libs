@@ -3,7 +3,7 @@ import { AbstractControl } from '@angular/forms';
 
 @Component({
     selector: 'lib-field-contador-message, lib-contador',
-    
+    standalone: true,
     templateUrl: './field-contador-message.component.html',
     styleUrls: ['./field-contador-message.component.css'],
 })

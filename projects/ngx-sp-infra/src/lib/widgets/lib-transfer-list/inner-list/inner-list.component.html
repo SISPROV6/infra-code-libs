@@ -1,7 +1,7 @@
 <div class="h-100 w-100 border rounded">
    <div class="list-title">
       <span class="fw-bold fs-5"> {{ title }} </span>
-      <span class="glb-text-dark-disabled"> {{selected.length}}/{{list ? list.length : "?"}} selecionados </span>
+      <span class="glb-text-dark-disabled"> {{this.selected.length}}/{{list ? list.length : "?"}} selecionados </span>
    </div>
 
    <div *ngIf="useSearch" class="input-group">
@@ -13,7 +13,7 @@
 
    <div class="mb-2 p-0">
       <lib-table divBorderClass="rounded-0" tableBorderClass="border-top-0 border-start-0 border-end-0"
-         [useSelection]="useSelection ?? true" [selection]="selecaoGeral" [selectedCount]="selected.length"
+         [useSelection]="useSelection ?? true" [selection]="selecaoGeral" [selectedCount]="this.selected.length"
          [paginationID]="paginationID" [list]="registrosFiltrados" [showCounter]="false" [counts]="counts ?? [ 5, 10, 20 ]"
          [headers]="[
             { name: identifierColumn ?? 'Código', widthClass: 'col-3' },

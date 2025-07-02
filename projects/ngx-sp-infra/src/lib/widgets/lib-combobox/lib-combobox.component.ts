@@ -48,7 +48,7 @@ import { LibIconsComponent } from '../lib-icons/lib-icons.component';
     .z-index-1020 { z-index: 1020 !important; }
     .cursor-pointer { cursor: pointer !important; }
   `,
-  
+  standalone: true,
   imports: [
     NgIf,
     RequiredDirective,

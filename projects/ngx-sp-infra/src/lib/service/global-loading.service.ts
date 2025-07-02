@@ -8,7 +8,7 @@ export class GlobalLoadingService {
   // #region ==========> PROPERTIES <==========
 
   // #region PRIVATE
-  private _componentRef?: ComponentRef<LoadingScreenComponent> | null = null;
+  private _componentRef: ComponentRef<LoadingScreenComponent> | null = null;
   // #endregion PRIVATE
 
   // #endregion ==========> PROPERTIES <==========

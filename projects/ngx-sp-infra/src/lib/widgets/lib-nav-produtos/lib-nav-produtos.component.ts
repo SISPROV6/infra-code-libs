@@ -62,7 +62,7 @@ export class NavItem {
     </ul>
   `,
     styleUrl: './lib-nav-produtos.component.scss',
-    
+    standalone: true,
 })
 export class LibNavProdutosComponent implements OnInit {
   // #region ==========> PROPERTIES <==========
