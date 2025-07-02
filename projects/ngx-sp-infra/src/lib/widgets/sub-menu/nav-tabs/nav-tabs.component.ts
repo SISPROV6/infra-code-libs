@@ -16,9 +16,6 @@ export class NavTabsComponent implements OnInit {
   
   telasItem: TelaItem[] = [];
   listaAtiva: string = '';
-
-  // abaAtivaPorNivel1: number[] = [];
-  // itemAtivoPorNivel1: string[] = [];
   
   ngOnInit(): void {
     if(this.subMenus.length != 0) {
@@ -26,11 +23,6 @@ export class NavTabsComponent implements OnInit {
       this.listaAtiva = this.subMenus[0].titulo;
     }
   }
-
-  // setAbaAtiva(indexNivel1: number, indexNivel2: number, titulo: string) {
-  //   this.abaAtivaPorNivel1[indexNivel1] = indexNivel2;
-  //   this.itemAtivoPorNivel1[indexNivel1] = titulo;
-  // }
 
   abaActive(b: string) {
     const index = this.subMenus.findIndex(submenu => {

@@ -138,6 +138,7 @@ export * from './lib/widgets/tree/pipes/search-tree.pipe';
 export * from './lib/widgets/tree/tree.component';
 
 export * from './lib/widgets/applied-filters/applied-filters.component';
+export * from './lib/widgets/auditoria-button/auditoria-button.component';
 export * from './lib/widgets/lib-transfer-list/inner-list/inner-list.component';
 export * from './lib/widgets/lib-transfer-list/lib-transfer-list.component';
 
@@ -164,4 +165,6 @@ export * from './lib/widgets/sub-menu/sub-menu.component';
 
 export * from './lib/widgets/imageCropper/dialog-cropper/dialog-cropper.component';
 export * from './lib/widgets/imageCropper/image-cropper/image-cropper.component';
+
+export * from './lib/widgets/sub-menu-card/sub-menu-card.component';
 
