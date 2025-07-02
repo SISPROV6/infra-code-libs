@@ -53,6 +53,7 @@ export * from './lib/widgets/lib-nav-produtos/models/navigation-options.model';
 export * from './lib/widgets/table/models/header-structure.model';
 
 export * from './lib/models/container/container-tabs.model';
+export * from './lib/models/queue-service/JobRequest'
 
 
 /** Pipes */
@@ -89,6 +90,7 @@ export * from './lib/utils/utils';
 
 
 /** Services */
+export * from './lib/service/queue.service';
 export * from './lib/service/file.service';
 export * from './lib/service/global-loading.service';
 export * from './lib/service/ip-service.service';
