@@ -1,14 +1,14 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { BasicFilters } from '../../models/filters/basic-filters';
 import { NgIf } from '@angular/common';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { BasicFilters } from '../../models/filters/basic-filters';
 import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 
 @Component({
     selector: 'app-search-filters, lib-basic-filters',
     templateUrl: './search-filters.component.html',
     styleUrls: ['./search-filters.component.scss'],
-    standalone: true,
+    
     imports: [LibIconsComponent, FormsModule, NgIf]
 })
 export class SearchFiltersComponent {

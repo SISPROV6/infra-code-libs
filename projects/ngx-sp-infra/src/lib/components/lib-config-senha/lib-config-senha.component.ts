@@ -1,27 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { FormUtils } from '../../utils/form-utils';
 import { MessageService } from '../../message/message.service';
+import { FormUtils } from '../../utils/form-utils';
 
+import { NgClass, NgIf } from '@angular/common';
+import { Title } from '@angular/platform-browser';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { RequiredDirective } from '../../directives/required.directive';
 import { InfraSegConfig } from '../../models/config-senha/7Db/InfraSegConfig.record';
 import { ConfiguracaoSenhaService } from '../../service/configuracao-senha.service';
 import { TenantService } from '../../service/tenant.service';
-import { Title } from '@angular/platform-browser';
-import { LibSpinnerComponent } from '../../widgets/spinner/spinner.component';
-import { FieldErrorMessageComponent } from '../../widgets/field-error-message/field-error-message.component';
-import { RequiredDirective } from '../../directives/required.directive';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { LibIconsComponent } from '../../widgets/lib-icons/lib-icons.component';
-import { NgIf, NgClass } from '@angular/common';
 import { ContentContainerComponent } from '../../widgets/content-container/content-container.component';
+import { FieldErrorMessageComponent } from '../../widgets/field-error-message/field-error-message.component';
 import { LibHeaderComponent } from '../../widgets/lib-header/lib-header.component';
+import { LibIconsComponent } from '../../widgets/lib-icons/lib-icons.component';
+import { LibSpinnerComponent } from '../../widgets/spinner/spinner.component';
 
 @Component({
     selector: 'lib-config-senha',
     templateUrl: './lib-config-senha.component.html',
     styles: ``,
-    standalone: true,
+    
     imports: [LibHeaderComponent, ContentContainerComponent, NgIf, FormsModule, ReactiveFormsModule, NgClass, LibIconsComponent, TooltipModule, RequiredDirective, FieldErrorMessageComponent, LibSpinnerComponent]
 })
 export class LibConfigSenhaComponent implements OnInit {

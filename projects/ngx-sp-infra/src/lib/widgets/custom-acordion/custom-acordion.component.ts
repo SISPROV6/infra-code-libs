@@ -17,7 +17,7 @@ import { LibIconsComponent } from '../lib-icons/lib-icons.component';
     selector: 'app-custom-acordion, lib-acordion, lib-accordion',
     templateUrl: './custom-acordion.component.html',
     styleUrls: ['./custom-acordion.component.scss'],
-    standalone: true,
+    
     imports: [
         AccordionModule,
         NgIf,

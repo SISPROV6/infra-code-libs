@@ -1,13 +1,13 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
-import { PaginationInstance, NgxPaginationModule } from 'ngx-pagination';
-import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { NgxPaginationModule, PaginationInstance } from 'ngx-pagination';
 
 @Component({
     selector: 'app-pagination, lib-pagination',
     templateUrl: './pagination.component.html',
     styleUrls: ['./pagination.component.scss'],
-    standalone: true,
+    
     imports: [NgIf, FormsModule, NgxPaginationModule]
 })
 export class PaginationComponent {

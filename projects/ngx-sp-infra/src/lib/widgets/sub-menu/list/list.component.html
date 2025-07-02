@@ -1,5 +1,5 @@
 <ul class="nav flex-column mt-3">
-  @if(this.telasItem.length) {
+  @if(telasItem.length) {
     @for(clickLink of telasItem; track $index) {
       <li class="nav-item">
         <a class="nav-link" href="#{{ clickLink.urlPath }}">{{ clickLink.titulo }}</a>
