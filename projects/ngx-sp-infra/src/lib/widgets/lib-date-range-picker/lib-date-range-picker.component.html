@@ -1,0 +1,78 @@
+<div class="date-range-container">
+
+  <!-- Campo de entrada que mostra o intervalo de datas selecionado -->
+  <div class="input-group">
+    <input type="text" class="form-control" maxlength="23" placeholder="Selecione ou digite uma data..."
+      [value]="inputText" (input)="formatInput($event)" (click)="$event.stopPropagation()" (focus)="handleFocus($event)" (blur)="parseInputDates()" >
+
+    <div class="input-group-append">
+      <span class="input-group-text" (click)="toggleCalendar()">
+        <lib-icon iconName="p-calendario" />
+      </span>
+    </div>
+  </div>
+
+  @if (errorMessage) {
+    <div style="color: #dc3545; margin-top: 0.25rem; font-size: 0.875em;"> {{ errorMessage }} </div>
+  }
+  
+  <!-- Calendário flutuante -->
+  @if (showCalendar) {
+    <div class="calendar-dropdown" >
+
+      <!-- Cabeçalho do calendário -->
+      @if (!showYearSelector) {
+        <div class="calendar-header">
+          <button class="btn btn-sm btn-outline-primary" (click)="prevMonth()"><lib-icon iconName="p-seta-esquerda" [iconSize]="24"/></button>
+          <span class="month-year-selector" (click)="toggleYearSelector(); $event.stopPropagation()">{{ currentMonthName }} {{ currentYear }}</span>
+          <button class="btn btn-sm btn-outline-primary" (click)="nextMonth()"><lib-icon iconName="p-seta-direita" [iconSize]="24"/></button>
+        </div>
+      }
+      
+      <!-- Seletor de Ano -->
+      @if (showYearSelector) {
+        <div class="year-selector">
+          <div class="year-selector-header">
+            <button class="btn btn-sm btn-outline-primary" (click)="prevYearPage()"><lib-icon iconName="p-seta-esquerda" [iconSize]="24"/></button>
+            <span>{{ yearSelectorStartYear }} - {{ yearSelectorStartYear + 11 }}</span>
+            <button class="btn btn-sm btn-outline-primary" (click)="nextYearPage()"><lib-icon iconName="p-seta-direita" [iconSize]="24"/></button>
+          </div>
+
+          <div class="year-grid">
+            @for (year of yearSelectorYears; track $index) {
+              <div class="year-item" [class.selected]="year === currentYear" (click)="selectYear(year); $event.stopPropagation()">
+                {{ year }}
+              </div>
+            }
+          </div>
+        </div>
+      }
+      
+      @if (!showYearSelector) {
+        <div class="calendar-grid">
+          <!-- Dias da semana -->
+          @for (day of weekdays; track $index) {
+            <div class="weekday">{{ day }}</div>
+          }
+
+          <!-- Dias do mês -->
+           @for (day of calendarDays; track $index) {
+             <div class="day" [class.other-month]="day.otherMonth" [class.selected]="isSelected(day)"
+               [class.start-date]="isStartDate(day)" [class.end-date]="isEndDate(day)"
+               [class.in-range]="isInRange(day)"
+               (click)="selectDate(day)">
+               {{ day.date }}
+             </div>
+           }
+        </div>
+      }
+      
+      @if (!showYearSelector) {
+        <div class="calendar-footer">
+          <button class="btn btn-sm btn-outline-danger" (click)="clearDates()">Limpar</button>
+          <button class="btn btn-sm btn-primary" (click)="applySelection()">Aplicar</button>
+        </div>
+      }
+    </div>
+  }
+</div>

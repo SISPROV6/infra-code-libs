@@ -113,7 +113,7 @@ import { TreeComponent } from '../widgets/tree/tree.component';
     LoadingScreenComponent,
     SubMenuComponent,
     ImageCropperComponent,
-    SubMenuCardComponent
+    SubMenuCardComponent,
   ],
   exports: [
     AlertComponent,
@@ -159,7 +159,7 @@ import { TreeComponent } from '../widgets/tree/tree.component';
     LoadingScreenComponent,
     SubMenuComponent,
     ImageCropperComponent,
-    SubMenuCardComponent
+    SubMenuCardComponent,
   ]
 })
 export class LibWidgetsModule { }
