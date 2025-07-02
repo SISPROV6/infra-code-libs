@@ -20,7 +20,7 @@
     "url": "https://github.com/SISPROV6/infra-code-libs"
   },
   "peerDependencies": {
-    "ngx-sp-infra": "^4.0.14-next",
+    "ngx-sp-infra": "5.0.0",
     "ngx-toastr": "^19.0.0"
   },
   "sideEffects": false
