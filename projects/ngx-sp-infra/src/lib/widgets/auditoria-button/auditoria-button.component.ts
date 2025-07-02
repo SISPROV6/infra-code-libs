@@ -5,7 +5,7 @@ import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 
 @Component({
   selector: 'lib-auditoria-button',
-  standalone: true,
+  
   imports: [LibIconsComponent,
     RouterModule,
     TooltipModule,],

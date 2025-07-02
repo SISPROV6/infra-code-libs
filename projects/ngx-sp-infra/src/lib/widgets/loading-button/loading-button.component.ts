@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
 import { NgIf } from '@angular/common';
+import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'app-loading-button, lib-loading-button',
@@ -9,7 +9,7 @@ import { NgIf } from '@angular/common';
     styles: `
     .button-spinner{ width: 24px; }
   `,
-    standalone: true,
+    
     imports: [NgIf]
 })
 export class LoadingButtonComponent {

@@ -1,13 +1,13 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
 
-import { RecordCombobox } from "../../models/combobox/record-combobox";
+import { NgIf } from "@angular/common";
 import { Subscription } from "rxjs/internal/Subscription";
+import { RequiredDirective } from "../../directives/required.directive";
+import { RecordCombobox } from "../../models/combobox/record-combobox";
 import { TextFilterPipe } from "../../pipes/text-filter.pipe";
 import { FieldErrorMessageComponent } from "../field-error-message/field-error-message.component";
 import { LibIconsComponent } from "../lib-icons/lib-icons.component";
-import { RequiredDirective } from "../../directives/required.directive";
-import { NgIf } from "@angular/common";
 
 
 /**
@@ -67,7 +67,7 @@ import { NgIf } from "@angular/common";
     selector: 'lib-search-combobox',
     templateUrl: './search-combobox.component.html',
     styleUrls: ['./search-combobox.component.scss'],
-    standalone: true,
+    
     imports: [NgIf, RequiredDirective, FormsModule, ReactiveFormsModule, LibIconsComponent, FieldErrorMessageComponent, TextFilterPipe]
 })
 export class SearchComboboxComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
