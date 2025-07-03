@@ -127,15 +127,15 @@ export class LibDateRangePickerComponent {
         this._endDate = endDate;
       
         if (this._startDate! > this._endDate!) { this.errorMessage = 'Data inicial não pode ser maior que a data final'; }
-      } 
+      }
       else if (startValid) {
         this._startDate = startDate;
-      } 
+      }
       else if (endValid) {
         this._endDate = endDate;
       }
-    // Se nenhuma data for válida, ambas permanecerão null no dado salvo e o erro será mostrado
     }
+    // Se nenhuma data for válida, ambas permanecerão null no dado salvo e o erro será mostrado
     else {
       // Para o caso de uma única data
       const date = this.parseDate(this.inputText);
@@ -190,6 +190,7 @@ export class LibDateRangePickerComponent {
       this.currentYear = this._startDate.getFullYear();
       this.generateCalendarDays();
     }
+
     if (this.inputText){
       this.parseInputDates()
     }
@@ -253,23 +254,23 @@ export class LibDateRangePickerComponent {
   /** Metódo que define qual data será atualizada quando selecionada de acordo com as datas já selecionadas */
   public selectDate(day: CalenderDay): void {
     const selectedDate = new Date(day.fullDate);
-    
+
     // Case 1: Ambas as datas já estão selecionadas
     if (this._startDate && this._endDate) {
       // Se a data clicada for anterior à data inicial atual
       if (selectedDate < this._startDate) {
         this._startDate = selectedDate; // Atualiza só a data inicial
-      } 
+      }
       // Se a data clicada for posterior à data final atual
       else if (selectedDate > this._endDate) {
         this._endDate = selectedDate; // Atualiza só a data final
-      } 
+      }
       // Se a data clicada estiver entre as datas inicial e final
       else {
         // Calcula a diferença em dias para a data inicial e final
         const diffStart = Math.abs((selectedDate.getTime() - this._startDate.getTime()) / (1000 * 60 * 60 * 24));
         const diffEnd = Math.abs((this._endDate.getTime() - selectedDate.getTime()) / (1000 * 60 * 60 * 24));
-        
+
         // Atualiza a data mais próxima
         if (diffStart <= diffEnd) {
           this._startDate = selectedDate; // A data inicial está mais próxima
@@ -289,7 +290,7 @@ export class LibDateRangePickerComponent {
       if (this._endDate && this._endDate < this._startDate) {
         this._endDate = null;
       }
-    } 
+    }
     // Case 3: Selecionando a data final
     else {
       // Se a data selecionada for anterior à data inicial,
