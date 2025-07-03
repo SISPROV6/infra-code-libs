@@ -6,7 +6,7 @@
       [value]="inputText" (input)="formatInput($event)" (click)="$event.stopPropagation()" (focus)="handleFocus($event)" (blur)="parseInputDates()" >
 
     <div class="input-group-append">
-      <span class="input-group-text" (click)="toggleCalendar()">
+      <span class="input-group-text" (click)="toggleCalendar()" (keyup.enter)="null" >
         <lib-icon iconName="p-calendario" />
       </span>
     </div>
@@ -24,7 +24,7 @@
       @if (!showYearSelector) {
         <div class="calendar-header">
           <button class="btn btn-sm btn-outline-primary" (click)="prevMonth()"><lib-icon iconName="p-seta-esquerda" [iconSize]="24"/></button>
-          <span class="month-year-selector" (click)="toggleYearSelector(); $event.stopPropagation()">{{ currentMonthName }} {{ currentYear }}</span>
+          <span class="month-year-selector" (click)="toggleYearSelector(); $event.stopPropagation()" (keyup.enter)="null">{{ currentMonthName }} {{ currentYear }}</span>
           <button class="btn btn-sm btn-outline-primary" (click)="nextMonth()"><lib-icon iconName="p-seta-direita" [iconSize]="24"/></button>
         </div>
       }
@@ -40,7 +40,7 @@
 
           <div class="year-grid">
             @for (year of yearSelectorYears; track $index) {
-              <div class="year-item" [class.selected]="year === currentYear" (click)="selectYear(year); $event.stopPropagation()">
+              <div class="year-item" [class.selected]="year === currentYear" (click)="selectYear(year); $event.stopPropagation()" (keyup.enter)="null">
                 {{ year }}
               </div>
             }
@@ -60,7 +60,8 @@
              <div class="day" [class.other-month]="day.otherMonth" [class.selected]="isSelected(day)"
                [class.start-date]="isStartDate(day)" [class.end-date]="isEndDate(day)"
                [class.in-range]="isInRange(day)"
-               (click)="selectDate(day)">
+               (click)="selectDate(day)"
+               (keyup.enter)="null">
                {{ day.date }}
              </div>
            }

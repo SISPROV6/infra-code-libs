@@ -24,7 +24,7 @@ export class LibDateRangePickerComponent {
   // #region ==========> PROPERTIES <==========
 
   // #region PRIVATE
-  private _currentDate = new Date();
+  private readonly _currentDate = new Date();
   private _currentMonth = this._currentDate.getMonth();
   private _startDate: Date | null = null;
   private _endDate: Date | null = null;
@@ -69,8 +69,6 @@ export class LibDateRangePickerComponent {
     this.generateYearSelectorYears();
     this.syncCalendarWithDates();
   }
-
-  ngOnInit(): void { }
 
 
   // #region ==========> UTILS <==========
@@ -200,7 +198,8 @@ export class LibDateRangePickerComponent {
   private parseDate(dateStr: string): Date | null {    
     // Regex para validar formato DD/MM/AAAA
     const regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
-    const match = dateStr.match(regex);
+    // const match = dateStr.match(regex);
+    const match = regex.exec(dateStr); // Modificado para qualidade do SonarQube
     
     if (!match) {
       if(dateStr.length > 0) this.errorMessage = 'Formato da data inválido';    
