@@ -28,7 +28,6 @@ jobs:
 
       - name: Run tests with coverage
         run: |
-          cd projects/ngx-sp-infra
           npm run test:sonar
 
       - uses: actions/checkout@v4
