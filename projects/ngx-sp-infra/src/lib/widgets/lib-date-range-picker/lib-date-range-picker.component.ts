@@ -198,7 +198,6 @@ export class LibDateRangePickerComponent {
   private parseDate(dateStr: string): Date | null {    
     // Regex para validar formato DD/MM/AAAA
     const regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
-    // const match = dateStr.match(regex);
     const match = regex.exec(dateStr); // Modificado para qualidade do SonarQube
     
     if (!match) {
