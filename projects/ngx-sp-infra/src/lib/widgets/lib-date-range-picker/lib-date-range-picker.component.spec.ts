@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LibDateRangePickerComponent } from './lib-date-range-picker.component';
 
-describe('LibDateRangePickerComponent', () => {
+describe('Componente: lib-date-range-picker', () => {
   let component: LibDateRangePickerComponent;
   let fixture: ComponentFixture<LibDateRangePickerComponent>;
 
@@ -17,7 +17,7 @@ describe('LibDateRangePickerComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('deve criar o componente quando chamado', () => {
     expect(component).toBeTruthy();
   });
 });

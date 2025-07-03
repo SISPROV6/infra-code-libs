@@ -12,6 +12,9 @@
     "typescript",
     "bootstrap"
   ],
+  "scripts": {
+    "test:sonar": "ng test ngx-sp-infra --watch=false --code-coverage --browsers=ChromeHeadless"
+  },
   "bugs": {
     "email": "sispropesqdesenv@sispro.com.br"
   },
