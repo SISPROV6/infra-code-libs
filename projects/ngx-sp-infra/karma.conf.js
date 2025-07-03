@@ -4,13 +4,13 @@
 module.exports = function (config) {
   config.set({
     basePath: '',
-    frameworks: ['jasmine', '@angular/cli'],
+    frameworks: ['jasmine', '@angular-devkit/build-angular'],
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
       require('karma-jasmine-html-reporter'),
       require('karma-coverage'),
-      require('@angular/cli/plugins/karma')
+      require('@angular-devkit/build-angular/plugins/karma')
     ],
     client: {
       jasmine: {
@@ -23,10 +23,6 @@ module.exports = function (config) {
     jasmineHtmlReporter: {
       suppressAll: true // removes the duplicated traces
     },
-    coverageIstanbulReporter: {
-      reports: [ 'html', 'lcovonly' ],
-      fixWebpackSourcePaths: true
-    },
     angularCli: {
       environment: 'dev'
     },
@@ -35,10 +31,25 @@ module.exports = function (config) {
       subdir: '.',
       reporters: [
         { type: 'html' },
-        { type: 'text-summary' }
+        { type: 'lcovonly', subdir: '.', file: 'lcov.info' },
       ]
     },
-    reporters: [ 'progress', 'kjhtml' ],
+    client: {
+      jasmine: {
+        // random: false, // desativa execução aleatória
+        // seed: 4321     // define seed pra execução dos testes
+      },
+      clearContext: false // deixa os resultados visíveis no navegador
+    },
+    reporters: [ 'progress', 'kjhtml', 'coverage' ],
+    check: {
+      global: {
+        statements: 80,
+        branches: 80,
+        functions: 80,
+        lines: 80
+      }
+    },
     browsers: ['ChromeHeadless'],
     singleRun: true,
     restartOnFileChange: true,

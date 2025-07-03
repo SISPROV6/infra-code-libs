@@ -53,7 +53,7 @@ export * from './lib/widgets/lib-nav-produtos/models/navigation-options.model';
 export * from './lib/widgets/table/models/header-structure.model';
 
 export * from './lib/models/container/container-tabs.model';
-export * from './lib/models/queue-service/JobRequest'
+export * from './lib/models/queue-service/JobRequest';
 
 
 /** Pipes */
@@ -90,11 +90,11 @@ export * from './lib/utils/utils';
 
 
 /** Services */
-export * from './lib/service/queue.service';
 export * from './lib/service/file.service';
 export * from './lib/service/global-loading.service';
 export * from './lib/service/ip-service.service';
 export * from './lib/service/modal-utils.service';
+export * from './lib/service/queue.service';
 export * from './lib/service/table-selection.service';
 export * from './lib/utils/filtros-aplicados.service';
 
@@ -168,3 +168,4 @@ export * from './lib/widgets/imageCropper/image-cropper/image-cropper.component'
 
 export * from './lib/widgets/sub-menu-card/sub-menu-card.component';
 
+export * from './lib/widgets/lib-date-range-picker/lib-date-range-picker.component';

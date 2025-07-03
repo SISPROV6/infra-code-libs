@@ -27,6 +27,8 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
+            "codeCoverage": true,
+            "karmaConfig": "projects/ngx-sp-infra/karma.conf.js",
             "tsConfig": "projects/ngx-sp-infra/tsconfig.spec.json",
             "polyfills": [
               "zone.js",

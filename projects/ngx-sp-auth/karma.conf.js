@@ -23,10 +23,6 @@ module.exports = function (config) {
     jasmineHtmlReporter: {
       suppressAll: true // removes the duplicated traces
     },
-    coverageIstanbulReporter: {
-      reports: [ 'html', 'lcovonly' ],
-      fixWebpackSourcePaths: true
-    },
     angularCli: {
       environment: 'dev'
     },
@@ -35,10 +31,11 @@ module.exports = function (config) {
       subdir: '.',
       reporters: [
         { type: 'html' },
-        { type: 'text-summary' }
+        { type: 'text-summary' },
+        { type: 'lcovonly', subdir: '.', file: 'lcov.info' },
       ]
     },
-    reporters: [ 'progress', 'kjhtml' ],
+    reporters: [ 'progress', 'kjhtml', 'spec', 'coverage' ],
     browsers: ['ChromeHeadless'],
     singleRun: true,
     restartOnFileChange: true,
