@@ -6,8 +6,6 @@ on:
       - main
       - next
       - test
-      - branch-*
-      - sonar-config
   pull_request:
     types: [opened, synchronize, reopened]
 
