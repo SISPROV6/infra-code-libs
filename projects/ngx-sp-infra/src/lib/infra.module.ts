@@ -15,6 +15,7 @@ import { ConfirmComponent } from './message/confirm/confirm.component';
 import { SaveComponent } from './message/save/save.component';
 import { CpfCnpjPipe } from './pipes/cpf-cnpj.pipe';
 import { ToUrlPipe } from './pipes/to-url.pipe';
+import { AuditoriaButtonComponent } from './widgets/auditoria-button/auditoria-button.component';
 import { InfraBreadcrumbItemComponent } from './widgets/breadcrumb/infra-breadcrumb-item/infra-breadcrumb-item.component';
 import { InfraBreadcrumbComponent } from './widgets/breadcrumb/infra-breadcrumb/infra-breadcrumb.component';
 import { BreadcrumbComponent } from './widgets/breadcrumb/portalrh-breadcrumb/breadcrumb.component';
@@ -28,7 +29,6 @@ import { LoadingComponent } from './widgets/loading/loading.component';
 import { OrderingComponent } from './widgets/ordering/ordering.component';
 import { SearchTreePipe } from './widgets/tree/pipes/search-tree.pipe';
 import { TreeComponent } from './widgets/tree/tree.component';
-import { AuditoriaButtonComponent } from './widgets/auditoria-button/auditoria-button.component';
 
 import { CopyClipboardDirective } from './directives/copy-clipboard.directive';
 import { RequiredDirective } from './directives/required.directive';
@@ -76,6 +76,7 @@ import { LibSpinnerComponent } from './widgets/spinner/spinner.component';
 import { LibConfigSenhaComponent } from './components/lib-config-senha/lib-config-senha.component';
 import { TextTruncateDirective } from './directives/text-truncate.directive';
 import { CurrencyPipe } from './pipes/currency.pipe';
+import { LibDateRangePickerComponent } from './widgets/lib-date-range-picker/lib-date-range-picker.component';
 import { PasswordPolicyComponent } from './widgets/password-policy/password-policy.component';
 import { SearchInputComponent } from './widgets/search-input/search-input.component';
 
@@ -158,6 +159,7 @@ import { SearchInputComponent } from './widgets/search-input/search-input.compon
         SearchInputComponent,
         LoadingScreenComponent,
         AuditoriaButtonComponent,
+        LibDateRangePickerComponent,
         
     ],
     exports: [
@@ -222,6 +224,8 @@ import { SearchInputComponent } from './widgets/search-input/search-input.compon
         SearchInputComponent,
         LoadingScreenComponent,
         AuditoriaButtonComponent,
+        LibDateRangePickerComponent,
+
     ],
     providers: [],
 })
