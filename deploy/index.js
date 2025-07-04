@@ -12,43 +12,41 @@ let respostaRemoteRepo = "";
 let respostaMensagemOpcional = "";
 
 
-// #region ATUALIZAR VERSÃO DO PROJETO
+// #region BUILD DO PROJETO
 
-const handleTag = () => {
-  let tag = "";
-
-  if (currentBranch.includes('test')) tag = '-test';
-  else if (currentBranch.includes('next')) tag = '-next';
-  else tag = '';
-
-  return tag;
+function buildProject() {
+  try {
+    execSync(`ng build ${respostaProjeto} --configuration production`, { stdio: 'inherit' });
+  }
+  catch (error) {
+    console.error(chalk.red('\n❌ Erro ao realizar o build. Corrija e tente novamente:' + error.message));
+    throw new Error("\n❌ Erro ao realizar o build. Corrija e tente novamente:" + error.message);
+  }
 }
+
+// #endregion BUILD DO PROJETO
+
+// #region ATUALIZAR VERSÃO DO PROJETO
 
 function updateVersion() {
   try {
-    // Lê e inicializa o package.json
-    let packageJson = JSON.parse(fs.readFileSync(`../projects/${respostaProjeto}/package.json`, 'utf8'));
-    
-    // Remove, atualiza e readiciona o sufixo à versão + Atualiza a versão sem criar uma nova tag do Git
-    const versionHasTag = packageJson.version.includes('-');
-    
-    if (versionHasTag) execSync(`cd ../projects/${respostaProjeto} && npm version ${respostaVersao} --no-git-tag-version`, { stdio: 'inherit' }); // Primeira atualização de versão pois ela apenas remove a tag
-    execSync(`cd ../projects/${respostaProjeto} && npm version ${respostaVersao} --no-git-tag-version`, { stdio: 'inherit' });
-    
-    packageJson = JSON.parse(fs.readFileSync(`../projects/${respostaProjeto}/package.json`, 'utf8'));
+    // Lê o package.json
+    const pkgPath = `../projects/${respostaProjeto}/package.json`;
+    const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
 
-    const tag = handleTag();
-    const newVersion = `${packageJson.version}${tag}`;
-    packageJson.version = newVersion;
+    // bump via npm version
+    execSync(`npm version ${respostaVersao} --no-git-tag-version`, {
+      cwd: `../projects/${respostaProjeto}`,
+      stdio: 'inherit'
+    });
 
-    // Escreve a nova versão no package.json
-    fs.writeFileSync(`../projects/${respostaProjeto}/package.json`, JSON.stringify(packageJson, null, 2) + '\n');
-
-    console.log(chalk.green(`✅ Nova versão: ${packageJson.version}\n`));
+    // Reabre o JSON já atualizado
+    const updated = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+    console.log(chalk.green(`✅ Nova versão: ${updated.version}`));
   }
   catch (error) {
-    console.error(chalk.red('\n❌ Erro ao atualizar versão:', error.message));
-    throw new Error("\n❌ Erro ao atualizar versão:', error.message");
+    console.error(chalk.red('\n❌ Erro ao atualizar versão:' + error.message));
+    throw new Error("\n❌ Erro ao atualizar versão:' + error.message");
   }
 }
 
@@ -59,7 +57,7 @@ function updateVersion() {
 function executarTestes() {
   if (respostaIsExecutaTestes) {
     try {
-      execSync('ng test --watch=false --browsers=ChromeHeadless', { stdio: 'inherit' });
+      execSync(`ng test ${respostaProjeto} --watch=false --browsers=ChromeHeadless`, { stdio: 'inherit' });
       console.log(chalk.green('\n✅ Todos os testes passaram com sucesso!\n'));
     }
     catch (error) {
@@ -115,7 +113,7 @@ function commitTag() {
     createAndPushTag(packageJson.version, formattedTag);
   }
   catch (error) {
-    console.log(chalk.red("\n❌ Erro no processo de commit da tag:", error.message));
+    console.log(chalk.red("\n❌ Erro no processo de commit da tag:" + error.message));
     throw new Error(`❌ Erro no processo de commit da tag: ${error.message}`);
   }
 }
@@ -128,14 +126,14 @@ function commitFiles() {
   try {
     const packageJson = JSON.parse(fs.readFileSync(`../projects/${respostaProjeto}/package.json`, 'utf8'));
 
-    execSync('cd ../ && git add .', { stdio: 'inherit' });
-    execSync(`cd ../ && git commit --allow-empty -m "${respostaProjeto} | v${packageJson.version} | Commit automático" -m "${respostaMensagemOpcional}"`, { stdio: 'inherit' });
-    execSync(`cd ../ && git push ${respostaRemoteRepo} ${currentBranch}`, { stdio: 'inherit' });
+    execSync('git add .', { cwd: '../', stdio: 'inherit' });
+    execSync(`git commit --allow-empty -m "${respostaProjeto} | v${packageJson.version} | Commit automático" -m "${respostaMensagemOpcional}"`, { cwd: '../', stdio: 'inherit' });
+    execSync(`git push ${respostaRemoteRepo} ${currentBranch}`, { cwd: '../', stdio: 'inherit' });
     
     console.log(chalk.green('✅ Commit e push realizados com sucesso!\n'));
   }
   catch (error) {
-    console.error(chalk.red('❌ Erro ao realizar commit:', error.message));
+    console.error(chalk.red('❌ Erro ao realizar commit:' + error.message));
     return;
   }
 }
@@ -207,6 +205,10 @@ async function main() {
         if (!confirma.confirmaDeploy) throw new Error("\n❌ Processo cancelado pelo usuário.");
 
         console.log(chalk.yellow('\n🎲 Iniciando processo...\n'));
+
+        // Realiza o build do projeto
+        console.log(chalk.yellow('\n📦 Buildando projeto...'));
+        buildProject();
 
         // Atualiza versão do projeto com ou sem tags
         console.log(chalk.yellow('\n🔄 Atualizando versão...'));
