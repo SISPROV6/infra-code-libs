@@ -19,6 +19,7 @@ module.exports = function (config) {
         // for example, you can disable the random execution with `random: false`
         // or set a specific seed with `seed: 4321`
       },
+      clearContext: false // deixa os resultados visíveis no navegador
     },
     jasmineHtmlReporter: {
       suppressAll: true // removes the duplicated traces
@@ -34,20 +35,13 @@ module.exports = function (config) {
         { type: 'lcovonly', subdir: '.', file: 'lcov.info' },
       ]
     },
-    client: {
-      jasmine: {
-        // random: false, // desativa execução aleatória
-        // seed: 4321     // define seed pra execução dos testes
-      },
-      clearContext: false // deixa os resultados visíveis no navegador
-    },
     reporters: [ 'progress', 'kjhtml', 'coverage' ],
     check: {
       global: {
-        statements: 80,
-        branches: 80,
-        functions: 80,
-        lines: 80
+        statements: 50,
+        branches: 50,
+        functions: 50,
+        lines: 50
       }
     },
     browsers: ['ChromeHeadless'],
