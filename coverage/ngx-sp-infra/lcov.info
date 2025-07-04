@@ -1,5 +1,5 @@
 TN:
-SF:projects\ngx-sp-infra\src\lib\infra.module.ts
+SF:..\projects\ngx-sp-infra\src\lib\infra.module.ts
 FNF:0
 FNH:0
 DA:232,1
@@ -9,7 +9,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\components\footer\footer.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\components\footer\footer.component.ts
 FN:12,(anonymous_0)
 FN:17,(anonymous_1)
 FNF:2
@@ -32,7 +32,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\components\lib-config-senha\lib-config-senha.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\components\lib-config-senha\lib-config-senha.component.ts
 FN:48,(anonymous_0)
 FN:66,(anonymous_1)
 FN:67,(anonymous_2)
@@ -178,7 +178,7 @@ BRF:16
 BRH:5
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\components\page-not-authorized\page-not-authorized.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\components\page-not-authorized\page-not-authorized.component.ts
 FN:12,(anonymous_0)
 FN:14,(anonymous_1)
 FNF:2
@@ -194,7 +194,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\directives\click-outside.directive.ts
+SF:..\projects\ngx-sp-infra\src\lib\directives\click-outside.directive.ts
 FN:37,(anonymous_0)
 FN:46,(anonymous_1)
 FN:50,(anonymous_2)
@@ -354,7 +354,7 @@ BRF:21
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\directives\copy-clipboard.directive.ts
+SF:..\projects\ngx-sp-infra\src\lib\directives\copy-clipboard.directive.ts
 FN:7,(anonymous_0)
 FN:13,(anonymous_1)
 FNF:2
@@ -374,7 +374,7 @@ BRF:1
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\directives\disable-control.directive.ts
+SF:..\projects\ngx-sp-infra\src\lib\directives\disable-control.directive.ts
 FN:12,(anonymous_0)
 FN:14,(anonymous_1)
 FNF:2
@@ -394,7 +394,7 @@ BRF:2
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\directives\highlight.directive.ts
+SF:..\projects\ngx-sp-infra\src\lib\directives\highlight.directive.ts
 FN:13,(anonymous_0)
 FN:15,(anonymous_1)
 FN:40,(anonymous_2)
@@ -431,7 +431,7 @@ BRF:6
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\directives\loading-btn.directive.ts
+SF:..\projects\ngx-sp-infra\src\lib\directives\loading-btn.directive.ts
 FN:27,(anonymous_0)
 FN:28,(anonymous_1)
 FN:43,(anonymous_2)
@@ -479,7 +479,7 @@ BRF:7
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\directives\required.directive.ts
+SF:..\projects\ngx-sp-infra\src\lib\directives\required.directive.ts
 FN:46,(anonymous_0)
 FN:56,(anonymous_1)
 FN:57,(anonymous_2)
@@ -535,7 +535,7 @@ BRF:11
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\directives\text-truncate.directive.ts
+SF:..\projects\ngx-sp-infra\src\lib\directives\text-truncate.directive.ts
 FN:12,(anonymous_0)
 FN:9,(anonymous_1)
 FN:31,(anonymous_2)
@@ -574,7 +574,7 @@ BRF:7
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\message\message-enum.ts
+SF:..\projects\ngx-sp-infra\src\lib\message\message-enum.ts
 FN:1,(anonymous_0)
 FN:12,(anonymous_1)
 FNF:2
@@ -609,7 +609,7 @@ BRF:4
 BRH:4
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\message\message.service.ts
+SF:..\projects\ngx-sp-infra\src\lib\message\message.service.ts
 FN:21,(anonymous_0)
 FN:24,(anonymous_1)
 FN:41,(anonymous_2)
@@ -682,7 +682,7 @@ BRF:6
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\message\alert\alert.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\message\alert\alert.component.ts
 FN:20,(anonymous_0)
 FN:26,(anonymous_1)
 FN:41,(anonymous_2)
@@ -716,7 +716,7 @@ BRF:2
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\message\confirm\confirm.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\message\confirm\confirm.component.ts
 FN:24,(anonymous_0)
 FN:26,(anonymous_1)
 FN:40,(anonymous_2)
@@ -753,7 +753,7 @@ BRF:2
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\message\confirm-modal\confirm-modal.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\message\confirm-modal\confirm-modal.component.ts
 FN:13,(anonymous_0)
 FN:53,(anonymous_1)
 FN:70,(anonymous_2)
@@ -785,7 +785,7 @@ BRF:3
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\message\save\save.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\message\save\save.component.ts
 FN:26,(anonymous_0)
 FN:28,(anonymous_1)
 FN:32,(anonymous_2)
@@ -816,7 +816,7 @@ BRF:1
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\models\config-senha\7Db\InfraSegConfig.record.ts
+SF:..\projects\ngx-sp-infra\src\lib\models\config-senha\7Db\InfraSegConfig.record.ts
 FN:1,(anonymous_0)
 FNF:1
 FNH:0
@@ -839,7 +839,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\models\filters\basic-filters.ts
+SF:..\projects\ngx-sp-infra\src\lib\models\filters\basic-filters.ts
 FN:1,(anonymous_0)
 FNF:1
 FNH:0
@@ -852,7 +852,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\models\icons\icon.model.ts
+SF:..\projects\ngx-sp-infra\src\lib\models\icons\icon.model.ts
 FN:17,(anonymous_0)
 FN:31,(anonymous_1)
 FN:2474,(anonymous_2)
@@ -895,7 +895,7 @@ BRF:10
 BRH:5
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\pipes\cpf-cnpj.pipe.ts
+SF:..\projects\ngx-sp-infra\src\lib\pipes\cpf-cnpj.pipe.ts
 FN:9,(anonymous_0)
 FNF:1
 FNH:0
@@ -914,7 +914,7 @@ BRF:3
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\pipes\currency.pipe.ts
+SF:..\projects\ngx-sp-infra\src\lib\pipes\currency.pipe.ts
 FN:9,(anonymous_0)
 FNF:1
 FNH:0
@@ -927,7 +927,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\pipes\decimal-comma.pipe.ts
+SF:..\projects\ngx-sp-infra\src\lib\pipes\decimal-comma.pipe.ts
 FN:9,(anonymous_0)
 FNF:1
 FNH:0
@@ -943,7 +943,7 @@ BRF:2
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\pipes\filter-multiple-choice.pipe.ts
+SF:..\projects\ngx-sp-infra\src\lib\pipes\filter-multiple-choice.pipe.ts
 FN:10,(anonymous_0)
 FN:11,(anonymous_1)
 FNF:2
@@ -958,7 +958,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\pipes\format-by-type.pipe.ts
+SF:..\projects\ngx-sp-infra\src\lib\pipes\format-by-type.pipe.ts
 FN:10,(anonymous_0)
 FN:35,(anonymous_1)
 FN:40,(anonymous_2)
@@ -1013,7 +1013,7 @@ BRF:21
 BRH:9
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\pipes\order-sort.pipe.ts
+SF:..\projects\ngx-sp-infra\src\lib\pipes\order-sort.pipe.ts
 FN:9,(anonymous_0)
 FN:14,(anonymous_1)
 FNF:2
@@ -1031,7 +1031,7 @@ BRF:1
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\pipes\phone-format.pipe.ts
+SF:..\projects\ngx-sp-infra\src\lib\pipes\phone-format.pipe.ts
 FN:9,(anonymous_0)
 FNF:1
 FNH:0
@@ -1050,7 +1050,7 @@ BRF:1
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\pipes\text-filter.pipe.ts
+SF:..\projects\ngx-sp-infra\src\lib\pipes\text-filter.pipe.ts
 FN:11,(anonymous_0)
 FN:14,(anonymous_1)
 FNF:2
@@ -1076,7 +1076,7 @@ BRF:10
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\pipes\title-case-pipe.pipe.ts
+SF:..\projects\ngx-sp-infra\src\lib\pipes\title-case-pipe.pipe.ts
 FN:9,(anonymous_0)
 FNF:1
 FNH:0
@@ -1091,7 +1091,7 @@ BRF:1
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\pipes\to-url.pipe.ts
+SF:..\projects\ngx-sp-infra\src\lib\pipes\to-url.pipe.ts
 FN:16,(anonymous_0)
 FN:20,(anonymous_1)
 FNF:2
@@ -1112,7 +1112,7 @@ BRF:1
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\service\configuracao-senha.service.ts
+SF:..\projects\ngx-sp-infra\src\lib\service\configuracao-senha.service.ts
 FN:30,(anonymous_0)
 FN:39,(anonymous_1)
 FN:48,(anonymous_2)
@@ -1156,7 +1156,7 @@ BRF:4
 BRH:2
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\service\global-loading.service.ts
+SF:..\projects\ngx-sp-infra\src\lib\service\global-loading.service.ts
 FN:17,(anonymous_0)
 FN:30,(anonymous_1)
 FN:51,(anonymous_2)
@@ -1190,7 +1190,7 @@ BRF:3
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\service\tenant.service.ts
+SF:..\projects\ngx-sp-infra\src\lib\service\tenant.service.ts
 FN:25,(anonymous_0)
 FN:33,(anonymous_1)
 FNF:2
@@ -1213,7 +1213,7 @@ BRF:3
 BRH:2
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\utils\form-utils.ts
+SF:..\projects\ngx-sp-infra\src\lib\utils\form-utils.ts
 FN:10,(anonymous_0)
 FN:17,(anonymous_1)
 FN:22,(anonymous_2)
@@ -1285,7 +1285,7 @@ BRF:29
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\utils\utils.ts
+SF:..\projects\ngx-sp-infra\src\lib\utils\utils.ts
 FN:4,(anonymous_0)
 FN:58,(anonymous_1)
 FN:64,(anonymous_2)
@@ -1650,7 +1650,7 @@ BRF:91
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\applied-filters\applied-filters.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\applied-filters\applied-filters.component.ts
 FN:20,(anonymous_0)
 FN:27,(anonymous_1)
 FN:28,(anonymous_2)
@@ -1688,7 +1688,7 @@ BRF:3
 BRH:1
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\auditoria-button\auditoria-button.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\auditoria-button\auditoria-button.component.ts
 FN:15,(anonymous_0)
 FN:22,(anonymous_1)
 FN:26,(anonymous_2)
@@ -1727,7 +1727,7 @@ BRF:12
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\breadcrumb\infra-breadcrumb\infra-breadcrumb.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\breadcrumb\infra-breadcrumb\infra-breadcrumb.component.ts
 FN:33,(anonymous_0)
 FNF:1
 FNH:0
@@ -1739,7 +1739,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\breadcrumb\infra-breadcrumb-item\infra-breadcrumb-item.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\breadcrumb\infra-breadcrumb-item\infra-breadcrumb-item.component.ts
 FN:17,(anonymous_0)
 FN:19,(anonymous_1)
 FNF:2
@@ -1761,7 +1761,7 @@ BRF:2
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\breadcrumb\portalrh-breadcrumb\breadcrumb.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\breadcrumb\portalrh-breadcrumb\breadcrumb.component.ts
 FN:14,(anonymous_0)
 FN:16,(anonymous_1)
 FNF:2
@@ -1777,7 +1777,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\combobox\combobox.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\combobox\combobox.component.ts
 FN:134,(anonymous_0)
 FN:137,(anonymous_1)
 FN:143,(anonymous_2)
@@ -2184,7 +2184,7 @@ BRF:99
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\combobox-multiple-choice\combobox-multiple-choice.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\combobox-multiple-choice\combobox-multiple-choice.component.ts
 FN:16,(anonymous_0)
 FN:28,(anonymous_1)
 FN:28,(anonymous_2)
@@ -2219,7 +2219,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\combobox\pipes\filter-by.pipe.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\combobox\pipes\filter-by.pipe.ts
 FN:11,(anonymous_0)
 FN:16,(anonymous_1)
 FN:21,(anonymous_2)
@@ -2264,7 +2264,7 @@ BRF:13
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\combobox\pipes\limit-to.pipe.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\combobox\pipes\limit-to.pipe.ts
 FN:8,(anonymous_0)
 FNF:1
 FNH:0
@@ -2283,7 +2283,7 @@ BRF:4
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\content-container\content-container.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\content-container\content-container.component.ts
 FN:34,(anonymous_0)
 FN:35,(anonymous_1)
 FN:51,(anonymous_2)
@@ -2382,7 +2382,7 @@ BRF:29
 BRH:6
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\custom-acordion\custom-acordion.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\custom-acordion\custom-acordion.component.ts
 FN:48,(anonymous_0)
 FN:50,(anonymous_1)
 FN:60,(anonymous_2)
@@ -2413,7 +2413,7 @@ BRF:4
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\dropdown-options\dropdown-options.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\dropdown-options\dropdown-options.component.ts
 FN:13,(anonymous_0)
 FN:24,(anonymous_1)
 FN:30,(anonymous_2)
@@ -2451,7 +2451,7 @@ BRF:7
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\dynamic-input\dynamic-input.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\dynamic-input\dynamic-input.component.ts
 FN:16,(anonymous_0)
 FN:40,(anonymous_1)
 FNF:2
@@ -2471,7 +2471,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\field-contador-message\field-contador-message.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\field-contador-message\field-contador-message.component.ts
 FN:10,(anonymous_0)
 FN:19,(anonymous_1)
 FN:25,(anonymous_2)
@@ -2515,7 +2515,7 @@ BRF:9
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\field-control-error\field-control-error.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\field-control-error\field-control-error.component.ts
 FN:15,(anonymous_0)
 FN:17,(anonymous_1)
 FNF:2
@@ -2531,7 +2531,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\field-error-message\field-error-message.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\field-error-message\field-error-message.component.ts
 FN:18,(anonymous_0)
 FN:24,(anonymous_1)
 FN:37,(anonymous_2)
@@ -2558,7 +2558,7 @@ BRF:4
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\generic-modal\generic-modal.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\generic-modal\generic-modal.component.ts
 FN:10,(anonymous_0)
 FNF:1
 FNH:0
@@ -2571,7 +2571,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\input-trim\input-trim.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\input-trim\input-trim.component.ts
 FN:13,(anonymous_0)
 FN:19,(anonymous_1)
 FN:24,(anonymous_2)
@@ -2594,7 +2594,7 @@ BRF:1
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\lib-combobox\lib-combobox.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\lib-combobox\lib-combobox.component.ts
 FN:69,(anonymous_0)
 FN:70,(anonymous_1)
 FN:107,(anonymous_2)
@@ -2818,7 +2818,7 @@ BRF:58
 BRH:10
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\lib-date-range-picker\lib-date-range-picker.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\lib-date-range-picker\lib-date-range-picker.component.ts
 FN:50,(anonymous_0)
 FN:53,(anonymous_1)
 FN:56,(anonymous_2)
@@ -3159,7 +3159,7 @@ BRF:84
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\lib-header\lib-header.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\lib-header\lib-header.component.ts
 FN:115,(anonymous_0)
 FN:117,(anonymous_1)
 FN:125,(anonymous_2)
@@ -3226,7 +3226,7 @@ BRF:14
 BRH:1
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\lib-icons\lib-icons.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\lib-icons\lib-icons.component.ts
 FN:41,(anonymous_0)
 FN:42,(anonymous_1)
 FN:66,(anonymous_2)
@@ -3343,7 +3343,7 @@ BRF:37
 BRH:7
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\lib-nav-produtos\lib-nav-produtos.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\lib-nav-produtos\lib-nav-produtos.component.ts
 FN:5,(anonymous_0)
 FN:10,(anonymous_1)
 FN:87,(anonymous_2)
@@ -3403,7 +3403,7 @@ BRF:11
 BRH:7
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\lib-transfer-list\lib-transfer-list.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\lib-transfer-list\lib-transfer-list.component.ts
 FN:52,(anonymous_0)
 FN:53,(anonymous_1)
 FN:55,(anonymous_2)
@@ -3515,7 +3515,7 @@ BRF:21
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\lib-transfer-list\inner-list\inner-list.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\lib-transfer-list\inner-list\inner-list.component.ts
 FN:54,(anonymous_0)
 FN:55,(anonymous_1)
 FN:83,(anonymous_2)
@@ -3664,7 +3664,7 @@ BRF:29
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\loading\loading.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\loading\loading.component.ts
 FN:11,(anonymous_0)
 FNF:1
 FNH:0
@@ -3676,7 +3676,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\loading-button\loading-button.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\loading-button\loading-button.component.ts
 FN:18,(anonymous_0)
 FNF:1
 FNH:0
@@ -3688,7 +3688,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\loading-screen\loading-screen.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\loading-screen\loading-screen.component.ts
 FN:41,(anonymous_0)
 FN:56,(anonymous_1)
 FNF:2
@@ -3707,7 +3707,7 @@ BRF:1
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\nav-produtos\nav-produtos.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\nav-produtos\nav-produtos.component.ts
 FN:31,(anonymous_0)
 FN:33,(anonymous_1)
 FNF:2
@@ -3725,7 +3725,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\ordering\ordering.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\ordering\ordering.component.ts
 FN:29,(anonymous_0)
 FN:45,(anonymous_1)
 FN:49,(anonymous_2)
@@ -3759,7 +3759,7 @@ BRF:4
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\pagination\pagination.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\pagination\pagination.component.ts
 FN:13,(anonymous_0)
 FN:36,(anonymous_1)
 FN:48,(anonymous_2)
@@ -3801,7 +3801,7 @@ BRF:5
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\password-policy\password-policy.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\password-policy\password-policy.component.ts
 FN:29,(anonymous_0)
 FN:42,(anonymous_1)
 FNF:2
@@ -3831,7 +3831,7 @@ BRF:4
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\search-combobox\search-combobox.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\search-combobox\search-combobox.component.ts
 FN:74,(anonymous_0)
 FN:76,(anonymous_1)
 FN:79,(anonymous_2)
@@ -3964,7 +3964,7 @@ BRF:29
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\search-filters\search-filters.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\search-filters\search-filters.component.ts
 FN:16,(anonymous_0)
 FN:52,(anonymous_1)
 FN:66,(anonymous_2)
@@ -4004,7 +4004,7 @@ BRF:4
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\search-input\search-input.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\search-input\search-input.component.ts
 FN:23,(anonymous_0)
 FN:25,(anonymous_1)
 FN:29,(anonymous_2)
@@ -4089,7 +4089,7 @@ BRF:14
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\side-tabs-generic\side-tabs-generic.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\side-tabs-generic\side-tabs-generic.component.ts
 FN:22,(anonymous_0)
 FN:24,(anonymous_1)
 FN:43,(anonymous_2)
@@ -4114,7 +4114,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\simple-search\simple-search.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\simple-search\simple-search.component.ts
 FN:11,(anonymous_0)
 FN:13,(anonymous_1)
 FN:34,(anonymous_2)
@@ -4135,7 +4135,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\spinner\spinner.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\spinner\spinner.component.ts
 FN:58,(anonymous_0)
 FN:60,(anonymous_1)
 FN:68,(anonymous_2)
@@ -4170,7 +4170,7 @@ BRF:5
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\table\table.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\table\table.component.ts
 FN:71,(anonymous_0)
 FN:72,(anonymous_1)
 FN:122,(anonymous_2)
@@ -4392,7 +4392,7 @@ BRF:63
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\tree\tree.component.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\tree\tree.component.ts
 FN:16,(anonymous_0)
 FN:51,(anonymous_1)
 FN:27,(anonymous_2)
@@ -4484,7 +4484,7 @@ BRF:18
 BRH:0
 end_of_record
 TN:
-SF:projects\ngx-sp-infra\src\lib\widgets\tree\pipes\search-tree.pipe.ts
+SF:..\projects\ngx-sp-infra\src\lib\widgets\tree\pipes\search-tree.pipe.ts
 FN:11,(anonymous_0)
 FN:12,(anonymous_1)
 FNF:2
