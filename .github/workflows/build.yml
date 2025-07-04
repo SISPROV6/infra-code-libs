@@ -36,7 +36,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Análise com SonarCloud
-        uses: SonarSource/sonarcloud-github-action@v5
+        uses: SonarSource/sonarqube-scan-action@v5
         with:
           args: >
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}

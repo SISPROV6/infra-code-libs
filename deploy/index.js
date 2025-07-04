@@ -12,6 +12,20 @@ let respostaRemoteRepo = "";
 let respostaMensagemOpcional = "";
 
 
+// #region BUILD DO PROJETO
+
+function buildProject() {
+  try {
+    execSync(`ng build ${respostaProjeto} --configuration production`, { stdio: 'inherit' });
+  }
+  catch (error) {
+    console.error(chalk.red('\n❌ Erro ao realizar o build. Corrija e tente novamente:', error.message));
+    throw new Error("\n❌ Erro ao realizar o build. Corrija e tente novamente:", error.message);
+  }
+}
+
+// #endregion BUILD DO PROJETO
+
 // #region ATUALIZAR VERSÃO DO PROJETO
 
 const handleTag = () => {
@@ -59,7 +73,7 @@ function updateVersion() {
 function executarTestes() {
   if (respostaIsExecutaTestes) {
     try {
-      execSync('ng test --watch=false --browsers=ChromeHeadless', { stdio: 'inherit' });
+      execSync(`ng test ${respostaProjeto} --watch=false --browsers=ChromeHeadless`, { stdio: 'inherit' });
       console.log(chalk.green('\n✅ Todos os testes passaram com sucesso!\n'));
     }
     catch (error) {
@@ -207,6 +221,10 @@ async function main() {
         if (!confirma.confirmaDeploy) throw new Error("\n❌ Processo cancelado pelo usuário.");
 
         console.log(chalk.yellow('\n🎲 Iniciando processo...\n'));
+
+        // Realiza o build do projeto
+        console.log(chalk.yellow('\n📦 Buildando projeto...'));
+        buildProject();
 
         // Atualiza versão do projeto com ou sem tags
         console.log(chalk.yellow('\n🔄 Atualizando versão...'));
