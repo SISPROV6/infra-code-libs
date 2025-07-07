@@ -4,7 +4,6 @@
    color: #212529 !important;
    background-color: #fff;
    border-radius: 8px;
-   border: 1px solid #C4C4C4 !important;
 
    width: 100% !important;
 }
@@ -28,9 +27,9 @@
    }
    .nav-link.active {
       color: #3767b2 !important;
-      border-top: 1px solid #C4C4C4 !important;
-      border-left: 1px solid #C4C4C4 !important;
-      border-right: 1px solid #C4C4C4 !important;
+      border-top: transparent;
+      border-left: transparent;
+      border-right: transparent;
    }
 
    .nav-item { z-index: 1 !important; }
