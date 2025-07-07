@@ -454,39 +454,52 @@ export class Utils {
 
 
   // #region ORDENAÇÃO
+
+  // Pré‑compilando regex e collator
+  private static readonly SPLIT_REGEX = /(\d+|\D+)/g;
+  private static readonly PT_BR_COLLATOR = new Intl.Collator('pt', {
+    numeric: true,
+    sensitivity: 'base'
+  });
+
   public static alphanumericSort(a: string | number, b: string | number): number;
   public static alphanumericSort(a: string | number, b: string | number, direction: 'asc' | 'desc'): number;
 
   /** Método de ordenação alfanumérico com possibilidade de direção */
   public static alphanumericSort(a: string | number, b: string | number, direction: 'asc' | 'desc' = 'asc'): number {
-    const regex = /(\d+|\D+)/g;
+    const dir = direction === 'asc' ? 1 : -1;
 
-    const stringA = this.propertyIsNullUndefinedOrEmpty(a) ? "" : a;
-    const stringB = this.propertyIsNullUndefinedOrEmpty(b) ? "" : b;
+    // Trata null/undefined de forma unificada
+    const strA = a == null ? '' : String(a);
+    const strB = b == null ? '' : String(b);
 
-    const aParts = stringA.toString().match(regex) || [];
-    const bParts = stringB.toString().match(regex) || [];
+    // Corrigido para avaliação do Sonar
+    const partsA = this.SPLIT_REGEX.exec(strA) || [];
+    const partsB = this.SPLIT_REGEX.exec(strB) || [];
+    const len = Math.max(partsA.length, partsB.length);
 
-    const length = Math.max(aParts.length, bParts.length);
+    for (let i = 0; i < len; i++) {
+      const pa = partsA[i] || '';
+      const pb = partsB[i] || '';
 
-    for (let i = 0; i < length; i++) {
-      const aPart = aParts[i] || "";
-      const bPart = bParts[i] || "";
+      const na = Number(pa);
+      const nb = Number(pb);
+      const aIsNum = !isNaN(na);
+      const bIsNum = !isNaN(nb);
 
-      const aIsNumber = !isNaN(Number(aPart));
-      const bIsNumber = !isNaN(Number(bPart));
-
-      if (aIsNumber && bIsNumber) {
-        const numCompare = Number(aPart) - Number(bPart);
-        if (numCompare !== 0) return direction === 'asc' ? numCompare : -numCompare;
-      } else if (aIsNumber) {
-        return direction === 'asc' ? -1 : 1;
-      } else if (bIsNumber) {
-        return direction === 'asc' ? 1 : -1;
-      } else {
-        const strCompare = aPart.localeCompare(bPart);
-        if (strCompare !== 0) return direction === 'asc' ? strCompare : -strCompare;
+      // Ambos números → subtração direta
+      if (aIsNum && bIsNum) {
+        if (na !== nb) return (na - nb) * dir;
+        continue;
       }
+
+      // Somente A é número → vai antes (ou depois, se desc)
+      if (aIsNum) return -1 * dir;
+      if (bIsNum) return 1 * dir;
+
+      // Ambos strings → locale…
+      const cmp = this.PT_BR_COLLATOR.compare(pa, pb);
+      if (cmp !== 0) return cmp * dir;
     }
 
     return 0;

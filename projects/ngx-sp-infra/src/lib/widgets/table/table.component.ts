@@ -309,9 +309,11 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
       // ERICK: Novo método de ordenação que abrange também números
       const attribute = this.currentSortColumn;
+      console.log(attribute);
+      
       recordsList.sort((a, b) => {
-        const propertyA = this.getProperty(a, attribute).toUpperCase();
-        const propertyB = this.getProperty(b, attribute).toUpperCase();
+        const propertyA = this.getProperty(a, attribute).toUpperCase(); // Puxa o nome da coluna que irá ordenar
+        const propertyB = this.getProperty(b, attribute).toUpperCase(); // Puxa o nome da coluna que irá ordenar
 
         return Utils.alphanumericSort(propertyA, propertyB, this.sortDirection[attribute])
       });

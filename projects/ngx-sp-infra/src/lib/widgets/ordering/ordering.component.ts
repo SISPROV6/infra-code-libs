@@ -1,38 +1,72 @@
-import { NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 
 @Component({
     selector: 'app-ordering, lib-ordering',
-    templateUrl: './ordering.component.html',
-    styleUrls: ['./ordering.component.scss'],
-    
-    imports: [NgIf, LibIconsComponent, TooltipModule]
+    imports: [ LibIconsComponent, TooltipModule ],
+    template: `
+      @switch (sortDirection) {
+        @case ('asc') {
+          <lib-icon tooltip="Crescente" class="glb-cursor-pointer"
+            iconName="seta-cima" iconColor="blue"
+            [iconSize]="20" (click)="emitSort()" />
+        }
+        @case ('desc') {
+          <lib-icon tooltip="Decrescente" class="glb-cursor-pointer"
+          iconName="seta-baixo" iconColor="blue"
+          [iconSize]="20" (click)="emitSort()" />
+        }
+        @default {
+          <lib-icon tooltip="Sem ordenação aplicada" class="glb-cursor-pointer"
+          iconName="cimabaixo" iconColor="gray"
+          [iconSize]="20" (click)="emitSort()" />
+        }
+      }
+    `,
+    styles: ``
 })
 export class OrderingComponent implements OnInit {
 
-  @Input() isColumnClicked: boolean = false;
-  // Direção atual da ordenação ('asc', 'desc' ou vazio)
+  // #region ==========> PROPERTIES <==========
+
+  // #region PRIVATE
+  // [...]
+  // #endregion PRIVATE
+
+  // #region PUBLIC
+  
+  /** Direção atual da ordenação ('asc', 'desc' ou vazio) */
   @Input() sortDirection: string = '';
 
-  // Atributos de ordenação
+  /** Atributos de ordenação */
   @Input() sortAttributes: string | string[] = [];
 
-  // Evento emitido quando a direção de ordenação é alterada
+  
+  /** Evento emitido quando a direção de ordenação é alterada */
   @Output() sortDirectionChange = new EventEmitter<string>();
 
-  // Evento emitido quando ocorre uma mudança na ordenação
+  /** Evento emitido quando ocorre uma mudança na ordenação */
   @Output() sortChange = new EventEmitter<{ direction: string, column: string | string[] }>();
 
-  // Função chamada quando o botão de ordenação é clicado
-  sort() {
+  // #endregion PUBLIC
+
+  // #endregion ==========> PROPERTIES <==========
+
+
+  constructor() {}
+
+  ngOnInit(): void {
+    this.sortDirection = '';
+  }
+
+
+  // #region ==========> UTILS <==========
+  
+  /** Chamada quando o botão de ordenação é clicado */
+  public emitSort(): void {
     // Inverte a direção de ordenação atual
-    if (this.sortDirection === 'asc') {
-      this.sortDirection = 'desc';
-    } else {
-      this.sortDirection = 'asc';
-    }
+    this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
 
     // Emite o evento com a nova direção de ordenação
     this.sortDirectionChange.emit(this.sortDirection);
@@ -41,15 +75,6 @@ export class OrderingComponent implements OnInit {
     this.sortChange.emit({ direction: this.sortDirection, column: this.sortAttributes });
   }
 
-  // Obtém a cor do ícone com base na direção de ordenação atual
-  getSvgColor(): string {
-    return this.sortDirection === 'asc' ? 'blue' : 'gray';
-  }
+  // #endregion ==========> UTILS <==========
 
-  constructor() {}
-
-  ngOnInit(): void {
-    // Define a direção de ordenação inicial como vazio
-    this.sortDirection = '';
-  }
 }
