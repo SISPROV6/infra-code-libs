@@ -473,8 +473,9 @@ export class Utils {
     const strA = a == null ? '' : String(a);
     const strB = b == null ? '' : String(b);
 
-    const partsA = strA.match(this.SPLIT_REGEX) || [];
-    const partsB = strB.match(this.SPLIT_REGEX) || [];
+    // Corrigido para avaliação do Sonar
+    const partsA = this.SPLIT_REGEX.exec(strA) || [];
+    const partsB = this.SPLIT_REGEX.exec(strB) || [];
     const len = Math.max(partsA.length, partsB.length);
 
     for (let i = 0; i < len; i++) {
