@@ -1,15 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, Renderer2, SimpleChanges, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { NgxPaginationModule } from 'ngx-pagination';
+
+import { cloneDeep } from 'lodash';
+
+import { TableHeaderStructure } from '../../models/table/header-structure.model';
 import { Utils } from '../../utils/utils';
 import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 import { OrderingComponent } from '../ordering/ordering.component';
-import { TableHeaderStructure } from './models/header-structure.model';
 
 /**
  * Componente de Tabela Customizável
@@ -37,7 +40,7 @@ import { TableHeaderStructure } from './models/header-structure.model';
     NgClass,
     NgxPaginationModule,
     NgTemplateOutlet
-  ]
+]
 })
 export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
@@ -134,6 +137,10 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
   /** Caso seja usado um ícone na coluna e a opção ```headers.icon.emitClick``` for true, ao clicar nela emite este evento que leva consigo o nome da coluna em questão. */
   @Output() public iconClick: EventEmitter<string> = new EventEmitter<string>();
+
+
+  /** Evento emitido quando as colunas são modificadas. */
+  @Output() public colunasModificadas: EventEmitter<TableHeaderStructure[]> = new EventEmitter<TableHeaderStructure[]>();
 
 
   /** Página atual da tabela. */
@@ -271,6 +278,12 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   public resetPagination(list: unknown[]): void {
     const startIndex = (this.page - 1) * this.itemsPerPage;
     if (list.length <= startIndex) this.page = 1;
+  }
+
+
+  public updateHeadersVisibility(headers: TableHeaderStructure[]): void {
+    this.headers = cloneDeep(headers);
+    this.colunasModificadas.emit(cloneDeep(headers));
   }
 
 	//#region Ordering, Sorting ou apenas Ordenação

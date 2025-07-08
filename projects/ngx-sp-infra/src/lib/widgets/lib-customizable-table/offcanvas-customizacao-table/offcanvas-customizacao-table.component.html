@@ -1,0 +1,73 @@
+<button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#customColunasCanvas" aria-controls="customColunasCanvas">
+  <lib-icon iconName="tabela-fixa" />
+  Colunas
+</button>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="customColunasCanvas" aria-labelledby="customColunasCanvasLabel">
+  <div class="offcanvas-header border-bottom">
+    <h5 class="offcanvas-title" id="customColunasCanvasLabel">Gerenciar colunas</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+
+  <div class="offcanvas-body h-100">
+    <div class="d-flex flex-column justify-content-between h-100">
+      <div class="pesquisa-colunas mb-3">
+        <input type="text" class="form-control" placeholder="Pesquise o nome da coluna" [(ngModel)]="colunasPesquisa" />
+        <div class="d-flex justify-content-between align-items-center">
+          <p class="text-primary fw-bold glb-cursor-pointer" (click)="toggleAllColunas(true)">Mostrar todas as colunas</p>
+          <p class="text-secondary fw-bold glb-cursor-pointer" (click)="toggleAllColunas(false)">Esconder todas as colunas</p>
+        </div>
+      </div>
+
+      <div class="colunas-lista h-100 mb-3">
+        <ul dndDropzone dndEffectAllowed="move" class="ps-0 dndList" [dndHorizontal]="false" (dndDrop)="onDrop($event, colunas)">
+
+          <li dndPlaceholderRef class="dndPlaceholder d-flex align-items-center justify-content-center mb-2 border border-1 border-dotted rounded p-1 text-secondary">
+            Largue aqui a coluna para reordenar
+          </li>
+
+          @for (coluna of colunas | colunasTextSearch: colunasPesquisa; track trackBy($index, coluna)) {
+            @if (coluna.name !== "") {
+              <li dndEffectAllowed="move" class="d-flex align-items-center justify-content-between mb-2 border rounded p-2"
+                dndEffectAllowed="move" [dndDraggable]="coluna" [dndDisableIf]="false"
+                  (dndStart)="onStart($index, colunas)" (dndEnd)="onEnd()" >
+                <span class="fw-bold">
+                  <lib-icon dndHandle iconName="p-drag-and-drop" iconColor="blue" class="cursor-grab" />
+                  {{ coluna.name }}
+                </span>
+  
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" [(ngModel)]="coluna.isVisible" />
+                </div>
+              </li>
+            }
+          }
+        </ul>
+
+        @if (colunaAcoes) {
+          <div class="d-flex align-items-center justify-content-between mb-2 border rounded p-2 mt-2" >
+            <span class="fw-bold"> Ações <i>(não customizável)</i> </span>
+
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" checked disabled />
+            </div>
+          </div>
+        }
+      </div>                     
+
+      <div class="offcanvas-footer">
+        <div class="d-flex justify-content-end align-items-center">
+          <!-- <button class="btn btn-outline-primary">
+            <lib-icon iconName="download" />
+            Exportar
+          </button> -->
+
+          <div class="d-flex align-items-center gap-3">
+            <button class="btn btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Cancel"> Cancelar </button>
+            <button class="btn btn-primary" (click)="applyChanges()"> Aplicar </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

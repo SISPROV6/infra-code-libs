@@ -47,6 +47,16 @@ export class TableHeaderStructure {
    * @example ```{ name: 'info', side: 'R', theme: 'primary', tooltip: 'Indica as datas de prazo do pedido', emitClick: true }```
    */
   public icon?: TableHeaderIcon;
+
+  /**
+   * Indica se a coluna está visível ou não.
+   * Usada principalmente na lógica de ocultar colunas dinamicamente.
+   * @default true
+   */
+  public isVisible?: boolean = true;
+
+  /** Informa a ordem de exibição das colunas. */
+  public order?: number = 0;
 }
 
 /** Propriedades de confirguração para ícones exibidos ao lado do texto de uma coluna da ```<lib-table>``` */

@@ -76,6 +76,7 @@ import { LibSpinnerComponent } from './widgets/spinner/spinner.component';
 import { LibConfigSenhaComponent } from './components/lib-config-senha/lib-config-senha.component';
 import { TextTruncateDirective } from './directives/text-truncate.directive';
 import { CurrencyPipe } from './pipes/currency.pipe';
+import { LibCustomizableTableComponent } from './widgets/lib-customizable-table/lib-customizable-table.component';
 import { LibDateRangePickerComponent } from './widgets/lib-date-range-picker/lib-date-range-picker.component';
 import { PasswordPolicyComponent } from './widgets/password-policy/password-policy.component';
 import { SearchInputComponent } from './widgets/search-input/search-input.component';
@@ -127,6 +128,7 @@ import { SearchInputComponent } from './widgets/search-input/search-input.compon
         ContentContainerComponent,
         CopyClipboardDirective,
         TableComponent,
+        LibCustomizableTableComponent,
         LibSpinnerComponent,
         LoadingBtnDirective,
         InputTrimComponent,
@@ -193,6 +195,7 @@ import { SearchInputComponent } from './widgets/search-input/search-input.compon
         ContentContainerComponent,
         CopyClipboardDirective,
         TableComponent,
+        LibCustomizableTableComponent,
         LibSpinnerComponent,
         LoadingBtnDirective,
         LibTransferListComponent,

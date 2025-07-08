@@ -12,7 +12,7 @@
                <span *ngIf="selectedCount && selectedCount > 0" class="ms-2 badge text-bg-primary">{{ selectedCount }} registros selecionados</span>
             </div>
 
-            <div class="col d-flex flex-row align-items-center justify-content-end">
+            <div class="col d-flex flex-row align-items-center justify-content-end gap-2">
                <ng-content select="[rightSideContent], [upperContent]"></ng-content>
             </div>
          </div>
@@ -24,7 +24,7 @@
 
       <!-- Container da tabela -->
       @switch (usePreviousStyle) {
-         
+
          @case (true) {
             <div class="table-list-old border-bottom-0 {{divBorderClass}}" [class.scrollable-wrapper]="scrollable" >
                <table class="table old border mb-0 {{tableBorderClass}}" [class.table-hover]="hoverable" >
@@ -38,33 +38,35 @@
                         </th>
 
                         @for (header of headers; track header.name) {
-                           <th class="align-middle text-dark-grey {{ header.customClasses }}
-                              {{ headersUseOldWidth ? header.col && header.col > 0 ? 'col-'+header.col : 'col' : header.widthClass }}
-                              {{ ($last && header.name === '') && scrollable ? 'fix' : '' }}"
-                              [style.width]="scrollable ? header.widthPixels ? header.widthPixels+'px' : 250+'px' : null"
-                              >
-
-                              @if (header.icon !== undefined) {
-                                 <lib-icon *ngIf="header.icon.side === 'L'" iconSize="small"
-                                    [iconName]="header.icon.name"
-                                    [iconColor]="header.icon.theme !== 'currentColor' && header.icon.theme ? header.icon.theme : 'currentColor'"
-                                    [tooltip]="header.icon.tooltip"
-                                    (click)="header.icon.emitClick ? iconClick.emit(header.name) : null"  />
-                                 {{ header.name }}
-                                 <lib-icon *ngIf="header.icon.side === 'R' || !header.icon.side" iconSize="small"
-                                    [iconName]="header.icon.name"
-                                    [iconColor]="header.icon.theme !== 'currentColor' && header.icon.theme ? header.icon.theme : 'currentColor'"
-                                    [tooltip]="header.icon.tooltip"
-                                    [class.cursor-pointer]="header.icon.emitClick"
-                                    (click)="header.icon.emitClick ? iconClick.emit(header.name) : null"  />
-                                 }
-                                 @else {
+                           @if (header.isVisible === undefined || header.isVisible === true) {
+                              <th class="align-middle text-dark-grey {{ header.customClasses }}
+                                 {{ headersUseOldWidth ? header.col && header.col > 0 ? 'col-'+header.col : 'col' : header.widthClass }}
+                                 {{ ($last && header.name === '') && scrollable ? 'fix' : '' }}"
+                                 [style.width]="scrollable ? header.widthPixels ? header.widthPixels+'px' : 250+'px' : null"
+                                 >
+   
+                                 @if (header.icon !== undefined) {
+                                    <lib-icon *ngIf="header.icon.side === 'L'" iconSize="small"
+                                       [iconName]="header.icon.name"
+                                       [iconColor]="header.icon.theme !== 'currentColor' && header.icon.theme ? header.icon.theme : 'currentColor'"
+                                       [tooltip]="header.icon.tooltip"
+                                       (click)="header.icon.emitClick ? iconClick.emit(header.name) : null"  />
                                     {{ header.name }}
-                                 }
-
-                              <app-ordering *ngIf="header.orderColumn" [(sortDirection)]="sortDirection[header.orderColumn]"
-                                 (sortChange)="onSortChange({ direction: $event.direction, column: header.orderColumn })"></app-ordering>
-                           </th>
+                                    <lib-icon *ngIf="header.icon.side === 'R' || !header.icon.side" iconSize="small"
+                                       [iconName]="header.icon.name"
+                                       [iconColor]="header.icon.theme !== 'currentColor' && header.icon.theme ? header.icon.theme : 'currentColor'"
+                                       [tooltip]="header.icon.tooltip"
+                                       [class.cursor-pointer]="header.icon.emitClick"
+                                       (click)="header.icon.emitClick ? iconClick.emit(header.name) : null"  />
+                                    }
+                                    @else {
+                                       {{ header.name }}
+                                    }
+   
+                                 <app-ordering *ngIf="header.orderColumn" [(sortDirection)]="sortDirection[header.orderColumn]"
+                                    (sortChange)="onSortChange({ direction: $event.direction, column: header.orderColumn })"></app-ordering>
+                              </th>
+                           }
                         }
                      </tr>
                   </thead>
@@ -132,33 +134,35 @@
                            </th>
 
                            @for (header of headers; track header.name) {
-                              <th scope="col" class="align-middle text-dark {{ header.customClasses }}
-                                 {{ headersUseOldWidth ? header.col && header.col > 0 ? 'col-'+header.col : 'col' : header.widthClass }}
-                                 {{ ($last && header.name === '') && scrollable ? 'fix' : '' }}"
-                                 [style.width]="scrollable ? header.widthPixels ? header.widthPixels+'px' : 250+'px' : null"
-                                 >
-
-                                 @if (header.icon !== undefined) {
-                                    <lib-icon *ngIf="header.icon.side === 'L'" iconSize="small"
-                                       [iconName]="header.icon.name"
-                                       [iconColor]="header.icon.theme !== 'currentColor' && header.icon.theme ? header.icon.theme : 'currentColor'"
-                                       [tooltip]="header.icon.tooltip"
-                                       (click)="header.icon.emitClick ? iconClick.emit(header.name) : null"  />
-                                    {{ header.name }}
-                                    <lib-icon *ngIf="header.icon.side === 'R' || !header.icon.side" iconSize="small"
-                                       [iconName]="header.icon.name"
-                                       [iconColor]="header.icon.theme !== 'currentColor' && header.icon.theme ? header.icon.theme : 'currentColor'"
-                                       [tooltip]="header.icon.tooltip"
-                                       [class.cursor-pointer]="header.icon.emitClick"
-                                       (click)="header.icon.emitClick ? iconClick.emit(header.name) : null"  />
-                                 }
-                                 @else {
-                                    {{ header.name }}
-                                 }
-
-                                 <app-ordering *ngIf="header.orderColumn" [(sortDirection)]="sortDirection[header.orderColumn]"
-                                    (sortChange)="onSortChange({ direction: $event.direction, column: header.orderColumn })"></app-ordering>
-                              </th>
+                              @if (header.isVisible === undefined || header.isVisible === true) {
+                                 <th scope="col" class="align-middle text-dark {{ header.customClasses }}
+                                    {{ headersUseOldWidth ? header.col && header.col > 0 ? 'col-'+header.col : 'col' : header.widthClass }}
+                                    {{ ($last && header.name === '') && scrollable ? 'fix' : '' }}"
+                                    [style.width]="scrollable ? header.widthPixels ? header.widthPixels+'px' : 250+'px' : null"
+                                    >
+   
+                                    @if (header.icon !== undefined) {
+                                       <lib-icon *ngIf="header.icon.side === 'L'" iconSize="small"
+                                          [iconName]="header.icon.name"
+                                          [iconColor]="header.icon.theme !== 'currentColor' && header.icon.theme ? header.icon.theme : 'currentColor'"
+                                          [tooltip]="header.icon.tooltip"
+                                          (click)="header.icon.emitClick ? iconClick.emit(header.name) : null"  />
+                                       {{ header.name }}
+                                       <lib-icon *ngIf="header.icon.side === 'R' || !header.icon.side" iconSize="small"
+                                          [iconName]="header.icon.name"
+                                          [iconColor]="header.icon.theme !== 'currentColor' && header.icon.theme ? header.icon.theme : 'currentColor'"
+                                          [tooltip]="header.icon.tooltip"
+                                          [class.cursor-pointer]="header.icon.emitClick"
+                                          (click)="header.icon.emitClick ? iconClick.emit(header.name) : null"  />
+                                    }
+                                    @else {
+                                       {{ header.name }}
+                                    }
+   
+                                    <app-ordering *ngIf="header.orderColumn" [(sortDirection)]="sortDirection[header.orderColumn]"
+                                       (sortChange)="onSortChange({ direction: $event.direction, column: header.orderColumn })"></app-ordering>
+                                 </th>
+                              }
                            }
                         </tr>
                      </thead>
