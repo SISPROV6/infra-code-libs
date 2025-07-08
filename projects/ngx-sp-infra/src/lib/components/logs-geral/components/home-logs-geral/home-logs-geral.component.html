@@ -1,0 +1,72 @@
+<!-- #region HEADER -->
+<lib-header [breadcrumbList]=" this.module == 'Corporativo' ? ['Corporativo', 'Log', 'Log Geral'] : ['Configuração ERP', 'Log', 'Log Geral' ]"
+ pageTitle="Log Geral" />
+<!-- #endregion HEADER -->
+
+<!-- #region Corpo -->
+<div class="glb-main-container p-3">
+
+  <!-- #region SEARCH AND FILTERS -->
+  <app-search-filters (_executeGetBySearch)="getLogsList($event.toString())"
+    (_EMIT_CLEAR_EXTRA_INPUT)="dateIni = null; dateFin = null; resetPagination(this.$logList)"
+    placeholder="Digite o ID, nome ou método do Log" class="d-flex col-12 mb-4" [useIsActive]="false">
+    <div class="d-flex col-4">
+      <div class="ms-3 input-group">
+        <lib-icon class="input-group-text" iconName="calendario" />
+        <input type="text" class="form-control" placeholder="Data Inicial" [(ngModel)]="dateIni"
+          onfocus="this.type='datetime-local'">
+      </div>
+      <div class="ms-2 input-group">
+        <lib-icon class="input-group-text" iconName="calendario" />
+        <input type="text" class="form-control" placeholder="Data Final" [(ngModel)]="dateFin"
+          onfocus="this.type='datetime-local'">
+      </div>
+    </div>
+  </app-search-filters>
+  <!-- #endregion SEARCH AND FILTERS -->
+<div class="mt-4">
+    <lib-table [list]="$logList" [counts]="[ 10,25,50 ]" paginationID="simpleTable" *ngIf="!isListLoading; else loading"
+    [headers]="[
+        { name: 'Id', widthClass: 'col-1', orderColumn:'Id' },
+        { name: 'Usuário', widthClass: 'col-3', orderColumn:'NomeUsuarioLogado' },
+        { name: 'Data/Hora ocorrência', widthClass: 'col-3', orderColumn:'DtHora' },
+        { name: 'Método Origem', widthClass: 'col-4', orderColumn:'MetodoOrigem' },
+        { name: '', widthClass: 'col-1', customClasses: 'text-end' }
+    ]"
+    (itemsPerPageChange)="itemsPerPage = $event"
+    (pageChange)="page = $event" >
+
+    @for (logs of $logList! | paginate: { id: 'simpleTable', itemsPerPage: itemsPerPage, currentPage: page }; track logs) {
+        <tr innerRows class="align-middle">
+            <td class="col-1 align-middle">{{ logs.Id }}</td>
+          <td class="col-3 align-middle">{{ logs.NomeUsuarioLogado }}</td>
+          <td class="col-3 align-middle">{{ logs.DtHora | date: "dd/MM/yyyy - hh:mm:ss" }}</td>
+          <td class="col-4 align-middle">{{ logs.MetodoOrigem }}</td>
+          <td class="acoes-column align-middle">
+            <a [routerLink]="['/logs-geral/detalhes', logs.Id]" target="_blank" (click)="setEstado();">
+              <lib-icon iconName="olho" tooltip="Visualizar" class="glb-cursor-pointer text-primary" [iconColor]="this.module == 'Corporativo' ? 'blue' : 'gray'" />
+            </a>
+          </td>
+        </tr>
+    }
+  </lib-table>
+
+</div>
+  <!-- #region TABLE -->
+
+  <!-- #endregion TABLE -->
+
+
+  <!-- #region SPINNER -->
+  <ng-template #loading>
+    <div class="d-flex justify-content-center">
+          <lib-spinner></lib-spinner>
+    </div>
+  </ng-template>
+  <!-- #endregion SPINNER -->
+
+  <!-- #region EMPTY LIST -->
+
+  <!-- #endregion EMPTY LIST -->
+
+</div>

@@ -1,0 +1,47 @@
+<lib-header [breadcrumbList]=" this.module == 'Corporativo' ? ['Corporativo', 'Log', 'Log Timer'] : ['Configuração ERP', 'Log', 'Log Timer' ]" pageTitle="Log #{{ logData.Id }}" >
+    <a customButton1 class="btn btn-primary" [routerLink]="['/logs-timer']" routerLinkActive="active">
+        <span class="fw-bold">Voltar</span>
+      </a>
+</lib-header>
+
+<div class="p-3 glb-main-container-tab">
+
+    <div class="col-12 p-2">
+        <label class="form-label">Usuário:</label>
+        <p>{{ logData.NomeUsuarioLogado }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <label class="form-label">Data/Hora ocorrência:</label>
+        <p>{{ logData.DtHora | date: "dd/MM/yyyy - HH:mm:ss" }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <label class="form-label">Data/Hora fim ocorrência:</label>
+        <p>{{ logData.DtHoraFim | date: "dd/MM/yyyy - HH:mm:ss" }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <label class="form-label">Módulo:</label>
+        <p>{{ logData.Modulo }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <label class="form-label">Nome do timer:</label>
+        <p>{{ logData.TimerOrigem }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <label class="form-label">Mensagem de erro:</label>
+        <p>{{ logData.MsgErro }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <div class="input-group">
+        <div class="form-check form-switch">
+            <label class="form-check-label" for="chkIsError" >Com erro</label>
+            <input class="form-check-input" [checked]="logData.Is_Error" disabled="false"
+                type="checkbox" role="switch" id="chkIsError">
+        </div>
+        <div class="ms-2 form-check form-switch">
+            <label class="form-check-label" for="chkIsSlow" >Lento</label>
+            <input class="form-check-input" [checked]="logData.Is_Slow" disabled="false"
+                type="checkbox" role="switch" id="chkIsSlow">
+        </div>
+      </div>
+    </div>
+</div>
