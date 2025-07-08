@@ -1,0 +1,127 @@
+<!-- #region HEADER -->
+<lib-header
+[breadcrumbList]=" this.module == 'Corporativo' ? ['Corporativo', 'Log', 'Log DataAccesss'] : ['Configuração ERP', 'Log', 'Log DataAccesss' ]"
+  pageTitle="Log DataAccess"
+/>
+<!-- #endregion HEADER -->
+
+<!-- #region Corpo -->
+<div class="glb-main-container p-3">
+  <!-- #region SEARCH AND FILTERS -->
+  <app-search-filters
+    (_executeGetBySearch)="getLogsList($event.toString())"
+    (_EMIT_CLEAR_EXTRA_INPUT)="
+      dateIni = null;
+      dateFin = null;
+      isError = true;
+      isSlow = false;
+      resetPagination(this.$logList)
+    "
+    placeholder="Digite o id, nome, método e tipo de conexão do Log"
+    class="d-flex col-12 mb-4"
+    [useIsActive]="false"
+  >
+    <div class="input-group ms-3 w-75">
+      <input class="form-control" type="datetime-local" [(ngModel)]="dateIni" />
+      <span class="input-group-text">Até</span>
+      <input class="form-control" type="datetime-local" [(ngModel)]="dateFin" />
+    </div>
+  </app-search-filters>
+
+  <!-- #endregion SEARCH AND FILTERS -->
+
+  <!-- #region TABLE -->
+  <div class="mt-4">
+    <lib-table
+      [list]="$logList"
+      [counts]="[5, 15, 25]"
+      paginationID="simpleTable"
+      *ngIf="!isListLoading; else loading"
+      [headers]="[
+        { name: 'Id', widthClass: 'col-1', orderColumn: 'Id' },
+        {
+          name: 'Usuário',
+          widthClass: 'col-3',
+          orderColumn: 'NomeUsuarioLogado'
+        },
+        {
+          name: 'Data/Hora ocorrência',
+          widthClass: 'col-3',
+          orderColumn: 'DtHora'
+        },
+        {
+          name: 'Método de origem',
+          widthClass: 'col-4',
+          orderColumn: 'MetodoOrigem'
+        },
+        { name: '', widthClass: 'col-1', customClasses: 'text-end' }
+      ]"
+      (itemsPerPageChange)="itemsPerPage = $event"
+      (pageChange)="page = $event"
+    >
+      <div upperContent>
+        <div class="d-flex">
+          <div class="form-check form-switch">
+            <label class="form-check-label" for="inputSearchDN">Erro</label>
+            <input
+              class="form-check-input"
+              [(ngModel)]="isError"
+              type="checkbox"
+              role="switch"
+              id="inputSearchDN"
+            />
+          </div>
+
+          <div class="form-check form-switch ms-3">
+            <label class="form-check-label" for="inputSearchDN">Lento</label>
+            <input
+              class="form-check-input"
+              [(ngModel)]="isSlow"
+              type="checkbox"
+              role="switch"
+              id="inputSearchDN"
+            />
+          </div>
+        </div>
+      </div>
+      @for (logs of $logList! | paginate: { id: 'simpleTable', itemsPerPage:
+      itemsPerPage, currentPage: page }; track logs) {
+      <tr innerRows class="align-middle">
+        <td class="col-1 align-middle">{{ logs.Id }}</td>
+        <td class="col-3 align-middle">{{ logs.NomeUsuarioLogado }}</td>
+        <td class="col-3 align-middle">
+          {{ logs.DtHora | date : "dd/MM/yyyy - HH:mm:ss" }}
+        </td>
+        <td class="col-4 align-middle">{{ logs.MetodoOrigem }}</td>
+        <td class="acoes-column align-middle">
+          <a
+            [routerLink]="['/logs-data-access/detalhes', logs.Id]"
+            target="_blank"
+            (click)="setEstado()"
+          >
+            <lib-icon
+              iconName="olho"
+              [iconColor]="this.module == 'Corporativo' ? 'blue' : 'gray'"
+              tooltip="Visualizar"
+              class="glb-cursor-pointer text-primary"
+            />
+          </a>
+        </td>
+      </tr>
+      }
+    </lib-table>
+  </div>
+
+  <!-- #endregion TABLE -->
+
+  <!-- #region SPINNER -->
+  <ng-template #loading>
+    <div class="d-flex justify-content-center">
+      <lib-spinner></lib-spinner>
+    </div>
+  </ng-template>
+  <!-- #endregion SPINNER -->
+
+  <!-- #region EMPTY LIST -->
+  <!-- #endregion EMPTY LIST -->
+</div>

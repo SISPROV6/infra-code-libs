@@ -1,0 +1,181 @@
+<!-- #region HEADER -->
+<lib-header
+  [breadcrumbList]=" this.module == 'Corporativo' ? ['Corporativo', 'Log', 'Log Timer'] : ['Configuração ERP', 'Log', 'Log Timer' ]"
+  pageTitle="Log Timer"
+/>
+<!-- #endregion HEADER -->
+
+<!-- #region Corpo -->
+<div class="glb-main-container p-3">
+  <!-- #region SEARCH AND FILTERS -->
+  <app-search-filters
+    (_executeGetBySearch)="getLogsList($event.toString())"
+    (_EMIT_CLEAR_EXTRA_INPUT)="
+      dateInicioIni = null;
+      dateInicioFin = null;
+      dateFinalIni = null;
+      dateFinalFin = null;
+      isError = true;
+      isSlow = false;
+      resetPagination(this.$logList)
+    "
+    placeholder="Digite o id, usuário, módulo ou nome do timer do Log"
+    class="d-flex col-12 mb-4"
+    [useIsActive]="false"
+  >
+  </app-search-filters>
+  <div class="row">
+    <div class="col-6">
+      <label class="form-label">Data/Hora ocorrência:</label>
+      <div class="input-group">
+        <input
+          class="form-control"
+          type="datetime-local"
+          [(ngModel)]="dateInicioIni"
+        />
+        <span class="input-group-text">Até</span>
+        <input
+          class="form-control"
+          type="datetime-local"
+          [(ngModel)]="dateInicioFin"
+        />
+      </div>
+    </div>
+    <div class="col-6">
+      <label class="form-label">Data/Hora final ocorrência:</label>
+      <div class="input-group">
+        <input
+          class="form-control"
+          type="datetime-local"
+          [(ngModel)]="dateFinalIni"
+        />
+        <span class="input-group-text">Até</span>
+        <input
+          class="form-control"
+          type="datetime-local"
+          [(ngModel)]="dateFinalFin"
+        />
+      </div>
+    </div>
+  </div>
+  <!-- <div class="ms-3 input-group">
+        <div class="form-check form-switch">
+            <label class="form-check-label" for="inputSearchDN" >Erro</label>
+            <input class="form-check-input" [(ngModel)]="isError"
+                type="checkbox" role="switch" id="inputSearchDN">
+        </div>
+      </div>
+      <div class="ms-2 input-group">
+        <div class="form-check form-switch">
+            <label class="form-check-label" for="inputSearchDN" >Lento</label>
+            <input class="form-check-input" [(ngModel)]="isSlow"
+                type="checkbox" role="switch" id="inputSearchDN">
+        </div>
+      </div> -->
+
+  <!-- #endregion SEARCH AND FILTERS -->
+
+  <!-- #region TABLE -->
+
+  <div class="mt-4">
+    <lib-table
+      [list]="$logList"
+      [counts]="[5, 15, 25]"
+      paginationID="simpleTable"
+      *ngIf="!isListLoading; else loading"
+      [headers]="[
+        { name: 'Id', widthClass: 'col-1', orderColumn: 'Id' },
+        {
+          name: 'Usuário',
+          widthClass: 'col-2',
+          orderColumn: 'NomeUsuarioLogado'
+        },
+        {
+          name: 'Data/Hora ocorrência',
+          widthClass: 'col-2',
+          orderColumn: 'DtHora'
+        },
+        {
+          name: 'Data/Hora final ocorrência',
+          widthClass: 'col-3',
+          orderColumn: 'DtHoraFim'
+        },
+        { name: 'Módulo', widthClass: 'col-1', orderColumn: 'Modulo' },
+        {
+          name: 'Nome do Timer',
+          widthClass: 'col-2',
+          orderColumn: 'TimerOrigem'
+        },
+        { name: '', widthClass: 'col-1', customClasses: 'text-end' }
+      ]"
+      (itemsPerPageChange)="itemsPerPage = $event"
+      (pageChange)="page = $event"
+    >
+      <div upperContent class="d-flex">
+        <div class="ms-3 input-group">
+          <div class="form-check form-switch">
+            <label class="form-check-label" for="inputSearchDN">Erro</label>
+            <input
+              class="form-check-input"
+              [(ngModel)]="isError"
+              type="checkbox"
+              role="switch"
+              id="inputSearchDN"
+            />
+          </div>
+        </div>
+        <div class="ms-2 input-group">
+          <div class="form-check form-switch">
+            <label class="form-check-label" for="inputSearchDN">Lento</label>
+            <input
+              class="form-check-input"
+              [(ngModel)]="isSlow"
+              type="checkbox"
+              role="switch"
+              id="inputSearchDN"
+            />
+          </div>
+        </div>
+      </div>
+      @for (logs of $logList! | paginate: { id: 'simpleTable', itemsPerPage:
+      itemsPerPage, currentPage: page }; track logs) {
+      <tr innerRows class="align-middle">
+        <td class="align-middle">{{ logs.Id }}</td>
+        <td class="align-middle">{{ logs.NomeUsuarioLogado }}</td>
+        <td class="align-middle">
+          {{ logs.DtHora | date : "dd/MM/yyyy - HH:mm:ss" }}
+        </td>
+        <td class="align-middle">
+          {{ logs.DtHoraFim | date : "dd/MM/yyyy - HH:mm:ss" }}
+        </td>
+        <td class="align-middle">{{ logs.Modulo }}</td>
+        <td class="align-middle">{{ logs.TimerOrigem }}</td>
+        <td class="acoes-column align-middle">
+          <a
+            [routerLink]="['/logs-timer/detalhes', logs.Id]"
+            target="_blank"
+            (click)="setEstado()"
+          >
+            <lib-icon
+              iconName="olho"
+              tooltip="Visualizar"
+              [iconColor]="this.module == 'Corporativo' ? 'blue' : 'gray'"
+              class="glb-cursor-pointer text-primary"
+            />
+          </a>
+        </td>
+      </tr>
+      }
+    </lib-table>
+  </div>
+
+
+  <!-- #region SPINNER -->
+  <ng-template #loading>
+    <div class="d-flex justify-content-center">
+          <lib-spinner></lib-spinner>
+    </div>
+  </ng-template>
+  <!-- #endregion SPINNER -->
+
+</div>
