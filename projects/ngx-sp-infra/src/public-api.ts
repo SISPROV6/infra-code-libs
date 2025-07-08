@@ -48,9 +48,9 @@ export * from './lib/models/cep/endereco-by-cep';
 export * from './lib/models/cep/ret-cep';
 
 export * from './lib/models/filtros-aplicados/filtros-aplicados.model';
+export * from './lib/models/table/header-structure.model';
 export * from './lib/models/transfer-list/list-transfer-config.model';
 export * from './lib/widgets/lib-nav-produtos/models/navigation-options.model';
-export * from './lib/widgets/table/models/header-structure.model';
 
 export * from './lib/models/container/container-tabs.model';
 export * from './lib/models/queue-service/JobRequest';
@@ -136,6 +136,7 @@ export * from './lib/widgets/field-control-error/field-control-error.component';
 export * from './lib/widgets/field-error-message/field-error-message.component';
 export * from './lib/widgets/input-trim/input-trim.component';
 export * from './lib/widgets/lib-combobox/lib-combobox.component';
+export * from './lib/widgets/lib-customizable-table/lib-customizable-table.component';
 export * from './lib/widgets/lib-header/lib-header.component';
 export * from './lib/widgets/lib-icons/lib-icons.component';
 export * from './lib/widgets/loading-button/loading-button.component';
