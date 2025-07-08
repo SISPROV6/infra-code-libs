@@ -241,11 +241,11 @@ export class LibCustomizableTableComponent implements OnInit, AfterViewInit, OnC
 
   /** Valida os headers da tabela quanto ao uso correto de classes de largura */
   private validateHeaders(): void {
-    const headersUseCol: boolean = this.headers.every(header => header.widthClass?.includes('col'));
-    const headersUsePercent: boolean = this.headers.every(header => header.widthClass?.includes('w-'));
+    const headersUseCol: boolean = this.headers?.every(header => header.widthClass?.includes('col'));
+    const headersUsePercent: boolean = this.headers?.every(header => header.widthClass?.includes('w-'));
 
     if (!headersUseCol && !headersUsePercent) {
-      console.warn("Erro <lib-table>: A largura das colunas está em um formato inválido. Certifique-se que todas elas utilizam apenas 'col-' ou 'w-'. Não podem ser misturadas.");
+      console.warn("Erro <lib-table>: A largura das colunas está em um formato inválido. Certifique-se que todas elas utilizam 'col'/'col-[n]' ou 'w-[n]'.");
     }
   }
 

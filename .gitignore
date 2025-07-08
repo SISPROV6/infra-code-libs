@@ -5,5 +5,4 @@ dist/
 projects/ngx-sp-infra/node_modules/
 projects/ngx-sp-infra/.angular/
 
-# Temporariamente deixá-lo aqui (apenas nas branches de pkg-next e pkg-test)
-.github/workflows/node-package.yml
+**/coverage/
