@@ -1,0 +1,227 @@
+@if (list) {
+  <div class="table-list w-100 position-relative">
+
+    <!-- Trechos de texto acima da table -->
+    @if (showCounter) {
+      <div class="mb-2 d-flex align-items-center">
+        <div class="col-6">
+          <!-- Exibe o número de itens mostrados e o total de registros -->
+          <span> {{ itemsDisplayText }} </span>
+
+          <!-- Exibe a badge informando quantos registros foram selecionados -->
+          <span *ngIf="selectedCount && selectedCount > 0" class="ms-2 badge text-bg-primary">{{ selectedCount }} registros selecionados</span>
+        </div>
+
+        <div class="col d-flex flex-row align-items-center justify-content-end gap-2">
+          <ng-content select="[rightSideContent], [upperContent]"></ng-content>
+          <lib-offcanvas-customizacao-table [colunasVisiveis]="headers" (colunasModificadas)="updateHeadersVisibility($event)" />
+        </div>
+      </div>
+    }
+    @else {
+      <ng-content select="[upperContentFill]" class="mb-2"></ng-content>
+      <lib-offcanvas-customizacao-table [colunasVisiveis]="headers" (colunasModificadas)="updateHeadersVisibility($event)" />
+    }
+
+
+    <!-- Container da tabela -->
+    @if (usePreviousStyle) {
+      <div class="table-list-old border-bottom-0 {{divBorderClass}}" [class.scrollable-wrapper]="scrollable" >
+        <table class="table old border mb-0 {{tableBorderClass}}" [class.table-hover]="hoverable" >
+          <thead>
+            <tr>
+              <!-- Itera sobre a lista de cabeçalhos para criar as colunas -->
+              <th *ngIf="useSelection" style="width: 40px; padding: 12px !important;" [class.fix]="scrollable" >
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="tableCheckAll" [(ngModel)]="selection" (ngModelChange)="selectionChange.emit($event)">
+                </div>
+              </th>
+
+              @for (header of headers; track header.name) {
+                @if (header.isVisible !== false) {
+                  <th class="align-middle text-dark-grey {{ header.customClasses }} {{ header.widthClass }}
+                    {{ ($last && header.name === '') && scrollable ? 'fix' : '' }}"
+                    [style.width]="scrollable ? header.widthPixels ? header.widthPixels+'px' : 250+'px' : null" >
+
+                    @if (header.icon !== undefined) {
+                      <lib-icon *ngIf="header.icon.side === 'L'" iconSize="small"
+                        [iconName]="header.icon.name"
+                        [iconColor]="header.icon.theme !== 'currentColor' && header.icon.theme ? header.icon.theme : 'currentColor'"
+                        [tooltip]="header.icon.tooltip"
+                        (click)="header.icon.emitClick ? iconClick.emit(header.name) : null"
+                        (keyup.enter)="header.icon.emitClick ? iconClick.emit(header.name) : null" />
+                      {{ header.name }}
+                      <lib-icon *ngIf="header.icon.side === 'R' || !header.icon.side" iconSize="small"
+                        [iconName]="header.icon.name"
+                        [iconColor]="header.icon.theme !== 'currentColor' && header.icon.theme ? header.icon.theme : 'currentColor'"
+                        [tooltip]="header.icon.tooltip"
+                        [class.cursor-pointer]="header.icon.emitClick"
+                        (click)="header.icon.emitClick ? iconClick.emit(header.name) : null"
+                        (keyup.enter)="header.icon.emitClick ? iconClick.emit(header.name) : null" />
+                      }
+                      @else {
+                        {{ header.name }}
+                      }
+
+                    <lib-ordering *ngIf="header.orderColumn" [(sortDirection)]="sortDirection[header.orderColumn]"
+                      (sortChange)="onSortChange({ direction: $event.direction, column: header.orderColumn })" />
+                  </th>
+                }
+              }
+            </tr>
+          </thead>
+
+          <tbody class="bg-light fade-in-row">
+            @for (item of list | paginate: { id: paginationID, itemsPerPage: itemsPerPage, currentPage: page }; track $index) {
+              <tr>
+                @for (header of headers; let idxHeader = $index; track header.name) {
+                  <ng-container>
+                    @if (header.isVisible !== false) {
+
+                      @if (templates[header.name]) {
+                        <!-- Se existe template custom, usa ele -->
+                        <ng-container>
+                          <ng-container *ngTemplateOutlet="templates[header.name]!; context: { $implicit: item, coluna: header }"></ng-container>
+                        </ng-container>
+                      }
+                      @else {
+                        <!-- Caso não haja template custom, usa o valor genérico -->
+                        <ng-template #defaultCell>
+                          <td [ngClass]="header.customClasses">
+                            {{ item[idxHeader] }}
+                          </td>
+                        </ng-template>
+                      }
+
+                    }
+                  </ng-container>
+                }
+              </tr>
+            }
+            @empty {
+              <tr>
+                <td #emptyListTd class="align-middle text-center p-4 text-dark-grey"> {{ emptyListMessage ? emptyListMessage : "Não há dados para serem listados." }} </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+    @else {
+      <div class="table-list {{divBorderClass}}" [class.scrollable-wrapper]="scrollable" >
+        <div class="table-list-inner">
+          <table class="table new mb-0 {{tableBorderClass}}" [class.table-hover]="hoverable" style="table-layout: fixed;" >
+            <thead>
+              <tr>
+                <th *ngIf="useSelection" scope="col" style="width: 40px; padding: 12px;" [class.fix]="scrollable" >
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="tableCheckAll" [(ngModel)]="selection" (ngModelChange)="selectionChange.emit($event)">
+                  </div>
+                </th>
+
+                @for (header of headers; track header.name) {
+                  @if (header.isVisible === undefined || header.isVisible === true) {
+                    <th scope="col" class="align-middle text-dark {{ header.customClasses }} {{ header.widthClass }}
+                      {{ ($last && header.name === '') && scrollable ? 'fix' : '' }}"
+                      [style.width]="scrollable ? header.widthPixels ? header.widthPixels+'px' : 250+'px' : null" >
+
+                      @if (header.icon !== undefined) {
+                        <lib-icon *ngIf="header.icon.side === 'L'" iconSize="small"
+                          [iconName]="header.icon.name"
+                          [iconColor]="header.icon.theme !== 'currentColor' && header.icon.theme ? header.icon.theme : 'currentColor'"
+                          [tooltip]="header.icon.tooltip"
+                          (click)="header.icon.emitClick ? iconClick.emit(header.name) : null"  />
+                        {{ header.name }}
+                        <lib-icon *ngIf="header.icon.side === 'R' || !header.icon.side" iconSize="small"
+                          [iconName]="header.icon.name"
+                          [iconColor]="header.icon.theme !== 'currentColor' && header.icon.theme ? header.icon.theme : 'currentColor'"
+                          [tooltip]="header.icon.tooltip"
+                          [class.cursor-pointer]="header.icon.emitClick"
+                          (click)="header.icon.emitClick ? iconClick.emit(header.name) : null"  />
+                      }
+                      @else {
+                        {{ header.name }}
+                      }
+
+                      <lib-ordering *ngIf="header.orderColumn" [(sortDirection)]="sortDirection[header.orderColumn]"
+                        (sortChange)="onSortChange({ direction: $event.direction, column: header.orderColumn })" />
+                    </th>
+                  }
+                }
+              </tr>
+            </thead>
+
+            <tbody class="bg-light fade-in-row">
+              @for (item of list | paginate: { id: paginationID, itemsPerPage: itemsPerPage, currentPage: page }; track $index) {
+                <tr>
+                  @for (header of headers; let idxHeader = $index; track header.name) {
+                    <ng-container>
+                      @if (header.isVisible !== false) {
+
+                        @if (templates[header.name]) {
+                          <!-- Se existe template custom, usa ele -->
+                          <ng-container>
+                            <ng-container *ngTemplateOutlet="templates[header.name]!; context: { $implicit: item, coluna: header }"></ng-container>
+                          </ng-container>
+                        }
+                        @else {
+                          <!-- Caso não haja template custom, usa o valor genérico -->
+                          <ng-template #defaultCell>
+                            <td [ngClass]="header.customClasses">
+                              {{ item[idxHeader] }}
+                            </td>
+                          </ng-template>
+                        }
+
+                      }
+                    </ng-container>
+                  }
+                </tr>
+              }
+              @empty {
+                <tr>
+                  <td #emptyListTd class="align-middle text-center p-4 text-dark-grey"> {{ emptyListMessage ? emptyListMessage : "Não há dados para serem listados." }} </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+    </div>
+    }
+
+    <!-- #region PAGINAÇÃO -->
+    <div *ngIf="usePagination && list.length > 0" class="d-flex flex-wrap justify-content-end mt-2">
+        <div class="d-flex align-items-center me-2">
+          <label for="countSelect" class="me-2" style="white-space: nowrap;"> Itens por página </label>
+          <select id="countSelect" class="form-select select-search" (change)="onSelectChange($event)">
+          <option *ngFor="let count of counts; let i = index" [value]="count"
+            [selected]="counts ? (counts.length > 0 && i === 0) : false">{{ count }}</option>
+          </select>
+        </div>
+
+        <!-- Controle de paginação -->
+        <pagination-controls [id]="paginationID"
+          class="sp-pagination mt-3"
+          previousLabel="«&nbsp;&nbsp;&nbsp;"
+          nextLabel="&nbsp;&nbsp;&nbsp;»"
+          screenReaderPaginationLabel="Paginação"
+          screenReaderPageLabel="Página"
+          screenReaderCurrentLabel="Você está na página"
+          [maxSize]="5"
+          [responsive]="true"
+          (pageChange)="page = $event; pageChange.emit($event)"
+          (pageBoundsCorrection)="page = $event; emitPageBoundsCorrection($event)" >
+        </pagination-controls>
+    </div>
+    <!-- #endregion PAGINAÇÃO -->
+
+    <!-- Container da tabela -->
+      
+  </div>
+}
+@else {
+  <!-- Loader enquanto os registros são carregados -->
+  <div class="w-100 text-center p-3">
+    <div class="spinner-border" role="status"> <span class="visually-hidden">Carregando informações...</span> </div>
+  </div>
+}

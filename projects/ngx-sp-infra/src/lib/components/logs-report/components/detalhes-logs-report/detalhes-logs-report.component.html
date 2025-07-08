@@ -1,0 +1,73 @@
+<lib-header [breadcrumbList]=" this.module == 'Corporativo' ? ['Corporativo', 'Log', 'Log Report'] : ['Configuração ERP', 'Log', 'Log Report' ]" pageTitle="Log #{{ logData.Id }}" >
+    <a customButton1 class="btn btn-primary" [routerLink]="['/logs-report']" routerLinkActive="active">
+        <span class="fw-bold">Voltar</span>
+    </a>
+</lib-header>
+
+<div class="p-3 glb-main-container-tab">
+
+    <div class="col-12 p-2">
+        <label class="form-label">Usuário:</label>
+        <p>{{ logData.NomeUsuarioLogado }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <label class="form-label">Data/Hora ocorrência:</label>
+        <p>{{ logData.DtHora | date: "dd/MM/yyyy - HH:mm:ss" }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <label class="form-label">Módulo:</label>
+        <p>{{ logData.Modulo ? logData.Modulo : "-" }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <label class="form-label">Report Id:</label>
+        <p>{{ logData.ReportId }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <label class="form-label">Método de origem:</label>
+        <p>{{ logData.MetodoOrigem ? logData.MetodoOrigem : "-" }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <label class="form-label">Método de Processamento:</label>
+        <p>{{ logData.MetodoProc ? logData.MetodoProc : "-" }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <label class="form-label">Url:</label>
+        <p>{{ logData.URL ? logData.URL : "-" }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <label class="form-label">Erp:</label>
+        <p>{{ logData.Erp ? logData.Erp : "-" }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <label class="form-label">Produto:</label>
+        <p>{{ logData.Product ? logData.Product : "-" }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <label class="form-label">Report:</label>
+        <p>{{ logData.Report ? logData.Report : "-" }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <label class="form-label">Json:</label>
+        <p>{{ logData.Json ? logData.Json : "-" }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <label class="form-label">Job:</label>
+        <p>{{ logData.Job ? logData.Job : "-" }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <label class="form-label">DataSource:</label>
+        <p>{{ logData.DataSource ? logData.DataSource : "-" }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <label class="form-label">Mensagem de erro:</label>
+        <p>{{ logData.MsgErro ? logData.MsgErro : "-" }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <div class="input-group">
+        <div class="form-check form-switch">
+            <label class="form-check-label" for="chkIsError" >Com erro</label>
+            <input class="form-check-input" [checked]="logData.Is_Error" disabled="false"
+                type="checkbox" role="switch" id="chkIsError">
+        </div>
+    </div>
+</div>

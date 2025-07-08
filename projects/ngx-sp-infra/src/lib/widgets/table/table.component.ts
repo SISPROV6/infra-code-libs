@@ -1,15 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, Renderer2, SimpleChanges, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { NgxPaginationModule } from 'ngx-pagination';
+
+import { cloneDeep } from 'lodash';
+
+import { TableHeaderStructure } from '../../models/table/header-structure.model';
 import { Utils } from '../../utils/utils';
 import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 import { OrderingComponent } from '../ordering/ordering.component';
-import { TableHeaderStructure } from './models/header-structure.model';
 
 /**
  * Componente de Tabela Customizável
@@ -37,7 +40,7 @@ import { TableHeaderStructure } from './models/header-structure.model';
     NgClass,
     NgxPaginationModule,
     NgTemplateOutlet
-  ]
+]
 })
 export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
@@ -136,6 +139,10 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   @Output() public iconClick: EventEmitter<string> = new EventEmitter<string>();
 
 
+  /** Evento emitido quando as colunas são modificadas. */
+  @Output() public colunasModificadas: EventEmitter<TableHeaderStructure[]> = new EventEmitter<TableHeaderStructure[]>();
+
+
   /** Página atual da tabela. */
 	public get page(): number { return this._currentPage; }
 	public set page(value: number) { this._currentPage = value; }
@@ -181,8 +188,8 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
   // #region ==========> INICIALIZAÇÃO <==========
   constructor(
-    private cdr: ChangeDetectorRef,
-    private _renderer: Renderer2
+    private readonly _cdr: ChangeDetectorRef,
+    private readonly _renderer: Renderer2
   ) { }
 
   /** Inicializa o componente e define o número inicial de itens por página. */
@@ -192,14 +199,14 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngAfterViewInit(): void {
-    this.cdr.detectChanges();  // Forçar uma nova detecção após a renderização
+    this._cdr.detectChanges();  // Forçar uma nova detecção após a renderização
     this.updateColspanWidth();
   }
 
   /** Monitora as mudanças nas entradas do componente e realiza ajustes, como resetar a paginação ou validar o layout das colunas.
    * @param changes Objeto que contém as mudanças nas entradas do componente. */
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['list'] && changes['list'].currentValue) {
+    if (changes['list']?.currentValue) {
       this.resetPagination(this.list ?? []);
       this.updateCounterInfo();
       this.updateColspanWidth();
@@ -253,7 +260,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
       this._renderer.setAttribute(this.emptyListTD.nativeElement, 'colspan', this.colspanWidth);
     }
 
-    this.cdr.detectChanges();  // Forçar uma nova detecção após a atualização do colspan
+    this._cdr.detectChanges();  // Forçar uma nova detecção após a atualização do colspan
   }
 
 
@@ -273,6 +280,12 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
     if (list.length <= startIndex) this.page = 1;
   }
 
+
+  public updateHeadersVisibility(headers: TableHeaderStructure[]): void {
+    this.headers = cloneDeep(headers);
+    this.colunasModificadas.emit(cloneDeep(headers));
+  }
+
 	//#region Ordering, Sorting ou apenas Ordenação
 
 	/** Método que faz a ordenação dos contratos na tela de listagem, em cada uma das células do cabeçalho da tabela, onde cada um  
@@ -285,7 +298,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
 	// Função chamada quando ocorre uma mudança na ordenação
 	onSortChange(event: { direction: string, column: string }) {
-		const { direction, column } = event;
+		const { column } = event;
 
 		// Verifica se a coluna atualmente selecionada é a mesma da nova seleção
 		if (this.currentSortColumn === column) {
@@ -309,9 +322,11 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
       // ERICK: Novo método de ordenação que abrange também números
       const attribute = this.currentSortColumn;
+      console.log(attribute);
+      
       recordsList.sort((a, b) => {
-        const propertyA = this.getProperty(a, attribute).toUpperCase();
-        const propertyB = this.getProperty(b, attribute).toUpperCase();
+        const propertyA = this.getProperty(a, attribute).toUpperCase(); // Puxa o nome da coluna que irá ordenar
+        const propertyB = this.getProperty(b, attribute).toUpperCase(); // Puxa o nome da coluna que irá ordenar
 
         return Utils.alphanumericSort(propertyA, propertyB, this.sortDirection[attribute])
       });

@@ -44,7 +44,7 @@ module.exports = function (config) {
         lines: 50
       }
     },
-    browsers: ['ChromeHeadless'],
+    browsers: [ 'Chrome', 'ChromeHeadless' ],
     singleRun: true,
     restartOnFileChange: true,
     colors: true

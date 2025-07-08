@@ -48,15 +48,16 @@ export * from './lib/models/cep/endereco-by-cep';
 export * from './lib/models/cep/ret-cep';
 
 export * from './lib/models/filtros-aplicados/filtros-aplicados.model';
+export * from './lib/models/table/header-structure.model';
 export * from './lib/models/transfer-list/list-transfer-config.model';
 export * from './lib/widgets/lib-nav-produtos/models/navigation-options.model';
-export * from './lib/widgets/table/models/header-structure.model';
 
 export * from './lib/models/container/container-tabs.model';
 export * from './lib/models/queue-service/JobRequest';
 
 
 /** Pipes */
+export * from './lib/directives/a11y-click.directive';
 export * from './lib/pipes/cpf-cnpj.pipe';
 export * from './lib/pipes/currency.pipe';
 export * from './lib/pipes/decimal-comma.pipe';
@@ -109,8 +110,21 @@ export * from './lib/components/footer/footer.component';
 
 
 /** Components */
+export * from './lib/components/logs-api/components/detalhes-log-api/detalhes-log-api.component';
+export * from './lib/components/logs-api/components/home-log-api/home-log-api.component';
+export * from './lib/components/logs-data-access/components/detalhes-log-data-access/detalhes-log-data-access.component';
+export * from './lib/components/logs-data-access/components/home-log-data-access/home-log-data-access.component';
+export * from './lib/components/logs-email/components/detalhes-log-email/detalhes-log-email.component';
+export * from './lib/components/logs-email/components/home-log-email/home-log-email.component';
+export * from './lib/components/logs-geral/components/detalhes-logs-geral/detalhes-logs-geral.component';
+export * from './lib/components/logs-geral/components/home-logs-geral/home-logs-geral.component';
+export * from './lib/components/logs-report/components/detalhes-logs-report/detalhes-logs-report.component';
+export * from './lib/components/logs-report/components/home-logs-report/home-logs-report.component';
+export * from './lib/components/logs-timer/components/detalhes-log-timer/detalhes-log-timer.component';
+export * from './lib/components/logs-timer/components/home-log-timer/home-log-timer.component';
+export * from './lib/components/logs-ws/components/detalhes-log-ws/detalhes-log-ws.component';
+export * from './lib/components/logs-ws/components/home-log-ws/home-logs-ws.component';
 export * from './lib/components/page-not-authorized/page-not-authorized.component';
-
 
 /** Widgets */
 export * from './lib/directives/click-outside.directive';
@@ -123,6 +137,7 @@ export * from './lib/widgets/field-control-error/field-control-error.component';
 export * from './lib/widgets/field-error-message/field-error-message.component';
 export * from './lib/widgets/input-trim/input-trim.component';
 export * from './lib/widgets/lib-combobox/lib-combobox.component';
+export * from './lib/widgets/lib-customizable-table/lib-customizable-table.component';
 export * from './lib/widgets/lib-header/lib-header.component';
 export * from './lib/widgets/lib-icons/lib-icons.component';
 export * from './lib/widgets/loading-button/loading-button.component';
