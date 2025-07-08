@@ -78,7 +78,7 @@ export class OffcanvasCustomizacaoTableComponent implements OnInit {
 
   // #region ==========> UTILS <==========
   public toggleAllColunas(visivel: boolean): void {
-    this.colunas.map(coluna => coluna.isVisible = visivel);
+    this.colunas.forEach(coluna => coluna.isVisible = visivel);
   }
 
   public applyChanges(): void {

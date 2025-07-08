@@ -188,7 +188,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
   // #region ==========> INICIALIZAÇÃO <==========
   constructor(
-    private cdr: ChangeDetectorRef,
+    private readonly _cdr: ChangeDetectorRef,
     private _renderer: Renderer2
   ) { }
 
@@ -199,7 +199,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngAfterViewInit(): void {
-    this.cdr.detectChanges();  // Forçar uma nova detecção após a renderização
+    this._cdr.detectChanges();  // Forçar uma nova detecção após a renderização
     this.updateColspanWidth();
   }
 
@@ -260,7 +260,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
       this._renderer.setAttribute(this.emptyListTD.nativeElement, 'colspan', this.colspanWidth);
     }
 
-    this.cdr.detectChanges();  // Forçar uma nova detecção após a atualização do colspan
+    this._cdr.detectChanges();  // Forçar uma nova detecção após a atualização do colspan
   }
 
 

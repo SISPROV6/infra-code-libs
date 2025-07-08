@@ -157,7 +157,7 @@ export class LibCustomizableTableComponent implements OnInit, AfterViewInit, OnC
 
   // #region ==========> INICIALIZAÇÃO <==========
   constructor(
-    private cdr: ChangeDetectorRef,
+    private readonly _cdr: ChangeDetectorRef,
     private _renderer: Renderer2
   ) { }
 
@@ -168,7 +168,7 @@ export class LibCustomizableTableComponent implements OnInit, AfterViewInit, OnC
   }
 
   ngAfterViewInit(): void {
-    this.cdr.detectChanges();  // Forçar uma nova detecção após a renderização
+    this._cdr.detectChanges();  // Forçar uma nova detecção após a renderização
     this.updateColspanWidth();
   }
 
@@ -236,7 +236,7 @@ export class LibCustomizableTableComponent implements OnInit, AfterViewInit, OnC
       this._renderer.setAttribute(this.emptyListTD.nativeElement, 'colspan', this.colspanWidth);
     }
 
-    this.cdr.detectChanges();
+    this._cdr.detectChanges();
   }
 
   /** Valida os headers da tabela quanto ao uso correto de classes de largura */

@@ -29,7 +29,6 @@ table.old {
 
 // #region VISUAL NOVO
 .table-list-inner {
-   // overflow: hidden;
    border-radius: 8px;
    border: 1px solid #eee;
 
@@ -70,7 +69,6 @@ table.old {
       .fix:last-child {
          right: 0;
          min-width: 200px !important;
-         // width: 300px !important;
       }
    }
 }

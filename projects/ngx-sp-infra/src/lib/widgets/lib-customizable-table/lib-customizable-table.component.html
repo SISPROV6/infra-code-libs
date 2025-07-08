@@ -48,14 +48,14 @@
                         [iconName]="header.icon.name"
                         [iconColor]="header.icon.theme !== 'currentColor' && header.icon.theme ? header.icon.theme : 'currentColor'"
                         [tooltip]="header.icon.tooltip"
-                        (click)="header.icon.emitClick ? iconClick.emit(header.name) : null"  />
+                        (click)="header.icon.emitClick ? iconClick.emit(header.name) : null" (keyup.enter)="null" />
                       {{ header.name }}
                       <lib-icon *ngIf="header.icon.side === 'R' || !header.icon.side" iconSize="small"
                         [iconName]="header.icon.name"
                         [iconColor]="header.icon.theme !== 'currentColor' && header.icon.theme ? header.icon.theme : 'currentColor'"
                         [tooltip]="header.icon.tooltip"
                         [class.cursor-pointer]="header.icon.emitClick"
-                        (click)="header.icon.emitClick ? iconClick.emit(header.name) : null"  />
+                        (click)="header.icon.emitClick ? iconClick.emit(header.name) : null" (keyup.enter)="null" />
                       }
                       @else {
                         {{ header.name }}
