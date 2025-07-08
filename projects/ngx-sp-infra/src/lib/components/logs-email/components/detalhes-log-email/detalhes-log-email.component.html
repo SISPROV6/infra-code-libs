@@ -1,0 +1,61 @@
+<lib-header [breadcrumbList]=" this.module == 'Corporativo' ? ['Corporativo', 'Log', 'Log Email'] : ['Configuração ERP', 'Log', 'Log Email' ]" pageTitle="Log #{{ logData.Id }}" >
+    <a customButton1 class="btn btn-primary" [routerLink]="['/logs-email']" routerLinkActive="active">
+        <span class="fw-bold">Voltar</span>
+    </a>
+</lib-header>
+
+<div class="p-3 glb-main-container-tab">
+
+    <div class="col-12 p-2">
+        <label class="form-label">Usuário:</label>
+        <p>{{ logData.NomeUsuarioLogado }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <label class="form-label">Data/Hora ocorrência:</label>
+        <p>{{ logData.DtHora | date: "dd/MM/yyyy - HH:mm:ss" }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <label class="form-label">Data/Hora fim ocorrência:</label>
+        <p>{{ logData.DtHoraFim | date: "dd/MM/yyyy - HH:mm:ss" }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <label class="form-label">Módulo:</label>
+        <p>{{ logData.Modulo ? logData.Modulo : "-" }}</p>
+    </div>
+    <div class="col-12 p-2" style="overflow: auto;">
+        <label class="form-label">Destinatário:</label>
+        <p>{{ logData.Destinatario }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <label class="form-label">CC:</label>
+        <p>{{ logData.CC ? logData.CC : "-" }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <label class="form-label">Assunto:</label>
+        <p>{{ logData.Assunto }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <label class="form-label">Email do Remetente:</label>
+        <p>{{ logData.EmailRemetente }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <label class="form-label">Nome do Remetente:</label>
+        <p>{{ logData.NomeRemetente }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <label class="form-label">Mensagem de erro:</label>
+        <p>{{ logData.MsgErro }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <label class="form-label">Quantidade de Anexos:</label>
+        <p>{{ logData.QtdAnexo }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <div class="input-group">
+        <div class="form-check form-switch">
+            <label class="form-check-label" for="chkIsError" >Com erro</label>
+            <input class="form-check-input" [checked]="logData.Is_Error" disabled="false"
+                type="checkbox" role="switch" id="chkIsError">
+        </div>
+    </div>
+</div>

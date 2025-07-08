@@ -1,0 +1,170 @@
+<!-- #region HEADER -->
+<lib-header
+[breadcrumbList]=" this.module == 'Corporativo' ? ['Corporativo', 'Log', 'Log Email'] : ['Configuração ERP', 'Log', 'Log Email' ]"
+  pageTitle="Log Email"
+/>
+<!-- #endregion HEADER -->
+
+<!-- #region Corpo -->
+<div class="glb-main-container p-3">
+  <!-- #region SEARCH AND FILTERS -->
+  <app-search-filters
+    (_executeGetBySearch)="getLogsList($event.toString())"
+    (_EMIT_CLEAR_EXTRA_INPUT)="
+      dateInicioIni = null;
+      dateInicioFin = null;
+      dateFinalIni = null;
+      dateFinalFin = null;
+      isError = true;
+      resetPagination(this.$logList)
+    "
+    placeholder="Digite o id, nome, módulo ou destinatário do Log"
+    class="d-flex col-12 mb-4"
+    [useIsActive]="false"
+  >
+
+  </app-search-filters>
+  <div class="row">
+    <div class="col-6">
+      <label class="form-label">Data/Hora ocorrência:</label>
+      <div class="input-group">
+        <input
+          class="form-control"
+          type="datetime-local"
+          [(ngModel)]="dateInicioIni"
+        />
+        <span class="input-group-text">Até</span>
+        <input
+          class="form-control"
+          type="datetime-local"
+          [(ngModel)]="dateInicioFin"
+        />
+      </div>
+    </div>
+    <div class="col-6">
+      <label class="form-label">Data/Hora final ocorrência:</label>
+      <div class="input-group">
+        <input
+          class="form-control"
+          type="datetime-local"
+          [(ngModel)]="dateFinalIni"
+        />
+        <span class="input-group-text">Até</span>
+        <input
+          class="form-control"
+          type="datetime-local"
+          [(ngModel)]="dateFinalFin"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- #endregion SEARCH AND FILTERS -->
+
+  <!-- #region TABLE -->
+  <div class="mt-4">
+    <lib-table
+      [list]="$logList"
+      [counts]="[10, 25, 50]"
+      paginationID="simpleTable"
+      *ngIf="!isListLoading; else loading"
+      [headers]="[
+        { name: 'Id', widthClass: 'col-1', orderColumn: 'Id' },
+        {
+          name: 'Usuário',
+          widthClass: 'col-1',
+          orderColumn: 'NomeUsuarioLogado'
+        },
+        {
+          name: 'Destinatário',
+          widthClass: 'col-2',
+          orderColumn: 'Destinatario'
+        },
+        {
+          name: 'Data/Hora ocorrência',
+          widthClass: 'col-2',
+          orderColumn: 'DtHora'
+        },
+        {
+          name: 'Data/Hora final ocorrência',
+          widthClass: 'col-3',
+          orderColumn: 'DtHoraFim'
+        },
+        { name: 'Módulo', widthClass: 'col-2', orderColumn: 'Modulo' },
+        { name: '', widthClass: 'col-1', customClasses: 'text-end' }
+      ]"
+      (itemsPerPageChange)="itemsPerPage = $event"
+      (pageChange)="page = $event"
+    >
+      <div upperContent>
+        <div class="d-flex">
+          <div class="form-check form-switch">
+            <label class="form-check-label" for="inputSearchDN">Erro</label>
+            <input
+              class="form-check-input"
+              [(ngModel)]="isError"
+              type="checkbox"
+              role="switch"
+              id="inputSearchDN"
+            />
+          </div>
+        </div>
+      </div>
+      @for (logs of $logList! | paginate: { id: 'simpleTable', itemsPerPage:
+      itemsPerPage, currentPage: page }; track logs) {
+      <tr innerRows class="align-middle">
+        <td class="col-1 align-middle">{{ logs.Id }}</td>
+        <td class="col-2 align-middle">{{ logs.NomeUsuarioLogado }}</td>
+        <td class="col-2 align-middle" style="overflow: hidden">
+          {{ logs.Destinatario }}
+        </td>
+        <td class="col-2 align-middle">
+          {{ logs.DtHora | date : "dd/MM/yyyy - HH:mm:ss" }}
+        </td>
+        <td class="col-2 align-middle">
+          {{ logs.DtHoraFim | date : "dd/MM/yyyy - HH:mm:ss" }}
+        </td>
+        <td class="col-2 align-middle">
+          {{ logs.Modulo ? logs.Modulo : "-" }}
+        </td>
+        <td class="acoes-column align-middle">
+          <a
+            [routerLink]="['/logs-email/detalhes', logs.Id]"
+            target="_blank"
+            (click)="setEstado()"
+          >
+            <lib-icon
+              iconName="olho"
+              [iconColor]="module == 'Corporativo' ? 'blue' : 'gray'"
+              tooltip="Visualizar"
+              class="glb-cursor-pointer text-primary"
+            />
+          </a>
+        </td>
+      </tr>
+      }
+    </lib-table>
+  </div>
+
+  <!-- #region SPINNER -->
+  <ng-template #loading>
+    <div class="d-flex justify-contentpcenter">
+      <lib-spinner></lib-spinner>
+    </div>
+  </ng-template>
+  <!-- #endregion SPINNER -->
+
+  <!-- #region EMPTY LIST -->
+  <ng-template #emptyList>
+    <tbody class="fade-in">
+      <tr>
+        <td colspan="12" class="align-middle">
+          <span class="fw-light fst-italic text-center">
+            Consulta não retornou registros...
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </ng-template>
+  <!-- #endregion EMPTY LIST -->
+</div>

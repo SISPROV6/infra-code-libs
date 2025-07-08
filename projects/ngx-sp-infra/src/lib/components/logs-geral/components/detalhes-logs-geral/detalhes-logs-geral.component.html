@@ -1,0 +1,30 @@
+
+<lib-header [breadcrumbList]=" this.module == 'Corporativo' ? ['Corporativo', 'Log', 'Log Geral'] : ['Configuração ERP', 'Log', 'Log Geral' ]" pageTitle="Log #{{ logData.Id }}" >
+    <a customButton1 class="btn btn-primary" [routerLink]="['/logs-geral']" routerLinkActive="active">
+        <span class="fw-bold">Voltar</span>
+    </a>
+</lib-header>
+
+<div class="p-3 glb-main-container-tab">
+
+    <div class="col-12 p-2">
+        <label class="form-label">Usuário:</label>
+        <p>{{ logData.NomeUsuarioLogado }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <label class="form-label">Data/Hora ocorrência:</label>
+        <p>{{ logData.DtHora | date: "dd/MM/yyyy - HH:mm:ss" }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <label class="form-label">Método de origem:</label>
+        <p>{{ logData.MetodoOrigem }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <label class="form-label">Mensagem de erro:</label>
+        <p>{{ logData.Msg }}</p>
+    </div>
+    <div class="col-12 p-2">
+        <label class="form-label">Stack Trace:</label>
+        <p>{{ logData.StackTrace ? logData.StackTrace : "-" }}</p>
+    </div>
+</div>

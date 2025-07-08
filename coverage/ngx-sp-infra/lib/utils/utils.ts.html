@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">0.99% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/198</span>
+                <span class='fraction'>2/202</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/91</span>
+                <span class='fraction'>0/82</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">1.04% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/189</span>
+                <span class='fraction'>2/191</span>
             </div>
         
             
@@ -587,7 +587,20 @@
 <a name='L522'></a><a href='#L522'>522</a>
 <a name='L523'></a><a href='#L523'>523</a>
 <a name='L524'></a><a href='#L524'>524</a>
-<a name='L525'></a><a href='#L525'>525</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L525'></a><a href='#L525'>525</a>
+<a name='L526'></a><a href='#L526'>526</a>
+<a name='L527'></a><a href='#L527'>527</a>
+<a name='L528'></a><a href='#L528'>528</a>
+<a name='L529'></a><a href='#L529'>529</a>
+<a name='L530'></a><a href='#L530'>530</a>
+<a name='L531'></a><a href='#L531'>531</a>
+<a name='L532'></a><a href='#L532'>532</a>
+<a name='L533'></a><a href='#L533'>533</a>
+<a name='L534'></a><a href='#L534'>534</a>
+<a name='L535'></a><a href='#L535'>535</a>
+<a name='L536'></a><a href='#L536'>536</a>
+<a name='L537'></a><a href='#L537'>537</a>
+<a name='L538'></a><a href='#L538'>538</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1045,23 +1058,29 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1069,13 +1088,20 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1567,39 +1593,52 @@
 &nbsp;
 &nbsp;
   // #region ORDENAÇÃO
+&nbsp;
+  // Pré‑compilando regex e collator
+  private static readonly SPLIT_REGEX = /(\d+|\D+)/g;
+  private static readonly PT_BR_COLLATOR = new Intl.Collator('pt', {
+    numeric: true,
+    sensitivity: 'base'
+  });
+&nbsp;
   public static alphanumericSort(a: string | number, b: string | number): number;
   public static alphanumericSort(a: string | number, b: string | number, direction: 'asc' | 'desc'): number;
 &nbsp;
   /** Método de ordenação alfanumérico com possibilidade de direção */
   public <span class="fstat-no" title="function not covered" >static </span>alphanumericSort(a: string | number, b: string | number, direction: 'asc' | 'desc' = <span class="branch-0 cbranch-no" title="branch not covered" >'asc')</span>: number {
-    const regex = <span class="cstat-no" title="statement not covered" >/(\d+|\D+)/g;</span>
+    const dir = <span class="cstat-no" title="statement not covered" >direction === 'asc' ? 1 : -1;</span>
 &nbsp;
-    const stringA = <span class="cstat-no" title="statement not covered" >this.propertyIsNullUndefinedOrEmpty(a) ? "" : a;</span>
-    const stringB = <span class="cstat-no" title="statement not covered" >this.propertyIsNullUndefinedOrEmpty(b) ? "" : b;</span>
+    // Trata null/undefined de forma unificada
+    const strA = <span class="cstat-no" title="statement not covered" >a == null ? '' : String(a);</span>
+    const strB = <span class="cstat-no" title="statement not covered" >b == null ? '' : String(b);</span>
 &nbsp;
-    const aParts = <span class="cstat-no" title="statement not covered" >stringA.toString().match(regex) || [];</span>
-    const bParts = <span class="cstat-no" title="statement not covered" >stringB.toString().match(regex) || [];</span>
+    // Corrigido para avaliação do Sonar
+    const partsA = <span class="cstat-no" title="statement not covered" >this.SPLIT_REGEX.exec(strA) || [];</span>
+    const partsB = <span class="cstat-no" title="statement not covered" >this.SPLIT_REGEX.exec(strB) || [];</span>
+    const len = <span class="cstat-no" title="statement not covered" >Math.max(partsA.length, partsB.length);</span>
 &nbsp;
-    const length = <span class="cstat-no" title="statement not covered" >Math.max(aParts.length, bParts.length);</span>
+<span class="cstat-no" title="statement not covered" >    for (let i = <span class="cstat-no" title="statement not covered" >0;</span> i &lt; len; i++) {</span>
+      const pa = <span class="cstat-no" title="statement not covered" >partsA[i] || '';</span>
+      const pb = <span class="cstat-no" title="statement not covered" >partsB[i] || '';</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    for (let i = <span class="cstat-no" title="statement not covered" >0;</span> i &lt; length; i++) {</span>
-      const aPart = <span class="cstat-no" title="statement not covered" >aParts[i] || "";</span>
-      const bPart = <span class="cstat-no" title="statement not covered" >bParts[i] || "";</span>
+      const na = <span class="cstat-no" title="statement not covered" >Number(pa);</span>
+      const nb = <span class="cstat-no" title="statement not covered" >Number(pb);</span>
+      const aIsNum = <span class="cstat-no" title="statement not covered" >!isNaN(na);</span>
+      const bIsNum = <span class="cstat-no" title="statement not covered" >!isNaN(nb);</span>
 &nbsp;
-      const aIsNumber = <span class="cstat-no" title="statement not covered" >!isNaN(Number(aPart));</span>
-      const bIsNumber = <span class="cstat-no" title="statement not covered" >!isNaN(Number(bPart));</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >      if (aIsNumber &amp;&amp; bIsNumber) {</span>
-        const numCompare = <span class="cstat-no" title="statement not covered" >Number(aPart) - Number(bPart);</span>
-<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (numCompare !== 0) <span class="cstat-no" title="statement not covered" >return direction === 'asc' ? numCompare : -numCompare;</span></span>
-      } else <span class="cstat-no" title="statement not covered" >if (aIsNumber) {</span>
-<span class="cstat-no" title="statement not covered" >        return direction === 'asc' ? -1 : 1;</span>
-      } else <span class="cstat-no" title="statement not covered" >if (bIsNumber) {</span>
-<span class="cstat-no" title="statement not covered" >        return direction === 'asc' ? 1 : -1;</span>
-      } else {
-        const strCompare = <span class="cstat-no" title="statement not covered" >aPart.localeCompare(bPart);</span>
-<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (strCompare !== 0) <span class="cstat-no" title="statement not covered" >return direction === 'asc' ? strCompare : -strCompare;</span></span>
+      // Ambos números → subtração direta
+<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (aIsNum &amp;&amp; bIsNum) {</span>
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (na !== nb) <span class="cstat-no" title="statement not covered" >return (na - nb) * dir;</span></span>
+<span class="cstat-no" title="statement not covered" >        continue;</span>
       }
+&nbsp;
+      // Somente A é número → vai antes (ou depois, se desc)
+<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (aIsNum) <span class="cstat-no" title="statement not covered" >return -1 * dir;</span></span>
+<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (bIsNum) <span class="cstat-no" title="statement not covered" >return 1 * dir;</span></span>
+&nbsp;
+      // Ambos strings → locale…
+      const cmp = <span class="cstat-no" title="statement not covered" >this.PT_BR_COLLATOR.compare(pa, pb);</span>
+<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (cmp !== 0) <span class="cstat-no" title="statement not covered" >return cmp * dir;</span></span>
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return 0;</span>
@@ -1642,7 +1681,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-07-04T18:02:20.828Z
+                at 2025-07-08T14:47:07.720Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

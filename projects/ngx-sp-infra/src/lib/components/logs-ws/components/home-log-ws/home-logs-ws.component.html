@@ -1,0 +1,122 @@
+<!-- #region HEADER -->
+<lib-header
+[breadcrumbList]=" this.module == 'Corporativo' ? ['Corporativo', 'Log', 'Log WS'] : ['Configuração ERP', 'Log', 'Log WS' ]"
+ pageTitle="Log WS" />
+<!-- #endregion HEADER -->
+
+<!-- #region Corpo -->
+<div class="glb-main-container p-3">
+
+  <!-- #region SEARCH AND FILTERS -->
+  <app-search-filters (_executeGetBySearch)="getLogsList($event.toString())"
+    (_EMIT_CLEAR_EXTRA_INPUT)="dateInicioIni = null; dateInicioFin = null; dateFinalIni = null; dateFinalFin = null; isError = true; isSlow= false; resetPagination(this.$logList)"
+    placeholder="Digite o id, nome ou método do Log" class="d-flex col-12 mb-4" [useIsActive]="false">
+
+  </app-search-filters>
+
+  <div class="row">
+    <div class="col-6">
+        <label class="form-label">Data/Hora ocorrência:</label>
+        <div class="input-group">
+          <input class="form-control" type="datetime-local" [(ngModel)]="dateInicioIni">
+        <span class="input-group-text">Até</span>
+        <input class="form-control" type="datetime-local" [(ngModel)]="dateInicioFin">
+      </div>
+    </div>
+    <div class="col-6">
+        <label class="form-label">Data/Hora final ocorrência:</label>
+        <div class="input-group">
+
+        <input class="form-control" type="datetime-local" [(ngModel)]="dateFinalIni">
+        <span class="input-group-text">Até</span>
+        <input class="form-control" type="datetime-local" [(ngModel)]="dateFinalFin">
+      </div>
+    </div>
+  </div>
+  <!-- #endregion SEARCH AND FILTERS -->
+
+  <!-- #region TABLE -->
+   <div class="mt-4">
+    <lib-table
+      [list]="$logList"
+      [counts]="[5, 15, 25]"
+      paginationID="simpleTable"
+      *ngIf="!this.isListLoading; else loading"
+      [headers]="[
+        { name: 'Id', widthClass: 'col-1', orderColumn: 'Id' },
+        {
+          name: 'Usuário',
+          widthClass: 'col-2',
+          orderColumn: 'NomeUsuarioLogado'
+        },
+        {
+          name: 'Data/Hora ocorrência',
+          widthClass: 'col-3',
+          orderColumn: 'DtHora'
+        },
+        {
+          name: 'Data/Hora final ocorrência',
+          widthClass: 'col-3',
+          orderColumn: 'DtHoraFim'
+        },
+        { name: 'Método do Origem', widthClass: 'col-2', orderColumn: 'MetodoOrigem' },
+        { name: '', widthClass: 'col-1', customClasses: 'text-end' }
+      ]"
+      (itemsPerPageChange)="itemsPerPage = $event"
+      (pageChange)="page = $event"
+    >
+      <div upperContent class="d-flex">
+        <div class="ms-3 input-group">
+        <div class="form-check form-switch">
+            <label class="form-check-label" for="inputSearchDN" >Erro</label>
+            <input class="form-check-input" [(ngModel)]="isError"
+                type="checkbox" role="switch" id="inputSearchDN">
+        </div>
+      </div>
+      <div class="ms-2 input-group">
+        <div class="form-check form-switch">
+            <label class="form-check-label" for="inputSearchDN" >Lento</label>
+            <input class="form-check-input" [(ngModel)]="isSlow"
+                type="checkbox" role="switch" id="inputSearchDN">
+        </div>
+      </div>
+      </div>
+      @for (logs of $logList! | paginate: { id: 'simpleTable', itemsPerPage:
+      itemsPerPage, currentPage: page }; track logs) {
+      <tr innerRows class="align-middle">
+        <td class="col-1 align-middle">{{ logs.Id }}</td>
+          <td class="col-3 align-middle">{{ logs.NomeUsuarioLogado }}</td>
+          <td class="col-2 align-middle">{{ logs.DtHora | date: "dd/MM/yyyy - HH:mm:ss" }}</td>
+          <td class="col-2 align-middle">{{ logs.DtHoraFim | date: "dd/MM/yyyy - HH:mm:ss" }}</td>
+          <td class="col-3 align-middle">{{ logs.MetodoOrigem }}</td>
+          <td class="acoes-column align-middle">
+            <a [routerLink]="['/logs-ws/detalhes', logs.Id]" target="_blank" (click)="setEstado();">
+              <lib-icon iconName="olho" tooltip="Visualizar" class="glb-cursor-pointer text-primary" [iconColor]="this.module == 'Corporativo' ? 'blue' : 'gray'" />
+            </a>
+          </td>
+      </tr>
+      }
+    </lib-table>
+   </div>
+
+
+  <!-- #region SPINNER -->
+  <ng-template #loading>
+    <div class="d-flex justify-content-center">
+          <lib-spinner></lib-spinner>
+    </div>
+  </ng-template>
+  <!-- #endregion SPINNER -->
+
+  <!-- #region EMPTY LIST -->
+  <ng-template #emptyList>
+    <tbody class="fade-in">
+      <tr>
+        <td colspan="12" class="align-middle"> <span class="fw-light fst-italic text-center"> Consulta
+            não retornou registros... </span> </td>
+      </tr>
+    </tbody>
+  </ng-template>
+  <!-- #endregion EMPTY LIST -->
+
+</div>
