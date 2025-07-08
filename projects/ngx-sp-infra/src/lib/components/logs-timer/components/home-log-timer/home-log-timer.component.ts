@@ -48,7 +48,7 @@ export class HomeLogTimerComponent implements OnInit {
 		private _tenantService: TenantService,
 		private _messageService:MessageService,
 		private _router: Router) {
-		this.module = window.location.hostname.includes('Corporativo') ? "Corporativo" : "ConfigErp";
+		this.module = window.location.href.includes('Corporativo') ? "Corporativo" : "ConfigErp";
 		if (this.module == 'ConfigErp' && (!this._tenantService.tenantId || this._tenantService.tenantId == 0)) {
 
 			this._messageService.showAlertInfo("Você deve selecionar um domínio para executar esta opção.")

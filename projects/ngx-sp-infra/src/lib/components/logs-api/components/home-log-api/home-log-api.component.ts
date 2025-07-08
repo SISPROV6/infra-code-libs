@@ -49,7 +49,7 @@ export class HomeLogApiComponent implements OnInit, AfterViewInit {
 		private _tenantService: TenantService,
 		private _messageService:MessageService,
 		private _router: Router) {
-		this.module = window.location.hostname.includes('Corporativo') ? "Corporativo" : "ConfigErp";
+		this.module = window.location.href.includes('Corporativo') ? "Corporativo" : "ConfigErp";
     console.log(this.module == 'ConfigErp')
 		if (this.module == 'ConfigErp' && (!this._tenantService.tenantId || this._tenantService.tenantId == 0)) {
 
