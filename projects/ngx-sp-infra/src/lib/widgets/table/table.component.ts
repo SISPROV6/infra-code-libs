@@ -189,7 +189,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   // #region ==========> INICIALIZAÇÃO <==========
   constructor(
     private readonly _cdr: ChangeDetectorRef,
-    private _renderer: Renderer2
+    private readonly _renderer: Renderer2
   ) { }
 
   /** Inicializa o componente e define o número inicial de itens por página. */
@@ -206,7 +206,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   /** Monitora as mudanças nas entradas do componente e realiza ajustes, como resetar a paginação ou validar o layout das colunas.
    * @param changes Objeto que contém as mudanças nas entradas do componente. */
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['list'] && changes['list'].currentValue) {
+    if (changes['list']?.currentValue) {
       this.resetPagination(this.list ?? []);
       this.updateCounterInfo();
       this.updateColspanWidth();
@@ -298,7 +298,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
 	// Função chamada quando ocorre uma mudança na ordenação
 	onSortChange(event: { direction: string, column: string }) {
-		const { direction, column } = event;
+		const { column } = event;
 
 		// Verifica se a coluna atualmente selecionada é a mesma da nova seleção
 		if (this.currentSortColumn === column) {

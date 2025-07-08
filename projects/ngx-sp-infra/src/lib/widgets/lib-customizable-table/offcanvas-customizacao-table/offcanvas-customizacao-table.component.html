@@ -14,8 +14,8 @@
       <div class="pesquisa-colunas mb-3">
         <input type="text" class="form-control" placeholder="Pesquise o nome da coluna" [(ngModel)]="colunasPesquisa" />
         <div class="d-flex justify-content-between align-items-center">
-          <p class="text-primary fw-bold glb-cursor-pointer" (click)="toggleAllColunas(true)" (keyup.enter)="null" >Mostrar todas as colunas</p>
-          <p class="text-secondary fw-bold glb-cursor-pointer" (click)="toggleAllColunas(false)" (keyup.enter)="null">Esconder todas as colunas</p>
+          <p class="text-primary fw-bold glb-cursor-pointer" (click)="toggleAllColunas(true)" (keyup.enter)="toggleAllColunas(true)" >Mostrar todas as colunas</p>
+          <p class="text-secondary fw-bold glb-cursor-pointer" (click)="toggleAllColunas(false)" (keyup.enter)="toggleAllColunas(false)">Esconder todas as colunas</p>
         </div>
       </div>
 
@@ -30,7 +30,7 @@
             @if (coluna.name !== "") {
               <li dndEffectAllowed="move" class="d-flex align-items-center justify-content-between mb-2 border rounded p-2"
                 dndEffectAllowed="move" [dndDraggable]="coluna" [dndDisableIf]="false"
-                  (dndStart)="onStart($index, colunas)" (dndEnd)="onEnd()" >
+                (dndStart)="onStart($index, colunas)" (dndEnd)="onEnd()" >
                 <span class="fw-bold">
                   <lib-icon dndHandle iconName="p-drag-and-drop" iconColor="blue" class="cursor-grab" />
                   {{ coluna.name }}

@@ -158,7 +158,7 @@ export class LibCustomizableTableComponent implements OnInit, AfterViewInit, OnC
   // #region ==========> INICIALIZAÇÃO <==========
   constructor(
     private readonly _cdr: ChangeDetectorRef,
-    private _renderer: Renderer2
+    private readonly _renderer: Renderer2
   ) { }
 
   /** Inicializa o componente e define o número inicial de itens por página. */
@@ -175,7 +175,7 @@ export class LibCustomizableTableComponent implements OnInit, AfterViewInit, OnC
   /** Monitora as mudanças nas entradas do componente e realiza ajustes, como resetar a paginação ou validar o layout das colunas.
    * @param changes Objeto que contém as mudanças nas entradas do componente. */
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['list'] && changes['list'].currentValue) {
+    if (changes['list']?.currentValue) {
       this.resetPagination(this.list ?? []);
       this.updateCounterInfo();
       this.updateColspanWidth();
@@ -259,7 +259,7 @@ export class LibCustomizableTableComponent implements OnInit, AfterViewInit, OnC
 
   /** Função chamada quando ocorre uma mudança na ordenação */
   public onSortChange(event: { direction: string, column: string }): void {
-    const { direction, column } = event;
+    const { column } = event;
 
     if (this.currentSortColumn === column) {
       // Alterna entre 'asc' e 'desc'
