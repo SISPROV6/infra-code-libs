@@ -1,9 +1,9 @@
 @if (list) {
   <div class="table-list w-100 position-relative">
 
-    <!-- Trechos de texto acima da table -->
-    @if (showCounter) {
-      <div class="mb-2 d-flex align-items-center">
+    <!-- Trechos de conteúdo acima da table -->
+    <div class="d-flex flex-row align-items-center justify-content-between mb-2">
+      @if (showCounter) {
         <div class="col-6">
           <!-- Exibe o número de itens mostrados e o total de registros -->
           <span> {{ itemsDisplayText }} </span>
@@ -11,17 +11,15 @@
           <!-- Exibe a badge informando quantos registros foram selecionados -->
           <span *ngIf="selectedCount && selectedCount > 0" class="ms-2 badge text-bg-primary">{{ selectedCount }} registros selecionados</span>
         </div>
-
-        <div class="col d-flex flex-row align-items-center justify-content-end gap-2">
-          <ng-content select="[rightSideContent], [upperContent]"></ng-content>
-          <lib-offcanvas-customizacao-table [colunasVisiveis]="headers" (colunasModificadas)="updateHeadersVisibility($event)" />
-        </div>
+      }
+      
+      <div class="col d-flex align-items-center justify-content-end gap-2">
+        @if (upperContentTemplate) {
+          <ng-container *ngTemplateOutlet="upperContentTemplate"></ng-container>
+        }
+        <lib-offcanvas-customizacao-table [colunasVisiveis]="headers" (colunasModificadas)="updateHeadersVisibility($event)" />
       </div>
-    }
-    @else {
-      <ng-content select="[upperContentFill]" class="mb-2"></ng-content>
-      <lib-offcanvas-customizacao-table [colunasVisiveis]="headers" (colunasModificadas)="updateHeadersVisibility($event)" />
-    }
+    </div>
 
 
     <!-- Container da tabela -->
@@ -166,11 +164,9 @@
                         }
                         @else {
                           <!-- Caso não haja template custom, usa o valor genérico -->
-                          <ng-template #defaultCell>
-                            <td [ngClass]="header.customClasses">
-                              {{ item[idxHeader] }}
-                            </td>
-                          </ng-template>
+                          <td class="bg-simplified-table">
+                            <lib-icon iconName="atencao" iconColor="red" iconSize="small" /> <i>Sem template de conteúdo</i>
+                          </td>
                         }
 
                       }
