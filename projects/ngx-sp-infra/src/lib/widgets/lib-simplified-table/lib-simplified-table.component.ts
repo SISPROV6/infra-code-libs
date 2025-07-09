@@ -103,10 +103,12 @@ export class LibSimplifiedTableComponent implements OnInit, AfterViewInit, OnCha
   }
 
   public get itemsDisplayText(): string {
-    if (this.list && this.list.length === 0) {
-      return `Exibindo ${this.list?.length ?? 0} registros`;
-    }
-    return `Exibindo ${this.counts ? this.firstItemOfPage + "-" + this.lastItemOfPage + " de" : ""} ${this.list?.length ?? 0} registros`;
+    if (this.list && this.list.length === 0) return `Exibindo ${this.list?.length ?? 0} registros`;
+    
+    const totalRecords = this.list?.length ?? 0;
+    
+    if (this.counts) return `Exibindo ${this.firstItemOfPage}-${this.lastItemOfPage} de ${totalRecords} registros`;
+    else return `Exibindo ${totalRecords} registros`;
   }
 
   // ViewChilds e demais
@@ -127,13 +129,12 @@ export class LibSimplifiedTableComponent implements OnInit, AfterViewInit, OnCha
   ngOnInit(): void {
     this.updateCounterInfo();
     this.validateHeaders();
-
-    console.log(this.templates);
   }
 
   ngAfterViewInit(): void {
     this._cdr.detectChanges();  // Forçar uma nova detecção após a renderização
     this.updateColspanWidth();
+    this._cdr.detectChanges();  // Forçar uma nova detecção após a renderização
   }
 
   /** Monitora as mudanças nas entradas do componente e realiza ajustes, como resetar a paginação ou validar o layout das colunas.
