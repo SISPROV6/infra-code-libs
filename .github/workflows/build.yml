@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -26,15 +28,12 @@ jobs:
         run: npm ci
 
       - name: Build da biblioteca
-        run: npm run build ngx-sp-infra
+        run: npm run build:prod ngx-sp-infra
 
       - name: Executa testes com cobertura
         run: |
           npm run test:sonar
 
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - name: Análise com SonarCloud
         uses: SonarSource/sonarqube-scan-action@v5
         with:
