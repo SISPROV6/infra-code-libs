@@ -1,35 +1,24 @@
-import { NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, Renderer2, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnChanges, OnInit, Renderer2, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
-import { cloneDeep } from 'lodash';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { NgxPaginationModule } from 'ngx-pagination';
-
 import { TableHeaderStructure } from '../../models/table/header-structure.model';
-import { Utils } from '../../utils/utils';
-import { LibIconsComponent } from '../lib-icons/lib-icons.component';
-import { OrderingComponent } from '../ordering/ordering.component';
-import { OffcanvasCustomizacaoTableComponent } from "./offcanvas-customizacao-table/offcanvas-customizacao-table.component";
+import { LibIconsComponent } from "../lib-icons/lib-icons.component";
 
 @Component({
-  selector: 'lib-customizable-table',
+  selector: 'lib-simplified-table',
   imports: [
-    NgIf,
     FormsModule,
-    NgFor,
-    NgClass,
-    LibIconsComponent,
     TooltipModule,
-    OrderingComponent,
     NgxPaginationModule,
     NgTemplateOutlet,
-    OffcanvasCustomizacaoTableComponent
-],
-  templateUrl: './lib-customizable-table.component.html',
-  styleUrl: './lib-customizable-table.component.scss'
+    LibIconsComponent
+  ],
+  templateUrl: './lib-simplified-table.component.html',
+  styleUrl: './lib-simplified-table.component.scss'
 })
-export class LibCustomizableTableComponent implements OnInit, AfterViewInit, OnChanges {
+export class LibSimplifiedTableComponent implements OnInit, AfterViewInit, OnChanges {
 
   // #region ==========> PROPRIEDADES <==========
 
@@ -55,15 +44,7 @@ export class LibCustomizableTableComponent implements OnInit, AfterViewInit, OnC
 
   /** Opções de contagem de itens por página disponíveis para o usuário.
    * @required */
-  @Input() public counts?: number[];
-
-  /** Determina se haverá uma coluna inicial para seleção de registros na tabela. */
-  @Input() public useSelection: boolean = false;
-
-  /** Determina o número de registros selecionados. */
-  @Input() public selectedCount?: number;
-
-  @Input() public selection: boolean | undefined = false;
+  @Input() public counts?: number[] = [ 10, 25, 50 ];
 
   /** Determina se a tabela deve usar paginação.
    * @default true */
@@ -81,10 +62,6 @@ export class LibCustomizableTableComponent implements OnInit, AfterViewInit, OnC
    * Se for true, todas as colunas terão a largura fixa de 250px, ignorando valores customizados (esta definição pode mudar no futuro).
    * @default false */
   @Input() public scrollable: boolean = false;
-
-  /** Informa se a table deve ser exibida com o estilo anterior à atualização.
-   * @default false */
-  @Input() public usePreviousStyle: boolean = false;
 
   /** Mensagem customizada para lista vazia */
   @Input() public emptyListMessage?: string;
@@ -107,22 +84,6 @@ export class LibCustomizableTableComponent implements OnInit, AfterViewInit, OnC
   @Input() templates: Record<string, TemplateRef<any> | null> = {};
   @Input() upperContentTemplate?: TemplateRef<any>;
 
-  // Outputs
-  /** Evento emitido quando o número de itens por página é alterado. */
-  @Output() public itemsPerPageChange: EventEmitter<number> = new EventEmitter<number>();
-
-  /** Evento emitido quando a página é alterada. */
-  @Output() public pageChange: EventEmitter<number> = new EventEmitter<number>();
-
-  /** Evento emitido quando o checkbox de seleção se alterar. */
-  @Output() public selectionChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  /** Caso seja usado um ícone na coluna e a opção ```headers.icon.emitClick``` for true, ao clicar nela emite este evento que leva consigo o nome da coluna em questão. */
-  @Output() public iconClick: EventEmitter<string> = new EventEmitter<string>();
-
-  /** Evento emitido quando as colunas são modificadas. */
-  @Output() public colunasModificadas: EventEmitter<TableHeaderStructure[]> = new EventEmitter<TableHeaderStructure[]>();
-
   // Getters/setters públicos
   /** Página atual da tabela. */
   public get page(): number { return this._currentPage; }
@@ -142,10 +103,12 @@ export class LibCustomizableTableComponent implements OnInit, AfterViewInit, OnC
   }
 
   public get itemsDisplayText(): string {
-    if (this.list && this.list.length === 0) {
-      return `Exibindo ${this.list?.length ?? 0} registros`;
-    }
-    return `Exibindo ${this.counts ? this.firstItemOfPage + "-" + this.lastItemOfPage + " de" : ""} ${this.list?.length ?? 0} registros`;
+    if (this.list && this.list.length === 0) return `Exibindo ${this.list?.length ?? 0} registros`;
+    
+    const totalRecords = this.list?.length ?? 0;
+    
+    if (this.counts) return `Exibindo ${this.firstItemOfPage}-${this.lastItemOfPage} de ${totalRecords} registros`;
+    else return `Exibindo ${totalRecords} registros`;
   }
 
   // ViewChilds e demais
@@ -171,6 +134,7 @@ export class LibCustomizableTableComponent implements OnInit, AfterViewInit, OnC
   ngAfterViewInit(): void {
     this._cdr.detectChanges();  // Forçar uma nova detecção após a renderização
     this.updateColspanWidth();
+    this._cdr.detectChanges();  // Forçar uma nova detecção após a renderização
   }
 
   /** Monitora as mudanças nas entradas do componente e realiza ajustes, como resetar a paginação ou validar o layout das colunas.
@@ -199,8 +163,6 @@ export class LibCustomizableTableComponent implements OnInit, AfterViewInit, OnC
   public onSelectChange(event: any): void {
     this.itemsPerPage = parseInt(event.target.value, 10);
     this.page = 1;
-    this.pageChange.emit(this.page);
-    this.itemsPerPageChange.emit(this.itemsPerPage);
   }
 
   /** Reseta a paginação da listagem com base no número atual de registros.
@@ -208,17 +170,6 @@ export class LibCustomizableTableComponent implements OnInit, AfterViewInit, OnC
   public resetPagination(list: unknown[]): void {
     const startIndex = (this.page - 1) * this.itemsPerPage;
     if (list.length <= startIndex) this.page = 1;
-  }
-
-  /** Atualiza headers visíveis e emite evento de modificação */
-  public updateHeadersVisibility(headers: TableHeaderStructure[]): void {
-    this.headers = cloneDeep(headers);
-    this.colunasModificadas.emit(cloneDeep(headers));
-  }
-
-  /** Emite um evento de correção de página */
-  public emitPageBoundsCorrection(page: number): void {
-    this.pageChange.emit(page);
   }
 
   /** Atualiza as informações relacionadas ao contador (usado no footer da tabela, por exemplo) */
@@ -233,7 +184,7 @@ export class LibCustomizableTableComponent implements OnInit, AfterViewInit, OnC
   /** Atualiza o colspan para a célula de "lista vazia" e força detecção de mudança */
   private updateColspanWidth(): void {
     if (this.emptyListTD && this.headers) {
-      this.colspanWidth = (this.headers.length + (this.useSelection ? 1 : 0)).toString();
+      this.colspanWidth = (this.headers.length + 0).toString();
       this._renderer.setAttribute(this.emptyListTD.nativeElement, 'colspan', this.colspanWidth);
     }
 
@@ -249,65 +200,6 @@ export class LibCustomizableTableComponent implements OnInit, AfterViewInit, OnC
       console.warn("Erro <lib-table>: A largura das colunas está em um formato inválido. Certifique-se que todas elas utilizam 'col'/'col-[n]' ou 'w-[n]'.");
     }
   }
-
-  // #region Ordering, Sorting ou apenas Ordenação
-
-  /** Objeto para armazenar a direção de ordenação de cada coluna */
-  public sortDirection: { [key: string]: 'asc' | 'desc' } = {};
-
-  /** Coluna atualmente selecionada para ordenação */
-  public currentSortColumn: string = '';
-
-  /** Função chamada quando ocorre uma mudança na ordenação */
-  public onSortChange(event: { direction: string, column: string }): void {
-    const { column } = event;
-
-    if (this.currentSortColumn === column) {
-      // Alterna entre 'asc' e 'desc'
-      this.sortDirection[column] = this.sortDirection[column] === 'asc' ? 'desc' : 'asc';
-    } else {
-      // Define nova coluna com 'asc'
-      this.currentSortColumn = column;
-      this.sortDirection = { [column]: 'asc' };
-    }
-
-    this.sortData();
-  }
-
-  /** Função de ordenação dos dados da tabela */
-  private sortData(): void {
-    if (!this.list) return;
-
-    const attribute = this.currentSortColumn;
-
-    this.list.sort((a, b) => {
-      const propertyA = this.getProperty(a, attribute).toUpperCase();
-      const propertyB = this.getProperty(b, attribute).toUpperCase();
-
-      return Utils.alphanumericSort(propertyA, propertyB, this.sortDirection[attribute]);
-    });
-  }
-
-  /** Compara os valores das propriedades entre dois objetos */
-  private compareProperties(a: unknown, b: unknown, attribute: string, direction: string): number {
-    const propertyA = this.getProperty(a, attribute).toUpperCase();
-    const propertyB = this.getProperty(b, attribute).toUpperCase();
-
-    if (propertyA < propertyB) return direction === 'asc' ? -1 : 1;
-    if (propertyA > propertyB) return direction === 'asc' ? 1 : -1;
-
-    return 0;
-  }
-
-  /** Obtém o valor de uma propriedade específica de um objeto, com suporte a paths aninhados */
-  private getProperty(obj: any, path: string | string[]): string {
-    if (typeof path === 'string') path = path.split('.');
-
-    const property = path.reduce((value, property) => value ? value[property] : '', obj);
-    return property ? property.toString() : "";
-  }
-
-  // #endregion Ordering, Sorting ou apenas Ordenação
 
   // #endregion ==========> UTILITÁRIOS <==========
 

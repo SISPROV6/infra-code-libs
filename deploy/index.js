@@ -57,7 +57,7 @@ function updateVersion() {
 function executarTestes() {
   if (respostaIsExecutaTestes) {
     try {
-      execSync(`ng test ${respostaProjeto} --watch=false --browsers=ChromeHeadless`, { stdio: 'inherit' });
+      execSync(`ng test ${respostaProjeto} --watch=false --code-coverage --browsers=ChromeHeadless`, { stdio: 'inherit' });
       console.log(chalk.green('\n✅ Todos os testes passaram com sucesso!\n'));
     }
     catch (error) {

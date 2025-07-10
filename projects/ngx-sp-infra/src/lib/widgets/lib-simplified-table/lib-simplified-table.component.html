@@ -1,0 +1,102 @@
+@if (list) {
+  <div class="table-list w-100 position-relative">
+
+    <!-- Trechos de conteúdo acima da table -->
+    <div class="d-flex flex-row align-items-center justify-content-between mb-2">
+      @if (showCounter) {
+        <div class="col-3">
+          <!-- Exibe o número de itens mostrados e o total de registros -->
+          <span> {{ itemsDisplayText }} </span>
+        </div>
+      }
+      
+      @if (upperContentTemplate) {
+        <div class="col d-flex align-items-center justify-content-end gap-2">
+          <ng-container *ngTemplateOutlet="upperContentTemplate"></ng-container>
+        </div>
+      }
+    </div>
+
+
+    <!-- Container da tabela -->
+    <div class="bg-simplified-table rounded pt-3 px-3">
+      <table class="table table-borderless table-sm ">
+        <thead>
+          <tr>
+            @for (header of headers; track header.name) {
+              <th class="align-middle bg-simplified-table text-dark fw-bold {{ header.customClasses }} {{ header.widthClass }}
+                {{ ($last && header.name === '') && scrollable ? 'fix' : '' }}"
+                [style.width]="scrollable ? header.widthPixels ? header.widthPixels+'px' : 250+'px' : null" >
+
+                {{ header.name }}
+
+              </th>
+            }
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (item of list! | paginate: { id: paginationID, itemsPerPage: itemsPerPage, currentPage: page }; track $index) {
+            <tr>
+              @for (header of headers; let idxHeader = $index; track header.name) {
+                @if (header.isVisible !== false) {
+
+                  @if (templates[header.name]) {
+                    <!-- Se existe template custom, usa ele -->
+                    <td class="align-middle bg-simplified-table">
+                      <ng-container *ngTemplateOutlet="templates[header.name]!; context: { $implicit: item, coluna: header }"></ng-container>
+                    </td>
+                  }
+                  @else {
+                    <!-- Caso não haja template custom, usa o valor genérico -->
+                    <td class="bg-simplified-table">
+                      <lib-icon iconName="atencao" iconColor="red" iconSize="small" class="me-2" /> <i>Sem template de conteúdo</i>
+                    </td>
+                  }
+
+                }
+              }
+            </tr>
+          }
+          @empty {
+            <tr>
+              <td #emptyListTd class="align-middle text-center p-4 text-dark-grey bg-simplified-table"> {{ emptyListMessage ? emptyListMessage : "Não há dados para serem listados." }} </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+      <div class="d-flex align-items-center justify-content-end gap-2 py-3">
+        <div style="width: fit-content;">
+          <select class="form-select form-select-sm" aria-label="Itens por página" (change)="onSelectChange($event)">
+            @for (option of counts; track $index) {
+              <option [value]="option" [selected]="counts ? (counts.length > 0 && $index === 0) : false">{{ option }}</option>
+            }
+          </select>
+        </div>
+
+        <!-- Controle de paginação -->
+        <pagination-controls class="sp-pagination mb-0" [id]="paginationID"
+          screenReaderPaginationLabel="Paginação"
+          screenReaderPageLabel="Página"
+          screenReaderCurrentLabel="Você está na página"
+          [directionLinks]="false"
+          [autoHide]="false"
+          [responsive]="true"
+          [maxSize]="5"
+          [responsive]="false"
+          (pageChange)="page = $event"
+          (pageBoundsCorrection)="page = $event" />
+      <!-- Controle de paginação -->
+      </div>
+    </div>
+    <!-- Container da tabela -->
+      
+  </div>
+}
+@else {
+  <!-- Loader enquanto os registros são carregados -->
+  <div class="w-100 text-center p-3">
+    <div class="spinner-border" role="status"> <span class="visually-hidden">Carregando informações...</span> </div>
+  </div>
+}

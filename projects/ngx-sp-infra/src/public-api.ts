@@ -140,6 +140,7 @@ export * from './lib/widgets/lib-combobox/lib-combobox.component';
 export * from './lib/widgets/lib-customizable-table/lib-customizable-table.component';
 export * from './lib/widgets/lib-header/lib-header.component';
 export * from './lib/widgets/lib-icons/lib-icons.component';
+export * from './lib/widgets/lib-simplified-table/lib-simplified-table.component';
 export * from './lib/widgets/loading-button/loading-button.component';
 export * from './lib/widgets/loading/loading.component';
 export * from './lib/widgets/nav-produtos/nav-produtos.component';
