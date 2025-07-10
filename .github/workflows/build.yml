@@ -34,12 +34,6 @@ jobs:
         run: |
           npm run test:sonar
 
-      - name: Debug - Verificar arquivos de cobertura
-        run: |
-          ls -la coverage/
-          find . -name "lcov.info" -type f
-          cat coverage/ngx-sp-infra/lcov.info | head -10
-
       - name: Análise com SonarCloud
         uses: SonarSource/sonarqube-scan-action@v5
         with:
