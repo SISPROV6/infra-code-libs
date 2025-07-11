@@ -37,6 +37,18 @@ export class HomeLogsReportComponent implements OnInit {
 	public itemsPerPage: number = 10;
 	public module: "Corporativo" | "ConfigErp";
   public isListLoading: boolean = true;
+  public counterLabel:string = "";
+
+
+ public headerOrdering: { [key: string]: { isAsc: boolean, orderingId: string, isActive: boolean } } = {
+    'Usuário': { isAsc: false, orderingId: 'NomeUsuarioLogado', isActive: false },
+    'Data/Hora ocorrência': { isAsc: false, orderingId: 'DtHora', isActive: false },
+    'Produto': { isAsc: false, orderingId: 'Product', isActive: false },
+    'Método de origem': { isAsc: false, orderingId: 'MetodoOrigem', isActive: false },
+    'Report': { isAsc: false, orderingId: 'Report', isActive: false },
+  }
+
+
 
 	constructor(
 		private cdRef: ChangeDetectorRef,
@@ -108,6 +120,7 @@ export class HomeLogsReportComponent implements OnInit {
 				this.$logList = response.LogsReport;
         this.isListLoading = false;
 				this.counter = response.Count;
+        this.GetTableCounter(this.searchLogReport.ROW_LIMIT, response.Count)
 			},
 			error: error => {
 				this.$retLogList = new RetLogsReport();
@@ -153,23 +166,20 @@ export class HomeLogsReportComponent implements OnInit {
 
 	public sortDirection: { [key: string]: string } = {};
 
-	onSortChange(event: { direction: string, column: string }) {
-		const { direction, column } = event;
-
-		// Verifica se a coluna atualmente selecionada é a mesma da nova seleção
-		if (this.currentSortColumn === column) {
-			// Alterna entre 'asc' e 'desc' para a direção de ordenação da coluna
-			this.sortDirection[column] = this.sortDirection[column] === 'asc' ? 'asc' : 'desc';
-		}
-		else {
-			// Define a nova coluna e a direção de ordenação como 'asc'
-			this.currentSortColumn = column;
-			this.sortDirection = { [column]: 'asc' };
-		}
-
-		// Realiza a ordenação dos dados da tabela
-		this.sortData();
-	}
+	onSortChange(event: string) {
+    this.searchLogReport.ORDERBY = this.headerOrdering[event].orderingId;
+    for (const key in this.headerOrdering) {
+      if (key != event) {
+        this.headerOrdering[key].isActive = false;
+        this.headerOrdering[key].isAsc = false;
+      } else {
+        this.headerOrdering[key].isActive = true;
+        this.headerOrdering[key].isAsc = !this.headerOrdering[key].isAsc;
+      }
+    }
+    this.searchLogReport.ORDERISASC =this.headerOrdering[event].isAsc;
+    this.getLogsList();
+  }
 
 	// Função de ordenação dos dados da tabela
 	private sortData() {
@@ -213,6 +223,13 @@ export class HomeLogsReportComponent implements OnInit {
 		}));
 	}
 
+
+
+  public GetTableCounter(rowLimit:number, totalCount:number) {
+    const counterInicial = (this.page -1) * this.itemsPerPage;
+    const counterFinal = ((this.page -1) * this.itemsPerPage + rowLimit) > totalCount ? totalCount : ((this.page -1) * this.itemsPerPage + rowLimit);
+    this.counterLabel = `Exibindo ${counterInicial}-${counterFinal} de ${totalCount} registros`;
+  }
 	// #endregion ==========> UTILITIES <==========
 
 }
