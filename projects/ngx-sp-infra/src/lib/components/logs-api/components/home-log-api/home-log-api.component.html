@@ -48,19 +48,49 @@
     </div>
   </div>
   <!-- #endregion SEARCH AND FILTERS -->
-  <div class="mt-4">
-    <lib-table [list]="$logList" [counts]="[ 5,15,25 ]" paginationID="simpleTable" *ngIf="!this.isListLoading; else loading"
+  <div class="mt-4" *ngIf="!this.isListLoading; else loading">
+    <span>{{this.counterLabel}}</span>
+    <lib-table  [usePagination]="false"
+      [showCounter]="false" [list]="$logList" [counts]="[ 10,25,50 ]" paginationID="simpleTable"
     [headers]="[
-        { name: 'Id', widthClass: 'col-1', orderColumn:'Id' },
-        { name: 'Usuário', widthClass: 'col-1', orderColumn:'NomeUsuarioLogado' },
-        { name: 'API', widthClass: 'col-2', orderColumn:'ApiOrigem' },
-        { name: 'Data/Hora ocorrência', widthClass: 'col-2', orderColumn:'DtHora' },
-        { name: 'Data/Hora final ocorrência', widthClass: 'col-3', orderColumn:'DtHoraFim' },
-        { name: 'Método de origem', widthClass: 'col-2', orderColumn:'MetodoOrigem' },
+        { name: 'Id', widthClass: 'col-1'},
+        { name: 'Usuário', widthClass: 'col-1', icon: {
+            name: this.headerOrdering['Usuário'].isAsc
+              ? 'seta-cima'
+              : 'seta-baixo',
+            theme: 'blue',
+            emitClick: true
+          } },
+        { name: 'API', widthClass: 'col-2', icon: {
+            name: this.headerOrdering['API'].isAsc
+              ? 'seta-cima'
+              : 'seta-baixo',
+            theme: 'blue',
+            emitClick: true
+          } },
+        { name: 'Data/Hora ocorrência', widthClass: 'col-2', icon: {
+            name: this.headerOrdering['Data/Hora ocorrência'].isAsc
+              ? 'seta-cima'
+              : 'seta-baixo',
+            theme: 'blue',
+            emitClick: true
+          } },
+        { name: 'Data/Hora final ocorrência', widthClass: 'col-3', orderColumn:'DtHoraFim', icon: {
+            name: this.headerOrdering['Data/Hora final ocorrência'].isAsc
+              ? 'seta-cima'
+              : 'seta-baixo',
+            theme: 'blue',
+            emitClick: true
+          } },
+        { name: 'Método de origem', widthClass: 'col-2', orderColumn:'MetodoOrigem', icon: {
+            name: this.headerOrdering['Método de origem'].isAsc
+              ? 'seta-cima'
+              : 'seta-baixo',
+            theme: 'blue',
+            emitClick: true
+          } },
         { name: '', widthClass: 'col-1', customClasses: 'text-end' }
-    ]"
-    (itemsPerPageChange)="itemsPerPage = $event"
-    (pageChange)="page = $event" >
+    ]"(iconClick)="onSortChange($event)">
 <div upperContent>
 <div class="d-flex">
         <div class="form-check form-switch">
@@ -86,7 +116,7 @@
       </div>
     </div>
 </div>
-    @for (logs of $logList! | paginate: { id: 'simpleTable', itemsPerPage: itemsPerPage, currentPage: page }; track logs) {
+    @for (logs of $logList! | paginate: { itemsPerPage: this.searchLogApi.ROW_LIMIT, currentPage: this.page, totalItems: this.$retLogList.Count}; track logs) {
         <tr innerRows class="align-middle">
            <td class="align-middle">{{ logs.Id }}</td>
           <td class="align-middle">{{ logs.NomeUsuarioLogado }}</td>
@@ -115,6 +145,34 @@
         </tr>
     }
   </lib-table>
+  <div *ngIf="!isListLoading">
+      <div
+        class="d-flex justify-content-end mt-2"
+        *ngIf="$logList.length > 0"
+      >
+        <div class="d-flex align-items-center">
+          <label class="me-2" style="white-space: nowrap"
+            >Itens por página</label
+          >
+          <select
+            class="form-select select-search"
+            (change)="onSelectChange($event)"
+          >
+            <option class="selected" value="10" selected>10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+          </select>
+        </div>
+        <pagination-controls
+          class="sp-pagination mt-3"
+          (pageChange)="pageChanged($event)"
+          previousLabel="«&nbsp;&nbsp;&nbsp;"
+          nextLabel="&nbsp;&nbsp;&nbsp;»"
+          [maxSize]="5"
+        >
+        </pagination-controls>
+      </div>
+    </div>
   </div>
 
 

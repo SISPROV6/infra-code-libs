@@ -8,4 +8,6 @@ export class SearchLogApi {
     IS_SLOW: Boolean = false;
     ROW_LIMIT: number = 0;
     ROW_OFF_SET: number = 0;
-}
+        ORDERBY:string = "";
+    ORDERISASC: boolean = false;
+  }
