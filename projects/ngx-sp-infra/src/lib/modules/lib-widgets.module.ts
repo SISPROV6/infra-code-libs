@@ -32,6 +32,7 @@ import { GenericModalComponent } from '../widgets/generic-modal/generic-modal.co
 import { ImageCropperComponent } from '../widgets/imageCropper/image-cropper/image-cropper.component';
 import { InputTrimComponent } from '../widgets/input-trim/input-trim.component';
 import { LibComboboxComponent } from '../widgets/lib-combobox/lib-combobox.component';
+import { LibCustomizableTableComponent } from '../widgets/lib-customizable-table/lib-customizable-table.component';
 import { LibHeaderComponent } from '../widgets/lib-header/lib-header.component';
 import { LibIconsComponent } from '../widgets/lib-icons/lib-icons.component';
 import { LibNavProdutosComponent } from '../widgets/lib-nav-produtos/lib-nav-produtos.component';
@@ -109,6 +110,7 @@ import { TreeComponent } from '../widgets/tree/tree.component';
     SimpleSearchComponent,
     LibSpinnerComponent,
     TableComponent,
+    LibCustomizableTableComponent,
     TreeComponent,
     LoadingScreenComponent,
     SubMenuComponent,
@@ -155,6 +157,7 @@ import { TreeComponent } from '../widgets/tree/tree.component';
     SimpleSearchComponent,
     LibSpinnerComponent,
     TableComponent,
+    LibCustomizableTableComponent,
     TreeComponent,
     LoadingScreenComponent,
     SubMenuComponent,

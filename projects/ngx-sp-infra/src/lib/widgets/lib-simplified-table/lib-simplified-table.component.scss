@@ -2,44 +2,7 @@
 @use "../../styles/styles.scss" as *;
 
 .text-dark-grey { color: #63676b !important; }
-
-
-// #region VISUAL ANTERIOR
-table.old {
-   border-color: #C4C4C4;
-
-   thead {
-      height: 50px;
-      font-size: 1rem;
-      background-color: #f9fafb !important;
-
-      > tr { background-color: #f9fafb !important; }
-      > tr > th { background-color: #f9fafb !important; }
-   }
-
-   tbody {
-      border-top: none;
-      font-size: .875rem;
-
-      > tr { height: 50px; }
-      > tr:hover { background-color: #CCE5FF; }
-   }
-}
-// #endregion VISUAL ANTERIOR
-
-// #region VISUAL NOVO
-.table-list-inner {
-   border-radius: 8px;
-   border: 1px solid #eee;
-
-   table.new > thead {
-      > tr { background-color: #EEE !important; }
-      > tr > th { background-color: #EEE !important; }
-   }
-}
-// #endregion VISUAL NOVO
-
-
+.bg-simplified-table { background-color: #EFEFEF !important; }
 
 // #region TABLE SCROLLÁVEL
 .scrollable-wrapper {
@@ -73,8 +36,6 @@ table.old {
    }
 }
 // #endregion TABLE SCROLLÁVEL
-
-
 
 // #region LARGURAS EM PORCENTAGEM
 $percents:

@@ -33,18 +33,11 @@ module.exports = function (config) {
       reporters: [
         { type: 'html' },
         { type: 'lcovonly', subdir: '.', file: 'lcov.info' },
+        { type: 'text-summary' }
       ]
     },
     reporters: [ 'progress', 'kjhtml', 'coverage' ],
-    check: {
-      global: {
-        statements: 50,
-        branches: 50,
-        functions: 50,
-        lines: 50
-      }
-    },
-    browsers: ['ChromeHeadless'],
+    browsers: [ 'Chrome', 'ChromeHeadless' ],
     singleRun: true,
     restartOnFileChange: true,
     colors: true

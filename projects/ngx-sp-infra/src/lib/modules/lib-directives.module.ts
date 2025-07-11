@@ -10,6 +10,7 @@ import { NgxCurrencyDirective } from 'ngx-currency';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import { NgxPaginationModule } from 'ngx-pagination';
 
+import { A11yClickDirective } from '../directives/a11y-click.directive';
 import { ClickOutsideDirective } from '../directives/click-outside.directive';
 import { CopyClipboardDirective } from '../directives/copy-clipboard.directive';
 import { DisableControlDirective } from '../directives/disable-control.directive';
@@ -40,6 +41,8 @@ import { TextTruncateDirective } from '../directives/text-truncate.directive';
     LoadingBtnDirective,
     RequiredDirective,
     TextTruncateDirective,
+
+    A11yClickDirective,
   ],
   exports: [
     ClickOutsideDirective,
@@ -49,6 +52,8 @@ import { TextTruncateDirective } from '../directives/text-truncate.directive';
     LoadingBtnDirective,
     RequiredDirective,
     TextTruncateDirective,
+
+    A11yClickDirective,
   ]
 })
 export class LibDirectivesModule { }

@@ -1,12 +1,12 @@
 {
   "name": "ngx-sp-infra",
-  "version": "5.0.10",
+  "version": "5.2.5",
   "description": "Biblioteca de utilitários da Infra.",
   "author": "P&D",
   "keywords": [
-    "Infra",
-    "Sispro",
-    "Utilitários",
+    "infra",
+    "sispro",
+    "utils",
     "P&D",
     "angular",
     "typescript",
