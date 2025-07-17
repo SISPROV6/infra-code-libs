@@ -21,8 +21,9 @@ import { LibSpinnerComponent } from '../../widgets/spinner/spinner.component';
     selector: 'lib-config-senha',
     templateUrl: './lib-config-senha.component.html',
     styles: ``,
-    
-    imports: [LibHeaderComponent, ContentContainerComponent, NgIf, FormsModule, ReactiveFormsModule, NgClass, LibIconsComponent, TooltipModule, RequiredDirective, FieldErrorMessageComponent, LibSpinnerComponent]
+
+    imports: [LibHeaderComponent, ContentContainerComponent, NgIf, FormsModule, ReactiveFormsModule, NgClass, LibIconsComponent, TooltipModule, RequiredDirective, FieldErrorMessageComponent, LibSpinnerComponent],
+    providers: [TenantService]
 })
 export class LibConfigSenhaComponent implements OnInit {
 
@@ -76,16 +77,16 @@ export class LibConfigSenhaComponent implements OnInit {
     private _messageService: MessageService,
     private _dominio: TenantService,
     private _title: Title
-    
+
     // private _projectUtilservice: ProjectUtilservice,
     // private _projectService: ProjectService,
     // private _authStorage: AuthStorageService,
   ) {
   }
-  
+
   ngOnInit(): void {
     this._title.setTitle("Configuração de Senha");
-    
+
     this._dominio.validateTenant(this._localTenantId);
     this.getInfraSegConfig();
   }
@@ -104,7 +105,7 @@ export class LibConfigSenhaComponent implements OnInit {
           ...this.form.value,
           ...response.InfraSegConfig
         });
-        
+
         this.initialLevel = response.InfraSegConfig.Level || 1;
         this.form.controls['Tenant_Id'].setValue(this._localTenantId);
 
@@ -132,10 +133,10 @@ export class LibConfigSenhaComponent implements OnInit {
           this.initialLevel = this.Level;
 
           this._messageService.showAlertSuccess(`Configuração de senha ${this.Id != 0 ? 'alterada' : 'criada'} com sucesso!`);
-          
+
           // if (this.ID != 0) this._messageService.showAlertSuccess('Configuração de senha alterada com sucesso!');
           // else              this._messageService.showAlertSuccess('Configuração de senha criada com sucesso!');
-          
+
           this._configuracaoSenhaService.getInfraSegConfig();
           this.getInfraSegConfig();
         },
