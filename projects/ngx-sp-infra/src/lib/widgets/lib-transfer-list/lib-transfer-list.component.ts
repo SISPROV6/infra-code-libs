@@ -87,7 +87,7 @@ export class LibTransferListComponent implements OnInit, OnChanges {
     origemSelecionados.forEach(item => destino.push(item));
     // destino = [ ...origemSelecionados ];
     
-    destino.sort((a, b) => Utils.alphanumericSort(a.ID, b.ID));
+    destino.sort((a, b) => Utils.alphanumericSortOld(a.ID, b.ID));
     
     origemSelecionados.forEach(selectedItem => {
       const index = origem.findIndex(item => item === selectedItem);

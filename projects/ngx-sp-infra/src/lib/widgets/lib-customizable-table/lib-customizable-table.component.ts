@@ -284,7 +284,7 @@ export class LibCustomizableTableComponent implements OnInit, AfterViewInit, OnC
       const propertyA = this.getProperty(a, attribute).toUpperCase();
       const propertyB = this.getProperty(b, attribute).toUpperCase();
 
-      return Utils.alphanumericSort(propertyA, propertyB, this.sortDirection[attribute]);
+      return Utils.alphanumericSortOld(propertyA, propertyB, this.sortDirection[attribute]);
     });
   }
 
