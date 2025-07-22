@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { AzureIconComponent } from './widgets/azure-icon/azure-icon.component';
 import { LoadingScreenComponent } from './widgets/loading-screen/loading-screen.component';
 
 import { AccordionModule } from 'ngx-bootstrap/accordion';
@@ -164,6 +165,7 @@ import { SearchInputComponent } from './widgets/search-input/search-input.compon
         LoadingScreenComponent,
         AuditoriaButtonComponent,
         LibDateRangePickerComponent,
+        AzureIconComponent,
         
     ],
     exports: [
@@ -231,7 +233,8 @@ import { SearchInputComponent } from './widgets/search-input/search-input.compon
         LoadingScreenComponent,
         AuditoriaButtonComponent,
         LibDateRangePickerComponent,
-
+        AzureIconComponent,
+        
     ],
     providers: [],
 })
