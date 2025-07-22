@@ -328,7 +328,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
         const propertyA = this.getProperty(a, attribute).toUpperCase(); // Puxa o nome da coluna que irá ordenar
         const propertyB = this.getProperty(b, attribute).toUpperCase(); // Puxa o nome da coluna que irá ordenar
 
-        return Utils.alphanumericSort(propertyA, propertyB, this.sortDirection[attribute])
+        return Utils.alphanumericSortOld(propertyA, propertyB, this.sortDirection[attribute])
       });
 		}
 	}

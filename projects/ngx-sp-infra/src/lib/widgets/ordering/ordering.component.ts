@@ -10,17 +10,17 @@ import { LibIconsComponent } from '../lib-icons/lib-icons.component';
         @case ('asc') {
           <lib-icon tooltip="Crescente" class="glb-cursor-pointer"
             iconName="seta-cima" iconColor="blue"
-            [iconSize]="20" (click)="emitSort()" />
+            [iconSize]="20" (click)="emitSort('desc')" />
         }
         @case ('desc') {
           <lib-icon tooltip="Decrescente" class="glb-cursor-pointer"
-          iconName="seta-baixo" iconColor="blue"
-          [iconSize]="20" (click)="emitSort()" />
+            iconName="seta-baixo" iconColor="blue"
+            [iconSize]="20" (click)="emitSort('asc')" />
         }
         @default {
           <lib-icon tooltip="Sem ordenação aplicada" class="glb-cursor-pointer"
-          iconName="cimabaixo" iconColor="gray"
-          [iconSize]="20" (click)="emitSort()" />
+            iconName="cimabaixo" iconColor="gray"
+            [iconSize]="20" (click)="emitSort('asc')" />
         }
       }
     `,
@@ -54,7 +54,7 @@ export class OrderingComponent implements OnInit {
   // #endregion ==========> PROPERTIES <==========
 
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     this.sortDirection = '';
@@ -64,15 +64,15 @@ export class OrderingComponent implements OnInit {
   // #region ==========> UTILS <==========
   
   /** Chamada quando o botão de ordenação é clicado */
-  public emitSort(): void {
+  public emitSort(direction: string): void {
     // Inverte a direção de ordenação atual
-    this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    this.sortDirection = direction;
 
     // Emite o evento com a nova direção de ordenação
     this.sortDirectionChange.emit(this.sortDirection);
 
     // Emite o evento de mudança na ordenação com a direção e os atributos de ordenação
-    this.sortChange.emit({ direction: this.sortDirection, column: this.sortAttributes });
+    this.sortChange.emit({ direction: direction, column: this.sortAttributes });
   }
 
   // #endregion ==========> UTILS <==========
