@@ -17,6 +17,7 @@ export class SubMenuItem {
 export class TelaItem {
   titulo: string = '';
   urlPath: string = '';
+  IsExternal:boolean = false;
 }
 
 @Component({
@@ -31,13 +32,13 @@ export class TelaItem {
   standalone: true
 })
 export class SubMenuComponent implements OnInit {
-  
+
   @Input() navSubmenus: NavSubMenus[] = [];
-  
+
   @Input() isProduction: boolean = true;
-  
+
   @Input() hostname: string = "https://siscandesv6.sispro.com.br";
-  
+
   activeItem: string = '';
 
   listaSubMenus: SubMenuItem[] = [];

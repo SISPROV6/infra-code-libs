@@ -2,7 +2,7 @@
   @if(telasItem.length) {
     @for(clickLink of telasItem; track $index) {
       <li class="nav-item">
-        <a class="nav-link" href="#{{ clickLink.urlPath }}">{{ clickLink.titulo }}</a>
+        <a class="nav-link" [target]="clickLink.IsExternal ? '_blank' : '_self'" [href]="clickLink.IsExternal ? ('/' + clickLink.urlPath) : ('/SisproErpCloud/' + clickLink.urlPath)">{{ clickLink.titulo }}</a>
       </li>
     }
   }
