@@ -12,7 +12,9 @@ import { RetRadioOptions } from '../models/RetRadioOptions';
 
 export class InfraAuthenticationService {
 
-  private readonly _BASE_URL: string = window.location.hostname.includes('localhost') ? `$https://SiscanDesV6.sispro.com.br/SisproErpCloud/Service_Private/Infra/SpInfra2ConfigErpWS/api/InfraAuthentication` : `https://${window.location.hostname}/SisproErpCloud/Service_Private/Infra/SpInfra2ConfigErpWS/api/InfraAuthentication`;
+  private readonly _BASE_URL: string = window.location.hostname.includes('localhost')
+    ? `https://siscandesV6.sispro.com.br/SisproErpCloud/Service_Private/Infra/SpInfra2ConfigErpWS/api/InfraAuthentication`
+    : `https://${window.location.hostname}/SisproErpCloud/Service_Private/Infra/SpInfra2ConfigErpWS/api/InfraAuthentication`;
 
   constructor(private httpClient: HttpClient) {
   }

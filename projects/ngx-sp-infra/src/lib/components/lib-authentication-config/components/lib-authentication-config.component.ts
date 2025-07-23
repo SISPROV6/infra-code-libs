@@ -25,13 +25,17 @@ export class LibAuthenticationConfigComponent {
     private _route: ActivatedRoute,
     private _router: Router,
   ) {
+  }
+
+  @Input() tenant_Id!: number;
+
+  ngOnInit(): void {
+
     if (!this.tenant_Id || this.tenant_Id == 0) {
       this._messageService.showAlertInfo("Você deve selecionar um domínio para executar esta opção.")
       this._router.navigate(["/home"]);
     }
-  }
 
-  ngOnInit(): void {
     this.GetInfraAuthenticationByTenant();
     this.GetInfraIn2FaTypeCombobox();
     this.GetInfraInAuthTypeRadioButtons();
@@ -57,8 +61,6 @@ export class LibAuthenticationConfigComponent {
   public $optionsInfraInAuthType: RadioOption[] = [];
 
   public errorMessage: string = '';
-
-  @Input() tenant_Id!: number;
 
   // #endregion PUBLIC
 

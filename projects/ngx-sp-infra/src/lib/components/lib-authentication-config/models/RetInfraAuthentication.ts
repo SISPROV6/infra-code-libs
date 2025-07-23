@@ -1,4 +1,4 @@
-import { IError } from "ngx-sp-infra";
+import { IError } from "../../../models/utils/ierror";
 import { InfraAuthentication } from "./InfraAuthentication";
 
 export class RetInfraAuthentication implements IError
