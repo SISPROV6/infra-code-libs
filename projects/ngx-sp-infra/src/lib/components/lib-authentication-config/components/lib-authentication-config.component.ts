@@ -1,15 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgIf } from '@angular/common';
-import { FormUtils, MessageService, RecordCombobox, InfraModule } from 'ngx-sp-infra';
+import { FormUtils } from '../../../utils/form-utils';
+import { MessageService } from '../../../message/message.service';
+import { RecordCombobox } from '../../../models/combobox/record-combobox';
+import { InfraModule } from '../../../infra.module';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-// import { ProjectUtilservice } from 'src/app/project/utils/project-utils.service';
-// import { ProjectService } from 'src/app/project/services/project.service';
-// import { AuthStorageService } from 'src/app/auth/storage/auth-storage.service';
-
 import { InfraAuthenticationService } from '../services/infra-authentication.service';
-
 import { InfraAuthentication } from '../models/InfraAuthentication';
 import { RadioOption } from '../models/RadioOption';
 
@@ -24,29 +21,24 @@ export class LibAuthenticationConfigComponent {
 
   constructor(
     private _messageService: MessageService,
-    //private _projectUtilservice: ProjectUtilservice,
     private _infraAuthenticationService: InfraAuthenticationService,
-    //private _projectService: ProjectService,
     private _route: ActivatedRoute,
-    //private _authStorage: AuthStorageService,
     private _router: Router,
   ) {
-    //_projectService.validateTenant();
+    if (!this.tenant_Id || this.tenant_Id == 0) {
+      this._messageService.showAlertInfo("Você deve selecionar um domínio para executar esta opção.")
+      this._router.navigate(["/home"]);
+    }
   }
 
   ngOnInit(): void {
     this.GetInfraAuthenticationByTenant();
-
     this.GetInfraIn2FaTypeCombobox();
-
     this.GetInfraInAuthTypeRadioButtons();
-
     this._route.data.subscribe(response => {
       this.keyWorld = (response['keyWorld'])
     })
-
   }
-
 
   // #region ==========> PROPERTIES <==========
 
@@ -65,6 +57,9 @@ export class LibAuthenticationConfigComponent {
   public $optionsInfraInAuthType: RadioOption[] = [];
 
   public errorMessage: string = '';
+
+  @Input() tenant_Id!: number;
+
   // #endregion PUBLIC
 
   // #endregion ==========> PROPERTIES <==========
@@ -83,9 +78,7 @@ export class LibAuthenticationConfigComponent {
 
   // #endregion FORM DATA
 
-
   // #endregion ==========> FORM BUILDER <==========
-
 
   // #region ==========> SERVICE METHODS <==========
 
@@ -105,7 +98,7 @@ export class LibAuthenticationConfigComponent {
         }
       },
       error: error => {
-        this._projectUtilservice.showHttpError(error)
+        this._messageService.showAlertDanger(error)
         console.error(error)
         this.infraAuthenticationData = new InfraAuthentication();
       }
@@ -118,7 +111,7 @@ export class LibAuthenticationConfigComponent {
       next: response => {
         this.$comboboxInfraIn2FaType = response.Records;
       }, error: error => {
-        this._projectUtilservice.showHttpError(error);
+        this._messageService.showAlertDanger(error);
       }
     })
   }
@@ -129,14 +122,13 @@ export class LibAuthenticationConfigComponent {
       next: response => {
         this.$optionsInfraInAuthType = response.RadioOptions;
       }, error: error => {
-        this._projectUtilservice.showHttpError(error);
+        this._messageService.showAlertDanger(error);
         this.$optionsInfraInAuthType = [];
       }
     })
   }
 
   // #endregion GET
-
   // #region POST
 
   public CreateOrUpdateAuthentication(): void {
@@ -144,7 +136,7 @@ export class LibAuthenticationConfigComponent {
     if (this.form.valid && this.is2FaInputValid()) {
       this.infraAuthenticationData = this.form.getRawValue() as InfraAuthentication;
 
-      this.infraAuthenticationData.Tenant_Id = this._authStorage.tenantId;
+      this.infraAuthenticationData.Tenant_Id = this.tenant_Id;
       this.infraAuthenticationData.Id = this._infraAuthId;
 
       this._infraAuthenticationService.CreateOrUpdateAuthentication(this.infraAuthenticationData).subscribe({
@@ -152,7 +144,10 @@ export class LibAuthenticationConfigComponent {
           this._messageService.showAlertSuccess('As configurações foram aplicadas com sucesso.');
           this.GetInfraAuthenticationByTenant();
         },
-        error: error => { this._projectUtilservice.showHttpError(error); console.error(error) }
+        error: error => {
+          this._messageService.showAlertDanger(error);
+          console.log(error);
+        }
       });
     }
     else { FormUtils.validateFields(this.form) }
@@ -184,6 +179,5 @@ export class LibAuthenticationConfigComponent {
   public returnToHome() {
     this._router.navigate(["/home"]);
   }
-
 
 }
