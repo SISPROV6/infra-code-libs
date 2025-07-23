@@ -1,0 +1,9 @@
+<ul class="menu">
+    @for(item of linksList; track $index) {
+    <li class="menu-item" [class.active]="item.uri.includes(activeItem)">
+        <a [href]="item.uri" class="glb-cursor-pointer" 
+            (click)="changeSelected($index)" [tabindex]="$index">{{ item.nome }}</a>
+
+    </li>
+    }
+</ul>

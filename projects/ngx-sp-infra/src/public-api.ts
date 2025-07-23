@@ -186,3 +186,5 @@ export * from './lib/widgets/sub-menu-card/sub-menu-card.component';
 
 export * from './lib/widgets/lib-date-range-picker/lib-date-range-picker.component';
 
+export * from './lib/widgets/empresa-abas/empresa-abas.component';
+

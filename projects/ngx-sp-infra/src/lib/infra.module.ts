@@ -81,6 +81,7 @@ import { LibDateRangePickerComponent } from './widgets/lib-date-range-picker/lib
 import { LibSimplifiedTableComponent } from './widgets/lib-simplified-table/lib-simplified-table.component';
 import { PasswordPolicyComponent } from './widgets/password-policy/password-policy.component';
 import { SearchInputComponent } from './widgets/search-input/search-input.component';
+import { EmpresaAbasComponent } from './widgets/empresa-abas/empresa-abas.component';
 
 @NgModule({
     imports: [
@@ -164,7 +165,7 @@ import { SearchInputComponent } from './widgets/search-input/search-input.compon
         LoadingScreenComponent,
         AuditoriaButtonComponent,
         LibDateRangePickerComponent,
-        
+        EmpresaAbasComponent
     ],
     exports: [
         PageNotAuthorizedComponent,
@@ -231,7 +232,7 @@ import { SearchInputComponent } from './widgets/search-input/search-input.compon
         LoadingScreenComponent,
         AuditoriaButtonComponent,
         LibDateRangePickerComponent,
-
+        EmpresaAbasComponent
     ],
     providers: [],
 })
