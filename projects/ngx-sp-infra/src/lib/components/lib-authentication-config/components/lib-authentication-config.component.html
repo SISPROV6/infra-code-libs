@@ -1,5 +1,6 @@
-<lib-header [breadcrumbList]="[ 'Configuração ERP', 'Configurações de Autenticação' ]" pageTitle="Configurações gerais de Autenticação"
-    mode="edit" (onReturn)="returnToHome()" (onUpdate)="this.CreateOrUpdateAuthentication()" />
+<lib-header [breadcrumbList]="[ 'Configuração ERP', 'Configurações de Autenticação' ]"
+    pageTitle="Configurações gerais de Autenticação" mode="edit" (onReturn)="returnToHome()"
+    (onUpdate)="this.CreateOrUpdateAuthentication()" />
 <!-- #endregion HEADER -->
 
 <!-- #region BODY -->
@@ -20,7 +21,7 @@
                     </div>
                     }
                 </div>
-                @if(this.form.get('InfraInAuthTypeId')?.value == 1){ <!-- Local -->
+                @if(this.form.get('InfraInAuthTypeId')?.value == 1 || this.form.get('InfraInAuthTypeId')?.value == 3){ <!-- Local -->
                 <div class="row d-flex col-4 mt-4" *ngIf="infraAuthenticationData; else loading">
                     <div class="form-check form-switch">
                         <input class="form-check-input" type="checkbox" role="switch" id="Is_2FaEnabled"
@@ -51,6 +52,8 @@
 <div class="card border-light mb-3" *ngIf="infraAuthenticationData;">
     @if(form.get('InfraInAuthTypeId')?.value == 1){
     <lib-config-senha [isConfigGeral]="true"></lib-config-senha>
+    }@else if(form.get('InfraInAuthTypeId')?.value == 2) {
+    <lib-lib-integracao-ldap [tenant_Id]="tenant_Id" [isConfigGeral]="true"></lib-lib-integracao-ldap>
     }@else {
     <lib-lib-integracao-ldap [tenant_Id]="tenant_Id" [isConfigGeral]="true"></lib-lib-integracao-ldap>
     }

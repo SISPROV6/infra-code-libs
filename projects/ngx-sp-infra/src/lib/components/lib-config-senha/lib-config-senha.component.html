@@ -3,6 +3,14 @@
     <lib-header [breadcrumbList]="[ 'Infra', 'Configuração de Senha' ]" pageTitle="Configuração de Senha"
     mode="edit" [hideButtons]="[ 'Cancelar' ]" (create)="onSubmit()" (update)="onSubmit()"  />
 }
+@else {
+    <div class="d-flex align-items-center justify-content-between p-3">
+        <h4 class="fw-bold">Configuração de Senhas Locais</h4>
+        <button class="btn btn-primary" (onclick)="onSubmit()">
+            <lib-icon iconName="disquete"/> Salvar
+        </button>
+    </div>
+}
 
 <!-- #region BODY -->
 <lib-container>
@@ -10,8 +18,8 @@
   <div innerContent1>
     <form *ngIf="$infraSegConfigRecord; else loading" [formGroup]="form">
 
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <div>
+      <div class="d-flex justify-content-start align-items-center">
+        <div class="mb-3">
           <h2 class="fs-5">Atualmente seu nível de segurança é 
               <span class="rounded text-white p-1 px-2 fw-bold"
                 [ngClass]="{
@@ -35,13 +43,6 @@
               </span>
           </h2>
         </div>
-        @if(isConfigGeral){
-            <div class="d-flex align-items-center justify-content-end">
-                <button class="btn btn-primary" (onclick)="onSubmit()">
-                    <lib-icon iconName="disquete"/> Salvar
-                </button>
-            </div>
-        }
     </div>
     <div class="border rounded mb-4">
         <div class="card-body">
@@ -59,6 +60,7 @@
             <input formControlName="Level" type="radio" class="btn-check" name="Level" id="option4" autocomplete="off" [value]="4" (change)="onSelectLevel(Level)" >
             <label [class.btn-outline-primary]="Level === 4" [class.bg-primary]="Level === 4" class="btn btn-secondary m-2" for="option4"><lib-icon iconName="chave"/> Personalizado</label>
         </div>
+
     </div>
 
     <div class="border rounded p-3 mb-4">

@@ -14,15 +14,15 @@
     </button>
 </lib-header>
 }@else{
-<div class="d-flex align-items-center justify-content-between p-3">
-    <h3>Integração AD/LDAP</h3>
+<div class="d-flex align-items-center justify-content-between p-4">
+    <h4 class="fw-bold">Integração AD/LDAP</h4>
     <div class="d-flex gap-3">
         <button class="btn btn-outline-primary d-flex flex-row align-items-center"
             (click)="_modalUtils.openModal(modalValidateUserLDAP, 1)">
             <lib-icon iconName="aviao-papel" />
             Validar usuário no LDAP
         </button>
-        <button customButton3 type="submit" (click)="onSubmit()" class="btn btn-primary flex-row align-items-center me-2">Salvar <lib-icon
+        <button customButton3 type="submit" (click)="onSubmit()" class="btn btn-primary flex-row align-items-center">Salvar <lib-icon
             iconName="disquete"/>
         </button>
     </div>
@@ -32,7 +32,7 @@
 <!-- #endregion HEADER -->
 
 <!-- #region BODY -->
-<div class="card border-light mb-3" *ngIf="infraLDAP; else loading">
+<div [class]="!isConfigGeral ? 'card border-light mb-3' : 'card border-0 mb-3'" *ngIf="infraLDAP; else loading">
     <div class="card-body mb-2">
         <form [formGroup]="form">
             <div class="container-fluid">
