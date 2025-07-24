@@ -1,6 +1,8 @@
-<lib-header [breadcrumbList]="[ 'Infra', 'Configuração de Senha' ]" pageTitle="Configuração de Senha"
-  mode="edit" [hideButtons]="[ 'Cancelar' ]" (create)="onSubmit()" (update)="onSubmit()"  />
-
+@if(!isConfigGeral)
+{
+    <lib-header [breadcrumbList]="[ 'Infra', 'Configuração de Senha' ]" pageTitle="Configuração de Senha"
+    mode="edit" [hideButtons]="[ 'Cancelar' ]" (create)="onSubmit()" (update)="onSubmit()"  />
+}
 
 <!-- #region BODY -->
 <lib-container>
@@ -8,8 +10,8 @@
   <div innerContent1>
     <form *ngIf="$infraSegConfigRecord; else loading" [formGroup]="form">
 
-      <div class="d-flex justify-content-start align-items-center">
-        <div class="mb-3">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
           <h2 class="fs-5">Atualmente seu nível de segurança é 
               <span class="rounded text-white p-1 px-2 fw-bold"
                 [ngClass]="{
@@ -33,6 +35,13 @@
               </span>
           </h2>
         </div>
+        @if(isConfigGeral){
+            <div class="d-flex align-items-center justify-content-end">
+                <button class="btn btn-primary" (onclick)="onSubmit()">
+                    <lib-icon iconName="disquete"/> Salvar
+                </button>
+            </div>
+        }
     </div>
     <div class="border rounded mb-4">
         <div class="card-body">

@@ -23,7 +23,7 @@ export class InfraAuthenticationService {
     const url = `${this._BASE_URL}/GetInfraAuthenticationByTenant`
 
     const headers = new HttpHeaders()
-      .set('Content-Type', 'application/json');
+      .set('Content-Type', 'application/json')
 
     return this.httpClient.get<RetInfraAuthentication>(url, { 'headers': headers })
       .pipe(

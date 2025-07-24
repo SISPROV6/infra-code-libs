@@ -1,10 +1,9 @@
-<lib-header [breadcrumbList]="[ 'Configuração ERP', 'Configurações de Autenticação' ]" pageTitle="{{ this.keyWorld }}"
+<lib-header [breadcrumbList]="[ 'Configuração ERP', 'Configurações de Autenticação' ]" pageTitle="Configurações gerais de Autenticação"
     mode="edit" (onReturn)="returnToHome()" (onUpdate)="this.CreateOrUpdateAuthentication()" />
 <!-- #endregion HEADER -->
 
 <!-- #region BODY -->
-<div class="card border-light mb-3" style="box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.5);"
-    *ngIf="infraAuthenticationData; else loading">
+<div class="card border-light mb-3" *ngIf="infraAuthenticationData; else loading">
     <form [formGroup]="form">
         <div class="card-body">
             <div class="container-fluid d-flex">
@@ -48,6 +47,15 @@
         </div>
     </form>
 </div>
+
+<div class="card border-light mb-3" *ngIf="infraAuthenticationData;">
+    @if(form.get('InfraInAuthTypeId')?.value == 1){
+    <lib-config-senha [isConfigGeral]="true"></lib-config-senha>
+    }@else {
+    <lib-lib-integracao-ldap [tenant_Id]="tenant_Id" [isConfigGeral]="true"></lib-lib-integracao-ldap>
+    }
+</div>
+
 <!-- #endregion BODY -->
 
 <!-- #region SPINNER -->

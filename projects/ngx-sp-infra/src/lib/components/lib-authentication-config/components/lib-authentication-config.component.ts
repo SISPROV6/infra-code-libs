@@ -9,11 +9,12 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { InfraAuthenticationService } from '../services/infra-authentication.service';
 import { InfraAuthentication } from '../models/InfraAuthentication';
 import { RadioOption } from '../models/RadioOption';
+import { LibIntegracaoLdapComponent } from '../../lib-integracao-ldap/components/lib-integracao-ldap.component';
 
 @Component({
   selector: 'lib-lib-authentication-config',
   standalone: true,
-  imports: [InfraModule, NgIf, FormsModule, ReactiveFormsModule],
+  imports: [InfraModule, NgIf, FormsModule, ReactiveFormsModule, LibIntegracaoLdapComponent],
   templateUrl: './lib-authentication-config.component.html',
   styleUrl: './lib-authentication-config.component.scss'
 })
@@ -39,9 +40,6 @@ export class LibAuthenticationConfigComponent {
     this.GetInfraAuthenticationByTenant();
     this.GetInfraIn2FaTypeCombobox();
     this.GetInfraInAuthTypeRadioButtons();
-    this._route.data.subscribe(response => {
-      this.keyWorld = (response['keyWorld'])
-    })
   }
 
   // #region ==========> PROPERTIES <==========
@@ -54,7 +52,6 @@ export class LibAuthenticationConfigComponent {
   // #region PUBLIC
 
   public menuGroup: string = "";
-  public keyWorld: string = "";
 
   public infraAuthenticationData: InfraAuthentication = new InfraAuthentication();
   public $comboboxInfraIn2FaType: RecordCombobox[] = [];
