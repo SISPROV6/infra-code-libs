@@ -1,0 +1,63 @@
+<lib-container>
+    <div innerContent1>
+        <form [formGroup]="InfraIntegracaoForm">
+
+            <div class="row mb-3">
+                <div class="form-group mt-2 col-6">
+                    <label libRequired for="Name" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="Name" formControlName="Name" />
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <label libRequired for="DESCRIPTION" class="form-label">Descrição</label>
+                        <textarea class="form-control" id="DESCRIPTION"
+                            formControlName="InfraIntegrationDesc"></textarea>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <form [formGroup]="InfraIntegracaoParameterForm">
+            <div class="parameter-container">
+                <div class="form-group mt-2 col-4">
+                    <label libRequired class="form-label">Chave</label>
+                    <input type="text" class="form-control" formControlName="Key">
+                </div>
+                <div class="form-group mt-2 col-7">
+                    <label libRequired class="form-label">Valor</label>
+                    <input type="text" class="form-control" formControlName="Value">
+                </div>
+            </div>
+        </form>
+    </div>
+</lib-container>
+
+<!-- <ng-template #UpdateModal>
+    <div class="custom-modal-wrapper">
+        <div class="custom-modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editar integração</h5>
+                <lib-icon iconName="fechar" class="glb-cursor-pointer btn-close" (click)="closeModal(2)"></lib-icon>
+            </div>
+
+            <form>
+                <div class="row">
+                    <div class="form-group mt-2 col-4">
+                        <label class="form-label">Chave</label>
+                        <input type="text" class="form-control" [(ngModel)]="key" name="key">
+                    </div>
+
+                    <div class="form-group mt-2 col-8">
+                        <label class="form-label">Valor</label>
+                        <input type="text" class="form-control" [(ngModel)]="value" name="value">
+                    </div>
+                </div>
+            </form>
+
+            <div class="modal-footer">
+                <button (click)="closeModal(2)" type="button" class="btn btn-secondary">Cancelar</button>
+                <button type="button" class="btn btn-success">Salvar</button>
+            </div>
+        </div>
+    </div>
+</ng-template> -->
