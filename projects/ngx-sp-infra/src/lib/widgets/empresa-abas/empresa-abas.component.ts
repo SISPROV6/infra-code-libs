@@ -14,8 +14,6 @@ export class EmpresaAbasComponent implements OnInit{
   public linksList: links[] = [];
   @Input() Id: string | number = "";
   public uri: links = new links();
-  public NewUri: number = 0;
-  public LastUri: number = 0;
 
   public activeItem: string = '';
 
@@ -38,22 +36,6 @@ export class EmpresaAbasComponent implements OnInit{
     );
 
     this.activeItem = this.router.url;
-
-    console.log("teste1")
-
-  }
-
-
-  public changeSelected(index: number): void{
-
-     this.NewUri = index;
-
-     if(this.NewUri != this.LastUri){
-      this.linksList[this.LastUri].isTargetSelf = false;
-      this.linksList[this.NewUri].isTargetSelf = true;
-     }
-
-     this.LastUri = this.NewUri;
 
   }
 
