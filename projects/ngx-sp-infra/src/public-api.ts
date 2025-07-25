@@ -189,4 +189,7 @@ export * from './lib/widgets/lib-date-range-picker/lib-date-range-picker.compone
 export * from './lib/widgets/empresa-abas/empresa-abas.component';
 export * from './lib/widgets/pessoa-abas/pessoa-abas.component';
 export * from './lib/widgets/estabelecimento-abas/estabelecimento-abas.component';
+export * from './lib/widgets/items-abas/items-abas.component';
+export * from './lib/widgets/usuario-abas/usuario-abas.component';
+export * from './lib/widgets/grupo-contabil-abas/grupo-contabil-abas.component';
 

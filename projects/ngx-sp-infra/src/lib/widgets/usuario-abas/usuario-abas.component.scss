@@ -6,16 +6,6 @@
   gap: 20px;
 }
 
-ul.menu {
-  display: flex;
-  flex-wrap: wrap; 
-}
-
-li.menu-item {
-  white-space: nowrap; 
-  display: inline-block;
-}
-
 .menu-item a {
   text-align: center;
   position: relative; /* Necessário para o posicionamento do triângulo */

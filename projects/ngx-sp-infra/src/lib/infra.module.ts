@@ -84,6 +84,9 @@ import { SearchInputComponent } from './widgets/search-input/search-input.compon
 import { EmpresaAbasComponent } from './widgets/empresa-abas/empresa-abas.component';
 import { PessoaAbasComponent } from './widgets/pessoa-abas/pessoa-abas.component';
 import { EstabelecimentoAbasComponent } from './widgets/estabelecimento-abas/estabelecimento-abas.component';
+import { ItemsAbasComponent } from './widgets/items-abas/items-abas.component';
+import { UsuarioAbasComponent } from './widgets/usuario-abas/usuario-abas.component';
+import { GrupoContabilAbasComponent } from './widgets/grupo-contabil-abas/grupo-contabil-abas.component';
 
 @NgModule({
     imports: [
@@ -169,7 +172,10 @@ import { EstabelecimentoAbasComponent } from './widgets/estabelecimento-abas/est
         LibDateRangePickerComponent,
         EmpresaAbasComponent,
         PessoaAbasComponent,
-        EstabelecimentoAbasComponent
+        EstabelecimentoAbasComponent,
+        ItemsAbasComponent,
+        UsuarioAbasComponent,
+        GrupoContabilAbasComponent
     ],
     exports: [
         PageNotAuthorizedComponent,
@@ -238,7 +244,10 @@ import { EstabelecimentoAbasComponent } from './widgets/estabelecimento-abas/est
         LibDateRangePickerComponent,
         EmpresaAbasComponent,
         PessoaAbasComponent,
-        EstabelecimentoAbasComponent
+        EstabelecimentoAbasComponent,
+        ItemsAbasComponent,
+        UsuarioAbasComponent,
+        GrupoContabilAbasComponent
     ],
     providers: [],
 })
