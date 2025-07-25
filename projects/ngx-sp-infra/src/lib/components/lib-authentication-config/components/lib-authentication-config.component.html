@@ -53,7 +53,7 @@
     @if(form.get('InfraInAuthTypeId')?.value == 1){
     <lib-config-senha [isConfigGeral]="true"></lib-config-senha>
     }@else if(form.get('InfraInAuthTypeId')?.value == 2) {
-    <lib-lib-integracoes-externas [tenant_Id]="tenant_Id"></lib-lib-integracoes-externas>
+    <lib-lib-integracao-ldap [tenant_Id]="tenant_Id" [isConfigGeral]="true"></lib-lib-integracao-ldap>
     }@else {
     <lib-lib-integracao-ldap [tenant_Id]="tenant_Id" [isConfigGeral]="true"></lib-lib-integracao-ldap>
     }

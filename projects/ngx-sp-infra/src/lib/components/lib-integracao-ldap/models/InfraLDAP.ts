@@ -1,4 +1,5 @@
-export class InfraLDAP{
+export class InfraLDAP 
+{
     Tenant_Id: number = 0;
     Id: number = 0;
     Descricao: string = "";
@@ -8,7 +9,7 @@ export class InfraLDAP{
     Path: string = "";
     SearchDN: boolean = false;
     GrupodDefaultId: number = 0;
-    Is_RequireAprov: boolean=  false;
+    Is_RequireAprov: boolean = false;
     Is_Active: boolean = false;
     Is_LDPAS: boolean = false;
 }

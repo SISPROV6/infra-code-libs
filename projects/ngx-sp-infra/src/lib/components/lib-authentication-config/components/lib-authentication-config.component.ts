@@ -10,12 +10,11 @@ import { InfraAuthenticationService } from '../services/infra-authentication.ser
 import { InfraAuthentication } from '../models/InfraAuthentication';
 import { RadioOption } from '../models/RadioOption';
 import { LibIntegracaoLdapComponent } from '../../lib-integracao-ldap/components/lib-integracao-ldap.component';
-import { LibIntegracoesExternasComponent } from '../../lib-integracoes-externas/components/lib-integracoes-externas.component';
 
 @Component({
   selector: 'lib-lib-authentication-config',
   standalone: true,
-  imports: [InfraModule, NgIf, FormsModule, ReactiveFormsModule, LibIntegracaoLdapComponent, LibIntegracoesExternasComponent],
+  imports: [InfraModule, NgIf, FormsModule, ReactiveFormsModule, LibIntegracaoLdapComponent],
   templateUrl: './lib-authentication-config.component.html',
   styleUrl: './lib-authentication-config.component.scss'
 })
