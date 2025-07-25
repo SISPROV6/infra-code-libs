@@ -5,59 +5,58 @@
         Salvar
     </button>
 </div>
-<lib-container>
-    <div innerContent1>
-        <form [formGroup]="formIntegration">
-            <div class="row mb-3">
-                <div class="col-6">
-                    <label libRequired for="Name" class="form-label">Nome</label>
-                    <input type="text" class="form-control" id="Name" formControlName="Name"
-                        [class.is-invalid]="FormUtils.isInvalidField(formIntegration.get('Name'))">
-                    <app-field-error-message [control]="formIntegration.get('Name')" label="Name" />
-                </div>
+<div class="card-body">
+    <form [formGroup]="formIntegration">
+        <div class="row mb-3">
+            <div class="col-6">
+                <label libRequired for="Name" class="form-label">Nome</label>
+                <input type="text" class="form-control" placeholder="Insira um nome para integração" id="Name" formControlName="Name"
+                    [class.is-invalid]="FormUtils.isInvalidField(formIntegration.get('Name'))">
+                <app-field-error-message [control]="formIntegration.get('Name')" label="Name" />
             </div>
+        </div>
 
-            <div class="row mb-3">
-                <div class="col">
-                    <label for="InfraIntegrationDesc" class="form-label">Descrição</label>
-                    <textarea maxlength="2000" class="form-control" id="InfraIntegrationDesc"
-                        formControlName="InfraIntegrationDesc"
-                        [class.is-invalid]="FormUtils.isInvalidField(formIntegration.get('InfraIntegrationDesc'))"></textarea>
-                    <app-field-error-message [control]="formIntegration.get('InfraIntegrationDesc')"
-                        label="InfraIntegrationDesc" />
-                </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label libRequired for="InfraIntegrationDesc" class="form-label">Descrição</label>
+                <textarea maxlength="2000" class="form-control" id="InfraIntegrationDesc"
+                    placeholder="Insira uma descrição para integração"
+                    formControlName="InfraIntegrationDesc"
+                    [class.is-invalid]="FormUtils.isInvalidField(formIntegration.get('InfraIntegrationDesc'))"></textarea>
+                <app-field-error-message [control]="formIntegration.get('InfraIntegrationDesc')"
+                    label="InfraIntegrationDesc" />
             </div>
-        </form>
-        <hr class="mb-3" />
-        <form [formGroup]="formIntegrationParameters">
-            <div class="row mb-3">
-                <div class="col-6">
-                    <label libRequired for="Name" class="form-label">Chave</label>
-                    <input type="text" class="form-control" id="Name" formControlName="NAME"
-                        [class.is-invalid]="FormUtils.isInvalidField(formIntegration.get('NAME'))">
-                    <app-field-error-message [control]="formIntegration.get('NAME')" label="Name" />
-                </div>
-                <div class="col-6">
-                    <label libRequired for="Name" class="form-label">Valor</label>
-                    <input type="text" class="form-control" id="Name" formControlName="NAME"
-                        [class.is-invalid]="FormUtils.isInvalidField(formIntegration.get('NAME'))">
-                    <app-field-error-message [control]="formIntegration.get('NAME')" label="Name" />
-                </div>
+        </div>
+    </form>
+    <hr class="mb-3" />
+    <form [formGroup]="formIntegrationParameters">
+        <div class="row mb-3">
+            <div class="col-2">
+                <label libRequired for="KeyClientId" class="form-label">Chave</label>
+                <input type="text" class="form-control" id="KeyClientId" formControlName="KeyClientId"
+                    [class.is-invalid]="FormUtils.isInvalidField(formIntegration.get('KeyClientId'))">
+                <app-field-error-message [control]="formIntegration.get('KeyClientId')" label="client_id" />
             </div>
-            <div class="row mb-3">
-                <div class="col-6">
-                    <label libRequired for="Name" class="form-label">Chave</label>
-                    <input type="text" class="form-control" id="Name" formControlName="NAME"
-                        [class.is-invalid]="FormUtils.isInvalidField(formIntegration.get('NAME'))">
-                    <app-field-error-message [control]="formIntegration.get('NAME')" label="Name" />
-                </div>
-                <div class="col-6">
-                    <label libRequired for="Name" class="form-label">Valor</label>
-                    <input type="text" class="form-control" id="Name" formControlName="NAME"
-                        [class.is-invalid]="FormUtils.isInvalidField(formIntegration.get('NAME'))">
-                    <app-field-error-message [control]="formIntegration.get('NAME')" label="Name" />
-                </div>
+            <div class="col-4">
+                <label libRequired for="ValueClientId" class="form-label">Valor</label>
+                <input type="text" class="form-control" id="ValueClientId" formControlName="ValueClientId"
+                    [class.is-invalid]="FormUtils.isInvalidField(formIntegration.get('ValueClientId'))" value="tenant_id">
+                <app-field-error-message [control]="formIntegration.get('ValueClientId')" label="ValueClientId" />
             </div>
-        </form>
-    </div>
-</lib-container>
+        </div>
+        <div class="row mb-3">
+            <div class="col-2">
+                <label libRequired for="KeyTenantId" class="form-label">Chave</label>
+                <input type="text" class="form-control" id="KeyTenantId" formControlName="KeyTenantId"
+                    [class.is-invalid]="FormUtils.isInvalidField(formIntegration.get('KeyTenantId'))" value="client_id">
+                <app-field-error-message [control]="formIntegration.get('KeyTenantId')" label="KeyTenantId"/>
+            </div>
+            <div class="col-4">
+                <label libRequired for="ValueTenantId" class="form-label">Valor</label>
+                <input type="text" class="form-control" id="ValueTenantId" formControlName="ValueTenantId"
+                    [class.is-invalid]="FormUtils.isInvalidField(formIntegration.get('ValueTenantId'))">
+                <app-field-error-message [control]="formIntegration.get('ValueTenantId')" label="ValueTenantId" />
+            </div>
+        </div>
+    </form>
+</div>

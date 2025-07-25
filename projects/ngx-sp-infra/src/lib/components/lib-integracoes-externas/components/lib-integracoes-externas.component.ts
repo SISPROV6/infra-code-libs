@@ -37,14 +37,22 @@ export class LibIntegracoesExternasComponent {
 
   @Input() tenant_Id!: number;
 
+  private recordIntegration: IntegracoesRecord = new IntegracoesRecord();
+  private recordIntegrationParameters: IntegracoesParameterRecord = new IntegracoesParameterRecord();
+  private integrationParameterList: IntegracoesParameterRecord[] = [];
+
+  public IntegracaoId: number = 0;
+
   public formIntegration: FormGroup = new FormGroup({
     Name: new FormControl<string>("", [Validators.required]),
     InfraIntegrationDesc: new FormControl<string>("", [Validators.required]),
   });
 
   public formIntegrationParameters: FormGroup = new FormGroup({
-    Key: new FormControl<string>("", [Validators.required]),
-    Value: new FormControl<string>("", [Validators.required]),
+    KeyClientId: new FormControl<string>("client_id", [Validators.required]),
+    ValueClientId: new FormControl<string>("", [Validators.required]),
+    KeyTenantId: new FormControl<string>("tenant_Id", [Validators.required]),
+    ValueTenantId: new FormControl<string>("", [Validators.required]),
   });
 
   public get FormUtils(): typeof FormUtils { return FormUtils; }
@@ -63,6 +71,91 @@ export class LibIntegracoesExternasComponent {
       this._messageService.showAlertInfo("Você deve selecionar um domínio para executar esta opção.")
       this._router.navigate(["/home"]);
     }
+
+    this.formIntegrationParameters.get('KeyClientId')?.disable();
+    this.formIntegrationParameters.get('KeyTenantId')?.disable();
+  }
+
+  // public getInfraIntegracaoParameter(id: number, Tenant_Id: number): void {
+  //   this._integracaoService.GetInfraIntegrationParameter(id, Tenant_Id).subscribe({
+  //     next: (response) => {
+
+  //       this.key = response.IntegrationParameter.Key;
+  //       this.value = response.IntegrationParameter.Value;
+  //       this.IntegracaoParameterId = response.IntegrationParameter.InfraIntegrationParameterId;
+  //     },
+  //     error: (error) => {
+  //       this._projectUtilservice.showHttpError(error);
+  //       this.$retIntegracaoParameter = new RetIntegracaoParameter();
+  //     },
+
+  //   });
+  // }
+
+  public CreateIntegracao() {
+
+    this._integracaoService.CreateInfraIntegration(this.recordIntegration).subscribe({
+      next: response => {
+        this._messageService.showAlertSuccess('Integração cadastrada com sucesso.');
+      },
+      error: error => {
+        this._messageService.showAlertDanger(error);
+      }
+    })
+    
+  }
+
+  public UpdateIntegracao() {
+
+    this._integracaoService.CreateInfraIntegrationParameter(this.integrationParameterList, this.IntegracaoId, this.tenant_Id).subscribe({
+      next: response => {
+        this._messageService.showAlertSuccess(response.Integration);
+      },
+      error: error => {
+        this._messageService.showAlertDanger(error);
+      }
+    })
+  }
+
+  public GetIntegracao() {
+
+    this._integracaoService.GetInfraIntegracao(this.IntegracaoId, this.tenant_Id).subscribe({
+      next: response => {
+
+        this.formIntegration.patchValue({
+          ...this.formIntegration.value,
+          ...response.Integration,
+        });
+
+      },
+      error: error => {
+        this._messageService.showAlertDanger(error);
+      }
+    })
+  }
+
+  public CreateIntegracaoParameter() {
+
+    this._integracaoService.CreateInfraIntegrationParameter(this.integrationParameterList, this.IntegracaoId, this.tenant_Id).subscribe({
+      next: response => {
+        this._messageService.showAlertSuccess(response.Integration);
+      },
+      error: error => {
+        this._messageService.showAlertDanger(error);
+      }
+    })
+  }
+
+  public UpdateIntegracaoParameter() {
+
+    this._integracaoService.CreateInfraIntegrationParameter(this.integrationParameterList, this.IntegracaoId, this.tenant_Id).subscribe({
+      next: response => {
+        this._messageService.showAlertSuccess(response.Integration);
+      },
+      error: error => {
+        this._messageService.showAlertDanger(error);
+      }
+    })
   }
 
 }
