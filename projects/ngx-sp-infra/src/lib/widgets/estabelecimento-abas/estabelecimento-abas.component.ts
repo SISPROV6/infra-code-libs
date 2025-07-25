@@ -13,7 +13,6 @@ export class EstabelecimentoAbasComponent {
 
   public linksList: estabelecimentoUriRecord[] = [];
   @Input() Id: string | number = "";
-  public uri: estabelecimentoUriRecord = new estabelecimentoUriRecord();
 
   public activeItem: string = '';
 

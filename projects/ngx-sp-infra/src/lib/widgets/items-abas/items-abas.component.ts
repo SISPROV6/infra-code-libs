@@ -13,7 +13,6 @@ export class ItemsAbasComponent {
 
    public linksList: links[] = [];
   @Input() Id: string | number = "";
-  public uri: links = new links();
 
   public activeItem: string = '';
 
