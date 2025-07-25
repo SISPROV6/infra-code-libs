@@ -1,0 +1,63 @@
+<div class="d-flex align-items-center justify-content-between p-3">
+    <h4 class="fw-bold">Configuração de integração SSO AzureAD</h4>
+    <button class="btn btn-primary">
+        <lib-icon iconName="disquete" />
+        Salvar
+    </button>
+</div>
+<lib-container>
+    <div innerContent1>
+        <form [formGroup]="formIntegration">
+            <div class="row mb-3">
+                <div class="col-6">
+                    <label libRequired for="Name" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="Name" formControlName="Name"
+                        [class.is-invalid]="FormUtils.isInvalidField(formIntegration.get('Name'))">
+                    <app-field-error-message [control]="formIntegration.get('Name')" label="Name" />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="InfraIntegrationDesc" class="form-label">Descrição</label>
+                    <textarea maxlength="2000" class="form-control" id="InfraIntegrationDesc"
+                        formControlName="InfraIntegrationDesc"
+                        [class.is-invalid]="FormUtils.isInvalidField(formIntegration.get('InfraIntegrationDesc'))"></textarea>
+                    <app-field-error-message [control]="formIntegration.get('InfraIntegrationDesc')"
+                        label="InfraIntegrationDesc" />
+                </div>
+            </div>
+        </form>
+        <hr class="mb-3" />
+        <form [formGroup]="formIntegrationParameters">
+            <div class="row mb-3">
+                <div class="col-6">
+                    <label libRequired for="Name" class="form-label">Chave</label>
+                    <input type="text" class="form-control" id="Name" formControlName="NAME"
+                        [class.is-invalid]="FormUtils.isInvalidField(formIntegration.get('NAME'))">
+                    <app-field-error-message [control]="formIntegration.get('NAME')" label="Name" />
+                </div>
+                <div class="col-6">
+                    <label libRequired for="Name" class="form-label">Valor</label>
+                    <input type="text" class="form-control" id="Name" formControlName="NAME"
+                        [class.is-invalid]="FormUtils.isInvalidField(formIntegration.get('NAME'))">
+                    <app-field-error-message [control]="formIntegration.get('NAME')" label="Name" />
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <label libRequired for="Name" class="form-label">Chave</label>
+                    <input type="text" class="form-control" id="Name" formControlName="NAME"
+                        [class.is-invalid]="FormUtils.isInvalidField(formIntegration.get('NAME'))">
+                    <app-field-error-message [control]="formIntegration.get('NAME')" label="Name" />
+                </div>
+                <div class="col-6">
+                    <label libRequired for="Name" class="form-label">Valor</label>
+                    <input type="text" class="form-control" id="Name" formControlName="NAME"
+                        [class.is-invalid]="FormUtils.isInvalidField(formIntegration.get('NAME'))">
+                    <app-field-error-message [control]="formIntegration.get('NAME')" label="Name" />
+                </div>
+            </div>
+        </form>
+    </div>
+</lib-container>
