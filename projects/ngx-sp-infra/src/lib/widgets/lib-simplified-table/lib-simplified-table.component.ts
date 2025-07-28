@@ -13,7 +13,8 @@ import { LibIconsComponent } from "../lib-icons/lib-icons.component";
     TooltipModule,
     NgxPaginationModule,
     NgTemplateOutlet,
-    LibIconsComponent
+    LibIconsComponent,
+    TooltipModule
   ],
   templateUrl: './lib-simplified-table.component.html',
   styleUrl: './lib-simplified-table.component.scss'

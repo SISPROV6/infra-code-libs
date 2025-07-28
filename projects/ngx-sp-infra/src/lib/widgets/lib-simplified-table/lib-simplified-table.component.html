@@ -28,7 +28,9 @@
                 {{ ($last && header.name === '') && scrollable ? 'fix' : '' }}"
                 [style.width]="scrollable ? header.widthPixels ? header.widthPixels+'px' : 250+'px' : null" >
 
-                {{ header.name }}
+                <span [tooltip]="header.name">
+                  {{ header.name }}
+                </span>
 
               </th>
             }
@@ -78,10 +80,9 @@
   
           <!-- Controle de paginação -->
           <pagination-controls class="sp-pagination mb-0" [id]="paginationID"
-            screenReaderPaginationLabel="Paginação"
-            screenReaderPageLabel="Página"
+            screenReaderPaginationLabel="Paginação" screenReaderPageLabel="Página"
+            previousLabel="«&nbsp;&nbsp;&nbsp;" nextLabel="&nbsp;&nbsp;&nbsp;»"
             screenReaderCurrentLabel="Você está na página"
-            [directionLinks]="false"
             [autoHide]="false"
             [responsive]="true"
             [maxSize]="5"
