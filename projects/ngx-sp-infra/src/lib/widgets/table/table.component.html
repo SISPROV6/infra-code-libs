@@ -88,7 +88,7 @@
             </div>
 
             <!-- #region PAGINAÇÃO -->
-            <div *ngIf="usePagination && list.length > 0" class="d-flex flex-wrap mt-2"
+            <div *ngIf="!useCustomPagination && usePagination && list.length > 0" class="d-flex flex-wrap mt-2"
                [ngClass]="{
                   'justify-content-start': placement === 'start',
                   'justify-content-center': placement === 'center',
@@ -184,7 +184,7 @@
             </div>
 
             <!-- #region PAGINAÇÃO -->
-            <div *ngIf="usePagination && list.length > 0" class="d-flex flex-wrap mt-2"
+            <div *ngIf="!useCustomPagination && usePagination && list.length > 0" class="d-flex flex-wrap mt-2"
                [ngClass]="{
                   'justify-content-start': placement === 'start',
                   'justify-content-center': placement === 'center',

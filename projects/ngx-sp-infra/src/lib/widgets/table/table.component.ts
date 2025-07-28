@@ -107,6 +107,10 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
    * @default false */
   @Input() public scrollable: boolean = false;
 
+  /** Informa se a lógica e elementos de paginação devem ficar fora do componente e serem gerenciados pelo componente pai.
+   * @default false */
+  @Input() public useCustomPagination: boolean = false;
+
   /**
    * DEVE ser utilizada em caso de paginação visível.
    * 
