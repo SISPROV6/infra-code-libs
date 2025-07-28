@@ -28,7 +28,7 @@
                 {{ ($last && header.name === '') && scrollable ? 'fix' : '' }}"
                 [style.width]="scrollable ? header.widthPixels ? header.widthPixels+'px' : 250+'px' : null" >
 
-                <span [tooltip]="header.name">
+                <span [tooltip]="header.tooltip ? header.tooltip : ''">
                   {{ header.name }}
                 </span>
 
