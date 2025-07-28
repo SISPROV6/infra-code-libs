@@ -1,11 +1,12 @@
 import { Component, ContentChild, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { IMenuItemStructure } from '../../model/imenu-item-structure.model';
 
 @Component({
   selector: 'app-dynamic-menu',
   templateUrl: './dynamic-menu.component.html',
   styleUrls: ['./dynamic-menu.component.scss'],
+  imports:[ RouterModule]
 })
 
 export class DynamicMenuComponent implements OnInit {
