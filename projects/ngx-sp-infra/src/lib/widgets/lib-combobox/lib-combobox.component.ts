@@ -183,6 +183,12 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
   */
   @Input() public additionalStringBold?: boolean = true;
 
+  /** (opcional) Define se a mensagem de erro do input deve ser exibida ou escondida em caso de erro de valor no input.
+   * @type { boolean }
+   * @default true
+  */
+  @Input() public showErrorMessage?: boolean = true;
+
   /** Evento emitido ao recarregar a lista de registros
    * @example Ao ser emitido, o componente pai pode refazer o GET da lista, por exemplo.
    * @emits EventEmitter<string> que leva o valor string da pesquisa feita para ser enviada para o GET
