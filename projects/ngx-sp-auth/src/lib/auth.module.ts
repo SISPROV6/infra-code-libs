@@ -19,13 +19,6 @@ import { NovaSenhaComponent } from '../lib/components/nova-senha/nova-senhacompo
 @NgModule({
   declarations: [
     LoginComponent,
-    NovaSenhaComponent,
-    PrimaryDropdownComponent,
-    SecondaryDropdownComponent,
-    SelecaoEstabelecimentosModalComponent,
-    MenuLateralComponent,
-    DynamicMenuComponent,
-    NotifSubmenuComponent
   ],
   imports: [
     CommonModule,
@@ -40,13 +33,6 @@ import { NovaSenhaComponent } from '../lib/components/nova-senha/nova-senhacompo
   ],
   exports: [
     LoginComponent,
-    NovaSenhaComponent,
-    PrimaryDropdownComponent,
-    SecondaryDropdownComponent,
-    SelecaoEstabelecimentosModalComponent,
-    MenuLateralComponent,
-    DynamicMenuComponent,
-    NotifSubmenuComponent
   ]
 })
 export class AuthModule { }

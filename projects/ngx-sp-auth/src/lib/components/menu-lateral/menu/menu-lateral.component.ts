@@ -1,24 +1,29 @@
-import { Component, ContentChild, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { BsModalService } from 'ngx-bootstrap/modal';
-import { MessageService } from 'ngx-sp-infra';
-import { filter, Subject } from 'rxjs';
-import { LibCustomMenuService } from './../../../custom/custom-menu.service';
+import { Component, OnInit, ViewChild, TemplateRef, ContentChild } from "@angular/core";
+import { RouterModule, Router, NavigationEnd } from "@angular/router";
+import { BsModalService } from "ngx-bootstrap/modal";
+import { PopoverModule } from "ngx-bootstrap/popover";
+import { TooltipModule } from "ngx-bootstrap/tooltip";
+import { LibIconsComponent, MessageService } from "ngx-sp-infra";
+import { filter, Subject } from "rxjs";
+import { AuthService } from "../../../auth.service";
+import { LibCustomMenuService } from "../../../custom/custom-menu.service";
+import { MenuConfigService } from "../../../custom/menu-config.service";
+import { AuthStorageService } from "../../../storage/auth-storage.service";
+import { PrimaryDropdownComponent } from "../dropdown/primary-dropdown/primary-dropdown.component";
+import { MenuServicesService } from "../menu-services.service";
+import { IMenuItemStructure } from "../model/imenu-item-structure.model";
+import { ISubmenuItemStructure } from "../model/isubmenu-item-structure.model";
+import { Usuario_IMG } from "../model/usuario-img";
+import { DynamicMenuComponent } from "../submenus/dynamic-menu/dynamic-menu.component";
+import { NotifSubmenuComponent } from "../submenus/notif-submenu/notif-submenu.component";
+import { SelecaoEstabelecimentosModalComponent } from "./selecao-estabelecimentos-modal/selecao-estabelecimentos-modal.component";
 
-//import { environment } from '../../../environments/environments';
-//import { ProjectUtilservice } from 'src/app/project/utils/project-utils.service';
-import { AuthService } from '../../../auth.service';
-import { MenuConfigService } from '../../../custom/menu-config.service';
-import { AuthStorageService } from '../../../storage/auth-storage.service';
-import { MenuServicesService } from '../menu-services.service';
-import { IMenuItemStructure } from '../model/imenu-item-structure.model';
-import { ISubmenuItemStructure } from '../model/isubmenu-item-structure.model';
-import { Usuario_IMG } from '../model/usuario-img';
 
 @Component({
   selector: 'app-menu-lateral',
   templateUrl: './menu-lateral.component.html',
   styleUrls: ['./menu-lateral.component.scss'],
+  imports: [LibIconsComponent, PrimaryDropdownComponent, SelecaoEstabelecimentosModalComponent, NotifSubmenuComponent, RouterModule, TooltipModule, DynamicMenuComponent, PopoverModule],
 })
 export class MenuLateralComponent implements OnInit {
   constructor(
@@ -38,7 +43,7 @@ export class MenuLateralComponent implements OnInit {
   public ngOnInit(): void {
 
     // Inscreva-se no evento NavigationEnd para receber notificações quando a rota mudar, serve para atualizar a seleção do menu corretamente
-    this._router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: any) => {
+    this._router.events.pipe().subscribe((event: any) => {
       this._customMenuService.menuItems = this._customMenuService.menuConfig.updateRouteSelection(this._router.url, this._customMenuService.menuItems)
     });
 
