@@ -66,29 +66,31 @@
         </tbody>
       </table>
 
-      <div class="d-flex align-items-center justify-content-end gap-2 py-3">
-        <div style="width: fit-content;">
-          <select class="form-select form-select-sm" aria-label="Itens por página" (change)="onSelectChange($event)">
-            @for (option of counts; track $index) {
-              <option [value]="option" [selected]="counts ? (counts.length > 0 && $index === 0) : false">{{ option }}</option>
-            }
-          </select>
+      @if (!useCustomPagination) {
+        <div class="d-flex align-items-center justify-content-end gap-2 py-3">
+          <div style="width: fit-content;">
+            <select class="form-select form-select-sm" aria-label="Itens por página" (change)="onSelectChange($event)">
+              @for (option of counts; track $index) {
+                <option [value]="option" [selected]="counts ? (counts.length > 0 && $index === 0) : false">{{ option }}</option>
+              }
+            </select>
+          </div>
+  
+          <!-- Controle de paginação -->
+          <pagination-controls class="sp-pagination mb-0" [id]="paginationID"
+            screenReaderPaginationLabel="Paginação"
+            screenReaderPageLabel="Página"
+            screenReaderCurrentLabel="Você está na página"
+            [directionLinks]="false"
+            [autoHide]="false"
+            [responsive]="true"
+            [maxSize]="5"
+            [responsive]="false"
+            (pageChange)="page = $event"
+            (pageBoundsCorrection)="page = $event" />
+          <!-- Controle de paginação -->
         </div>
-
-        <!-- Controle de paginação -->
-        <pagination-controls class="sp-pagination mb-0" [id]="paginationID"
-          screenReaderPaginationLabel="Paginação"
-          screenReaderPageLabel="Página"
-          screenReaderCurrentLabel="Você está na página"
-          [directionLinks]="false"
-          [autoHide]="false"
-          [responsive]="true"
-          [maxSize]="5"
-          [responsive]="false"
-          (pageChange)="page = $event"
-          (pageBoundsCorrection)="page = $event" />
-      <!-- Controle de paginação -->
-      </div>
+      }
     </div>
     <!-- Container da tabela -->
       

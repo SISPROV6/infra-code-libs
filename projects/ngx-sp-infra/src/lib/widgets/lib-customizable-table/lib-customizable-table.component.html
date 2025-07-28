@@ -186,7 +186,7 @@
     }
 
     <!-- #region PAGINAÇÃO -->
-    <div *ngIf="usePagination && list.length > 0" class="d-flex flex-wrap justify-content-end mt-2">
+    <div *ngIf="!useCustomPagination && usePagination && list.length > 0" class="d-flex flex-wrap justify-content-end mt-2">
         <div class="d-flex align-items-center me-2">
           <label for="countSelect" class="me-2" style="white-space: nowrap;"> Itens por página </label>
           <select id="countSelect" class="form-select select-search" (change)="onSelectChange($event)">
