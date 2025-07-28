@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { PessoaService } from './service/pessoa.service';
@@ -17,6 +17,8 @@ export class PessoaAbasComponent {
   public UrisList: PessoasUriRecord[] = [];
   @Input() Id!: string | number;
   @Input() recarregar?: boolean = false;
+
+  @Output() recarregarChange = new EventEmitter<boolean>();
 
   public crpPesPapeisData: CrpInPapelRecord[] = [];
   public hasPapel: boolean = false;
@@ -39,9 +41,13 @@ export class PessoaAbasComponent {
     this.VerifyList();
 
     this.cdr.detectChanges();
+
+    setTimeout(() => {
+        this.recarregarChange.emit(false);
+      }, 500);
+
   }
 }
-
 
 
  async ngOnInit() {
