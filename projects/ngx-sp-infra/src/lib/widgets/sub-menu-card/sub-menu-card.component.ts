@@ -14,15 +14,15 @@ export class NavSubmenuCards {
   template: `
     <div class="max-card-menu row">
       @for(card of subMenuCards; track $index) {
-        <a href="{{ card.urlPath }}" class="card-link col-4">
+        <a href="{{ card.urlPath }}" class="card-link col-4" target="_blank">
           <div class="card">
             <div class="card-icon">
               <div class="card-icon2">
-                <lib-icon  
-                  class="bold" 
-                  iconName="{{ card.icon ? card.icon : 'engrenagem'}}" 
-                  iconColor="blue" 
-                  [iconFill]="true" 
+                <lib-icon
+                  class="bold"
+                  iconName="{{ card.icon ? card.icon : 'engrenagem'}}"
+                  iconColor="blue"
+                  [iconFill]="true"
                   [iconSize]="35"
                 ></lib-icon>
               </div>
