@@ -12,11 +12,11 @@ import { RetError } from "../../../models/utils/ret-error";
 })
 export class CadastroIntegracoesExternasService {
 
-  // private readonly _BASE_URL: string = window.location.hostname.includes('localhost')
-  //   ? `https://siscandesV6.sispro.com.br/SisproErpCloud/Service_Private/Infra/SpInfra2ConfigErpWS/api/InfraIntegration`
-  //   : `https://${window.location.hostname}/SisproErpCloud/Service_Private/Infra/SpInfra2ConfigErpWS/api/InfraIntegration`;
+  private readonly _BASE_URL: string = window.location.hostname.includes('localhost')
+    ? `https://siscandesV6.sispro.com.br/SisproErpCloud/Service_Private/Infra/SpInfra2ConfigErpWS/api/InfraIntegration`
+    : `https://${window.location.hostname}/SisproErpCloud/Service_Private/Infra/SpInfra2ConfigErpWS/api/InfraIntegration`;
 
-   private readonly _BASE_URL: string = "http://localhost:44384/api/InfraIntegration";
+  //  private readonly _BASE_URL: string = "http://localhost:44384/api/InfraIntegration";
 
   constructor(private _httpClient: HttpClient) {
   }
