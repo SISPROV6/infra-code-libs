@@ -125,6 +125,7 @@ export * from './lib/components/logs-timer/components/home-log-timer/home-log-ti
 export * from './lib/components/logs-ws/components/detalhes-log-ws/detalhes-log-ws.component';
 export * from './lib/components/logs-ws/components/home-log-ws/home-logs-ws.component';
 export * from './lib/components/page-not-authorized/page-not-authorized.component';
+export * from './lib/components/lib-authentication-config/components/lib-authentication-config.component';
 
 /** Widgets */
 export * from './lib/directives/click-outside.directive';
