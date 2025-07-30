@@ -43,7 +43,11 @@ jobs:
           echo "TAG=$TAG" >> $GITHUB_ENV
 
       - name: Build da biblioteca
-        run: npm run build:prod ${{ env.PROJECT }}
+        run: |
+          if [ "${{ env.PROJECT }}" == "ngx-sp-auth" ]; then
+            npm run build:auth:prod
+          elif [ "${{ env.PROJECT }}" == "ngx-sp-infra" ]; then
+            npm run build:infra:prod
 
       - name: Executa testes com cobertura
         run: |

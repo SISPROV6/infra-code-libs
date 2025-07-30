@@ -6,6 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "build:prod": "ng build --configuration production",
+    "build:auth:prod": "ng build ngx-sp-auth --configuration production",
+    "build:infra:prod": "ng build ngx-sp-infra --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:headless": "ng test --watch=false --browsers=ChromeHeadless",
