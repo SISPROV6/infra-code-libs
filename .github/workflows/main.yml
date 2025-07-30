@@ -118,13 +118,13 @@ jobs:
         fi
 
     - name: Criar Release automático
-        if: env.should_publish == 'true'
-        uses: actions/create-release@v1
-        with:
-          tag_name: ${{ env.TAG }}
-          release_name: ${{ env.PROJECT }} v${{ env.VERSION }}
-          body: |
-            Mudanças nesta release:
-            ${{ env.NOTES }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      if: env.should_publish == 'true'
+      uses: actions/create-release@v1
+      with:
+        tag_name: ${{ env.TAG }}
+        release_name: ${{ env.PROJECT }} v${{ env.VERSION }}
+        body: |
+          Mudanças nesta release:
+          ${{ env.NOTES }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
