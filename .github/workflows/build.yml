@@ -30,10 +30,10 @@ jobs:
       - name: Ler release-info.json
         id: release
         run: |
-          PROJECT=$(jq -r '.project' release-info.json)
-          VERSION=$(jq -r '.version' release-info.json)
-          NOTES=$(jq -r '.notes' release-info.json)
-          TAG=$(jq -r '.tag' release-info.json)
+          PROJECT=$(jq -r '.project' deploy/release-info.json)
+          VERSION=$(jq -r '.version' deploy/release-info.json)
+          NOTES=$(jq -r '.notes' deploy/release-info.json)
+          TAG=$(jq -r '.tag' deploy/release-info.json)
           echo "PROJECT=$PROJECT" >> $GITHUB_ENV
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "NOTES=$NOTES" >> $GITHUB_ENV
