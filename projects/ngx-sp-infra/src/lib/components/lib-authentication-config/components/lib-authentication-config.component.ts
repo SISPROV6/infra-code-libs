@@ -1,21 +1,29 @@
+import { LibHeaderComponent } from './../../../widgets/lib-header/lib-header.component';
+import { LibComboboxComponent } from './../../../widgets/lib-combobox/lib-combobox.component';
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { FormUtils } from '../../../utils/form-utils';
 import { MessageService } from '../../../message/message.service';
 import { RecordCombobox } from '../../../models/combobox/record-combobox';
-import { InfraModule } from '../../../infra.module';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InfraAuthenticationService } from '../services/infra-authentication.service';
 import { InfraAuthentication } from '../models/InfraAuthentication';
 import { RadioOption } from '../models/RadioOption';
 import { LibIntegracaoLdapComponent } from '../../lib-integracao-ldap/components/lib-integracao-ldap.component';
 import { LibIntegracoesExternasComponent } from "../../lib-integracoes-externas/components/lib-integracoes-externas.component";
-
+import { LibConfigSenhaComponent } from '../../lib-config-senha/lib-config-senha.component';
 @Component({
   selector: 'lib-lib-authentication-config',
-  standalone: true,
-  imports: [InfraModule, NgIf, FormsModule, ReactiveFormsModule, LibIntegracaoLdapComponent, LibIntegracoesExternasComponent],
+  imports: [NgIf,
+            FormsModule,
+            ReactiveFormsModule,
+            LibIntegracaoLdapComponent,
+            LibIntegracoesExternasComponent,
+            LibConfigSenhaComponent,
+            LibComboboxComponent,
+            LibHeaderComponent,
+            ],
   templateUrl: './lib-authentication-config.component.html',
   styleUrl: './lib-authentication-config.component.scss'
 })

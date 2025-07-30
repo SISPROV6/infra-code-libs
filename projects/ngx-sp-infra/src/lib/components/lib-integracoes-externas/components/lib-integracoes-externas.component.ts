@@ -1,3 +1,5 @@
+import { LibIconsComponent } from './../../../widgets/lib-icons/lib-icons.component';
+import { FieldErrorMessageComponent } from './../../../widgets/field-error-message/field-error-message.component';
 import { IntegrationAzureSSOForm } from './../models/3Rn/IntegrationAzureSSOForm';
 import { DatePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
@@ -10,7 +12,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { FormUtils } from '../../../utils/form-utils';
 import { MessageService } from '../../../message/message.service';
 import { ModalUtilsService } from '../../../service/modal-utils.service';
-import { InfraModule } from '../../../infra.module';
 import { CadastroIntegracoesExternasService } from '../services/cadastro-integracoes-externas.service';
 
 import { IntegracaoAzureSSORecord } from '../models/3Rn/IntegracaoAzureSSORecord';
@@ -19,11 +20,12 @@ import { IntegracaoAzureSSORecord } from '../models/3Rn/IntegracaoAzureSSORecord
   selector: 'lib-lib-integracoes-externas',
   imports: [
     ReactiveFormsModule,
-    InfraModule,
     FormsModule,
     TooltipModule,
     NgxPaginationModule,
     DatePipe,
+    FieldErrorMessageComponent,
+    LibIconsComponent,
   ],
   templateUrl: './lib-integracoes-externas.component.html',
   styleUrl: './lib-integracoes-externas.component.scss'

@@ -1,3 +1,4 @@
+import { LibAuthenticationConfigComponent } from './components/lib-authentication-config/components/lib-authentication-config.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -164,7 +165,7 @@ import { SearchInputComponent } from './widgets/search-input/search-input.compon
         LoadingScreenComponent,
         AuditoriaButtonComponent,
         LibDateRangePickerComponent,
-        
+        LibAuthenticationConfigComponent,
     ],
     exports: [
         PageNotAuthorizedComponent,
@@ -231,7 +232,7 @@ import { SearchInputComponent } from './widgets/search-input/search-input.compon
         LoadingScreenComponent,
         AuditoriaButtonComponent,
         LibDateRangePickerComponent,
-
+        LibAuthenticationConfigComponent
     ],
     providers: [],
 })
