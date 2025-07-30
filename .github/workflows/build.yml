@@ -45,11 +45,13 @@ jobs:
           echo $TAG
 
       - name: Criar Release automático
-        uses: actions/create-release@v1
+        uses: comnoco/create-release@v2
         with:
           tag_name: $TAG
-          release_name: "${{ env.PROJECT }} v${{ env.VERSION }}"
-          body: ${{ env.NOTES }}
+          release_name: Release da ${{ env.PROJECT }} v${{ env.VERSION }}
+          body: |
+            Mudanças nesta release:
+            ${{ env.NOTES }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
