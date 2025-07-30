@@ -61,18 +61,6 @@ export class PessoaAbasComponent {
 
     this.activeItem = this.router.url;
 
-    this.UrisList.push(
-      { nome: 'Dados básicos', uri: `https://siscandesv6.sispro.com.br/SisproErpCloud/Corporativo/pessoas/editar/${this.Id}`, isTargetSelf: true},
-      {nome: 'Dados comerciais', uri: `https://siscandesv10.sispro.com.br/SpNeg3Cfg/PessoaDadosComerciais.aspx?IsCorp=True&CrpPessoaId=${this.Id}`, isTargetSelf: false},
-      {nome: 'Dados financeiros', uri: `https://siscandesv10.sispro.com.br/SpFin1Cadastros/PessoaDadosFinanceiros.aspx?CrpPessoaId=${this.Id}&IsCorp=True`, isTargetSelf: false},
-      {nome: 'Compras - Dados da pessoa para suprimentos', uri: `https://siscandesv6.sispro.com.br/SisproErpCloud/Compras/SpCopConfiguracoes/PessoasDadosSuprimentos/editar/${this.Id}`, isTargetSelf: false},
-      {nome: 'Compras - Dados dos fornecedor', uri: `https://siscandesv6.sispro.com.br/SisproErpCloud/Compras/SpCopConfiguracoes/PessoasDadosFornecedor/editar/${this.Id}`, isTargetSelf: false},
-      {nome: 'Dados auxiliares', uri: `https://siscandesv6.sispro.com.br/SisproErpCloud/Corporativo/pessoas/dadosAuxiliares/${this.Id}`, isTargetSelf: false},
-      {nome: 'Tipo', uri: `https://siscandesv10.sispro.com.br/SpMnt3Manutencao/TipoPessoa.aspx?IsCorp=True&CrpPessoaId=${this.Id}`, isTargetSelf: false},
-      {nome: 'Fiscal', uri: `https://siscandesv6.sispro.com.br/SisproErpCloud/Corporativo/pessoas/pessoaFiscal/${this.Id}`, isTargetSelf: false},
-      {nome: 'Contabilidade', uri: `https://siscandesv6.sispro.com.br/SisproErpCloud/Contabilidade/Participantes?CrpPessoaId=${this.Id}`, isTargetSelf: false},
-    );
-
     this.VerifyList();
     
   }
@@ -114,17 +102,32 @@ export class PessoaAbasComponent {
 
     this.UrisList = [];
 
-    this.UrisList.push(
-      { nome: 'Dados básicos', uri: `https://siscandesv6.sispro.com.br/SisproErpCloud/Corporativo/pessoas/editar/${this.Id}`, isTargetSelf: true},
-      {nome: 'Dados comerciais', uri: `https://siscandesv10.sispro.com.br/SpNeg3Cfg/PessoaDadosComerciais.aspx?IsCorp=True&CrpPessoaId=${this.Id}`, isTargetSelf: false},
-      {nome: 'Dados financeiros', uri: `https://siscandesv10.sispro.com.br/SpFin1Cadastros/PessoaDadosFinanceiros.aspx?CrpPessoaId=${this.Id}&IsCorp=True`, isTargetSelf: false},
-      {nome: 'Compras - Dados da pessoa para suprimentos', uri: `https://siscandesv6.sispro.com.br/SisproErpCloud/Compras/SpCopConfiguracoes/PessoasDadosSuprimentos/editar/${this.Id}`, isTargetSelf: false},
-      {nome: 'Compras - Dados dos fornecedor', uri: `https://siscandesv6.sispro.com.br/SisproErpCloud/Compras/SpCopConfiguracoes/PessoasDadosFornecedor/editar/${this.Id}`, isTargetSelf: false},
-      {nome: 'Dados auxiliares', uri: `https://siscandesv6.sispro.com.br/SisproErpCloud/Corporativo/pessoas/dadosAuxiliares/${this.Id}`, isTargetSelf: false},
-      {nome: 'Tipo', uri: `https://siscandesv10.sispro.com.br/SpMnt3Manutencao/TipoPessoa.aspx?IsCorp=True&CrpPessoaId=${this.Id}`, isTargetSelf: false},
-      {nome: 'Fiscal', uri: `https://siscandesv6.sispro.com.br/SisproErpCloud/Corporativo/pessoas/pessoaFiscal/${this.Id}`, isTargetSelf: false},
-      {nome: 'Contabilidade', uri: `https://siscandesv6.sispro.com.br/SisproErpCloud/Contabilidade/Participantes?CrpPessoaId=${this.Id}`, isTargetSelf: false},
+    if(window.location.host.includes("localhost")){
+      this.UrisList.push(
+      {nome: 'Dados básicos', uri: `http://${window.location.host}/pessoas/editar/${this.Id}`, isTargetSelf: true},
+      {nome: 'Dados comerciais', uri: `http://${window.location.host}/SpNeg3Cfg/PessoaDadosComerciais.aspx?IsCorp=True&CrpPessoaId=${this.Id}`, isTargetSelf: false},
+      {nome: 'Dados financeiros', uri: `http://${window.location.host}/SpFin1Cadastros/PessoaDadosFinanceiros.aspx?CrpPessoaId=${this.Id}&IsCorp=True`, isTargetSelf: false},
+      {nome: 'Compras - Dados da pessoa para suprimentos', uri: `http://${window.location.host}/SpCopConfiguracoes/PessoasDadosSuprimentos/editar/${this.Id}`, isTargetSelf: false},
+      {nome: 'Compras - Dados dos fornecedor', uri: `http://${window.location.host}/SpCopConfiguracoes/PessoasDadosFornecedor/editar/${this.Id}`, isTargetSelf: false},
+      {nome: 'Dados auxiliares', uri: `http://${window.location.host}/pessoas/dadosAuxiliares/${this.Id}`, isTargetSelf: false},
+      {nome: 'Tipo', uri: `http://${window.location.host}/SpMnt3Manutencao/TipoPessoa.aspx?IsCorp=True&CrpPessoaId=${this.Id}`, isTargetSelf: false},
+      {nome: 'Fiscal', uri: `http://${window.location.host}/pessoas/pessoaFiscal/${this.Id}`, isTargetSelf: false},
+      {nome: 'Contabilidade', uri: `http://${window.location.host}/Participantes?CrpPessoaId=${this.Id}`, isTargetSelf: false},
     );
+    }else{
+      this.UrisList.push(
+      {nome: 'Dados básicos', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/pessoas/editar/${this.Id}`, isTargetSelf: true},
+      {nome: 'Dados comerciais', uri: `https://${window.location.host}/SpNeg3Cfg/PessoaDadosComerciais.aspx?IsCorp=True&CrpPessoaId=${this.Id}`, isTargetSelf: false},
+      {nome: 'Dados financeiros', uri: `https://${window.location.host}/SpFin1Cadastros/PessoaDadosFinanceiros.aspx?CrpPessoaId=${this.Id}&IsCorp=True`, isTargetSelf: false},
+      {nome: 'Compras - Dados da pessoa para suprimentos', uri: `https://${window.location.host}/SisproErpCloud/Compras/SpCopConfiguracoes/PessoasDadosSuprimentos/editar/${this.Id}`, isTargetSelf: false},
+      {nome: 'Compras - Dados dos fornecedor', uri: `https://${window.location.host}/SisproErpCloud/Compras/SpCopConfiguracoes/PessoasDadosFornecedor/editar/${this.Id}`, isTargetSelf: false},
+      {nome: 'Dados auxiliares', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/pessoas/dadosAuxiliares/${this.Id}`, isTargetSelf: false},
+      {nome: 'Tipo', uri: `https://${window.location.host}/SpMnt3Manutencao/TipoPessoa.aspx?IsCorp=True&CrpPessoaId=${this.Id}`, isTargetSelf: false},
+      {nome: 'Fiscal', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/pessoas/pessoaFiscal/${this.Id}`, isTargetSelf: false},
+      {nome: 'Contabilidade', uri: `https://${window.location.host}/SisproErpCloud/Contabilidade/Participantes?CrpPessoaId=${this.Id}`, isTargetSelf: false},
+    );
+    }
+    
 
     if (this.hasPapel && this.tipoPessoa === 2 && this.isFornecedor) {
 

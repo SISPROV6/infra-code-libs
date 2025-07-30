@@ -19,10 +19,18 @@ export class ItemsAbasComponent {
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-    this.linksList.push(
-      { nome: 'Estoque', uri: `https://siscandesv6.sispro.com.br/SisproErpCloud/Estoque/SpEtq1Etq/ItemParaSuprimentos/editar/${this.Id}`, isTargetSelf: true},
-      {nome: 'Dados Compras', uri: `https://siscandesv6.sispro.com.br/SisproErpCloud/Compras/SpCopConfiguracoes/ItemDadosCompras/editar/${this.Id}`, isTargetSelf: false},
+
+    if(window.location.host.includes("localhost")){
+      this.linksList.push(
+      { nome: 'Estoque', uri: `http://${window.location.host}/SpEtq1Etq/ItemParaSuprimentos/editar/${this.Id}`, isTargetSelf: true},
+      {nome: 'Dados Compras', uri: `http://${window.location.host}/SpCopConfiguracoes/ItemDadosCompras/editar/${this.Id}`, isTargetSelf: false},
     );
+    }else{
+      this.linksList.push(
+      { nome: 'Estoque', uri: `https://${window.location.host}/SisproErpCloud/Estoque/SpEtq1Etq/ItemParaSuprimentos/editar/${this.Id}`, isTargetSelf: true},
+      {nome: 'Dados Compras', uri: `https://${window.location.host}/SisproErpCloud/Compras/SpCopConfiguracoes/ItemDadosCompras/editar/${this.Id}`, isTargetSelf: false},
+    );
+    }
 
     this.activeItem = this.router.url;
 
