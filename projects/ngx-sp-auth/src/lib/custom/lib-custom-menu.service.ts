@@ -83,6 +83,8 @@ export class LibCustomMenuService {
         this.moduleSvg = RealcustomMenuService.moduleSvg;
         this.themeColor = RealcustomMenuService.themeColor;
 
+        
+
         //passando implementação dos métodos do projeto para a lib
         this.storedMenuStaticOnInit = RealcustomMenuService.menuStaticOnInit;
         this.storedMenuopenExpansibleMenu = RealcustomMenuService.menuopenExpansibleMenu;

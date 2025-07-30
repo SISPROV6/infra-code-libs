@@ -45,7 +45,7 @@ export class LibCustomLoginService {
      * @param router Objeto de Router que será utilizado
      */
     public authNavigateToPage(router: Router): void {
-        router.navigate(["/home"]);
+       this.storedAuthNavigateToPage(router);
     }
     // #endregion Métodos Customizadas para o Componente auth.service.ts
 
@@ -58,27 +58,30 @@ export class LibCustomLoginService {
     public ConfigurarCustomLogin(customLoginService: ICustomLoginService): void {
 
         //passando propriedades do projeto para a lib
-        this.loginTitle = customLoginService.loginTitle
+        this.loginTitle = customLoginService.loginTitle;
 
-        this.loginSubtitle = customLoginService.loginSubtitle
+        this.loginSubtitle = customLoginService.loginSubtitle;
 
-        this.loginBackground = customLoginService.loginBackground
+        this.loginBackground = customLoginService.loginBackground;
 
-        this.loginLogotipo = customLoginService.loginLogotipo
+        this.loginLogotipo = customLoginService.loginLogotipo;
 
-        this.loginAltLogotipo = customLoginService.loginAltLogotipo
+        this.loginAltLogotipo = customLoginService.loginAltLogotipo;
 
-        this.loginPageTitle = customLoginService.loginPageTitle
+        this.loginPageTitle = customLoginService.loginPageTitle;
 
-        this.loginDesenvDomain = customLoginService.loginDesenvDomain
+        this.loginDesenvDomain = customLoginService.loginDesenvDomain;
 
-        this.loginDesenvUser = customLoginService.loginDesenvUser
+        this.loginDesenvUser = customLoginService.loginDesenvUser;
 
-        this.loginDesenvPassword = customLoginService.loginDesenvPassword
+        this.loginDesenvPassword = customLoginService.loginDesenvPassword;
 
         //passando implementação dos métodos do projeto para a lib
         this.storedAuthLogin = customLoginService.authLogin;
+
         this.storedAuthLogout = customLoginService.authLogout;
+
+        this.storedAuthNavigateToPage = customLoginService.authNavigateToPage;
     }
 
     // #endregion UTILS

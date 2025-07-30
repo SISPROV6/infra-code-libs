@@ -8,7 +8,7 @@ import { map, Subscription, take, timer } from 'rxjs';
 
 import { FormUtils, MessageService } from 'ngx-sp-infra';
 import { AuthService } from '../../auth.service';
-import { LibCustomLoginService } from '../../custom/custom-login.service';
+import { LibCustomLoginService } from '../../custom/lib-custom-login.service';
 import { EnvironmentService } from '../../environments/environments.service';
 import { ServerService } from '../../server/server.service';
 import { AuthStorageService } from '../../storage/auth-storage.service';

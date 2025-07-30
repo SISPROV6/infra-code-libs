@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { LibCustomMenuService } from '../../../../custom/custom-menu.service';
+import { LibCustomMenuService } from '../../../../custom/lib-custom-menu.service';
 import { SecondaryDropdownComponent } from "../secondary-dropdown/secondary-dropdown.component";
 import { NgFor, NgIf } from '@angular/common';
 //import { ProjectUtilservice } from 'src/app/project/utils/project-utils.service';

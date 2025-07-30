@@ -8,15 +8,16 @@ import { IEnvironments } from "./models/ienvironments";
 export class EnvironmentService {
 
     // URLs que necessitam de autenticação da infra.
-    needsAuthInfra!: Map<string, string[]>;
+    public needsAuthInfra!: Map<string, string[]>;
 
     // URLs que necessitam de autenticação do usuário para funcionar.
-    needsAuthAplic!: Map<string, string[]>;
+    public needsAuthAplic!: Map<string, string[]>;
 
-    production: boolean = false;
-    hostName: string = "https://siscandesv6.sispro.com.br";
+    public production: boolean = false;
+    public hostName: string = "https://siscandesinfra.sispro.com.br";
+    public product = '';
 
-    ConfigurarEnvironments(propriedades: IEnvironments): void {
+    public ConfigurarEnvironments(propriedades: IEnvironments): void {
 
         //passando propriedades do produto para a lib
         this.needsAuthAplic = propriedades.needsAuthAplic;

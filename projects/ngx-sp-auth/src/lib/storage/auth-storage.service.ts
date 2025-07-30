@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable, take, tap } from 'rxjs';
 
 import { RetToken } from '../models/ret-token';
 import { Token } from '../models/token';
-import { LibCustomStorageService } from '../custom/custom-storage.service';
+import { LibCustomStorageService } from '../custom/lib-custom-storage.service';
 import { Utils } from 'ngx-sp-infra';
 
 @Injectable(

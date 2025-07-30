@@ -6,7 +6,7 @@ import { TooltipModule } from "ngx-bootstrap/tooltip";
 import { LibIconsComponent, MessageService } from "ngx-sp-infra";
 import { filter, Subject } from "rxjs";
 import { AuthService } from "../../../auth.service";
-import { LibCustomMenuService } from "../../../custom/custom-menu.service";
+import { LibCustomMenuService } from "../../../custom/lib-custom-menu.service";
 import { MenuConfigService } from "../../../custom/menu-config.service";
 import { AuthStorageService } from "../../../storage/auth-storage.service";
 import { PrimaryDropdownComponent } from "../dropdown/primary-dropdown/primary-dropdown.component";

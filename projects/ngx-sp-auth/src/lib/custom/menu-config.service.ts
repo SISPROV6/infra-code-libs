@@ -8,24 +8,17 @@ import { IMenuConfig } from "./models/imenu-config";
 /**Service responsável por pegar as opções do menu do projeto em que está sendo utilizada*/
 export class MenuConfigService {
 
-    private _menuOptions: IMenuItemStructure[] = [];
-
     /** Indica se o menu é estático ou dinâmico. */
     public _isMenuStatic: boolean = false;
 
-    /** Obtém as opções do menu. */
-    public get menuOptions(): IMenuItemStructure[] { return this._menuOptions; }
-    public set menuOptions(value: IMenuItemStructure[]) { this._menuOptions = value; }
-
-
     public storedInitializeMenu!: (currentRoute: string, customList?: IMenuItemStructure[]) => IMenuItemStructure[];
-    public storedUpdateRouteSelection!: (currentRoute: string, currentList: IMenuItemStructure[]) => IMenuItemStructure[];
-    public storedInitializeMenuDropdown!: (primaryDropdownList: Array<any>) => any[];
 
+    public storedUpdateRouteSelection!: (currentRoute: string, currentList: IMenuItemStructure[]) => IMenuItemStructure[];
+
+    public storedInitializeMenuDropdown!: (primaryDropdownList: Array<any>) => any[];
 
     public menu: IMenuItemStructure[] = []
     public menuDropdown: any[] = [];
-
 
     /** Inicializa as opções do menu com base na rota atual e em uma lista personalizada (opcional).
      * @param currentRoute A rota atual da aplicação
@@ -38,16 +31,18 @@ export class MenuConfigService {
     }
 
     public initializeMenu(currentRoute: string, customList?: IMenuItemStructure[]): IMenuItemStructure[] {
+        
         if (this.storedInitializeMenu) {
             this.menu = this.storedInitializeMenu(currentRoute, customList);
         }
+        
         return this.menu;
     }
 
 
     public updateRouteSelection(currentRoute: string, currentList: IMenuItemStructure[]): IMenuItemStructure[] {
         currentList.forEach((item) => {
-            if (item.children) { item.children.forEach(child => { child.isSelected = currentRoute.includes(child.route); }) }
+            if (item.children) { item.children.forEach(child => { child.isSelected = (currentRoute.includes(child.route) && child.route != ""); }) }
 
             const anyChildSelected = item.children ? item.children.some(child => child.isSelected === true) : false;
             item.isSelected = false;
@@ -64,20 +59,19 @@ export class MenuConfigService {
        * @returns As opções do dropdown inicializadas.
     */
     public initializeMenuDropdown(primaryDropdownList: Array<any>): any[] {
+        
         if (this.storedInitializeMenuDropdown) {
             this.menuDropdown = this.storedInitializeMenuDropdown(primaryDropdownList);
         }
+
         return this.menuDropdown;
     }
 
     public ConfigurarMenuConfig(menuConfig: IMenuConfig): void {
 
-        //passando propriedades do projeto para a lib
-        this._menuOptions = menuConfig.menuOptions;
-        this._isMenuStatic = menuConfig.isMenuStatic;
-
         //passando implementação dos métodos do projeto para a lib
         this.storedInitializeMenu = menuConfig.initializeMenu;
+        
         this.storedInitializeMenuDropdown = menuConfig.initializeMenuDropdown;
     }
 }

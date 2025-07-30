@@ -6,7 +6,7 @@ import { InfraEstabelecimentoFavoritoDefault, MessageService, InfraModule } from
 //import { ProjectUtilservice } from 'src/app/project/utils/project-utils.service';
 import { AuthStorageService } from '../../../../storage/auth-storage.service';
 
-import { LibCustomMenuService } from '../../../../custom/custom-menu.service';
+import { LibCustomMenuService } from '../../../../custom/lib-custom-menu.service';
 import { MenuServicesService } from '../../menu-services.service';
 import { NgxPaginationModule } from "ngx-pagination";
 

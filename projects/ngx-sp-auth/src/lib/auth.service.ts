@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { LibCustomLoginService } from '../lib/custom/custom-login.service';
+import { LibCustomLoginService } from './custom/lib-custom-login.service';
 
 import { Observable } from 'rxjs';
 import { map, take, tap } from 'rxjs/operators';
