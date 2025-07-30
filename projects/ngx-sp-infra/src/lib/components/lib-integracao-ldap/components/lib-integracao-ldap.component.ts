@@ -1,3 +1,7 @@
+import { LibHeaderComponent } from './../../../widgets/lib-header/lib-header.component';
+import { LibComboboxComponent } from './../../../widgets/lib-combobox/lib-combobox.component';
+import { FieldErrorMessageComponent } from './../../../widgets/field-error-message/field-error-message.component';
+import { LibIconsComponent } from './../../../widgets/lib-icons/lib-icons.component';
 import { NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -8,7 +12,6 @@ import { ModalUtilsService } from '../../../service/modal-utils.service';
 import { FormUtils } from '../../../utils/form-utils';
 import { MessageService } from '../../../message/message.service';
 import { RecordCombobox } from '../../../models/combobox/record-combobox';
-import { InfraModule } from '../../../infra.module';
 
 import { IntegracaoAdLdapService } from '../services/integracao-ad-ldap.service';
 import { InfraLDAP } from '../models/InfraLDAP';
@@ -16,7 +19,7 @@ import { LDAPValidateUser } from '../models/LDAPValidateUser';
 
 @Component({
   selector: 'lib-lib-integracao-ldap',
-  imports: [InfraModule, RouterLink, NgIf, FormsModule, ReactiveFormsModule],
+  imports: [ RouterLink, NgIf, FormsModule, ReactiveFormsModule, LibIconsComponent, FieldErrorMessageComponent, LibComboboxComponent, LibHeaderComponent],
   templateUrl: './lib-integracao-ldap.component.html',
   styleUrl: './lib-integracao-ldap.component.scss'
 })

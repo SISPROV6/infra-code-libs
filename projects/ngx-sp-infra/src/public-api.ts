@@ -126,6 +126,8 @@ export * from './lib/components/logs-ws/components/detalhes-log-ws/detalhes-log-
 export * from './lib/components/logs-ws/components/home-log-ws/home-logs-ws.component';
 export * from './lib/components/page-not-authorized/page-not-authorized.component';
 export * from './lib/components/lib-authentication-config/components/lib-authentication-config.component';
+export * from './lib/components/lib-integracao-ldap/components/lib-integracao-ldap.component';
+export * from './lib/components/lib-integracoes-externas/components/lib-integracoes-externas.component'
 
 /** Widgets */
 export * from './lib/directives/click-outside.directive';
