@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { MessageService } from '../../message/message.service';
@@ -18,12 +18,12 @@ import { LibIconsComponent } from '../../widgets/lib-icons/lib-icons.component';
 import { LibSpinnerComponent } from '../../widgets/spinner/spinner.component';
 
 @Component({
-    selector: 'lib-config-senha',
-    templateUrl: './lib-config-senha.component.html',
-    styles: ``,
+  selector: 'lib-config-senha',
+  templateUrl: './lib-config-senha.component.html',
+  styles: ``,
 
-    imports: [LibHeaderComponent, ContentContainerComponent, NgIf, FormsModule, ReactiveFormsModule, NgClass, LibIconsComponent, TooltipModule, RequiredDirective, FieldErrorMessageComponent, LibSpinnerComponent],
-    providers: [TenantService]
+  imports: [LibHeaderComponent, ContentContainerComponent, NgIf, FormsModule, ReactiveFormsModule, NgClass, LibIconsComponent, TooltipModule, RequiredDirective, FieldErrorMessageComponent, LibSpinnerComponent],
+  providers: [TenantService]
 })
 export class LibConfigSenhaComponent implements OnInit {
 
@@ -40,6 +40,8 @@ export class LibConfigSenhaComponent implements OnInit {
   public menuGroup!: string;
   public $infraSegConfigRecord?: InfraSegConfig;
   public initialLevel!: number;
+
+  @Input() isConfigGeral?: boolean = false;
   // #endregion PUBLIC
 
   // #endregion ==========> PROPERTIES <==========

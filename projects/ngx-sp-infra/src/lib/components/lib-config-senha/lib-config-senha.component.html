@@ -1,6 +1,16 @@
-<lib-header [breadcrumbList]="[ 'Infra', 'Configuração de Senha' ]" pageTitle="Configuração de Senha"
-  mode="edit" [hideButtons]="[ 'Cancelar' ]" (create)="onSubmit()" (update)="onSubmit()"  />
-
+@if(!isConfigGeral)
+{
+    <lib-header [breadcrumbList]="[ 'Infra', 'Configuração de Senha' ]" pageTitle="Configuração de Senha"
+    mode="edit" [hideButtons]="[ 'Cancelar' ]" (create)="onSubmit()" (update)="onSubmit()"  />
+}
+@else {
+    <div class="d-flex align-items-center justify-content-between p-3">
+        <h4 class="fw-bold">Configuração de Senhas Locais</h4>
+        <button class="btn btn-primary" (click)="onSubmit()">
+            <lib-icon iconName="disquete"/> Salvar
+        </button>
+    </div>
+}
 
 <!-- #region BODY -->
 <lib-container>
@@ -50,6 +60,7 @@
             <input formControlName="Level" type="radio" class="btn-check" name="Level" id="option4" autocomplete="off" [value]="4" (change)="onSelectLevel(Level)" >
             <label [class.btn-outline-primary]="Level === 4" [class.bg-primary]="Level === 4" class="btn btn-secondary m-2" for="option4"><lib-icon iconName="chave"/> Personalizado</label>
         </div>
+
     </div>
 
     <div class="border rounded p-3 mb-4">

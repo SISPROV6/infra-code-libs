@@ -4,7 +4,7 @@
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
          @for (tabName of tabs; track $index) {
             <button id="nav-tab-{{$index}}" type="button" role="tab" aria-controls="nav-home" aria-selected="true"
-               [class]="currentTab === tabName ? 'nav-link active' : 'nav-link'"
+               [class]="currentTab === tabName ? 'nav-link active' : 'nav-link'" [class.use-border-tab]="useBorder && currentTab === tabName"
                [ngClass]="{ 'tx-lib-light': documentation().theme === 'dark', 'tx-lib-dark': documentation().theme === 'light' }"
                (click)="currentTab = tabName; currentContent = $index" > {{ tabName }} </button>
          }
@@ -50,7 +50,7 @@
    }
 }
 
-<div class="content-container tab p-3 mb-3"
+<div class="content-container tab p-3 mb-3" [class.use-border]="useBorder"
    [ngClass]="{
       'tab': (tabs && tabs.length > 0) || (advancedTabs && advancedTabs.length > 0),
       'rounded': currentContent !== 0 && ((tabs && tabs.length > 0) || (advancedTabs && advancedTabs.length > 0))

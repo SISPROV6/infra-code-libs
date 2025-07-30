@@ -19,7 +19,7 @@ import { TenantService } from '../../../../service/tenant.service';
 	selector: 'app-home-logs-report',
 	templateUrl: './home-logs-report.component.html',
 	styleUrl: './home-logs-report.component.scss',
-	imports: [InfraModule, FormsModule, NgIf, NgFor, TooltipModule, RouterLink, NgxPaginationModule, DatePipe],
+	imports: [InfraModule, FormsModule, NgIf, TooltipModule, RouterLink, NgxPaginationModule, DatePipe],
   providers: [TenantService]
 })
 export class HomeLogsReportComponent implements OnInit {
