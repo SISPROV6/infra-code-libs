@@ -45,7 +45,7 @@ jobs:
           echo $TAG
 
       - name: Criar Release automático
-        uses: comnoco/create-release@v2
+        uses: actions/create-release@v1
         with:
           tag_name: $TAG
           release_name: Release da ${{ env.PROJECT }} v${{ env.VERSION }}
