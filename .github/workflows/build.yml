@@ -57,7 +57,11 @@ jobs:
 
       - name: Executa testes com cobertura
         run: |
-          npm run test:sonar
+          if [ "${{ env.PROJECT }}" == "ngx-sp-auth" ]; then
+            npm run test:auth:sonar
+          elif [ "${{ env.PROJECT }}" == "ngx-sp-infra" ]; then
+            npm run test:infra:sonar
+          fi
 
       - name: Análise com SonarCloud
         uses: SonarSource/sonarqube-scan-action@v5

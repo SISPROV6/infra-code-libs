@@ -14,7 +14,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "deploy": "cd deploy/ && npm i && node index.js",
-    "test:sonar": "ng test ngx-sp-infra --watch=false --code-coverage --browsers=ChromeHeadless"
+    "test:auth:sonar": "ng test ngx-sp-auth --watch=false --code-coverage --browsers=ChromeHeadless",
+    "test:infra:sonar": "ng test ngx-sp-infra --watch=false --code-coverage --browsers=ChromeHeadless"
   },
   "files": [
     "projects/ngx-sp-infra/src/assets/styles",
