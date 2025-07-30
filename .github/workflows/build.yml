@@ -10,7 +10,6 @@ on:
       - test
 
 permissions:
-  actions: write
   contents: write
 
 jobs:
@@ -55,22 +54,22 @@ jobs:
           release_name: ${{ env.PROJECT }} v${{ env.VERSION }}
           body: |
             Mudanças nesta release:
-            "${{ env.NOTES }}"
+            ${{ env.NOTES }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
 
-      # - name: Build da biblioteca
-      #   run: npm run build:prod ngx-sp-infra
+      - name: Build da biblioteca
+        run: npm run build:prod ${{ env.PROJECT }}
 
-      # - name: Executa testes com cobertura
-      #   run: |
-      #     npm run test:sonar
+      - name: Executa testes com cobertura
+        run: |
+          npm run test:sonar
 
-      # - name: Análise com SonarCloud
-      #   uses: SonarSource/sonarqube-scan-action@v5
-      #   with:
-      #     args: >
-      #       -Dsonar.token=${{ secrets.SONAR_TOKEN }}
-      #   env:
-      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: Análise com SonarCloud
+        uses: SonarSource/sonarqube-scan-action@v5
+        with:
+          args: >
+            -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
