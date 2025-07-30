@@ -7,6 +7,9 @@ on:
       - next
       - test
 
+permissions:
+  contents: write
+
 jobs:
   run-unit-tests:
     runs-on: ubuntu-latest
