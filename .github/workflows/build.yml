@@ -41,7 +41,7 @@ jobs:
           echo "PROJECT=$PROJECT" >> $GITHUB_ENV
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "NOTES=$NOTES" >> $GITHUB_ENV
-          echo "NOTES=$TAG" >> $GITHUB_ENV
+          echo "TAG=$TAG" >> $GITHUB_ENV
 
           echo $PROJECT
           echo $VERSION
@@ -51,11 +51,11 @@ jobs:
       - name: Criar Release automático
         uses: actions/create-release@v1
         with:
-          tag_name: $TAG
-          release_name: Release da ${{ env.PROJECT }} v${{ env.VERSION }}
+          tag_name: "$TAG"
+          release_name: ${{ env.PROJECT }} v${{ env.VERSION }}
           body: |
             Mudanças nesta release:
-            ${{ env.NOTES }}
+            "${{ env.NOTES }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
