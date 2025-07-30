@@ -46,5 +46,5 @@
 </div>
 
 <!-- #region MENSAGEM DE ERRO DE VALIDAÇÃO -->
-<lib-error-message *ngIf="invalidControl" customMessage="Este campo é obrigatório." />
+<lib-error-message *ngIf="showErrorMessage && invalidControl" customMessage="Este campo é obrigatório." />
 <!-- #endregion MENSAGEM DE ERRO DE VALIDAÇÃO -->

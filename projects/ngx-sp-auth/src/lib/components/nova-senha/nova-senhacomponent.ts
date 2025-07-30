@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { FormUtils, MessageService } from 'ngx-sp-infra';
+import { FormUtils, MessageService, FieldErrorMessageComponent, LibIconsComponent } from 'ngx-sp-infra';
 import { AuthService } from '../../auth.service';
 import { ServerService } from '../../server/server.service';
 import { AuthStorageService } from '../../storage/auth-storage.service';
@@ -13,6 +13,7 @@ import { AuthStorageService } from '../../storage/auth-storage.service';
 	templateUrl: './nova-senha.component.html',
 	styleUrls: ['./nova-senha.component.scss'],
 	preserveWhitespaces: true,
+ 	imports: [FieldErrorMessageComponent, LibIconsComponent, ReactiveFormsModule],
 })
 export class NovaSenhaComponent implements OnInit {
 

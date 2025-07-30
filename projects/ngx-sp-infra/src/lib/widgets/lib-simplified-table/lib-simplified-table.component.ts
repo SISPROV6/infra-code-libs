@@ -13,7 +13,8 @@ import { LibIconsComponent } from "../lib-icons/lib-icons.component";
     TooltipModule,
     NgxPaginationModule,
     NgTemplateOutlet,
-    LibIconsComponent
+    LibIconsComponent,
+    TooltipModule
   ],
   templateUrl: './lib-simplified-table.component.html',
   styleUrl: './lib-simplified-table.component.scss'
@@ -65,6 +66,10 @@ export class LibSimplifiedTableComponent implements OnInit, AfterViewInit, OnCha
 
   /** Mensagem customizada para lista vazia */
   @Input() public emptyListMessage?: string;
+
+  /** Informa se a lógica e elementos de paginação devem ficar fora do componente e serem gerenciados pelo componente pai.
+   * @default false */
+  @Input() public useCustomPagination: boolean = false;
 
   /**
    * DEVE ser utilizada em caso de paginação visível.

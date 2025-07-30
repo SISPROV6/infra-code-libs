@@ -27,7 +27,7 @@
 
          @case (true) {
             <div class="table-list-old border-bottom-0 {{divBorderClass}}" [class.scrollable-wrapper]="scrollable" >
-               <table class="table old border mb-0 {{tableBorderClass}}" [class.table-hover]="hoverable" >
+               <table class="table old border mb-0 {{tableBorderClass}}" [class.table-hover]="hoverable" style="table-layout: fixed;" >
                   <thead>
                      <tr>
                         <!-- Itera sobre a lista de cabeçalhos para criar as colunas -->
@@ -88,7 +88,7 @@
             </div>
 
             <!-- #region PAGINAÇÃO -->
-            <div *ngIf="usePagination && list.length > 0" class="d-flex flex-wrap mt-2"
+            <div *ngIf="!useCustomPagination && usePagination && list.length > 0" class="d-flex flex-wrap mt-2"
                [ngClass]="{
                   'justify-content-start': placement === 'start',
                   'justify-content-center': placement === 'center',
@@ -184,7 +184,7 @@
             </div>
 
             <!-- #region PAGINAÇÃO -->
-            <div *ngIf="usePagination && list.length > 0" class="d-flex flex-wrap mt-2"
+            <div *ngIf="!useCustomPagination && usePagination && list.length > 0" class="d-flex flex-wrap mt-2"
                [ngClass]="{
                   'justify-content-start': placement === 'start',
                   'justify-content-center': placement === 'center',
