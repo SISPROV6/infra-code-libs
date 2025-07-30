@@ -34,11 +34,9 @@ export class UsuarioAbasComponent {
     );
     }
 
-    
-
+  
     this.activeItem = this.router.url;
 
-    console.log(this.activeItem);
   }
 
 }
