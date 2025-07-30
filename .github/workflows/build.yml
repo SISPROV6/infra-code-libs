@@ -45,7 +45,10 @@ jobs:
       - name: Build da biblioteca
         run: |
           if [ "${{ env.PROJECT }}" == "ngx-sp-auth" ]; then
+            cd projects/ngx-sp-auth
+            npm ci
             npm run build:auth:prod
+
           elif [ "${{ env.PROJECT }}" == "ngx-sp-infra" ]; then
             npm run build:infra:prod
           fi
