@@ -9,6 +9,9 @@ on:
       - next
       - test
 
+permissions:
+  actions: write
+
 jobs:
   code-review:
     name: Build e revisão
