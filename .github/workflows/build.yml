@@ -43,6 +43,15 @@ jobs:
           echo $VERSION
           echo $NOTES
           echo $TAG
+
+      - name: Criar Release automático
+        uses: actions/create-release@v1
+        with:
+          tag_name: $TAG
+          release_name: "${{ env.PROJECT }} v${{ env.VERSION }}"
+          body: ${{ env.NOTES }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
 
       # - name: Build da biblioteca
