@@ -30,6 +30,8 @@ export class ContentContainerComponent implements OnInit, OnChanges {
 
   @Input() public containerTitle?: string;
   
+  @Input() public useBorder?: boolean = false;
+
   @Input()
   public get currentTab(): string | undefined { return this._currentTab; }
   public set currentTab(value: string | undefined) {

@@ -1,4 +1,5 @@
 @use "../../styles/styles.scss" as *;
+@use "../../../assets/styles/variables" as vars;
 
 .content-container {
    color: #212529 !important;
@@ -39,3 +40,15 @@
 .tx-lib-dark { color: #212529 !important; }
 .tx-lib-light { color: #f8f4f9 !important; }
 .tx-lib-muted { color: #C4C4C4 !important; }
+
+
+.use-border-tab {
+   border-top: 1px solid vars.$border-container !important;
+   border-left: 1px solid vars.$border-container !important;
+   border-right: 1px solid vars.$border-container !important;
+   // border: 1px solid vars.$border-container !important;
+   border-bottom: 0;
+}
+.use-border {
+   border: 1px solid vars.$border-container !important;
+}
