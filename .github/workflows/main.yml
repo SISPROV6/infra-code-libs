@@ -24,10 +24,26 @@ jobs:
         
       - name: Instalar dependências
         run: npm ci
+
+      - name: Ler release-info.json
+        id: release
+        run: |
+          PROJECT=$(jq -r '.project' deploy/release-info.json)
+          VERSION=$(jq -r '.version' deploy/release-info.json)
+          NOTES=$(jq -r '.notes' deploy/release-info.json)
+          TAG=$(jq -r '.tag' deploy/release-info.json)
+          echo "PROJECT=$PROJECT" >> $GITHUB_ENV
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "NOTES=$NOTES" >> $GITHUB_ENV
+          echo "TAG=$TAG" >> $GITHUB_ENV
         
       - name: Executar testes com cobertura
         run: |
-          npm run test:sonar
+          if [ "${{ env.PROJECT }}" == "ngx-sp-auth" ]; then
+            npm run test:auth:sonar
+          elif [ "${{ env.PROJECT }}" == "ngx-sp-infra" ]; then
+            npm run test:infra:sonar
+          fi
 
       - name: Análise com SonarCloud
         uses: SonarSource/sonarqube-scan-action@v5
@@ -66,25 +82,23 @@ jobs:
           echo "should_publish=false" >> $GITHUB_ENV
         fi
 
-    - name: Ler release-info.json
-        id: release
-        run: |
-          PROJECT=$(jq -r '.project' deploy/release-info.json)
-          VERSION=$(jq -r '.version' deploy/release-info.json)
-          NOTES=$(jq -r '.notes' deploy/release-info.json)
-          TAG=$(jq -r '.tag' deploy/release-info.json)
-          echo "PROJECT=$PROJECT" >> $GITHUB_ENV
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "NOTES=$NOTES" >> $GITHUB_ENV
-          echo "TAG=$TAG" >> $GITHUB_ENV
-
     - name: Install dependencies
       if: env.should_publish == 'true'
       run: npm install
 
     - name: Build the library and add tags
       if: env.should_publish == 'true'
-      run: npm run build ${{ env.PROJECT }}
+      run: |
+        if [ "${{ env.PROJECT }}" == "ngx-sp-auth" ]; then
+          cd projects/ngx-sp-auth
+          npm ci
+
+          cd ../../
+          npm run build:auth:prod
+
+        elif [ "${{ env.PROJECT }}" == "ngx-sp-infra" ]; then
+          npm run build:infra:prod
+        fi
 
     - name: Publish to NPM
       if: env.should_publish == 'true'
