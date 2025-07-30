@@ -47,6 +47,8 @@ jobs:
           if [ "${{ env.PROJECT }}" == "ngx-sp-auth" ]; then
             cd projects/ngx-sp-auth
             npm ci
+
+            cd ../../
             npm run build:auth:prod
 
           elif [ "${{ env.PROJECT }}" == "ngx-sp-infra" ]; then
