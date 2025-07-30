@@ -208,6 +208,11 @@ async function main() {
           message: 'Deseja adicionar uma mensagem adicional ao commit?',
           type: 'input',
           name: 'mensagemCommit'
+        },
+        {
+          message: 'Deseja adicionar uma mensagem customizada para a release que será gerada?',
+          type: 'input',
+          name: 'mensagemRelease'
         }
       ]);
 
@@ -217,13 +222,15 @@ async function main() {
       respostaIsExecutaTestes = respostas.executaTestes;
       respostaRemoteRepo = respostas.repo;
       respostaMensagemOpcional = respostas.mensagemCommit;
+      respostaPatchNotes = respostas.mensagemRelease;
 
       console.log(`\n\nRevise os dados informados:
   - Projeto a ser publicado: ${chalk.blueBright(respostaProjeto)}
   - Versão a ser incrementada: ${chalk.blueBright(respostaVersao)}
   - Nome do repositório remoto: ${chalk.blueBright(respostaRemoteRepo)}
   - Executar testes automatizados? ${chalk.blueBright(respostaIsExecutaTestes ? 'Sim' : 'Não')}
-  - Mensagem opcional de commit: ${chalk.italic.blueBright(respostaMensagemOpcional == '' ? 'Nenhuma' : `"${respostaMensagemOpcional}"`)}\n`);
+  - Mensagem opcional de commit: ${chalk.italic.blueBright(respostaMensagemOpcional == '' ? `Nenhuma` : `"${respostaMensagemOpcional}"`)}
+  - Mensagem de release: ${chalk.italic.blueBright(respostaPatchNotes == '' ? `Atualização de rotina` : `"${respostaPatchNotes}"`)}\n`);
 
       await inquirer.prompt([ {
           message: 'Você confirma estas informações?',
