@@ -8,15 +8,15 @@ import { SubMenuItem, TelaItem } from '../sub-menu.component';
   imports: [ListComponent],
   templateUrl: './nav-tabs.component.html',
   styleUrl: './nav-tabs.component.scss',
-  
+
 })
 export class NavTabsComponent implements OnInit {
 
   @Input() subMenus: SubMenuItem[] = [];
-  
+
   telasItem: TelaItem[] = [];
   listaAtiva: string = '';
-  
+
   ngOnInit(): void {
     if(this.subMenus.length != 0) {
       this.telasItem = this.subMenus[0].telasItem;
