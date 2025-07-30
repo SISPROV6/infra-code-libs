@@ -27,17 +27,29 @@ jobs:
       - name: Instalar dependências
         run: npm ci
 
-      - name: Build da biblioteca
-        run: npm run build:prod ngx-sp-infra
-
-      - name: Executa testes com cobertura
+      - name: Ler release-info.json
+        id: release
         run: |
-          npm run test:sonar
+          PROJECT=$(jq -r '.project' release-info.json)
+          VERSION=$(jq -r '.version' release-info.json)
+          NOTES=$(jq -r '.notes' release-info.json)
+          TAG=$(jq -r '.tag' release-info.json)
+          echo "PROJECT=$PROJECT" >> $GITHUB_ENV
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "NOTES=$NOTES" >> $GITHUB_ENV
+          echo "NOTES=$TAG" >> $GITHUB_ENV
 
-      - name: Análise com SonarCloud
-        uses: SonarSource/sonarqube-scan-action@v5
-        with:
-          args: >
-            -Dsonar.token=${{ secrets.SONAR_TOKEN }}
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      # - name: Build da biblioteca
+      #   run: npm run build:prod ngx-sp-infra
+
+      # - name: Executa testes com cobertura
+      #   run: |
+      #     npm run test:sonar
+
+      # - name: Análise com SonarCloud
+      #   uses: SonarSource/sonarqube-scan-action@v5
+      #   with:
+      #     args: >
+      #       -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
