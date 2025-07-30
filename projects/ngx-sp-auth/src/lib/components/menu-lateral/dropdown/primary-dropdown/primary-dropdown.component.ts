@@ -2,6 +2,8 @@ import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { LibCustomMenuService } from '../../../../custom/custom-menu.service';
+import { SecondaryDropdownComponent } from "../secondary-dropdown/secondary-dropdown.component";
+import { NgFor, NgIf } from '@angular/common';
 //import { ProjectUtilservice } from 'src/app/project/utils/project-utils.service';
 //import { environment } from '../../../../environments/environments';
 
@@ -9,6 +11,7 @@ import { LibCustomMenuService } from '../../../../custom/custom-menu.service';
       selector: 'app-primary-dropdown',
       templateUrl: './primary-dropdown.component.html',
       styleUrls: ['./primary-dropdown.component.scss'],
+      imports: [SecondaryDropdownComponent, NgIf, NgFor],
 })
 export class PrimaryDropdownComponent implements OnInit {
 

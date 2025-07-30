@@ -1,5 +1,6 @@
 
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { InfraModule } from "ngx-sp-infra";
 //import { environment } from '../../../../environments/environments';
 // import { ProjectUtilservice } from 'src/app/project/utils/project-utils.service';
 
@@ -7,6 +8,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
       selector: 'app-secondary-dropdown',
       templateUrl: './secondary-dropdown.component.html',
       styleUrls: ['./secondary-dropdown.component.scss'],
+      imports: [InfraModule],
 })
 export class SecondaryDropdownComponent implements OnInit {
 
