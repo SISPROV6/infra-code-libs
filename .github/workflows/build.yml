@@ -39,6 +39,12 @@ jobs:
           echo "NOTES=$NOTES" >> $GITHUB_ENV
           echo "NOTES=$TAG" >> $GITHUB_ENV
 
+          echo $PROJECT
+          echo $VERSION
+          echo $NOTES
+          echo $TAG
+          
+
       # - name: Build da biblioteca
       #   run: npm run build:prod ngx-sp-infra
 
