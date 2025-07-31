@@ -57,6 +57,9 @@ export class TableHeaderStructure {
 
   /** Informa a ordem de exibição das colunas. */
   public order?: number = 0;
+
+  /** Tooltip para usar no texto do header. */
+  public tooltip?: string;
 }
 
 /** Propriedades de confirguração para ícones exibidos ao lado do texto de uma coluna da ```<lib-table>``` */

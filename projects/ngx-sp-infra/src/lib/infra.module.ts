@@ -1,3 +1,4 @@
+import { LibAuthenticationConfigComponent } from './components/lib-authentication-config/components/lib-authentication-config.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -175,7 +176,8 @@ import { GrupoContabilAbasComponent } from './widgets/grupo-contabil-abas/grupo-
         EstabelecimentoAbasComponent,
         ItemsAbasComponent,
         UsuarioAbasComponent,
-        GrupoContabilAbasComponent
+        GrupoContabilAbasComponent,
+        LibAuthenticationConfigComponent,
     ],
     exports: [
         PageNotAuthorizedComponent,
@@ -247,7 +249,8 @@ import { GrupoContabilAbasComponent } from './widgets/grupo-contabil-abas/grupo-
         EstabelecimentoAbasComponent,
         ItemsAbasComponent,
         UsuarioAbasComponent,
-        GrupoContabilAbasComponent
+        GrupoContabilAbasComponent,
+        LibAuthenticationConfigComponent
     ],
     providers: [],
 })

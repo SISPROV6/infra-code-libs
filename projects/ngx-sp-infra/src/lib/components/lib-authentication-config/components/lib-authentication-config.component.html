@@ -1,0 +1,80 @@
+<lib-header [breadcrumbList]="[ 'Configuração ERP', 'Configurações de Autenticação' ]"
+    pageTitle="Configurações gerais de Autenticação" mode="edit" (onReturn)="returnToHome()"
+    (onUpdate)="this.CreateOrUpdateAuthentication()" />
+<!-- #endregion HEADER -->
+
+<!-- #region BODY -->
+<div class="card border-light mb-3" *ngIf="infraAuthenticationData; else loading">
+    <form [formGroup]="form">
+        <div class="card-body">
+            <div class="container-fluid d-flex">
+                <div class="row d-flex col-2" *ngIf="$optionsInfraInAuthType; else loading">
+                    <label class="form-check-label mb-2" for="is2FaEnabled">Tipos de autenticação</label>
+                    @for (option of $optionsInfraInAuthType; track $index)
+                    {
+                    <div class="form-check ms-2 ">
+                        <label class="form-check-label" [for]="option.LABEL">
+                            {{option.LABEL}}
+                        </label>
+                        <input class="form-check-input" type="radio" [id]="option.LABEL" name="InfraInAuthTypeId"
+                            [value]="option.VALUE" formControlName="InfraInAuthTypeId">
+                    </div>
+                    }
+                </div>
+                @if(this.form.get('InfraInAuthTypeId')?.value == 1 || this.form.get('InfraInAuthTypeId')?.value == 3){ <!-- Local -->
+                <div class="row d-flex col-4 mt-4" *ngIf="infraAuthenticationData; else loading">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="Is_2FaEnabled"
+                            formControlName="Is_2FaEnabled" (ngModelChange)="onChange2Fa($event)">
+                        <label class="form-check-label" for="Is_2FaEnabled"> Autenticação em dois fatores </label>
+                    </div>
+                    @if(this.form.get('Is_2FaEnabled')?.value){
+                    <div class="p-0">
+                        <lib-combobox [libRequired]="true" [list]="$comboboxInfraIn2FaType"
+                            [control]="this.form.controls['InfraIn2FaTypeId']"
+                            labelText="Tipo de autenticação em dois fatores"
+                            [class.is-invalid]="FormUtils.isInvalidField(form.get('InfraIn2FaTypeId'))"
+                            placeholder="Selecione o tipo de autenticação em dois fatores.">
+
+                        </lib-combobox>
+                        @if (this.errorMessage != '') {
+                        <p class="glb-text-danger">{{this.errorMessage}}</p>
+                        }
+                    </div>
+                    }
+                </div>
+                }
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="card border-light mb-3" *ngIf="infraAuthenticationData;">
+    @if(form.get('InfraInAuthTypeId')?.value == 1){
+    <lib-config-senha [isConfigGeral]="true"></lib-config-senha>
+    }@else if(form.get('InfraInAuthTypeId')?.value == 2) {
+    <lib-lib-integracoes-externas [tenant_Id]="tenant_Id"></lib-lib-integracoes-externas>
+    }@else {
+    <lib-lib-integracao-ldap [tenant_Id]="tenant_Id" [isConfigGeral]="true"></lib-lib-integracao-ldap>
+    }
+</div>
+
+<!-- #endregion BODY -->
+
+<!-- #region SPINNER -->
+<ng-template #loading>
+    <!-- <app-loading></app-loading> -->
+    <div class="w-100 text-center">
+        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+            <span class="visually-hidden">Carregando...</span>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #loadingIsAtivo>
+    <!-- <app-loading></app-loading> -->
+    <div class="spinner-border spinner-border-sm me-2" role="status">
+        <span class="visually-hidden">Carregando...</span>
+    </div>
+</ng-template>
+<!-- #endregion SPINNER -->

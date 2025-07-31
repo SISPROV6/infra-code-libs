@@ -19,13 +19,24 @@ export class UsuarioAbasComponent {
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-    this.linksList.push(
-      { nome: 'Usuário', uri: `https://siscandesv6.sispro.com.br/SisproErpCloud/Corporativo/usuarios/editar/${this.Id}`, isTargetSelf: true},
-      {nome: 'Pessoa', uri: `https://siscandesv6.sispro.com.br/SisproErpCloud/Corporativo/usuarios/pessoas/${this.Id}`, isTargetSelf: false},
-      {nome: 'Estoque', uri: `https://siscandesv6.sispro.com.br/SisproErpCloud/Estoque/SpEtq1Etq/usuarios/editar/${this.Id}`, isTargetSelf: false},
-    );
 
-    this.activeItem = window.location.origin + this.router.url;
+    if(window.location.host.includes("localhost")){
+      this.linksList.push(
+      { nome: 'Usuário', uri: `http://${window.location.host}/usuarios/editarUsuarios/${this.Id}`, isTargetSelf: true},
+      {nome: 'Pessoa', uri: `http://${window.location.host}/usuarios/pessoas/${this.Id}`, isTargetSelf: false},
+      {nome: 'Estoque', uri: `http://${window.location.host}/SpEtq1Etq/usuarios/editar/${this.Id}`, isTargetSelf: false},
+    );
+    }else{
+      this.linksList.push(
+      { nome: 'Usuário', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/usuarios/editarUsuarios/${this.Id}`, isTargetSelf: true},
+      {nome: 'Pessoa', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/usuarios/pessoas/${this.Id}`, isTargetSelf: false},
+      {nome: 'Estoque', uri: `https://${window.location.host}/SisproErpCloud/Estoque/SpEtq1Etq/usuarios/editar/${this.Id}`, isTargetSelf: false},
+    );
+    }
+
+  
+    this.activeItem = this.router.url;
+
   }
 
 }
