@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-infra",
-  "version": "5.8.2",
-  "tag": "infra-v5.8.2",
-  "notes": "Novo ajuste para mudar a mensagem automática do release",
-  "timestamp": "2025-07-30T19:03:02.735Z"
+  "version": "5.12.0",
+  "tag": "infra-v5.12.0",
+  "notes": "Liberação de versão @latest oficial com todos ajustes implementados nas versões next e test prévias a este ponto",
+  "timestamp": "2025-07-31T13:44:16.127Z"
 }
