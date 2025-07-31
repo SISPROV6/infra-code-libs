@@ -1,4 +1,14 @@
 export interface IEnvironments {
+	production: boolean,
+	hostName: string,
+    product: string,
+	
+	Sp2LocalhostInfra2AuthWS: string,
+	Sp2LocalhostInfra2LoginWS: string,
+
+	SpInfra2AuthWS: string,
+	SpInfra2LoginWS: string,
+
     needsAuthInfra: Map<string, string[]>,
     needsAuthAplic: Map<string, string[]>
 }

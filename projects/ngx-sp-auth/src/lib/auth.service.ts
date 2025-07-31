@@ -146,6 +146,7 @@ export class AuthService {
             throw Error(response.ErrorMessage);
           }
 
+          /*
           if (response.InitializePassword) {
             //Inicializar password
             this._authStorageService.logout();
@@ -192,6 +193,7 @@ export class AuthService {
 
             this._authStorageService.urlRedirect = "/";
           }
+          */
 
         })
       );

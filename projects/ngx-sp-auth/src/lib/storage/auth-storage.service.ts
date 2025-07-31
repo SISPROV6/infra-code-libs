@@ -1,23 +1,21 @@
-import { HttpBackend, HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Payload } from './../models/payload';
-
+import { HttpClient, HttpHeaders, HttpBackend } from '@angular/common/http';
 import { BehaviorSubject, Observable, take, tap } from 'rxjs';
 
-import { RetToken } from '../models/ret-token';
-import { Token } from '../models/token';
-import { LibCustomStorageService } from '../custom/lib-custom-storage.service';
+import { Payload } from './../models/payload';
+
 import { Utils } from 'ngx-sp-infra';
+import { Token } from '../models/token';
+import { RetToken } from '../models/ret-token';
+import { LibCustomStorageService } from '../custom/lib-custom-storage.service';
+import { EnvironmentService } from '../environments/environments.service';
 
 @Injectable(
   { providedIn: 'root' }
 )
 export class AuthStorageService {
-
-
-  private readonly _HOSTNAME: any = "https://siscandesv6.sispro.com.br";
-
-  private readonly _BASE_URL: string = `${this._HOSTNAME}/SisproErpCloud/Service_Private/Infra/SpInfra2LoginWS/api/LoginSisproERP`; // SpInfra2WS
+  
+  private readonly _BASE_URL: string = ''; // SpInfra2WS
 
   private readonly __local_key = 'user_auth_v6';
 
@@ -32,11 +30,14 @@ export class AuthStorageService {
 
   constructor(
     private _httpBackend: HttpBackend,
-    private _customStorageService: LibCustomStorageService
+    private _customStorageService: LibCustomStorageService,
+    private _environmentService: EnvironmentService
   ) {
     this._httpClient = new HttpClient(_httpBackend);
+ 
+    this._BASE_URL = `${ _environmentService.SpInfra2LoginWS }/LoginSisproERP`; // SpInfra2WS
 
-    //this._BASE_URL = !environment.production ? this._BASE_URL : `${environment.SpInfra2LoginWS}/LoginSisproERP`;
+    this._BASE_URL = !_environmentService.production ? this._BASE_URL : `${_environmentService.SpInfra2LoginWS}/LoginSisproERP`;
 
     // Método com customizações para inicializações da storage
     this._customStorageService.storageConstructor()
@@ -46,21 +47,33 @@ export class AuthStorageService {
     if (expectedLocalAuthStorage) {
       const localAuthStorage = JSON.parse(expectedLocalAuthStorage) as AuthStorageService;
 
-      this.__ip = localAuthStorage.__ip;
-      this.__tenantId = localAuthStorage.__tenantId;
-      this.__infraUsuarioId = localAuthStorage.__infraUsuarioId;
-      this.__infraEstabId = localAuthStorage.__infraEstabId;
-      this.__infraEstabNome = localAuthStorage.__infraEstabNome;
-      this.__infraEmpresaId = localAuthStorage.__infraEmpresaId;
-      this.__infraEmpresaNome = localAuthStorage.__infraEmpresaNome;
-      this.__user = localAuthStorage.__user;
-      this.__userName = localAuthStorage.__userName;
-      this.__tokenPayload = localAuthStorage.__tokenPayload;
-      this.__authToken = localAuthStorage.__authToken;
-      this.__dominio = localAuthStorage.__dominio;
-      this.__isExternalLogin = localAuthStorage.__isExternalLogin;
+      try {
+        this.__ip = localAuthStorage.__ip;
+        this.__tenantId = localAuthStorage.__tenantId;
+        this.__infraUsuarioId = localAuthStorage.__infraUsuarioId;
+        this.__infraEstabId = localAuthStorage.__infraEstabId;
+        this.__infraEstabNome = localAuthStorage.__infraEstabNome;
+        this.__infraEmpresaId = localAuthStorage.__infraEmpresaId;
+        this.__infraEmpresaNome = localAuthStorage.__infraEmpresaNome;
+        this.__user = localAuthStorage.__user;
+        this.__userName = localAuthStorage.__userName;
+        this.__tokenPayload = localAuthStorage.__tokenPayload;
+        this.__authToken = localAuthStorage.__authToken;
+        this.__dominio = localAuthStorage.__dominio;
+        this.__isExternalLogin = localAuthStorage.__isExternalLogin;
+        this.__infraInAuthTypeId = localAuthStorage.__infraInAuthTypeId;
+        this.__infraIn2FaTypeId = localAuthStorage.__infraIn2FaTypeId;
+        this.__is2FaEnabled = localAuthStorage.__is2FaEnabled;
+        this.__azureTenantId = localAuthStorage.__azureTenantId;
+        this.__azureClientId = localAuthStorage.__azureClientId;
 
-      this.startLoginCheck();
+        this.startLoginCheck();
+      } catch (error) {
+        this.logout();
+
+        return;
+      }
+
     }
 
   }
@@ -196,6 +209,12 @@ export class AuthStorageService {
     return this.__tokenPayload;
   }
 
+  public set tokenPayload(value: Payload) {
+    this.__tokenPayload = value;
+
+    this.__saveLocalInstance();
+  }
+
   //authToken
   private __authToken: string = "";
 
@@ -269,6 +288,71 @@ export class AuthStorageService {
     this.__saveLocalInstance();
   }
 
+  //infraInAuthTypeId
+  private __infraInAuthTypeId: number = 0;
+
+  public get infraInAuthTypeId(): number {
+    return this.__infraInAuthTypeId;
+  }
+
+  public set infraInAuthTypeId(value: number) {
+    this.__infraInAuthTypeId = value;
+
+    this.__saveLocalInstance();
+  }
+
+  //infraIn2FaTypeId
+  private __infraIn2FaTypeId: number | null | undefined = null;
+
+  public get infraIn2FaTypeId(): number | null | undefined {
+    return this.__infraIn2FaTypeId;
+  }
+
+  public set infraIn2FaTypeId(value: number | null | undefined) {
+    this.__infraIn2FaTypeId = value;
+
+    this.__saveLocalInstance();
+  }
+
+  //is2FaEnabled
+  private __is2FaEnabled: boolean = false;
+
+  public get is2FaEnabled(): boolean {
+    return this.__is2FaEnabled;
+  }
+
+  public set is2FaEnabled(value: boolean) {
+    this.__is2FaEnabled = value;
+
+    this.__saveLocalInstance();
+  }
+
+  // azureTenantId
+  private __azureTenantId: string = "";
+
+  public get azureTenantId(): string {
+    return this.__azureTenantId;
+  }
+
+  public set azureTenantId(value: string) {
+    this.__azureTenantId = value;
+
+    this.__saveLocalInstance();
+  }
+
+  // azureClientId
+  private __azureClientId: string = "";
+
+  public get azureClientId(): string {
+    return this.__azureClientId;
+  }
+
+  public set azureClientId(value: string) {
+    this.__azureClientId = value;
+
+    this.__saveLocalInstance();
+  }
+
   // #endregion GETTERS/SETTERS
 
   private async __saveLocalInstance(): Promise<void> {
@@ -309,7 +393,12 @@ export class AuthStorageService {
       "__authToken": "${this.authToken}",
       "__tokenPayload": ${JSON.stringify(this.tokenPayload)},
       "__dominio": "${this.dominio}",
-      "__isExternalLogin": ${this.isExternalLogin}
+      "__isExternalLogin": ${this.isExternalLogin},
+      "__infraInAuthTypeId": ${this.infraInAuthTypeId},
+      "__infraIn2FaTypeId": ${this.infraIn2FaTypeId},
+      "__is2FaEnabled": ${this.is2FaEnabled},
+      "__azureTenantId": "${this.azureTenantId}",
+      "__azureClientId": "${this.azureClientId}"
     }
     `;
 
@@ -382,7 +471,6 @@ export class AuthStorageService {
     this.__isCheckingAuth = false;
     this.isLoggedInSub.next(false);
     this.__UrlRedirect = "/";
-
     this.__ip = "";
     this.__tenantId = 0;
     this.__infraUsuarioId = "";
@@ -396,6 +484,11 @@ export class AuthStorageService {
     this.__dominio = "";
     this.__tokenPayload = {} as Payload;
     this.__isExternalLogin = false;
+    this.__infraInAuthTypeId = 0;
+    this.__infraIn2FaTypeId = null;
+    this.__is2FaEnabled = false;
+    this.__azureTenantId = "";
+    this.__azureClientId = "";
 
     localStorage.removeItem(this.__local_key);
 
@@ -503,15 +596,5 @@ export class AuthStorageService {
     }
 
   }
-
-  // #region ==========> UTILS <==========
-
-  // #endregion Propriedades Customizadas para o Componente auth-storage.service.ts
-
-  // #region Métodos Customizadas para o Componente auth-storage.service.ts
-
-  // Método executado no auth-storage.service.ts - método: constructor ()
-
-  // #endregion ==========> UTILS <==========
 
 }

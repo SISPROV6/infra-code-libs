@@ -24,4 +24,5 @@
     "ngx-toastr": "^19.0.0"
   },
   "sideEffects": false
+
 }

@@ -14,14 +14,30 @@ export class EnvironmentService {
     public needsAuthAplic!: Map<string, string[]>;
 
     public production: boolean = false;
-    public hostName: string = "https://siscandesinfra.sispro.com.br";
-    public product = '';
+    public hostName: string = '';
+    public product: string = '';
+	
+	public Sp2LocalhostInfra2AuthWS : string = '';
+	public Sp2LocalhostInfra2LoginWS: string = '';
 
-    public ConfigurarEnvironments(propriedades: IEnvironments): void {
+	public SpInfra2AuthWS: string = '';
+	public SpInfra2LoginWS: string = '';
+
+    public ConfigurarEnvironments(properties: IEnvironments): void {
 
         //passando propriedades do produto para a lib
-        this.needsAuthAplic = propriedades.needsAuthAplic;
-        this.needsAuthInfra = propriedades.needsAuthInfra;
+        this.production = properties.production;
+        this.hostName = properties.hostName;
+        this.product = properties.product;
+
+        this.Sp2LocalhostInfra2AuthWS = properties.Sp2LocalhostInfra2AuthWS;
+        this.Sp2LocalhostInfra2LoginWS = properties.Sp2LocalhostInfra2LoginWS;
+
+        this.SpInfra2AuthWS = properties.SpInfra2AuthWS;
+        this.SpInfra2LoginWS = properties.SpInfra2LoginWS;
+        
+        this.needsAuthAplic = properties.needsAuthAplic;
+        this.needsAuthInfra = properties.needsAuthInfra;
     }
 
 }

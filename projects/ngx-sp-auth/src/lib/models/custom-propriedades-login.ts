@@ -1,3 +1,4 @@
+//??? eliminar?
 export class CustomPropriedadesLogin {
     loginTitle!: string;
     loginSubtitle!: string;

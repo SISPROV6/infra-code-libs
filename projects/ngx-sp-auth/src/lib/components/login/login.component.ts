@@ -250,6 +250,7 @@ export class LoginComponent implements OnInit {
 					this._toastrService.success("Verifique no seu e-mail o código de validação.");
 				}
 
+				/*
 				if (response.InfraInAuthTypeId == 1 && response.InfraIn2FaTypeId != null && response.InfraIn2FaTypeId == 1 && response.Is2FaEnabled) {
 					this.createFormAuthentication2Fa();
 
@@ -261,6 +262,7 @@ export class LoginComponent implements OnInit {
 
 					this._toastrService.success("Verifique no seu e-mail o código de validação.");
 				}
+				*/
 
 			},
 			error: (error) => {
