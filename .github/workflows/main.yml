@@ -7,6 +7,9 @@ on:
       - next
       - test
 
+permissions:
+  contents: write
+
 jobs:
   run-unit-tests:
     runs-on: ubuntu-latest
@@ -24,10 +27,26 @@ jobs:
         
       - name: Instalar dependências
         run: npm ci
+
+      - name: Ler release-info.json
+        id: release
+        run: |
+          PROJECT=$(jq -r '.project' deploy/release-info.json)
+          VERSION=$(jq -r '.version' deploy/release-info.json)
+          NOTES=$(jq -r '.notes' deploy/release-info.json)
+          TAG=$(jq -r '.tag' deploy/release-info.json)
+          echo "PROJECT=$PROJECT" >> $GITHUB_ENV
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "NOTES=$NOTES" >> $GITHUB_ENV
+          echo "TAG=$TAG" >> $GITHUB_ENV
         
       - name: Executar testes com cobertura
         run: |
-          npm run test:sonar
+          if [ "${{ env.PROJECT }}" == "ngx-sp-auth" ]; then
+            npm run test:auth:sonar
+          elif [ "${{ env.PROJECT }}" == "ngx-sp-infra" ]; then
+            npm run test:infra:sonar
+          fi
 
       - name: Análise com SonarCloud
         uses: SonarSource/sonarqube-scan-action@v5
@@ -55,14 +74,26 @@ jobs:
         node-version: '20'
         registry-url: 'https://registry.npmjs.org'
 
-    - name: Check if projects/ngx-sp-infra/package.json is modified
+    - name: Ler release-info.json
+      id: release
+      run: |
+        PROJECT=$(jq -r '.project' deploy/release-info.json)
+        VERSION=$(jq -r '.version' deploy/release-info.json)
+        NOTES=$(jq -r '.notes' deploy/release-info.json)
+        TAG=$(jq -r '.tag' deploy/release-info.json)
+        echo "PROJECT=$PROJECT" >> $GITHUB_ENV
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+        echo "NOTES=$NOTES" >> $GITHUB_ENV
+        echo "TAG=$TAG" >> $GITHUB_ENV
+
+    - name: Checar se package.json destino foi modificado
       id: changes
       run: |
-        if git diff --name-only HEAD~1 HEAD | grep -q "projects/ngx-sp-infra/package.json"; then
-          echo "projects/ngx-sp-infra/package.json foi modificado."
+        if git diff --name-only HEAD~1 HEAD | grep -q "projects/${{ env.PROJECT }}/package.json"; then
+          echo "projects/${{ env.PROJECT }}/package.json foi modificado."
           echo "should_publish=true" >> $GITHUB_ENV
         else
-          echo "projects/ngx-sp-infra/package.json não foi modificado."
+          echo "projects/${{ env.PROJECT }}/package.json não foi modificado."
           echo "should_publish=false" >> $GITHUB_ENV
         fi
 
@@ -72,14 +103,24 @@ jobs:
 
     - name: Build the library and add tags
       if: env.should_publish == 'true'
-      run: npm run build ngx-sp-infra
+      run: |
+        if [ "${{ env.PROJECT }}" == "ngx-sp-auth" ]; then
+          cd projects/ngx-sp-auth
+          npm ci
+
+          cd ../../
+          npm run build:auth:prod
+
+        elif [ "${{ env.PROJECT }}" == "ngx-sp-infra" ]; then
+          npm run build:infra:prod
+        fi
 
     - name: Publish to NPM
       if: env.should_publish == 'true'
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH }}
       run: |
-        cd dist/ngx-sp-infra
+        cd dist/${{ env.PROJECT }}
         
         if [ "${{ github.ref }}" == "refs/heads/main" ]; then
           npm publish --access public --tag latest
@@ -90,3 +131,16 @@ jobs:
         elif [ "${{ github.ref }}" == "refs/heads/fixes" ]; then
           npm publish --access public --tag fix
         fi
+
+    - name: Criar Release automático
+      if: env.should_publish == 'true'
+      uses: actions/create-release@v1
+      with:
+        tag_name: ${{ env.TAG }}
+        release_name: ${{ env.PROJECT }} v${{ env.VERSION }}
+        body: |
+          ## O que mudou?
+
+          ${{ env.NOTES }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

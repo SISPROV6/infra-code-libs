@@ -19,6 +19,7 @@ module.exports = function (config) {
         // for example, you can disable the random execution with `random: false`
         // or set a specific seed with `seed: 4321`
       },
+      clearContext: false // deixa os resultados visíveis no navegador
     },
     jasmineHtmlReporter: {
       suppressAll: true // removes the duplicated traces

@@ -504,6 +504,41 @@ export class Utils {
 
     return 0;
   }
+
+  /** Método de ordenação alfanumérico com possibilidade de direção */
+  public static alphanumericSortOld(a: string | number, b: string | number, direction: 'asc' | 'desc' = 'asc'): number {
+    const regex = /(\d+|\D+)/g;
+
+    const stringA = this.propertyIsNullUndefinedOrEmpty(a) ? "" : a;
+    const stringB = this.propertyIsNullUndefinedOrEmpty(b) ? "" : b;
+
+    const aParts = stringA.toString().match(regex) || [];
+    const bParts = stringB.toString().match(regex) || [];
+
+    const length = Math.max(aParts.length, bParts.length);
+
+    for (let i = 0; i < length; i++) {
+      const aPart = aParts[i] || "";
+      const bPart = bParts[i] || "";
+
+      const aIsNumber = !isNaN(Number(aPart));
+      const bIsNumber = !isNaN(Number(bPart));
+
+      if (aIsNumber && bIsNumber) {
+        const numCompare = Number(aPart) - Number(bPart);
+        if (numCompare !== 0) return direction === 'asc' ? numCompare : -numCompare;
+      } else if (aIsNumber) {
+        return direction === 'asc' ? -1 : 1;
+      } else if (bIsNumber) {
+        return direction === 'asc' ? 1 : -1;
+      } else {
+        const strCompare = aPart.localeCompare(bPart);
+        if (strCompare !== 0) return direction === 'asc' ? strCompare : -strCompare;
+      }
+    }
+
+    return 0;
+  }
   // #endregion ORDENAÇÃO
 
   // #region ==========> VALIDAÇÕES DE VAZIO <==========

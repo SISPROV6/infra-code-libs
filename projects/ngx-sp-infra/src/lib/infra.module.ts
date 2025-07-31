@@ -1,3 +1,4 @@
+import { LibAuthenticationConfigComponent } from './components/lib-authentication-config/components/lib-authentication-config.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -81,6 +82,12 @@ import { LibDateRangePickerComponent } from './widgets/lib-date-range-picker/lib
 import { LibSimplifiedTableComponent } from './widgets/lib-simplified-table/lib-simplified-table.component';
 import { PasswordPolicyComponent } from './widgets/password-policy/password-policy.component';
 import { SearchInputComponent } from './widgets/search-input/search-input.component';
+import { EmpresaAbasComponent } from './widgets/empresa-abas/empresa-abas.component';
+import { PessoaAbasComponent } from './widgets/pessoa-abas/pessoa-abas.component';
+import { EstabelecimentoAbasComponent } from './widgets/estabelecimento-abas/estabelecimento-abas.component';
+import { ItemsAbasComponent } from './widgets/items-abas/items-abas.component';
+import { UsuarioAbasComponent } from './widgets/usuario-abas/usuario-abas.component';
+import { GrupoContabilAbasComponent } from './widgets/grupo-contabil-abas/grupo-contabil-abas.component';
 
 @NgModule({
     imports: [
@@ -164,7 +171,13 @@ import { SearchInputComponent } from './widgets/search-input/search-input.compon
         LoadingScreenComponent,
         AuditoriaButtonComponent,
         LibDateRangePickerComponent,
-        
+        EmpresaAbasComponent,
+        PessoaAbasComponent,
+        EstabelecimentoAbasComponent,
+        ItemsAbasComponent,
+        UsuarioAbasComponent,
+        GrupoContabilAbasComponent,
+        LibAuthenticationConfigComponent,
     ],
     exports: [
         PageNotAuthorizedComponent,
@@ -231,7 +244,13 @@ import { SearchInputComponent } from './widgets/search-input/search-input.compon
         LoadingScreenComponent,
         AuditoriaButtonComponent,
         LibDateRangePickerComponent,
-
+        EmpresaAbasComponent,
+        PessoaAbasComponent,
+        EstabelecimentoAbasComponent,
+        ItemsAbasComponent,
+        UsuarioAbasComponent,
+        GrupoContabilAbasComponent,
+        LibAuthenticationConfigComponent
     ],
     providers: [],
 })

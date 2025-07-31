@@ -1,0 +1,28 @@
+<div class="d-flex align-items-center justify-content-between pt-3 pe-3 ps-3">
+    <h4 class="fw-bold">Configuração de integração SSO AzureAD</h4>
+    <button class="btn btn-primary" (click)="CreateOrUpdateoIntegrationAzureSSO()">
+        <lib-icon iconName="disquete" />
+        Salvar
+    </button>
+</div>
+<div class="card-body">
+    <hr class="mb-3" />
+    <form [formGroup]="formIntegrationParameters">
+        <div class="row mb-3">
+            <div class="col-4">
+                <label libRequired for="ValueClientId" class="form-label">client_id</label>
+                <input type="text" class="form-control" id="ValueClientId" formControlName="ValueClientId"
+                    [class.is-invalid]="FormUtils.isInvalidField(formIntegrationParameters.get('ValueClientId'))">
+                <app-field-error-message [control]="formIntegrationParameters.get('ValueClientId')" label="ValueClientId" />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-4">
+                <label libRequired for="ValueTenantId" class="form-label">tenant_id</label>
+                <input type="text" class="form-control" id="ValueTenantId" formControlName="ValueTenantId"
+                    [class.is-invalid]="FormUtils.isInvalidField(formIntegrationParameters.get('ValueTenantId'))">
+                <app-field-error-message [control]="formIntegrationParameters.get('ValueTenantId')" label="ValueTenantId" />
+            </div>
+        </div>
+    </form>
+</div>

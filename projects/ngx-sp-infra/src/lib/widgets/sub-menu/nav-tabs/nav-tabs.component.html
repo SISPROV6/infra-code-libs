@@ -1,4 +1,4 @@
-<ul class="menu mt-4">
+<ul class="menu my-3">
   @for(menu of subMenus; track $index) {
     <li class="menu-item" (click)="abaActive(menu.titulo)" [class.active]="menu.titulo === listaAtiva">
       <a class="glb-cursor-pointer" (click)="abaActive(menu.titulo)" [tabindex]="$index">

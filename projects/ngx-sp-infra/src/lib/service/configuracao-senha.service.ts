@@ -16,7 +16,12 @@ export class ConfiguracaoSenhaService {
   // #region ==========> PROPERTIES <==========
 
   // #region PRIVATE
-  private readonly _BASE_URL: string = `https://${ window.location.hostname }/SisproErpCloud/Service_Private/Infra/SpInfra2ConfigErpWS/api/InfraSegConfig`; // SpInfra2ConfigErpWS
+
+  private readonly _BASE_URL: string = window.location.hostname.includes('localhost')
+    ? `https://siscandesV6.sispro.com.br/SisproErpCloud/Service_Private/Infra/SpInfra2ConfigErpWS/api/InfraSegConfig`
+    : `https://${window.location.hostname}/SisproErpCloud/Service_Private/Infra/SpInfra2ConfigErpWS/api/InfraSegConfig`;
+
+  //private readonly _BASE_URL: string = `https://${ window.location.hostname }/SisproErpCloud/Service_Private/Infra/SpInfra2ConfigErpWS/api/InfraSegConfig`; // SpInfra2ConfigErpWS
   private readonly _HTTP_HEADERS = new HttpHeaders()
     .set('Content-Type', 'application/json');
 
@@ -36,7 +41,7 @@ export class ConfiguracaoSenhaService {
   // #region ==========> SERVICE METHODS <==========
 
   // #region GET
-  public getInfraSegConfig(): Observable<RetInfraSegConfig>{
+  public getInfraSegConfig(): Observable<RetInfraSegConfig> {
     const params = new HttpParams().set('TENANT_ID', this._authToken!.__tenantId);
 
     const headers = this._HTTP_HEADERS
@@ -45,7 +50,7 @@ export class ConfiguracaoSenhaService {
     const url = `${this._BASE_URL}/Get`;
 
     return this._httpClient.get<RetInfraSegConfig>(url, { 'params': params, 'headers': headers })
-      .pipe( take(1), tap(response => this.showErrorMessage(response)) );
+      .pipe(take(1), tap(response => this.showErrorMessage(response)));
   }
   // #endregion GET
 
@@ -57,7 +62,7 @@ export class ConfiguracaoSenhaService {
     const url = `${this._BASE_URL}/Create`;
 
     return this._httpClient.post<RetInfraSegConfig>(url, record, { 'headers': headers })
-      .pipe( take(1), tap(response => this.showErrorMessage(response)) );
+      .pipe(take(1), tap(response => this.showErrorMessage(response)));
   }
   // #endregion POST
 

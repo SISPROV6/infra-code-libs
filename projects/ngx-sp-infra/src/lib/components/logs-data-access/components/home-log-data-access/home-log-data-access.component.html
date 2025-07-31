@@ -31,33 +31,54 @@
   <!-- #endregion SEARCH AND FILTERS -->
 
   <!-- #region TABLE -->
-  <div class="mt-4">
+  <div class="mt-4" *ngIf="!isListLoading; else loading">
+    <span>{{counterLabel}}</span>
     <lib-table
+      [usePagination]="false"
+      [showCounter]="false"
       [list]="$logList"
-      [counts]="[5, 15, 25]"
-      paginationID="simpleTable"
-      *ngIf="!isListLoading; else loading"
+      [counts]="[10,25,50]"
+      paginationID="simpleTable2"
+
       [headers]="[
-        { name: 'Id', widthClass: 'col-1', orderColumn: 'Id' },
+        { name: 'Id', widthClass: 'col-1'},
         {
           name: 'Usuário',
           widthClass: 'col-3',
-          orderColumn: 'NomeUsuarioLogado'
+          icon: {
+            name: this.headerOrdering['Usuário'].isAsc
+              ? 'seta-cima'
+              : 'seta-baixo',
+            theme: 'blue',
+            emitClick: true
+          }
         },
         {
           name: 'Data/Hora ocorrência',
           widthClass: 'col-3',
-          orderColumn: 'DtHora'
+          icon: {
+            name: this.headerOrdering['Data/Hora ocorrência'].isAsc
+              ? 'seta-cima'
+              : 'seta-baixo',
+            theme: 'blue',
+            emitClick: true
+          }
         },
         {
           name: 'Método de origem',
           widthClass: 'col-4',
-          orderColumn: 'MetodoOrigem'
+          icon: {
+            name: this.headerOrdering['Método de origem'].isAsc
+              ? 'seta-cima'
+              : 'seta-baixo',
+            theme: 'blue',
+            emitClick: true
+          }
         },
         { name: '', widthClass: 'col-1', customClasses: 'text-end' }
       ]"
-      (itemsPerPageChange)="itemsPerPage = $event"
-      (pageChange)="page = $event"
+
+      (iconClick)="onSortChange($event)"
     >
       <div upperContent>
         <div class="d-flex">
@@ -84,8 +105,7 @@
           </div>
         </div>
       </div>
-      @for (logs of $logList! | paginate: { id: 'simpleTable', itemsPerPage:
-      itemsPerPage, currentPage: page }; track logs) {
+      @for (logs of $logList! | paginate: { itemsPerPage: this.SearchLogDataAccess.ROW_LIMIT, currentPage: this.page, totalItems: this.$retLogList.Count}; track logs) {
       <tr innerRows class="align-middle">
         <td class="col-1 align-middle">{{ logs.Id }}</td>
         <td class="col-3 align-middle">{{ logs.NomeUsuarioLogado }}</td>
@@ -110,6 +130,34 @@
       </tr>
       }
     </lib-table>
+    <div *ngIf="!isListLoading">
+      <div
+        class="d-flex justify-content-end mt-2"
+        *ngIf="$logList.length > 0"
+      >
+        <div class="d-flex align-items-center">
+          <label class="me-2" style="white-space: nowrap"
+            >Itens por página</label
+          >
+          <select
+            class="form-select select-search"
+            (change)="onSelectChange($event)"
+          >
+            <option class="selected" value="10" selected>10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+          </select>
+        </div>
+        <pagination-controls
+          class="sp-pagination mt-3"
+          (pageChange)="pageChanged($event)"
+          previousLabel="«&nbsp;&nbsp;&nbsp;"
+          nextLabel="&nbsp;&nbsp;&nbsp;»"
+          [maxSize]="5"
+        >
+        </pagination-controls>
+      </div>
+    </div>
   </div>
 
   <!-- #endregion TABLE -->

@@ -1,11 +1,26 @@
 <lib-container>
-  <div class="px-5 mt-4" innerContent1>
+  <div class="px-5" innerContent1>
     @for(subMenu of navSubmenus; track $index) {
-      <lib-icon  class="bold engrenagem-ajustada" iconName="{{ subMenu.icon ? subMenu.icon : 'engrenagem'}}"></lib-icon>
+    <div
+      [class]="
+        $first && subMenu.titulo == '' && subMenu.icon == ''
+          ? ' mb-2'
+          : 'mt-4 mb-2'
+      "
+    >
+      @if(subMenu.icon != ''){
+      <lib-icon
+        class="bold engrenagem-ajustada"
+        iconName="{{ subMenu.icon }}"
+      ></lib-icon>
+      } @if(subMenu.titulo != ''){
       <span class="fw-bold fs-4 ms-1">{{ subMenu.titulo }}</span>
-    
+
+      }
       <app-nav-tabs [subMenus]="navSubmenus[$index].subMenuItem"></app-nav-tabs>
-      <hr>
-    }
+    </div>
+    @if(!$last){
+    <hr />
+    } }
   </div>
 </lib-container>

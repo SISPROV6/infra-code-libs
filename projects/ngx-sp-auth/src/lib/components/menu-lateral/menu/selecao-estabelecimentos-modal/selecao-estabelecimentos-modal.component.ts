@@ -2,18 +2,20 @@ import { Component, EventEmitter, OnInit, Output, TemplateRef } from '@angular/c
 
 import { BsModalService } from 'ngx-bootstrap/modal';
 
-import { InfraEstabelecimentoFavoritoDefault, MessageService } from 'ngx-sp-infra';
+import { InfraEstabelecimentoFavoritoDefault, MessageService, InfraModule } from 'ngx-sp-infra';
 //import { ProjectUtilservice } from 'src/app/project/utils/project-utils.service';
 import { AuthStorageService } from '../../../../storage/auth-storage.service';
 
 import { LibCustomMenuService } from '../../../../custom/custom-menu.service';
 import { MenuServicesService } from '../../menu-services.service';
+import { NgxPaginationModule } from "ngx-pagination";
 
 
 @Component({
   selector: 'selecao-estabelecimentos-modal',
   templateUrl: './selecao-estabelecimentos-modal.component.html',
   styleUrls: ['./selecao-estabelecimentos-modal.component.scss'],
+  imports: [InfraModule, NgxPaginationModule],
 })
 export class SelecaoEstabelecimentosModalComponent implements OnInit {
   constructor(

@@ -107,6 +107,10 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
    * @default false */
   @Input() public scrollable: boolean = false;
 
+  /** Informa se a lógica e elementos de paginação devem ficar fora do componente e serem gerenciados pelo componente pai.
+   * @default false */
+  @Input() public useCustomPagination: boolean = false;
+
   /**
    * DEVE ser utilizada em caso de paginação visível.
    * 
@@ -328,7 +332,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
         const propertyA = this.getProperty(a, attribute).toUpperCase(); // Puxa o nome da coluna que irá ordenar
         const propertyB = this.getProperty(b, attribute).toUpperCase(); // Puxa o nome da coluna que irá ordenar
 
-        return Utils.alphanumericSort(propertyA, propertyB, this.sortDirection[attribute])
+        return Utils.alphanumericSortOld(propertyA, propertyB, this.sortDirection[attribute])
       });
 		}
 	}
