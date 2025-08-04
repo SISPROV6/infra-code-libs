@@ -225,6 +225,7 @@ export class LoginComponent implements OnInit {
 
 	//  Executa o Login
 	public logOn(): void {
+		/*
 		this._authService.login(this.form.value).subscribe({
 			next: (response) => {
 				this.isLoading = false;
@@ -250,7 +251,6 @@ export class LoginComponent implements OnInit {
 					this._toastrService.success("Verifique no seu e-mail o código de validação.");
 				}
 
-				/*
 				if (response.InfraInAuthTypeId == 1 && response.InfraIn2FaTypeId != null && response.InfraIn2FaTypeId == 1 && response.Is2FaEnabled) {
 					this.createFormAuthentication2Fa();
 
@@ -262,7 +262,6 @@ export class LoginComponent implements OnInit {
 
 					this._toastrService.success("Verifique no seu e-mail o código de validação.");
 				}
-				*/
 
 			},
 			error: (error) => {
@@ -273,7 +272,7 @@ export class LoginComponent implements OnInit {
 				throw new Error(error)
 			},
 		});
-
+		*/
 	}
 
 	// Envia requisição para esquecer senha

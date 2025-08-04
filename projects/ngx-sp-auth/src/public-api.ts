@@ -31,9 +31,12 @@ export * from './lib/custom/models/icustom-login-service';
 export * from './lib/custom/models/icustom-menu-service';
 export * from './lib/custom/models/imenu-config';
 export * from './lib/environments/models/ienvironments';
-export * from './lib/models/custom-propriedades-login';
 export * from './lib/custom/models/icustom-storage-service';
-
+//??? - eliminar?
+export * from './lib/models/custom-propriedades-login';
+export * from './lib/models/infraInAuthTypeId';
+export * from './lib/models/infraIn2FaTypeId';
+//???
 
 /** Guards */
 export * from './lib/guards/auth-guard';
@@ -44,4 +47,5 @@ export * from './lib/guards/login-guard';
 export * from './lib/interceptors/auth-aplic.interceptor';
 export * from './lib/interceptors/auth-infra.interceptor';
 
-
+/** Routes */
+export * from './lib/auth.routes';

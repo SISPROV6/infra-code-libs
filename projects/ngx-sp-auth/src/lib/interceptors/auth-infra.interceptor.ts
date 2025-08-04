@@ -1,11 +1,10 @@
-import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { EnvironmentService } from './../environments/environments.service';
+import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from "@angular/common/http";
 
 import { Observable } from "rxjs";
-//import { environment } from "../environments/environments";
 
 import { CheckUrlAndMethodService } from "ngx-sp-infra";
+import { EnvironmentService } from './../environments/environments.service';
 
 /**
  * \brief Intercepta uma chamada HTTP para inserir a autenticação da Sispro.

@@ -45,7 +45,7 @@ export class LibCustomLoginService {
      * @param router Objeto de Router que será utilizado
      */
     public authNavigateToPage(router: Router): void {
-       this.storedAuthNavigateToPage(router);
+      this.storedAuthNavigateToPage(router);
     }
     // #endregion Métodos Customizadas para o Componente auth.service.ts
 

@@ -1,6 +1,5 @@
 /**
-   * Public API Surface of ngx-sp-infra
-*/
+   * Public API Surface of ngx-sp-auth
 
 /** Modules */
 export * from './lib/infra.module';

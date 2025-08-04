@@ -4,7 +4,6 @@ import { Router, RouterStateSnapshot, ActivatedRouteSnapshot, Route, UrlTree } f
 import { Observable, lastValueFrom, of } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
 
-import { ServerService } from '../server/server.service';
 import { AuthStorageService } from '../storage/auth-storage.service';
 import { AuthService } from '../auth.service';
 
@@ -17,7 +16,6 @@ export class ExternaLoginlGuard  {
     private router: Router,
     private authService: AuthService,
     private authStorageService: AuthStorageService,
-		private serverService: ServerService
   ) { }
 
   canActivate(_route: ActivatedRouteSnapshot, _state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree
@@ -62,7 +60,7 @@ export class ExternaLoginlGuard  {
 
   //  Executa o Login Externo
   private async logOnExternal(domain: string, user: string, password: string): Promise<boolean | UrlTree> {
-    const retConfig: boolean = await this.handleGetServer();
+    const retConfig: boolean = await this.handleGetAuthentication(domain);
 
     if (!retConfig) {
       return this.navigateToError();
@@ -86,10 +84,10 @@ export class ExternaLoginlGuard  {
   }
 
   // Retorna os parâmetros de configuração.
-  private getServer(): Promise<any> {
+  private getAuthentication(domain: string): Promise<any> {
     return new Promise((resolve, reject) => {
 
-      this.serverService.getServer().subscribe({
+      this.authService.getAuthentication(domain).subscribe({
         next: response => {
           resolve(true);
         },
@@ -103,11 +101,11 @@ export class ExternaLoginlGuard  {
   }
 
   // Handle para busca dos parâmetros de configuração.
-  private async handleGetServer(): Promise<boolean> {
-
+  private async handleGetAuthentication(domain: string): Promise<boolean> {
+ 
     try
     {
-      const response = await this.getServer();
+      const response = await this.getAuthentication(domain);
  
       return true;
     } catch (error) {

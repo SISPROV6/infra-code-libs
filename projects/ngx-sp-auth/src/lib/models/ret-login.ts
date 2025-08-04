@@ -14,5 +14,5 @@ export class RetLogin implements IError {
   Dominio: string = '';
   InitializePassword: boolean = false;
   FeedbackMessage: string = '';
-  statusSenha: number = 0
+  StatusSenha: number = 0
 }
