@@ -52,17 +52,17 @@ jobs:
           npm ci
         displayName: 'Instalar dependências gerais'
 
-      # Build da biblioteca
+      # Setup específico do ngx-sp-auth (se necessário)
       - script: |
           if [ "$(ProjectName)" == "ngx-sp-auth" ]; then
             cd projects/ngx-sp-auth
             npm ci
             cd ../../
-            npm run build:auth:prod
-          elif [ "$(ProjectName)" == "ngx-sp-infra" ]; then
-            npm run build:infra:prod
           fi
-        displayName: 'Build da biblioteca'
+          
+          npm run build:$(ProjectName):prod
+          npm run test:$(ProjectName):sonar
+        displayName: 'Buildar e executar testes'
       
       # Executa testes com cobertura
       - script: |
