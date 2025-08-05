@@ -27,7 +27,7 @@ steps:
       npm ci
     displayName: 'Install dependencies'
   
-  # Read package.json
+  # Step 1: Define as variáveis
   - script: |
       PROJECT=$(jq -r '.project' deploy/release-info.json)
       VERSION=$(jq -r '.version' deploy/release-info.json)
@@ -39,12 +39,16 @@ steps:
       echo "##vso[task.setvariable variable=ProjectVersion]$VERSION"
       echo "##vso[task.setvariable variable=PublishNotes]$NOTES"
       echo "##vso[task.setvariable variable=ProjectTag]$TAG"
-      echo $(PackageVersion)
-      echo $(ProjectName)
-      echo $(ProjectVersion)
-      echo $(PublishNotes)
-      echo $(ProjectTag)
-    displayName: 'Get Package release info'
+    displayName: 'Set Package release variables'
+
+  # Step 2: Teste as variáveis (agora elas estarão disponíveis)
+  - script: |
+      echo "Package Version: $(PackageVersion)"
+      echo "Project Name: $(ProjectName)"
+      echo "Project Version: $(ProjectVersion)"
+      echo "Publish Notes: $(PublishNotes)"
+      echo "Project Tag: $(ProjectTag)"
+    displayName: 'Display Package release info'
 
   # Build the project
   - script: |
