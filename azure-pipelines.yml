@@ -26,6 +26,24 @@ steps:
       npm install -g @angular/cli
       npm ci
     displayName: 'Install dependencies'
+  
+  # Read package.json
+  - script: |
+      PROJECT=$(jq -r '.project' deploy/release-info.json)
+      VERSION=$(jq -r '.version' deploy/release-info.json)
+      NOTES=$(jq -r '.notes' deploy/release-info.json)
+      TAG=$(jq -r '.tag' deploy/release-info.json)
+      package_version=$(jq -r ".version" package.json)
+      echo "##vso[task.setvariable variable=PackageVersion]$package_version"
+      echo "##vso[task.setvariable variable=ProjectName]$PROJECT"
+      echo "##vso[task.setvariable variable=ProjectVersion]$VERSION"
+      echo "##vso[task.setvariable variable=PublishNotes]$NOTES"
+      echo "##vso[task.setvariable variable=ProjectTag]$TAG"
+      echo "$(PROJECT)"
+      echo "$(VERSION)"
+      echo "$(NOTES)"
+      echo "$(TAG)"
+    displayName: 'Get Package release info'
 
   # Build the project
   - script: |
