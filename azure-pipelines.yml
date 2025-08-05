@@ -34,7 +34,7 @@ steps:
 
   # Build the project
   - script: |
-      ng build ngx-sp-infra --prod
+      ng build ngx-sp-infra --configuration=production
     displayName: 'Build project'
   
   # Run tests
