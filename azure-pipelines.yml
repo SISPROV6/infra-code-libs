@@ -39,10 +39,11 @@ steps:
       echo "##vso[task.setvariable variable=ProjectVersion]$VERSION"
       echo "##vso[task.setvariable variable=PublishNotes]$NOTES"
       echo "##vso[task.setvariable variable=ProjectTag]$TAG"
-      echo "$(PROJECT)"
-      echo "$(VERSION)"
-      echo "$(NOTES)"
-      echo "$(TAG)"
+      echo "$(PackageVersion)"
+      echo "$(ProjectName)"
+      echo "$(ProjectVersion)"
+      echo "$(PublishNotes)"
+      echo "$(ProjectTag)"
     displayName: 'Get Package release info'
 
   # Build the project
