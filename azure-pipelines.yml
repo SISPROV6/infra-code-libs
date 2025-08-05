@@ -39,5 +39,5 @@ steps:
   
   # Run tests
   - script: |
-      ng test ngx-sp-infra
+      ng test ngx-sp-infra --watch=false --code-coverage --browsers=ChromeHeadless
     displayName: 'Run tests'
