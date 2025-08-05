@@ -20,10 +20,10 @@
     "url": "https://github.com/SISPROV6/infra-code-libs"
   },
   "peerDependencies": {
-    "ngx-sp-infra": "^5.8.0",
-    "ngx-toastr": "^19.0.0",
     "@azure/msal-angular": "^4.0.16",
-    "@azure/msal-browser": "^4.18.0"
+    "@azure/msal-browser": "^4.18.0",
+    "ngx-sp-infra": "^5.8.0",
+    "ngx-toastr": "^19.0.0"
   },
   "sideEffects": false
 }

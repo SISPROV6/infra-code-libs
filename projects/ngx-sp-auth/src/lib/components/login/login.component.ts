@@ -114,11 +114,11 @@ export class LoginComponent implements OnInit {
 
 	// #region ==========> FORM BUILDER <==========
 
-	public formDomain: FormGroup;
-	public formLogin: FormGroup;
-	public formAzure: FormGroup;
-	public formFgtPsw: FormGroup;
-	public formAuthentication2Fa: FormGroup;
+	public formDomain!: FormGroup;
+	public formLogin!: FormGroup;
+	public formAzure!: FormGroup;
+	public formFgtPsw!: FormGroup;
+	public formAuthentication2Fa!: FormGroup;
 
 	//  Propriedade necessário para que a classe static FormUtils possa ser utilizada no Html
 	public get FormUtils(): typeof FormUtils {
@@ -166,7 +166,7 @@ export class LoginComponent implements OnInit {
 
 	// #endregion ==========> PROPERTIES <==========
 
-	ngOnInit(): void {
+	async ngOnInit() {
 
 		this._title.setTitle(this._customLoginService.loginPageTitle);
 
@@ -197,7 +197,7 @@ export class LoginComponent implements OnInit {
 	private createFormDomain(): void {
 		//  Dados originais de Login (Domínio)
 
-		if (environment.production)
+		if (this._environmentService.production)
 		{
 			this.formDomain = this._formBuilder.group({
 				dominio: ['', [Validators.required, Validators.maxLength(50)]],
@@ -215,7 +215,7 @@ export class LoginComponent implements OnInit {
 	private createFormLogin(): void {
 		//  Dados originais de Login (Usuário e Senha)
 
-		if (environment.production)
+		if (this._environmentService.production)
 		{
 			this.formLogin = this._formBuilder.group({
 				usuario: ['', [Validators.required, Validators.maxLength(100)]],
@@ -273,7 +273,7 @@ export class LoginComponent implements OnInit {
 
 	private async configMsal() {
 		const isIE = window.navigator.userAgent.indexOf("MSIE ") > -1 || window.navigator.userAgent.indexOf("Trident/") > -1;
-		const hostAuthLogin = !environment.production ? "http://localhost:4200/auth/login" : `${ environment.hostName }/SisproErpCloud/${ environment.product }/auth/login`;
+		const hostAuthLogin = !this._environmentService.production ? "http://localhost:4200/auth/login" : `${ this._environmentService.hostName }/SisproErpCloud/${ this._environmentService.product }/auth/login`;
 
 		this._msalService.instance = new PublicClientApplication({
 			auth: {

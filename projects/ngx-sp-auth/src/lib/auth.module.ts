@@ -51,7 +51,6 @@ import { NovaSenhaComponent } from '../lib/components/nova-senha/nova-senhacompo
   MsalGuard, // MsalGuard added as provider here
   ],
   declarations: [
-    LoginComponent,
   ],
   imports: [
     CommonModule,
@@ -65,7 +64,6 @@ import { NovaSenhaComponent } from '../lib/components/nova-senha/nova-senhacompo
     RouterOutlet
   ],
   exports: [
-    LoginComponent,
   ]
 })
 export class AuthModule { }

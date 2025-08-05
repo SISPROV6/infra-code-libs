@@ -15,6 +15,7 @@ export * from './lib/storage/auth-storage.service';
 
 /** Components */
 export * from './lib/components/login/login.component';
+export * from './lib/components/login-os/login-os.component';
 export * from './lib/components/menu-lateral/dropdown/primary-dropdown/primary-dropdown.component';
 export * from './lib/components/menu-lateral/dropdown/secondary-dropdown/secondary-dropdown.component';
 export * from './lib/components/menu-lateral/menu/menu-lateral.component';
