@@ -49,3 +49,6 @@ export * from './lib/interceptors/auth-infra.interceptor';
 
 /** Routes */
 export * from './lib/auth.routes';
+
+/** Modules */
+export * from './lib/auth.module';

@@ -20,7 +20,7 @@ import { Payload } from './models/payload';
 import { IpServiceService, RetError } from 'ngx-sp-infra';
 import { AuthStorageService } from './storage/auth-storage.service';
 import { LibCustomLoginService } from './custom/lib-custom-login.service';
-import { EnvironmentService } from '../public-api';
+import { ProjectUtilservice } from './project/project-utils.service';
 
 @Injectable(
   { providedIn: 'root' }
@@ -53,7 +53,7 @@ export class AuthService {
     private _authStorageService: AuthStorageService,
     private _ipServiceService: IpServiceService,
     private _customLoginService: LibCustomLoginService,
-    private _environmentService: EnvironmentService
+    private _projectUtilservice: ProjectUtilservice
   ) {
     this._BASE_URL = `${ _environmentService.SpInfra2LoginWS }/LoginSisproERP`; // SpInfra2WS
     this._AUTH_BASE_URL = `${ _environmentService.SpInfra2AuthWS }/Auth`; // SpInfra2AuthWS
@@ -97,7 +97,7 @@ export class AuthService {
 
   }
 
-  private geHostName(): string {
+  private getHostName(): string {
     let product: string = window.location.pathname;
 
     let index: number = product.indexOf("/auth/login");
@@ -108,8 +108,7 @@ export class AuthService {
       product = "";
     }
 
-    return this._environmentService.hostName + product;
-  }
+    return this._projectUtilservice.getHostName() + product;   }
 
   // #endregion GET
 

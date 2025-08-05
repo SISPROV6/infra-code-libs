@@ -4,12 +4,6 @@ $gray: #F5F5F5;
 
 /* CSS GERAL */
 
-* {
-  padding: 0px;
-  margin: 0px;
-  font-family: 'Open Sans', sans-serif;
-}
-
 .background {
   display: grid;
   height: 100vh;
@@ -66,11 +60,6 @@ $gray: #F5F5F5;
   margin-bottom: 16px;
 }
 
-.input-group-text {
-  padding: 10px 11px;
-  border-radius: 4px 0px 0px 4px
-}
-
 .remember-password {
   display: flex;
   align-items: center;
@@ -95,32 +84,6 @@ $gray: #F5F5F5;
 
 .forgotten-password:focus {
   outline-style: none;
-}
-
-.input-label {
-  font-size: 16px;
-  padding: 10px 0px 8px 16px;
-}
-
-.input-label:first-child {
-  font-size: 16px;
-  padding-top: 16px;
-}
-
-.input-text {
-  width: 343px;
-  height: 38px;
-  margin: 0px 0px 10px 16px;
-  padding: 0px 8px;
-}
-
-.input-text:last-child {
-  font-size: 16px;
-  margin-bottom: 24px;
-}
-
-.form-control {
-  max-width: 341px;
 }
 
 /* FOOTER DO FORMULÁRIO */
@@ -221,8 +184,32 @@ $gray: #F5F5F5;
   align-items: start;
 }
 
-.separator {
+.separator{
   margin-left: 5px
+}
+
+#ou-text {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px solid rgb(108, 117, 125);
+    margin-right: 12px;
+  }
+  &::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px solid rgb(108, 117, 125);
+    margin-left: 12px;
+  }
 }
 
 // =================================
