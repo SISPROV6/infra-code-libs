@@ -14,48 +14,50 @@ pool:
 variables:
   nodeVersion: '20.x'
 
-steps:
-  # Install Node.js
-  - task: UseNode@1
-    inputs:
-      version: $(nodeVersion)
-    displayName: 'Install Node.js'
+jobs:
+  - job: 'Build_e_testes'
+    steps:
+      # Step 1: Define as variáveis que serão usadas no restante do flow
+      - script: |
+          PROJECT=$(jq -r '.project' deploy/release-info.json)
+          VERSION=$(jq -r '.version' deploy/release-info.json)
+          NOTES=$(jq -r '.notes' deploy/release-info.json)
+          TAG=$(jq -r '.tag' deploy/release-info.json)
+          package_version=$(jq -r ".version" package.json)
+          echo "##vso[task.setvariable variable=PackageVersion]$package_version"
+          echo "##vso[task.setvariable variable=ProjectName]$PROJECT"
+          echo "##vso[task.setvariable variable=ProjectVersion]$VERSION"
+          echo "##vso[task.setvariable variable=PublishNotes]$NOTES"
+          echo "##vso[task.setvariable variable=ProjectTag]$TAG"
+        displayName: 'Define variáveis com bas eno arquivo de release'
 
-  # Install dependencies
-  - script: |
-      npm install -g @angular/cli
-      npm ci
-    displayName: 'Install dependencies'
-  
-  # Step 1: Define as variáveis
-  - script: |
-      PROJECT=$(jq -r '.project' deploy/release-info.json)
-      VERSION=$(jq -r '.version' deploy/release-info.json)
-      NOTES=$(jq -r '.notes' deploy/release-info.json)
-      TAG=$(jq -r '.tag' deploy/release-info.json)
-      package_version=$(jq -r ".version" package.json)
-      echo "##vso[task.setvariable variable=PackageVersion]$package_version"
-      echo "##vso[task.setvariable variable=ProjectName]$PROJECT"
-      echo "##vso[task.setvariable variable=ProjectVersion]$VERSION"
-      echo "##vso[task.setvariable variable=PublishNotes]$NOTES"
-      echo "##vso[task.setvariable variable=ProjectTag]$TAG"
-    displayName: 'Set Package release variables'
+      # Step 2: Teste as variáveis
+      - script: |
+          echo "Package Version: $(PackageVersion)"
+          echo "Project Name: $(ProjectName)"
+          echo "Project Version: $(ProjectVersion)"
+          echo "Publish Notes: $(PublishNotes)"
+          echo "Project Tag: $(ProjectTag)"
+        displayName: 'Mostrar informações de release'
 
-  # Step 2: Teste as variáveis (agora elas estarão disponíveis)
-  - script: |
-      echo "Package Version: $(PackageVersion)"
-      echo "Project Name: $(ProjectName)"
-      echo "Project Version: $(ProjectVersion)"
-      echo "Publish Notes: $(PublishNotes)"
-      echo "Project Tag: $(ProjectTag)"
-    displayName: 'Display Package release info'
+      # Instalar o Node.js
+      - task: UseNode@1
+        inputs:
+          version: $(nodeVersion)
+        displayName: 'Instalar o Node.js'
 
-  # Build the project
-  - script: |
-      ng build ngx-sp-infra --configuration=production
-    displayName: 'Build project'
-  
-  # Run tests
-  - script: |
-      ng test ngx-sp-infra --watch=false --code-coverage --browsers=ChromeHeadless
-    displayName: 'Run tests'
+      # Instalar dependências gerais
+      - script: |
+          npm install -g @angular/cli
+          npm ci
+        displayName: 'Instalar dependências gerais'
+
+      # Buildar o projeto
+      - script: |
+          ng build ngx-sp-infra --configuration=production
+        displayName: 'Buildar projeto'
+      
+      # Executa testes unitários
+      - script: |
+          ng test ngx-sp-infra --watch=false --code-coverage --browsers=ChromeHeadless
+        displayName: 'Executar testes unitários'
