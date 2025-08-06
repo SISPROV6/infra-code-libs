@@ -67,7 +67,7 @@ jobs:
         displayName: 'Instalar dependências gerais'
 
       - task: npmAuthenticate@0
-        displayName: 'Authenticate to Azure Artifacts feed'
+        displayName: 'Autentica o usuário no NPM'
         inputs:
           workingFile: projects/$(buildStep.ProjectName)/.npmrc
           customEndpoint: NPM Packages
@@ -100,4 +100,4 @@ jobs:
           elif [ "$(Build.SourceBranch)" == "refs/heads/azure-pipelines" ]; then
             npm publish --registry=https://registry.npmjs.org --userconfig=projects/$(buildStep.ProjectName)/.npmrc --access public --tag next
           fi
-        displayName: Publish to Azure Artifacts
+        displayName: Publicar no NPM
