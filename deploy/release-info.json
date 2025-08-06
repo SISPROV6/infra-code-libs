@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-infra",
-  "version": "5.12.5",
-  "tag": "infra-v5.12.5",
-  "notes": "Segunda publicação no Azure, agora com comando",
-  "timestamp": "2025-08-06T19:11:10.937Z"
+  "version": "5.12.6",
+  "tag": "infra-v5.12.6",
+  "notes": "Atualização de rotina",
+  "timestamp": "2025-08-06T19:18:38.283Z"
 }
