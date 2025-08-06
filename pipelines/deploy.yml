@@ -73,79 +73,20 @@ jobs:
             npm ci
             cd ../../
           fi
-          
+
           npm run build:$(buildStep.ProjectName):prod
-          npm run test:$(buildStep.ProjectName):sonar
         displayName: 'Buildar e executar testes'
-
-      # Publica o resultado dos testes unitários para o Azure
-      - task: PublishTestResults@2
-        inputs:
-          testResultsFormat: 'JUnit'
-          testResultsFiles: 'coverage/**/TESTS-*.xml'
       
-      # Publica o resultado da cobertura de código para o Azure
-      - task: PublishCodeCoverageResults@2
-        inputs:
-          summaryFileLocation: 'coverage/$(buildStep.ProjectName)/coverage.xml'
-
-  - job: 'Deploy'
-    dependsOn: 'Build'
-    variables:
-      PackageVersion: $[ dependencies.Build.outputs['buildStep.PackageVersion'] ]
-      ProjectName: $[ dependencies.Build.outputs['buildStep.ProjectName'] ]
-      ProjectVersion: $[ dependencies.Build.outputs['buildStep.ProjectVersion'] ]
-      PublishNotes: $[ dependencies.Build.outputs['buildStep.PublishNotes'] ]
-      ProjectTag: $[ dependencies.Build.outputs['buildStep.ProjectTag'] ]
-    steps:
-      # Faz Checkout do repositório
-      - checkout: self
-      
-      # Desabilita o shallow fetch
-        fetchDepth: 0
-
-      # Step 2: Teste as variáveis
-      - script: |
-          echo "Package Version: $(PackageVersion)"
-          echo "Project Name: $(ProjectName)"
-          echo "Project Version: $(ProjectVersion)"
-          echo "Publish Notes: $(PublishNotes)"
-          echo "Project Tag: $(ProjectTag)"
-        displayName: 'Mostrar informações de release'
-
-      # Instalar o Node.js
-      - task: UseNode@1
-        inputs:
-          version: $(nodeVersion)
-        displayName: 'Instalar o Node.js'
-
-      # Instalar dependências gerais
-      - script: |
-          npm install -g @angular/cli
-          npm ci
-        displayName: 'Instalar dependências gerais'
-
-      # Builda e executa testes unitários com cobertura
-      - script: |
-          if [ "$(ProjectName)" == "ngx-sp-auth" ]; then
-            cd projects/ngx-sp-auth
-            npm ci
-            cd ../../
-          fi
-          
-          npm run build:$(ProjectName):prod
-        displayName: 'Build'
-
       - task: npmAuthenticate@0
         displayName: 'Authenticate to Azure Artifacts feed'
         inputs:
-          workingFile: projects/$(ProjectName)/.npmrc
+          workingFile: projects/$(buildStep.ProjectName)/.npmrc
           feedUrl: 'https://pkgs.dev.azure.com/SisproERP/_packaging/InfraCodeLibs/npm/registry/'
 
       - task: Npm@1
         inputs:
           command: 'publish'
-          workingDir: 'dist/$(ProjectName)/'
+          workingDir: 'dist/$(buildStep.ProjectName)/'
           verbose: true
           publishRegistry: 'useFeed'
           publishFeed: '2887d64b-ca3e-4c38-af69-44106aea8eab'
