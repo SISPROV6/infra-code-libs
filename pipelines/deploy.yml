@@ -79,16 +79,14 @@ jobs:
       
       - script: |
           cp projects/$(buildStep.ProjectName)/.npmrc dist/$(buildStep.ProjectName)/
-          mkdir $(Build.ArtifactStagingDirectory)\\dist
-          cp "dist\\$(buildStep.ProjectName)" $(Build.ArtifactStagingDirectory)\\dist /E/H/C
         displayName: Copy dist contents
-      
-      - task: PublishPipelineArtifact@1
+
+      - task: PublishBuildArtifacts@1
         inputs:
-          targetPath: $(Build.ArtifactStagingDirectory)\\dist
-          artifactName: "@sispro/ngx-sp-infra"
-          artifactType: "pipeline"
-        displayName: Publish
+          PathtoPublish: 'dist/ngx-sp-infra'
+          ArtifactName: 'drop'
+          publishLocation: 'Container'
+          StoreAsTar: true
       
       # - task: npmAuthenticate@0
       #   displayName: 'Authenticate to Azure Artifacts feed'
