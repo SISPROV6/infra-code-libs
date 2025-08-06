@@ -59,7 +59,7 @@ jobs:
           npm ci
         displayName: 'Instalar dependências gerais'
 
-      # Setup específico do ngx-sp-auth (se necessário)
+      # Builda e executa testes unitários com cobertura
       - script: |
           if [ "$(ProjectName)" == "ngx-sp-auth" ]; then
             cd projects/ngx-sp-auth
@@ -70,11 +70,6 @@ jobs:
           npm run build:$(ProjectName):prod
           npm run test:$(ProjectName):sonar
         displayName: 'Buildar e executar testes'
-      
-      # Executa testes com cobertura
-      - script: |
-          ng test $(ProjectName) --watch=false --code-coverage --reporters=junit --browsers=ChromeHeadless
-        displayName: 'Executa testes com cobertura'
 
       # Publica o resultado dos testes unitários para o Azure
       - task: PublishTestResults@2
