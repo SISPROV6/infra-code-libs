@@ -87,11 +87,11 @@ jobs:
   - job: 'Deploy'
     dependsOn: 'Build'
     variables:
-      PackageVersion: $[ dependencies.JobA.outputs['buildStep.PackageVersion'] ]
-      ProjectName: $[ dependencies.JobA.outputs['buildStep.ProjectName'] ]
-      ProjectVersion: $[ dependencies.JobA.outputs['buildStep.ProjectVersion'] ]
-      PublishNotes: $[ dependencies.JobA.outputs['buildStep.PublishNotes'] ]
-      ProjectTag: $[ dependencies.JobA.outputs['buildStep.ProjectTag'] ]
+      PackageVersion: $[ dependencies.Build.outputs['buildStep.PackageVersion'] ]
+      ProjectName: $[ dependencies.Build.outputs['buildStep.ProjectName'] ]
+      ProjectVersion: $[ dependencies.Build.outputs['buildStep.ProjectVersion'] ]
+      PublishNotes: $[ dependencies.Build.outputs['buildStep.PublishNotes'] ]
+      ProjectTag: $[ dependencies.Build.outputs['buildStep.ProjectTag'] ]
     steps:
       # Faz Checkout do repositório
       - checkout: self
