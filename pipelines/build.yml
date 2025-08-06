@@ -1,0 +1,90 @@
+trigger:
+  branches:
+    exclude:
+    - main
+    - next
+    - test
+    - azure-pipelines
+  paths:
+    exclude:
+    - deploy/*
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  nodeVersion: '20.x'
+
+jobs:
+  - job: 'Build'
+    steps:
+      # Faz Checkout do repositório
+      - checkout: self
+      
+      # Desabilita o shallow fetch
+        fetchDepth: 0
+
+
+      # Step 1: Define as variáveis que serão usadas no restante do flow
+      - script: |
+          PROJECT=$(jq -r '.project' deploy/release-info.json)
+          VERSION=$(jq -r '.version' deploy/release-info.json)
+          NOTES=$(jq -r '.notes' deploy/release-info.json)
+          TAG=$(jq -r '.tag' deploy/release-info.json)
+          package_version=$(jq -r ".version" package.json)
+          echo "##vso[task.setvariable variable=PackageVersion;isOutput=true]$package_version"
+          echo "##vso[task.setvariable variable=ProjectName;isOutput=true]$PROJECT"
+          echo "##vso[task.setvariable variable=ProjectVersion;isOutput=true]$VERSION"
+          echo "##vso[task.setvariable variable=PublishNotes;isOutput=true]$NOTES"
+          echo "##vso[task.setvariable variable=ProjectTag;isOutput=true]$TAG"
+        displayName: 'Define variáveis com base no arquivo de release'
+        name: buildStep
+
+      # Step 2: Teste as variáveis
+      - script: |
+          echo "Package Version: $(buildStep.PackageVersion)"
+          echo "Project Name: $(buildStep.ProjectName)"
+          echo "Project Version: $(buildStep.ProjectVersion)"
+          echo "Publish Notes: $(buildStep.PublishNotes)"
+          echo "Project Tag: $(buildStep.ProjectTag)"
+        displayName: 'Mostrar informações de release'
+      
+      - script: |
+          echo "Full branch reference: $(Build.SourceBranch)"
+          echo "Short branch name: $(Build.SourceBranchName)"
+        displayName: 'Lê o nome da branch'
+
+      # Instalar o Node.js
+      - task: UseNode@1
+        inputs:
+          version: $(nodeVersion)
+        displayName: 'Instalar o Node.js'
+
+      # Instalar dependências gerais
+      - script: |
+          npm install -g @angular/cli
+          npm ci
+        displayName: 'Instalar dependências gerais'
+
+      # Builda e executa testes unitários com cobertura
+      - script: |
+          if [ "$(buildStep.ProjectName)" == "ngx-sp-auth" ]; then
+            cd projects/ngx-sp-auth
+            npm ci
+            cd ../../
+          fi
+          
+          npm run build:$(buildStep.ProjectName):prod
+          npm run test:$(buildStep.ProjectName):sonar
+        displayName: 'Buildar e executar testes'
+
+      # Publica o resultado dos testes unitários para o Azure
+      - task: PublishTestResults@2
+        inputs:
+          testResultsFormat: 'JUnit'
+          testResultsFiles: 'coverage/**/TESTS-*.xml'
+      
+      # Publica o resultado da cobertura de código para o Azure
+      - task: PublishCodeCoverageResults@2
+        inputs:
+          summaryFileLocation: 'coverage/$(buildStep.ProjectName)/coverage.xml'
