@@ -28,13 +28,17 @@ module.exports = function (config) {
     angularCli: {
       environment: 'dev'
     },
+    preprocessors: {
+      '**/lib/*.js': 'coverage'
+    },
     coverageReporter: {
       dir: require('path').join(__dirname, '../../coverage/ngx-sp-auth'),
       subdir: '.',
       reporters: [
         { type: 'html' },
         { type: 'text-summary' },
-        { type: 'lcovonly', subdir: '.', file: 'lcov.info' },
+        { type: 'lcov', subdir: '.', file: 'lcov.info' },
+        { type: 'cobertura', subdir: '.', file: 'coverage.xml' },
       ]
     },
     junitReporter: {

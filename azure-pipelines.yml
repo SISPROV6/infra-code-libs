@@ -75,4 +75,4 @@ jobs:
       - task: PublishTestResults@2
         inputs:
           testResultsFormat: 'JUnit'
-          testResultsFiles: 'coverage/**/TESTS-*.xml'
+          testResultsFiles: 'coverage/**/coverage.xml'
