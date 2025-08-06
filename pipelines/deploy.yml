@@ -140,9 +140,12 @@ jobs:
         displayName: 'Authenticate to Azure Artifacts feed'
         inputs:
           workingFile: projects/$(ProjectName)/.npmrc
+          feedUrl: 'https://pkgs.dev.azure.com/SisproERP/_packaging/InfraCodeLibs/npm/registry/'
 
-      - script: |
-          cp projects/$(ProjectName)/.npmrc dist/$(ProjectName)/.npmrc
-          cd dist/$(ProjectName)
-          npm publish
-        displayName: Publish
+      - task: Npm@1
+        inputs:
+          command: 'publish'
+          workingDir: 'dist/$(ProjectName)/'
+          verbose: true
+          publishRegistry: 'useFeed'
+          publishFeed: '2887d64b-ca3e-4c38-af69-44106aea8eab'
