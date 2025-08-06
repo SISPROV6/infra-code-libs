@@ -40,6 +40,13 @@ jobs:
           echo "Project Tag: $(ProjectTag)"
         displayName: 'Mostrar informações de release'
 
+
+      # Faz Checkout do repositório
+      - checkout: self
+      
+      # Desabilita o shallow fetch
+        fetchDepth: 0
+
       # Instalar o Node.js
       - task: UseNode@1
         inputs:
