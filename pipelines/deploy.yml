@@ -81,7 +81,7 @@ jobs:
         displayName: 'Authenticate to Azure Artifacts feed'
         inputs:
           workingFile: projects/$(buildStep.ProjectName)/.npmrc
-          feedUrl: 'https://pkgs.dev.azure.com/SisproERP/_packaging/InfraCodeLibs/npm/registry/:_authToken=5dqWUEw0hJXSDTT1Rp4rhf3WTSgaDyKDhADxTpFtbmZIi1bgRu5vJQQJ99BHACAAAAAtycUFAAASAZDOcRXt'
+          feedUrl: 'https://pkgs.dev.azure.com/SisproERP/_packaging/InfraCodeLibs/npm/registry/:_authToken=68iv3LIrsqAoy0Q2Te8cQrIMnBA45eK5mTup4MmKUL6qFzPKG2N2JQQJ99BHACAAAAAtycUFAAASAZDO1WRp'
 
       - task: Npm@1
         inputs:
