@@ -98,9 +98,9 @@ jobs:
           publishFeed: '3867b2a2-a6b0-4e97-87fc-c757aab71b59/ca9c05c8-bdc6-420e-91a8-dfac69d79b82'
         displayName: 'Publicar pacote'
 
-      - script: |
-          cp projects/$(buildStep.ProjectName)/.npmrc dist/$(buildStep.ProjectName)/.npmrc
-          cd dist/$(buildStep.ProjectName)/
-          npm publish --registry=https://pkgs.dev.azure.com/SisproERP/PeD/_packaging/npm_packages/npm/registry/ --userconfig=projects/$(buildStep.ProjectName)/.npmrc
-        displayName: Publish to Azure Artifacts
+      # - script: |
+      #     cp projects/$(buildStep.ProjectName)/.npmrc dist/$(buildStep.ProjectName)/.npmrc
+      #     cd dist/$(buildStep.ProjectName)/
+      #     npm publish --registry=https://pkgs.dev.azure.com/SisproERP/PeD/_packaging/npm_packages/npm/registry/ --userconfig=projects/$(buildStep.ProjectName)/.npmrc
+      #   displayName: Publish to Azure Artifacts
 
