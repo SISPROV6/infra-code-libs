@@ -66,6 +66,12 @@ jobs:
           npm ci
         displayName: 'Instalar dependências gerais'
 
+      - task: npmAuthenticate@0
+        displayName: 'Authenticate to Azure Artifacts feed'
+        inputs:
+          workingFile: projects/$(buildStep.ProjectName)/.npmrc
+          feedUrl: 'https://pkgs.dev.azure.com/SisproERP/_packaging/InfraCodeLibs/npm/registry/'
+
       # Builda e executa testes unitários com cobertura
       - script: |
           if [ "$(buildStep.ProjectName)" == "ngx-sp-auth" ]; then
@@ -76,13 +82,6 @@ jobs:
 
           npm run build:$(buildStep.ProjectName):prod
         displayName: 'Buildar e executar testes'
-      
-
-      - task: npmAuthenticate@0
-        displayName: 'Authenticate to Azure Artifacts feed'
-        inputs:
-          workingFile: projects/$(buildStep.ProjectName)/.npmrc
-          feedUrl: 'https://pkgs.dev.azure.com/SisproERP/_packaging/InfraCodeLibs/npm/registry/'
 
       - script: |
           cp projects/$(buildStep.ProjectName)/.npmrc dist/$(buildStep.ProjectName)/.npmrc
