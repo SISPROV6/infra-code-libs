@@ -88,5 +88,4 @@ jobs:
           command: 'publish'
           workingDir: 'dist/$(buildStep.ProjectName)/'
           verbose: true
-          publishRegistry: 'useFeed'
-          publishFeed: '2887d64b-ca3e-4c38-af69-44106aea8eab'
+          publishRegistry: 'internal'
