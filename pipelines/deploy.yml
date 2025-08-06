@@ -98,7 +98,7 @@ jobs:
             npm publish --registry=https://pkgs.dev.azure.com/SisproERP/PeD/_packaging/npm_packages/npm/registry/ --userconfig=projects/$(buildStep.ProjectName)/.npmrc --access public --tag test
           elif [ "$(Build.SourceBranch)" == "refs/heads/next" ]; then
             npm publish --registry=https://pkgs.dev.azure.com/SisproERP/PeD/_packaging/npm_packages/npm/registry/ --userconfig=projects/$(buildStep.ProjectName)/.npmrc --access public --tag next
-          elif [ "$(Build.SourceBranch)" == "refs/heads/fixes" ]; then
-            npm publish --registry=https://pkgs.dev.azure.com/SisproERP/PeD/_packaging/npm_packages/npm/registry/ --userconfig=projects/$(buildStep.ProjectName)/.npmrc --access public --tag fix
+          elif [ "$(Build.SourceBranch)" == "refs/heads/azure-pipelines" ]; then
+            npm publish --registry=https://pkgs.dev.azure.com/SisproERP/PeD/_packaging/npm_packages/npm/registry/ --userconfig=projects/$(buildStep.ProjectName)/.npmrc --access public --tag next
           fi
         displayName: Publish to Azure Artifacts
