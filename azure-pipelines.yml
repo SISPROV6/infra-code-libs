@@ -17,6 +17,13 @@ variables:
 jobs:
   - job: 'Build_e_testes'
     steps:
+      # Faz Checkout do repositório
+      - checkout: self
+      
+      # Desabilita o shallow fetch
+        fetchDepth: 0
+
+
       # Step 1: Define as variáveis que serão usadas no restante do flow
       - script: |
           PROJECT=$(jq -r '.project' deploy/release-info.json)
@@ -39,13 +46,6 @@ jobs:
           echo "Publish Notes: $(PublishNotes)"
           echo "Project Tag: $(ProjectTag)"
         displayName: 'Mostrar informações de release'
-
-
-      # Faz Checkout do repositório
-      - checkout: self
-      
-      # Desabilita o shallow fetch
-        fetchDepth: 0
 
       # Instalar o Node.js
       - task: UseNode@1
