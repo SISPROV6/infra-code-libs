@@ -86,6 +86,5 @@ jobs:
       - script: |
           cp projects/$(buildStep.ProjectName)/.npmrc dist/$(buildStep.ProjectName)/.npmrc
           cd dist/$(buildStep.ProjectName)/
-          npm adduser
           npm publish --registry=https://pkgs.dev.azure.com/SisproERP/_packaging/InfraCodeLibs/npm/registry/ --userconfig=projects/$(buildStep.ProjectName)/.npmrc
         displayName: Publish to Azure Artifacts
