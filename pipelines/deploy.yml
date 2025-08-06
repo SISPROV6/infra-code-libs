@@ -50,8 +50,8 @@ jobs:
         displayName: 'Mostrar informações de release'
       
       - script: |
-        echo "Full branch reference: $(Build.SourceBranch)"
-        echo "Short branch name: $(Build.SourceBranchName)"
+          echo "Full branch reference: $(Build.SourceBranch)"
+          echo "Short branch name: $(Build.SourceBranchName)"
       displayName: 'Lê o nome da branch'
 
       # Instalar o Node.js
