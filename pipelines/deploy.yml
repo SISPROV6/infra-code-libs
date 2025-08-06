@@ -78,9 +78,9 @@ jobs:
         displayName: 'Buildar e executar testes'
       
       - script: |
-          xcopy .\\projects\\$(buildStep.ProjectName)\\.npmrc "dist\\$(buildStep.ProjectName)\\"
+          cp projects/$(buildStep.ProjectName)/.npmrc dist/$(buildStep.ProjectName)/"
           mkdir $(Build.ArtifactStagingDirectory)\\dist
-          xcopy "dist\\$(buildStep.ProjectName)" $(Build.ArtifactStagingDirectory)\\dist /E/H/C
+          cp "dist\\$(buildStep.ProjectName)" $(Build.ArtifactStagingDirectory)\\dist /E/H/C
         displayName: Copy dist contents
       
       - task: PublishPipelineArtifact@1
