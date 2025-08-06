@@ -87,20 +87,18 @@ jobs:
       - script: |
           cp projects/$(buildStep.ProjectName)/.npmrc dist/$(buildStep.ProjectName)/.npmrc
         displayName: 'Copiar arquivo .npmrc para a dist'
-      
-      - task: Npm@1
-        inputs:
-          command: 'custom'
-          workingDir: 'dist/$(buildStep.ProjectName)'
-          verbose: true
-          customCommand: 'npm publish --tag next'
-          publishRegistry: 'useFeed'
-          publishFeed: '3867b2a2-a6b0-4e97-87fc-c757aab71b59/ca9c05c8-bdc6-420e-91a8-dfac69d79b82'
-        displayName: 'Publicar pacote'
 
-      # - script: |
-      #     cp projects/$(buildStep.ProjectName)/.npmrc dist/$(buildStep.ProjectName)/.npmrc
-      #     cd dist/$(buildStep.ProjectName)/
-      #     npm publish --registry=https://pkgs.dev.azure.com/SisproERP/PeD/_packaging/npm_packages/npm/registry/ --userconfig=projects/$(buildStep.ProjectName)/.npmrc
-      #   displayName: Publish to Azure Artifacts
+      - script: |
+          cp projects/$(buildStep.ProjectName)/.npmrc dist/$(buildStep.ProjectName)/.npmrc
+          cd dist/$(buildStep.ProjectName)/
 
+          if [ "$(Build.SourceBranch)" == "refs/heads/main" ]; then
+            npm publish --registry=https://pkgs.dev.azure.com/SisproERP/PeD/_packaging/npm_packages/npm/registry/ --userconfig=projects/$(buildStep.ProjectName)/.npmrc --access public --tag latest
+          elif [ "$(Build.SourceBranch)" == "refs/heads/test" ]; then
+            npm publish --registry=https://pkgs.dev.azure.com/SisproERP/PeD/_packaging/npm_packages/npm/registry/ --userconfig=projects/$(buildStep.ProjectName)/.npmrc --access public --tag test
+          elif [ "$(Build.SourceBranch)" == "refs/heads/next" ]; then
+            npm publish --registry=https://pkgs.dev.azure.com/SisproERP/PeD/_packaging/npm_packages/npm/registry/ --userconfig=projects/$(buildStep.ProjectName)/.npmrc --access public --tag next
+          elif [ "$(Build.SourceBranch)" == "refs/heads/fixes" ]; then
+            npm publish --registry=https://pkgs.dev.azure.com/SisproERP/PeD/_packaging/npm_packages/npm/registry/ --userconfig=projects/$(buildStep.ProjectName)/.npmrc --access public --tag fix
+          fi
+        displayName: Publish to Azure Artifacts
