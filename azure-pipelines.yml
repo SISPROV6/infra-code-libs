@@ -76,3 +76,7 @@ jobs:
         inputs:
           testResultsFormat: 'JUnit'
           testResultsFiles: 'coverage/**/TESTS-*.xml'
+      
+      - task: PublishCodeCoverageResults@2
+        inputs:
+          summaryFileLocation: 'coverage/$(ProjectName)/index.html'
