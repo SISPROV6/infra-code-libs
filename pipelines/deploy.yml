@@ -4,6 +4,7 @@ trigger:
     - main
     - next
     - test
+    - azure-pipelines
   paths:
     exclude:
     - deploy/*
