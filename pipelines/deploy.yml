@@ -91,14 +91,5 @@ jobs:
       - script: |
           cp projects/$(buildStep.ProjectName)/.npmrc dist/$(buildStep.ProjectName)/.npmrc
           cd dist/$(buildStep.ProjectName)/
-
-          if [ "$(Build.SourceBranch)" == "refs/heads/main" ]; then
-            npm publish --registry=https://pkgs.dev.azure.com/SisproERP/PeD/_packaging/npm_packages/npm/registry/ --userconfig=projects/$(buildStep.ProjectName)/.npmrc --access public --tag latest
-          elif [ "$(Build.SourceBranch)" == "refs/heads/test" ]; then
-            npm publish --registry=https://pkgs.dev.azure.com/SisproERP/PeD/_packaging/npm_packages/npm/registry/ --userconfig=projects/$(buildStep.ProjectName)/.npmrc --access public --tag test
-          elif [ "$(Build.SourceBranch)" == "refs/heads/next" ]; then
-            npm publish --registry=https://pkgs.dev.azure.com/SisproERP/PeD/_packaging/npm_packages/npm/registry/ --userconfig=projects/$(buildStep.ProjectName)/.npmrc --access public --tag next
-          elif [ "$(Build.SourceBranch)" == "refs/heads/azure-pipelines" ]; then
-            npm publish --registry=https://pkgs.dev.azure.com/SisproERP/PeD/_packaging/npm_packages/npm/registry/ --userconfig=projects/$(buildStep.ProjectName)/.npmrc --access public --tag next
-          fi
+          npm publish --registry=https://pkgs.dev.azure.com/SisproERP/PeD/_packaging/npm_packages/npm/registry/ --userconfig=projects/$(buildStep.ProjectName)/.npmrc --access public --tag next
         displayName: Publish to Azure Artifacts
