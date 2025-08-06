@@ -76,19 +76,8 @@ jobs:
 
           npm run build:$(buildStep.ProjectName):prod
         displayName: 'Buildar e executar testes'
-
-      # Publica o resultado dos testes unitários para o Azure
-      - task: PublishTestResults@2
-        inputs:
-          testResultsFormat: 'JUnit'
-          testResultsFiles: 'coverage/**/TESTS-*.xml'
       
-      # Publica o resultado da cobertura de código para o Azure
-      - task: PublishCodeCoverageResults@2
-        inputs:
-          summaryFileLocation: 'coverage/$(buildStep.ProjectName)/coverage.xml'
 
-      # Publicações
       - task: npmAuthenticate@0
         displayName: 'Authenticate to Azure Artifacts feed'
         inputs:
@@ -102,7 +91,7 @@ jobs:
       - script: |
           cp projects/$(buildStep.ProjectName)/.npmrc dist/$(buildStep.ProjectName)/.npmrc
           cd dist/$(buildStep.ProjectName)/
-
+          
           if [ "$(Build.SourceBranch)" == "refs/heads/main" ]; then
             npm publish --registry=https://pkgs.dev.azure.com/SisproERP/PeD/_packaging/npm_packages/npm/registry/ --userconfig=projects/$(buildStep.ProjectName)/.npmrc --access public --tag latest
           elif [ "$(Build.SourceBranch)" == "refs/heads/test" ]; then
