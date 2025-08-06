@@ -93,24 +93,24 @@ jobs:
       # - task: npmAuthenticate@0
       #   displayName: 'Authenticate to Azure Artifacts feed'
       #   inputs:
-      #     workingFile: .npmrc
+      #     workingFile: projects/$(buildStep.ProjectName)/.npmrc
       #     feedUrl: 'https://pkgs.dev.azure.com/SisproERP/_packaging/InfraCodeLibs/npm/registry/'
 
       # - script: |
-      #     cp .npmrc dist/$(buildStep.ProjectName)/.npmrc
+      #     cp projects/$(buildStep.ProjectName)/.npmrc dist/$(buildStep.ProjectName)/.npmrc
       #     cd dist/$(buildStep.ProjectName)/
-      #     npm publish --registry=https://pkgs.dev.azure.com/SisproERP/_packaging/InfraCodeLibs/npm/registry/ --userconfig=.npmrc
+      #     npm publish --registry=https://pkgs.dev.azure.com/SisproERP/_packaging/InfraCodeLibs/npm/registry/ --userconfig=projects/$(buildStep.ProjectName)/.npmrc
       #   displayName: Publish to Azure Artifacts
 
 
       # - task: npmAuthenticate@0
       #   displayName: 'Authenticate to Azure Artifacts feed'
       #   inputs:
-      #     workingFile: .npmrc
+      #     workingFile: projects/$(buildStep.ProjectName)/.npmrc
       #     feedUrl: 'https://pkgs.dev.azure.com/SisproERP/_packaging/InfraCodeLibs/npm/registry/'
 
       # - script: |
-      #     cp .npmrc dist/$(buildStep.ProjectName)/.npmrc
+      #     cp projects/$(buildStep.ProjectName)/.npmrc dist/$(buildStep.ProjectName)/.npmrc
       #     cd dist/$(buildStep.ProjectName)/
-      #     npm publish --registry=https://pkgs.dev.azure.com/SisproERP/_packaging/InfraCodeLibs/npm/registry/ --userconfig=.npmrc
+      #     npm publish --registry=https://pkgs.dev.azure.com/SisproERP/_packaging/InfraCodeLibs/npm/registry/ --userconfig=projects/$(buildStep.ProjectName)/.npmrc
       #   displayName: Publish to Azure Artifacts
