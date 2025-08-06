@@ -142,6 +142,7 @@ jobs:
           workingFile: projects/$(ProjectName)/.npmrc
 
       - script: |
+          cp projects/$(ProjectName)/.npmrc dist/$(ProjectName)/.npmrc
           cd dist/$(ProjectName)
           npm publish
         displayName: Publish
