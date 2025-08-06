@@ -81,12 +81,12 @@ jobs:
       - task: npmAuthenticate@0
         displayName: 'Authenticate to Azure Artifacts feed'
         inputs:
-          workingFile: 'projects/$(ProjectName)/.npmrc'
+          workingFile: 'projects/$(buildStep.ProjectName)/.npmrc'
 
       # DEBUG: Verificar se a autenticação funcionou
       - script: |
           cp projects/$(buildStep.ProjectName)/.npmrc dist/$(buildStep.ProjectName)/.npmrc
-          cd dist/$(ProjectName)
+          cd dist/$(buildStep.ProjectName)
           echo "=== Conteúdo do .npmrc após autenticação ==="
           cat .npmrc
           echo ""
