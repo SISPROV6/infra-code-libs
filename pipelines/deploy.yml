@@ -77,17 +77,30 @@ jobs:
           npm run build:$(buildStep.ProjectName):prod
         displayName: 'Buildar e executar testes'
       
-      - task: npmAuthenticate@0
-        displayName: 'Authenticate to Azure Artifacts feed'
-        inputs:
-          workingFile: .npmrc
-          feedUrl: 'https://pkgs.dev.azure.com/SisproERP/_packaging/InfraCodeLibs/npm/registry/'
-
       - script: |
-          cp .npmrc dist/$(buildStep.ProjectName)/.npmrc
-          cd dist/$(buildStep.ProjectName)/
-          npm publish --registry=https://pkgs.dev.azure.com/SisproERP/_packaging/InfraCodeLibs/npm/registry/ --userconfig=.npmrc
-        displayName: Publish to Azure Artifacts
+          xcopy .\\projects\\$(buildStep.ProjectName)\\.npmrc "dist\\$(buildStep.ProjectName)\\"
+          mkdir $(Build.ArtifactStagingDirectory)\\dist
+          xcopy "dist\\$(buildStep.ProjectName)" $(Build.ArtifactStagingDirectory)\\dist /E/H/C
+        displayName: Copy dist contents
+      
+      - task: PublishPipelineArtifact@1
+        inputs:
+          targetPath: $(Build.ArtifactStagingDirectory)\\dist
+          artifactName: "@sispro/ngx-sp-infra"
+          artifactType: "pipeline"
+        displayName: Publish
+      
+      # - task: npmAuthenticate@0
+      #   displayName: 'Authenticate to Azure Artifacts feed'
+      #   inputs:
+      #     workingFile: .npmrc
+      #     feedUrl: 'https://pkgs.dev.azure.com/SisproERP/_packaging/InfraCodeLibs/npm/registry/'
+
+      # - script: |
+      #     cp .npmrc dist/$(buildStep.ProjectName)/.npmrc
+      #     cd dist/$(buildStep.ProjectName)/
+      #     npm publish --registry=https://pkgs.dev.azure.com/SisproERP/_packaging/InfraCodeLibs/npm/registry/ --userconfig=.npmrc
+      #   displayName: Publish to Azure Artifacts
 
 
       # - task: npmAuthenticate@0
