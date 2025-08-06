@@ -78,7 +78,7 @@ jobs:
         displayName: 'Buildar e executar testes'
       
       - script: |
-          cp projects/$(buildStep.ProjectName)/.npmrc dist/$(buildStep.ProjectName)/"
+          cp projects/$(buildStep.ProjectName)/.npmrc dist/$(buildStep.ProjectName)/
           mkdir $(Build.ArtifactStagingDirectory)\\dist
           cp "dist\\$(buildStep.ProjectName)" $(Build.ArtifactStagingDirectory)\\dist /E/H/C
         displayName: Copy dist contents
