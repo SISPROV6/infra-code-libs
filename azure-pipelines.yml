@@ -75,4 +75,9 @@ jobs:
       - task: PublishTestResults@2
         inputs:
           testResultsFormat: 'JUnit'
-          testResultsFiles: 'coverage/**/coverage.xml'
+          testResultsFiles: 'coverage/**/TESTS-*.xml'
+      
+      # Publica o resultado da cobertura de código para o Azure
+      - task: PublishCodeCoverageResults@2
+        inputs:
+          summaryFileLocation: 'coverage/$(ProjectName)/coverage.xml'
