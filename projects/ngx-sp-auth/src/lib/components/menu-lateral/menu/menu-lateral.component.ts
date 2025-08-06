@@ -139,7 +139,7 @@ export class MenuLateralComponent implements OnInit {
 
   private getMenuUserImg(): void {
     this._menuServices.getImagemMenu().subscribe({
-      next: response => { this.footerUserImgSrc = response.InfraUsuarioImg.Imagem; },
+      next: response => { this.footerUserImgSrc = response.InfraUsuarioImg.IMAGEM; },
       error: error => {
         //this._projectUtilService.showHttpError(error);
         this._messageService.showAlertDanger(error);

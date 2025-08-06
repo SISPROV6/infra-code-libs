@@ -9,7 +9,6 @@ export * from './lib/custom/lib-custom-menu.service';
 export * from './lib/custom/lib-custom-storage.service';
 export * from './lib/custom/menu-config.service';
 export * from './lib/environments/environments.service';
-export * from './lib/server/server.service';
 export * from './lib/storage/auth-storage.service';
 
 
@@ -34,7 +33,6 @@ export * from './lib/custom/models/imenu-config';
 export * from './lib/environments/models/ienvironments';
 export * from './lib/custom/models/icustom-storage-service';
 //??? - eliminar?
-export * from './lib/models/custom-propriedades-login';
 export * from './lib/models/infraInAuthTypeId';
 export * from './lib/models/infraIn2FaTypeId';
 //???

@@ -39,7 +39,6 @@ export class MenuConfigService {
         return this.menu;
     }
 
-
     public updateRouteSelection(currentRoute: string, currentList: IMenuItemStructure[]): IMenuItemStructure[] {
         currentList.forEach((item) => {
             if (item.children) { item.children.forEach(child => { child.isSelected = (currentRoute.includes(child.route) && child.route != ""); }) }

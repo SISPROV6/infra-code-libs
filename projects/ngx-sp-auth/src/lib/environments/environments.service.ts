@@ -19,9 +19,11 @@ export class EnvironmentService {
 	
 	public Sp2LocalhostInfra2AuthWS : string = '';
 	public Sp2LocalhostInfra2LoginWS: string = '';
+    public Sp2Localhost: string = '';
 
 	public SpInfra2AuthWS: string = '';
 	public SpInfra2LoginWS: string = '';
+    public SpInfra2ErpWS: string = '';
 
     public ConfigurarEnvironments(properties: IEnvironments): void {
 
@@ -32,9 +34,11 @@ export class EnvironmentService {
 
         this.Sp2LocalhostInfra2AuthWS = properties.Sp2LocalhostInfra2AuthWS;
         this.Sp2LocalhostInfra2LoginWS = properties.Sp2LocalhostInfra2LoginWS;
+        this.Sp2Localhost = properties.Sp2LocalhostWS;
 
         this.SpInfra2AuthWS = properties.SpInfra2AuthWS;
         this.SpInfra2LoginWS = properties.SpInfra2LoginWS;
+        this.SpInfra2ErpWS = properties.SpInfra2ErpWS;
         
         this.needsAuthAplic = properties.needsAuthAplic;
         this.needsAuthInfra = properties.needsAuthInfra;
