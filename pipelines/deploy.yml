@@ -1,9 +1,10 @@
 trigger:
   branches:
-    exclude:
+    include:
     - main
     - next
     - test
+    - azure-pipelines
   paths:
     exclude:
     - deploy/*
