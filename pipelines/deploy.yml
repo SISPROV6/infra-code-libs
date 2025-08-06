@@ -37,21 +37,21 @@ jobs:
           echo "##vso[task.setvariable variable=PublishNotes;isOutput=true]$NOTES"
           echo "##vso[task.setvariable variable=ProjectTag;isOutput=true]$TAG"
         displayName: 'Define variáveis com base no arquivo de release'
-        name: setVars
+        name: buildStep
 
       # Step 2: Teste as variáveis
       - script: |
-          echo "Package Version: $(setVars.PackageVersion)"
-          echo "Project Name: $(setVars.ProjectName)"
-          echo "Project Version: $(setVars.ProjectVersion)"
-          echo "Publish Notes: $(setVars.PublishNotes)"
-          echo "Project Tag: $(setVars.ProjectTag)"
+          echo "Package Version: $(buildStep.PackageVersion)"
+          echo "Project Name: $(buildStep.ProjectName)"
+          echo "Project Version: $(buildStep.ProjectVersion)"
+          echo "Publish Notes: $(buildStep.PublishNotes)"
+          echo "Project Tag: $(buildStep.ProjectTag)"
         displayName: 'Mostrar informações de release'
 
       # Instalar o Node.js
       - task: UseNode@1
         inputs:
-          version: $(setVars.nodeVersion)
+          version: $(nodeVersion)
         displayName: 'Instalar o Node.js'
 
       # Instalar dependências gerais
@@ -62,14 +62,14 @@ jobs:
 
       # Builda e executa testes unitários com cobertura
       - script: |
-          if [ "$(setVars.ProjectName)" == "ngx-sp-auth" ]; then
+          if [ "$(buildStep.ProjectName)" == "ngx-sp-auth" ]; then
             cd projects/ngx-sp-auth
             npm ci
             cd ../../
           fi
           
-          npm run build:$(setVars.ProjectName):prod
-          npm run test:$(setVars.ProjectName):sonar
+          npm run build:$(buildStep.ProjectName):prod
+          npm run test:$(buildStep.ProjectName):sonar
         displayName: 'Buildar e executar testes'
 
       # Publica o resultado dos testes unitários para o Azure
@@ -81,16 +81,16 @@ jobs:
       # Publica o resultado da cobertura de código para o Azure
       - task: PublishCodeCoverageResults@2
         inputs:
-          summaryFileLocation: 'coverage/$(setVars.ProjectName)/coverage.xml'
+          summaryFileLocation: 'coverage/$(buildStep.ProjectName)/coverage.xml'
 
   - job: 'Deploy'
     dependsOn: 'Build'
     variables:
-      PackageVersion: $[ dependencies.JobA.outputs['setVars.PackageVersion'] ]
-      ProjectName: $[ dependencies.JobA.outputs['setVars.ProjectName'] ]
-      ProjectVersion: $[ dependencies.JobA.outputs['setVars.ProjectVersion'] ]
-      PublishNotes: $[ dependencies.JobA.outputs['setVars.PublishNotes'] ]
-      ProjectTag: $[ dependencies.JobA.outputs['setVars.ProjectTag'] ]
+      PackageVersion: $[ dependencies.JobA.outputs['buildStep.PackageVersion'] ]
+      ProjectName: $[ dependencies.JobA.outputs['buildStep.ProjectName'] ]
+      ProjectVersion: $[ dependencies.JobA.outputs['buildStep.ProjectVersion'] ]
+      PublishNotes: $[ dependencies.JobA.outputs['buildStep.PublishNotes'] ]
+      ProjectTag: $[ dependencies.JobA.outputs['buildStep.ProjectTag'] ]
     steps:
       # Faz Checkout do repositório
       - checkout: self
