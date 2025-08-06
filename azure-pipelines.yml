@@ -73,11 +73,11 @@ jobs:
       
       # Executa testes com cobertura
       - script: |
-          ng test $(ProjectName) --watch=false --code-coverage --browsers=ChromeHeadless
+          ng test $(ProjectName) --watch=false --code-coverage --reporters=junit --browsers=ChromeHeadless
         displayName: 'Executa testes com cobertura'
 
       # Publica o resultado dos testes unitários para o Azure
       - task: PublishTestResults@2
         inputs:
           testResultsFormat: 'JUnit'
-          testResultsFiles: '**/TEST-*.xml'
+          testResultsFiles: 'coverage/**/TEST-*.xml'
