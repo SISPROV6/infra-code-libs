@@ -41,11 +41,11 @@ jobs:
 
       # Step 2: Teste as variáveis
       - script: |
-          echo "Package Version: $(PackageVersion)"
-          echo "Project Name: $(ProjectName)"
-          echo "Project Version: $(ProjectVersion)"
-          echo "Publish Notes: $(PublishNotes)"
-          echo "Project Tag: $(ProjectTag)"
+          echo "Package Version: $(setVars.PackageVersion)"
+          echo "Project Name: $(setVars.ProjectName)"
+          echo "Project Version: $(setVars.ProjectVersion)"
+          echo "Publish Notes: $(setVars.PublishNotes)"
+          echo "Project Tag: $(setVars.ProjectTag)"
         displayName: 'Mostrar informações de release'
 
       # Instalar o Node.js

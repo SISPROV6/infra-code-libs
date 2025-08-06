@@ -41,17 +41,17 @@ jobs:
 
       # Step 2: Teste as variáveis
       - script: |
-          echo "Package Version: $(PackageVersion)"
-          echo "Project Name: $(ProjectName)"
-          echo "Project Version: $(ProjectVersion)"
-          echo "Publish Notes: $(PublishNotes)"
-          echo "Project Tag: $(ProjectTag)"
+          echo "Package Version: $(setVars.PackageVersion)"
+          echo "Project Name: $(setVars.ProjectName)"
+          echo "Project Version: $(setVars.ProjectVersion)"
+          echo "Publish Notes: $(setVars.PublishNotes)"
+          echo "Project Tag: $(setVars.ProjectTag)"
         displayName: 'Mostrar informações de release'
 
       # Instalar o Node.js
       - task: UseNode@1
         inputs:
-          version: $(nodeVersion)
+          version: $(setVars.nodeVersion)
         displayName: 'Instalar o Node.js'
 
       # Instalar dependências gerais
@@ -62,14 +62,14 @@ jobs:
 
       # Builda e executa testes unitários com cobertura
       - script: |
-          if [ "$(ProjectName)" == "ngx-sp-auth" ]; then
+          if [ "$(setVars.ProjectName)" == "ngx-sp-auth" ]; then
             cd projects/ngx-sp-auth
             npm ci
             cd ../../
           fi
           
-          npm run build:$(ProjectName):prod
-          npm run test:$(ProjectName):sonar
+          npm run build:$(setVars.ProjectName):prod
+          npm run test:$(setVars.ProjectName):sonar
         displayName: 'Buildar e executar testes'
 
       # Publica o resultado dos testes unitários para o Azure
@@ -81,7 +81,7 @@ jobs:
       # Publica o resultado da cobertura de código para o Azure
       - task: PublishCodeCoverageResults@2
         inputs:
-          summaryFileLocation: 'coverage/$(ProjectName)/coverage.xml'
+          summaryFileLocation: 'coverage/$(setVars.ProjectName)/coverage.xml'
 
   - job: 'Deploy'
     dependsOn: 'Build'
