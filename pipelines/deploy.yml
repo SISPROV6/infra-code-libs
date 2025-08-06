@@ -77,6 +77,7 @@ jobs:
           npm run build:$(buildStep.ProjectName):prod
         displayName: 'Buildar e executar testes'
       
+
       - task: npmAuthenticate@0
         displayName: 'Authenticate to Azure Artifacts feed'
         inputs:
@@ -85,25 +86,14 @@ jobs:
 
       - script: |
           cp projects/$(buildStep.ProjectName)/.npmrc dist/$(buildStep.ProjectName)/.npmrc
-        displayName: Copy npmrc to dist
+        displayName: 'Copiar arquivo .npmrc para a dist'
       
       - task: Npm@1
         inputs:
           command: 'publish'
-          workingDir: 'dist/ngx-sp-infra'
+          workingDir: 'dist/$(buildStep.ProjectName)'
           verbose: true
           publishRegistry: 'useFeed'
           publishFeed: '3867b2a2-a6b0-4e97-87fc-c757aab71b59/ca9c05c8-bdc6-420e-91a8-dfac69d79b82'
+        displayName: 'Publicar pacote'
 
-
-      # - task: npmAuthenticate@0
-      #   displayName: 'Authenticate to Azure Artifacts feed'
-      #   inputs:
-      #     workingFile: projects/$(buildStep.ProjectName)/.npmrc
-      #     feedUrl: 'https://pkgs.dev.azure.com/SisproERP/_packaging/InfraCodeLibs/npm/registry/'
-
-      # - script: |
-      #     cp projects/$(buildStep.ProjectName)/.npmrc dist/$(buildStep.ProjectName)/.npmrc
-      #     cd dist/$(buildStep.ProjectName)/
-      #     npm publish --registry=https://pkgs.dev.azure.com/SisproERP/_packaging/InfraCodeLibs/npm/registry/ --userconfig=projects/$(buildStep.ProjectName)/.npmrc
-      #   displayName: Publish to Azure Artifacts
