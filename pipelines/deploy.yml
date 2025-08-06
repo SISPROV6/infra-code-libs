@@ -83,6 +83,10 @@ jobs:
           workingFile: projects/$(buildStep.ProjectName)/.npmrc
           feedUrl: 'https://pkgs.dev.azure.com/SisproERP/_packaging/InfraCodeLibs/npm/registry/'
 
+      - script: |
+          cp projects/$(buildStep.ProjectName)/.npmrc dist/$(buildStep.ProjectName)/.npmrc
+        displayName: 'Copiar arquivo .npmrc para o dist'
+
       - task: Npm@1
         inputs:
           command: 'publish'
