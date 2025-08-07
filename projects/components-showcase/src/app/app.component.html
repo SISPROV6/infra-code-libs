@@ -1,0 +1,42 @@
+<div class="content">
+  <div class="filters">
+    <lib-table [list]="list" [counts]="[ 5, 10, 15 ]" paginationID="simpleTable" [usePreviousStyle]="true" [usePagination]="false"
+      [headers]="headers" >
+
+      @for (item of list; track item) {
+          <tr innerRows class="align-middle">
+            <td> <span class="text-break" libTextTruncate="100%" class="text-primary text-decoration-none fw-bold" tooltip="Editar/Visualizar">{{ item.coluna1 }}</span> </td>
+            <td> <span class="text-break">{{ item.coluna2 }}</span> </td>
+            <td> <span class="text-break">{{ item.coluna3 }}</span> </td>
+            <td> <span class="text-break">{{ item.coluna4 }}</span> </td>
+            <td> <span class="text-break">{{ item.coluna5 }}</span> </td>
+            <td> <span class="text-break">{{ item.coluna6 }}</span> </td>
+          </tr>
+      }
+    </lib-table>
+
+
+    <!-- <table class="table mt-5" style="table-layout: fixed;">
+      <thead>
+        <tr>
+          @for (header of headers; track $index) {
+            <th scope="col" class="{{header.widthClass}}" >{{ header.name }}</th>
+          }
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (row of list; track $index) {
+          <tr>
+            <th> <span libTextTruncate="100%" class="text-primary text-decoration-none fw-bold" tooltip="Editar/Visualizar">{{ row.coluna1 }}</span></th>
+            <td> <span style="text-wrap: wrap;">{{ row.coluna2 }}</span></td>
+            <td> <span style="text-wrap: wrap;">{{ row.coluna3 }}</span></td>
+            <td> <span class="text-break" style="display: block; width: 100px; inline-size: 100px; text-wrap: wrap">{{ row.coluna4 }}</span></td>
+            <td> <span libTextTruncate="100%" style="text-wrap: wrap;">{{ row.coluna5 }}</span></td>
+            <td> <span style="text-wrap: wrap;">{{ row.coluna6 }}</span></td>
+          </tr>
+        }
+      </tbody>
+    </table> -->
+  </div>
+</div>

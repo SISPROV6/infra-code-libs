@@ -18,6 +18,7 @@ import { HighlightDirective } from '../directives/highlight.directive';
 import { LoadingBtnDirective } from '../directives/loading-btn.directive';
 import { RequiredDirective } from '../directives/required.directive';
 import { TextTruncateDirective } from '../directives/text-truncate.directive';
+import { InnerRowsDirective } from './../directives/inner-rows.directive';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { TextTruncateDirective } from '../directives/text-truncate.directive';
     TextTruncateDirective,
 
     A11yClickDirective,
+    InnerRowsDirective,
   ],
   exports: [
     ClickOutsideDirective,
@@ -54,6 +56,7 @@ import { TextTruncateDirective } from '../directives/text-truncate.directive';
     TextTruncateDirective,
 
     A11yClickDirective,
+    InnerRowsDirective,
   ]
 })
 export class LibDirectivesModule { }
