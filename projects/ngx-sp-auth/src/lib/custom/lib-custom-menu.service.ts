@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { IMenuItemStructure } from '../components/menu-lateral/model/imenu-item-structure.model';
-import { IMenu } from '../components/menu-lateral/model/imenu.model';
 import { AuthStorageService } from '../storage/auth-storage.service';
-import { MenuConfigService } from './menu-config.service';
+import { LibMenuConfigService } from './lib-menu-config.service';
 import { ICustomMenuService } from './models/icustom-menu-service';
 
 @Injectable(
@@ -13,32 +11,21 @@ import { ICustomMenuService } from './models/icustom-menu-service';
 )
 export class LibCustomMenuService {
 
-    public menuService!: ICustomMenuService;
-
     // #region Propriedade Customizadas do Menu
 
     public menuDynamic: boolean = false;
-
+    public menuDynamicCustom: boolean = false;
     public moduleName: string = "";
-
     public moduleImg: string = "";
-
     public moduleSvg: string = "";
-
     public themeColor: string = "";
 
     // #endregion Propriedade Customizadas do Menu
 
     // #region Propriedade do Menu
 
-    private readonly _MENU_BASE_URL: string = "https://siscandesv6.sispro.com.br/SisproErpCloud/Service_Private/Infra/SpInfra2ErpWS/api";
-
-    private currentURL: string = "";
     private _menuItems: IMenuItemStructure[] = [];
-    private menuList: IMenu[] = [];
-    private menuLateralUpdated: IMenuItemStructure[] = [];
-    //verificar esse cara aqui
-    public menuConfig: MenuConfigService;
+    public menuConfig: LibMenuConfigService;
 
     /** Obtém as opções do menu. */
     public get menuItems(): IMenuItemStructure[] {
@@ -58,63 +45,39 @@ export class LibCustomMenuService {
 
     // #endregion Propriedade do Menu
 
-    private storedMenuStaticOnInit?: () => void;
-    private storedMenuDynamicOnInit?: () => void;
-    private storedMenuopenExpansibleMenu?: (ref: HTMLDivElement) => void;
-
-
     constructor(
-        private _menuConfig: MenuConfigService,
-        private _authStorageService: AuthStorageService,
-        private _router: Router,
-
+        private _menuConfig: LibMenuConfigService,
+        private _authStorageService: AuthStorageService
     ) {
         // inicializações do Menu Dinâmico
-        this.currentURL = this._router.url;
         this.menuConfig = _menuConfig;
-    }
-
-    public ConfigurarCustomMenuService(RealcustomMenuService: ICustomMenuService): void {
-
-        //passando propriedades do projeto para a lib
-        this.menuDynamic = RealcustomMenuService.menuDynamic;
-        this.moduleName = RealcustomMenuService.moduleName;
-        this.moduleImg = RealcustomMenuService.moduleImg;
-        this.moduleSvg = RealcustomMenuService.moduleSvg;
-        this.themeColor = RealcustomMenuService.themeColor;
-
-        
-
-        //passando implementação dos métodos do projeto para a lib
-        this.storedMenuStaticOnInit = RealcustomMenuService.menuStaticOnInit;
-        this.storedMenuopenExpansibleMenu = RealcustomMenuService.menuopenExpansibleMenu;
-        this.storedMenuDynamicOnInit = RealcustomMenuService.menuDynamicOnInit;
     }
 
     // #region - Métodos Customizadas para o Menu dinâmico
 
     // Método executado no menu-lateral.component.ts - método: onInit ()
+    // Utilizado para obter o Módulo para montagem do Menu Dinâmico Lateral
+    public menuDynamicGetModuloId(): number
+    {
+        return this.storeMenuDynamicGetModuloId();
+    }
+    
+    // Método executado no menu-lateral.component.ts - método: onInit ()
     // Utilizado para inicializações diversas
     public menuDynamicOnInit(): void {
-        if (this.storedMenuDynamicOnInit) {
-            this.storedMenuDynamicOnInit();
-        }
+        this.storedMenuDynamicOnInit();
     }
 
     // Método executado no menu-lateral.component.ts - método: onInit ()
     // Utilizado para inicializações diversas
     public menuStaticOnInit(): void {
-        if (this.storedMenuStaticOnInit) {
-            this.storedMenuStaticOnInit();
-        }
+        this.storedMenuStaticOnInit();
     }
 
     // Método executado no menu-lateral.component.ts - método: openExpansibleMenu()
-    // Utilizado para inicializações ao Exoandir a opção de Menu
+    // Utilizado para inicializações ao Expandir a opção de Menu
     public menuopenExpansibleMenu(ref: HTMLDivElement): void {
-        if (this.storedMenuopenExpansibleMenu) {
-            this.storedMenuopenExpansibleMenu(ref);
-        }
+        this.storedMenuopenExpansibleMenu(ref);
     }
 
     /** Método que deve ser chamado na seleção de um novo estabelecimento, ele atualizará os valores do nosso BehaviorSubject para que possamos utilizá-lo em outras partes do sistema. */
@@ -125,5 +88,43 @@ export class LibCustomMenuService {
             empresaID: this._authStorageService.infraEmpresaId
         });
     }
+
     // #endregion - Métodos Customizadas para o Menu dinâmico
+
+    // #region Métodos recebidos do projeto
+
+    private storeMenuDynamicGetModuloId!: () => number;
+
+    private storedMenuStaticOnInit!: () => void;
+
+    private storedMenuDynamicOnInit!: () => void;
+
+    private storedMenuopenExpansibleMenu!: (ref: HTMLDivElement) => void;
+
+    // #endregion Métodos recebidos do projeto
+
+   // #region Métodos Publicos
+
+    public ConfigurarCustomMenuService(RealcustomMenuService: ICustomMenuService): void {
+
+        //passando propriedades do projeto para a lib
+        this.menuDynamic = RealcustomMenuService.menuDynamic;
+        this.menuDynamicCustom = RealcustomMenuService.menuDynamicCustom;
+        this.moduleName = RealcustomMenuService.moduleName;
+        this.moduleImg = RealcustomMenuService.moduleImg;
+        this.moduleSvg = RealcustomMenuService.moduleSvg;
+        this.themeColor = RealcustomMenuService.themeColor;
+
+        //passando implementação dos métodos do projeto para a lib
+        this.storeMenuDynamicGetModuloId = RealcustomMenuService.menuDynamicGetModuloId;
+
+        this.storedMenuStaticOnInit = RealcustomMenuService.menuStaticOnInit;
+
+        this.storedMenuopenExpansibleMenu = RealcustomMenuService.menuopenExpansibleMenu;
+
+        this.storedMenuDynamicOnInit = RealcustomMenuService.menuDynamicOnInit;
+    }
+
+   // #endregion Métodos Publicos
+
 }

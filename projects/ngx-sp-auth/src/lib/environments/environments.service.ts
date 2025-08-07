@@ -14,16 +14,16 @@ export class EnvironmentService {
     public needsAuthAplic!: Map<string, string[]>;
 
     public production: boolean = false;
-    public hostName: string = '';
-    public product: string = '';
+    public hostName: string = "";
+    public product: string = "";
 	
-	public Sp2LocalhostInfra2AuthWS : string = '';
-	public Sp2LocalhostInfra2LoginWS: string = '';
-    public Sp2Localhost: string = '';
+	public Sp2LocalhostInfra2AuthWS : string = "";
+	public Sp2LocalhostInfra2LoginWS: string = "";
+    public Sp2Localhost: string = "";
 
-	public SpInfra2AuthWS: string = '';
-	public SpInfra2LoginWS: string = '';
-    public SpInfra2ErpWS: string = '';
+	public SpInfra2AuthWS: string = "";
+	public SpInfra2LoginWS: string = "";
+    public SpInfra2ErpWS: string = "";
 
     public ConfigurarEnvironments(properties: IEnvironments): void {
 
@@ -38,7 +38,6 @@ export class EnvironmentService {
 
         this.SpInfra2AuthWS = properties.SpInfra2AuthWS;
         this.SpInfra2LoginWS = properties.SpInfra2LoginWS;
-        this.SpInfra2ErpWS = properties.SpInfra2ErpWS;
         
         this.needsAuthAplic = properties.needsAuthAplic;
         this.needsAuthInfra = properties.needsAuthInfra;

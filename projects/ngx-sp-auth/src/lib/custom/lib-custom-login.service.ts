@@ -9,15 +9,17 @@ export class LibCustomLoginService {
     constructor() { }
 
     // #region Propriedade Customizadas para o Componente login.component.ts
-    loginTitle!: string;
-    loginSubtitle!: string;
-    loginBackground!: string;
-    loginLogotipo!: string;
-    loginAltLogotipo!: string;
-    loginPageTitle!: string;
-    loginDesenvDomain!: string;
-    loginDesenvUser!: string;
-    loginDesenvPassword!: string;
+
+    public loginTitle: string = "";
+    public loginSubtitle: string = "";
+    public loginBackground: string = "";
+    public loginLogotipo: string = "";
+    public loginAltLogotipo: string = "";
+    public loginPageTitle: string = "";
+    public loginDesenvDomain: string = "";
+    public loginDesenvUser: string = "";
+    public loginDesenvPassword: string = "";
+
     // #endregion Propriedade Customizadas para o Componente login.component.ts
 
     // #region Métodos Customizadas para o Componente auth.service.ts
@@ -49,31 +51,29 @@ export class LibCustomLoginService {
     }
     // #endregion Métodos Customizadas para o Componente auth.service.ts
 
-    // #region UTILS
+    // #region Métodos recebidos do projeto
 
     public storedAuthLogin!: () => void;
+
     public storedAuthLogout!: () => void;
+
     public storedAuthNavigateToPage!: (router: Router) => void;
+
+    // #endregion Métodos recebidos do projeto
+
+    // #region Métodos Publicos
 
     public ConfigurarCustomLogin(customLoginService: ICustomLoginService): void {
 
         //passando propriedades do projeto para a lib
         this.loginTitle = customLoginService.loginTitle;
-
         this.loginSubtitle = customLoginService.loginSubtitle;
-
         this.loginBackground = customLoginService.loginBackground;
-
         this.loginLogotipo = customLoginService.loginLogotipo;
-
         this.loginAltLogotipo = customLoginService.loginAltLogotipo;
-
         this.loginPageTitle = customLoginService.loginPageTitle;
-
         this.loginDesenvDomain = customLoginService.loginDesenvDomain;
-
         this.loginDesenvUser = customLoginService.loginDesenvUser;
-
         this.loginDesenvPassword = customLoginService.loginDesenvPassword;
 
         //passando implementação dos métodos do projeto para a lib
@@ -84,5 +84,6 @@ export class LibCustomLoginService {
         this.storedAuthNavigateToPage = customLoginService.authNavigateToPage;
     }
 
-    // #endregion UTILS
+   // #endregion Métodos Publicos
+    
 }

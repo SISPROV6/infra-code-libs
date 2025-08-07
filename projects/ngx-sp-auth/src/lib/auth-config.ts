@@ -1,12 +1,7 @@
 import { LogLevel, Configuration } from '@azure/msal-browser';
 
-//???i
-//const isIE = window.navigator.userAgent.indexOf("MSIE ") > -1 || window.navigator.userAgent.indexOf("Trident/") > -1;
-//const hostAuthLogin = !environment.production ? "http://localhost:4200/auth/login" : `${ environment.hostName }/SisproErpCloud/${ environment.product }/auth/login`;
 const isIE = false;
 const hostAuthLogin = "http://localhost:4200/auth/login" ;
-
-//???f
 
 export const msalConfig: Configuration = {
      auth: {

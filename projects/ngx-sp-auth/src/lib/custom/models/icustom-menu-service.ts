@@ -1,4 +1,5 @@
 export interface ICustomMenuService {
+    
     // Propriedades Customizadas do Menu
     menuDynamic: boolean;
     menuDynamicCustom: false;

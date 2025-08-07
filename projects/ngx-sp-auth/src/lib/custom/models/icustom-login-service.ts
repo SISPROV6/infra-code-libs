@@ -1,6 +1,7 @@
 import { Router } from "@angular/router";
 
 export interface ICustomLoginService {
+    
     // Propriedades Customizadas do Menu
     loginTitle: string;
     loginSubtitle: string;
