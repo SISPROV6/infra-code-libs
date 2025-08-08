@@ -15,10 +15,6 @@ export class InnerRowsDirective {
   ngOnInit(): void {
     this.break();
   }
-  
-  ngOnChanges(changes: SimpleChanges): void {
-    
-  }
 
 
   /** Define a largura do elemento com base na quantidade fornecida e depois aplica o ellipsis (...) no lugar do conteúdo que foi cortado. */
@@ -27,10 +23,6 @@ export class InnerRowsDirective {
 
     
     matchingTableCells.forEach(el => {
-      console.log(matchingTableCells);
-      console.log(el);
-      console.log(el.querySelector('span'));
-      
       if (el.querySelector('span')) {
         if (!el.querySelector('span')?.classList.contains('text-break')) el.classList.add('text-break');
       }

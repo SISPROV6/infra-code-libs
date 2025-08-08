@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-infra",
-  "version": "5.12.8",
-  "tag": "infra-v5.12.8",
-  "notes": "Implementada diretiva para quebrar o texto dentro das rows na lib-table automaticamente, na prática não é preciso fazer nada pois a diretiva tem o mesmo nome que a usada nas rows da lib-table",
-  "timestamp": "2025-08-08T17:08:15.760Z"
+  "version": "5.12.9",
+  "tag": "infra-v5.12.9",
+  "notes": "Atualização de rotina",
+  "timestamp": "2025-08-08T17:13:28.154Z"
 }
