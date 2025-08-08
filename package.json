@@ -1,21 +1,21 @@
 {
   "name": "infra-code-libs",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "build:prod": "ng build --configuration production",
-    "build:auth:prod": "ng build ngx-sp-auth --configuration production",
-    "build:infra:prod": "ng build ngx-sp-infra --configuration production",
+    "build:ngx-sp-auth:prod": "ng build ngx-sp-auth --configuration production",
+    "build:ngx-sp-infra:prod": "ng build ngx-sp-infra --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:headless": "ng test --watch=false --browsers=ChromeHeadless",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "deploy": "cd deploy/ && npm i && node index.js",
-    "test:auth:sonar": "ng test ngx-sp-auth --watch=false --code-coverage --browsers=ChromeHeadless",
-    "test:infra:sonar": "ng test ngx-sp-infra --watch=false --code-coverage --browsers=ChromeHeadless"
+    "test:ngx-sp-auth:sonar": "ng test ngx-sp-auth --watch=false --code-coverage --reporters=junit --browsers=ChromeHeadless",
+    "test:ngx-sp-infra:sonar": "ng test ngx-sp-infra --watch=false --code-coverage --reporters=junit --browsers=ChromeHeadless"
   },
   "files": [
     "projects/ngx-sp-infra/src/assets/styles",
@@ -66,6 +66,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "karma-junit-reporter": "^2.0.1",
     "ng-packagr": "^19.2.2",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.30.1"

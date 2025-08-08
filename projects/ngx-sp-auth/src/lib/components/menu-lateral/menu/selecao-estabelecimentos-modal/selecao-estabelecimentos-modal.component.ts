@@ -80,6 +80,7 @@ export class SelecaoEstabelecimentosModalComponent implements OnInit {
   }
 
   private getEstabelecimentos(pesquisa: string = ""): void {
+    console.log('getEstabelecimentos:' + this._authStorageService.infraUsuarioId)
     this._menuServicesService.getEstabelecimentosModalList(this._authStorageService.infraUsuarioId, pesquisa).subscribe({
       next: response => {
         this.$estabelecimentosList = response.InfraEstabelecimentos;

@@ -4,13 +4,14 @@
 module.exports = function (config) {
   config.set({
     basePath: '',
-    frameworks: ['jasmine', '@angular/cli'],
+    frameworks: ['jasmine', '@angular-devkit/build-angular'],
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
       require('karma-jasmine-html-reporter'),
       require('karma-coverage'),
-      require('@angular/cli/plugins/karma')
+      require('karma-junit-reporter'),
+      require('@angular-devkit/build-angular/plugins/karma')
     ],
     client: {
       jasmine: {
@@ -27,17 +28,31 @@ module.exports = function (config) {
     angularCli: {
       environment: 'dev'
     },
+    preprocessors: {
+      '**/lib/*.js': 'coverage'
+    },
     coverageReporter: {
       dir: require('path').join(__dirname, '../../coverage/ngx-sp-auth'),
       subdir: '.',
       reporters: [
         { type: 'html' },
         { type: 'text-summary' },
-        { type: 'lcovonly', subdir: '.', file: 'lcov.info' },
+        { type: 'lcov', subdir: '.', file: 'lcov.info' },
+        { type: 'cobertura', subdir: '.', file: 'coverage.xml' },
       ]
     },
-    reporters: [ 'progress', 'kjhtml', 'spec', 'coverage' ],
-    browsers: ['ChromeHeadless'],
+    junitReporter: {
+      outputDir: '../../coverage/ngx-sp-auth', // results will be saved as $outputDir/$browserName.xml
+      outputFile: undefined, // if included, results will be saved as $outputDir/$browserName/$outputFile
+      suite: '', // suite will become the package name attribute in xml testsuite element
+      useBrowserName: true, // add browser name to report and classes names
+      nameFormatter: undefined, // function (browser, result) to customize the name attribute in xml testcase element
+      classNameFormatter: undefined, // function (browser, result) to customize the classname attribute in xml testcase element
+      properties: {}, // key value pair of properties to add to the <properties> section of the report
+      xmlVersion: null // use '1' if reporting to be per SonarQube 6.2 XML format
+    },
+    reporters: [ 'progress', 'kjhtml', 'junit', 'coverage' ],
+    browsers: [ 'Chrome', 'ChromeHeadless' ],
     singleRun: true,
     restartOnFileChange: true,
     colors: true

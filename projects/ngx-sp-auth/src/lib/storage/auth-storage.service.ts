@@ -38,7 +38,8 @@ export class AuthStorageService {
     this._BASE_URL = `${ _environmentService.SpInfra2LoginWS }/LoginSisproERP`; // SpInfra2WS
 
     this._BASE_URL = !_environmentService.production ? this._BASE_URL : `${_environmentService.SpInfra2LoginWS}/LoginSisproERP`;
-
+    console.log(this._BASE_URL
+    )
     // Método com customizações para inicializações da storage
     this._customStorageService.storageConstructor()
 

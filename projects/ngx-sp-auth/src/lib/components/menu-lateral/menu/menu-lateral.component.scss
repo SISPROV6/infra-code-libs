@@ -1,10 +1,29 @@
-#menu {
-
-    // #region VARIABLES
+  // #region VARIABLES
   $blue-light: #3265ee;
   // #endregion VARIABLES
 
-  .main {
+
+    // STYLE GERAL
+
+  * {
+    padding: 0;
+    margin: 0;
+    font-family: "Open sans", Arial, Helvetica, sans-serif;
+    font-size: 14px;
+  }
+
+  span {
+    color: #fff;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 0px;
+    white-space: nowrap;
+  }
+
+
+  #menu.main {
     display: flex;
     width: 100%;
     height: 100%;
@@ -36,25 +55,6 @@
 
   .disable-scroll {
     overflow-y: hidden;
-  }
-
-  // STYLE GERAL
-
-  * {
-    padding: 0;
-    margin: 0;
-    font-family: "Open sans", Arial, Helvetica, sans-serif;
-    font-size: 14px;
-  }
-
-  span {
-    color: #fff;
-  }
-
-  ul {
-    list-style: none;
-    padding-left: 0px;
-    white-space: nowrap;
   }
 
   // DROPDOWN
@@ -670,8 +670,6 @@
   .custom-popover {
     width: 1000px; 
   }
-
-}
 
 
 // =================================

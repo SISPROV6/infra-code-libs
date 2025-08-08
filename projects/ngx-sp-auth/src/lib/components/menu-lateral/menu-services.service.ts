@@ -27,9 +27,12 @@ export class MenuServicesService {
     private _httpClient: HttpClient,
 		private _environmentService: EnvironmentService,
   ) {
-    this._BASE_URL = `${ this._environmentService.SpInfra2ErpWS }`; // SpInfra2AplicWS
+    console.log(this._environmentService.SpInfra2ErpWS)
+    this._BASE_URL = `${ this._environmentService.SpInfra2ErpWS }`; // SpInfra2ErpWS
 
     this._BASE_URL = !this._environmentService.production ? this._BASE_URL : `${this._environmentService.SpInfra2ErpWS}`;
+    console.log(this._BASE_URL)
+ 
   }
 
   // #region ==========> SERVICES <==========

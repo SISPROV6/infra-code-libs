@@ -38,6 +38,7 @@ export class EnvironmentService {
 
         this.SpInfra2AuthWS = properties.SpInfra2AuthWS;
         this.SpInfra2LoginWS = properties.SpInfra2LoginWS;
+        this.SpInfra2ErpWS = properties.SpInfra2ErpWS;
         
         this.needsAuthAplic = properties.needsAuthAplic;
         this.needsAuthInfra = properties.needsAuthInfra;
