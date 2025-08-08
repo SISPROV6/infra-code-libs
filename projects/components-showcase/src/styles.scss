@@ -1,0 +1,34 @@
+@use "../../../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css" as *;
+@use "../../../node_modules/ngx-toastr/toastr.css" as *;
+
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  height: 100%;
+}
+
+
+/* #region OVERRIDE BOOTSTRAP VARIABLES */
+$theme-colors: (
+  "primary": #3767b2,       // Azul principal
+  "secondary": #6C757D,
+  "success": #0F5132,       // Verde principal
+  "danger": #B23737,        // Vermelho principal
+  "warning": #FFC107,        // Amarelo principal
+	"light": #FFF
+);
+
+$form-check-input-checked-bg-color: #3767b2;
+/* #endregion OVERRIDE BOOTSTRAP VARIABLES */
+
+
+@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
+// * Import do Bootstrap DEVE estar depois dos overrides, pois nos arquivos internos da biblioteca eles possuem a flag de "!default" junto com os valores.
+// * A ideia é que caso um novo valor seja declarado, o que é !default vai ser sobreescrito com esse novo valor,
+// * o !default serve só pra definir um valor caso nenhum outro seja declarado explicitamente. Por isso o import do Bootstrap nesse caso deve estar depois dos overrides.

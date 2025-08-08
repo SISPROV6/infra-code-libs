@@ -76,6 +76,7 @@ export * from './lib/widgets/combobox/pipes/limit-to.pipe';
 export * from './lib/directives/copy-clipboard.directive';
 export * from './lib/directives/disable-control.directive';
 export * from './lib/directives/highlight.directive';
+export * from './lib/directives/inner-rows.directive';
 export * from './lib/directives/loading-btn.directive';
 export * from './lib/directives/required.directive';
 export * from './lib/directives/text-truncate.directive';
@@ -110,6 +111,9 @@ export * from './lib/components/footer/footer.component';
 
 
 /** Components */
+export * from './lib/components/lib-authentication-config/components/lib-authentication-config.component';
+export * from './lib/components/lib-integracao-ldap/components/lib-integracao-ldap.component';
+export * from './lib/components/lib-integracoes-externas/components/lib-integracoes-externas.component';
 export * from './lib/components/logs-api/components/detalhes-log-api/detalhes-log-api.component';
 export * from './lib/components/logs-api/components/home-log-api/home-log-api.component';
 export * from './lib/components/logs-data-access/components/detalhes-log-data-access/detalhes-log-data-access.component';
@@ -125,9 +129,6 @@ export * from './lib/components/logs-timer/components/home-log-timer/home-log-ti
 export * from './lib/components/logs-ws/components/detalhes-log-ws/detalhes-log-ws.component';
 export * from './lib/components/logs-ws/components/home-log-ws/home-logs-ws.component';
 export * from './lib/components/page-not-authorized/page-not-authorized.component';
-export * from './lib/components/lib-authentication-config/components/lib-authentication-config.component';
-export * from './lib/components/lib-integracao-ldap/components/lib-integracao-ldap.component';
-export * from './lib/components/lib-integracoes-externas/components/lib-integracoes-externas.component'
 
 /** Widgets */
 export * from './lib/directives/click-outside.directive';
@@ -190,9 +191,9 @@ export * from './lib/widgets/sub-menu-card/sub-menu-card.component';
 export * from './lib/widgets/lib-date-range-picker/lib-date-range-picker.component';
 
 export * from './lib/widgets/empresa-abas/empresa-abas.component';
-export * from './lib/widgets/pessoa-abas/pessoa-abas.component';
 export * from './lib/widgets/estabelecimento-abas/estabelecimento-abas.component';
-export * from './lib/widgets/items-abas/items-abas.component';
-export * from './lib/widgets/usuario-abas/usuario-abas.component';
 export * from './lib/widgets/grupo-contabil-abas/grupo-contabil-abas.component';
+export * from './lib/widgets/items-abas/items-abas.component';
+export * from './lib/widgets/pessoa-abas/pessoa-abas.component';
+export * from './lib/widgets/usuario-abas/usuario-abas.component';
 
