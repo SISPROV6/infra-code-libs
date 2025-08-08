@@ -23,8 +23,21 @@ export class InnerRowsDirective {
 
   /** Define a largura do elemento com base na quantidade fornecida e depois aplica o ellipsis (...) no lugar do conteúdo que foi cortado. */
   protected break(): void {
-    let matchingTableCells: NodeListOf<Element> = this._elementRef.nativeElement.querySelectorAll('td > span')
-    console.log(matchingTableCells);
+    let matchingTableCells: NodeListOf<Element> = this._elementRef.nativeElement.querySelectorAll('td')
+
+    
+    matchingTableCells.forEach(el => {
+      console.log(matchingTableCells);
+      console.log(el);
+      console.log(el.querySelector('span'));
+      
+      if (el.querySelector('span')) {
+        if (!el.querySelector('span')?.classList.contains('text-break')) el.classList.add('text-break');
+      }
+      else {
+        if (!el.classList.contains('text-break')) el.classList.add('text-break');
+      }
+    });
   }
 
 }

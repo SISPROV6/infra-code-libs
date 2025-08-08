@@ -5,12 +5,12 @@
 
       @for (item of list; track item) {
           <tr innerRows class="align-middle">
-            <td> <span class="text-break" libTextTruncate="100%" class="text-primary text-decoration-none fw-bold" tooltip="Editar/Visualizar">{{ item.coluna1 }}</span> </td>
-            <td> <span class="text-break">{{ item.coluna2 }}</span> </td>
-            <td> <span class="text-break">{{ item.coluna3 }}</span> </td>
-            <td> <span class="text-break">{{ item.coluna4 }}</span> </td>
-            <td> <span class="text-break">{{ item.coluna5 }}</span> </td>
-            <td> <span class="text-break">{{ item.coluna6 }}</span> </td>
+            <td> <span libTextTruncate="100%" class="text-primary text-decoration-none fw-bold" tooltip="Editar/Visualizar">{{ item.coluna1 }}</span> </td>
+            <td> <span>{{ item.coluna2 }}</span> </td>
+            <td> <span>{{ item.coluna3 }}</span> </td>
+            <td>{{ item.coluna4 }}</td>
+            <td> <span>{{ item.coluna5 }}</span> </td>
+            <td> <span>{{ item.coluna6 }}</span> </td>
           </tr>
       }
     </lib-table>
