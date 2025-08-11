@@ -1,1 +1,44 @@
-<p>lib-combobox-rework works!</p>
+<div class="reusable-combobox dropdown" [class.show]="isOpen" (focusout)="onBlurOutside($event)">
+  <button #toggleButton
+          class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center w-100"
+          type="button"
+          (click)="toggleDropdown()"
+          [attr.aria-expanded]="isOpen"
+          [attr.aria-haspopup]="true"
+          [attr.aria-label]="placeholder"
+          [disabled]="disabled">
+    <span class="flex-grow-1 text-start">{{ value ? (displayWith(value) ) : placeholder }}</span>
+    <span class="ms-2 small text-muted">▾</span>
+  </button>
+
+  <div class="dropdown-menu p-2 w-100" [class.show]="isOpen" style="max-height: 320px; overflow: auto;">
+    <div class="dropdown-search px-2 mb-2">
+      <input class="form-control form-control-sm" type="search" [placeholder]="searchPlaceholder" [formControl]="searchControl" aria-label="Search options" />
+    </div>
+
+    <ng-container *ngIf="(filteredItems$ | async) as items">
+      <div *ngIf="items.length === 0" class="px-2 py-2 text-muted small">{{ noResultsText }}</div>
+
+      <button *ngFor="let item of items; trackBy: trackByFn"
+              class="dropdown-item d-flex align-items-center"
+              type="button"
+              (click)="select(item)"
+              [attr.aria-selected]="isSelected(item)">
+
+        <ng-container *ngIf="optionTemplate; else defaultOption">
+          <ng-container *ngTemplateOutlet="optionTemplate; context: { $implicit: item }"></ng-container>
+        </ng-container>
+
+        <ng-template #defaultOption>
+          <div class="w-100">
+            <div class="d-flex justify-content-between">
+              <div>{{ (item.LABEL ?? item.ID) }}</div>
+              <small class="text-muted" *ngIf="isSelected(item)">✓</small>
+            </div>
+          </div>
+        </ng-template>
+
+      </button>
+    </ng-container>
+  </div>
+</div>

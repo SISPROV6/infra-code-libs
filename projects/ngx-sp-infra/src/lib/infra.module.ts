@@ -62,6 +62,7 @@ import { GenericModalComponent } from './widgets/generic-modal/generic-modal.com
 import { GrupoContabilAbasComponent } from './widgets/grupo-contabil-abas/grupo-contabil-abas.component';
 import { InputTrimComponent } from './widgets/input-trim/input-trim.component';
 import { ItemsAbasComponent } from './widgets/items-abas/items-abas.component';
+import { LibComboboxReworkComponent } from './widgets/lib-combobox-rework/lib-combobox-rework.component';
 import { LibComboboxComponent } from './widgets/lib-combobox/lib-combobox.component';
 import { LibCustomizableTableComponent } from './widgets/lib-customizable-table/lib-customizable-table.component';
 import { LibDateRangePickerComponent } from './widgets/lib-date-range-picker/lib-date-range-picker.component';
@@ -180,6 +181,7 @@ import { UsuarioAbasComponent } from './widgets/usuario-abas/usuario-abas.compon
         GrupoContabilAbasComponent,
         LibAuthenticationConfigComponent,
         InnerRowsDirective,
+        LibComboboxReworkComponent,
     ],
     exports: [
         PageNotAuthorizedComponent,
@@ -254,6 +256,7 @@ import { UsuarioAbasComponent } from './widgets/usuario-abas/usuario-abas.compon
         GrupoContabilAbasComponent,
         LibAuthenticationConfigComponent,
         InnerRowsDirective,
+        LibComboboxReworkComponent,
     ],
     providers: [],
 })

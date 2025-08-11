@@ -1,0 +1,18 @@
+.reusable-combobox {
+  position: relative;
+  .dropdown-toggle {
+    justify-content: space-between;
+  }
+  .dropdown-menu {
+    width: 100%;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    border-radius: .5rem;
+  }
+  .dropdown-item {
+    cursor: pointer;
+  }
+  // small customization hooks
+  &.compact {
+    .dropdown-menu { max-height: 200px; }
+  }
+}
