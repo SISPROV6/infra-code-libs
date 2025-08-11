@@ -1,8 +1,6 @@
 export * from './lib/auth.module';
 
 /** Services */
-//???export * from './lib/auth.service';
-//???export * from './lib/components/menu-lateral/menu-services.service';
 export * from './lib/custom/lib-custom-login.service';
 export * from './lib/custom/lib-custom-menu.service';
 export * from './lib/custom/lib-custom-storage.service';
@@ -28,8 +26,8 @@ export * from './lib/components/menu-lateral/model/infrausuarioimg';
 export * from './lib/custom/models/icustom-login-service';
 export * from './lib/custom/models/icustom-menu-service';
 export * from './lib/custom/models/imenu-config';
-export * from './lib/environments/models/ienvironments';
 export * from './lib/custom/models/icustom-storage-service';
+export * from './lib/environments/models/ienvironments';
 
 /** Guards */
 export * from './lib/guards/auth-guard';

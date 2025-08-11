@@ -44,10 +44,7 @@ export class LibMenuConfigService {
        * @returns As opções do dropdown inicializadas.
     */
     public initializeMenuDropdown(primaryDropdownList: Array<any>): any[] {
-        console.log('lib - initializeMenuDropdown')
         this.menuDropdown = this.storedInitializeMenuDropdown(primaryDropdownList);
-        console.log('lib - initializeMenuDropdown')
-        console.log(this.menuDropdown)
  
         return this.menuDropdown;
     }

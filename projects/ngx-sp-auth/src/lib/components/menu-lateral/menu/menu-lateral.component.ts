@@ -72,11 +72,9 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
     document.addEventListener('keydown', this.handleKeyboardShortcut);
 
     // Inscreva-se no evento NavigationEnd para receber notificações quando a rota mudar, serve para atualizar a seleção do menu corretamente
-    console.log('1');
     this._router.events.pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd)).subscribe((event: any) => { this._customMenuService.menuItems = this._customMenuService.menuConfig.updateRouteSelection(this._router.url, this._customMenuService.menuItems) });
  
     if (!this._customMenuService.menuDynamic && !this._customMenuService.menuDynamicCustom) {
-    console.log('2');
       this._customMenuService.menuConfig.setMenuType(true);
  
       this._customMenuService.menuItems = this._customMenuService.menuConfig.initializeMenu(this._router.url);    
@@ -86,7 +84,6 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
     }
     else
     {
-    console.log('3');
       // Método com customizações para inicialização do Menu Dinâmico
       
       if (this._customMenuService.menuDynamic) {
@@ -105,28 +102,21 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
           }
         })
       }
-    console.log('4');
 
       this._customMenuService.menuDynamicOnInit(); 
     }
 
-    console.log('5');
     this.nomeEstabelecimento = this._authStorageService.infraEstabNome;
     this.footerUserName = this._authStorageService.userName;
 
-    console.log('6');
     this.checkForCachedImage();
 
-    console.log('6');
     this.getUserEmail();
 
-    console.log('8');
     // Tratamemto exclusivo para o método de autenticação Azure
     if (this._authStorageService.infraInAuthTypeId == InfraInAuthTypeId.Azure && this._authStorageService.user.toLowerCase() != "admin") {
-    console.log('9');
       await this.initMsal();
     }      
-    console.log('10');
 
   }
 

@@ -249,7 +249,7 @@ export class LoginComponent implements OnInit {
 			usuarioFgtPsw: ['', [Validators.required, Validators.maxLength(100)]],
 		});
 
-		this.formFgtPsw.get('recoverCdominioFgtPswodeRecPsw')?.setValue('');	
+		this.formFgtPsw.get('dominioFgtPsw')?.setValue('');	
 		this.formFgtPsw.get('usuarioFgtPsw')?.setValue('');	
 	}
 
@@ -605,7 +605,7 @@ export class LoginComponent implements OnInit {
 	public getNewCode(): void {
 		this.isLoadingGetNewCode = true;
 
-		this._authService.getAuthentication(this.dominioFgtPsw).subscribe({
+		this._authService.getAuthentication(this._authStorageService.dominio).subscribe({
 			next: response => {
 				this._subscription = this.countdown$.subscribe(secondsLeft => {
 					this.secondsLeft = secondsLeft;

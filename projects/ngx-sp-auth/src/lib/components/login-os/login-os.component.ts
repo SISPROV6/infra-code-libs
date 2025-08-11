@@ -124,8 +124,6 @@ export class LoginOSComponent implements OnInit, OnDestroy {
 
           status = (!currDominio || !currUsuario) ? "none" : "updated";
 
-          console.log(this._loginOSModel!.serialV6);
-          
           this._authService.loginOS(this._parmsLogin, this._loginOSModel!.serialV6).subscribe({
             next: () => {
               if (status === "none") {
