@@ -14,7 +14,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "deploy": "cd deploy/ && npm i && node index.js",
-    "test:ngx-sp-auth:sonar": "ng test ngx-sp-auth --watch=false --code-coverage --reporters=junit --browsers=ChromeHeadless",
+    "test:ngx-sp-auth:sonar": "ng test ngx-sp-auth --watch=false --code-coverage --browsers=ChromeHeadless",
     "test:ngx-sp-infra:sonar": "ng test ngx-sp-infra --watch=false --code-coverage --reporters=junit --browsers=ChromeHeadless"
   },
   "files": [

@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-notif-submenu',
-  templateUrl: './notif-submenu.component.html',
-  styleUrls: ['./notif-submenu.component.scss'],
+    selector: 'app-notif-submenu',
+    templateUrl: './notif-submenu.component.html',
+    styleUrls: ['./notif-submenu.component.scss'],
+    imports: []
 })
 export class NotifSubmenuComponent implements OnInit {
 
-  constructor() { }
+constructor() { }
 
-  ngOnInit(): void {
-
-  }
+ngOnInit(): void {
+    
+}
 }

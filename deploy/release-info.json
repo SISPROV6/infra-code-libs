@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-infra",
-  "version": "5.13.0",
-  "tag": "infra-v5.13.0",
-  "notes": "Liberação da versão latest",
-  "timestamp": "2025-08-08T17:21:04.893Z"
+  "project": "ngx-sp-auth",
+  "version": "3.0.0",
+  "tag": "auth-v3.0.0",
+  "notes": "Remoção do Auth dos projetos Angular e liberação da primeira versão oficial",
+  "timestamp": "2025-08-11T13:21:20.288Z"
 }

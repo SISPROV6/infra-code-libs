@@ -1,13 +1,11 @@
-import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EnvironmentService } from './../environments/environments.service';
+import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
 
 import { Observable, from, lastValueFrom } from 'rxjs';
-//import { environment } from '../environments/environments';
 
-import { CheckUrlAndMethodService } from 'ngx-sp-infra';
 import { AuthStorageService } from '../storage/auth-storage.service';
-
+import { CheckUrlAndMethodService } from 'ngx-sp-infra';
+import { EnvironmentService } from './../environments/environments.service';
 /**
  * \brief Intercepta uma chamada HTTP para inserir o usuário logado no header em conjunto
  *        com o login para uso da API.
@@ -21,8 +19,8 @@ export class AuthAplicInterceptor implements HttpInterceptor {
 
   constructor(
     private authCheckService: CheckUrlAndMethodService,
-    private _environmentService: EnvironmentService,
-    private token: AuthStorageService
+    private token: AuthStorageService,
+    private _environmentService: EnvironmentService
   ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

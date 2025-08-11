@@ -1,5 +1,7 @@
+import { Router } from "@angular/router";
 
 export interface ICustomLoginService {
+    
     // Propriedades Customizadas do Menu
     loginTitle: string;
     loginSubtitle: string;
@@ -10,7 +12,11 @@ export interface ICustomLoginService {
     loginDesenvDomain: string;
     loginDesenvUser: string;
     loginDesenvPassword: string;
-    // Métodos do Menu
+
+    // Métodos customizados do login
     authLogin(): void;
+
     authLogout(): void;
+
+    authNavigateToPage(router: Router): void;
 }

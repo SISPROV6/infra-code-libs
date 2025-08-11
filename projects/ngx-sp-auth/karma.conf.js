@@ -10,7 +10,6 @@ module.exports = function (config) {
       require('karma-chrome-launcher'),
       require('karma-jasmine-html-reporter'),
       require('karma-coverage'),
-      require('karma-junit-reporter'),
       require('@angular-devkit/build-angular/plugins/karma')
     ],
     client: {
@@ -38,7 +37,6 @@ module.exports = function (config) {
         { type: 'html' },
         { type: 'text-summary' },
         { type: 'lcov', subdir: '.', file: 'lcov.info' },
-        { type: 'cobertura', subdir: '.', file: 'coverage.xml' },
       ]
     },
     junitReporter: {
@@ -51,7 +49,7 @@ module.exports = function (config) {
       properties: {}, // key value pair of properties to add to the <properties> section of the report
       xmlVersion: null // use '1' if reporting to be per SonarQube 6.2 XML format
     },
-    reporters: [ 'progress', 'kjhtml', 'junit', 'coverage' ],
+    reporters: [ 'progress', 'kjhtml', 'coverage' ],
     browsers: [ 'Chrome', 'ChromeHeadless' ],
     singleRun: true,
     restartOnFileChange: true,
