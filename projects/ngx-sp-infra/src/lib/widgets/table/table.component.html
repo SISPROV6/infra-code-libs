@@ -31,7 +31,7 @@
                   <thead>
                      <tr>
                         <!-- Itera sobre a lista de cabeçalhos para criar as colunas -->
-                        <th *ngIf="useSelection" style="width: 40px; padding: 12px !important;" [class.fix]="scrollable" >
+                        <th scope="col" *ngIf="useSelection" style="width: 40px; padding: 12px !important;" [class.fix]="scrollable" >
                            <div class="form-check">
                               <input class="form-check-input" type="checkbox" id="tableCheckAll" [(ngModel)]="selection" (ngModelChange)="selectionChange.emit($event)">
                            </div>
@@ -39,7 +39,7 @@
 
                         @for (header of headers; track header.name) {
                            @if (header.isVisible === undefined || header.isVisible === true) {
-                              <th class="align-middle text-dark-grey {{ header.customClasses }}
+                              <th scope="col" class="align-middle text-dark-grey {{ header.customClasses }}
                                  {{ headersUseOldWidth ? header.col && header.col > 0 ? 'col-'+header.col : 'col' : header.widthClass }}
                                  {{ ($last && header.name === '') && scrollable ? 'fix' : '' }}"
                                  [style.width]="scrollable ? header.widthPixels ? header.widthPixels+'px' : 250+'px' : null"
@@ -127,7 +127,7 @@
                   <table class="table new mb-0 {{tableBorderClass}}" [class.table-hover]="hoverable" style="table-layout: fixed;" >
                      <thead>
                         <tr>
-                           <th *ngIf="useSelection" scope="col" style="width: 40px; padding: 12px;" [class.fix]="scrollable" >
+                           <th scope="col" *ngIf="useSelection" scope="col" style="width: 40px; padding: 12px;" [class.fix]="scrollable" >
                               <div class="form-check">
                                  <input class="form-check-input" type="checkbox" id="tableCheckAll" [(ngModel)]="selection" (ngModelChange)="selectionChange.emit($event)">
                               </div>
