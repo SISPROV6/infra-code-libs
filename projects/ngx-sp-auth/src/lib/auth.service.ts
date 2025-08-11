@@ -1,23 +1,27 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { LibCustomLoginService } from '../lib/custom/custom-login.service';
 
 import { Observable } from 'rxjs';
 import { map, take, tap } from 'rxjs/operators';
 
-
-import { Code2Fa } from './models/code-2fa';
-import { ForgottenPasswordForm } from './models/forgotten-password-form';
 import { Login } from './models/login';
 import { LoginForm } from './models/login-form';
-import { NovaSenhaForm } from './models/nova-senha-form';
-import { PasswordRecup } from './models/password-recup';
 import { RetLogin } from './models/ret-login';
+import { RetAutenthication } from './models/ret-autenthication';
+import { PasswordRecup } from './models/password-recup';
+import { ForgottenPasswordForm } from './models/forgotten-password-form';
+import { NovaSenhaForm } from './models/nova-senha-form';
+import { Code2Fa } from './models/code-2fa';
+import { InfraInAuthTypeId } from './models/infraInAuthTypeId';
+import { InfraIn2FaTypeId } from './models/infraIn2FaTypeId';
+import { Payload } from './models/payload';
 
 import { IpServiceService, RetError } from 'ngx-sp-infra';
 import { AuthStorageService } from './storage/auth-storage.service';
-
+import { LibCustomLoginService } from './custom/lib-custom-login.service';
+import { ProjectUtilservice } from './project/project-utils.service';
+import { EnvironmentService } from '../lib/environments/environments.service';
 @Injectable(
   { providedIn: 'root' }
 )
@@ -27,14 +31,12 @@ export class AuthService {
   // #region ==========> PROPERTIES <==========
 
   // #region PRIVATE
+  private _pendingWarning: string | null = null;
+  
+  private readonly _BASE_URL: string = ''; // SpInfra2WS
+  private readonly _AUTH_BASE_URL: string = ''; // SpInfra2AuthWS
+  private readonly _BASE_OS_URL: string = ''; // SpInfra2LoginWS
 
-  // private readonly _HOSTNAME: any = window.location.hostname.includes("localhost")
-  //   ? `http://${window.location.hostname}`
-  //   : `https://${window.location.hostname}`;
-
-  private readonly _HOSTNAME: any = "https://siscandesv6.sispro.com.br";
-
-  private readonly _BASE_URL: string = `${this._HOSTNAME}/SisproErpCloud/Service_Private/Infra/SpInfra2LoginWS/api/LoginSisproERP`; // SpInfra2WS
   private readonly _HTTP_HEADERS = new HttpHeaders().set('Content-Type', 'application/json');
   private ip: string = "undefined";
   private city: string = "undefined";
@@ -49,13 +51,18 @@ export class AuthService {
     private _httpClient: HttpClient,
     private _router: Router,
     private _authStorageService: AuthStorageService,
-    private _customLoginService: LibCustomLoginService,
     private _ipServiceService: IpServiceService,
+    private _customLoginService: LibCustomLoginService,
+    private _projectUtilservice: ProjectUtilservice,
+    private _environmentService: EnvironmentService
   ) {
-    //this._BASE_URL = !environment.production ? this._BASE_URL : `${environment.SpInfra2LoginWS}/LoginSisproERP`;
-    this._BASE_URL.includes("localhost") || this._BASE_URL.includes('127.0.0.1')
-      ? this._BASE_URL
-      : this._BASE_URL = "https://siscandesv6.sispro.com.br/SisproErpCloud/Service_Private/Infra/SpInfra2LoginWS/api/LoginSisproERP";
+    this._BASE_URL = `${ this._environmentService.SpInfra2LoginWS }/LoginSisproERP`; // SpInfra2WS
+    this._AUTH_BASE_URL = `${ this._environmentService.SpInfra2AuthWS }/Auth`; // SpInfra2AuthWS
+    this._BASE_OS_URL = `${ this._environmentService.SpInfra2LoginWS }/LoginIntegradoOS`; // SpInfra2LoginWS
+
+    this._BASE_URL = !this._environmentService.production ? this._BASE_URL : `${ this._environmentService.SpInfra2LoginWS }/LoginSisproERP`;
+    this._AUTH_BASE_URL = !this._environmentService.production ? this._AUTH_BASE_URL : `${ this._environmentService.SpInfra2AuthWS }/Auth`;
+    this._BASE_OS_URL = !this._environmentService.production ? this._BASE_OS_URL : `${ this._environmentService.SpInfra2LoginWS }/LoginIntegradoOS`;
 
     this.getParms();
   }
@@ -91,7 +98,7 @@ export class AuthService {
 
   }
 
-  private geHostName(): string {
+  private getHostName(): string {
     let product: string = window.location.pathname;
 
     let index: number = product.indexOf("/auth/login");
@@ -102,38 +109,80 @@ export class AuthService {
       product = "";
     }
 
-    return this._HOSTNAME + product;
-  }
+    return this._projectUtilservice.getHostName() + product;   }
 
   // #endregion GET
 
   // #region POST
 
+  /** Obtém o método de autenticação
+  * @param domain Domínio do login
+  * @returns Observable com os dados do método de autenticação, seja erro ou sucesso
+  */
+  public getAuthentication(domain: string): Observable<RetAutenthication> {
+    
+    const params = new HttpParams()
+      .set('domain', domain)
+  
+    const url = `${ this._AUTH_BASE_URL }/GetAuthentication`;
+
+    const headers = this._HTTP_HEADERS;
+    
+    return this._httpClient
+      .post<RetAutenthication>(url, null ,  { 'params': params, 'headers': headers })
+        .pipe(
+          take(1),
+          tap((response) => {
+
+            if (response.Error) {
+              throw Error(response.ErrorMessage);
+            }
+            
+            localStorage.setItem('configServerUser', response.User);
+            localStorage.setItem('configServerPassword', response.Password);
+
+            this._authStorageService.tenantId = response.TenantId;
+            this._authStorageService.dominio = response.Domain;
+            this._authStorageService.infraInAuthTypeId = response.InfraInAuthTypeId;
+            this._authStorageService.infraIn2FaTypeId = response.InfraIn2FaTypeId;
+            this._authStorageService.is2FaEnabled = response.Is2FaEnabled;
+            this._authStorageService.azureTenantId = response.AzureTenantId;
+            this._authStorageService.azureClientId = response.AzureClientId;
+
+            this._authStorageService.tokenPayload = {} as Payload;
+          })
+          
+        );
+  }
+
   /** Realiza o login no sistema
   * @param login Informações do formulário de login
   * @returns Observable com os dados do login realizado, seja erro ou sucesso
   */
-  public login(parmsLogin: LoginForm): Observable<RetLogin> {
-
+  public login(domain: string, user: string, password: string): Observable<RetLogin> {
+    
     let login: Login = {
-      usuario: parmsLogin.usuario,
-      senha: parmsLogin.senha
+      usuario: user,
+      senha: password
     }
 
     const params = new HttpParams()
 
-      .set('dominio', parmsLogin.dominio)
-      .set('urlServidor', this.geHostName())
+      .set('dominio', domain)
+      .set('urlServidor', this.getHostName())
       .set('ip', this.ip)
-      .set('browse', `${this._ipServiceService.getDataBrowserUser().browser} - ${this._ipServiceService.getDataBrowserUser().so}`)
-      .set('localization', `${this.city}, ${this.state}, ${this.country}`);
+      .set('browse', `${ this._ipServiceService.getDataBrowserUser().browser } - ${ this._ipServiceService.getDataBrowserUser().so }`)
+      .set('localization', `${ this.city }, ${ this.state }, ${ this.country }`)
+      .set('infraInAuthTypeId', this._authStorageService.infraInAuthTypeId)
+      .set('infraIn2FaTypeId', this._authStorageService.infraIn2FaTypeId!)
+      .set('is2FaEnabled', this._authStorageService.is2FaEnabled);
 
-    const url = `${this._BASE_URL}/ValidateLogin`;
+    const url = `${ this._BASE_URL }/ValidateLogin`;
 
     const headers = this._HTTP_HEADERS;
 
     return this._httpClient
-      .post<RetLogin>(url, login, { 'params': params, 'headers': headers })
+      .post<RetLogin>(url, login,  { 'params': params, 'headers': headers })
       .pipe(
         take(1),
         tap((response) => {
@@ -150,7 +199,7 @@ export class AuthService {
             //Inicializar password
             this._authStorageService.logout();
 
-          } else if (response.InfraInAuthTypeId == 1 && response.InfraIn2FaTypeId != null && response.InfraIn2FaTypeId == 1 && response.Is2FaEnabled) {
+          } else if (this._authStorageService.infraInAuthTypeId == InfraInAuthTypeId.Local && this._authStorageService.infraIn2FaTypeId != null && this._authStorageService.infraIn2FaTypeId == InfraIn2FaTypeId.Email && this._authStorageService.is2FaEnabled) {
             //Inicializar Autenticação Local 2 Fatores via Email
             this._authStorageService.logout();
 
@@ -161,7 +210,9 @@ export class AuthService {
             this._authStorageService.userName = response.UserName;
             this._authStorageService.dominio = response.Dominio;
             this._authStorageService.isExternalLogin = false;
-
+            this._authStorageService.infraInAuthTypeId = InfraInAuthTypeId.Local;
+            this._authStorageService.infraIn2FaTypeId = InfraIn2FaTypeId.Email;
+            this._authStorageService.is2FaEnabled = true;
           } else {
             this._authStorageService.ignoreCheckLogin = true;
 
@@ -187,13 +238,87 @@ export class AuthService {
               // Método com customizações para redirecionamento da tela inicial após login ok
               this._customLoginService.authNavigateToPage(this._router);
             } else {
-              this._router.navigate([this._authStorageService.urlRedirect]);
+               this._router.navigate([this._authStorageService.urlRedirect]);
             }
 
             this._authStorageService.urlRedirect = "/";
           }
 
         })
+      );
+  }
+
+  /** Realiza o login no sistema (Azure)
+  * @param domain Domínio de login
+  * @param user usuário de login (mail)
+  * @returns Observable com os dados do login realizado, seja erro ou sucesso
+  */
+  public loginAzure(domain: string, user: string): Observable<RetLogin> {
+  
+  let login: Login = {
+    usuario: user,
+    senha: "azure"
+  }
+
+  const params = new HttpParams()
+
+    .set('dominio', domain)
+    .set('urlServidor', this.getHostName())
+    .set('ip', this.ip)
+    .set('browse', `${ this._ipServiceService.getDataBrowserUser().browser } - ${ this._ipServiceService.getDataBrowserUser().so }`)
+    .set('localization', `${ this.city }, ${ this.state }, ${ this.country }`)
+    .set('infraInAuthTypeId', this._authStorageService.infraInAuthTypeId)
+    .set('infraIn2FaTypeId', this._authStorageService.infraIn2FaTypeId!)
+    .set('is2FaEnabled', this._authStorageService.is2FaEnabled);
+
+  const url = `${ this._BASE_URL }/ValidateLogin`;
+
+  const headers = this._HTTP_HEADERS;
+  
+  return this._httpClient
+    .post<RetLogin>(url, login,  { 'params': params, 'headers': headers })
+      .pipe(
+        take(1),
+        tap((response) => {
+
+          if (response.FeedbackMessage != "") {
+            return;
+          }
+
+          if (response.Error) {
+            throw Error(response.ErrorMessage);
+          }
+          
+          this._authStorageService.ignoreCheckLogin = true;
+        
+          this._authStorageService.isLoggedInSub.next(true);
+
+          this._authStorageService.ip = this.ip;
+          this._authStorageService.tenantId = response.TenantId;
+          this._authStorageService.infraUsuarioId = response.InfraUsuarioId;
+          this._authStorageService.infraEstabId = response.EstabelecimentoId;
+          this._authStorageService.infraEstabNome = response.NomeEstabelecimento;
+          this._authStorageService.infraEmpresaId = response.EmpresaId;
+          this._authStorageService.infraEmpresaNome = response.NomeEmpresa;
+          this._authStorageService.user = login.usuario;
+          this._authStorageService.userName = response.UserName;
+          this._authStorageService.authToken = response.Token;
+          this._authStorageService.dominio = response.Dominio;
+          this._authStorageService.isExternalLogin = false;
+      
+          // Método com customizações para inicializações do Login
+          this._customLoginService.authLogin();
+
+          if (this._authStorageService.urlRedirect == '' || this._authStorageService.urlRedirect == '/' || this._authStorageService.urlRedirect == '/auth/login') {
+            // Método com customizações para redirecionamento da tela inicial após login ok
+            this._customLoginService.authNavigateToPage(this._router);
+          } else {
+            this._router.navigate([this._authStorageService.urlRedirect]);
+          }
+
+          this._authStorageService.urlRedirect = "/";
+        })
+        
       );
   }
 
@@ -243,6 +368,83 @@ export class AuthService {
       );
   }
 
+  /** Este método é utilizado para realizar o login no sistema integrado com a OS.
+   * Originalmente pensado para utilizar apenas pelo componente de integração de login.
+   * @param parmsLogin Informações do formulário de login
+   * @param serialV6 Serial do V6
+   * 
+   * @returns Observable com os dados do login realizado, seja erro ou sucesso
+  */
+  public loginOS(parmsLogin: LoginForm, serialV6: string): Observable<RetLogin> {
+    let login: Login = {
+      usuario: parmsLogin.usuario,
+      senha: parmsLogin.senha
+    }
+
+    const params = new HttpParams()
+      .set('dominio', parmsLogin.dominio)
+      .set('urlServidor', this.getHostName())
+      .set('ip', this.ip)
+      .set('browse', `${ this._ipServiceService.getDataBrowserUser().browser } - ${ this._ipServiceService.getDataBrowserUser().so }`)
+      .set('localization', `${ this.city }, ${ this.state }, ${ this.country }`)
+      .set('infraInAuthTypeId', this._authStorageService.infraInAuthTypeId)
+      .set('infraIn2FaTypeId', this._authStorageService.infraIn2FaTypeId!)
+      .set('is2FaEnabled', this._authStorageService.is2FaEnabled)
+      .set('serialV6', serialV6);
+
+    const url = `${ this._BASE_OS_URL }/ValidateOSLogin`;
+
+    const headers = this._HTTP_HEADERS;
+    
+    return this._httpClient
+      .post<RetLogin>(url, login, { 'params': params, 'headers': headers })
+        .pipe(
+          take(1),
+          tap((response) => {if (response.FeedbackMessage != "" && response.FeedbackMessage != null) { return; }
+
+            if (response.Error) {
+              this._authStorageService.logout();
+              throw Error(response.ErrorMessage);
+            }
+            
+            if (response.InitializePassword) {
+              //Inicializar password
+              this._authStorageService.logout();
+            }
+            else if (this._authStorageService.infraInAuthTypeId == InfraInAuthTypeId.Local && this._authStorageService.infraIn2FaTypeId != null && this._authStorageService.infraIn2FaTypeId == InfraIn2FaTypeId.Email && this._authStorageService.is2FaEnabled) {
+              //Inicializar Autenticação Local 2 Fatores via Email
+              this._authStorageService.logout();
+
+              this._authStorageService.ip = this.ip;
+              this._authStorageService.tenantId = response.TenantId;
+              this._authStorageService.infraUsuarioId = response.InfraUsuarioId;
+              this._authStorageService.user = login.usuario;
+              this._authStorageService.userName = response.UserName;
+              this._authStorageService.dominio = response.Dominio;
+              this._authStorageService.isExternalLogin = false;
+            }
+            else {
+              this._authStorageService.ignoreCheckLogin = true;
+            
+              this._authStorageService.isLoggedInSub.next(true);
+  
+              this._authStorageService.ip = this.ip;
+              this._authStorageService.tenantId = response.TenantId;
+              this._authStorageService.infraUsuarioId = response.InfraUsuarioId;
+              this._authStorageService.infraEstabId = response.EstabelecimentoId;
+              this._authStorageService.infraEstabNome = response.NomeEstabelecimento;
+              this._authStorageService.infraEmpresaId = response.EmpresaId;
+              this._authStorageService.infraEmpresaNome = response.NomeEmpresa;
+              this._authStorageService.user = login.usuario;
+              this._authStorageService.userName = response.UserName;
+              this._authStorageService.authToken = response.Token;
+              this._authStorageService.dominio = response.Dominio;
+              this._authStorageService.isExternalLogin = false;
+            }
+          })
+        );
+  }
+  
   public logout() {
     this._authStorageService.logout();
 
@@ -349,7 +551,7 @@ export class AuthService {
     const params = new HttpParams()
       .set('domain', parms.dominioFgtPsw)
       .set('user', parms.usuarioFgtPsw)
-      .set('urlServidor', this.geHostName())
+      .set('urlServidor', this.getHostName())
       .set('ip', this.ip)
       .set('browse', `${this._ipServiceService.getDataBrowserUser().browser} - ${this._ipServiceService.getDataBrowserUser().so}`)
       .set('localization', `${this.city}, ${this.state}, ${this.country}`);
@@ -441,6 +643,17 @@ export class AuthService {
   // #endregion ==========> SERVICE METHODS <==========
 
   // #region ==========> UTILS <==========
+  public setPendingWarning(message: string) {
+    this._pendingWarning = message;
+  }
+
+  public consumePendingWarning(): string | null {
+    const message = this._pendingWarning;
+    this._pendingWarning = null;
+
+    return message;
+  }
 
   // #endregion ==========> UTILS <==========
+
 }

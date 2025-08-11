@@ -13,9 +13,6 @@ export class RetLogin implements IError {
   Token: string = '';
   Dominio: string = '';
   InitializePassword: boolean = false;
-  InfraInAuthTypeId: number = 0;
-  InfraIn2FaTypeId?: number | null;
-  Is2FaEnabled: boolean = false;
   FeedbackMessage: string = '';
-  statusSenha: number = 0
+  StatusSenha: number = 0
 }
