@@ -1,15 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { InfraModule } from "ngx-sp-infra";
-
-type List = {
-  coluna1: string;
-  coluna2: string;
-  coluna3: string;
-  coluna4: string;
-  coluna5: string;
-  coluna6: string;
-}
+import { InfraModule } from '../../../ngx-sp-infra/src/public-api';
 
 @Component({
   selector: 'app-root',

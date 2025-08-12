@@ -1,14 +1,14 @@
 <div class="content">
   <div class="filters">
     
-    <lib-lib-combobox-rework [items]="items" [placeholder]="'Choose'" [formControl]="control"
-                         (selectionChange)="select($event)">
+    <lib-lib-combobox-rework [items]="items" [placeholder]="'Choose'" [formControl]="control" (selectionChange)="select($event)"
+      optionLabel="label" optionValue="value" >
       <!-- custom option template: name it 'optionTemplate' when using ContentChild selector -->
-      <ng-template #optionTemplate let-item>
+      <!-- <ng-template #optionTemplate let-item>
         <div class="d-flex align-items-center">
-          <div class="flex-grow-1">Valor: {{ item.value }} {{ item.label }}</div>
+          <div class="flex-grow-1"><b>Valor:</b> {{ item.ID }} {{ item.LABEL }}</div>
         </div>
-      </ng-template>
+      </ng-template> -->
     </lib-lib-combobox-rework>
 
   </div>

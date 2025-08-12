@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, forwardRef, Input, OnDestroy, OnInit, Output, TemplateRef, TrackByFunction, ViewChild } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { BehaviorSubject, debounceTime, distinctUntilChanged, map, Subject, takeUntil } from 'rxjs';
+import { RecordCombobox } from '../../models/combobox/record-combobox';
 
 /*
 How to use
@@ -55,67 +56,105 @@ Notes
     }
   ]
 })
-export class LibComboboxReworkComponent<T = any> implements ControlValueAccessor, OnInit, AfterViewInit, OnDestroy {
+export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlValueAccessor, OnInit, AfterViewInit, OnDestroy {
 
-  // Core data
-  @Input() items: any[] | T[] = [];
-  @Input() placeholder = "Select...";
-  @Input() searchPlaceholder = "Search...";
-  @Input() noResultsText = "No results";
+  // #region ==========> PROPERTIES <==========
+
+  // #region PRIVATE
+  private _search$ = new BehaviorSubject<string>("");
+
+  private _onTouched = () => {};
+  private _onChange = (_: T | null) => {};
+  private _destroy$ = new Subject<void>();
+  // #endregion PRIVATE
+
+  // #region PUBLIC
+  @Input() items: T[] = [];
+  @Input() placeholder = "Selecione um valor...";
+  @Input() searchPlaceholder = "Pesquisar...";
+  @Input() noResultsText = "Sem resultados encontrados";
   @Input() disabled = false;
-  @Input() compareWith: (a: any, b: any) => boolean = (a, b) => a === b;
-  @Input() displayWith: (item: any) => string = (item) => (item && item.label) || String((item && item.value) ?? item ?? "");
 
-  // Template for custom option (consumed via content projection)
+  /** Property of T to display in the UI */
+  @Input() optionLabel: string = "LABEL";
+
+  /** Property of T to use as the bound value */
+  @Input() optionValue: string = "ID";
+
+  @Input() compareWith: (a: T, b: T) => boolean = (a, b) => a === b;
+  @Input() displayWith: (item: T) => string = (item) => {
+    if (!item) return '';
+    if (typeof item === 'object') {
+      const rec = item as unknown as RecordCombobox;
+      return rec.LABEL ?? String(rec.ID ?? '');
+    }
+    return String(item);
+  };
+
+  /** Template para opção customizada (consumido via content-projection) */
   @ContentChild("optionTemplate", { read: TemplateRef, static: false }) optionTemplate?: TemplateRef<any>;
 
   @ViewChild("toggleButton", { static: true }) toggleButton?: ElementRef;
 
   @Output() selectionChange = new EventEmitter<any>();
 
-  // Internal state
-  isOpen = false;
-  searchControl = new FormControl("");
-  private search$ = new BehaviorSubject<string>("");
-  filteredItems$ = this.search$.pipe(
+  // Estados internos
+  public isOpen = false;
+  public searchControl = new FormControl("");
+
+  public filteredItems$ = this._search$.pipe(
     debounceTime(150),
     distinctUntilChanged(),
     map((term) => this.filterItems(term))
   );
 
-  value: any = null;
+  public value: T | null = null;
 
-  private onTouched = () => {};
-  private onChange = (_: any) => {};
-  private destroy$ = new Subject<void>();
   trackByFn!: TrackByFunction<any>;
+  // #endregion PUBLIC
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  // #endregion ==========> PROPERTIES <==========
+
+
+  constructor(private _cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.searchControl.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((v) => this.search$.next(v ?? ""));
+    this.searchControl.valueChanges
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((v) => this._search$.next(v ?? ""));
   }
 
   ngAfterViewInit() {
     // nothing for now, placeholder for future keyboard focus handling
+    console.log(this.optionTemplate);
   }
 
-  writeValue(obj: any): void {
+  ngOnDestroy() {
+    this._destroy$.next();
+    this._destroy$.complete();
+  }
+
+
+  // #region ==========> UTILS <==========
+  public writeValue(obj: T | null): void {
     this.value = obj;
-    this.cdr.markForCheck();
-  }
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
-  }
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
-  }
-  setDisabledState?(isDisabled: boolean): void {
-    this.disabled = isDisabled;
-    this.cdr.markForCheck();
+    this._cdr.markForCheck();
   }
 
-  toggleDropdown() {
+  public registerOnChange(fn: (value: T | null) => void): void {
+    this._onChange = fn;
+  }
+
+  public registerOnTouched(fn: () => void): void {
+    this._onTouched = fn;
+  }
+
+  public setDisabledState?(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+    this._cdr.markForCheck();
+  }
+
+  public toggleDropdown() {
     if (this.disabled) return;
     this.isOpen = !this.isOpen;
     if (this.isOpen) {
@@ -129,52 +168,60 @@ export class LibComboboxReworkComponent<T = any> implements ControlValueAccessor
         inputEl?.focus();
       }, 0);
     }
-    this.cdr.markForCheck();
+    this._cdr.markForCheck();
   }
 
-  closeDropdown() {
+  public closeDropdown() {
     this.isOpen = false;
-    this.cdr.markForCheck();
+    this._cdr.markForCheck();
   }
 
-  select(item: any) {
+  public select(item: T) {
     this.value = item;
-    this.onChange(item);
-    this.onTouched();
+    this._onChange(item);
+    this._onTouched();
     this.selectionChange.emit(item);
     this.closeDropdown();
   }
 
-  private normalizeItems(): any[] {
+  private normalizeItems(): RecordCombobox[] {
     if (!Array.isArray(this.items)) return [];
-    // If items are plain values, wrap them
-    return this.items.map((it: any) => {
-      if (typeof it === "object" && ("value" in it || "label" in it)) return it as any;
-      return { value: it, label: String(it) } as any;
+    return this.items.map((it: T) => {
+      if (typeof it === 'object' && (this.optionValue in (it as object) || this.optionLabel in (it as object))) {
+        return it as unknown as RecordCombobox;
+      }
+      return {
+        ID: it as unknown as string,
+        LABEL: String(it)
+      };
     });
   }
 
-  private filterItems(term: string) {
+  private filterItems(term: string): T[] {
     const normalized = this.normalizeItems();
-    if (!term) return normalized;
+    if (!term) return this.items;
     const t = term.toLowerCase();
-    return normalized.filter((i) => (i.label ?? String(i.value)).toLowerCase().includes(t));
+    return this.items.filter((item) => {
+      const label =
+        typeof item === 'object'
+          ? (item as unknown as RecordCombobox).LABEL ?? ''
+          : String(item);
+      return label.toLowerCase().includes(t);
+    });
   }
 
-  isSelected(item: any) {
-    return this.compareWith((item && item.value) ?? item, (this.value && this.value.value) ?? this.value);
+  public isSelected(item: T) {
+    if (!item || !this.value) return false;
+    return this.compareWith(item, this.value);
   }
 
-  onBlurOutside(event: FocusEvent) {
-    // crude: close when clicked outside
+  public onBlurOutside(event: FocusEvent) {
+    // crude: fechar quando clicar fora
     const target = event.target as HTMLElement;
     if (!target.closest('.reusable-combobox')) {
       this.closeDropdown();
     }
   }
+  // #endregion ==========> UTILS <==========
 
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
 }
