@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-auth",
-  "version": "3.0.1",
-  "tag": "auth-v3.0.1",
-  "notes": "Remoção do Auth dos projetos e implementação da primeira versão oficial",
-  "timestamp": "2025-08-11T13:46:29.980Z"
+  "version": "3.0.2",
+  "tag": "auth-v3.0.2",
+  "notes": "Atualização de rotina",
+  "timestamp": "2025-08-12T19:33:12.692Z"
 }
