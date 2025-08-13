@@ -25,7 +25,11 @@ export * from './lib/components/nova-senha/nova-senhacomponent';
 export * from './lib/components/menu-lateral/model/imenu-item-structure.model';
 export * from './lib/components/menu-lateral/model/imenu.model';
 export * from './lib/components/menu-lateral/model/infrausuarioimg';
+export * from './lib/components/menu-lateral/model/ret-menu-item-structure';
+export * from './lib/components/menu-lateral/model/ret-menu-lateral';
+export * from './lib/components/menu-lateral/model/ret-menu-promise';
 export * from './lib/components/menu-lateral/model/ret-navsubmenu';
+
 export * from './lib/custom/models/icustom-login-service';
 export * from './lib/custom/models/icustom-menu-service';
 export * from './lib/custom/models/imenu-config';
