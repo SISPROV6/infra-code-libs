@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-auth",
-  "version": "3.0.3",
-  "tag": "auth-v3.0.3",
-  "notes": "Ajuste de APIs públicas",
-  "timestamp": "2025-08-13T14:44:50.118Z"
+  "version": "3.0.4",
+  "tag": "auth-v3.0.4",
+  "notes": "Ajuste APIs públicas 2",
+  "timestamp": "2025-08-13T20:50:19.114Z"
 }
