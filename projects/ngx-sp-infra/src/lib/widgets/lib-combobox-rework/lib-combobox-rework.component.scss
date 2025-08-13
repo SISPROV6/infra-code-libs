@@ -21,9 +21,6 @@
     &:hover:not(:focus) {
       background-color: #F1F5F9;
     }
-    &:focus {
-      background-color: #3767B2;
-    }
   }
   
 
@@ -32,6 +29,11 @@
     .dropdown-menu { max-height: 200px; }
   }
 }
+
+.bg-primary-subtle {
+  background-color: #D1DFE7 !important;
+}
+
 
 ::-webkit-scrollbar {
   width: 4px;

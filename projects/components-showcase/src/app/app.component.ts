@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { NgClass } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { InfraModule } from '../../../ngx-sp-infra/src/public-api';
 
@@ -6,13 +7,19 @@ import { InfraModule } from '../../../ngx-sp-infra/src/public-api';
 
 @Component({
   selector: 'app-root',
-  imports: [ InfraModule, ReactiveFormsModule ],
+  imports: [
+    InfraModule,
+    ReactiveFormsModule,
+    NgClass
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   
   control = new FormControl();
+
+  filteredItems: { name: string | number, surname: string }[] = [];
   items = [
     { name: 1, surname: 'One' },
     { name: 2, surname: 'Two' },
@@ -56,18 +63,32 @@ export class AppComponent {
     PESSOACONTRAPARTEID: new FormControl<string | null>(null)
   });
 
+  ngOnInit(): void {
+      this.filteredItems = this.items;
+  }
+
   public disableForm5(): void {
-  this.disabledInputs.set("formCombobox5", true);
-  this.formCombobox5.controls["PESSOACONTRAPARTEID"].disable();
-  
+    this.disabledInputs.set("formCombobox5", true);
+    this.formCombobox5.controls["PESSOACONTRAPARTEID"].disable();
   }
   public enableForm5(): void {
     this.disabledInputs.set("formCombobox5", false);
     this.formCombobox5.controls["PESSOACONTRAPARTEID"].enable();
   }
 
-  select(value: any) {
+  log(value: any) {
     console.log(value);
+  }
+
+  filter(search: string | null) {
+    this.log(this.filteredItems);
+
+    this.filteredItems = this.items.filter(e => {
+      return e.surname.toLowerCase().includes(search ? search.toLowerCase() : "")
+    });
+
+    this.log(search);
+    this.log(this.filteredItems);
   }
 
 }
