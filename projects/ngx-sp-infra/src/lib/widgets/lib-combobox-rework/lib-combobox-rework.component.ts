@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, forwardRef, Input, OnDestroy, OnInit, Output, TemplateRef, TrackByFunction, ViewChild } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
-import { BehaviorSubject, debounceTime, distinctUntilChanged, map, Subject, takeUntil } from 'rxjs';
+import { BehaviorSubject, debounceTime, distinctUntilChanged, map, Observable, Subject, takeUntil } from 'rxjs';
 import { RecordCombobox } from '../../models/combobox/record-combobox';
+import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 
 /*
 How to use
@@ -44,8 +45,12 @@ Notes
 - Extensibility: hooks are in place to add virtual scroll, multi-select, async loading, or keyboard navigation. Search/filter is implemented via an internal FormControl with a short debounce.
 */
 @Component({
-  selector: 'lib-lib-combobox-rework',
-  imports: [ CommonModule, ReactiveFormsModule ],
+  selector: 'lib-combobox-rework',
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    LibIconsComponent
+  ],
   templateUrl: './lib-combobox-rework.component.html',
   styleUrl: './lib-combobox-rework.component.scss',
   providers: [
@@ -65,34 +70,38 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
 
   private _onTouched = () => {};
   private _onChange = (_: T | null) => {};
+
   private _destroy$ = new Subject<void>();
   // #endregion PRIVATE
 
   // #region PUBLIC
-  @Input() items: T[] = [];
-  @Input() placeholder = "Selecione um valor...";
-  @Input() searchPlaceholder = "Pesquisar...";
-  @Input() noResultsText = "Sem resultados encontrados";
+  @Input() list: T[] = [];
+  @Input() placeholder = "Selecione uma opção...";
+  @Input() searchPlaceholder = "Pesquisa...";
+  @Input() noResultsText = "Nenhum registro encontrado com esta pesquisa...";
   @Input() disabled = false;
+  @Input() multiple = false;
 
   /** Property of T to display in the UI */
-  @Input() optionLabel: string = "LABEL";
+  @Input() customLabel: string = "LABEL";
 
   /** Property of T to use as the bound value */
-  @Input() optionValue: string = "ID";
+  @Input() customValue: string = "ID";
 
-  @Input() compareWith: (a: T, b: T) => boolean = (a, b) => a === b;
-  @Input() displayWith: (item: T) => string = (item) => {
+  public compareWith: (a: T, b: T) => boolean = (a, b) => a === b;
+  public displayWith: (item: T) => string = (item) => {
     if (!item) return '';
     if (typeof item === 'object') {
-      const rec = item as unknown as RecordCombobox;
-      return rec.LABEL ?? String(rec.ID ?? '');
+      const rec = item as unknown as any;
+      return rec[this.customLabel] ?? String(rec[this.customValue] ?? '');
     }
     return String(item);
   };
 
   /** Template para opção customizada (consumido via content-projection) */
   @ContentChild("optionTemplate", { read: TemplateRef, static: false }) optionTemplate?: TemplateRef<any>;
+  @ContentChild("leftButtonTemplate", { read: TemplateRef, static: false }) leftButtonTemplate?: TemplateRef<any>;
+  @ContentChild("rightButtonTemplate", { read: TemplateRef, static: false }) rightButtonTemplate?: TemplateRef<any>;
 
   @ViewChild("toggleButton", { static: true }) toggleButton?: ElementRef;
 
@@ -102,7 +111,7 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   public isOpen = false;
   public searchControl = new FormControl("");
 
-  public filteredItems$ = this._search$.pipe(
+  public filteredItems$: Observable<T[]> = this._search$.pipe(
     debounceTime(150),
     distinctUntilChanged(),
     map((term) => this.filterItems(term))
@@ -110,7 +119,7 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
 
   public value: T | null = null;
 
-  trackByFn!: TrackByFunction<any>;
+  trackByFn!: TrackByFunction<T | any>;
   // #endregion PUBLIC
 
   // #endregion ==========> PROPERTIES <==========
@@ -138,6 +147,8 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   // #region ==========> UTILS <==========
   public writeValue(obj: T | null): void {
     this.value = obj;
+    this._onTouched();
+    this.selectionChange.emit(obj);
     this._cdr.markForCheck();
   }
 
@@ -156,27 +167,26 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
 
   public toggleDropdown() {
     if (this.disabled) return;
+
     this.isOpen = !this.isOpen;
+
     if (this.isOpen) {
-      // reset search when opening
       this.searchControl.setValue("", { emitEvent: true });
       setTimeout(() => {
-        // focus search input if present
-        const inputEl: HTMLInputElement | null = document.querySelector(
-          '.reusable-combobox .dropdown-search input'
-        );
+        const inputEl: HTMLInputElement | null = document.querySelector('.reusable-combobox .dropdown-search input');
         inputEl?.focus();
       }, 0);
     }
+
     this._cdr.markForCheck();
   }
 
-  public closeDropdown() {
+  public closeDropdown(): void {
     this.isOpen = false;
     this._cdr.markForCheck();
   }
 
-  public select(item: T) {
+  public select(item: T): void {
     this.value = item;
     this._onChange(item);
     this._onTouched();
@@ -184,24 +194,11 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
     this.closeDropdown();
   }
 
-  private normalizeItems(): RecordCombobox[] {
-    if (!Array.isArray(this.items)) return [];
-    return this.items.map((it: T) => {
-      if (typeof it === 'object' && (this.optionValue in (it as object) || this.optionLabel in (it as object))) {
-        return it as unknown as RecordCombobox;
-      }
-      return {
-        ID: it as unknown as string,
-        LABEL: String(it)
-      };
-    });
-  }
-
   private filterItems(term: string): T[] {
-    const normalized = this.normalizeItems();
-    if (!term) return this.items;
+    if (!term) return this.list;
+    
     const t = term.toLowerCase();
-    return this.items.filter((item) => {
+    return this.list.filter((item) => {
       const label =
         typeof item === 'object'
           ? (item as unknown as RecordCombobox).LABEL ?? ''
@@ -216,8 +213,11 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   }
 
   public onBlurOutside(event: FocusEvent) {
-    // crude: fechar quando clicar fora
     const target = event.target as HTMLElement;
+
+    console.log(event);
+    console.log(target);
+
     if (!target.closest('.reusable-combobox')) {
       this.closeDropdown();
     }

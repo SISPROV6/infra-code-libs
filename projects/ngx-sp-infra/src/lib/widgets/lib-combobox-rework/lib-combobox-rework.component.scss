@@ -1,5 +1,7 @@
 .reusable-combobox {
   position: relative;
+  display: flex;
+  flex-wrap: nowrap;
   
   .dropdown-toggle {
     justify-content: space-between;
@@ -13,10 +15,30 @@
   
   .dropdown-item {
     cursor: pointer;
+    border-radius: 6px;
+    transition: all .3s ease;
+
+    &:hover:not(:focus) {
+      background-color: #F1F5F9;
+    }
+    &:focus {
+      background-color: #3767B2;
+    }
   }
   
+
   // small customization hooks
   &.compact {
     .dropdown-menu { max-height: 200px; }
   }
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #BBBBBB;
+  border-radius: 16px;
 }

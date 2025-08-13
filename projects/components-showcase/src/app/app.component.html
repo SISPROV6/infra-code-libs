@@ -1,15 +1,43 @@
 <div class="content">
   <div class="filters">
     
-    <lib-lib-combobox-rework [items]="items" [placeholder]="'Choose'" [formControl]="control" (selectionChange)="select($event)"
-      optionLabel="label" optionValue="value" >
-      <!-- custom option template: name it 'optionTemplate' when using ContentChild selector -->
-      <!-- <ng-template #optionTemplate let-item>
-        <div class="d-flex align-items-center">
-          <div class="flex-grow-1"><b>Valor:</b> {{ item.ID }} {{ item.LABEL }}</div>
-        </div>
-      </ng-template> -->
-    </lib-lib-combobox-rework>
+    <div class="row">
+      <div class="col">
+        <label class="form-label" libRequired >Opções selecionadas</label>
+        <lib-combobox-rework [list]="items" [formControl]="control" (selectionChange)="select($event)" customLabel="surname" customValue="name" >
+          <ng-template #optionTemplate let-item>
+            <div class="d-flex align-items-center">
+              <div class="flex-grow-1"><b>Valor:</b> {{ item.name }} {{ item.surname }}</div>
+            </div>
+          </ng-template>
+
+
+          <ng-template #leftButtonTemplate >
+            <button type="button" class="btn btn-primary">LEFT</button>
+          </ng-template>
+
+          <ng-template #rightButtonTemplate >
+            <button type="button" class="btn btn-primary">RIGHT</button>
+          </ng-template>
+        </lib-combobox-rework>
+
+        <!-- <lib-error-message customMessage="O campo está inválido"></lib-error-message> -->
+      </div>
+
+      <div class="col">
+        <lib-combobox labelText="Parte" [list]="combobox" [control]="formCombobox5.controls['PESSOAPARTEID']" [disabled]="disabledInputs.get('formCombobox5')" />
+
+        <!-- <lib-error-message customMessage="O campo está inválido"></lib-error-message> -->
+      </div>
+
+      <div class="col">
+        <label class="form-label" libRequired >Opções selecionadas</label>
+        <input type="text" class="form-control" >
+
+        <!-- <lib-error-message customMessage="O campo está inválido"></lib-error-message> -->
+      </div>
+    </div>
+
 
   </div>
 </div>

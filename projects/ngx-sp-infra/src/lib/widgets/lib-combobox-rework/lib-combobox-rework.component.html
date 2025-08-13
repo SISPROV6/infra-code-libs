@@ -1,36 +1,51 @@
-<div class="reusable-combobox dropdown w-100" [class.show]="isOpen" (focusout)="onBlurOutside($event)">
-  <button #toggleButton class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center w-100" type="button"
-    [attr.aria-expanded]="isOpen" [attr.aria-haspopup]="true" [attr.aria-label]="placeholder" [disabled]="disabled"
-    (click)="toggleDropdown()" >
-    <span class="flex-grow-1 text-start">{{ value ? (displayWith(value) ) : placeholder }}</span>
-  </button>
+<div class="reusable-combobox input-group " [class.show]="isOpen" (focusout)="onBlurOutside($event)" >
+  @if (leftButtonTemplate) { <ng-container *ngTemplateOutlet="leftButtonTemplate"></ng-container> }
 
-  <div class="dropdown-menu p-2 w-100" [class.show]="isOpen" style="max-height: 320px; overflow: auto;">
-    <div class="dropdown-search px-2 mb-2">
-      <input class="form-control form-control-sm" type="search" [placeholder]="searchPlaceholder" [formControl]="searchControl" aria-label="Search options" />
-    </div>
+  <div class="dropdown w-100">
+    <input #toggleButton class="dropdown-toggle form-select d-flex align-items-center text-start w-100" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside"
+      [attr.aria-expanded]="isOpen" [attr.aria-haspopup]="true" [attr.aria-label]="placeholder" [disabled]="disabled"
+      (click)="toggleDropdown()" [value]="value ? (displayWith(value) ) : placeholder" readonly 
+      [ngClass]="{
+        'rounded-start-0': leftButtonTemplate,
+        'rounded-end-0': rightButtonTemplate,
+      }" >
 
-    <ng-container *ngIf="(filteredItems$ | async) as items">
-      <div *ngIf="items.length === 0" class="px-2 py-2 text-muted small">{{ noResultsText }}</div>
+    <div class="dropdown-menu p-2 w-100" [class.show]="isOpen" style="max-height: 320px; overflow: auto;">
+      <div class="dropdown-search input-group mb-2">
+        <input class="form-control form-control-sm" type="search" [placeholder]="searchPlaceholder" [formControl]="searchControl" aria-label="Pesquisar opções" aria-describedby="button-addon2" />
+        <button class="btn btn-sm btn-primary" type="button" id="button-addon2"> <lib-icon iconName="lupa" iconSize="medium-small" /> </button>
+      </div>
 
-      <button *ngFor="let item of items; trackBy: trackByFn" class="dropdown-item d-flex align-items-center" type="button"
-        (click)="select(item)" [attr.aria-selected]="isSelected(item)" >
+      <ng-container *ngIf="(filteredItems$ | async) as items">
+        @if (items.length === 0) { <div class="py-2 px-3 text-muted small">{{ noResultsText }}</div> }
 
-        <ng-container *ngIf="optionTemplate; else defaultOption">
-          <ng-container *ngTemplateOutlet="optionTemplate; context: { $implicit: item }"></ng-container>
-        </ng-container>
+        @if (value !== '' && value !== null) {
+          <button type="button" class="dropdown-item d-flex align-items-center" (click)="writeValue(null)">
+            <span class="fw-bold">Limpar opção selecionada</span>
+          </button>
+        }
 
-        <ng-template #defaultOption>
-          <div class="w-100">
-            <div class="d-flex justify-content-between">
-              <div>{{ (item[optionLabel] ?? item[optionValue]) }}</div>
-              <small class="text-muted" *ngIf="isSelected(item)">✓</small>
+        <button *ngFor="let item of items; trackBy: trackByFn" class="dropdown-item d-flex align-items-center" type="button"
+          (click)="select(item)" [attr.aria-selected]="isSelected(item)" >
+
+          <ng-container *ngIf="optionTemplate; else defaultOption">
+            <ng-container *ngTemplateOutlet="optionTemplate; context: { $implicit: item }"></ng-container>
+          </ng-container>
+
+          <ng-template #defaultOption>
+            <div class="w-100">
+              <div class="d-flex justify-content-between">
+                <div>{{ (item[customLabel] ?? item[customValue]) }}</div>
+                <small class="text-muted" *ngIf="isSelected(item)">✓</small>
+              </div>
             </div>
-          </div>
-        </ng-template>
+          </ng-template>
 
-      </button>
+        </button>
 
-    </ng-container>
+      </ng-container>
+    </div>
   </div>
+
+  @if (rightButtonTemplate) { <ng-container *ngTemplateOutlet="rightButtonTemplate"></ng-container> }
 </div>
