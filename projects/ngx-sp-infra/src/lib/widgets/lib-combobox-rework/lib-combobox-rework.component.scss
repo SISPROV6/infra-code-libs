@@ -1,0 +1,46 @@
+.reusable-combobox {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  
+  .dropdown-toggle {
+    justify-content: space-between;
+  }
+
+  .dropdown-menu {
+    width: 100%;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    border-radius: .5rem;
+  }
+  
+  .dropdown-item {
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all .3s ease;
+
+    &:hover:not(:focus) {
+      background-color: #F1F5F9;
+    }
+  }
+  
+
+  // small customization hooks
+  &.compact {
+    .dropdown-menu { max-height: 200px; }
+  }
+}
+
+.bg-primary-subtle {
+  background-color: #D1DFE7 !important;
+}
+
+
+::-webkit-scrollbar {
+  width: 4px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #BBBBBB;
+  border-radius: 16px;
+}

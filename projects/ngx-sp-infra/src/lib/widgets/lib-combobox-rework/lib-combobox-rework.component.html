@@ -1,1 +1,59 @@
-<p>lib-combobox-rework works!</p>
+<div class="reusable-combobox input-group " [class.show]="isOpen" (focusout)="onBlurOutside($event)" >
+  @if (leftButtonTemplate) { <ng-container *ngTemplateOutlet="leftButtonTemplate"></ng-container> }
+
+  <div class="dropdown w-100">
+    <button #toggleButton class="form-select d-flex align-items-center text-start" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside"
+      [attr.aria-expanded]="isOpen" [attr.aria-haspopup]="true" [attr.aria-label]="placeholder" [disabled]="disabled"
+      (click)="toggleDropdown()" readonly 
+      [ngClass]="{
+        'rounded-start-0': leftButtonTemplate,
+        'rounded-end-0': rightButtonTemplate,
+      }" >
+        <span libTextTruncate="100">{{ displayValue() }}</span>
+      </button>
+
+    <div class="dropdown-menu p-2 w-100" [class.show]="isOpen" style="max-height: 320px; overflow-y: auto;">
+      <div class="dropdown-search input-group mb-2">
+        <input class="form-control form-control-sm" type="search" [placeholder]="searchPlaceholder" [formControl]="searchControl" aria-label="Pesquisar opções" (keyup.enter)="filterButtonClick.emit(searchControl.value)" />
+        <button class="btn btn-sm btn-primary" type="button" (click)="filterButtonClick.emit(searchControl.value)"> <lib-icon iconName="lupa" iconSize="medium-small" /> </button>
+      </div>
+
+      @if (multiple && selectedValues?.length) {
+        <div class="d-flex flex-row gap-2 flex-wrap my-2">
+          <span *ngFor="let value of selectedValues; trackBy: trackByFn" class="px-3 badge rounded-pill text-primary bg-primary-subtle">
+            {{ value[customLabel] }} <lib-icon class="glb-cursor-pointer" iconName="fechar" iconSize="small" (click)="select(value)" />
+          </span>
+        </div>
+      }
+
+      <!-- Se utilizar o filtro interno utiliza a propriedade de lista filteredItems$, caso contrário usa a própria list pois ela será filtrada pelo componente pai -->
+      <ng-container *ngIf="(innerFilter ? (filteredItems$ | async) : list) as items">
+        @if (items.length === 0) { <div class="py-2 px-3 text-muted small">{{ noResultsText }}</div> }
+
+        @if (value !== '' && value !== null) {
+          <button type="button" class="dropdown-item d-flex align-items-center" (click)="writeValue(null)">
+            <span class="fw-bold">Limpar {{ multiple ? 'opções selecionadas' : 'opção selecionada' }}</span>
+          </button>
+        }
+
+        <button *ngFor="let item of items; trackBy: trackByFn" class="dropdown-item d-flex align-items-center" type="button"
+          (click)="select(item)" [attr.aria-selected]="isSelected(item)" >
+
+          @if (optionTemplate) {
+            <ng-container *ngTemplateOutlet="optionTemplate; context: { $implicit: item, selected: isSelected(item) }"></ng-container>
+          }
+          @else {
+            <div class="w-100 original">
+              <div class="d-flex justify-content-between">
+                <div>{{ (item[customLabel] ?? item[customValue]) }}</div>
+                <small class="text-muted" *ngIf="isSelected(item)">✓</small>
+              </div>
+            </div>
+          }
+        </button>
+      </ng-container>
+    </div>
+  </div>
+
+  @if (rightButtonTemplate) { <ng-container *ngTemplateOutlet="rightButtonTemplate"></ng-container> }
+</div>
