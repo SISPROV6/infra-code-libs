@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-infra",
-  "version": "5.13.1",
-  "tag": "infra-v5.13.1",
-  "notes": "Liberação inicial do novo componente de combobox <lib-combobox-rework> em sua versão inicial",
-  "timestamp": "2025-08-13T19:55:35.206Z"
+  "project": "ngx-sp-auth",
+  "version": "3.0.4",
+  "tag": "auth-v3.0.4",
+  "notes": "Ajuste APIs públicas 2",
+  "timestamp": "2025-08-13T20:50:19.114Z"
 }
