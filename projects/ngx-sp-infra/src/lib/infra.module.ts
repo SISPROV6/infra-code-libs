@@ -10,10 +10,9 @@ import { NgxCurrencyDirective } from 'ngx-currency';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import { NgxPaginationModule } from 'ngx-pagination';
 
-import { FooterComponent } from './components/footer/footer.component';
-import { LibAuthenticationConfigComponent } from './components/lib-authentication-config/components/lib-authentication-config.component';
-import { LibConfigSenhaComponent } from './components/lib-config-senha/lib-config-senha.component';
-import { PageNotAuthorizedComponent } from './components/page-not-authorized/page-not-authorized.component';
+import { LibAuthenticationConfigComponent } from './views/lib-authentication-config/components/lib-authentication-config.component';
+import { LibConfigSenhaComponent } from './views/lib-config-senha/lib-config-senha.component';
+import { PageNotAuthorizedComponent } from './views/page-not-authorized/page-not-authorized.component';
 
 import { ClickOutsideDirective } from './directives/click-outside.directive';
 import { CopyClipboardDirective } from './directives/copy-clipboard.directive';
@@ -58,6 +57,7 @@ import { EstabelecimentoAbasComponent } from './widgets/estabelecimento-abas/est
 import { FieldContadorMessageComponent } from './widgets/field-contador-message/field-contador-message.component';
 import { FieldControlErrorComponent } from './widgets/field-control-error/field-control-error.component';
 import { FieldErrorMessageComponent } from './widgets/field-error-message/field-error-message.component';
+import { FooterComponent } from './widgets/footer/footer.component';
 import { GenericModalComponent } from './widgets/generic-modal/generic-modal.component';
 import { GrupoContabilAbasComponent } from './widgets/grupo-contabil-abas/grupo-contabil-abas.component';
 import { InputTrimComponent } from './widgets/input-trim/input-trim.component';
@@ -104,7 +104,7 @@ import { UsuarioAbasComponent } from './widgets/usuario-abas/usuario-abas.compon
         NgxPaginationModule,
         ReactiveFormsModule,
         RouterModule,
-
+        
         PageNotAuthorizedComponent,
         LoadingComponent,
         FieldControlErrorComponent,
