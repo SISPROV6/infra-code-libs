@@ -28,6 +28,7 @@ import { DynamicInputComponent } from '../widgets/dynamic-input/dynamic-input.co
 import { FieldContadorMessageComponent } from '../widgets/field-contador-message/field-contador-message.component';
 import { FieldControlErrorComponent } from '../widgets/field-control-error/field-control-error.component';
 import { FieldErrorMessageComponent } from '../widgets/field-error-message/field-error-message.component';
+import { FooterComponent } from '../widgets/footer/footer.component';
 import { GenericModalComponent } from '../widgets/generic-modal/generic-modal.component';
 import { ImageCropperComponent } from '../widgets/imageCropper/image-cropper/image-cropper.component';
 import { InputTrimComponent } from '../widgets/input-trim/input-trim.component';
@@ -116,6 +117,7 @@ import { TreeComponent } from '../widgets/tree/tree.component';
     SubMenuComponent,
     ImageCropperComponent,
     SubMenuCardComponent,
+    FooterComponent,
   ],
   exports: [
     AlertComponent,
@@ -163,6 +165,7 @@ import { TreeComponent } from '../widgets/tree/tree.component';
     SubMenuComponent,
     ImageCropperComponent,
     SubMenuCardComponent,
+    FooterComponent
   ]
 })
 export class LibWidgetsModule { }
