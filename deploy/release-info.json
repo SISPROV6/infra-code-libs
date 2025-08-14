@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-auth",
-  "version": "3.0.4",
-  "tag": "auth-v3.0.4",
-  "notes": "Ajuste APIs públicas 2",
-  "timestamp": "2025-08-13T20:50:19.114Z"
+  "project": "ngx-sp-infra",
+  "version": "5.13.2",
+  "tag": "infra-v5.13.2",
+  "notes": "Liberação de nova versão de teste (contém ajuste no z-index do lib-header)",
+  "timestamp": "2025-08-14T15:12:35.514Z"
 }
