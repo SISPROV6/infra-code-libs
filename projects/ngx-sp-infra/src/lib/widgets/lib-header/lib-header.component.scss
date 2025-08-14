@@ -3,6 +3,10 @@
 
 
 // #region CONTENT
+.zindex-sticky{
+  z-index: 1000;
+}
+
 .breadcrumb {
   font-size: .75rem !important;
   color: vars.$root-sp-dark-text-disabled !important;

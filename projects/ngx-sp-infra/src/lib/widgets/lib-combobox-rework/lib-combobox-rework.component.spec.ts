@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RecordCombobox } from './../../models/combobox/record-combobox';
 
 import { LibComboboxReworkComponent } from './lib-combobox-rework.component';
 
@@ -12,7 +13,7 @@ describe('LibComboboxReworkComponent', () => {
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LibComboboxReworkComponent);
+    fixture = TestBed.createComponent(LibComboboxReworkComponent<RecordCombobox>);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
