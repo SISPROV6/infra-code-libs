@@ -1,21 +1,24 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output, TemplateRef } from '@angular/core';
 
 import { BsModalService } from 'ngx-bootstrap/modal';
+import { NgxPaginationModule } from 'ngx-pagination';
 
-import { InfraEstabelecimentoFavoritoDefault, MessageService, InfraModule } from 'ngx-sp-infra';
-//import { ProjectUtilservice } from 'src/app/project/utils/project-utils.service';
+import { InfraEstabelecimentoFavoritoDefault, InfraModule, MessageService } from 'ngx-sp-infra';
 import { AuthStorageService } from '../../../../storage/auth-storage.service';
-
-import { LibCustomMenuService } from '../../../../custom/custom-menu.service';
+import { ProjectUtilservice } from '../../../../project/project-utils.service';
+import { LibCustomMenuService } from '../../../../custom/lib-custom-menu.service';
 import { MenuServicesService } from '../../menu-services.service';
-import { NgxPaginationModule } from "ngx-pagination";
-
 
 @Component({
-  selector: 'selecao-estabelecimentos-modal',
-  templateUrl: './selecao-estabelecimentos-modal.component.html',
-  styleUrls: ['./selecao-estabelecimentos-modal.component.scss'],
-  imports: [InfraModule, NgxPaginationModule],
+    selector: 'selecao-estabelecimentos-modal',
+    templateUrl: './selecao-estabelecimentos-modal.component.html',
+    styleUrls: ['./selecao-estabelecimentos-modal.component.scss'],
+    imports: [
+        NgxPaginationModule,
+        InfraModule,
+        CommonModule
+    ]
 })
 export class SelecaoEstabelecimentosModalComponent implements OnInit {
   constructor(
@@ -24,7 +27,7 @@ export class SelecaoEstabelecimentosModalComponent implements OnInit {
     private _customMenuService: LibCustomMenuService,
     private _menuServicesService: MenuServicesService,
     private _messageService: MessageService,
-    //private _projectUtilService: ProjectUtilservice
+    private _projectUtilService: ProjectUtilservice
   ) { }
 
   ngOnInit(): void {
@@ -41,7 +44,7 @@ export class SelecaoEstabelecimentosModalComponent implements OnInit {
   @Output() public onClose = new EventEmitter<any>();
   @Output() public onSelected = new EventEmitter<any>();
 
-  public $estabelecimentosList: InfraEstabelecimentoFavoritoDefault[] = [];
+  public $estabelecimentosList!: InfraEstabelecimentoFavoritoDefault[];
 
   public page: number = 1;
   public itemsPerPage: number = 10;
@@ -88,9 +91,7 @@ export class SelecaoEstabelecimentosModalComponent implements OnInit {
         }
       },
       error: error => {
-        //this._projectUtilService.showHttpError(error);
-        this._messageService.showAlertDanger(error);
-        throw new Error(error);
+        this._projectUtilService.showHttpError(error);
 
         this.$estabelecimentosList = [];
       }
@@ -120,10 +121,7 @@ export class SelecaoEstabelecimentosModalComponent implements OnInit {
           : this._messageService.showAlertSuccess('Estabelecimento padrão removido para o usuário');
       },
       error: error => {
-        //this._projectUtilService.showHttpError(error);
-        this._messageService.showAlertDanger(error);
-        throw new Error(error);
-
+        this._projectUtilService.showHttpError(error);
       }
     })
   }

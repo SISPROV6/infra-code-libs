@@ -1,7 +1,7 @@
-<div class="container-fluid">
+<div id="login" class="container-fluid">
 	<div class="row">
 		<!-- Conteúdo da DIV do background -->
-		<div class="col-md-7">
+		<div class="col-md-6 px-0">
 			<div class="background" style="background-image: linear-gradient(to bottom, rgba(10, 44, 81, 0.9), rgba(10, 44, 81, 0.9)), url({{_customLoginService.loginBackground}})">
 				<div class="text-position texto-apresentacao ps-5">
 					<h1 class="title" id="title"></h1>
@@ -10,167 +10,215 @@
 			</div>
 		</div>
 		<!-- Conteúdo da DIV de Login -->
-		<div class="col-md-5">
+		<div class="col-md-6 px-0">
 
 			<div class="div-size">
 				<div class="logotipo">
-					<img style="height: 95px;" src="{{ _customLoginService.loginLogotipo }}" alt="{{ _customLoginService.loginAltLogotipo }}" />
+					<img style="height: 95px;" src="{{ this._customLoginService.loginLogotipo }}" alt="{{ this._customLoginService.loginAltLogotipo }}" />
 				</div>
-				<form  *ngIf="!showParmsAuthentication2Fa; else Authentication2Fa" [formGroup]="form" class="form-position">
-					<div class="input-group input-group-lg form-item">
-						<span class="input-group-text" id="basic-addon1"
-							style="padding: 10px; border-radius: 4px 0px 0px 4px">
-							<img src="assets/icons/cloud.svg" alt="cloud icon" />
-						</span>
-						<input type="text" class="form-control" formControlName="dominio" id="dominio"
-							aria-label="Sizing example input" placeholder="Domínio" aria-label="Domínio"
-							aria-describedby="inputGroup-sizing-lg"
-							[class.is-invalid]="FormUtils.isInvalidField(form.get('dominio'))">
-						<app-field-error-message [control]="form.get('dominio')" label="Domínio"></app-field-error-message>
-					</div>
-					<div class="input-group input-group-lg form-item">
-						<span class="input-group-text" id="inputGroup-sizing-lg"
-							style="padding: 10px; border-radius: 4px 0px 0px 4px">
-							<img src="assets/icons/at-sign.svg" alt="at-sign icon" />
-						</span>
-						<input type="text" class="form-control" formControlName="usuario" id="usuario"
-							aria-label="Sizing example input" placeholder="Usuário" aria-label="Usuário"
-							aria-describedby="inputGroup-sizing-lg"
-							[class.is-invalid]="FormUtils.isInvalidField(form.get('usuario'))">
-						<app-field-error-message [control]="form.get('usuario')" label="Usuário"></app-field-error-message>
-					</div>
-					<div class="input-group input-group-lg form-item" style="margin-bottom: 8px;">
-						<span class="input-group-text" id="inputGroup-sizing-lg"
-							style="padding: 10px; border-radius: 4px 0px 0px 4px;">
-							<img src="assets/icons/lock.svg" alt="lock-icon" />
-						</span>
-						<input type="password" class="form-control" formControlName="senha" id="senha"
-							aria-label="Sizing example input" placeholder="Senha" aria-label="senha"
-							aria-describedby="inputGroup-sizing-lg"
-							[class.is-invalid]="FormUtils.isInvalidField(form.get('senha'))">
-						<app-field-error-message [control]="form.get('senha')" label="Senha"></app-field-error-message>
-					</div>
-					<div class="remember-password">
-					<!-- Lembrar Senha
-						<input id="checkboxLembrarSenha" type="checkbox" />
-						<label for="checkboxLembrarSenha"> Lembrar minha senha </label>
- 					-->
-					</div>
-					<button [disabled]="isLoading" (click)="getServer()" type="submit"
-						class="btn btn-primary btn-acessar btn-lg">
-						<app-loading-button [isLoading]="isLoading"></app-loading-button>
-						<span> Acessar </span>
-					</button>
-					<button type="button" (click)="openForgottenPasswordModal(forgottenPasswordModal)" class="forgotten-password">
-						<span> Esqueceu sua senha? </span>
-					</button>
-				</form>
 
-				<ng-template #Authentication2Fa>
-					<form [formGroup]="formAuthentication2Fa" class="form-position">
-						<div class="input-group input-group-lg form-item mb-3">
-							<span class="input-group-text" id="inputGroup-sizing-lg"
-								style="padding: 10px; border-radius: 4px 0px 0px 4px;">
-								<img src="assets/icons/lock.svg" alt="lock-icon" />
-							</span>
-							<input type="text" class="form-control" formControlName="code" id="code"
-								aria-label="Sizing example input" placeholder="Código de 2 fatores" aria-label="Código de 2 fatores"
-								aria-describedby="inputGroup-sizing-lg"
-								[class.is-invalid]="FormUtils.isInvalidField(formAuthentication2Fa.get('code'))">
-							<app-field-error-message [control]="formAuthentication2Fa.get('code')" label="Código de 2 fatores"></app-field-error-message>
-						</div>
+				@if (situacaoLogin !== 2) {
+					@if (!showParmsAuthentication2Fa) {
+						@switch (loginProgress) {
+							@case(1) {
+								<form [formGroup]="formDomain" class="form-position">
+									<div class="col mb-3">
+										<div class="input-group input-group">
+											<span class="input-group-text" id="input-at-sign-text"><lib-icon iconName="predio" /></span>
+											<input type="text" class="form-control" placeholder="Domínio" formControlName="dominio"
+												[class.is-invalid]="FormUtils.isInvalidField(formDomain.get('dominio'))">
+										</div>
+										<app-field-error-message [control]="formDomain.get('dominio')" />
+									</div>
+
+									<button [libLoading]="isLoadingDomain" loadingText="Acessando..." class="btn btn-primary" [disabled]="isLoadingDomain" (click)="getAuthentication()">
+										ACESSAR <lib-icon iconName="login" />
+									</button>
+								</form>
+							}
+	
+							@case(2) {
+								<form [formGroup]="formLogin" class="form-position">
+									<div>
+										<div class="input-group input-group mb-3">
+											<span class="input-group-text" id="input-at-sign-text"><lib-icon iconName="usuario-quadro" /></span>
+											<input type="text" class="form-control px-3" formControlName="usuario" placeholder="Usuário"
+												[class.is-invalid]="FormUtils.isInvalidField(formLogin.get('usuario'))">
+										</div>
+										<app-field-error-message [control]="formLogin.get('usuario')" />
+									</div>
+		
+									<div>
+										<div class="input-group input-group mb-3">
+											<span class="input-group-text" id="input-lock-text"><lib-icon iconName="chave" /></span>
+											<input type="password" class="form-control px-3" formControlName="senha" placeholder="Senha"
+												[class.is-invalid]="FormUtils.isInvalidField(formLogin.get('senha'))">
+										</div>
+										<app-field-error-message [control]="formLogin.get('senha')" />
+									</div>
+
+									<div class="row">
+										<div class="col">
+											<button (click)="returnDomain()" type="button" class="btn btn-outline-secondary w-100">
+												Voltar
+											</button>
+										</div>
+
+										<div class="col">
+											<button [libLoading]="isLoadingLogin" loadingText="Acessando..." class="btn btn-primary btn-heigth-48 w-100" [disabled]="isLoadingLogin" (click)="logOn()">
+												ACESSAR <lib-icon iconName="login" />
+											</button>
+										</div>
+									</div>
+		
+									<div class="mt-3 text-center">
+										<a type="button" (click)="situacaoLogin = 2" class="fw-bold text-decoration-none text-secondary"
+											tooltip="Não se preocupe, clique aqui e informe o domínio e o usuário desejados que enviaremos um e-mail com maiores informações.">
+											Esqueceu sua senha? </a>
+									</div>
+								</form>
+							}
+						
+							@case(3) {
+								<form [formGroup]="formAzure" class="form-position formAzure">
+									<div class="w-100 mb-3">
+										<button type="button" loadingText="Acessando..." class="btn btn-primary p-2 mb-3 w-100 d-flex align-items-center justify-content-center gap-2" (click)="logOnAzure()">
+											<svg xmlns="http://www.w3.org/2000/svg" heigth="14" width="14" viewBox="0 0 23 23"><path fill="transparent" d="M0 0h23v23H0z"/><path fill="#f35325" d="M1 1h10v10H1z"/><path fill="#81bc06" d="M12 1h10v10H12z"/><path fill="#05a6f0" d="M1 12h10v10H1z"/><path fill="#ffba08" d="M12 12h10v10H12z"/></svg>
+											Microsoft
+										</button>
+										<div class="w-100 text-center text-secondary">
+											<span id="ou-text"> ou </span>
+										</div>
+									</div>
+									<div>
+										<div class="input-group input-group mb-3">
+											<span class="input-group-text" id="input-at-sign-text"><lib-icon iconName="usuario-quadro" /></span>
+											<input type="text" class="form-control px-3" formControlName="usuario" placeholder="Usuário"
+												[class.is-invalid]="FormUtils.isInvalidField(formAzure.get('usuario'))">
+										</div>
+										<app-field-error-message [control]="formAzure.get('usuario')" />
+									</div>
+			
+									<div>
+										<div class="input-group input-group mb-3">
+											<span class="input-group-text" id="input-lock-text"><lib-icon iconName="chave" /></span>
+											<input type="password" class="form-control px-3" formControlName="senha" placeholder="Senha"
+												[class.is-invalid]="FormUtils.isInvalidField(formAzure.get('senha'))">
+										</div>
+										<app-field-error-message [control]="formAzure.get('senha')" />
+									</div>
+
+									<div class="row">
+										<div class="col">
+											<button (click)="returnDomain()" type="button" class="btn btn-outline-secondary w-100">
+												<lib-icon iconName="seta-esquerda" /> VOLTAR
+											</button>
+										</div>
+
+										<div class="col">
+											<button [libLoading]="isLoadingAzure" loadingText="Acessando..." class="btn btn-primary btn-heigth-48 w-100" [disabled]="isLoadingAzure" (click)="logOnAdmin()">
+												ACESSAR <lib-icon iconName="login" />
+											</button>
+										</div>
+									</div>
+								</form>
+							}
+	
+						}
+					}
+					@else {
+						<form [formGroup]="formAuthentication2Fa" class="form-position">
+							<div>
+								<div class="input-group input-group mb-3">
+									<span class="input-group-text" id="input-at-sign-text"><img src="assets/icons/lock.svg" alt="lock-icon" /></span>
+									<input type="text" class="form-control" formControlName="code" id="code" placeholder="Código de 2 fatores"
+										[class.is-invalid]="FormUtils.isInvalidField(formAuthentication2Fa.get('code'))">
+								</div>
+								<app-field-error-message [control]="formAuthentication2Fa.get('code')" />
+							</div>
+
+							<div class="d-flex flex-row align-items-center gap-3 mb-3">
+								<button (click)="voltar()" type="button" class="btn btn-outline-secondary col"> <lib-icon iconName="seta-esquerda" /> VOLTAR </button>
+								<button [libLoading]="isLoadingSendAuthentication2Fa" [disabled]="isLoadingSendAuthentication2Fa" (click)="sendCode()" type="button" class="btn btn-primary col">
+									ACESSAR <lib-icon iconName="login" />
+								</button>
+							</div>
+
+							<div class="d-flex flex-row align-items-center justify-content-center">
+								@if (secondsLeft === 0) {
+									<button [libLoading]="isLoadingForgottenPassword" loadingText="Enviando..." [disabled]="isLoadingForgottenPassword" (click)="getNewCode()" type="button" class="btn btn-outline-primary col">
+										Enviar novo código <lib-icon iconName="aviao-papel" />
+									</button>
+								}
+								@else {
+									<span class="fw-bold text-secondary">{{ secondsLeft }} {{ secondsLeft == 1 ? 'segundo' : 'segundos' }} para obter novo código</span>
+								}
+							</div>
+						</form>	
+					}
+				}
+				@else {
+					<form [formGroup]="formFgtPsw" class="form-position">
 						<div class="row mb-3">
-							<button (click)="voltar()" type="button" class="btn btn-acessar glb-btn-outline-dark-disabled col me-1">
-								Voltar
-							</button>
-							<button [disabled]="isLoadingSendAuthentication2Fa" (click)="sendCode()" type="button" class="btn btn-acessar btn-primary col ms-1">
-								<app-loading-button [isLoading]="isLoadingSendAuthentication2Fa"></app-loading-button>
-								Acessar
-							</button>
+							<div class="col">
+								<div class="input-group input-group">
+									<span class="input-group-text" id="input-at-sign-text"><lib-icon iconName="predio" /></span>
+									<input type="text" class="form-control" id="dominioFgtPssInput" placeholder="Domínio" formControlName="dominioFgtPsw"
+										[class.is-invalid]="FormUtils.isInvalidField(formFgtPsw.get('dominioFgtPsw'))">
+								</div>
+								<app-field-error-message [control]="formFgtPsw.get('dominioFgtPsw')" />
+							</div>
 						</div>
-						<div class="row">
-							<button *ngIf="secondsLeft == 0; else newCode" 
-								[disabled]="isLoading" (click)="getNewCode()" type="button" class="btn btn-acessar btn-outline-primary col">
-								<app-loading-button [isLoading]="isLoading"></app-loading-button>
-								Enviar novo código
-							</button>
-							<ng-template #newCode>
-								<p class="text-center">{{ secondsLeft}} {{ secondsLeft == 1 ? 'segundo' : 'segundos' }} para obter novo código</p>
-							</ng-template>
+						
+						<div class="row mb-3">
+							<div class="col">
+								<div class="input-group input-group">
+									<span class="input-group-text" id="input-at-sign-text"><lib-icon iconName="usuario-quadro" /></span>
+									<input type="text" class="form-control" id="usuarioFgtPssInput" placeholder="Usuário" formControlName="usuarioFgtPsw"
+										[class.is-invalid]="FormUtils.isInvalidField(formFgtPsw.get('usuarioFgtPsw'))">
+								</div>
+								<app-field-error-message [control]="formFgtPsw.get('usuarioFgtPsw')" />
+							</div>
 						</div>
-					</form>	
-				</ng-template>
+				
+						@if(formFgtPsw.get('usuarioFgtPsw')?.value === 'admin' || formFgtPsw.get('usuarioFgtPsw')?.value === 'CRMadmin'){
+                            <p class="texto-admin">Não é possível alterar a senha do usuário 'admin'</p>
+                        }@else{
+                            <button [libLoading]="isLoadingForgottenPassword" loadingText="Enviando..." class="btn btn-primary btn-heigth-48" [disabled]="isLoadingForgottenPassword" (click)="sendForgottenPassword()">
+                                Enviar e-mail <lib-icon iconName="aviao-papel" />
+                            </button>
+                        }
+						
+						<div class="mt-3 text-center">
+							<a type="button" (click)="situacaoLogin = 0" class="fw-bold text-decoration-none text-secondary" tooltip="Retornar para o login."> <lib-icon iconName="seta-esquerda" /> Voltar para o login </a>
+						</div>
+					</form>
+				}
 				
 				<div class="footer-position">
 					<footer>
-						<span class="footer"> 
-							<a href="https://dpo.privacytools.com.br/policy-view/JmGeNlJdw/1/poli%CC%81tica-de-privacidade/pt_BR?s=1685731510066" target="_blank" class="sispro text-primary"> Política de Privacidade </a>
-							<p class="separator"> | </p>
-							<a href="https://dpo.privacytools.com.br/policy-view/Rork35NN2/2/poli%CC%81tica-de-cookies/pt_BR?s=1685731551976" target="_blank" class="sispro text-primary"> Política de Cookies </a>
-						</span>
-						<span class="footer"> Desenvolvido por 
-							<a href="https://www.sispro.com.br/" target="_blank" class="sispro text-primary"> SISPRO </a>
-						</span>
-						<span class="footer"> Serviços e Tecnologia da Informação LTDA © {{ year }} Todos os direitos reservados </span>
-							<div class="icons">
-								<a href="https://pt-br.facebook.com/SisproERP/" target="_blank">
-									<lib-icon class="text-primary" iconName="facebook" iconSize="medium-small"/>
-								</a>
-								<a href="https://www.instagram.com/accounts/login/?next=/sispro_software/" target="_blank">
-									<lib-icon class="text-primary" iconName="instagram" iconSize="medium-small"/>
-								</a>
-								<a href="https://br.linkedin.com/company/sispro" target="_blank">
-									<lib-icon class="text-primary" iconName="linkedin" iconSize="medium-small"/>
-								</a>
-							</div>
+						<div class="d-flex flex-row align-items-center justify-content-center gap-2">
+							<a href="https://dpo.privacytools.com.br/policy-view/JmGeNlJdw/1/poli%CC%81tica-de-privacidade/pt_BR?s=1685731510066" target="_blank" class="text-primary text-decoration-none fw-bold"> POLÍTICA DE PRIVACIDADE </a>
+							<span> | </span>
+							<a href="https://dpo.privacytools.com.br/policy-view/Rork35NN2/2/poli%CC%81tica-de-cookies/pt_BR?s=1685731551976" target="_blank" class="text-primary text-decoration-none fw-bold"> POLÍTICA DE COOKIES </a>
+						</div>
 
-							<div class="d-flex justify-content-center">
-								<a [href]="geturlErpConfig()" style="text-decoration: none; font-size: 12px;">
-									Configurar ERP
-								</a>
-							</div>
+						<p class="text-secondary">
+							Desenvolvido por <a href="https://www.sispro.com.br/" target="_blank" class="text-primary text-decoration-none fw-bold"> SISPRO </a> © {{ year }} Todos os direitos reservados
+						</p>
+
+						<div class="icons">
+							<a href="https://pt-br.facebook.com/SisproERP/" target="_blank"> <lib-icon class="text-primary" iconName="facebook" iconSize="medium-small"/> </a>
+							<a href="https://www.instagram.com/accounts/login/?next=/sispro_software/" target="_blank"> <lib-icon class="text-primary" iconName="instagram" iconSize="medium-small"/> </a>
+							<a href="https://br.linkedin.com/company/sispro" target="_blank"> <lib-icon class="text-primary" iconName="linkedin" iconSize="medium-small"/> </a>
+						</div>
+
+						<div class="text-center">
+							<a class="text-primary fw-bold text-decoration-none glb-font-size-12" [href]="geturlErpConfig()"> Configurar ERP </a>
+						</div>
 					</footer>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
-<!-- Template do modal de senha esquecida -->
-<ng-template #forgottenPasswordModal>
-	<form [formGroup]="formFgtPsw">
-		<div class="modal-content" style="box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.5);">
-			<div class="modal-header p-3">
-				<h4 class="modal-title"> Recuperação de senha </h4>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-					(click)="closeForgottenPasswordModal()">
-				</button>
-			</div>
-			<div class="modal-body">
-				<label for="inputDominioFgtPsw" class="input-label"> Domínio <span class="text-danger">*</span></label>
-				<input type="text" id="inputDominioFgtPsw" formControlName="dominioFgtPsw"
-					class="form-control input-text" aria-label="Sizing example input" aria-label="Domínio"
-					aria-describedby="inputGroup-sizing-lg"
-					[class.is-invalid]="FormUtils.isInvalidField(formFgtPsw.get('dominioFgtPsw'))">
-				<app-field-error-message [control]="formFgtPsw.get('dominioFgtPsw')" label="Domínio"></app-field-error-message>				
-
-				<label for="inputUsuarioFgtPsw" class="input-label"> Usuário <span class="text-danger">*</span></label>
-				<input type="text" id="inputUsuarioFgtPsw" formControlName="usuarioFgtPsw"
-					class="form-control input-text" aria-label="Sizing example input" aria-label="Usuário"
-					aria-describedby="inputGroup-sizing-lg"
-					[class.is-invalid]="FormUtils.isInvalidField(formFgtPsw.get('usuarioFgtPsw'))">
-				<app-field-error-message [control]="formFgtPsw.get('usuarioFgtPsw')" label="Usuário"></app-field-error-message>				
-		
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn glb-btn-dark-disabled modal-button" (click)="closeForgottenPasswordModal()">
-					<span> Cancelar </span>
-				</button>
-				<button type="button" class="btn btn-primary modal-button" (click)="sendForgottenPassword();">
-					<span> Continuar </span>
-				</button>
-			</div>
-
-		</div>
-	</form>
-</ng-template>

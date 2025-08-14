@@ -1,5 +1,5 @@
 <!-- #region MAIN CONTENT -->
-<div class="main col-12">
+<div id="menu" class="main col-12">
 
   <div style="height: 100vh; z-index: 3;" class="sidebar-control position-relative d-flex flex-row" 
     (clickOutside)="closeMenu == true ? onClickedOutside($event, submenu_ref) : closeMenu = true">
@@ -23,7 +23,7 @@
 
                 <ng-container>
                   <img *ngIf="_customMenuService.moduleImg != ''; else moduleSVG" [src]="_customMenuService.moduleImg" alt="">
-                  <span class="ps-2"> {{ _customMenuService.moduleName }} <lib-icon iconName="seta-direita" iconColor="white" /> </span>
+                  <span class="ps-2"> {{ this._customMenuService.moduleName }} <lib-icon iconName="seta-direita" iconColor="white" /> </span>
 
                   <ng-template #moduleSVG>
                     <lib-icon iconColor="white" [iconName]="_customMenuService.moduleSvg"/>
@@ -126,17 +126,15 @@
       <!-- #region FOOTER -->
       <div class="footer-menu" (mouseenter)="showBalloon = true" (mouseleave)="showBalloon = false"
         [popover]="popoverContent" placement="right bottom" [outsideClick]="true" containerClass="width: 200px" >
-        <div class="footer-components ps-1 pt-2" [class.open]="showBalloon">
-          <button type="button" class="btn btn-primary">
-            <img *ngIf="footerUserImgSrc; else noUserImg" class="photo-profile ms-1"
-              [src]="['data:image/jpeg;base64,' + footerUserImgSrc]" alt="foto-perfil">
-            <ng-template #noUserImg>
-              <lib-icon iconName="contraparte" iconColor="white"/>
-            </ng-template>
-            <span class="glb-text-width-120 w-auto fw-bold text-start text-truncate ms-1 me-1">
-              {{ footerUserName }}
-            </span>
-          </button>
+        <div class="footer-components d-flex flex-row align-items-center gap-2 py-2 px-1 justify-content-center gap-2" [class.open]="showBalloon">
+          @if (footerUserImgSrc) {
+            <img class="photo-profile" [src]="['data:image/jpeg;base64,' + footerUserImgSrc]" alt="foto-perfil">
+          }
+          @else {
+            <lib-icon iconName="contraparte" iconColor="white"/>
+          }
+
+          <span class="text-truncate fw-bold text-start" style="max-width: 100%;"> {{ footerUserName }} </span>
         </div>
       </div>
       
@@ -146,7 +144,7 @@
             <img *ngIf="footerUserImgSrc; else noUserImg" class="photo-profile"
               [src]="['data:image/jpeg;base64,' + footerUserImgSrc]" alt="foto-perfil"> 
             <ng-template #noUserImg>
-              <lib-icon iconName="contraparte" iconColor="white"/>
+              <lib-icon iconName="contraparte" iconColor="currentColor"/>
             </ng-template>
             <div class="d-flex flex-column ms-1"> 
               <div [tooltip]="footerUserName" class="dynamic-container" style="white-space: nowrap; flex-grow: 1;max-width: 200px; font-size: 16px;">{{footerUserName}}</div>
@@ -184,14 +182,10 @@
 <!-- #endregion MAIN CONTENT -->
 
 <!-- #region TEMPLATES -->
-<!-- tem que perguntar pro Erick -->
-<!-- [submenuRef]="submenu_ref"  -->
 <ng-template #dynamic_menu let-data>
   <app-dynamic-menu 
     [submenuList]="data"
-    [titleSubmenu]="titleSubmenu"
-    [submenuRef]="submenu_ref"
-    [recebeParam]="onClickedOutside.bind(this)">
+    [titleSubmenu]="titleSubmenu" [submenuRef]="submenu_ref" [recebeParam]="onClickedOutside.bind(this)">
   </app-dynamic-menu>
 </ng-template>
 

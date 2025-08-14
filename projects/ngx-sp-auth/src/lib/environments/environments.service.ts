@@ -8,19 +8,40 @@ import { IEnvironments } from "./models/ienvironments";
 export class EnvironmentService {
 
     // URLs que necessitam de autenticação da infra.
-    needsAuthInfra!: Map<string, string[]>;
+    public needsAuthInfra!: Map<string, string[]>;
 
     // URLs que necessitam de autenticação do usuário para funcionar.
-    needsAuthAplic!: Map<string, string[]>;
+    public needsAuthAplic!: Map<string, string[]>;
 
-    production: boolean = false;
-    hostName: string = "https://siscandesv6.sispro.com.br";
+    public production: boolean = false;
+    public hostName: string = "";
+    public product: string = "";
+	
+	public Sp2LocalhostInfra2AuthWS : string = "";
+	public Sp2LocalhostInfra2LoginWS: string = "";
+    public Sp2Localhost: string = "";
 
-    ConfigurarEnvironments(propriedades: IEnvironments): void {
+	public SpInfra2AuthWS: string = "";
+	public SpInfra2LoginWS: string = "";
+    public SpInfra2ErpWS: string = "";
+
+    public ConfigurarEnvironments(properties: IEnvironments): void {
 
         //passando propriedades do produto para a lib
-        this.needsAuthAplic = propriedades.needsAuthAplic;
-        this.needsAuthInfra = propriedades.needsAuthInfra;
+        this.production = properties.production;
+        this.hostName = properties.hostName;
+        this.product = properties.product;
+
+        this.Sp2LocalhostInfra2AuthWS = properties.Sp2LocalhostInfra2AuthWS;
+        this.Sp2LocalhostInfra2LoginWS = properties.Sp2LocalhostInfra2LoginWS;
+        this.Sp2Localhost = properties.Sp2LocalhostWS;
+
+        this.SpInfra2AuthWS = properties.SpInfra2AuthWS;
+        this.SpInfra2LoginWS = properties.SpInfra2LoginWS;
+        this.SpInfra2ErpWS = properties.SpInfra2ErpWS;
+        
+        this.needsAuthAplic = properties.needsAuthAplic;
+        this.needsAuthInfra = properties.needsAuthInfra;
     }
 
 }

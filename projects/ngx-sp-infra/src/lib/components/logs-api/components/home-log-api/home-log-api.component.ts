@@ -75,7 +75,6 @@ export class HomeLogApiComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     const estado = localStorage.getItem('estado-log-api');
     if (estado) {
-      console.log('1')
       const dados = JSON.parse(estado);
       this.componentPesquisa.search = dados.textoPesquisa
       this.dateInicioIni = dados.dateInicioIni

@@ -42,9 +42,7 @@ jobs:
         
       - name: Executar testes com cobertura
         run: |
-          if [ "${{ env.PROJECT }}" == "ngx-sp-auth" ]; then
-            npm run test:ngx-sp-auth:sonar
-          elif [ "${{ env.PROJECT }}" == "ngx-sp-infra" ]; then
+          if [ "${{ env.PROJECT }}" == "ngx-sp-infra" ]; then
             npm run test:ngx-sp-infra:sonar
           fi
 

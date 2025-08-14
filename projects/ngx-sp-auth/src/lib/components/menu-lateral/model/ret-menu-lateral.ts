@@ -6,5 +6,5 @@ export class RetMenuLateral implements IError {
   public Error: boolean = false;
   public ErrorMessage: string = "";
 
-  public MenuLateral: IMenu[] = [];
+  public MenuLateral!: IMenu[];
 }
