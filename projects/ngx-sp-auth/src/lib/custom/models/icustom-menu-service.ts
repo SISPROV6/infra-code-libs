@@ -1,12 +1,17 @@
 export interface ICustomMenuService {
     
     // Propriedades Customizadas do Menu
-    menuDynamic: boolean;
-    menuDynamicCustom: false;
-    moduleName: string;
-    moduleImg: string;
-    moduleSvg: string;
-    themeColor: string;
+    get menuDynamic(): boolean;
+
+    get menuDynamicCustom(): false;
+
+    get moduleName(): string;
+
+    get moduleImg(): string;
+
+    get moduleSvg(): string;
+    
+    get themeColor(): string;
 
     // Métodos customizados do Menu
     menuDynamicGetModuloId(): number;

@@ -1,3 +1,4 @@
+/** Modules */
 export * from './lib/auth.module';
 
 /** Services */
@@ -31,6 +32,7 @@ export * from './lib/components/menu-lateral/model/ret-menu-lateral';
 export * from './lib/components/menu-lateral/model/ret-menu-promise';
 export * from './lib/components/menu-lateral/model/ret-navsubmenu';
 
+/** Custom */
 export * from './lib/custom/models/icustom-login-service';
 export * from './lib/custom/models/icustom-menu-service';
 export * from './lib/custom/models/imenu-config';
@@ -50,5 +52,7 @@ export * from './lib/interceptors/auth-infra.interceptor';
 /** Routes */
 export * from './lib/auth.routes';
 
-/** Modules */
-export * from './lib/auth.module';
+//???i
+/** Providers */
+export * from './lib/custom/token';
+//???f

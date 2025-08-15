@@ -1,6 +1,8 @@
-import { Injectable } from "@angular/core";
+import { Inject, Injectable } from "@angular/core";
+
 import { IMenuItemStructure } from '../components/menu-lateral/model/imenu-item-structure.model';
 import { IMenuConfig } from "./models/imenu-config";
+import { LIB_MENU_CONFIG } from "./token";
 
 @Injectable(
     { providedIn: 'root' }
@@ -8,13 +10,9 @@ import { IMenuConfig } from "./models/imenu-config";
 /**Service responsável por pegar as opções do menu do projeto em que está sendo utilizada*/
 export class LibMenuConfigService {
 
-    public storedInitializeMenu!: (currentRoute: string, customList?: IMenuItemStructure[]) => IMenuItemStructure[];
-
-    public storedInitializeMenuDropdown!: (primaryDropdownList: Array<any>) => any[];
-
-    public storedSetMenuType!: (isStaticMenu: boolean) => void;
-
-    public storedUpdateRouteSelection!: (currentRoute: string, currentList: IMenuItemStructure[]) => IMenuItemStructure[];
+    constructor( 
+        @Inject(LIB_MENU_CONFIG) private _menuConfig: IMenuConfig
+    ) { }
 
     public menu: IMenuItemStructure[] = []
     public menuDropdown: any[] = [];
@@ -26,17 +24,17 @@ export class LibMenuConfigService {
     */
     public initializeMenu(currentRoute: string, customList?: IMenuItemStructure[]): IMenuItemStructure[] {
         
-        this.menu = this.storedInitializeMenu(currentRoute, customList);
+        this.menu = this._menuConfig.initializeMenu(currentRoute, customList);
         
         return this.menu;
     }
 
     public setMenuType(isStaticMenu: boolean): void {
-        this.storedSetMenuType(isStaticMenu);
+        this._menuConfig.setMenuType(isStaticMenu);
     }
 
     public updateRouteSelection(currentRoute: string, currentList: IMenuItemStructure[]): IMenuItemStructure[] {
-        return this.updateRouteSelection(currentRoute, currentList);
+        return this._menuConfig.updateRouteSelection(currentRoute, currentList);
     }
 
     /** Inicializa as opções do menu dropdown com base em uma lista personalizada (opcional).
@@ -44,20 +42,9 @@ export class LibMenuConfigService {
        * @returns As opções do dropdown inicializadas.
     */
     public initializeMenuDropdown(primaryDropdownList: Array<any>): any[] {
-        this.menuDropdown = this.storedInitializeMenuDropdown(primaryDropdownList);
+        this.menuDropdown = this._menuConfig.initializeMenuDropdown(primaryDropdownList);
  
         return this.menuDropdown;
     }
 
-    public ConfigurarMenuConfig(menuConfig: IMenuConfig): void {
-
-        //passando implementação dos métodos do projeto para a lib
-        this.storedInitializeMenu = menuConfig.initializeMenu;
-        
-        this.storedInitializeMenuDropdown = menuConfig.initializeMenuDropdown;
-
-        this.storedSetMenuType = menuConfig.setMenuType;
-
-        this.updateRouteSelection = menuConfig.updateRouteSelection;
-    }
 }
