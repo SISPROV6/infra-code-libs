@@ -1,42 +1,58 @@
 <div class="content">
   <div class="filters">
-    <lib-table [list]="list" [counts]="[ 5, 10, 15 ]" paginationID="simpleTable" [usePreviousStyle]="true" [usePagination]="false"
-      [headers]="headers" >
+    
+    <div class="row">
+      <div class="col">
+        <label class="form-label" libRequired >Opções selecionadas</label>
+        <lib-combobox-rework [multiple]="true" [innerFilter]="false" [list]="filteredItems" [formControl]="control"
+          (selectionChange)="log($event)" (filterChange)="filter($event)" (filterButtonClick)="filter($event)"
+          customLabel="surname" customValue="name" >
 
-      @for (item of list; track item) {
-          <tr innerRows class="align-middle">
-            <td> <span libTextTruncate="100%" class="text-primary text-decoration-none fw-bold" tooltip="Editar/Visualizar">{{ item.coluna1 }}</span> </td>
-            <td> <span>{{ item.coluna2 }}</span> </td>
-            <td> <span>{{ item.coluna3 }}</span> </td>
-            <td>{{ item.coluna4 }}</td>
-            <td> <span>{{ item.coluna5 }}</span> </td>
-            <td> <span>{{ item.coluna6 }}</span> </td>
-          </tr>
-      }
-    </lib-table>
+          <ng-template #optionTemplate let-item let-selected="selected">
+            <div class="d-flex align-items-center justify-content-between option w-100" [ngClass]="{ 'active fw-bold text-primary': selected }" >
+              <div class="flex-grow-1"><b>Valor:</b> {{ item.name }} {{ item.surname }}</div>
+              @if (selected) { <small>✓</small> }
+            </div>
+          </ng-template>
 
 
-    <!-- <table class="table mt-5" style="table-layout: fixed;">
-      <thead>
-        <tr>
-          @for (header of headers; track $index) {
-            <th scope="col" class="{{header.widthClass}}" >{{ header.name }}</th>
-          }
-        </tr>
-      </thead>
+        </lib-combobox-rework>
 
-      <tbody>
-        @for (row of list; track $index) {
-          <tr>
-            <th> <span libTextTruncate="100%" class="text-primary text-decoration-none fw-bold" tooltip="Editar/Visualizar">{{ row.coluna1 }}</span></th>
-            <td> <span style="text-wrap: wrap;">{{ row.coluna2 }}</span></td>
-            <td> <span style="text-wrap: wrap;">{{ row.coluna3 }}</span></td>
-            <td> <span class="text-break" style="display: block; width: 100px; inline-size: 100px; text-wrap: wrap">{{ row.coluna4 }}</span></td>
-            <td> <span libTextTruncate="100%" style="text-wrap: wrap;">{{ row.coluna5 }}</span></td>
-            <td> <span style="text-wrap: wrap;">{{ row.coluna6 }}</span></td>
-          </tr>
-        }
-      </tbody>
-    </table> -->
+        <!-- <lib-error-message customMessage="O campo está inválido"></lib-error-message> -->
+      </div>
+
+      <div class="col">
+        <label class="form-label" libRequired >Opções selecionadas 2</label>
+        <lib-combobox-rework [multiple]="false" [list]="items" [formControl]="control" (selectionChange)="log($event)" customLabel="surname" customValue="name" >
+          
+          <ng-template #optionTemplate let-item let-selected="selected">
+            <div class="d-flex align-items-center justify-content-between option w-100" [ngClass]="{ 'active fw-bold text-primary': selected }" >
+              <div class="flex-grow-1"><b>Valor:</b> {{ item.name }} {{ item.surname }}</div>
+              @if (selected) { <small>✓</small> }
+            </div>
+          </ng-template>
+
+
+          <!-- <ng-template #leftButtonTemplate >
+            <button type="button" class="btn btn-primary">LEFT</button>
+          </ng-template>
+
+          <ng-template #rightButtonTemplate >
+            <button type="button" class="btn btn-primary">RIGHT</button>
+          </ng-template> -->
+        </lib-combobox-rework>
+
+        <!-- <lib-error-message customMessage="O campo está inválido"></lib-error-message> -->
+      </div>
+
+      <div class="col">
+        <label class="form-label" libRequired >Opções selecionadas</label>
+        <input type="text" class="form-control" >
+
+        <!-- <lib-error-message customMessage="O campo está inválido"></lib-error-message> -->
+      </div>
+    </div>
+
+
   </div>
 </div>

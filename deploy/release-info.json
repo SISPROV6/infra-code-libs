@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-auth",
-  "version": "3.0.4",
-  "tag": "auth-v3.0.4",
-  "notes": "Ajuste APIs públicas 2",
-  "timestamp": "2025-08-13T20:50:19.114Z"
+  "project": "ngx-sp-infra",
+  "version": "5.13.5",
+  "tag": "infra-v5.13.5",
+  "notes": "Reestruturação interna nas pastas e posições internas dos componentes",
+  "timestamp": "2025-08-14T17:55:08.134Z"
 }

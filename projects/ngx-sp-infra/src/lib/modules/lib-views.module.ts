@@ -10,9 +10,8 @@ import { NgxCurrencyDirective } from 'ngx-currency';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import { NgxPaginationModule } from 'ngx-pagination';
 
-import { FooterComponent } from '../components/footer/footer.component';
-import { LibConfigSenhaComponent } from '../components/lib-config-senha/lib-config-senha.component';
-import { PageNotAuthorizedComponent } from '../components/page-not-authorized/page-not-authorized.component';
+import { LibConfigSenhaComponent } from '../views/lib-config-senha/lib-config-senha.component';
+import { PageNotAuthorizedComponent } from '../views/page-not-authorized/page-not-authorized.component';
 
 
 @NgModule({
@@ -28,13 +27,10 @@ import { PageNotAuthorizedComponent } from '../components/page-not-authorized/pa
     NgxPaginationModule,
     ReactiveFormsModule,
     RouterModule,
-
-    FooterComponent,
     LibConfigSenhaComponent,
     PageNotAuthorizedComponent,
   ],
   exports: [
-    FooterComponent,
     LibConfigSenhaComponent,
     PageNotAuthorizedComponent,
   ]
