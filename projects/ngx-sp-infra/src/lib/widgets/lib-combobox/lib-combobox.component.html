@@ -1,27 +1,27 @@
 <!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 
-<label *ngIf="labelText && labelText !== ''" class="form-label fw-bold d-flex align-items-center gap-1" [id]="labelID" [for]="comboboxID" [libRequired]="isRequired">
+<label *ngIf="labelText && labelText !== ''" data-cy="lib-combobox-label" class="form-label fw-bold d-flex align-items-center gap-1" [id]="labelID" [for]="comboboxID" [libRequired]="isRequired">
    <ng-content select="lib-icon[iconLeft]"></ng-content>
    {{ labelText }}
    <ng-content select="lib-icon[iconRight]"></ng-content>
 </label>
 
-<div class="input-group dropdown flex-fill glb-max-height-350px">
+<div data-cy="lib-combobox-container" class="input-group dropdown flex-fill glb-max-height-350px">
 
    <!-- Este elemento ng-content com o atributo [btnLeft] permite que o usuário final forneça conteúdo personalizado para ser exibido no lado esquerdo do combobox de pesquisa.
    Ao usar o atributo [btnLeft], o usuário pode facilmente adicionar botões ou outros elementos para melhorar a funcionalidade ou aparência do combobox de pesquisa. -->
    <ng-content select="[btnLeft]"></ng-content>
 
-   <input  #mainInput class="form-select text-start rounded-end cursor-pointer" type="text"
+   <input  #mainInput class="form-select text-start rounded-end cursor-pointer" type="text" data-cy="lib-combobox-main-input"
             data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" readonly
             [placeholder]="mainPlaceholder" [formControl]="innerControl" [class.is-invalid]="invalidControl" [id]="comboboxID"
             (click)="ariaExpanded = !ariaExpanded; searchInput.focus()" (focus)="searchInput.focus()">
 
-   <ul  #dropdownMenu  class="dropdown-menu p-2 glb-max-height-350px overflow-y-scroll z-index-1020" [class.show]="ariaExpanded">
+   <ul  #dropdownMenu  class="dropdown-menu p-2 glb-max-height-350px overflow-y-scroll z-index-1020" [class.show]="ariaExpanded" data-cy="lib-combobox-menu">
       <div class="input-group mb-2">
          <input #searchInput type="text" id="searchInput-{{comboboxID}}" class="searchInput form-control glb-input-no-glow" [placeholder]="searchPlaceholder" (keyup.enter)="reloadList()"
-         [(ngModel)]="textoPesquisa" (ngModelChange)="changePesquisa.emit(textoPesquisa)" >
+         [(ngModel)]="textoPesquisa" (ngModelChange)="changePesquisa.emit(textoPesquisa)" data-cy="lib-combobox-menu-input" >
          <button class="btn btn-{{theme}}" (click)="reloadList()"> <lib-icon iconName="lupa" iconSize="medium-small" /> </button>
       </div>
 
@@ -46,5 +46,5 @@
 </div>
 
 <!-- #region MENSAGEM DE ERRO DE VALIDAÇÃO -->
-<lib-error-message *ngIf="showErrorMessage && invalidControl" customMessage="Este campo é obrigatório." />
+<lib-error-message *ngIf="showErrorMessage && invalidControl" customMessage="Este campo é obrigatório." data-cy="lib-combobox-error-message" />
 <!-- #endregion MENSAGEM DE ERRO DE VALIDAÇÃO -->

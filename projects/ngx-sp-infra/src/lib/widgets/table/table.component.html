@@ -1,15 +1,15 @@
 @if (list) {
-   <div class="table-list w-100 position-relative">
+   <div class="table-list w-100 position-relative" data-cy="lib-table-container">
 
       <!-- Trechos de texto acima da table -->
       @if (showCounter) {
-         <div class="mb-2 d-flex align-items-center">
+         <div class="mb-2 d-flex align-items-center" data-cy="lib-table-counter">
             <div class="col-6">
                <!-- Exibe o número de itens mostrados e o total de registros -->
                <span> {{ itemsDisplayText }} </span>
 
                <!-- Exibe a badge informando quantos registros foram selecionados -->
-               <span *ngIf="selectedCount && selectedCount > 0" class="ms-2 badge text-bg-primary">{{ selectedCount }} registros selecionados</span>
+               <span *ngIf="selectedCount && selectedCount > 0" class="ms-2 badge text-bg-primary" data-cy="lib-table-selected-count">{{ selectedCount }} registros selecionados</span>
             </div>
 
             <div class="col d-flex flex-row align-items-center justify-content-end gap-2">
@@ -42,8 +42,7 @@
                               <th scope="col" class="align-middle text-dark-grey {{ header.customClasses }}
                                  {{ headersUseOldWidth ? header.col && header.col > 0 ? 'col-'+header.col : 'col' : header.widthClass }}
                                  {{ ($last && header.name === '') && scrollable ? 'fix' : '' }}"
-                                 [style.width]="scrollable ? header.widthPixels ? header.widthPixels+'px' : 250+'px' : null"
-                                 >
+                                 [style.width]="scrollable ? header.widthPixels ? header.widthPixels+'px' : 250+'px' : null" >
    
                                  @if (header.icon !== undefined) {
                                     <lib-icon *ngIf="header.icon.side === 'L'" iconSize="small"
@@ -200,7 +199,7 @@
                </div>
 
                <!-- Controle de paginação -->
-               <pagination-controls [id]="paginationID"
+               <pagination-controls [id]="paginationID" data-cy="lib-table-pagination"
                   class="sp-pagination mt-3"
                   previousLabel="«&nbsp;&nbsp;&nbsp;"
                   nextLabel="&nbsp;&nbsp;&nbsp;»"
@@ -222,7 +221,7 @@
    </div>
 } @else {
    <!-- Loader enquanto os registros são carregados -->
-   <div class="w-100 text-center p-3">
+   <div class="w-100 text-center p-3" data-cy="lib-table-loading">
       <div class="spinner-border" role="status"> <span class="visually-hidden">Carregando informações...</span> </div>
    </div>
 }
