@@ -15,7 +15,7 @@ import { FormUtils, InfraModule, MessageService } from 'ngx-sp-infra';
 
 import { LibCustomLoginService } from '../../custom/lib-custom-login.service';
 import { ProjectUtilservice } from '../../project/project-utils.service';
-import { EnvironmentService } from '../../environments/environments.service';
+import { LibCustomEnvironmentService } from '../../custom/lib-custom-environment.service';
 import { AuthService } from '../../auth.service';
 import { AuthStorageService } from '../../storage/auth-storage.service';
 
@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
 		private _formBuilder: FormBuilder,
 		private _projectUtilservice: ProjectUtilservice,
 		private _authService: AuthService,
-		private _environmentService: EnvironmentService,
+		private _customEnvironmentService: LibCustomEnvironmentService,
 		private _authStorageService: AuthStorageService,
 		private _title: Title,
 		private _router: Router,
@@ -197,7 +197,7 @@ export class LoginComponent implements OnInit {
 	private createFormDomain(): void {
 		//  Dados originais de Login (Domínio)
 
-		if (this._environmentService.production)
+		if (this._customEnvironmentService.production)
 		{
 			this.formDomain = this._formBuilder.group({
 				dominio: ['', [Validators.required, Validators.maxLength(50)]],
@@ -215,7 +215,7 @@ export class LoginComponent implements OnInit {
 	private createFormLogin(): void {
 		//  Dados originais de Login (Usuário e Senha)
 
-		if (this._environmentService.production)
+		if (this._customEnvironmentService.production)
 		{
 			this.formLogin = this._formBuilder.group({
 				usuario: ['', [Validators.required, Validators.maxLength(100)]],
@@ -273,7 +273,7 @@ export class LoginComponent implements OnInit {
 
 	private async configMsal() {
 		const isIE = window.navigator.userAgent.indexOf("MSIE ") > -1 || window.navigator.userAgent.indexOf("Trident/") > -1;
-		const hostAuthLogin = !this._environmentService.production ? "http://localhost:4200/auth/login" : `${ this._environmentService.hostName }/SisproErpCloud/${ this._environmentService.product }/auth/login`;
+		const hostAuthLogin = !this._customEnvironmentService.production ? "http://localhost:4200/auth/login" : `${ this._customEnvironmentService.hostName }/SisproErpCloud/${ this._customEnvironmentService.product }/auth/login`;
 
 		this._msalService.instance = new PublicClientApplication({
 			auth: {
@@ -346,7 +346,7 @@ export class LoginComponent implements OnInit {
 	// Obtém a Url do Config Erp
 	public geturlErpConfig(): string {
 		// verificar depois 
-		return `${this._environmentService.hostName}/SisproErpCloud/ConfigErp`;
+		return `${this._customEnvironmentService.hostName}/SisproErpCloud/ConfigErp`;
 	}
 
 	/*

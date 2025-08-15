@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, Subject, take, tap } from 'rxjs';
 
 import { AuthStorageService } from '../../storage/auth-storage.service';
-import { EnvironmentService } from '../../environments/environments.service';
+import { LibCustomEnvironmentService } from '../../custom/lib-custom-environment.service';
 import { RetError, RetEstabelecimentosModal } from 'ngx-sp-infra';
 
 import { Usuario_IMG } from './model/usuario-img';
@@ -25,11 +25,11 @@ export class MenuServicesService {
   constructor(
     private _authStorageService: AuthStorageService,
     private _httpClient: HttpClient,
-		private _environmentService: EnvironmentService,
+    private _customEnvironmentService: LibCustomEnvironmentService
   ) {
-    this._BASE_URL = `${ this._environmentService.SpInfra2ErpWS }`; // SpInfra2ErpWS
+    this._BASE_URL = `${ this._customEnvironmentService.SpInfra2ErpWS }`; // SpInfra2ErpWS
 
-    this._BASE_URL = !this._environmentService.production ? this._BASE_URL : `${this._environmentService.SpInfra2ErpWS}`;
+    this._BASE_URL = !this._customEnvironmentService.production ? this._BASE_URL : `${this._customEnvironmentService.SpInfra2ErpWS}`;
   }
 
   // #region ==========> SERVICES <==========

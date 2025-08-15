@@ -20,7 +20,7 @@ import { MenuServicesService } from '../menu-services.service';
 
 import { AuthService } from '../../../auth.service';
 import { InfraInAuthTypeId } from '../../../models/infraInAuthTypeId';
-import { EnvironmentService } from './../../../environments/environments.service';
+import { LibCustomEnvironmentService } from '../../../custom/lib-custom-environment.service';
 import { PrimaryDropdownComponent } from '../dropdown/primary-dropdown/primary-dropdown.component';
 import { IMenuItemStructure } from '../model/imenu-item-structure.model';
 import { ISubmenuItemStructure } from '../model/isubmenu-item-structure.model';
@@ -54,14 +54,14 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
     private _msalService: MsalService,		
     private _toastrService: ToastrService,
     public _customMenuService: LibCustomMenuService,
+    private _customEnvironmentService: LibCustomEnvironmentService,
     private _authStorageService: AuthStorageService,
     private _bsModalService: BsModalService,
     private _menuServices: MenuServicesService,
     private _messageService: MessageService,
     private _projectUtilService: ProjectUtilservice,
     private _router: Router,
-    private _authService: AuthService,
-    private _environmentService: EnvironmentService
+    private _authService: AuthService
   ) {
     // Implementação que verifica eventos acionados na classe de service.
     this._menuServices.getNewUserImageEvent().subscribe( () => { this.getMenuUserImg(); })
@@ -73,7 +73,7 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
 
     // Inscreva-se no evento NavigationEnd para receber notificações quando a rota mudar, serve para atualizar a seleção do menu corretamente
     this._router.events.pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd)).subscribe((event: any) => { this._customMenuService.menuItems = this._customMenuService.menuConfig.updateRouteSelection(this._router.url, this._customMenuService.menuItems) });
- 
+
     if (!this._customMenuService.menuDynamic && !this._customMenuService.menuDynamicCustom) {
       this._customMenuService.menuConfig.setMenuType(true);
  
@@ -288,7 +288,7 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
     
     // Verifica se é Login Azure
     if (this._authStorageService.infraInAuthTypeId == InfraInAuthTypeId.Azure && this._authStorageService.user.toLowerCase() != "admin") {
-      const hostAuthLogin = !this._environmentService.production ? "http://localhost:4200/auth/login" : `${ this._environmentService.hostName }/SisproErpCloud/${ this._environmentService.product }/auth/login`;
+      const hostAuthLogin = !this._customEnvironmentService.production ? "http://localhost:4200/auth/login" : `${ this._customEnvironmentService.hostName }/SisproErpCloud/${ this._customEnvironmentService.product }/auth/login`;
 
 
       this._msalService.logoutRedirect({
@@ -315,7 +315,7 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
 
   private async configMsal() {
     const isIE = window.navigator.userAgent.indexOf("MSIE ") > -1 || window.navigator.userAgent.indexOf("Trident/") > -1;
-		const hostAuthLogin = !this._environmentService.production ? "http://localhost:4200/auth/login" : `${ this._environmentService.hostName }/SisproErpCloud/${ this._environmentService.product }/auth/login`;
+		const hostAuthLogin = !this._customEnvironmentService.production ? "http://localhost:4200/auth/login" : `${ this._customEnvironmentService.hostName }/SisproErpCloud/${ this._customEnvironmentService.product }/auth/login`;
 
     this._msalService.instance = new PublicClientApplication({
       auth: {

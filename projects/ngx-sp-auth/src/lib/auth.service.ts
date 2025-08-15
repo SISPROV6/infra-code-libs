@@ -21,7 +21,7 @@ import { IpServiceService, RetError } from 'ngx-sp-infra';
 import { AuthStorageService } from './storage/auth-storage.service';
 import { LibCustomLoginService } from './custom/lib-custom-login.service';
 import { ProjectUtilservice } from './project/project-utils.service';
-import { EnvironmentService } from '../lib/environments/environments.service';
+import { LibCustomEnvironmentService } from './custom/lib-custom-environment.service';
 @Injectable(
   { providedIn: 'root' }
 )
@@ -54,15 +54,15 @@ export class AuthService {
     private _ipServiceService: IpServiceService,
     private _customLoginService: LibCustomLoginService,
     private _projectUtilservice: ProjectUtilservice,
-    private _environmentService: EnvironmentService
+    private _customEnvironmentService: LibCustomEnvironmentService
   ) {
-    this._BASE_URL = `${ this._environmentService.SpInfra2LoginWS }/LoginSisproERP`; // SpInfra2WS
-    this._AUTH_BASE_URL = `${ this._environmentService.SpInfra2AuthWS }/Auth`; // SpInfra2AuthWS
-    this._BASE_OS_URL = `${ this._environmentService.SpInfra2LoginWS }/LoginIntegradoOS`; // SpInfra2LoginWS
+    this._BASE_URL = `${ this._customEnvironmentService.SpInfra2LoginWS }/LoginSisproERP`; // SpInfra2WS
+    this._AUTH_BASE_URL = `${ this._customEnvironmentService.SpInfra2AuthWS }/Auth`; // SpInfra2AuthWS
+    this._BASE_OS_URL = `${ this._customEnvironmentService.SpInfra2LoginWS }/LoginIntegradoOS`; // SpInfra2LoginWS
 
-    this._BASE_URL = !this._environmentService.production ? this._BASE_URL : `${ this._environmentService.SpInfra2LoginWS }/LoginSisproERP`;
-    this._AUTH_BASE_URL = !this._environmentService.production ? this._AUTH_BASE_URL : `${ this._environmentService.SpInfra2AuthWS }/Auth`;
-    this._BASE_OS_URL = !this._environmentService.production ? this._BASE_OS_URL : `${ this._environmentService.SpInfra2LoginWS }/LoginIntegradoOS`;
+    this._BASE_URL = !this._customEnvironmentService.production ? this._BASE_URL : `${ this._customEnvironmentService.SpInfra2LoginWS }/LoginSisproERP`;
+    this._AUTH_BASE_URL = !this._customEnvironmentService.production ? this._AUTH_BASE_URL : `${ this._customEnvironmentService.SpInfra2AuthWS }/Auth`;
+    this._BASE_OS_URL = !this._customEnvironmentService.production ? this._BASE_OS_URL : `${ this._customEnvironmentService.SpInfra2LoginWS }/LoginIntegradoOS`;
 
     this.getParms();
   }
