@@ -5,7 +5,7 @@ export interface ICustomMenuService {
     // Propriedades Customizadas do Menu
     get menuDynamic(): boolean;
 
-    get menuDynamicCustom(): false;
+    get menuDynamicCustom(): boolean;
 
     get moduleName(): string;
 
