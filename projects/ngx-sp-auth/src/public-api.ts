@@ -3,7 +3,7 @@ export * from './lib/auth.module';
 
 /** Services */
 export * from './lib/auth.service';
-export * from './lib/environments/environments.service';
+export * from './lib/custom/lib-custom-environment.service';
 export * from './lib/components/menu-lateral/menu-services.service';
 export * from './lib/storage/auth-storage.service';
 export * from './lib/custom/lib-custom-login.service';
@@ -37,7 +37,7 @@ export * from './lib/custom/models/icustom-login-service';
 export * from './lib/custom/models/icustom-menu-service';
 export * from './lib/custom/models/imenu-config';
 export * from './lib/custom/models/icustom-storage-service';
-export * from './lib/environments/models/ienvironments';
+export * from './lib/custom/models/icustom-environment-service';
 
 /** Guards */
 export * from './lib/guards/auth-guard';

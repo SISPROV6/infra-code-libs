@@ -8,7 +8,7 @@ import { Utils } from 'ngx-sp-infra';
 import { Token } from '../models/token';
 import { RetToken } from '../models/ret-token';
 import { LibCustomStorageService } from '../custom/lib-custom-storage.service';
-import { EnvironmentService } from '../environments/environments.service';
+import { LibCustomEnvironmentService } from '../custom/lib-custom-environment.service';
 
 @Injectable(
   { providedIn: 'root' }
@@ -31,13 +31,13 @@ export class AuthStorageService {
   constructor(
     private _httpBackend: HttpBackend,
     private _customStorageService: LibCustomStorageService,
-    private _environmentService: EnvironmentService
+    private _customEnvironmentService: LibCustomEnvironmentService
   ) {
     this._httpClient = new HttpClient(_httpBackend);
  
-    this._BASE_URL = `${ _environmentService.SpInfra2LoginWS }/LoginSisproERP`; // SpInfra2WS
+    this._BASE_URL = `${ _customEnvironmentService.SpInfra2LoginWS }/LoginSisproERP`; // SpInfra2WS
 
-    this._BASE_URL = !_environmentService.production ? this._BASE_URL : `${_environmentService.SpInfra2LoginWS}/LoginSisproERP`;
+    this._BASE_URL = !_customEnvironmentService.production ? this._BASE_URL : `${_customEnvironmentService.SpInfra2LoginWS}/LoginSisproERP`;
 
     // Método com customizações para inicializações da storage
     this._customStorageService.storageConstructor()

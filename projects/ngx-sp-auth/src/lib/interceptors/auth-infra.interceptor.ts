@@ -4,7 +4,7 @@ import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } fro
 import { Observable } from "rxjs";
 
 import { CheckUrlAndMethodService } from "ngx-sp-infra";
-import { EnvironmentService } from './../environments/environments.service';
+import { LibCustomEnvironmentService } from '../custom/lib-custom-environment.service';
 
 /**
  * \brief Intercepta uma chamada HTTP para inserir a autenticação da Sispro.
@@ -16,13 +16,13 @@ export class AuthInfraInterceptor implements HttpInterceptor {
 
     constructor(
         private authCheckService: CheckUrlAndMethodService,
-        private _environmentService: EnvironmentService
+        private _customEnvironmentService: LibCustomEnvironmentService
     ) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         let changedReq: HttpRequest<any> = req;
 
-        if (this.authCheckService.needsAuthRequest(req.url, req.method, this._environmentService.needsAuthInfra)) {
+        if (this.authCheckService.needsAuthRequest(req.url, req.method, this._customEnvironmentService.needsAuthInfra)) {
             // Adiciona as autenticações necessárias ao servidor. Autenticação básica.
             let headers: HttpHeaders = req.headers.set(
                 "Authorization",

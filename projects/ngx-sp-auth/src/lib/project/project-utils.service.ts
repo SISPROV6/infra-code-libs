@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { CheckUrlAndMethodService, MessageService, Utils } from 'ngx-sp-infra';
 import { AuthStorageService } from '../storage/auth-storage.service';
-import { EnvironmentService } from '../environments/environments.service';
+import { LibCustomEnvironmentService } from '../custom/lib-custom-environment.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class ProjectUtilservice {
     private authStorageService: AuthStorageService,
     private checkUrlAndMethodService: CheckUrlAndMethodService,
     private messageService: MessageService,
-    private _environmentService: EnvironmentService,
+    private _customEnvironmentService: LibCustomEnvironmentService
   ) { }
 
   // Exibe a mensagem de erro de uma requisição http
@@ -29,7 +29,7 @@ export class ProjectUtilservice {
       let isUnauthorizedAccess = error.status === 401;
 
       if (isUnauthorizedAccess) {
-        let isFromAplic = this.checkUrlAndMethodService.needsAuthRequest(error.url, "*", this._environmentService.needsAuthAplic);
+        let isFromAplic = this.checkUrlAndMethodService.needsAuthRequest(error.url, "*", this._customEnvironmentService.needsAuthAplic);
 
         if (isFromAplic) {
           // Remove a autenticação do usuário.
@@ -62,7 +62,7 @@ export class ProjectUtilservice {
 
   // Obtém o hostName
 	public getHostName(): string {
-		return this._environmentService.hostName
+		return this._customEnvironmentService.hostName
 	}
 
 }

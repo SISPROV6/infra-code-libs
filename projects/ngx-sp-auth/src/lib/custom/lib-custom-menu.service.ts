@@ -42,18 +42,17 @@ export class LibCustomMenuService {
 
     // #region Propriedade do Menu
 
-    private _menuItems: IMenuItemStructure[] = [];
     public menuConfig: LibMenuConfigService;
 
     /** Obtém as opções do menu. */
     public get menuItems(): IMenuItemStructure[] {
-        return this._menuItems;
+        return this._customMenuService.menuItems;
     }
 
     public set menuItems(value: IMenuItemStructure[]) {
-        this._menuItems = value;
+        this._customMenuService.menuItems = value;
     }
-
+    
     // ! Definição do BehaviorSubject: responsável principal da emissão do evento
     private empresaId: BehaviorSubject<{ estabelecimentoID: string, empresaID: string }> = new BehaviorSubject<{ estabelecimentoID: string, empresaID: string }>({ estabelecimentoID: "", empresaID: "" });
     public applyEmpresa$: Observable<{ estabelecimentoID: string, empresaID: string }> = this.empresaId.asObservable();
