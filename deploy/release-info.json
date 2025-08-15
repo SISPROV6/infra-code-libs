@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-infra",
-  "version": "5.13.5",
-  "tag": "infra-v5.13.5",
-  "notes": "Reestruturação interna nas pastas e posições internas dos componentes",
-  "timestamp": "2025-08-14T17:55:08.134Z"
+  "project": "ngx-sp-auth",
+  "version": "3.0.5",
+  "tag": "auth-v3.0.5",
+  "notes": "Atualização das propriedades dos custom-services",
+  "timestamp": "2025-08-15T16:26:00.902Z"
 }
