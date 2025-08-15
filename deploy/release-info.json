@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-auth",
-  "version": "3.0.5",
-  "tag": "auth-v3.0.5",
-  "notes": "Atualização das propriedades dos custom-services",
-  "timestamp": "2025-08-15T16:26:00.902Z"
+  "version": "3.0.6",
+  "tag": "auth-v3.0.6",
+  "notes": "Correção da propriedade MenuDynamicCustom",
+  "timestamp": "2025-08-15T17:39:16.772Z"
 }
