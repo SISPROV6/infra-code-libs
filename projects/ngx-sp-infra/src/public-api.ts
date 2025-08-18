@@ -172,4 +172,4 @@ export * from './lib/widgets/tree/models/tree-item';
 export * from './lib/widgets/tree/pipes/search-tree.pipe';
 export * from './lib/widgets/tree/tree.component';
 export * from './lib/widgets/usuario-abas/usuario-abas.component';
-
+export * from './lib/widgets/contador-caracteres/contador-caracteres.component'
