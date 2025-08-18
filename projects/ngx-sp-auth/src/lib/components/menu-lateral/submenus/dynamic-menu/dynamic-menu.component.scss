@@ -18,8 +18,24 @@ ul {
   white-space: nowrap;
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #BBBBBB;
+  border-radius: 16px;
+}
 
 /* HEADER SUBMENU */
+
+.header-submenu {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: overlay;
+}
 
 .titulo {
   font-size: 20px;
@@ -53,6 +69,9 @@ a {
 .itens-list {
   display: flex;
   align-items: center;
+  overflow: overlay;
+  width: 100%;
+  z-index: 0;
 
   .favoritos {
     cursor: pointer;
