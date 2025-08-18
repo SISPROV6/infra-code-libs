@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, ContentChild, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-
 import { ProjectUtilservice } from '../../../../project/project-utils.service';
 import { IMenuItemStructure } from '../../model/imenu-item-structure.model';
 
@@ -38,7 +37,7 @@ export class DynamicMenuComponent implements OnInit {
   @ContentChild(TemplateRef) desiredContent?: TemplateRef<any>;
 
   constructor(public router: Router,
-             private _projectUtilService: ProjectUtilservice
+    private _projectUtilService: ProjectUtilservice
   ) { }
 
   ngOnInit(): void { }

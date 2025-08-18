@@ -1,7 +1,6 @@
 /** Modules */
 export * from './lib/auth.module';
 
-
 /** Services */
 export * from './lib/auth.service';
 export * from './lib/custom/lib-custom-environment.service';
