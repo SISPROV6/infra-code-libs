@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-infra",
-  "version": "5.13.4",
-  "tag": "infra-v5.13.4",
-  "notes": "Liberação de nova versão latest. Contém atualizações gerais, novo componente de combobox e ajuste no z-index do lib-header",
-  "timestamp": "2025-08-14T15:20:25.304Z"
+  "version": "5.14.0",
+  "tag": "infra-v5.14.0",
+  "notes": "Adição do componente contador-caracteres",
+  "timestamp": "2025-08-18T12:57:00.296Z"
 }
