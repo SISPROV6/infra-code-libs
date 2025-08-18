@@ -90,6 +90,7 @@ import { TableComponent } from './widgets/table/table.component';
 import { SearchTreePipe } from './widgets/tree/pipes/search-tree.pipe';
 import { TreeComponent } from './widgets/tree/tree.component';
 import { UsuarioAbasComponent } from './widgets/usuario-abas/usuario-abas.component';
+import { ContadorCaracteresComponent } from './widgets/contador-caracteres/contador-caracteres.component';
 
 @NgModule({
     imports: [
@@ -182,6 +183,7 @@ import { UsuarioAbasComponent } from './widgets/usuario-abas/usuario-abas.compon
         LibAuthenticationConfigComponent,
         InnerRowsDirective,
         LibComboboxReworkComponent,
+        ContadorCaracteresComponent
     ],
     exports: [
         PageNotAuthorizedComponent,
@@ -257,6 +259,7 @@ import { UsuarioAbasComponent } from './widgets/usuario-abas/usuario-abas.compon
         LibAuthenticationConfigComponent,
         InnerRowsDirective,
         LibComboboxReworkComponent,
+        ContadorCaracteresComponent
     ],
     providers: [],
 })
