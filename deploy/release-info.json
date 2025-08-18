@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-auth",
-  "version": "3.2.0",
-  "tag": "auth-v3.2.0",
-  "notes": "Atualização de rotina",
-  "timestamp": "2025-08-18T17:42:51.994Z"
+  "project": "ngx-sp-infra",
+  "version": "5.14.0",
+  "tag": "infra-v5.14.0",
+  "notes": "Adição do contador",
+  "timestamp": "2025-08-18T18:10:34.348Z"
 }
