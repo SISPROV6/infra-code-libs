@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'lib-contador-caracteres',
+  selector: 'app-contador-caracteres',
   imports: [],
   templateUrl: './contador-caracteres.component.html',
   styleUrl: './contador-caracteres.component.scss'
