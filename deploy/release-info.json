@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-auth",
-  "version": "3.1.0",
-  "tag": "auth-v3.1.0",
-  "notes": "Adição do scroll bar na next e mudanças nos Models",
-  "timestamp": "2025-08-18T17:19:46.016Z"
+  "version": "3.2.0",
+  "tag": "auth-v3.2.0",
+  "notes": "Atualização de rotina",
+  "timestamp": "2025-08-18T17:42:51.994Z"
 }
