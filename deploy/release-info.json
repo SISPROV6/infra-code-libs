@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-auth",
-  "version": "3.0.6",
-  "tag": "auth-v3.0.6",
-  "notes": "Correção da propriedade MenuDynamicCustom",
-  "timestamp": "2025-08-15T17:39:16.772Z"
+  "version": "3.1.0",
+  "tag": "auth-v3.1.0",
+  "notes": "Adição do scroll bar na next e mudanças nos Models",
+  "timestamp": "2025-08-18T17:19:46.016Z"
 }
