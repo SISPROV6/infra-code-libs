@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-infra",
-  "version": "5.14.0",
-  "tag": "infra-v5.14.0",
-  "notes": "Adição do componente contador-caracteres",
-  "timestamp": "2025-08-18T12:57:00.296Z"
+  "project": "ngx-sp-auth",
+  "version": "3.1.0",
+  "tag": "auth-v3.1.0",
+  "notes": "adição do scroll bar no submenu",
+  "timestamp": "2025-08-18T14:27:41.574Z"
 }
