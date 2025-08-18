@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-infra",
-  "version": "5.16.0",
-  "tag": "infra-v5.16.0",
-  "notes": "Atualização de rotina",
-  "timestamp": "2025-08-18T18:43:07.574Z"
+  "version": "5.17.0",
+  "tag": "infra-v5.17.0",
+  "notes": "mudança do nome do selector",
+  "timestamp": "2025-08-18T19:06:42.779Z"
 }
