@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { links } from './models/links-record';
 import { Router } from '@angular/router';
 import { NgFor } from '@angular/common';
@@ -13,6 +13,7 @@ export class UsuarioAbasComponent {
 
    public linksList: links[] = [];
   @Input() Id: string | number = "";
+  @Output() UsuarioId = new EventEmitter<string | number>();
 
   public activeItem: string = '';
 
@@ -34,9 +35,15 @@ export class UsuarioAbasComponent {
     );
     }
 
-  
     this.activeItem = this.router.url;
 
   }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['Id'] && changes['Id'].currentValue) {
+      this.UsuarioId.emit(this.Id);
+    }
+  }
+
 
 }

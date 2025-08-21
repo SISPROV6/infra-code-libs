@@ -1,5 +1,5 @@
 import { NgFor } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { links } from './models/links-record';
 import { Router } from '@angular/router';
 
@@ -12,7 +12,8 @@ import { Router } from '@angular/router';
 export class GrupoContabilAbasComponent {
 
    public linksList: links[] = [];
-  @Input() Id: string | number = "";
+    @Input() Id: string | number = "";
+    @Output() GrupoContabilId = new EventEmitter<string | number>();
 
   public activeItem: string = '';
 
@@ -34,6 +35,13 @@ export class GrupoContabilAbasComponent {
 
     this.activeItem = this.router.url;
 
+  }
+
+
+    ngOnChanges(changes: SimpleChanges) {
+    if (changes['Id'] && changes['Id'].currentValue) {
+        this.GrupoContabilId.emit(this.Id);
+    }
   }
 
 }
