@@ -1,7 +1,7 @@
 import { IMenuItemStructure } from "../../../public-api";
 
 export interface ICustomMenuService {
-    
+
     // Propriedades Customizadas do Menu
     get menuDynamic(): boolean;
 
@@ -12,8 +12,12 @@ export interface ICustomMenuService {
     get moduleImg(): string;
 
     get moduleSvg(): string;
-    
+
     get themeColor(): string;
+
+    get hostServerOutSystems():string;
+
+    set hostServerOutSystems(value:string);
 
     // Propriedades específicas do Menu
     get menuItems(): IMenuItemStructure[];

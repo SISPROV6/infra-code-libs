@@ -14,6 +14,7 @@ import { RetEstabelecimentoSession } from './model/ret-estabelecimento-session';
 import { RetNavSubMenu, RetSubmenuWithCards } from './model/ret-navsubmenu';
 import { NavSubmenuSearchItem } from './model/navsubmenu-searchitem';
 import { RetDynamicMenu } from './model/dynamic-menu';
+import { RetString } from '../../../../../ngx-sp-infra/src/public-api';
 
 @Injectable({
   providedIn: 'root'
@@ -204,16 +205,16 @@ export class MenuServicesService {
   }
 
   /** Método executado para montar estrutura de título, submenu e telas de acordo com os modelos presentes na ngx-sp-infra
-  * envia-se o título deste grupo de submenus, ícone e enum daqueles submenus que 
+  * envia-se o título deste grupo de submenus, ícone e enum daqueles submenus que
   * ficarão alocados no grupo de determinado título enviado
   */
   public getTelaSubmenus(NavSubmenuSearchItems: NavSubmenuSearchItem[]): Observable < RetNavSubMenu > {
-  
+
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json');
-  
+
     const url = `${this._BASE_URL}/Menu/GetTelaSubmenus`;
-  
+
     return this._httpClient
     .post<RetNavSubMenu>(url, JSON.stringify(NavSubmenuSearchItems), {'headers': headers })
       .pipe(
@@ -226,19 +227,19 @@ export class MenuServicesService {
       );
 
   }
-  
+
   /** Método executado para montar estrutura da tela de submenu com os cards baseado no IdUnico do menu acessado em específico
   */
   public getTelaSubmenusWithCards(MenuIdUnico:number): Observable < RetSubmenuWithCards > {
-  
+
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json');
-    
+
     const url = `${this._BASE_URL}/Menu/GetTelaSubmenusWithCards`;
-  
+
     const params : HttpParams = new HttpParams()
     .set('MenuIdUnico', MenuIdUnico)
-  
+
     return this._httpClient
       .get<RetSubmenuWithCards>(url, {'params':params, 'headers': headers })
       .pipe(
@@ -252,6 +253,25 @@ export class MenuServicesService {
 
   }
 
+  /** Método executado para pegar o HostName de direcionamento para OS
+  */
+  public GetHostServerOutSystems(){
+    const headers = new HttpHeaders().set("Content-Type", "application/json");
+
+    const url = `${this._BASE_URL}/Menu/GetHostServerOutSystems`;
+
+    return this._httpClient
+      .get<RetString>(url, {headers: headers })
+      .pipe(
+        take(1),
+        tap((response) => {
+          if (response.Error) {
+            throw Error(response.ErrorMessage);
+          }
+        })
+      );
+
+  }
   // #endregion Menu Dinâmico
 
   // #endregion ==========> SERVICES <==========

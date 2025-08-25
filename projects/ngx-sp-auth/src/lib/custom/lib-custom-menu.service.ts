@@ -37,7 +37,13 @@ export class LibCustomMenuService {
     public get themeColor(): string {
         return this._customMenuService.themeColor;
     }
+    public get hostServerOutSystems():string{
+      return this._customMenuService.hostServerOutSystems;
+    }
 
+    public set hostServerOutSystems(value:string){
+      this._customMenuService.hostServerOutSystems = value;
+    }
     // #endregion Propriedade Customizadas do Menu
 
     // #region Propriedade do Menu
@@ -52,7 +58,7 @@ export class LibCustomMenuService {
     public set menuItems(value: IMenuItemStructure[]) {
         this._customMenuService.menuItems = value;
     }
-    
+
     // ! Definição do BehaviorSubject: responsável principal da emissão do evento
     private empresaId: BehaviorSubject<{ estabelecimentoID: string, empresaID: string }> = new BehaviorSubject<{ estabelecimentoID: string, empresaID: string }>({ estabelecimentoID: "", empresaID: "" });
     public applyEmpresa$: Observable<{ estabelecimentoID: string, empresaID: string }> = this.empresaId.asObservable();
@@ -79,7 +85,7 @@ export class LibCustomMenuService {
     {
         return this._customMenuService.menuDynamicGetModuloId();
     }
-    
+
     // Método executado no menu-lateral.component.ts - método: onInit ()
     // Utilizado para inicializações diversas
     public menuDynamicOnInit(): void {

@@ -9,7 +9,7 @@ import { IMenuItemStructure } from '../../model/imenu-item-structure.model';
     templateUrl: './dynamic-menu.component.html',
     styleUrls: ['./dynamic-menu.component.scss'],
     imports: [
-        // AuthRoutingModule, 
+        // AuthRoutingModule,
         CommonModule,
         RouterLink
     ]
@@ -25,6 +25,8 @@ export class DynamicMenuComponent implements OnInit {
   @Input() titleSubmenu = "";
 
   @Input() submenuList?: IMenuItemStructure[] = [];
+
+  @Input() hostServerOutSystems: string = "";
 
   menuList: IMenuItemStructure[] = [];
 
@@ -60,7 +62,7 @@ export class DynamicMenuComponent implements OnInit {
   }
 
   public getExternalUrl(url: string) {
-    return `${ this._projectUtilService.getHostName() }/${ url }`;
+    return `${ this.hostServerOutSystems == "" ? this._projectUtilService.getHostName() : this.hostServerOutSystems }/${ url }`;
  }
-   
+
 }
