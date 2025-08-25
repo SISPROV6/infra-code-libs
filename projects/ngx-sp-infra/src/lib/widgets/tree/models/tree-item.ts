@@ -7,5 +7,6 @@ export class TreeItem {
   is_selected: boolean = false;
   key: string = "";
   aplicClass: boolean = false;
+  icon?: string;
   level: number = 0;
 }

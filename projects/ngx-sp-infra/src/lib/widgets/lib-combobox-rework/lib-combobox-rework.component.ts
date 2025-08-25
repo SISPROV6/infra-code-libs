@@ -182,6 +182,7 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
     if (!obj) this.selectedValues = null;
 
     this.value = obj;
+    this._onChange(obj);
     this._onTouched();
     this.selectionChange.emit(obj);
     this._cdr.markForCheck();

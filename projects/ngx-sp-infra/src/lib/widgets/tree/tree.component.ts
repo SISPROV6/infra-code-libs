@@ -59,11 +59,13 @@ export class TreeComponent {
     if (item.expanded) {
       item.expanded = !item.expanded;
       return;
-    } else {
+    }
+    else {
       if (item.children) {
         if (item.children.length > 0) {
           item.expanded = true;
-        } else {
+        }
+        else {
           item.expanded = false;
         }
       }
@@ -87,7 +89,8 @@ export class TreeComponent {
     }
     if (this.indeterminateCheck(items)) {
       this.onSelect.emit(true);
-    } else if (!this.indeterminateCheck(items)) {
+    }
+    else if (!this.indeterminateCheck(items)) {
       this.onSelect.emit(false);
     }
   }
@@ -95,7 +98,8 @@ export class TreeComponent {
   public onCheckEvent(items: TreeItem[]) {
     if (this.indeterminateCheck(items)) {
       this.onEvent.emit(true);
-    } else {
+    }
+    else {
       this.onEvent.emit(false);
     }
   }
