@@ -51,7 +51,7 @@ import { DynamicMenu } from '../model/dynamic-menu';
 export class MenuLateralComponent implements OnInit, OnDestroy  {
   constructor(
     @Inject(MSAL_GUARD_CONFIG) private _msalGuardConfiguration: MsalGuardConfiguration,
-    private _msalService: MsalService,		
+    private _msalService: MsalService,
     private _toastrService: ToastrService,
     public _customMenuService: LibCustomMenuService,
     private _customEnvironmentService: LibCustomEnvironmentService,
@@ -76,8 +76,8 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
 
     if (!this._customMenuService.menuDynamic && !this._customMenuService.menuDynamicCustom) {
       this._customMenuService.menuConfig.setMenuType(true);
- 
-      this._customMenuService.menuItems = this._customMenuService.menuConfig.initializeMenu(this._router.url);    
+
+      this._customMenuService.menuItems = this._customMenuService.menuConfig.initializeMenu(this._router.url);
 
       // Método com customizações para inicialização do Menu Estático
       this._customMenuService.menuStaticOnInit();
@@ -85,7 +85,7 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
     else
     {
       // Método com customizações para inicialização do Menu Dinâmico
-      
+
       if (this._customMenuService.menuDynamic) {
         this._customMenuService.menuConfig.setMenuType(false);
 
@@ -101,9 +101,15 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
             this._customMenuService.menuItems = this._customMenuService.menuConfig.initializeMenu(this._router.url);
           }
         })
+
+        //Atualmente o erro é tratado no back para retornar vazio, feito assim para garantir que não quebre em clientes que ainda não tem essa tabela
+        //Feito para implementação do APP9
+        this._menuServices.GetHostServerOutSystems().subscribe({
+          next:response => this._hostServeUrlOutSystems = response.String
+        })
       }
 
-      this._customMenuService.menuDynamicOnInit(); 
+      this._customMenuService.menuDynamicOnInit();
     }
 
     this.nomeEstabelecimento = this._authStorageService.infraEstabNome;
@@ -116,7 +122,7 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
     // Tratamemto exclusivo para o método de autenticação Azure
     if (this._authStorageService.infraInAuthTypeId == InfraInAuthTypeId.Azure && this._authStorageService.user.toLowerCase() != "admin") {
       await this.initMsal();
-    }      
+    }
 
   }
 
@@ -125,7 +131,7 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
   }
 
   @ViewChild('sidebar', { static: true }) sidebar!: ElementRef<HTMLDivElement>;
-  
+
   handleKeyboardShortcut = (event: KeyboardEvent): void => {
     if (event.ctrlKey && event.key.toLowerCase() === 'b') {
       event.preventDefault(); // Prevents any default behavior (like bold in text editors)
@@ -135,24 +141,25 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
   // #region ==========> PROPERTIES <==========
 
   // #region PRIVATE
+  private _hostServeUrlOutSystems: string = "";
 
   // ERICK: vou manter este por enquanto para quando for necessário esta funcionalidade eu consiga refazê-las sem muito problema
   @ViewChild("notif_menu") private notif_template?: TemplateRef<any>;
-  
+
   // #region PUBLIC
 
   @ViewChild('menuLink') public menuLink!: HTMLAnchorElement;
   @ContentChild(TemplateRef) public desiredContent?: TemplateRef<any>;
 
   public readonly MODAL_ESTABELECIMENTO: number = 1;
-  
+
   public nomeEstabelecimento: string = 'Estabelecimento padrão';
   public titleSubmenu: string = "";
   public submenuList: (ISubmenuItemStructure | undefined)[] = [];
-  
+
   public messageIfClicked = new Subject<boolean>();
 
-  /** Esta variável é usada na abertura do submenu e do submenu secundário para 
+  /** Esta variável é usada na abertura do submenu e do submenu secundário para
     * que a função onClickedOutside() que está na segunda div principal do HTML do
     * componente não seja ativada, pois se ela for ativada ela irá fechar o menu
     * lateral, e quando vamos do submenu para o submenu secundário não queremos
@@ -169,9 +176,11 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
 
   /** Nome do usuário logado para ser exibido no rodapé do menu. */
   public footerUserName: string = "Usuário";
-  
+
   public isPopoverVisible: boolean = false;
   public showBalloon: boolean = false;
+
+  public get HostServerOutSystems():string { return this._hostServeUrlOutSystems }
 
   // #endregion PUBLIC
 
@@ -182,13 +191,13 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
   // #region GET
   private getEstabelecimentoSession(estabID: string): void {
     this._menuServices.getEstabelecimentoSession(estabID).subscribe({
-      next: response => { 
-        this.nomeEstabelecimento = response.InfraEstabNome; 
+      next: response => {
+        this.nomeEstabelecimento = response.InfraEstabNome;
         this._authStorageService.infraEmpresaId = response.InfraEmpresaId;
         this._authStorageService.infraEmpresaNome = response.InfraEmpresaNome;
       },
-      error: error => { 
-        this._projectUtilService.showHttpError(error); 
+      error: error => {
+        this._projectUtilService.showHttpError(error);
       }
     })
   }
@@ -235,13 +244,13 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
     ref.classList.toggle("closed");
     ref.classList.toggle("col");
     document.querySelector(".sidebar-control")?.classList.toggle("col");
-  
+
     // Método com customizações para inicialização do Menu Estático
-    this._customMenuService.menuopenExpansibleMenu(ref);          
+    this._customMenuService.menuopenExpansibleMenu(ref);
   }
 
   public openSubmenu(menu: IMenuItemStructure, ref: HTMLDivElement, desiredMenu: TemplateRef<any>): void {
-    
+
     if (menu.children && menu.children.length > 0 && menu.route == "") {
       this.titleSubmenu = menu.label
       this.desiredContent = desiredMenu;
@@ -253,7 +262,7 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
       else if (!ref.classList.contains("opened-sub")) { ref.classList.toggle("opened-sub"); }
       this.submenuList = menu.children;
     }
-    
+
     else if (!menu.children || (menu.children && menu.children.length == 0)) {
       this.submenuList = [];
       ref.classList.toggle("selectedItem");
@@ -271,9 +280,9 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
     let usuarioId: string = this._authStorageService.infraUsuarioId;
 
     if (!footerImg || footerImg == null) { return true; }
-    
+
     if (usuarioId != footerImg.USUARIOID) { return true; }
-    
+
     this.footerUserImgSrc = footerImg.FILE;
     return false;
   }
@@ -285,7 +294,7 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
   // #endregion MENU FOOTER USER IMAGE
 
   public logout(): void {
-    
+
     // Verifica se é Login Azure
     if (this._authStorageService.infraInAuthTypeId == InfraInAuthTypeId.Azure && this._authStorageService.user.toLowerCase() != "admin") {
       const hostAuthLogin = !this._customEnvironmentService.production ? "http://localhost:4200/auth/login" : `${ this._customEnvironmentService.hostName }/SisproErpCloud/${ this._customEnvironmentService.product }/auth/login`;
@@ -295,12 +304,12 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
         postLogoutRedirectUri: hostAuthLogin
       });
     }
-  
+
     this._authService.logout();
   }
 
   public getExternalUrl(url: string) {
-     return `${ this._projectUtilService.getHostName() }/${ url }`;
+     return `${ this.HostServerOutSystems == "" ? this._projectUtilService.getHostName() : this.HostServerOutSystems }/${ url }`;
   }
 
   public constroiRegrasDynamicMenu(menus: DynamicMenu[]) {

@@ -28,7 +28,7 @@ jobs:
           node-version: 20
 
       - name: Instalar dependências
-        run: npm ci
+        run: npm i
 
       - name: Ler release-info.json
         id: release
@@ -46,7 +46,7 @@ jobs:
         run: |
           if [ "${{ env.PROJECT }}" == "ngx-sp-auth" ]; then
             cd projects/ngx-sp-auth
-            npm ci
+            npm i
 
             cd ../../
             npm run build:ngx-sp-auth:prod

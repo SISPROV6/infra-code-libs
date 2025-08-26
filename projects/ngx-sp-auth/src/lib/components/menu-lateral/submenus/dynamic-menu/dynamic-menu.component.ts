@@ -5,14 +5,14 @@ import { ProjectUtilservice } from '../../../../project/project-utils.service';
 import { IMenuItemStructure } from '../../model/imenu-item-structure.model';
 
 @Component({
-    selector: 'app-dynamic-menu',
-    templateUrl: './dynamic-menu.component.html',
-    styleUrls: ['./dynamic-menu.component.scss'],
-    imports: [
-        // AuthRoutingModule, 
-        CommonModule,
-        RouterLink
-    ]
+  selector: 'app-dynamic-menu',
+  templateUrl: './dynamic-menu.component.html',
+  styleUrls: ['./dynamic-menu.component.scss'],
+  imports: [
+    // AuthRoutingModule,
+    CommonModule,
+    RouterLink
+  ]
 })
 export class DynamicMenuComponent implements OnInit {
 
@@ -25,6 +25,8 @@ export class DynamicMenuComponent implements OnInit {
   @Input() titleSubmenu = "";
 
   @Input() submenuList?: IMenuItemStructure[] = [];
+
+  @Input() hostServerOutSystems = "";
 
   menuList: IMenuItemStructure[] = [];
 
@@ -60,7 +62,7 @@ export class DynamicMenuComponent implements OnInit {
   }
 
   public getExternalUrl(url: string) {
-    return `${ this._projectUtilService.getHostName() }/${ url }`;
- }
-   
+    return `${ this.hostServerOutSystems == "" ? this._projectUtilService.getHostName() : this.hostServerOutSystems }/${ url }`;
+  }
+
 }
