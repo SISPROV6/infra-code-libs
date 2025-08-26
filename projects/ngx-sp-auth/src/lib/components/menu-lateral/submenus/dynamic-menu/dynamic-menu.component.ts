@@ -42,7 +42,8 @@ export class DynamicMenuComponent implements OnInit {
     private _projectUtilService: ProjectUtilservice
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+  }
 
   onClickedOutside(e: Event, ref: HTMLDivElement) {
     ref.classList.remove("opened-sub");
