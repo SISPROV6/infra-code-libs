@@ -14,7 +14,7 @@
         </a>
 
         <ng-template #externalMenu>
-          <a (click)="getExternalUrl(itemList.route)"
+          <a [href]="getExternalUrl(itemList.route)"
             target="_blank"
             (click)="recebeParam($event, submenuRef)">
             <span>{{ itemList!.label }}</span>

@@ -105,8 +105,12 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
         //Atualmente o erro é tratado no back para retornar vazio, feito assim para garantir que não quebre em clientes que ainda não tem essa tabela
         //Feito para implementação do APP9
         this._menuServices.GetHostServerOutSystems().subscribe({
-          next:response => this._hostServeUrlOutSystems = response.String
+          next:response => {
+            this._hostServeUrlOutSystems = response.String
+          },
+          error:error => console.error(error)
         })
+
       }
 
       this._customMenuService.menuDynamicOnInit();
@@ -309,7 +313,7 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
   }
 
   public getExternalUrl(url: string) {
-     return `${ this.HostServerOutSystems == "" ? this._projectUtilService.getHostName() : this.HostServerOutSystems }/${ url }`;
+     return `${ this._hostServeUrlOutSystems == "" ? this._projectUtilService.getHostName() : this._hostServeUrlOutSystems }/${ url }`;
   }
 
   public constroiRegrasDynamicMenu(menus: DynamicMenu[]) {
