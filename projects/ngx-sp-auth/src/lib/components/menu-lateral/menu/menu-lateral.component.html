@@ -1,7 +1,7 @@
 <!-- #region MAIN CONTENT -->
 <div id="menu" class="main col-12">
 
-  <div style="height: 100vh; z-index: 3;" class="sidebar-control position-relative d-flex flex-row" 
+  <div style="height: 100vh; z-index: 3;" class="sidebar-control position-relative d-flex flex-row"
     (clickOutside)="closeMenu == true ? onClickedOutside($event, submenu_ref) : closeMenu = true">
     <div class="sidebar {{_customMenuService.themeColor}} closed" #sidebar>
       <div class="menu-header">
@@ -66,16 +66,16 @@
             <div class="dynamic-menu">
               <ul #dynamic_menu_items *ngIf="_customMenuService.menuItems; else isLoading">
 
-                <li *ngFor="let menuItem of _customMenuService.menuItems; let i = index" 
-                  class="p-1 rounded" 
-                  (click)="openSubmenu(menuItem, submenu_ref, dynamic_menu)" 
+                <li *ngFor="let menuItem of _customMenuService.menuItems; let i = index"
+                  class="p-1 rounded"
+                  (click)="openSubmenu(menuItem, submenu_ref, dynamic_menu)"
                   [class.selectedItem]="menuItem.isSelected">
 
                   <a *ngIf="!menuItem.isExternal; else externalMenu"
-                    [routerLink]="menuItem.route != '' ? menuItem.route : null" 
-                    [id]="'item' + menuItem.id" 
-                    [tooltip]="!sidebar.classList.contains('closed') ? '' : menuItem.label" 
-                    placement="left" class="w-100 d-flex align-items-center button-icons text-decoration-none p-1 glb-cursor-pointer" 
+                    [routerLink]="menuItem.route != '' ? menuItem.route : null"
+                    [id]="'item' + menuItem.id"
+                    [tooltip]="!sidebar.classList.contains('closed') ? '' : menuItem.label"
+                    placement="left" class="w-100 d-flex align-items-center button-icons text-decoration-none p-1 glb-cursor-pointer"
                     [class]="sidebar.classList.contains('closed') ? 'justify-content-center' : 'justify-content-between'">
 
                     <div class="container">
@@ -85,16 +85,16 @@
                         <img [src]="menuItem.icon" [alt]="'icone: ' + menuItem.label">
                       </ng-template>
                     </div>
-                    <lib-icon *ngIf="(menuItem.children && menuItem.children.length > 0) && !sidebar.classList.contains('closed')" 
+                    <lib-icon *ngIf="(menuItem.children && menuItem.children.length > 0) && !sidebar.classList.contains('closed')"
                       iconName="seta-direita" iconColor="white"/>
                   </a>
-                  
+
                   <ng-template #externalMenu>
                     <a [href]="getExternalUrl(menuItem.route)"
-                      target="_blank" 
-                      [id]="'item' + menuItem.id" 
-                      [tooltip]="!sidebar.classList.contains('closed') ? '' : menuItem.label" 
-                      placement="left" class="w-100 d-flex align-items-center button-icons text-decoration-none p-1 glb-cursor-pointer" 
+                      target="_blank"
+                      [id]="'item' + menuItem.id"
+                      [tooltip]="!sidebar.classList.contains('closed') ? '' : menuItem.label"
+                      placement="left" class="w-100 d-flex align-items-center button-icons text-decoration-none p-1 glb-cursor-pointer"
                       [class]="sidebar.classList.contains('closed') ? 'justify-content-center' : 'justify-content-between'">
 
                       <div class="container">
@@ -104,7 +104,7 @@
                           <img [src]="menuItem.icon" [alt]="'icone: ' + menuItem.label">
                         </ng-template>
                       </div>
-                      <lib-icon *ngIf="(menuItem.children && menuItem.children.length > 0) && !sidebar.classList.contains('closed')" 
+                      <lib-icon *ngIf="(menuItem.children && menuItem.children.length > 0) && !sidebar.classList.contains('closed')"
                         iconName="seta-direita" iconColor="white"/>
                     </a>
                   </ng-template>
@@ -137,16 +137,16 @@
           <span class="text-truncate fw-bold text-start" style="max-width: 100%;"> {{ footerUserName }} </span>
         </div>
       </div>
-      
+
       <ng-template #popoverContent>
         <div class="footer-menu" style="width: 1000px;">
-          <div class="d-flex align-items-center"> 
+          <div class="d-flex align-items-center">
             <img *ngIf="footerUserImgSrc; else noUserImg" class="photo-profile"
-              [src]="['data:image/jpeg;base64,' + footerUserImgSrc]" alt="foto-perfil"> 
+              [src]="['data:image/jpeg;base64,' + footerUserImgSrc]" alt="foto-perfil">
             <ng-template #noUserImg>
               <lib-icon iconName="contraparte" iconColor="currentColor"/>
             </ng-template>
-            <div class="d-flex flex-column ms-1"> 
+            <div class="d-flex flex-column ms-1">
               <div [tooltip]="footerUserName" class="dynamic-container" style="white-space: nowrap; flex-grow: 1;max-width: 200px; font-size: 16px;">{{footerUserName}}</div>
               <div [tooltip]="footerUserEmail" class="dynamic-container" style="white-space: nowrap; font-size: 12px; flex-grow: 1;max-width: 200px;">{{footerUserEmail}}</div>
             </div>
@@ -170,7 +170,7 @@
       </ng-template>
     </div>
   </div>
-  
+
   <div class="main-content col d-flex flex-column align-content-between" id="body-content">
     <div class="content" style="position: relative;">
       <router-outlet></router-outlet>
@@ -183,9 +183,10 @@
 
 <!-- #region TEMPLATES -->
 <ng-template #dynamic_menu let-data>
-  <app-dynamic-menu 
+  <app-dynamic-menu
     [submenuList]="data"
-    [titleSubmenu]="titleSubmenu" [submenuRef]="submenu_ref" [recebeParam]="onClickedOutside.bind(this)">
+    [titleSubmenu]="titleSubmenu" [submenuRef]="submenu_ref" [recebeParam]="onClickedOutside.bind(this)"
+    [hostServerOutSystems]="HostServerOutSystems">
   </app-dynamic-menu>
 </ng-template>
 
