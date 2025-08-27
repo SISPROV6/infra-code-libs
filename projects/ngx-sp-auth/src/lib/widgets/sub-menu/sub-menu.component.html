@@ -17,7 +17,7 @@
       <span class="fw-bold fs-4 ms-1">{{ subMenu.titulo }}</span>
 
       }
-      <app-nav-tabs [subMenus]="navSubmenus[$index].subMenuItem"></app-nav-tabs>
+      <app-nav-tabs [subMenus]="navSubmenus[$index].subMenuItem" [hostName]="hostNameOutSystems"></app-nav-tabs>
     </div>
     @if(!$last){
     <hr />
