@@ -1,4 +1,4 @@
-/** 
+/**
  * Public API Surface of ngx-sp-infra
 */
 
@@ -162,10 +162,6 @@ export * from './lib/widgets/search-input/search-input.component';
 export * from './lib/widgets/side-tabs-generic/side-tabs-generic.component';
 export * from './lib/widgets/simple-search/simple-search.component';
 export * from './lib/widgets/spinner/spinner.component';
-export * from './lib/widgets/sub-menu-card/sub-menu-card.component';
-export * from './lib/widgets/sub-menu/list/list.component';
-export * from './lib/widgets/sub-menu/nav-tabs/nav-tabs.component';
-export * from './lib/widgets/sub-menu/sub-menu.component';
 export * from './lib/widgets/table/table.component';
 export * from './lib/widgets/tree/models/ret-tree';
 export * from './lib/widgets/tree/models/tree-item';

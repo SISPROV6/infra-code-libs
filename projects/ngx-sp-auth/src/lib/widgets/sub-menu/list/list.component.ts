@@ -10,6 +10,16 @@ import { TelaItem } from '../sub-menu.component';
 })
 export class ListComponent {
 
+  /**
+   *
+   */
+  constructor() {
+  }
+GetExternalUrl(url: string) {
+  return `${ this.hostName }/${ url }`;
+}
+
   @Input() telasItem  : TelaItem[] = [];
 
+  @Input() hostName:string = "";
 }
