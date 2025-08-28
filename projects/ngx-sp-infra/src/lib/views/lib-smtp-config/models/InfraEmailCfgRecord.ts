@@ -1,0 +1,19 @@
+export class InfraEmailCfgRecord{
+    Tenant_Id:number = 0;
+    Id:number = 0;
+    SmtpServer:string = "";
+    SmtpPort:number = 0;
+    TimeOut:number = 0;
+    Username:string = "";
+    Password:string = "";
+    Password_Ang:string = "";
+    NomeRemet:string = "";
+    EmailAdress:string = "";
+    Is_SSL:boolean = false;
+    Is_TLS:boolean = false;
+    Is_Authenticated:boolean = false;
+    ImapServer:string = "";
+    ImapPort:number = 0;
+    InfraEstabId:string = "";
+    UrlServidor:string = "";
+}
