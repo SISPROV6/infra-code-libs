@@ -5,23 +5,23 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, take, tap } from 'rxjs/operators';
 
+import { Code2Fa } from './models/code-2fa';
+import { ForgottenPasswordForm } from './models/forgotten-password-form';
+import { InfraIn2FaTypeId } from './models/infraIn2FaTypeId';
+import { InfraInAuthTypeId } from './models/infraInAuthTypeId';
 import { Login } from './models/login';
 import { LoginForm } from './models/login-form';
-import { RetLogin } from './models/ret-login';
-import { RetAutenthication } from './models/ret-autenthication';
-import { PasswordRecup } from './models/password-recup';
-import { ForgottenPasswordForm } from './models/forgotten-password-form';
 import { NovaSenhaForm } from './models/nova-senha-form';
-import { Code2Fa } from './models/code-2fa';
-import { InfraInAuthTypeId } from './models/infraInAuthTypeId';
-import { InfraIn2FaTypeId } from './models/infraIn2FaTypeId';
+import { PasswordRecup } from './models/password-recup';
 import { Payload } from './models/payload';
+import { RetAutenthication } from './models/ret-autenthication';
+import { RetLogin } from './models/ret-login';
 
 import { IpServiceService, RetError } from 'ngx-sp-infra';
-import { AuthStorageService } from './storage/auth-storage.service';
+import { LibCustomEnvironmentService } from './custom/lib-custom-environment.service';
 import { LibCustomLoginService } from './custom/lib-custom-login.service';
 import { ProjectUtilservice } from './project/project-utils.service';
-import { LibCustomEnvironmentService } from './custom/lib-custom-environment.service';
+import { AuthStorageService } from './storage/auth-storage.service';
 @Injectable(
   { providedIn: 'root' }
 )
@@ -445,6 +445,7 @@ export class AuthService {
         );
   }
   
+  /** Realiza o logout do sistema, removendo tokens do localStorage e limpando cache */
   public logout() {
     this._authStorageService.logout();
 
@@ -453,7 +454,7 @@ export class AuthService {
 
     // Método com customizações para inicializações do Logout
     this._customLoginService.authLogout();
-
+    
     this._router.navigate(["/auth/login"]);
   }
 

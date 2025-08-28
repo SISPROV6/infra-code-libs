@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-auth",
-  "version": "3.2.8",
-  "tag": "auth-v3.2.8",
-  "notes": "Lógica de teste para novo catch de erros",
-  "timestamp": "2025-08-28T13:25:25.642Z"
+  "version": "3.2.9",
+  "tag": "auth-v3.2.9",
+  "notes": "Atualização da lógica de validação do login e limpeza de token prévio",
+  "timestamp": "2025-08-28T14:18:49.631Z"
 }

@@ -56,7 +56,9 @@ export class ProjectUtilservice {
 
     if (error.error instanceof ErrorEvent) {
       // Erro ocorreu no lado do cliente
-      this.messageService.showAlertDanger(Utils.getHttpErrorMessage(error));
+      this.router.navigate(["/auth/login"]).then(e => {
+        this.messageService.showAlertDanger(Utils.getHttpErrorMessage(error));
+      });
     } else {
       // Erro ocorreu no lado do servidor
       let isUnauthorizedAccess = error.status === 401;
@@ -73,11 +75,15 @@ export class ProjectUtilservice {
             this.messageService.showAlertDanger(Utils.getHttpErrorMessage(error));
           });
         } else {
-          this.messageService.showAlertDanger(Utils.getHttpErrorMessage(error));
+          this.router.navigate(["/auth/login"]).then(e => {
+            this.messageService.showAlertDanger(Utils.getHttpErrorMessage(error));
+          });
         }
 
       } else {
-        this.messageService.showAlertDanger(Utils.getHttpErrorMessage(error));
+        this.router.navigate(["/auth/login"]).then(e => {
+            this.messageService.showAlertDanger(Utils.getHttpErrorMessage(error));
+          });
       }
 
     }

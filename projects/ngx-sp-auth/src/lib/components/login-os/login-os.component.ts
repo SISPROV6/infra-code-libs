@@ -97,6 +97,8 @@ export class LoginOSComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    this._storageService.logout();
+
     this.getParams();
     this.logOn();
   }
@@ -113,11 +115,9 @@ export class LoginOSComponent implements OnInit, OnDestroy {
 
       const currDominio = this._storageService.dominio ?? undefined;
       const currUsuario = this._storageService.user ?? undefined;
-  
+
       this._authService.getAuthentication(this._loginOSModel!.dominio).subscribe({
         next: () => {
-
-          throw new Error("Erro de teste");
 
           if (currDominio === this._loginOSModel!.dominio && currUsuario === this._loginOSModel!.usuario) {
             status = "keep";
@@ -149,6 +149,7 @@ export class LoginOSComponent implements OnInit, OnDestroy {
           this._projectUtilService.showHTTPErrorOS(error);
         }
       });
+
     }
   // #endregion LOGIN
 
