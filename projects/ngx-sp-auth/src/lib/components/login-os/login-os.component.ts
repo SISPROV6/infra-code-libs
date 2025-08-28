@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { InfraModule } from 'ngx-sp-infra';
+import { InfraModule, MessageService } from 'ngx-sp-infra';
 import { Subscription, take, timer } from 'rxjs';
-import { ProjectUtilservice } from '../../project/project-utils.service';
 import { AuthService } from '../../auth.service';
 import { LoginForm } from '../../models/login-form';
 import { LoginOSModel } from '../../models/login-os.model';
+import { ProjectUtilservice } from '../../project/project-utils.service';
 import { AuthStorageService } from '../../storage/auth-storage.service';
 
 @Component({
@@ -89,10 +89,11 @@ export class LoginOSComponent implements OnInit, OnDestroy {
   // #region ==========> INITIALIZATION <==========
   constructor(
     private _authService: AuthService,
-		private _projectUtilservice: ProjectUtilservice,
+		private _projectUtilService: ProjectUtilservice,
     private _route: ActivatedRoute,
     private _router: Router,
-    private _storageService: AuthStorageService
+    private _storageService: AuthStorageService,
+    private _messageService: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -137,13 +138,13 @@ export class LoginOSComponent implements OnInit, OnDestroy {
             },
             error: (error) => {
               this.loginStatus = "error";
-              this._projectUtilservice.showHttpError(error);
+              this._projectUtilService.showHttpError(error);
             },
           });
         },
         error: (error) => {
           this.loginStatus = "error";
-          this._projectUtilservice.showHttpError(error);
+          this._projectUtilService.showHttpError(error);
         }
       });
     }
@@ -176,9 +177,10 @@ export class LoginOSComponent implements OnInit, OnDestroy {
     const payloadString = this._route.snapshot.queryParamMap.get('payload');
 
     if (!payloadString) {
-      console.warn('Payload não encontrado na URL.');
+      this._messageService.showAlertDanger('Payload não encontrado na URL.');
       this.loginStatus = "error";
-
+      
+      console.warn('Payload não encontrado na URL.');
       throw new Error('Payload não encontrado na URL.');
     }
 
@@ -199,6 +201,9 @@ export class LoginOSComponent implements OnInit, OnDestroy {
       };
     }
     catch (error) {
+      this._messageService.showAlertDanger('Erro ao fazer parse do payload.');
+      this.loginStatus = "error";
+
       console.error('Erro ao fazer parse do payload:', error);
       throw error;
     }
