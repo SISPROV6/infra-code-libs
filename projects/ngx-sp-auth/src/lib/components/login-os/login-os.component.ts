@@ -117,6 +117,8 @@ export class LoginOSComponent implements OnInit, OnDestroy {
       this._authService.getAuthentication(this._loginOSModel!.dominio).subscribe({
         next: () => {
 
+          throw new Error("Erro de teste");
+
           if (currDominio === this._loginOSModel!.dominio && currUsuario === this._loginOSModel!.usuario) {
             status = "keep";
             this.redirect();
@@ -138,13 +140,13 @@ export class LoginOSComponent implements OnInit, OnDestroy {
             },
             error: (error) => {
               this.loginStatus = "error";
-              this._projectUtilService.showHttpError(error);
+              this._projectUtilService.showHTTPErrorOS(error);
             },
           });
         },
         error: (error) => {
           this.loginStatus = "error";
-          this._projectUtilService.showHttpError(error);
+          this._projectUtilService.showHTTPErrorOS(error);
         }
       });
     }
@@ -177,8 +179,11 @@ export class LoginOSComponent implements OnInit, OnDestroy {
     const payloadString = this._route.snapshot.queryParamMap.get('payload');
 
     if (!payloadString) {
-      this._messageService.showAlertDanger('Payload não encontrado na URL.');
       this.loginStatus = "error";
+
+      this._router.navigate(["/auth/login"]).then(e => {
+        this._messageService.showAlertDanger('Payload não encontrado na URL.');
+      });
       
       console.warn('Payload não encontrado na URL.');
       throw new Error('Payload não encontrado na URL.');
@@ -201,8 +206,11 @@ export class LoginOSComponent implements OnInit, OnDestroy {
       };
     }
     catch (error) {
-      this._messageService.showAlertDanger('Erro ao fazer parse do payload.');
       this.loginStatus = "error";
+
+      this._router.navigate(["/auth/login"]).then(e => {
+        this._messageService.showAlertDanger('Erro ao fazer parse do payload.');
+      });
 
       console.error('Erro ao fazer parse do payload:', error);
       throw error;

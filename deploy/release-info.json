@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-auth",
-  "version": "3.2.7",
-  "tag": "auth-v3.2.7",
-  "notes": "Ajuste nas mensagens de erro da tela de login integrado com OS",
-  "timestamp": "2025-08-28T12:39:25.891Z"
+  "version": "3.2.8",
+  "tag": "auth-v3.2.8",
+  "notes": "Lógica de teste para novo catch de erros",
+  "timestamp": "2025-08-28T13:25:25.642Z"
 }
