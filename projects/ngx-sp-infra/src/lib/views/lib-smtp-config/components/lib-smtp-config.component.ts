@@ -246,7 +246,5 @@ export class LibSmtpConfigComponent {
     const id: any = this._route.snapshot.paramMap.get('id');
     this._infraEstabelecimentoID = id;
   }
-
-  public returnToList() { this._router.navigate(["/estabelecimentos"]) }
   //#endregion
 }
