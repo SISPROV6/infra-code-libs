@@ -267,7 +267,7 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
       this.submenuList = menu.children;
     }
 
-    else if (!menu.children || (menu.children && menu.children.length == 0)) {
+    else if (!menu.children || (menu.children && menu.children.length == 0) || menu.route != "") {
       this.submenuList = [];
       ref.classList.toggle("selectedItem");
       this.onClickedOutside(new Event(""), ref);
@@ -275,6 +275,7 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
   }
 
   public onClickedOutside(e: Event, ref: HTMLDivElement): void {
+    console.log('executou2');
     ref.classList.remove("opened-sub");
     this.submenuList = [];
   }
