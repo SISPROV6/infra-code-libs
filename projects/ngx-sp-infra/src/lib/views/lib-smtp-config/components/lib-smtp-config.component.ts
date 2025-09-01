@@ -1,20 +1,21 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ActivatedRoute, Router} from "@angular/router";
-import { TooltipModule } from "ngx-bootstrap/tooltip";
 import { TenantService } from "../../../service/tenant.service";
 import { InfraEmailCfgRecord } from "../models/InfraEmailCfgRecord";
 import { ToastrService } from "ngx-toastr";
-import { InfraModule } from "../../../infra.module";
 import { MessageService } from "../../../message/message.service";
 import { ModalUtilsService } from "../../../service/modal-utils.service";
-import { FormUtils } from "../../../utils/form-utils";
 import { SmtpConfigService } from "../services/smtp-config.service";
 import { EmailConfigTestModel } from "../models/EmailConfigTestModel";
+import { FieldErrorMessageComponent } from "../../../widgets/field-error-message/field-error-message.component";
+import { LibIconsComponent } from "../../../widgets/lib-icons/lib-icons.component";
+import { FormUtils } from "../../../utils/form-utils";
+import { TooltipModule } from "ngx-bootstrap/tooltip";
 
 @Component({
   selector: 'lib-smtp-config',
-  imports: [InfraModule, FormsModule, ReactiveFormsModule, TooltipModule],
+  imports: [FormsModule, ReactiveFormsModule, TooltipModule, LibIconsComponent, FieldErrorMessageComponent],
   templateUrl: './lib-smtp-config.component.html',
   styleUrl: './lib-smtp-config.component.scss'
 })

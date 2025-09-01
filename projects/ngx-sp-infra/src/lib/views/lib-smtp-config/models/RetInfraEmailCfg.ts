@@ -1,4 +1,4 @@
-import { IError } from "ngx-sp-infra";
+import { IError } from "../../../models/utils/ierror";
 import { InfraEmailCfgRecord } from "./InfraEmailCfgRecord";
 
 export class RetInfraEmailCfg implements IError{

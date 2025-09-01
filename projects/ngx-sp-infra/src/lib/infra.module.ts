@@ -91,6 +91,7 @@ import { SearchTreePipe } from './widgets/tree/pipes/search-tree.pipe';
 import { TreeComponent } from './widgets/tree/tree.component';
 import { UsuarioAbasComponent } from './widgets/usuario-abas/usuario-abas.component';
 import { ContadorCaracteresComponent } from './widgets/contador-caracteres/contador-caracteres.component';
+import { LibSmtpConfigComponent } from './views/lib-smtp-config/components/lib-smtp-config.component';
 
 @NgModule({
     imports: [
@@ -183,7 +184,8 @@ import { ContadorCaracteresComponent } from './widgets/contador-caracteres/conta
         LibAuthenticationConfigComponent,
         InnerRowsDirective,
         LibComboboxReworkComponent,
-        ContadorCaracteresComponent
+        ContadorCaracteresComponent,
+        LibSmtpConfigComponent
     ],
     exports: [
         PageNotAuthorizedComponent,
@@ -259,7 +261,8 @@ import { ContadorCaracteresComponent } from './widgets/contador-caracteres/conta
         LibAuthenticationConfigComponent,
         InnerRowsDirective,
         LibComboboxReworkComponent,
-        ContadorCaracteresComponent
+        ContadorCaracteresComponent,
+        LibSmtpConfigComponent
     ],
     providers: [],
 })

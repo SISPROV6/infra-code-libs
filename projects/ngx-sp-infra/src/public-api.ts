@@ -113,6 +113,7 @@ export * from './lib/views/logs-timer/components/home-log-timer/home-log-timer.c
 export * from './lib/views/logs-ws/components/detalhes-log-ws/detalhes-log-ws.component';
 export * from './lib/views/logs-ws/components/home-log-ws/home-logs-ws.component';
 export * from './lib/views/page-not-authorized/page-not-authorized.component';
+export * from './lib/views/lib-smtp-config/components/lib-smtp-config.component';
 
 /** Widgets */
 export * from './lib/views/lib-config-senha/lib-config-senha.component';
