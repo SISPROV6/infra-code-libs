@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ActivatedRoute, Router} from "@angular/router";
 import { TooltipModule } from "ngx-bootstrap/tooltip";
@@ -54,10 +54,11 @@ export class LibSmtpConfigComponent {
   }
 
   @Input() isInfraStab: boolean = false;
+  @Output() emitIsEditingMode = new EventEmitter<boolean>();
 
-  private _tenantId: number = 0;
-  private _infraEstabelecimentoID: string = '';
-  private _infraEmailId: number = 0;
+  public _tenantId: number = 0;
+  public _infraEstabelecimentoID: string = '';
+  public _infraEmailId: number = 0;
 
   public editingMode: boolean = false;
   public emailData: InfraEmailCfgRecord = new InfraEmailCfgRecord();
@@ -101,9 +102,11 @@ export class LibSmtpConfigComponent {
 
         if (response.InfraEmailCfg.Id == 0) {
           this.editingMode = false;
+          this.EmitIsEditingMode(false);
           this._toastrService.info("Este estabelecimento ainda <strong>não possuí<strong> configurações para envio de e-mail", "", { enableHtml: true })
         } else {
           this.editingMode = true;
+          this.EmitIsEditingMode(true);
           this._infraEmailId = response.InfraEmailCfg.Id
         }
 
@@ -196,6 +199,10 @@ export class LibSmtpConfigComponent {
   //#endregion
 
   //#region UTILS
+  public EmitIsEditingMode(isEditingMode:boolean){
+    this.emitIsEditingMode.emit(isEditingMode);
+  }
+
   public normalizeEmailList(destinatarios: string[]): string{
     let emailList: string = "";
     for (let index = 0; index < destinatarios.length; index++) {
