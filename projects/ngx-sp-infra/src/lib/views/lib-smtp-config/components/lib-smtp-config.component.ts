@@ -15,7 +15,7 @@ import { EmailConfigTestModel } from "../models/EmailConfigTestModel";
 
 @Component({
   selector: 'lib-smtp-config',
-  imports: [InfraModule, RouterLink, NgIf, FormsModule, ReactiveFormsModule, TooltipModule],
+  imports: [InfraModule, FormsModule, ReactiveFormsModule, TooltipModule],
   templateUrl: './lib-smtp-config.component.html',
   styleUrl: './lib-smtp-config.component.scss'
 })

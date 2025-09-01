@@ -1,17 +1,295 @@
-<!-- <lib-header [breadcrumbList]="module === 'Corporativo' ? [ 'Configurações', 'Configurações SMTP'] : [ 'Configuração ERP', 'SMTP' ]" pageTitle="Configurações SMTP">
-    @if(this.editingMode){
-    <button customButton1 class="btn btn-outline-primary btn-sm d-flex flex-row align-items-center me-2"
-        (click)="modalUtils.openModal(modalTestarConfig, 2)">
-        Testar configurações</button>
+<div [formGroup]="form" class="modal-body container-fluid">
+    @if(this.isInfraStab)
+    {
+        <div class="d-flex justify-content-end">
+            @if(this.editingMode)
+            {
+                <button class="testarConfigBtn btn btn-outline-primary d-flex flex-row align-items-center"
+                    (click)="modalUtils.openModal(modalTestarConfig,1)">Testar configurações</button>
+            }
+            <button class="btn btn-primary me-2" (click)="this.SalvarCfgEmail()">
+                <lib-icon iconName="disquete"></lib-icon> Salvar
+            </button>
+        </div>
     }
-    <button customButton2 class="btn btn-outline-dark d-flex flex-row align-items-center me-2" routerLink="/home">
-        <lib-icon iconName="fechar" /> Cancelar</button>
-    <button customButton3 type="submit" (click)="SalvarCfgEmail()"
-        class="btn btn-success flex-row align-items-center me-2"><lib-icon iconName="disquete" /> Salvar</button>
-</lib-header>
 
-<ng-template #loading>
-    <div class="d-flex justify-content-center">
-        <lib-spinner></lib-spinner>
+    <div [class.my-4]="!this.isInfraStab">
+        <div class="container-fluid" >
+            <div class="row d-flex mb-4" >
+                <div class="col-6">
+                    <div>
+                        <label for="inputGroupEmail" class="form-label">Endereço de Email <span class="text-danger">*</span></label>
+                        <div class="input-group"
+                            tooltip="Endereço de email que fará os envios das mensagens (obrigatório informar).">
+                            <span class="input-group-text" id="inputGroupEmail"><lib-icon
+                                    iconName="aviao-papel"></lib-icon></span>
+                            <input type="text" class="form-control" aria-label="Sizing example input"
+                                aria-describedby="inputGroupEmail" formControlName="EmailAdress"
+                                [class.is-invalid]="FormUtils.isInvalidField(form.get('EmailAdress'))">
+                            <app-field-error-message [control]="form.get('EmailAdress')"
+                                label="Email"></app-field-error-message>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="col-6">
+                    <div>
+                        <label for="inputGroupNOMEREMET" class="form-label">Nome do remetente </label>
+                        <div class="input-group"
+                            tooltip="Nome que aparecerá juntamente do seu endereço de email no momento do envio. Ex.: João[joao@exemplo.com.br] (opcional).">
+                            <span class="input-group-text" id="inputGroupNOMEREMET"><lib-icon
+                                    iconName="usuarios"></lib-icon></span>
+                            <input type="text" class="form-control" aria-label="Sizing example input"
+                                aria-describedby="inputGroupNOMEREMET" formControlName="NomeRemet"
+                                [class.is-invalid]="FormUtils.isInvalidField(form.get('NomeRemet'))">
+                            <app-field-error-message [control]="form.get('NomeRemet')"
+                                label="Nome do remetente"></app-field-error-message>
+    
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="row d-flex mb-4">
+                <div class="col-6">
+                    <div>
+                        <label for="inputGroupUser" class="form-label">Usuário </label>
+                        <div class="input-group"
+                            tooltip="Informe seu usuário de acesso (obrigatório caso seu provedor de email necessite autenticação para envio ou se desejar receber confirmações de entrega/leitura).">
+                            <span class="input-group-text" id="inputGroupUser"><lib-icon
+                                    iconName="contraparte"></lib-icon></span>
+                            <input type="text" class="form-control" aria-label="Sizing example input"
+                                aria-describedby="inputGroupUser" formControlName="Username"
+                                [class.is-invalid]="FormUtils.isInvalidField(form.get('Username'))">
+                            <app-field-error-message [control]="form.get('Username')" label="Email"></app-field-error-message>
+                        </div>
+                    </div>
+                </div>
+    
+                @if(!this.editingMode){
+                <div class="col-6">
+                    <form [formGroup]="senhaForm">
+                        <label for="inputGroupSenha" class="form-label">Senha </label>
+                        <div class="input-group"
+                            tooltip="Informe sua senha de acesso (obrigatório caso seu provedor de email necessite autenticação para envio ou se desejar receber confirmações de entrega/leitura).">
+                            <span class="input-group-text" id="inputGroupSenha"><lib-icon
+                                    iconName="cadeado-outline"></lib-icon></span>
+                            <input type="password" class="form-control" aria-label="Sizing example input"
+                                aria-describedby="inputGroupSenha" formControlName="Password_Ang"
+                                [class.is-invalid]="FormUtils.isInvalidField(senhaForm.get('Password_Ang'))">
+                            <app-field-error-message [control]="senhaForm.get('Password_Ang')" label="Senha"></app-field-error-message>
+                        </div>
+                    </form>
+                </div>
+                } @else {
+                <div class="col-6">
+                    <form [formGroup]="senhaForm">
+                        <label for="inputGroupSenha" class="form-label">Senha </label>
+                        <button type="button" class="btn btn-outline-primary d-block"
+                            (click)="modalUtils.openModal(ModalChangePassword,2)"><lib-icon iconName="chave"></lib-icon>
+                            Alterar senha</button>
+                    </form>
+                </div>
+                }
+            </div>
+    
+            <div class="row d-flex mb-4">
+                <div class="col-6">
+                    <div>
+                        <label for="inputGroupServidorSMTP" class="form-label">Servidor SMTP <span
+                                class="text-danger">*</span></label>
+                        <div class="input-group"
+                            tooltip="Informe o servidorSmtp  para envio de email (obrigatório informar).">
+                            <span class="input-group-text" id="inputGroupServidorSMTP"><lib-icon
+                                    iconName="monitor"></lib-icon></span>
+                            <input type="text" class="form-control" aria-label="Sizing example input"
+                                aria-describedby="inputGroupServidorSMTP" formControlName="SmtpServer"
+                                [class.is-invalid]="FormUtils.isInvalidField(form.get('SmtpServer'))">
+                            <app-field-error-message [control]="form.get('SmtpServer')"
+                                label="Servidor SMTP"></app-field-error-message>
+                        </div>
+    
+                    </div>
+                </div>
+    
+                <div class="col-3">
+                    <div>
+                        <label for="inputGroupPortaSMTP" class="form-label">Porta SMTP </label>
+                        <div class="input-group"
+                            tooltip="Informe a porta de acesso do Smtp, se não for informado, será usada a porta padrão 25.">
+                            <span class="input-group-text" id="inputGroupPortaSMTP"><lib-icon
+                                    iconName="custom"></lib-icon></span>
+                            <input type="number" class="form-control" aria-label="Sizing example input"
+                                aria-describedby="inputGroupPortaSMTP" formControlName="SmtpPort"
+                                [class.is-invalid]="FormUtils.isInvalidField(form.get('SmtpPort'))">
+                            <app-field-error-message [control]="form.get('SmtpPort')"
+                                label="Porta SMTP"></app-field-error-message>
+    
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div>
+                        <label for="inputTimeOut" class="form-label">Time out </label>
+                        <div class="input-group"
+                            tooltip="Tempo máximo para tentativa de acesso do sistema ao servidor em milissegundos (opcional).">
+                            <span class="input-group-text" id="inputTimeOut"><lib-icon
+                                    iconName="cronometro"></lib-icon></span>
+                            <input type="text" class="form-control" aria-label="Sizing example input"
+                                aria-describedby="inputTimeOut" formControlName="TimeOut"
+                                [class.is-invalid]="FormUtils.isInvalidField(form.get('TimeOut'))">
+                            <app-field-error-message [control]="form.get('TimeOut')"
+                                label="Time out"></app-field-error-message>
+    
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
+    
+            <!-- <div class="row d-flex mb-4">
+                <div class="col-6">
+                    <div>
+                        <label for="inputGroupServidorLMAP" class="form-label">Servidor LMAP </label>
+                        <div class="input-group" tooltip="Informe o servidor Imap para o sistema acessar a caixa de entrada (obrigatório se desejar receber confirmações de entrega/leitura).">
+                            <span class="input-group-text" id="inputGroupServidorLMAP"><lib-icon
+                                    iconName="monitor"></lib-icon></span>
+                            <input type="text" class="form-control" aria-label="Sizing example input"
+                                aria-describedby="inputGroupServidorLMAP" formControlName="ImapServer"
+                                [class.is-invalid]="FormUtils.isInvalidField(form.get('ImapServer'))">
+                            <app-field-error-message [control]="form.get('ImapServer')"
+                                label="Servidor SMTP"></app-field-error-message>
+                        </div>
+    
+                    </div>
+                </div>
+    
+                <div class="col-6">
+                    <div>
+                        <label for="inputGroupPortaLMAP" class="form-label">Porta LMAP </label>
+                        <div class="input-group" tooltip="Informe a porta de acesso Imap, se não informada, será usada a padrão 143.">
+                            <span class="input-group-text" id="inputGroupPortaLMAP"><lib-icon
+                                    iconName="custom"></lib-icon></span>
+                            <input type="number" class="form-control" aria-label="Sizing example input"
+                                aria-describedby="inputGroupPortaLMAP" formControlName="ImapPort"
+                                [class.is-invalid]="FormUtils.isInvalidField(form.get('ImapPort'))">
+                            <app-field-error-message [control]="form.get('ImapPort')"
+                                label="Porta LMAP"></app-field-error-message>
+    
+                        </div>
+                    </div>
+                </div>
+    
+            </div> -->
+    
+            <div class="row mb-4">
+                <div class="col-6 d-flex">
+                    <div class="form-check form-check-inline"
+                        tooltip="Escolha o protocolo de segurança utilizado no seu servidor.">
+                        <input (click)="onCheck('Nenhum')" class="form-check-input" type="checkbox"
+                            name="inlineRadioOptions"
+                            [checked]="!this.form.get('Is_SSL')?.value && !this.form.get('Is_TLS')?.value" id="inlineRadio1"
+                            value="Nenhum">
+                        <label class="form-check-label" for="inlineRadio1"> Nenhum </label>
+                    </div>
+                    <div class="form-check form-check-inline"
+                        tooltip="Escolha o protocolo de segurança utilizado no seu servidor.">
+                        <input (click)="onCheck('SSL')" class="form-check-input" type="checkbox" name="inlineRadioOptions"
+                            id="inlineRadio2" value="SSL" formControlName="Is_SSL">
+                        <label class="form-check-label" for="inlineRadio2"> SSL </label>
+                    </div>
+                    <div class="form-check form-check-inline"
+                        tooltip="Escolha o protocolo de segurança utilizado no seu servidor.">
+                        <input (click)="onCheck('TLS')" class="form-check-input" type="checkbox" name="inlineRadioOptions"
+                            id="inlineRadio3" value="TLS" formControlName="Is_TLS">
+                        <label class="form-check-label" for="inlineRadio3"> TLS </label>
+                    </div>
+                    <div class="ms-4" tooltip="Habilite se seu servidor exige autenticação para enviar mensagens.">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch"
+                                formControlName="Is_Authenticated">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Autenticação para envio</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div>
+                        <label for="inputGrouUrlDoServidor" class="form-label">URL do servidor </label>
+                        <div class="input-group">
+                            <span class="input-group-text" id="inputGrouUrlDoServidor"><lib-icon
+                                    iconName="custom"></lib-icon></span>
+                            <input type="text" class="form-control" aria-label="Sizing example input"
+                                aria-describedby="inputGrouUrlDoServidor" formControlName="UrlServidor"
+                                [class.is-invalid]="FormUtils.isInvalidField(form.get('UrlServidor'))">
+                            <app-field-error-message [control]="form.get('UrlServidor')"
+                                label="Porta LMAP"></app-field-error-message>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</ng-template> -->
+
+    <ng-template #ModalChangePassword>
+        <div class="modal-header">
+            <h5 class="modal-title">Alterar senha</h5>
+            <button (click)="this.modalUtils.closeModal(2)" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form [formGroup]="senhaForm" class="my-4 mx-2">
+            <div class="input-group d-flex align-items-center"
+                tooltip="Informe sua senha de acesso (obrigatório caso seu provedor de email necessite autenticação para envio ou se desejar receber confirmações de entrega/leitura).">
+                <span class="input-group-text" id="inputGroupSenha"><lib-icon
+                        iconName="cadeado-outline"></lib-icon></span>
+                <input [type]="isPasswordVisible? 'text':'password'" class="form-control"
+                    aria-label="Sizing example input" aria-describedby="inputGroupSenha" formControlName="Password_Ang"
+                    [class.is-invalid]="FormUtils.isInvalidField(senhaForm.get('Password_Ang'))">
+                <lib-icon [iconName]="isPasswordVisible?'olho-fechado':'olho'"
+                    (click)="isPasswordVisible = !isPasswordVisible" class="ms-4"></lib-icon>
+                <app-field-error-message [control]="senhaForm.get('Password_Ang')"
+                    label="Senha"></app-field-error-message>
+
+            </div>
+        </form>
+        <div class="d-flex justify-content-end gap-3 p-3">
+            <button type="button" class="btn btn-outline-primary" (click)="this.modalUtils.closeModal(2)"
+                data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" (click)="UpdateSenha()">Salvar</button>
+        </div>
+    </ng-template>
+
+    <ng-template #modalTestarConfig>
+        <div class="modal-header">
+            <h5 class="modal-title">Testar configurações</h5>
+            <button (click)="modalUtils.closeModal(1)" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+            <form [formGroup]="mailTestForm" class="p-4">
+                <div class="row mb-4">
+                    <label for="inputDESTINATARIOS" class="form-label">Destinatários <lib-icon iconName="info" iconSize="small"
+                            tooltip="Use ; para informar múltiplos destinatários/CC"></lib-icon></label>
+                    <input type="text" class="form-control" id="inputDESTINATARIOS" formControlName="DESTINATARIOS"
+                        [class.is-invalid]="FormUtils.isInvalidField(mailTestForm.get('DESTINATARIOS')) "
+                        placeholder="Informe um ou mais destinatários" />
+        
+                    <app-field-error-message [control]="mailTestForm.get('DESTINATARIOS')"
+                        label="destinatários"></app-field-error-message>
+                </div>
+                <div class="row">
+                    <label for="inputCC" class="form-label">CC <lib-icon iconName="info" iconSize="small"
+                            tooltip="Use ; para informar múltiplos destinatários/CC"></lib-icon></label>
+                    <input type="text" class="form-control" id="inputCC" formControlName="CC"
+                        [class.is-invalid]="FormUtils.isInvalidField(mailTestForm.get('CC')) " />
+        
+                    <app-field-error-message [control]="mailTestForm.get('CC')" label="CC"></app-field-error-message>
+                </div>
+            </form>
+        </div>
+        
+        <div class="d-flex justify-content-end gap-3 p-3">
+            <button type="button" class="btn btn-outline-primary" (click)="this.modalUtils.closeModal(1)"
+                data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" (click)="EnviarEmail()">Enviar</button>
+        </div>
+    </ng-template>
+</div>
