@@ -1,7 +1,6 @@
-import { NgIf } from "@angular/common";
 import { Component, Input } from "@angular/core";
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
-import { ActivatedRoute, Router, RouterLink } from "@angular/router";
+import { ActivatedRoute, Router} from "@angular/router";
 import { TooltipModule } from "ngx-bootstrap/tooltip";
 import { TenantService } from "../../../service/tenant.service";
 import { InfraEmailCfgRecord } from "../models/InfraEmailCfgRecord";
