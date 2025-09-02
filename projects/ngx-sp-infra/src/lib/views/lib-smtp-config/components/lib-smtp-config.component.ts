@@ -22,24 +22,16 @@ import { TooltipModule } from "ngx-bootstrap/tooltip";
 export class LibSmtpConfigComponent {
 
   constructor(
-    private _tenantService: TenantService,
-    private _router: Router,
     private _route: ActivatedRoute,
     private _messageService: MessageService,
     private _toastrService: ToastrService,
     private _smtpConfigService: SmtpConfigService,
     public modalUtils: ModalUtilsService
   ) {
-    this.module = window.location.href.includes('Corporativo') ? "Corporativo" : "ConfigErp";
-		if (this.module == 'ConfigErp' && (!this._tenantService.tenantId || this._tenantService.tenantId == 0)) 
-    {
-			this._messageService.showAlertInfo("Você deve selecionar um domínio para executar esta opção.")
-			this._router.navigate(["/home"]);
-		}
+    this.module = window.location.href.includes('Corporativo') ? "Corporativo" : "Corporativo";
   }
 
   ngOnInit(): void {
-    this._tenantId = this._tenantService.tenantId;
     if (this.module == 'Corporativo')
     {
       this.getParmsFromRoute();
@@ -54,10 +46,13 @@ export class LibSmtpConfigComponent {
     }
   }
 
+ 
   @Input() isInfraStab: boolean = false;
   @Output() emitIsEditingMode = new EventEmitter<boolean>();
 
-  public _tenantId: number = 0;
+  @Input() _tenantId: number = 0;
+  @Input() _dominio: string ='';
+
   public _infraEstabelecimentoID: string = '';
   public _infraEmailId: number = 0;
 
@@ -65,7 +60,7 @@ export class LibSmtpConfigComponent {
   public emailData: InfraEmailCfgRecord = new InfraEmailCfgRecord();
   public isPasswordVisible: boolean = false;
 
-  public module: 'ConfigErp' | 'Corporativo';
+   @Input() public module: 'ConfigErp' | 'Corporativo' = 'Corporativo';
 
   //#region FORM
   public get FormUtils(): typeof FormUtils { return FormUtils }
@@ -181,7 +176,7 @@ export class LibSmtpConfigComponent {
     let ccsList: string = this.normalizeEmailList(ccs);
 
       let record: EmailConfigTestModel = new EmailConfigTestModel();
-      record.domain = this._tenantService.dominio;
+      record.domain = this._dominio;
       record.user = this.form.get("NomeRemet")?.value;
       record.to = emailList;
       record.cc = ccsList;
