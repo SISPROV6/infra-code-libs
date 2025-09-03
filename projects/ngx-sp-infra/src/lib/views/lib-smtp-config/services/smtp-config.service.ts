@@ -17,19 +17,22 @@ export class SmtpConfigService {
   GetInfraEmail(modulo: string, TENANT_ID: number, infraEstabId: string): Observable<RetInfraEmailCfg> {
     const headers = new HttpHeaders()
     .set('Content-Type', 'application/json');
-
-    let url = '';
-    let params = new HttpParams()
-      .set('TENANT_ID', TENANT_ID);
     
+    let url;
+    let params;
+
     if(modulo === 'Corporativo')
     {
       url = `${this._BASE_URL_CRP}/GetInfraEmail`;
-      params = params.set('infraEstabId', infraEstabId);
+      params = new HttpParams()
+        .set('TENANT_ID', TENANT_ID)
+        .set('infraEstabId', infraEstabId);
     }
     else
     {
       url = `${this._BASE_URL_CONFIG_ERP}/GetInfraEmail`;
+      params = new HttpParams()
+        .set('TENANT_ID', TENANT_ID)
     }
 
     return this.httpClient.get<RetInfraEmailCfg>(url, {'params': params, 'headers': headers })
