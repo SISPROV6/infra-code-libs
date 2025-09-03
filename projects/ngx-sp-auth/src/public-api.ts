@@ -53,7 +53,13 @@ export * from './lib/interceptors/auth-infra.interceptor';
 /** Routes */
 export * from './lib/auth.routes';
 
-//???i
+/** Widgets */
+export * from './lib/widgets/sub-menu-card/sub-menu-card.component';
+export * from './lib/widgets/sub-menu/list/list.component';
+export * from './lib/widgets/sub-menu/nav-tabs/nav-tabs.component';
+export * from './lib/widgets/sub-menu/sub-menu.component';
+
+
 /** Providers */
 export * from './lib/custom/token';
-//???f
+

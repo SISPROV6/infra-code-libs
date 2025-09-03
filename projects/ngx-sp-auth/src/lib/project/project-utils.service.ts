@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { CheckUrlAndMethodService, MessageService, Utils } from 'ngx-sp-infra';
-import { AuthStorageService } from '../storage/auth-storage.service';
 import { LibCustomEnvironmentService } from '../custom/lib-custom-environment.service';
+import { AuthStorageService } from '../storage/auth-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +45,45 @@ export class ProjectUtilservice {
 
       } else {
         this.messageService.showAlertDanger(Utils.getHttpErrorMessage(error));
+      }
+
+    }
+
+  }
+
+  // Exibe a mensagem de erro de uma requisição HTTP em caso de lógica integrada OS
+  public showHTTPErrorOS(error: any) {
+
+    if (error.error instanceof ErrorEvent) {
+      // Erro ocorreu no lado do cliente
+      this.router.navigate(["/auth/login"]).then(e => {
+        this.messageService.showAlertDanger(Utils.getHttpErrorMessage(error));
+      });
+    } else {
+      // Erro ocorreu no lado do servidor
+      let isUnauthorizedAccess = error.status === 401;
+
+      if (isUnauthorizedAccess) {
+        let isFromAplic = this.checkUrlAndMethodService.needsAuthRequest(error.url, "*", this._customEnvironmentService.needsAuthAplic);
+
+        if (isFromAplic) {
+          // Remove a autenticação do usuário.
+          this.authStorageService.isLoggedInSub.next(false);
+          this.authStorageService.urlRedirect = "/";
+
+          this.router.navigate(["/auth/login"]).then(e => {
+            this.messageService.showAlertDanger(Utils.getHttpErrorMessage(error));
+          });
+        } else {
+          this.router.navigate(["/auth/login"]).then(e => {
+            this.messageService.showAlertDanger(Utils.getHttpErrorMessage(error));
+          });
+        }
+
+      } else {
+        this.router.navigate(["/auth/login"]).then(e => {
+            this.messageService.showAlertDanger(Utils.getHttpErrorMessage(error));
+          });
       }
 
     }

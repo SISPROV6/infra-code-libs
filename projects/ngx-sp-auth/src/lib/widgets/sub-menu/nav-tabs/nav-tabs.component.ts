@@ -14,6 +14,8 @@ export class NavTabsComponent implements OnInit {
 
   @Input() subMenus: SubMenuItem[] = [];
 
+  @Input() hostName:string = "";
+
   telasItem: TelaItem[] = [];
   listaAtiva: string = '';
 
