@@ -8,4 +8,6 @@ export class TreeItem {
   key: string = "";
   aplicClass: boolean = false;
   level: number = 0;
+
+  icon?: string;
 }
