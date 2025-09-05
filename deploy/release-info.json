@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-auth",
-  "version": "3.2.12",
-  "tag": "auth-v3.2.12",
-  "notes": "Atualização de rotina",
-  "timestamp": "2025-08-29T17:57:48.025Z"
+  "project": "ngx-sp-infra",
+  "version": "5.18.2",
+  "tag": "infra-v5.18.2",
+  "notes": "Criação de nova propriedade de ícone opcional ao model da treeview, se ele for informado exibe o ícone ao lado do checkbox de seleção",
+  "timestamp": "2025-09-03T20:52:09.029Z"
 }
