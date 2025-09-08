@@ -31,7 +31,7 @@ export class AuthAplicInterceptor implements HttpInterceptor {
   async handle(req: HttpRequest<any>, next: HttpHandler) {
     let changedReq: HttpRequest<any> = req;
 
-    console.log(req);
+    
     if (this.authCheckService.needsAuthRequest(req.url, req.method, this._customEnvironmentService.needsAuthAplic)) {
       // Verifica se o Token precisa ser renovado
       await this.token.renewToken();

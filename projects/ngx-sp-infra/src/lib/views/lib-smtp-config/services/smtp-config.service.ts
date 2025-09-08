@@ -10,8 +10,8 @@ import { EmailConfigTestModel } from '../models/EmailConfigTestModel';
   providedIn: 'root'
 })
 export class SmtpConfigService {
-  private readonly _BASE_URL_CONFIG_ERP: string = window.location.hostname.includes('localhost') ? `https://SiscanDesV6.sispro.com.br/SisproErpCloud/Service_Private/Infra/SpInfra2ConfigErpWS/api/ConfigSMTP` : `https://${ window.location.hostname }/SisproErpCloud/Service_Private/Infra/SpInfra2ConfigErpWS/api/ConfigSMTP`;
-  private readonly _BASE_URL_CRP: string = window.location.hostname.includes('localhost') ? `https://SiscanDesV6.sispro.com.br/SisproErpCloud/Service_Private/Corporativo/SpCrp2InfraWS/api/InfraEmailCfg` : `https://${ window.location.hostname }/SisproErpCloud/Service_Private/Corporativo/SpCrp2InfraWS/api/InfraEmailCfg`;
+  private readonly _BASE_URL_CONFIG_ERP: string = window.location.hostname.includes('localhost') ? `https://SiscanDesinfra.sispro.com.br/SisproErpCloud/Service_Private/Infra/SpInfra2ConfigErpWS/api/ConfigSMTP` : `https://${ window.location.hostname }/SisproErpCloud/Service_Private/Infra/SpInfra2ConfigErpWS/api/ConfigSMTP`;
+  private readonly _BASE_URL_CRP: string = window.location.hostname.includes('localhost') ? `http://localhost:44384/api/InfraEmailCfg` : `http://localhost:44384/api/InfraEmailCfg`;
   constructor(private httpClient: HttpClient) { }
 
   GetInfraEmail(modulo: string, TENANT_ID: number, infraEstabId: string): Observable<RetInfraEmailCfg> {

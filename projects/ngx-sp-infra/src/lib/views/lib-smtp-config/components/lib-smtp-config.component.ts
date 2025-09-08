@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from "@angular/core";
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ActivatedRoute, Router} from "@angular/router";
 import { TenantService } from "../../../service/tenant.service";
@@ -46,6 +46,7 @@ export class LibSmtpConfigComponent {
     }
   }
 
+  @ViewChild('modalTestarConfig') public modal!:TemplateRef<any>;
  
   @Input() isInfraStab: boolean = false;
   @Output() emitIsEditingMode = new EventEmitter<boolean>();
