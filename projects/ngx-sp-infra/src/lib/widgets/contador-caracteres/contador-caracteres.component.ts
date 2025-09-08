@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-contador-caracteres',
@@ -6,9 +6,9 @@ import { Component, Input, OnInit } from '@angular/core';
   templateUrl: './contador-caracteres.component.html',
   styleUrl: './contador-caracteres.component.scss'
 })
-export class ContadorCaracteresComponent implements OnInit  {
+export class ContadorCaracteresComponent {
 
-    ngOnInit (): void {
+  ngOnInit (): void {
       this.contadorDeCaracteresRestantes();
     }
 

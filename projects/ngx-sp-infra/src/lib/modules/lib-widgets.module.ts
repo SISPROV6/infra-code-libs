@@ -28,6 +28,7 @@ import { DynamicInputComponent } from '../widgets/dynamic-input/dynamic-input.co
 import { FieldContadorMessageComponent } from '../widgets/field-contador-message/field-contador-message.component';
 import { FieldControlErrorComponent } from '../widgets/field-control-error/field-control-error.component';
 import { FieldErrorMessageComponent } from '../widgets/field-error-message/field-error-message.component';
+import { FooterComponent } from '../widgets/footer/footer.component';
 import { GenericModalComponent } from '../widgets/generic-modal/generic-modal.component';
 import { ImageCropperComponent } from '../widgets/imageCropper/image-cropper/image-cropper.component';
 import { InputTrimComponent } from '../widgets/input-trim/input-trim.component';
@@ -51,8 +52,6 @@ import { SearchInputComponent } from '../widgets/search-input/search-input.compo
 import { SideTabsGenericComponent } from '../widgets/side-tabs-generic/side-tabs-generic.component';
 import { SimpleSearchComponent } from '../widgets/simple-search/simple-search.component';
 import { LibSpinnerComponent } from '../widgets/spinner/spinner.component';
-import { SubMenuCardComponent } from '../widgets/sub-menu-card/sub-menu-card.component';
-import { SubMenuComponent } from '../widgets/sub-menu/sub-menu.component';
 import { TableComponent } from '../widgets/table/table.component';
 import { TreeComponent } from '../widgets/tree/tree.component';
 
@@ -113,16 +112,15 @@ import { TreeComponent } from '../widgets/tree/tree.component';
     LibCustomizableTableComponent,
     TreeComponent,
     LoadingScreenComponent,
-    SubMenuComponent,
     ImageCropperComponent,
-    SubMenuCardComponent,
+    FooterComponent,
   ],
   exports: [
     AlertComponent,
     ConfirmModalComponent,
     ConfirmComponent,
     SaveComponent,
-    
+
     AppliedFiltersComponent,
     InfraBreadcrumbItemComponent,
     InfraBreadcrumbComponent,
@@ -160,9 +158,8 @@ import { TreeComponent } from '../widgets/tree/tree.component';
     LibCustomizableTableComponent,
     TreeComponent,
     LoadingScreenComponent,
-    SubMenuComponent,
     ImageCropperComponent,
-    SubMenuCardComponent,
+    FooterComponent
   ]
 })
 export class LibWidgetsModule { }

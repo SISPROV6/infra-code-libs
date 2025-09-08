@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { PessoaService } from './service/pessoa.service';
@@ -19,6 +19,7 @@ export class PessoaAbasComponent {
   @Input() recarregar?: boolean = false;
 
   @Output() recarregarChange = new EventEmitter<boolean>();
+  @Output() PessoaId = new EventEmitter<string | number>();
 
   public crpPesPapeisData: CrpInPapelRecord[] = [];
   public hasPapel: boolean = false;
@@ -33,21 +34,26 @@ export class PessoaAbasComponent {
     private cdr: ChangeDetectorRef
   ) { }
 
- async ngOnChanges() {
-  if (this.recarregar) {
+  async ngOnChanges(changes: SimpleChanges) {
+    if (this.recarregar) {
 
-    await this.GetPapeisSelected();
-    await this.GetTipoPessoa();
-    this.VerifyList();
+      await this.GetPapeisSelected();
+      await this.GetTipoPessoa();
+      this.VerifyList();
 
-    this.cdr.detectChanges();
+      this.cdr.detectChanges();
 
-    setTimeout(() => {
+      setTimeout(() => {
         this.recarregarChange.emit(false);
       }, 500);
 
+    }
+
+    if (changes['Id'] && changes['Id'].currentValue) {
+      this.PessoaId.emit(this.Id);
+    }
   }
-}
+
 
 
  async ngOnInit() {
@@ -105,24 +111,24 @@ export class PessoaAbasComponent {
     if(window.location.host.includes("localhost")){
       this.UrisList.push(
       {nome: 'Dados básicos', uri: `http://${window.location.host}/pessoas/editar/${this.Id}`, isTargetSelf: true},
-      {nome: 'Dados comerciais', uri: `http://${window.location.host}/SpNeg3Cfg/PessoaDadosComerciais.aspx?IsCorp=True&CrpPessoaId=${this.Id}`, isTargetSelf: false},
-      {nome: 'Dados financeiros', uri: `http://${window.location.host}/SpFin1Cadastros/PessoaDadosFinanceiros.aspx?CrpPessoaId=${this.Id}&IsCorp=True`, isTargetSelf: false},
+      {nome: 'Dados comerciais', uri: `http://siscandesv10.sispro.com.br/SpNeg3Cfg/PessoaDadosComerciais.aspx?IsCorp=True&CrpPessoaId=${this.Id}`, isTargetSelf: false},
+      {nome: 'Dados financeiros', uri: `http://siscandesv10.sispro.com.br/SpFin1Cadastros/PessoaDadosFinanceiros.aspx?CrpPessoaId=${this.Id}&IsCorp=True`, isTargetSelf: false},
       {nome: 'Compras - Dados da pessoa para suprimentos', uri: `http://${window.location.host}/SpCopConfiguracoes/PessoasDadosSuprimentos/editar/${this.Id}`, isTargetSelf: false},
       {nome: 'Compras - Dados dos fornecedor', uri: `http://${window.location.host}/SpCopConfiguracoes/PessoasDadosFornecedor/editar/${this.Id}`, isTargetSelf: false},
       {nome: 'Dados auxiliares', uri: `http://${window.location.host}/pessoas/dadosAuxiliares/${this.Id}`, isTargetSelf: false},
-      {nome: 'Tipo', uri: `http://${window.location.host}/SpMnt3Manutencao/TipoPessoa.aspx?IsCorp=True&CrpPessoaId=${this.Id}`, isTargetSelf: false},
+      {nome: 'Tipo', uri: `http://siscandesv10.sispro.com.br/SpMnt3Manutencao/TipoPessoa.aspx?IsCorp=True&CrpPessoaId=${this.Id}`, isTargetSelf: false},
       {nome: 'Fiscal', uri: `http://${window.location.host}/pessoas/pessoaFiscal/${this.Id}`, isTargetSelf: false},
       {nome: 'Contabilidade', uri: `http://${window.location.host}/Participantes?CrpPessoaId=${this.Id}`, isTargetSelf: false},
     );
     }else{
       this.UrisList.push(
       {nome: 'Dados básicos', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/pessoas/editar/${this.Id}`, isTargetSelf: true},
-      {nome: 'Dados comerciais', uri: `https://${window.location.host}/SpNeg3Cfg/PessoaDadosComerciais.aspx?IsCorp=True&CrpPessoaId=${this.Id}`, isTargetSelf: false},
-      {nome: 'Dados financeiros', uri: `https://${window.location.host}/SpFin1Cadastros/PessoaDadosFinanceiros.aspx?CrpPessoaId=${this.Id}&IsCorp=True`, isTargetSelf: false},
+      {nome: 'Dados comerciais', uri: `https://siscandesv10.sispro.com.br/SpNeg3Cfg/PessoaDadosComerciais.aspx?IsCorp=True&CrpPessoaId=${this.Id}`, isTargetSelf: false},
+      {nome: 'Dados financeiros', uri: `https://siscandesv10.sispro.com.br/SpFin1Cadastros/PessoaDadosFinanceiros.aspx?CrpPessoaId=${this.Id}&IsCorp=True`, isTargetSelf: false},
       {nome: 'Compras - Dados da pessoa para suprimentos', uri: `https://${window.location.host}/SisproErpCloud/Compras/SpCopConfiguracoes/PessoasDadosSuprimentos/editar/${this.Id}`, isTargetSelf: false},
       {nome: 'Compras - Dados dos fornecedor', uri: `https://${window.location.host}/SisproErpCloud/Compras/SpCopConfiguracoes/PessoasDadosFornecedor/editar/${this.Id}`, isTargetSelf: false},
       {nome: 'Dados auxiliares', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/pessoas/dadosAuxiliares/${this.Id}`, isTargetSelf: false},
-      {nome: 'Tipo', uri: `https://${window.location.host}/SpMnt3Manutencao/TipoPessoa.aspx?IsCorp=True&CrpPessoaId=${this.Id}`, isTargetSelf: false},
+      {nome: 'Tipo', uri: `https://siscandesv10.sispro.com.br/SpMnt3Manutencao/TipoPessoa.aspx?IsCorp=True&CrpPessoaId=${this.Id}`, isTargetSelf: false},
       {nome: 'Fiscal', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/pessoas/pessoaFiscal/${this.Id}`, isTargetSelf: false},
       {nome: 'Contabilidade', uri: `https://${window.location.host}/SisproErpCloud/Contabilidade/Participantes?CrpPessoaId=${this.Id}`, isTargetSelf: false},
     );

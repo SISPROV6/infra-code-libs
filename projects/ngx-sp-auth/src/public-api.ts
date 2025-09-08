@@ -1,8 +1,9 @@
+/** Modules */
 export * from './lib/auth.module';
 
 /** Services */
 export * from './lib/auth.service';
-export * from './lib/environments/environments.service';
+export * from './lib/custom/lib-custom-environment.service';
 export * from './lib/components/menu-lateral/menu-services.service';
 export * from './lib/storage/auth-storage.service';
 export * from './lib/custom/lib-custom-login.service';
@@ -25,17 +26,19 @@ export * from './lib/components/nova-senha/nova-senhacomponent';
 export * from './lib/components/menu-lateral/model/imenu-item-structure.model';
 export * from './lib/components/menu-lateral/model/imenu.model';
 export * from './lib/components/menu-lateral/model/infrausuarioimg';
+export * from './lib/components/menu-lateral/model/navsubmenu-searchitem';
 export * from './lib/components/menu-lateral/model/ret-infrausuarioimg';
 export * from './lib/components/menu-lateral/model/ret-menu-item-structure';
 export * from './lib/components/menu-lateral/model/ret-menu-lateral';
 export * from './lib/components/menu-lateral/model/ret-menu-promise';
 export * from './lib/components/menu-lateral/model/ret-navsubmenu';
 
+/** Custom */
 export * from './lib/custom/models/icustom-login-service';
 export * from './lib/custom/models/icustom-menu-service';
 export * from './lib/custom/models/imenu-config';
 export * from './lib/custom/models/icustom-storage-service';
-export * from './lib/environments/models/ienvironments';
+export * from './lib/custom/models/icustom-environment-service';
 
 /** Guards */
 export * from './lib/guards/auth-guard';
@@ -50,5 +53,13 @@ export * from './lib/interceptors/auth-infra.interceptor';
 /** Routes */
 export * from './lib/auth.routes';
 
-/** Modules */
-export * from './lib/auth.module';
+/** Widgets */
+export * from './lib/widgets/sub-menu-card/sub-menu-card.component';
+export * from './lib/widgets/sub-menu/list/list.component';
+export * from './lib/widgets/sub-menu/nav-tabs/nav-tabs.component';
+export * from './lib/widgets/sub-menu/sub-menu.component';
+
+
+/** Providers */
+export * from './lib/custom/token';
+

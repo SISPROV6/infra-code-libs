@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { IMenuItemStructure } from '../components/menu-lateral/model/imenu-item-structure.model';
 import { AuthStorageService } from '../storage/auth-storage.service';
 import { LibMenuConfigService } from './lib-menu-config.service';
 import { ICustomMenuService } from './models/icustom-menu-service';
+import { LIB_CUSTOM_MENU_SERVICE } from './token';
 
 @Injectable(
     { providedIn: 'root' }
@@ -13,29 +14,45 @@ export class LibCustomMenuService {
 
     // #region Propriedade Customizadas do Menu
 
-    public menuDynamic: boolean = false;
-    public menuDynamicCustom: boolean = false;
-    public moduleName: string = "";
-    public moduleImg: string = "";
-    public moduleSvg: string = "";
-    public themeColor: string = "";
+    public get menuDynamic(): boolean {
+        return this._customMenuService.menuDynamic;
+    }
+
+    public get menuDynamicCustom(): boolean {
+        return this._customMenuService.menuDynamicCustom;
+    }
+
+    public get moduleName(): string {
+        return this._customMenuService.moduleName;
+    }
+
+    public get moduleImg(): string {
+        return this._customMenuService.moduleImg;
+    }
+
+    public get moduleSvg(): string {
+        return this._customMenuService.moduleSvg;
+    }
+
+    public get themeColor(): string {
+        return this._customMenuService.themeColor;
+    }
 
     // #endregion Propriedade Customizadas do Menu
 
     // #region Propriedade do Menu
 
-    private _menuItems: IMenuItemStructure[] = [];
     public menuConfig: LibMenuConfigService;
 
     /** Obtém as opções do menu. */
     public get menuItems(): IMenuItemStructure[] {
-        return this._menuItems;
+        return this._customMenuService.menuItems;
     }
 
     public set menuItems(value: IMenuItemStructure[]) {
-        this._menuItems = value;
+        this._customMenuService.menuItems = value;
     }
-
+    
     // ! Definição do BehaviorSubject: responsável principal da emissão do evento
     private empresaId: BehaviorSubject<{ estabelecimentoID: string, empresaID: string }> = new BehaviorSubject<{ estabelecimentoID: string, empresaID: string }>({ estabelecimentoID: "", empresaID: "" });
     public applyEmpresa$: Observable<{ estabelecimentoID: string, empresaID: string }> = this.empresaId.asObservable();
@@ -46,6 +63,7 @@ export class LibCustomMenuService {
     // #endregion Propriedade do Menu
 
     constructor(
+        @Inject(LIB_CUSTOM_MENU_SERVICE) private _customMenuService: ICustomMenuService,
         private _menuConfig: LibMenuConfigService,
         private _authStorageService: AuthStorageService
     ) {
@@ -59,25 +77,25 @@ export class LibCustomMenuService {
     // Utilizado para obter o Módulo para montagem do Menu Dinâmico Lateral
     public menuDynamicGetModuloId(): number
     {
-        return this.storeMenuDynamicGetModuloId();
+        return this._customMenuService.menuDynamicGetModuloId();
     }
     
     // Método executado no menu-lateral.component.ts - método: onInit ()
     // Utilizado para inicializações diversas
     public menuDynamicOnInit(): void {
-        this.storedMenuDynamicOnInit();
+        this._customMenuService.menuDynamicOnInit();
     }
 
     // Método executado no menu-lateral.component.ts - método: onInit ()
     // Utilizado para inicializações diversas
     public menuStaticOnInit(): void {
-        this.storedMenuStaticOnInit();
+        this._customMenuService.menuStaticOnInit();
     }
 
     // Método executado no menu-lateral.component.ts - método: openExpansibleMenu()
     // Utilizado para inicializações ao Expandir a opção de Menu
     public menuopenExpansibleMenu(ref: HTMLDivElement): void {
-        this.storedMenuopenExpansibleMenu(ref);
+        this._customMenuService.menuopenExpansibleMenu(ref);
     }
 
     /** Método que deve ser chamado na seleção de um novo estabelecimento, ele atualizará os valores do nosso BehaviorSubject para que possamos utilizá-lo em outras partes do sistema. */
@@ -90,41 +108,4 @@ export class LibCustomMenuService {
     }
 
     // #endregion - Métodos Customizadas para o Menu dinâmico
-
-    // #region Métodos recebidos do projeto
-
-    private storeMenuDynamicGetModuloId!: () => number;
-
-    private storedMenuStaticOnInit!: () => void;
-
-    private storedMenuDynamicOnInit!: () => void;
-
-    private storedMenuopenExpansibleMenu!: (ref: HTMLDivElement) => void;
-
-    // #endregion Métodos recebidos do projeto
-
-   // #region Métodos Publicos
-
-    public ConfigurarCustomMenuService(RealcustomMenuService: ICustomMenuService): void {
-
-        //passando propriedades do projeto para a lib
-        this.menuDynamic = RealcustomMenuService.menuDynamic;
-        this.menuDynamicCustom = RealcustomMenuService.menuDynamicCustom;
-        this.moduleName = RealcustomMenuService.moduleName;
-        this.moduleImg = RealcustomMenuService.moduleImg;
-        this.moduleSvg = RealcustomMenuService.moduleSvg;
-        this.themeColor = RealcustomMenuService.themeColor;
-
-        //passando implementação dos métodos do projeto para a lib
-        this.storeMenuDynamicGetModuloId = RealcustomMenuService.menuDynamicGetModuloId;
-
-        this.storedMenuStaticOnInit = RealcustomMenuService.menuStaticOnInit;
-
-        this.storedMenuopenExpansibleMenu = RealcustomMenuService.menuopenExpansibleMenu;
-
-        this.storedMenuDynamicOnInit = RealcustomMenuService.menuDynamicOnInit;
-    }
-
-   // #endregion Métodos Publicos
-
 }

@@ -1,12 +1,24 @@
+import { IMenuItemStructure } from "../../../public-api";
+
 export interface ICustomMenuService {
     
     // Propriedades Customizadas do Menu
-    menuDynamic: boolean;
-    menuDynamicCustom: false;
-    moduleName: string;
-    moduleImg: string;
-    moduleSvg: string;
-    themeColor: string;
+    get menuDynamic(): boolean;
+
+    get menuDynamicCustom(): boolean;
+
+    get moduleName(): string;
+
+    get moduleImg(): string;
+
+    get moduleSvg(): string;
+    
+    get themeColor(): string;
+
+    // Propriedades específicas do Menu
+    get menuItems(): IMenuItemStructure[];
+
+    set menuItems(value: IMenuItemStructure[]);
 
     // Métodos customizados do Menu
     menuDynamicGetModuloId(): number;

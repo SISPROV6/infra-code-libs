@@ -1,11 +1,14 @@
-import { Component, Input } from '@angular/core';
-import { LibIconsComponent } from '../lib-icons/lib-icons.component';
+import { Component, Input, OnInit } from '@angular/core';
+import { LibIconsComponent } from 'ngx-sp-infra';
+import { MenuServicesService } from '../../../public-api';
+import { ProjectUtilservice } from '../../project/project-utils.service';
 
 export class NavSubmenuCards {
   titulo: string = '';
   icon: string = '';
   descricao: string = '';
   urlPath: string = '';
+  isExternal:boolean = false;
 };
 
 @Component({
@@ -14,7 +17,7 @@ export class NavSubmenuCards {
   template: `
     <div class="max-card-menu row">
       @for(card of subMenuCards; track $index) {
-        <a href="{{ card.urlPath }}" class="card-link col-4" target="_blank">
+        <a href="{{ card.isExternal ? GetExternalUrl(card.urlPath) : card.urlPath }}" class="card-link col-4" target="_blank">
           <div class="card">
             <div class="card-icon">
               <div class="card-icon2">
@@ -39,8 +42,34 @@ export class NavSubmenuCards {
   styleUrl: './sub-menu-card.component.scss',
   standalone: true
 })
-export class SubMenuCardComponent {
+export class SubMenuCardComponent implements OnInit {
+GetExternalUrl(url: string) {
+    return `${ this.hostName == "" ? `https://${ window.location.host }` : this.hostName }/${ url }`;
+
+}
+
+ngOnInit(): void {
+  this.GetHostName();
+}
+
+/**
+ *
+ */
+constructor(private _menuService:MenuServicesService, private _projectUtil:ProjectUtilservice){}
+
+
+public hostName:string = "";
 
 @Input() subMenuCards: NavSubmenuCards[] = [];
 
+
+public GetHostName() {
+  this._menuService.GetHostServerOutSystems().subscribe({
+    next:response => this.hostName = response.String,
+    error:error => this._projectUtil.showHttpError(error)
+  })
 }
+
+
+}
+
