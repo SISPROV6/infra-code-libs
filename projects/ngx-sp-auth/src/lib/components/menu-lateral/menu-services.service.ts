@@ -27,8 +27,7 @@ export class MenuServicesService {
     private _httpClient: HttpClient,
     private _customEnvironmentService: LibCustomEnvironmentService
   ) {
-    //this._BASE_URL = `${ this._customEnvironmentService.SpInfra2ErpWS }`; // SpInfra2ErpW
-    this._BASE_URL = `${ this._customEnvironmentService.Sp2LocalhostWS }`; // SpInfra2ErpWS
+    this._BASE_URL = `${ this._customEnvironmentService.SpInfra2ErpWS }`; // SpInfra2ErpW
 
     this._BASE_URL = !this._customEnvironmentService.production ? this._BASE_URL : `${this._customEnvironmentService.SpInfra2ErpWS}`;
   }
