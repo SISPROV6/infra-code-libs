@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
-import { LibIconsComponent } from '../../widgets/lib-icons/lib-icons.component';
+import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 
 @Component({
     selector: '[app-footer], app-footer, lib-footer',

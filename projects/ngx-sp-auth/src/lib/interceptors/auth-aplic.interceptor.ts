@@ -5,7 +5,7 @@ import { Observable, from, lastValueFrom } from 'rxjs';
 
 import { AuthStorageService } from '../storage/auth-storage.service';
 import { CheckUrlAndMethodService } from 'ngx-sp-infra';
-import { EnvironmentService } from './../environments/environments.service';
+import { LibCustomEnvironmentService } from '../custom/lib-custom-environment.service';
 /**
  * \brief Intercepta uma chamada HTTP para inserir o usuário logado no header em conjunto
  *        com o login para uso da API.
@@ -20,7 +20,7 @@ export class AuthAplicInterceptor implements HttpInterceptor {
   constructor(
     private authCheckService: CheckUrlAndMethodService,
     private token: AuthStorageService,
-    private _environmentService: EnvironmentService
+        private _customEnvironmentService: LibCustomEnvironmentService
   ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -31,7 +31,7 @@ export class AuthAplicInterceptor implements HttpInterceptor {
   async handle(req: HttpRequest<any>, next: HttpHandler) {
     let changedReq: HttpRequest<any> = req;
 
-    if (this.authCheckService.needsAuthRequest(req.url, req.method, this._environmentService.needsAuthAplic)) {
+    if (this.authCheckService.needsAuthRequest(req.url, req.method, this._customEnvironmentService.needsAuthAplic)) {
       // Verifica se o Token precisa ser renovado
       await this.token.renewToken();
 

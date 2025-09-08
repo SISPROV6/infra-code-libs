@@ -4,7 +4,7 @@
 
   <div class="input-group glb-search-input my-3">
     <span class="input-group-text search px-2 glb-bg-color-white">
-      <lib-icon iconName="search" iconColor="gray" iconSize="medium-small"
+      <lib-icon iconName="lupa" iconColor="gray" iconSize="medium-small"
         class="d-flex align-items-center"></lib-icon>
     </span>
     <input type="text" class="form-control border-left-none ps-0" [(ngModel)]="search">
@@ -36,6 +36,9 @@
           [(ngModel)]="item.is_selected"
         />
       </ng-template>
+
+      <lib-icon *ngIf="item.icon" [iconName]="item.icon" iconSize="medium-small" class="ms-2" />
+
       <label class="label mb-0 ms-2">{{ item.label }}</label>
     </div>
     <!-- NODES -->

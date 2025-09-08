@@ -1,4 +1,5 @@
-import { IError, NavSubmenuCards, NavSubMenus } from "ngx-sp-infra";
+import { IError } from "ngx-sp-infra";
+import { NavSubmenuCards, NavSubMenus } from "../../../../public-api";
 
 export class RetNavSubMenu implements IError{
     Error: boolean= false;

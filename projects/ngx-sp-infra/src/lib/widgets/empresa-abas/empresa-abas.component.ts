@@ -1,4 +1,4 @@
-import { Component, Input, input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, input, OnInit, Output, output, SimpleChanges } from '@angular/core';
 import { links } from './models/links-record';
 import { NgFor} from '@angular/common';
 import { Router } from '@angular/router';
@@ -13,6 +13,7 @@ export class EmpresaAbasComponent implements OnInit{
 
   public linksList: links[] = [];
   @Input() Id: string | number = "";
+  @Output() EmpresaId = new EventEmitter<string | number>();
 
   public activeItem: string = '';
 
@@ -27,11 +28,11 @@ export class EmpresaAbasComponent implements OnInit{
       {nome: 'Compras', uri: `http://${window.location.host}/SpCopConfiguracoes/EmpresaCompras/editar/${this.Id}`, isTargetSelf: false},
       {nome: 'Recebimento', uri: `http://${window.location.host}/SpRec1Cfg/ConfiguracaoEmpresa/editar/${this.Id}`, isTargetSelf: false},
       {nome: 'Fiscal', uri: `http://${window.location.host}/perfil-da-empresa/editar/${this.Id}`, isTargetSelf: false},
-      {nome: 'Patrimônio', uri: `http://${window.location.host}/SpPat1Conf/EmpresaPatrimonio.aspx?IsCorp=True&InfraEmpresaId=${this.Id}`, isTargetSelf: false},
+      {nome: 'Patrimônio', uri: `http://siscandesv10.sispro.com.br/SpPat1Conf/EmpresaPatrimonio.aspx?IsCorp=True&InfraEmpresaId=${this.Id}`, isTargetSelf: false},
       {nome: 'Aprovação', uri: `http://${window.location.host}/empresas/editar/aprovacao/${this.Id}`, isTargetSelf: false},
-      {nome: 'Financeiro', uri: `http://${window.location.host}/SpFin1Cadastros/FinEmpresaParam_Edit.aspx?IsCorp=True&InfraEmpresaId=${this.Id}`, isTargetSelf: false},
-      {nome: 'Reinf', uri: `http://${window.location.host}/SpReinf1Cad/ReinfEmpresa_List.aspx?InfraEmpresaId=${this.Id}&IsCorp=True`, isTargetSelf: false},
-      {nome: 'ECF/TAX', uri: `http://${window.location.host}/SpGcf2Cadastros/GcfEmpresa_List.aspx?IsCorp=True&InfraEmpresaId=${this.Id}`, isTargetSelf: false},
+      {nome: 'Financeiro', uri: `http://siscandesv10.sispro.com.br/SpFin1Cadastros/FinEmpresaParam_Edit.aspx?IsCorp=True&InfraEmpresaId=${this.Id}`, isTargetSelf: false},
+      {nome: 'Reinf', uri: `http://siscandesv10.sispro.com.br/SpReinf1Cad/ReinfEmpresa_List.aspx?InfraEmpresaId=${this.Id}&IsCorp=True`, isTargetSelf: false},
+      {nome: 'ECF/TAX', uri: `http://siscandesv10.sispro.com.br/SpGcf2Cadastros/GcfEmpresa_List.aspx?IsCorp=True&InfraEmpresaId=${this.Id}`, isTargetSelf: false},
       {nome: 'SCP', uri: `http://${window.location.host}/empresas/editar/SCP/${this.Id}`, isTargetSelf: false},
     );
     }else{
@@ -42,18 +43,22 @@ export class EmpresaAbasComponent implements OnInit{
       {nome: 'Compras', uri: `https://${window.location.host}/SisproErpCloud/Compras/SpCopConfiguracoes/EmpresaCompras/editar/${this.Id}`, isTargetSelf: false},
       {nome: 'Recebimento', uri: `https://${window.location.host}/SisproErpCloud/Recebimento/SpRec1Cfg/ConfiguracaoEmpresa/editar/${this.Id}`, isTargetSelf: false},
       {nome: 'Fiscal', uri: `https://${window.location.host}/SisproErpCloud/Efd-Reinf/perfil-da-empresa/editar/${this.Id}`, isTargetSelf: false},
-      {nome: 'Patrimônio', uri: `https://${window.location.host}/SpPat1Conf/EmpresaPatrimonio.aspx?IsCorp=True&InfraEmpresaId=${this.Id}`, isTargetSelf: false},
+      {nome: 'Patrimônio', uri: `https://siscandesv10.sispro.com.br/SpPat1Conf/EmpresaPatrimonio.aspx?IsCorp=True&InfraEmpresaId=${this.Id}`, isTargetSelf: false},
       {nome: 'Aprovação', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/empresas/editar/aprovacao/${this.Id}`, isTargetSelf: false},
-      {nome: 'Financeiro', uri: `https://${window.location.host}/SpFin1Cadastros/FinEmpresaParam_Edit.aspx?IsCorp=True&InfraEmpresaId=${this.Id}`, isTargetSelf: false},
-      {nome: 'Reinf', uri: `https://${window.location.host}/SpReinf1Cad/ReinfEmpresa_List.aspx?InfraEmpresaId=${this.Id}&IsCorp=True`, isTargetSelf: false},
-      {nome: 'ECF/TAX', uri: `https://${window.location.host}/SpGcf2Cadastros/GcfEmpresa_List.aspx?IsCorp=True&InfraEmpresaId=${this.Id}`, isTargetSelf: false},
+      {nome: 'Financeiro', uri: `https://siscandesv10.sispro.com.br/SpFin1Cadastros/FinEmpresaParam_Edit.aspx?IsCorp=True&InfraEmpresaId=${this.Id}`, isTargetSelf: false},
+      {nome: 'Reinf', uri: `https://siscandesv10.sispro.com.br/SpReinf1Cad/ReinfEmpresa_List.aspx?InfraEmpresaId=${this.Id}&IsCorp=True`, isTargetSelf: false},
+      {nome: 'ECF/TAX', uri: `https://siscandesv10.sispro.com.br/SpGcf2Cadastros/GcfEmpresa_List.aspx?IsCorp=True&InfraEmpresaId=${this.Id}`, isTargetSelf: false},
       {nome: 'SCP', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/empresas/editar/SCP/${this.Id}`, isTargetSelf: false},
     );
     }
     
-
     this.activeItem = this.router.url;
+  }
 
+    ngOnChanges(changes: SimpleChanges) {
+    if (changes['Id'] && changes['Id'].currentValue) {
+        this.EmpresaId.emit(this.Id);
+    }
   }
 
 }
