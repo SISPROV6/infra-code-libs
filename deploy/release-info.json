@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-auth",
-  "version": "3.3.1",
-  "tag": "auth-v3.3.1",
-  "notes": "Liberação da versão @latest semanal",
-  "timestamp": "2025-09-08T19:25:18.841Z"
+  "version": "3.3.2",
+  "tag": "auth-v3.3.2",
+  "notes": "Utilização da versão @latest do ngx-sp-infra internamente",
+  "timestamp": "2025-09-08T19:30:15.531Z"
 }
