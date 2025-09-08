@@ -21,7 +21,7 @@ export interface ICustomMenuService {
     set menuItems(value: IMenuItemStructure[]);
 
     // Métodos customizados do Menu
-    menuDynamicGetModuloId(): number;
+    menuDynamicGetProjetoId(): number;
 
     menuDynamicOnInit(): void;
 

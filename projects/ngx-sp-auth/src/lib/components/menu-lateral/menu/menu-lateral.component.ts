@@ -90,9 +90,9 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
         this._customMenuService.menuConfig.setMenuType(false);
 
         // Método com customizações obter o Módulo para montagem do Menu Dinâmico Lateral
-        const moduloId: number = this._customMenuService.menuDynamicGetModuloId();
+        const projetoId: number = this._customMenuService.menuDynamicGetProjetoId();
 
-        this._menuServices.getMenuLateral(moduloId).subscribe({
+        this._menuServices.getMenuLateral(projetoId).subscribe({
           next: response => {
             const menus = this.constroiRegrasDynamicMenu(response.MenuSubmenu);
 
