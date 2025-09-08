@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-infra",
-  "version": "5.18.2",
-  "tag": "infra-v5.18.2",
-  "notes": "Criação de nova propriedade de ícone opcional ao model da treeview, se ele for informado exibe o ícone ao lado do checkbox de seleção",
-  "timestamp": "2025-09-03T20:52:09.029Z"
+  "version": "5.19.1",
+  "tag": "infra-v5.19.1",
+  "notes": "Liberação semanal de nova versão mais atualizada",
+  "timestamp": "2025-09-08T19:05:38.595Z"
 }
