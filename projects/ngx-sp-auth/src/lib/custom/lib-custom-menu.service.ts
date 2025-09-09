@@ -75,9 +75,9 @@ export class LibCustomMenuService {
 
     // Método executado no menu-lateral.component.ts - método: onInit ()
     // Utilizado para obter o Módulo para montagem do Menu Dinâmico Lateral
-    public menuDynamicGetModuloId(): number
+    public menuDynamicGetProjetoId(): number
     {
-        return this._customMenuService.menuDynamicGetModuloId();
+        return this._customMenuService.menuDynamicGetProjetoId();
     }
     
     // Método executado no menu-lateral.component.ts - método: onInit ()

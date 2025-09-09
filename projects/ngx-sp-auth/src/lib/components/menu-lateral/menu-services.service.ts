@@ -19,7 +19,7 @@ import { RetDynamicMenu } from './model/dynamic-menu';
   providedIn: 'root'
 })
 export class MenuServicesService {
-  private readonly _BASE_URL: string = ""; // SpInfra2AplicWS
+  private readonly _BASE_URL: string = ""; // SpInfra2ErpWS
   private readonly _HTTP_HEADERS = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(
@@ -27,7 +27,7 @@ export class MenuServicesService {
     private _httpClient: HttpClient,
     private _customEnvironmentService: LibCustomEnvironmentService
   ) {
-    this._BASE_URL = `${ this._customEnvironmentService.SpInfra2ErpWS }`; // SpInfra2ErpWS
+    this._BASE_URL = `${ this._customEnvironmentService.SpInfra2ErpWS }`; // SpInfra2ErpW
 
     this._BASE_URL = !this._customEnvironmentService.production ? this._BASE_URL : `${this._customEnvironmentService.SpInfra2ErpWS}`;
   }
@@ -182,13 +182,13 @@ export class MenuServicesService {
   /** Método executado para pegar o Menu lateral levando em conta as permissões do usuário, grupo e o tenant ativo
   * Executado caso o getter do boolean Menu Dynamic seja true
   */
-  public getMenuLateral(moduloId: number){
+  public getMenuLateral(projetoId: number){
     const headers = new HttpHeaders().set("Content-Type", "application/json");
 
     const url = `${this._BASE_URL}/Menu/GetMenuLateral`;
 
     const params: HttpParams = new HttpParams()
-      .set('moduloId', moduloId)
+      .set('projetoId', projetoId)
 
     return this._httpClient
       .get<RetDynamicMenu>(url, {params:params, headers: headers })
