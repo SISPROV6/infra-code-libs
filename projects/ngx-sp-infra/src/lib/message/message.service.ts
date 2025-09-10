@@ -25,20 +25,23 @@ export class MessageService {
     message: string,
     type: alertTypes,
     dismissTimeout?: number,
-    id?: number | undefined
+    id?: number | undefined,
+    keepAlive?: boolean,
   ) {
     const initialState: any = {
       message: message,
       type: type,
-      id: id
+      id: id,
     };
 
     const bsModalRef: BsModalRef = this.bsModalService.show(AlertComponent, {
       initialState, class: 'modal-md', id: id
     });
 
-    if (dismissTimeout) {
-      setTimeout(() => bsModalRef.hide(), dismissTimeout);
+    if (!keepAlive) {
+      if (dismissTimeout) {
+        setTimeout(() => bsModalRef.hide(), dismissTimeout);
+      }
     }
   }
 
@@ -48,22 +51,22 @@ export class MessageService {
   }
 
   /** Exibe uma mesagem do tipo success */
-  showAlertSuccess(message: string) {
-    this.showAlert(message, alertTypes.SUCCESS, 3000, alertIds.SUCCESS);
+  showAlertSuccess(message: string, keepAlive?: boolean) {
+    this.showAlert(message, alertTypes.SUCCESS, 3000, alertIds.SUCCESS, keepAlive ? keepAlive : false);
   }
 
   /** Exibe uma mesagem do tipo info */
-  showAlertInfo(message: string) {
-    this.showAlert(message, alertTypes.INFO, 3000, alertIds.INFO);
+  showAlertInfo(message: string, keepAlive?: boolean) {
+    this.showAlert(message, alertTypes.INFO, 3000, alertIds.INFO, keepAlive ? keepAlive : false);
   }
   /** Exibe uma mesagem do tipo primary */
-  showAlertPrimary(message: string) {
-    this.showAlert(message, alertTypes.PRIMARY, 3000, alertIds.PRIMARY);
+  showAlertPrimary(message: string, keepAlive?: boolean) {
+    this.showAlert(message, alertTypes.PRIMARY, 3000, alertIds.PRIMARY, keepAlive ? keepAlive : false);
   }
 
   /** Exibe uma mesagem do tipo secondary */
-  showAlertSecondary(message: string) {
-    this.showAlert(message, alertTypes.SECONDARY, 3000, alertIds.SECONDARY);
+  showAlertSecondary(message: string, keepAlive?: boolean) {
+    this.showAlert(message, alertTypes.SECONDARY, 3000, alertIds.SECONDARY, keepAlive ? keepAlive : false);
   }
   /** Exibe uma mesagem do tipo warning */
   showAlertWarning(message: string) {
