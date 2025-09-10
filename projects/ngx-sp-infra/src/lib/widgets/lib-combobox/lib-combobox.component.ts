@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl, FormControlStatus, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
@@ -218,7 +218,6 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
   // #endregion ==========> PROPERTIES <==========
 
 
-  // #region ==========> INITIALIZATION <==========
   constructor() { }
 
   ngOnInit(): void {
@@ -248,11 +247,6 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
   ngOnDestroy(): void {
     this._subscription.unsubscribe();
   }
-
-  // O que fazer quando o evento de redimensionamento ocorrer
-  @HostListener('window:resize', ['$event'])
-  onResize(): void { this.adjustDropdownWidth() }
-  // #endregion ==========> INITIALIZATION <==========
 
 
   // #region ==========> UTILS <==========

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, forwardRef, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef, TrackByFunction, ViewChild } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostListener, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef, TrackByFunction, ViewChild } from '@angular/core';
+import { ControlValueAccessor, FormControl, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { BehaviorSubject, debounceTime, distinctUntilChanged, map, Observable, Subject, takeUntil } from 'rxjs';
 import { TextTruncateDirective } from '../../directives/text-truncate.directive';
 import { RecordCombobox } from '../../models/combobox/record-combobox';
@@ -10,6 +10,7 @@ import { LibIconsComponent } from '../lib-icons/lib-icons.component';
   selector: 'lib-combobox-rework',
   imports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
     LibIconsComponent,
     TextTruncateDirective
@@ -54,7 +55,8 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   @ContentChild("leftButtonTemplate", { read: TemplateRef, static: false }) leftButtonTemplate?: TemplateRef<any>;
   @ContentChild("rightButtonTemplate", { read: TemplateRef, static: false }) rightButtonTemplate?: TemplateRef<any>;
 
-  @ViewChild("toggleButton", { static: true }) toggleButton?: ElementRef;
+  @ViewChild("toggleButton", { static: true }) toggleButton?: ElementRef<HTMLButtonElement>;
+  @ViewChild("reusableComboboxContainer", { static: true }) reusableComboboxContainer?: ElementRef<HTMLDivElement>;
 
   @Output() selectionChange = new EventEmitter<any>();
   @Output() filterChange = new EventEmitter<string | null>();
@@ -87,7 +89,20 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
     
     if (Array.isArray(this.value)) {
       if (this.value.length === 0) return this.placeholder;
-      return this.value.map(v => this.displayWith(v)).join(', ');
+
+      let extraSelected: number = 0;
+      let formattedValue: string = "";
+
+      this.value.forEach((e, index) => {
+        if (index >= 2) extraSelected++;
+      })
+
+      return this.value.map((e, index) => {
+        if (index < 2) return this.displayWith(e);
+        return null;
+      })
+      .filter(e => e !== null)
+      .join(', ') + (extraSelected > 0 ? ` e +${extraSelected} selecionados` : '');
     }
 
     return this.displayWith(this.value as T);
@@ -99,7 +114,7 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   // #endregion ==========> PROPERTIES <==========
 
 
-  constructor(private _cdr: ChangeDetectorRef) { }
+  constructor( private _cdr: ChangeDetectorRef ) { }
 
   ngOnInit() {
     this.searchControl.valueChanges
@@ -111,7 +126,11 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   }
 
   ngAfterViewInit() {
-    // nothing for now, placeholder for future keyboard focus handling
+    // this.setMaxWidth();
+  }
+
+  ngAfterContentInit() {
+    this.setMaxWidth();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -122,6 +141,10 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
     this._destroy$.next();
     this._destroy$.complete();
   }
+
+  // O que fazer quando o evento de redimensionamento ocorrer
+  @HostListener('window:resize', ['$event'])
+  onResize(): void { this.setMaxWidth(); }
 
 
   // #region ==========> UTILS <==========
@@ -231,6 +254,21 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
     }
   }
   // #endregion UI
+
+  private setMaxWidth(): void {
+    if (this.toggleButton) {
+      const container = this.toggleButton?.nativeElement;
+      const parent = this.toggleButton?.nativeElement.parentElement; // Pega dois níveis acima pois o primeiro nível é a div de dropdown
+  
+      console.log("parent?.scrollWidth", parent?.scrollWidth);
+      console.log("parent?.clientWidth", parent?.clientWidth);
+      
+      container.style.minWidth = '100%';
+      container.style.width = `${parent!.scrollWidth}px`;
+
+      console.log("parent?.scrollWidth", parent?.scrollWidth);
+    }
+  }
 
   // #endregion ==========> UTILS <==========
 

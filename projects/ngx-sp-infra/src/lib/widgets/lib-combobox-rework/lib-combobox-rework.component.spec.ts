@@ -3,7 +3,7 @@ import { RecordCombobox } from './../../models/combobox/record-combobox';
 
 import { LibComboboxReworkComponent } from './lib-combobox-rework.component';
 
-describe('LibComboboxReworkComponent', () => {
+describe('Componente: lib-combobox-rework', () => {
   let component: LibComboboxReworkComponent;
   let fixture: ComponentFixture<LibComboboxReworkComponent>;
 

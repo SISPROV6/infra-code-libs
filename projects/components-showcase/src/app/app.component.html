@@ -23,7 +23,7 @@
 
       <div class="col">
         <label class="form-label" libRequired >Opções selecionadas 2</label>
-        <lib-combobox-rework [multiple]="false" [list]="items" [formControl]="control" (selectionChange)="log($event)" customLabel="surname" customValue="name" >
+        <lib-combobox-rework [multiple]="true" [list]="items" [formControl]="control" (selectionChange)="log($event)" customLabel="surname" customValue="name" >
           
           <ng-template #optionTemplate let-item let-selected="selected">
             <div class="d-flex align-items-center justify-content-between option w-100" [ngClass]="{ 'active fw-bold text-primary': selected }" >
@@ -51,6 +51,27 @@
 
         <!-- <lib-error-message customMessage="O campo está inválido"></lib-error-message> -->
       </div>
+    </div>
+
+
+
+    <div class="w-25">
+        <label class="form-label" libRequired >Opções selecionadas</label>
+        <lib-combobox-rework [multiple]="true" [innerFilter]="false" [list]="filteredItems" [formControl]="control"
+          (selectionChange)="log($event)" (filterChange)="filter($event)" (filterButtonClick)="filter($event)"
+          customLabel="surname" customValue="name" >
+<!-- 
+          <ng-template #optionTemplate let-item let-selected="selected">
+            <div class="d-flex align-items-center justify-content-between option w-100" [ngClass]="{ 'active fw-bold text-primary': selected }" >
+              <div class="flex-grow-1"><b>Valor:</b> {{ item.name }} {{ item.surname }}</div>
+              @if (selected) { <small>✓</small> }
+            </div>
+          </ng-template> -->
+
+
+        </lib-combobox-rework>
+
+        <!-- <lib-error-message customMessage="O campo está inválido"></lib-error-message> -->
     </div>
 
 
