@@ -3,8 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { InfraModule } from '../../../ngx-sp-infra/src/public-api';
 
-
-
 @Component({
   selector: 'app-root',
   imports: [
@@ -21,12 +19,12 @@ export class AppComponent implements OnInit {
 
   filteredItems: { name: string | number, surname: string }[] = [];
   items = [
-    { name: 1, surname: 'One' },
-    { name: 2, surname: 'Two' },
-    { name: 3, surname: 'Three' },
-    { name: 4, surname: 'Four' },
-    { name: 5, surname: 'Five' },
-    { name: 6, surname: 'Six' },
+    { name: 1, surname: 'Erick Carvalho Paulette de Oliveira' },
+    { name: 2, surname: 'Solturne' },
+    { name: 3, surname: 'Mare Itami' },
+    { name: 4, surname: 'Wylow Zeppelli' },
+    { name: 5, surname: 'Sol' },
+    { name: 6, surname: 'Saturno' },
     { name: 7, surname: 'Seven' },
     { name: 8, surname: 'Eight' },
     { name: 9, surname: 'Nine' },
@@ -77,7 +75,7 @@ export class AppComponent implements OnInit {
   }
 
   log(value: any) {
-    console.log(value);
+    // console.log(value);
   }
 
   filter(search: string | null) {

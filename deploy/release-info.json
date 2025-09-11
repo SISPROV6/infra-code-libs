@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-auth",
-  "version": "3.3.3",
-  "tag": "auth-v3.3.3",
-  "notes": "Atualização de rotina",
-  "timestamp": "2025-09-08T20:19:43.149Z"
+  "project": "ngx-sp-infra",
+  "version": "5.19.6",
+  "tag": "infra-v5.19.6",
+  "notes": "Correção da largura do componente lib-combobox-rework onde a largura dele aumenta para acompanhar o conteúdo      ",
+  "timestamp": "2025-09-11T11:43:51.418Z"
 }

@@ -1,16 +1,16 @@
-<div class="reusable-combobox input-group " [class.show]="isOpen" (focusout)="onBlurOutside($event)" >
+<div class="reusable-combobox input-group" [class.show]="isOpen" (focusout)="onBlurOutside($event)" #reusableComboboxContainer >
   @if (leftButtonTemplate) { <ng-container *ngTemplateOutlet="leftButtonTemplate"></ng-container> }
 
   <div class="dropdown w-100">
-    <button #toggleButton class="form-select d-flex align-items-center text-start" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside"
-      [attr.aria-expanded]="isOpen" [attr.aria-haspopup]="true" [attr.aria-label]="placeholder" [disabled]="disabled"
+    <div #toggleButton id="toggle-button" class="form-select d-flex align-items-center text-start" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside"
+      [attr.aria-expanded]="isOpen" [attr.aria-haspopup]="true" [attr.aria-label]="placeholder" [class.disabled]="disabled"
       (click)="toggleDropdown()" readonly 
       [ngClass]="{
         'rounded-start-0': leftButtonTemplate,
         'rounded-end-0': rightButtonTemplate,
       }" >
-        <span libTextTruncate="100">{{ displayValue() }}</span>
-      </button>
+      <span class="w-100 overflow-hidden text-truncate"> {{ displayValue() }} </span>  
+    </div>
 
     <div class="dropdown-menu p-2 w-100" [class.show]="isOpen" style="max-height: 320px; overflow-y: auto;">
       <div class="dropdown-search input-group mb-2">
