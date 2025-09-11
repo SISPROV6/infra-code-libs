@@ -1,6 +1,6 @@
 import { NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InfraModule } from '../../../ngx-sp-infra/src/public-api';
 
 @Component({
@@ -15,7 +15,11 @@ import { InfraModule } from '../../../ngx-sp-infra/src/public-api';
 })
 export class AppComponent implements OnInit {
   
-  control = new FormControl();
+  control = new FormControl<any>([
+    { name: 1, surname: 'Erick Carvalho Paulette de Oliveira' },
+    { name: 2, surname: 'Solturne' },
+    { name: 3, surname: 'Mare Itami' },
+  ], [ Validators.required ]);
 
   filteredItems: { name: string | number, surname: string }[] = [];
   items = [
@@ -62,7 +66,11 @@ export class AppComponent implements OnInit {
   });
 
   ngOnInit(): void {
-      this.filteredItems = this.items;
+    this.filteredItems = this.items;
+
+    setTimeout(() => {
+      console.log("this.control.invalid", this.control.invalid);
+    }, 5000);
   }
 
   public disableForm5(): void {

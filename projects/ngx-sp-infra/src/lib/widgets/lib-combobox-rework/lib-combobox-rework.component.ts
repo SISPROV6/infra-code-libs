@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostListener, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef, TrackByFunction, ViewChild } from '@angular/core';
 import { ControlValueAccessor, FormControl, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { BehaviorSubject, debounceTime, distinctUntilChanged, map, Observable, Subject, takeUntil } from 'rxjs';
-import { TextTruncateDirective } from '../../directives/text-truncate.directive';
 import { RecordCombobox } from '../../models/combobox/record-combobox';
 import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 
@@ -12,8 +11,7 @@ import { LibIconsComponent } from '../lib-icons/lib-icons.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    LibIconsComponent,
-    TextTruncateDirective
+    LibIconsComponent
   ],
   templateUrl: './lib-combobox-rework.component.html',
   styleUrl: './lib-combobox-rework.component.scss',
@@ -56,7 +54,6 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   @ContentChild("rightButtonTemplate", { read: TemplateRef, static: false }) rightButtonTemplate?: TemplateRef<any>;
 
   @ViewChild("toggleButton", { static: true }) toggleButton?: ElementRef<HTMLButtonElement>;
-  @ViewChild("reusableComboboxContainer", { static: true }) reusableComboboxContainer?: ElementRef<HTMLDivElement>;
 
   @Output() selectionChange = new EventEmitter<any>();
   @Output() filterChange = new EventEmitter<string | null>();
@@ -91,18 +88,18 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
       if (this.value.length === 0) return this.placeholder;
 
       let extraSelected: number = 0;
-      let formattedValue: string = "";
 
       this.value.forEach((e, index) => {
         if (index >= 2) extraSelected++;
-      })
+      });
 
+      // Filtra o valor para exibir até dois valores selecionados, se passar disso mostra "e +{n} selecionado(s)"
       return this.value.map((e, index) => {
         if (index < 2) return this.displayWith(e);
         return null;
       })
       .filter(e => e !== null)
-      .join(', ') + (extraSelected > 0 ? ` e +${extraSelected} selecionados` : '');
+      .join(', ') + (extraSelected > 0 ? ` e +${extraSelected} selecionado(s)` : '');
     }
 
     return this.displayWith(this.value as T);
@@ -114,7 +111,9 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   // #endregion ==========> PROPERTIES <==========
 
 
-  constructor( private _cdr: ChangeDetectorRef ) { }
+  constructor(
+    private _cdr: ChangeDetectorRef
+  ) { }
 
   ngOnInit() {
     this.searchControl.valueChanges
@@ -126,11 +125,15 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   }
 
   ngAfterViewInit() {
-    // this.setMaxWidth();
+    
   }
 
   ngAfterContentInit() {
     this.setMaxWidth();
+
+    console.log(this.value);
+    console.log(this.list);
+    
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -142,7 +145,7 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
     this._destroy$.complete();
   }
 
-  // O que fazer quando o evento de redimensionamento ocorrer
+  // O que fazer quando o evento de redimensionamento da tela ocorrer
   @HostListener('window:resize', ['$event'])
   onResize(): void { this.setMaxWidth(); }
 
@@ -255,18 +258,19 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   }
   // #endregion UI
 
+  /** Define a largura máxima em pixels com base na largura do container pai
+   * 
+   * Esta abordagem foi necessária pois o elemento em questão constantemente aumentava sua largura para acomodar o seu valor interno, independente das regras CSS impostas.
+   * 
+   * A solução mais rápida era definir uma largura em pixels fixa na inicialização, o que não é o ideal por questões de responsividade, portanto este método é chamado em caso de resize da tela também
+  */
   private setMaxWidth(): void {
     if (this.toggleButton) {
       const container = this.toggleButton?.nativeElement;
-      const parent = this.toggleButton?.nativeElement.parentElement; // Pega dois níveis acima pois o primeiro nível é a div de dropdown
-  
-      console.log("parent?.scrollWidth", parent?.scrollWidth);
-      console.log("parent?.clientWidth", parent?.clientWidth);
-      
+      const parent = this.toggleButton?.nativeElement.parentElement;
+
       container.style.minWidth = '100%';
       container.style.width = `${parent!.scrollWidth}px`;
-
-      console.log("parent?.scrollWidth", parent?.scrollWidth);
     }
   }
 
