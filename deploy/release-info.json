@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-infra",
-  "version": "5.19.5",
-  "tag": "infra-v5.19.5",
-  "notes": "keepAlive nas messages Service",
-  "timestamp": "2025-09-10T19:42:59.287Z"
+  "version": "5.19.6",
+  "tag": "infra-v5.19.6",
+  "notes": "Correção da largura do componente lib-combobox-rework onde a largura dele aumenta para acompanhar o conteúdo      ",
+  "timestamp": "2025-09-11T11:43:51.418Z"
 }
