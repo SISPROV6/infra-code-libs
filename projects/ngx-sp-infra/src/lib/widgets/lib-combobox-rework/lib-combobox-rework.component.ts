@@ -29,6 +29,12 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   // #region ==========> PROPERTIES <==========
 
   // #region PRIVATE
+  private mutationObserver!: MutationObserver;
+
+  
+  /** Valor interno do componente */
+  private _value: T | T[] | null = null;
+
   private _search$ = new BehaviorSubject<string>("");
 
   private _onTouched = () => {};
@@ -59,8 +65,18 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   @Output() filterChange = new EventEmitter<string | null>();
   @Output() filterButtonClick = new EventEmitter<string | null>();
 
-  public value: T | T[] | null = null;
   public selectedValues: T[] | null = null;
+
+  // Getter/Setter para o valor
+  public get value(): T | T[] | null { return this._value; }
+  public set value(val: T | T[] | null) {
+    if (val !== this._value) {
+      this._value = val;
+      this._onChange(val); // Notifica o FormControl sobre a mudança
+    }
+  }
+
+  public invalid: boolean = false;
 
   public isOpen = false;
   public searchControl = new FormControl("");
@@ -71,7 +87,22 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
     map((term) => this.filterItems(term))
   );
   
-  public compareWith: (a: T, b: T) => boolean = (a, b) => a === b;
+  public compare = (a: T, b: T): boolean => {
+    if (!a || !b) return false;
+
+    const recA = a as unknown as any;
+    const recB = b as unknown as any;
+
+    if (a === b)
+      return true;
+
+    else if ( (recA[this.customValue] === recB[this.customValue]) || (recA[this.customLabel] === recB[this.customLabel]) )
+      return true;
+
+    return false;
+  }
+
+  // public compareWith: (a: T, b: T) => boolean = (a, b) => a === b;
   public displayWith: (item: T) => string = (item) => {
     if (!item) return '';
     if (typeof item === 'object') {
@@ -112,7 +143,8 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
 
 
   constructor(
-    private _cdr: ChangeDetectorRef
+    private _cdr: ChangeDetectorRef,
+    private _elementRef: ElementRef
   ) { }
 
   ngOnInit() {
@@ -122,27 +154,27 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
         if (this.innerFilter) this._search$.next(v ?? "");
         else this.filterChange.emit(v);
       });
+    
+    this.registerObserver();
   }
 
   ngAfterViewInit() {
-    
+    // [...]
   }
 
   ngAfterContentInit() {
     this.setMaxWidth();
-
-    console.log(this.value);
-    console.log(this.list);
-    
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    
+    // [...]
   }
 
   ngOnDestroy() {
     this._destroy$.next();
     this._destroy$.complete();
+
+    this.mutationObserver.disconnect();
   }
 
   // O que fazer quando o evento de redimensionamento da tela ocorrer
@@ -171,7 +203,7 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   public select(item: T): void {
     if (this.multiple) {
       this.selectedValues = Array.isArray(this.value) ? [...this.value] : [];
-      const index = this.selectedValues.findIndex(v => this.compareWith(v, item));
+      const index = this.selectedValues.findIndex(v => this.compare(v, item));
 
       if (index > -1) this.selectedValues.splice(index, 1);
       else this.selectedValues.push(item);
@@ -196,42 +228,67 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
     if (!item || !this.value) return false;
 
     if (this.multiple && Array.isArray(this.value)) {
-      return this.value.some(v => this.compareWith(v, item));
+      return this.value.some(v => this.compare(v, item));
     }
 
-    return this.compareWith(item, this.value as T);
+    return this.compare(item, this.value as T);
   }
   // #endregion Seleção
 
   // #region VALUE_ACCESSOR do Angular
   public writeValue(obj: T | T[] | null): void {
     if (!obj) this.selectedValues = null;
-
-    this.value = obj;
+    
     this._onTouched();
-    this.selectionChange.emit(obj);
+
+    if (this.multiple && obj) {
+      this.selectedValues = Array.isArray(obj) ? [...obj] : [];
+
+      if (this.selectedValues.length === 0) this.selectedValues = null;
+
+      this.value = this.selectedValues;
+      this._onChange(this.selectedValues);
+      this.selectionChange.emit(this.selectedValues);
+    }
+    else {
+      this.value = obj;
+      this._onChange(obj);
+      this.selectionChange.emit(obj);
+    }
+
     this._cdr.markForCheck();
   }
 
-  public registerOnChange(fn: (value: T | T[] | null) => void): void {
-    this._onChange = fn;
-  }
+  public registerOnChange(fn: (value: T | T[] | null) => void): void { this._onChange = fn; }
+  public registerOnTouched(fn: () => void): void { this._onTouched = fn; }
 
-  public registerOnTouched(fn: () => void): void {
-    this._onTouched = fn;
-  }
-  // #endregion VALUE_ACCESSOR do Angular
-
-  // #region UI
   public setDisabledState?(isDisabled: boolean): void {
     this.disabled = isDisabled;
     this._cdr.markForCheck();
   }
+  // #endregion VALUE_ACCESSOR do Angular
 
+  // #region UI
   public toggleDropdown() {
     if (this.disabled) return;
 
     this.isOpen = !this.isOpen;
+
+    if (this.isOpen) {
+      this.searchControl.setValue("", { emitEvent: true });
+      setTimeout(() => {
+        const inputEl: HTMLInputElement | null = document.querySelector('.reusable-combobox .dropdown-search input');
+        inputEl?.focus();
+      }, 0);
+    }
+
+    this._cdr.markForCheck();
+  }
+
+  public openDropdown() {
+    if (this.disabled) return;
+
+    this.isOpen = true;
 
     if (this.isOpen) {
       this.searchControl.setValue("", { emitEvent: true });
@@ -256,7 +313,6 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
       this.closeDropdown();
     }
   }
-  // #endregion UI
 
   /** Define a largura máxima em pixels com base na largura do container pai
    * 
@@ -273,6 +329,33 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
       container.style.width = `${parent!.scrollWidth}px`;
     }
   }
+  // #endregion UI
+
+  // #region Mutation Observer
+
+  private registerObserver() {
+    this.mutationObserver = new MutationObserver(mutations => {
+      mutations.forEach(mut => {
+        if (mut.type === 'attributes' && mut.attributeName === 'class') this.checkInvalidClass();
+      });
+    });
+
+    this.mutationObserver.observe(this._elementRef.nativeElement, {
+      attributes: true,
+      attributeFilter: [ 'class', 'disabled' ]
+    });
+
+    setTimeout(() => this.checkInvalidClass());
+  }
+
+  private checkInvalidClass() {
+    const hasInvalid = this._elementRef.nativeElement.classList.contains('is-invalid');
+
+    this.invalid = hasInvalid;
+    this._cdr.markForCheck();
+  }
+
+  // #endregion Mutation Observer
 
   // #endregion ==========> UTILS <==========
 

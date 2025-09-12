@@ -2,9 +2,9 @@
   @if (leftButtonTemplate) { <ng-container *ngTemplateOutlet="leftButtonTemplate"></ng-container> }
 
   <div class="dropdown w-100">
-    <div #toggleButton id="toggle-button" class="form-select d-flex align-items-center text-start" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside"
-      [attr.aria-expanded]="isOpen" [attr.aria-haspopup]="true" [attr.aria-label]="placeholder" [class.disabled]="disabled"
-      (click)="toggleDropdown()" readonly 
+    <div #toggleButton id="toggle-button" class="form-select d-flex align-items-center text-start" type="button" data-bs-toggle="dropdown"
+      data-bs-auto-close="outside" [attr.aria-expanded]="isOpen" [attr.aria-haspopup]="true" [attr.aria-label]="placeholder" [class.disabled]="disabled"
+      [class.is-invalid]="invalid" (click)="toggleDropdown()" readonly
       [ngClass]="{
         'rounded-start-0': leftButtonTemplate,
         'rounded-end-0': rightButtonTemplate,
@@ -12,7 +12,7 @@
       <span class="w-100 overflow-hidden text-truncate"> {{ displayValue() }} </span>  
     </div>
 
-    <div class="dropdown-menu p-2 w-100" [class.show]="isOpen" style="max-height: 320px; overflow-y: auto;">
+    <div class="dropdown-menu p-2 w-100" [class.show]="isOpen" style="max-height: 320px; overflow-y: auto;" >
       <div class="dropdown-search input-group mb-2">
         <input class="form-control form-control-sm" type="search" [placeholder]="searchPlaceholder" [formControl]="searchControl" aria-label="Pesquisar opções" (keyup.enter)="filterButtonClick.emit(searchControl.value)" />
         <button class="btn btn-sm btn-primary" type="button" (click)="filterButtonClick.emit(searchControl.value)"> <lib-icon iconName="lupa" iconSize="medium-small" /> </button>
