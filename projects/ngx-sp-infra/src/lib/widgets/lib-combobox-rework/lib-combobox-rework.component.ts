@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostListener, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef, TrackByFunction, ViewChild } from '@angular/core';
 import { ControlValueAccessor, FormControl, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { BehaviorSubject, debounceTime, distinctUntilChanged, map, Observable, Subject, takeUntil } from 'rxjs';
-import { TextTruncateDirective } from '../../directives/text-truncate.directive';
 import { RecordCombobox } from '../../models/combobox/record-combobox';
 import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 
@@ -12,8 +11,7 @@ import { LibIconsComponent } from '../lib-icons/lib-icons.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    LibIconsComponent,
-    TextTruncateDirective
+    LibIconsComponent
   ],
   templateUrl: './lib-combobox-rework.component.html',
   styleUrl: './lib-combobox-rework.component.scss',
@@ -31,6 +29,12 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   // #region ==========> PROPERTIES <==========
 
   // #region PRIVATE
+  private mutationObserver!: MutationObserver;
+
+  
+  /** Valor interno do componente */
+  private _value: T | T[] | null = null;
+
   private _search$ = new BehaviorSubject<string>("");
 
   private _onTouched = () => {};
@@ -56,14 +60,23 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   @ContentChild("rightButtonTemplate", { read: TemplateRef, static: false }) rightButtonTemplate?: TemplateRef<any>;
 
   @ViewChild("toggleButton", { static: true }) toggleButton?: ElementRef<HTMLButtonElement>;
-  @ViewChild("reusableComboboxContainer", { static: true }) reusableComboboxContainer?: ElementRef<HTMLDivElement>;
 
   @Output() selectionChange = new EventEmitter<any>();
   @Output() filterChange = new EventEmitter<string | null>();
   @Output() filterButtonClick = new EventEmitter<string | null>();
 
-  public value: T | T[] | null = null;
   public selectedValues: T[] | null = null;
+
+  // Getter/Setter para o valor
+  public get value(): T | T[] | null { return this._value; }
+  public set value(val: T | T[] | null) {
+    if (val !== this._value) {
+      this._value = val;
+      this._onChange(val); // Notifica o FormControl sobre a mudança
+    }
+  }
+
+  public invalid: boolean = false;
 
   public isOpen = false;
   public searchControl = new FormControl("");
@@ -74,7 +87,22 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
     map((term) => this.filterItems(term))
   );
   
-  public compareWith: (a: T, b: T) => boolean = (a, b) => a === b;
+  public compare = (a: T, b: T): boolean => {
+    if (!a || !b) return false;
+
+    const recA = a as unknown as any;
+    const recB = b as unknown as any;
+
+    if (a === b)
+      return true;
+
+    else if ( (recA[this.customValue] === recB[this.customValue]) || (recA[this.customLabel] === recB[this.customLabel]) )
+      return true;
+
+    return false;
+  }
+
+  // public compareWith: (a: T, b: T) => boolean = (a, b) => a === b;
   public displayWith: (item: T) => string = (item) => {
     if (!item) return '';
     if (typeof item === 'object') {
@@ -91,18 +119,18 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
       if (this.value.length === 0) return this.placeholder;
 
       let extraSelected: number = 0;
-      let formattedValue: string = "";
 
       this.value.forEach((e, index) => {
         if (index >= 2) extraSelected++;
-      })
+      });
 
+      // Filtra o valor para exibir até dois valores selecionados, se passar disso mostra "e +{n} selecionado(s)"
       return this.value.map((e, index) => {
         if (index < 2) return this.displayWith(e);
         return null;
       })
       .filter(e => e !== null)
-      .join(', ') + (extraSelected > 0 ? ` e +${extraSelected} selecionados` : '');
+      .join(', ') + (extraSelected > 0 ? ` e +${extraSelected} selecionado(s)` : '');
     }
 
     return this.displayWith(this.value as T);
@@ -114,7 +142,10 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   // #endregion ==========> PROPERTIES <==========
 
 
-  constructor( private _cdr: ChangeDetectorRef ) { }
+  constructor(
+    private _cdr: ChangeDetectorRef,
+    private _elementRef: ElementRef
+  ) { }
 
   ngOnInit() {
     this.searchControl.valueChanges
@@ -123,10 +154,12 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
         if (this.innerFilter) this._search$.next(v ?? "");
         else this.filterChange.emit(v);
       });
+    
+    this.registerObserver();
   }
 
   ngAfterViewInit() {
-    // this.setMaxWidth();
+    // [...]
   }
 
   ngAfterContentInit() {
@@ -134,15 +167,17 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    
+    // [...]
   }
 
   ngOnDestroy() {
     this._destroy$.next();
     this._destroy$.complete();
+
+    this.mutationObserver.disconnect();
   }
 
-  // O que fazer quando o evento de redimensionamento ocorrer
+  // O que fazer quando o evento de redimensionamento da tela ocorrer
   @HostListener('window:resize', ['$event'])
   onResize(): void { this.setMaxWidth(); }
 
@@ -168,7 +203,7 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   public select(item: T): void {
     if (this.multiple) {
       this.selectedValues = Array.isArray(this.value) ? [...this.value] : [];
-      const index = this.selectedValues.findIndex(v => this.compareWith(v, item));
+      const index = this.selectedValues.findIndex(v => this.compare(v, item));
 
       if (index > -1) this.selectedValues.splice(index, 1);
       else this.selectedValues.push(item);
@@ -193,42 +228,67 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
     if (!item || !this.value) return false;
 
     if (this.multiple && Array.isArray(this.value)) {
-      return this.value.some(v => this.compareWith(v, item));
+      return this.value.some(v => this.compare(v, item));
     }
 
-    return this.compareWith(item, this.value as T);
+    return this.compare(item, this.value as T);
   }
   // #endregion Seleção
 
   // #region VALUE_ACCESSOR do Angular
   public writeValue(obj: T | T[] | null): void {
     if (!obj) this.selectedValues = null;
-
-    this.value = obj;
+    
     this._onTouched();
-    this.selectionChange.emit(obj);
+
+    if (this.multiple && obj) {
+      this.selectedValues = Array.isArray(obj) ? [...obj] : [];
+
+      if (this.selectedValues.length === 0) this.selectedValues = null;
+
+      this.value = this.selectedValues;
+      this._onChange(this.selectedValues);
+      this.selectionChange.emit(this.selectedValues);
+    }
+    else {
+      this.value = obj;
+      this._onChange(obj);
+      this.selectionChange.emit(obj);
+    }
+
     this._cdr.markForCheck();
   }
 
-  public registerOnChange(fn: (value: T | T[] | null) => void): void {
-    this._onChange = fn;
-  }
+  public registerOnChange(fn: (value: T | T[] | null) => void): void { this._onChange = fn; }
+  public registerOnTouched(fn: () => void): void { this._onTouched = fn; }
 
-  public registerOnTouched(fn: () => void): void {
-    this._onTouched = fn;
-  }
-  // #endregion VALUE_ACCESSOR do Angular
-
-  // #region UI
   public setDisabledState?(isDisabled: boolean): void {
     this.disabled = isDisabled;
     this._cdr.markForCheck();
   }
+  // #endregion VALUE_ACCESSOR do Angular
 
+  // #region UI
   public toggleDropdown() {
     if (this.disabled) return;
 
     this.isOpen = !this.isOpen;
+
+    if (this.isOpen) {
+      this.searchControl.setValue("", { emitEvent: true });
+      setTimeout(() => {
+        const inputEl: HTMLInputElement | null = document.querySelector('.reusable-combobox .dropdown-search input');
+        inputEl?.focus();
+      }, 0);
+    }
+
+    this._cdr.markForCheck();
+  }
+
+  public openDropdown() {
+    if (this.disabled) return;
+
+    this.isOpen = true;
 
     if (this.isOpen) {
       this.searchControl.setValue("", { emitEvent: true });
@@ -253,22 +313,49 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
       this.closeDropdown();
     }
   }
-  // #endregion UI
 
+  /** Define a largura máxima em pixels com base na largura do container pai
+   * 
+   * Esta abordagem foi necessária pois o elemento em questão constantemente aumentava sua largura para acomodar o seu valor interno, independente das regras CSS impostas.
+   * 
+   * A solução mais rápida era definir uma largura em pixels fixa na inicialização, o que não é o ideal por questões de responsividade, portanto este método é chamado em caso de resize da tela também
+  */
   private setMaxWidth(): void {
     if (this.toggleButton) {
       const container = this.toggleButton?.nativeElement;
-      const parent = this.toggleButton?.nativeElement.parentElement; // Pega dois níveis acima pois o primeiro nível é a div de dropdown
-  
-      console.log("parent?.scrollWidth", parent?.scrollWidth);
-      console.log("parent?.clientWidth", parent?.clientWidth);
-      
+      const parent = this.toggleButton?.nativeElement.parentElement;
+
       container.style.minWidth = '100%';
       container.style.width = `${parent!.scrollWidth}px`;
-
-      console.log("parent?.scrollWidth", parent?.scrollWidth);
     }
   }
+  // #endregion UI
+
+  // #region Mutation Observer
+
+  private registerObserver() {
+    this.mutationObserver = new MutationObserver(mutations => {
+      mutations.forEach(mut => {
+        if (mut.type === 'attributes' && mut.attributeName === 'class') this.checkInvalidClass();
+      });
+    });
+
+    this.mutationObserver.observe(this._elementRef.nativeElement, {
+      attributes: true,
+      attributeFilter: [ 'class', 'disabled' ]
+    });
+
+    setTimeout(() => this.checkInvalidClass());
+  }
+
+  private checkInvalidClass() {
+    const hasInvalid = this._elementRef.nativeElement.classList.contains('is-invalid');
+
+    this.invalid = hasInvalid;
+    this._cdr.markForCheck();
+  }
+
+  // #endregion Mutation Observer
 
   // #endregion ==========> UTILS <==========
 
