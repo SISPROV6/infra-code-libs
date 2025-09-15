@@ -6,7 +6,7 @@
         <label class="form-label" libRequired >Opções selecionadas</label>
         <lib-combobox-rework [multiple]="false" [innerFilter]="false" [list]="filteredItems" [formControl]="control"
           (selectionChange)="log($event)" (filterChange)="filter($event)" (filterButtonClick)="filter($event)"
-          customLabel="surname" customValue="name" [class.is-invalid]="formUtils.isInvalidField(control)" >
+          customLabel="surname" customValue="name" [class.is-invalid]="formUtils.isInvalidField(control)" [disabled]="true" >
 
           <ng-template #optionTemplate let-item let-selected="selected">
             <div class="d-flex align-items-center justify-content-between option w-100" [ngClass]="{ 'active fw-bold text-primary': selected }" >
