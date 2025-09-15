@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-infra",
-  "version": "5.19.8",
-  "tag": "infra-v5.19.8",
-  "notes": "Removido trecho repetido de indeterminateCheck()",
-  "timestamp": "2025-09-15T19:58:15.156Z"
+  "version": "5.19.9",
+  "tag": "infra-v5.19.9",
+  "notes": "Itens filhos também emitem evento de seleção",
+  "timestamp": "2025-09-15T20:03:40.733Z"
 }
