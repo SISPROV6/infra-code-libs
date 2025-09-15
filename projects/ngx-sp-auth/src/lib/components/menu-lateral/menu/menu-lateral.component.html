@@ -20,16 +20,10 @@
             <div class="btn-group">
               <button (click)="dropdownWasOpened(true)" type="button" class="dropdown-button" data-bs-toggle="dropdown"
                 aria-expanded="false" data-bs-auto-close="outside">
-
                 <ng-container>
-                  <img *ngIf="_customMenuService.moduleImg != ''; else moduleSVG" [src]="_customMenuService.moduleImg" alt="">
+                  <lib-icon iconColor="white" [iconName]="_customMenuService.moduleSvg" />
                   <span class="ps-2"> {{ this._customMenuService.moduleName }} <lib-icon iconName="seta-direita" iconColor="white" /> </span>
-
-                  <ng-template #moduleSVG>
-                    <lib-icon iconColor="white" [iconName]="_customMenuService.moduleSvg"/>
-                  </ng-template>
                 </ng-container>
-
               </button>
               <ul class="dropdown-menu" #dropdown_ref>
                 <app-primary-dropdown [buttonWasClicked]="messageIfClicked"></app-primary-dropdown>

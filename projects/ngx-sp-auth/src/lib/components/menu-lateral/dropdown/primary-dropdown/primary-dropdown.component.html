@@ -1,15 +1,15 @@
 <div class="p-2">
     <div *ngIf="selectDataState; else secondary_dropdown" class="mb-2 w-100">
-            <li *ngFor="let modulo of primaryDropdown" (click)="(modulo.secondary_level != null ? openDropdown(modulo, secondary_dropdown) : redirectToModulo(modulo.URL))">
-                <a class="dropdown-item mb-2">
-                    <img src="{{ modulo.icon }}" alt="{{ modulo.label }}">
-                    {{ modulo.label }}
-                </a>
-            </li>
-            <hr class="dropdown-divider">
-            <li>
-                <a class="dropdown-item link-portal mt-2" (click)="redirectToPrePortal()" target="_blank">Portal Sispro</a>
-            </li>
+        <li *ngFor="let modulo of primaryDropdown" (click)="(modulo.secondary_level != null ? openDropdown(modulo, secondary_dropdown) : redirectToModulo(modulo.URL))">
+            <a class="dropdown-item mb-2">
+                <lib-icon class="me-2" [iconName]="modulo.icon"></lib-icon>
+                {{ modulo.label }}
+            </a>
+        </li>
+        <hr class="dropdown-divider">
+        <li>
+            <a class="dropdown-item link-portal mt-2" (click)="redirectToPrePortal()" target="_blank">Portal Sispro</a>
+        </li>
     </div>
 
     <ng-template #secondary_dropdown>

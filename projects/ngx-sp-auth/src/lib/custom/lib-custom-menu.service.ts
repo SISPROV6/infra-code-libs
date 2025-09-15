@@ -26,10 +26,6 @@ export class LibCustomMenuService {
         return this._customMenuService.moduleName;
     }
 
-    public get moduleImg(): string {
-        return this._customMenuService.moduleImg;
-    }
-
     public get moduleSvg(): string {
         return this._customMenuService.moduleSvg;
     }
