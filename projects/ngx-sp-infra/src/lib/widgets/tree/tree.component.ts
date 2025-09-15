@@ -85,18 +85,11 @@ export class TreeComponent {
         }
       });
     }
+
     if (this.indeterminateCheck(items)) {
       this.onSelect.emit(true);
     } else if (!this.indeterminateCheck(items)) {
       this.onSelect.emit(false);
-    }
-  }
-
-  public onCheckEvent(items: TreeItem[]) {
-    if (this.indeterminateCheck(items)) {
-      this.onEvent.emit(true);
-    } else {
-      this.onEvent.emit(false);
     }
   }
   // #endregion ==========> PUBLIC METHODS <==========
