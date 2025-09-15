@@ -14,6 +14,7 @@ import { RetEstabelecimentoSession } from './model/ret-estabelecimento-session';
 import { RetNavSubMenu, RetSubmenuWithCards } from './model/ret-navsubmenu';
 import { NavSubmenuSearchItem } from './model/navsubmenu-searchitem';
 import { RetDynamicMenu } from './model/dynamic-menu';
+import { RetDropDown } from './model/ret-dropdown';
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +28,10 @@ export class MenuServicesService {
     private _httpClient: HttpClient,
     private _customEnvironmentService: LibCustomEnvironmentService
   ) {
-    this._BASE_URL = `${ this._customEnvironmentService.SpInfra2ErpWS }`; // SpInfra2ErpW
-
+    //???i
+    //this._BASE_URL = `${ this._customEnvironmentService.SpInfra2ErpWS }`; // SpInfra2ErpW
+    this._BASE_URL = `${ this._customEnvironmentService.Sp2LocalhostWS }`; // SpInfra2ErpW
+    //???f
     this._BASE_URL = !this._customEnvironmentService.production ? this._BASE_URL : `${this._customEnvironmentService.SpInfra2ErpWS}`;
   }
 
@@ -252,7 +255,27 @@ export class MenuServicesService {
 
   }
 
-    /** Método executado para pegar o HostName de direcionamento para OS
+  /** Método executado para pegar os produtos para monta o MenuDropdown
+  */
+  public getProjects(){
+    const headers = new HttpHeaders().set("Content-Type", "application/json");
+
+    const url = `${this._BASE_URL}/Menu/GetProjects`;
+
+    return this._httpClient
+      .get<RetDropDown>(url, { headers: headers })
+      .pipe(
+        take(1),
+        tap((response) => {
+          if (response.Error) {
+            throw Error(response.ErrorMessage);
+          }
+        })
+      );
+
+  }
+
+  /** Método executado para pegar o HostName de direcionamento para OS
   */
   public GetHostServerOutSystems(){
     const headers = new HttpHeaders().set("Content-Type", "application/json");
