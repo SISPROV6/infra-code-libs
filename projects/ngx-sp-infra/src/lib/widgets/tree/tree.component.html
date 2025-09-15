@@ -43,7 +43,7 @@
     <!-- NODES -->
     <ul *ngIf="item.expanded">
       <app-tree
-        (onSelect)="item.is_selected = $event"
+        (onSelect)="item.is_selected = $event; onSelect.emit($event)"
         (onEvent)="item.is_selected = $event"
         [items]="item.children ?? []"
         [checkbox]="checkbox"
