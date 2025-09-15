@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-infra",
-  "version": "5.19.7",
-  "tag": "infra-v5.19.7",
-  "notes": "Corrigido erro onde valores pré-definidos no lib-combobox-rework não exibiam como selecionados dentro do dropdown",
-  "timestamp": "2025-09-12T13:37:45.234Z"
+  "project": "ngx-sp-auth",
+  "version": "3.3.4",
+  "tag": "auth-v3.3.4",
+  "notes": "Implementação do Menu Dropdown automático",
+  "timestamp": "2025-09-15T14:40:42.978Z"
 }
