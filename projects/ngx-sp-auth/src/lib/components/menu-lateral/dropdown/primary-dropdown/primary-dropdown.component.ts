@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import { InfraModule } from 'ngx-sp-infra';
+
 import { LibCustomMenuService } from '../../../../custom/lib-custom-menu.service';
 import { ProjectUtilservice } from '../../../../project/project-utils.service';
 import { SecondaryDropdownComponent } from '../secondary-dropdown/secondary-dropdown.component';
@@ -14,7 +16,8 @@ import { IProjeto } from '../../model/iprojeto';
     styleUrls: ['./primary-dropdown.component.scss'],
     imports: [
         SecondaryDropdownComponent,
-        CommonModule
+        CommonModule,
+        InfraModule
     ]
 })
 export class PrimaryDropdownComponent implements OnInit {
@@ -40,16 +43,13 @@ export class PrimaryDropdownComponent implements OnInit {
 
                   if (!this._customMenuService.menuConfig) {
                         setTimeout(() => {
-                              //???this.primaryDropdown = this._customMenuService.menuConfig.initializeMenuDropdown(this.primaryDropdown);
                               this.getProjects();
                         }, 2000);
                   } else {
-                        //???this.primaryDropdown = this._customMenuService.menuConfig.initializeMenuDropdown(this.primaryDropdown);
                         this.getProjects();
                   }
  
             } else {
-                  //???this.primaryDropdown = this._customMenuService.menuConfig.initializeMenuDropdown(this.primaryDropdown);
                   this.getProjects();
             }
             
@@ -81,8 +81,9 @@ export class PrimaryDropdownComponent implements OnInit {
             window.open(url, '_blank');
       }
 
-      public redirectToModulo(modulo: string): void {
-            const url: string = `${ this._projectUtilservice.getHostName() }/SisproErpCloud/${ modulo }`;
+      public redirectToModulo(urlModulo: string): void {
+            let url = `${ this._projectUtilservice.getHostName() }/SisproErpCloud`;
+            url += urlModulo.startsWith('/') ? urlModulo : '/' + urlModulo
 
             window.open(url, '_blank');
       }

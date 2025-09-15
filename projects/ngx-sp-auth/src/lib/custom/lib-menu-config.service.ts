@@ -37,14 +37,4 @@ export class LibMenuConfigService {
         return this._menuConfig.updateRouteSelection(currentRoute, currentList);
     }
 
-    /** Inicializa as opções do menu dropdown com base em uma lista personalizada (opcional).
-       * @param primaryDropdownList Uma lista personalizada de opções do dropdown (opcional).
-       * @returns As opções do dropdown inicializadas.
-    */
-    public initializeMenuDropdown(primaryDropdownList: Array<any>): any[] {
-        this.menuDropdown = this._menuConfig.initializeMenuDropdown(primaryDropdownList);
- 
-        return this.menuDropdown;
-    }
-
 }

@@ -9,8 +9,6 @@ export interface ICustomMenuService {
 
     get moduleName(): string;
 
-    get moduleImg(): string;
-
     get moduleSvg(): string;
     
     get themeColor(): string;
