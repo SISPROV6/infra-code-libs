@@ -250,7 +250,7 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
     document.querySelector(".sidebar-control")?.classList.toggle("col");
 
     // Método com customizações para inicialização do Menu Estático
-    this._customMenuService.menuopenExpansibleMenu(ref);
+    this._customMenuService.menuOpenExpansibleMenu(ref);
   }
 
   public openSubmenu(menu: IMenuItemStructure, ref: HTMLDivElement, desiredMenu: TemplateRef<any>): void {

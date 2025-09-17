@@ -25,5 +25,8 @@ export interface ICustomMenuService {
 
     menuStaticOnInit(): void;
 
-    menuopenExpansibleMenu(ref: HTMLDivElement): void;
+    menuOpenExpansibleMenu(ref: HTMLDivElement): void;
+
+    menuEmitEstabelecimentoEvent(): void;
+
 }
