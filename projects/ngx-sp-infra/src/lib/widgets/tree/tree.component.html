@@ -31,7 +31,6 @@
         <input
           type="checkbox"
           class="form-check-input m-0 position-relative"
-          [checked]="onCheckEvent(items)"
           (change)="onCheck(items, item)"
           [(ngModel)]="item.is_selected"
         />
@@ -44,7 +43,7 @@
     <!-- NODES -->
     <ul *ngIf="item.expanded">
       <app-tree
-        (onSelect)="item.is_selected = $event"
+        (onSelect)="item.is_selected = $event; onSelect.emit($event)"
         (onEvent)="item.is_selected = $event"
         [items]="item.children ?? []"
         [checkbox]="checkbox"

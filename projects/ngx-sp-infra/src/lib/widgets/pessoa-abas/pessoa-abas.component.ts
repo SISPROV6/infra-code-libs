@@ -113,8 +113,8 @@ export class PessoaAbasComponent {
       {nome: 'Dados básicos', uri: `http://${window.location.host}/pessoas/editar/${this.Id}`, isTargetSelf: true},
       {nome: 'Dados comerciais', uri: `http://siscandesv10.sispro.com.br/SpNeg3Cfg/PessoaDadosComerciais.aspx?IsCorp=True&CrpPessoaId=${this.Id}`, isTargetSelf: false},
       {nome: 'Dados financeiros', uri: `http://siscandesv10.sispro.com.br/SpFin1Cadastros/PessoaDadosFinanceiros.aspx?CrpPessoaId=${this.Id}&IsCorp=True`, isTargetSelf: false},
-      {nome: 'Compras - Dados da pessoa para suprimentos', uri: `http://${window.location.host}/SpCopConfiguracoes/PessoasDadosSuprimentos/editar/${this.Id}`, isTargetSelf: false},
-      {nome: 'Compras - Dados dos fornecedor', uri: `http://${window.location.host}/SpCopConfiguracoes/PessoasDadosFornecedor/editar/${this.Id}`, isTargetSelf: false},
+      {nome: 'Compras - Dados da pessoa para suprimentos', uri: `http://${window.location.host}/pessoas-dados-suprimentos/editar/${this.Id}`, isTargetSelf: false},
+      {nome: 'Compras - Dados do fornecedor', uri: `http://${window.location.host}/pessoas-dados-fornecedor/editar/${this.Id}`, isTargetSelf: false},
       {nome: 'Dados auxiliares', uri: `http://${window.location.host}/pessoas/dadosAuxiliares/${this.Id}`, isTargetSelf: false},
       {nome: 'Tipo', uri: `http://siscandesv10.sispro.com.br/SpMnt3Manutencao/TipoPessoa.aspx?IsCorp=True&CrpPessoaId=${this.Id}`, isTargetSelf: false},
       {nome: 'Fiscal', uri: `http://${window.location.host}/pessoas/pessoaFiscal/${this.Id}`, isTargetSelf: false},
@@ -125,8 +125,8 @@ export class PessoaAbasComponent {
       {nome: 'Dados básicos', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/pessoas/editar/${this.Id}`, isTargetSelf: true},
       {nome: 'Dados comerciais', uri: `https://siscandesv10.sispro.com.br/SpNeg3Cfg/PessoaDadosComerciais.aspx?IsCorp=True&CrpPessoaId=${this.Id}`, isTargetSelf: false},
       {nome: 'Dados financeiros', uri: `https://siscandesv10.sispro.com.br/SpFin1Cadastros/PessoaDadosFinanceiros.aspx?CrpPessoaId=${this.Id}&IsCorp=True`, isTargetSelf: false},
-      {nome: 'Compras - Dados da pessoa para suprimentos', uri: `https://${window.location.host}/SisproErpCloud/Compras/SpCopConfiguracoes/PessoasDadosSuprimentos/editar/${this.Id}`, isTargetSelf: false},
-      {nome: 'Compras - Dados dos fornecedor', uri: `https://${window.location.host}/SisproErpCloud/Compras/SpCopConfiguracoes/PessoasDadosFornecedor/editar/${this.Id}`, isTargetSelf: false},
+      {nome: 'Compras - Dados da pessoa para suprimentos', uri: `https://${window.location.host}/SisproErpCloud/Compras/pessoas-dados-suprimentos/editar/${this.Id}`, isTargetSelf: false},
+      {nome: 'Compras - Dados do fornecedor', uri: `https://${window.location.host}/SisproErpCloud/Compras/pessoas-dados-fornecedor/editar/${this.Id}`, isTargetSelf: false},
       {nome: 'Dados auxiliares', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/pessoas/dadosAuxiliares/${this.Id}`, isTargetSelf: false},
       {nome: 'Tipo', uri: `https://siscandesv10.sispro.com.br/SpMnt3Manutencao/TipoPessoa.aspx?IsCorp=True&CrpPessoaId=${this.Id}`, isTargetSelf: false},
       {nome: 'Fiscal', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/pessoas/pessoaFiscal/${this.Id}`, isTargetSelf: false},
@@ -140,7 +140,7 @@ export class PessoaAbasComponent {
     }
 
     else if (this.hasPapel && this.tipoPessoa === 2) {
-      this.UrisList = this.UrisList.filter(item => item.nome !== 'Compras - Dados dos fornecedor');
+      this.UrisList = this.UrisList.filter(item => item.nome !== 'Compras - Dados do fornecedor');
 
     }
 

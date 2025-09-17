@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl, FormControlStatus, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
@@ -73,7 +73,7 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
     
     if (value === false) {
       this.textoPesquisa = "";
-      this._searchInput.nativeElement.value = "";
+      this._searchInput!.nativeElement.value = "";
     }
   }
 
@@ -211,14 +211,19 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
   
 
   @ViewChild('mainInput') private _mainInput!: ElementRef<HTMLInputElement>;
-  @ViewChild('searchInput') private _searchInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('searchInput', { static: false }) private _searchInput?: ElementRef<HTMLInputElement>;
   @ViewChild('dropdownMenu') private _dropdownMenu!: ElementRef<HTMLDivElement>;
+
+  public showSearchInput: boolean = false;
+
+  public focusSearchInput(): void {
+  this._searchInput?.nativeElement.focus();
+}
   // #endregion PUBLIC
 
   // #endregion ==========> PROPERTIES <==========
 
 
-  // #region ==========> INITIALIZATION <==========
   constructor() { }
 
   ngOnInit(): void {
@@ -229,6 +234,7 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
 
     this.setValidator();
     this.updateSelectedValue();
+
   }
 
   ngAfterViewInit(): void {
@@ -237,6 +243,11 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes["list"]?.currentValue) this.updateSelectedValue();
+
+    if(changes["list"] && this.list){
+      this.showSearchInput = this.list.length > 5;
+    }
+
     if (changes["libRequired"]?.currentValue != undefined) this.setValidator();
     
     if (changes["control"]?.currentValue) {
@@ -248,11 +259,6 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
   ngOnDestroy(): void {
     this._subscription.unsubscribe();
   }
-
-  // O que fazer quando o evento de redimensionamento ocorrer
-  @HostListener('window:resize', ['$event'])
-  onResize(): void { this.adjustDropdownWidth() }
-  // #endregion ==========> INITIALIZATION <==========
 
 
   // #region ==========> UTILS <==========

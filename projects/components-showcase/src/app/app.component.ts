@@ -1,9 +1,8 @@
 import { NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormUtils } from 'ngx-sp-infra';
 import { InfraModule } from '../../../ngx-sp-infra/src/public-api';
-
-
 
 @Component({
   selector: 'app-root',
@@ -16,17 +15,22 @@ import { InfraModule } from '../../../ngx-sp-infra/src/public-api';
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
-  
-  control = new FormControl();
 
+  // #region ==========> PROPERTIES <==========
+
+  // #region PRIVATE
+  // [...]
+  // #endregion PRIVATE
+
+  // #region PUBLIC
   filteredItems: { name: string | number, surname: string }[] = [];
   items = [
-    { name: 1, surname: 'One' },
-    { name: 2, surname: 'Two' },
-    { name: 3, surname: 'Three' },
-    { name: 4, surname: 'Four' },
-    { name: 5, surname: 'Five' },
-    { name: 6, surname: 'Six' },
+    { name: 1, surname: 'Erick Carvalho Paulette de Oliveira' },
+    { name: 2, surname: 'Solturne' },
+    { name: 3, surname: 'Mare Itami' },
+    { name: 4, surname: 'Wylow Zeppelli' },
+    { name: 5, surname: 'Sol' },
+    { name: 6, surname: 'Saturno' },
     { name: 7, surname: 'Seven' },
     { name: 8, surname: 'Eight' },
     { name: 9, surname: 'Nine' },
@@ -56,6 +60,17 @@ export class AppComponent implements OnInit {
   ];
 
   public disabledInputs: Map<string, boolean> = new Map<string, boolean>();
+  // #endregion PUBLIC
+
+  // #endregion ==========> PROPERTIES <==========
+
+
+  // #region ==========> FORM CONFIG <==========
+  public control = new FormControl<any>([
+    { name: 1, surname: 'Erick Carvalho Paulette de Oliveira' },
+    { name: 2, surname: 'Solturne' },
+    { name: 3, surname: 'Mare Itami' },
+  ], [ Validators.required ]);
 
   public formCombobox5: FormGroup = new FormGroup({
     // ...outros controls
@@ -63,21 +78,28 @@ export class AppComponent implements OnInit {
     PESSOACONTRAPARTEID: new FormControl<string | null>(null)
   });
 
+  public get formUtils(): typeof FormUtils { return FormUtils; }
+  // #endregion ==========> FORM CONFIG <==========
+
+
+  constructor() { }
+
   ngOnInit(): void {
-      this.filteredItems = this.items;
+    this.filteredItems = this.items;
+
+    // setTimeout(() => {
+    //   this.control.disable();
+    // }, 5000);
+
+    // setTimeout(() => {
+    //   this.control.enable();
+    // }, 6500);
   }
 
-  public disableForm5(): void {
-    this.disabledInputs.set("formCombobox5", true);
-    this.formCombobox5.controls["PESSOACONTRAPARTEID"].disable();
-  }
-  public enableForm5(): void {
-    this.disabledInputs.set("formCombobox5", false);
-    this.formCombobox5.controls["PESSOACONTRAPARTEID"].enable();
-  }
 
+  // #region ==========> UTILS <==========
   log(value: any) {
-    console.log(value);
+    // console.log(value);
   }
 
   filter(search: string | null) {
@@ -90,5 +112,16 @@ export class AppComponent implements OnInit {
     this.log(search);
     this.log(this.filteredItems);
   }
+
+  setValue() {
+    this.control.setValue([
+      { name: 1, surname: 'Erick Carvalho Paulette de Oliveira' },
+      { name: 2, surname: 'Solturne' },
+      { name: 3, surname: 'Mare Itami' },
+      { name: 4, surname: 'Wylow Zeppelli' },
+      { name: 5, surname: 'Sol' },
+    ]);
+  }
+  // #endregion ==========> UTILS <==========
 
 }

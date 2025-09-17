@@ -32,19 +32,21 @@
         <table class="table table-bordered table-hover mb-0">
           <thead class="fs-6">
             <tr>
-              <th scope="col" class="col-11 align-middle th">Estabelecimento <span
-                  class="text-primary fst-italic">(duplo-clique para selecionar)</span></th>
+              <th scope="col" class="col-11 align-middle th">Estabelecimento</th>
               <th scope="col" class="col-1 align-middle text-center th">Ações</th>
             </tr>
           </thead>
 
           <tbody *ngIf="$estabelecimentosList.length > 0; else emptyList">
             <tr
-              *ngFor="let estabelecimento of $estabelecimentosList | paginate: { itemsPerPage: itemsPerPage, currentPage: page }"
-              (dblclick)="selectEstabelecimento(estabelecimento.ID, estabelecimento.NOMEEXIBICAO)" role="button">
-              <td><span class="row-name"> {{ estabelecimento.CODIGO }} - {{ estabelecimento.NOMEEXIBICAO }} </span>
-                <span class="subname"> {{ estabelecimento.IS_MATRIZ ? "Matriz " : null }} CNPJ: {{ estabelecimento.CNPJ
-                  }} </span></td>
+              *ngFor="let estabelecimento of $estabelecimentosList | paginate: { itemsPerPage: itemsPerPage, currentPage: page }">
+              <td>
+                <div style="cursor: pointer;" (click)="selectEstabelecimento(estabelecimento.ID, estabelecimento.NOMEEXIBICAO)">
+                  <span class="row-name"> {{ estabelecimento.CODIGO }} - {{ estabelecimento.NOMEEXIBICAO }} </span>
+                  <span class="subname"> {{ estabelecimento.IS_MATRIZ ? "Matriz " : null }} CNPJ: {{ estabelecimento.CNPJ
+                  }} </span>
+                </div>
+              </td>
               <td class="text-center align-middle">
                 <div class="action-icons d-flex flex-row align-items-center justify-content-around">
                   <div class="form-check form-switch">

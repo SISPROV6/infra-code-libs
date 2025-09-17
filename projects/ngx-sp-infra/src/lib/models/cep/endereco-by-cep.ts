@@ -3,4 +3,7 @@ export class EnderecoByCep {
   public LOGRADOURO: string = "";
   public CIDADE: string = "";
   public BAIRRO: string = "";
+  public MESORREGIAO: string = "";
+  public MICRORREGIAO: string = "";
+  public CIDADEID: number = 0;
 }

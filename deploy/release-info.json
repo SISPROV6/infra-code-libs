@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-infra",
-  "version": "5.19.5",
-  "tag": "infra-v5.19.5",
-  "notes": "keepAlive nas messages Service",
-  "timestamp": "2025-09-10T19:42:59.287Z"
+  "version": "6.0.0",
+  "tag": "infra-v6.0.0",
+  "notes": "Liberação de versão estável com implementações das últimas duas semanas",
+  "timestamp": "2025-09-17T20:07:58.403Z"
 }

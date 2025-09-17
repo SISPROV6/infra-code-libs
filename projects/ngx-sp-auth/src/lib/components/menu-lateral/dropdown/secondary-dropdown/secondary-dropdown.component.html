@@ -4,14 +4,14 @@
   </button>
 
   <div class="d-flex flex-column flex-row">
-    <li *ngIf="modulo != null">
-      <img class="ms-1 mb-2" src="{{ modulo.icon }}" alt="{{ modulo.label }}">
+    <li class="ms-1 mb-3" *ngIf="modulo != null">
+      <lib-icon class="me-2" [iconName]="modulo.icon"></lib-icon>
       <span>{{ modulo.label }}</span>
     </li>
     <div *ngIf="modulo && modulo.secondary_level != null">
       <li *ngFor="let moduloItem of modulo.secondary_level;" (click)="redirectToModulo(moduloItem.URL)">
         <a class="dropdown-item mb-2 ms-2">
-          <img src="{{ moduloItem.icon }}" alt="{{ moduloItem.label }}">
+          <lib-icon class="me-2" [iconName]="moduloItem.icon"></lib-icon>
           {{ moduloItem.label }}
         </a>
       <li>

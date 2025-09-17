@@ -145,7 +145,7 @@ export class SelecaoEstabelecimentosModalComponent implements OnInit {
   public selectEstabelecimento(estabID: string, estabNome: string): void {
 
     // * Método customizado para emissão de evento ao trocar de estabelecimento
-    this._customMenuService.emitEstabelecimentoEvent();
+    this._customMenuService.menuEmitEstabelecimentoEvent();
 
     this.onSelected.emit(estabID + " - " + estabNome);
   }

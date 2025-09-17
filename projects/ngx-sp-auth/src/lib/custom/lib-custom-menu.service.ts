@@ -1,5 +1,4 @@
 import { Inject, Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
 
 import { IMenuItemStructure } from '../components/menu-lateral/model/imenu-item-structure.model';
 import { AuthStorageService } from '../storage/auth-storage.service';
@@ -26,10 +25,6 @@ export class LibCustomMenuService {
         return this._customMenuService.moduleName;
     }
 
-    public get moduleImg(): string {
-        return this._customMenuService.moduleImg;
-    }
-
     public get moduleSvg(): string {
         return this._customMenuService.moduleSvg;
     }
@@ -53,13 +48,6 @@ export class LibCustomMenuService {
         this._customMenuService.menuItems = value;
     }
     
-    // ! Definição do BehaviorSubject: responsável principal da emissão do evento
-    private empresaId: BehaviorSubject<{ estabelecimentoID: string, empresaID: string }> = new BehaviorSubject<{ estabelecimentoID: string, empresaID: string }>({ estabelecimentoID: "", empresaID: "" });
-    public applyEmpresa$: Observable<{ estabelecimentoID: string, empresaID: string }> = this.empresaId.asObservable();
-
-    public setEmpresa(value: { estabelecimentoID: string, empresaID: string }) { this.empresaId.next(value) }
-    // ! Definição do BehaviorSubject: responsável principal da emissão do evento
-
     // #endregion Propriedade do Menu
 
     constructor(
@@ -94,17 +82,13 @@ export class LibCustomMenuService {
 
     // Método executado no menu-lateral.component.ts - método: openExpansibleMenu()
     // Utilizado para inicializações ao Expandir a opção de Menu
-    public menuopenExpansibleMenu(ref: HTMLDivElement): void {
-        this._customMenuService.menuopenExpansibleMenu(ref);
+    public menuOpenExpansibleMenu(ref: HTMLDivElement): void {
+        this._customMenuService.menuOpenExpansibleMenu(ref);
     }
 
     /** Método que deve ser chamado na seleção de um novo estabelecimento, ele atualizará os valores do nosso BehaviorSubject para que possamos utilizá-lo em outras partes do sistema. */
-    public emitEstabelecimentoEvent(): void {
-
-        this.setEmpresa({
-            estabelecimentoID: this._authStorageService.infraEstabId,
-            empresaID: this._authStorageService.infraEmpresaId
-        });
+    public menuEmitEstabelecimentoEvent(): void {
+       this._customMenuService.menuEmitEstabelecimentoEvent();
     }
 
     // #endregion - Métodos Customizadas para o Menu dinâmico

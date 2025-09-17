@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
 import { InfraModule } from 'ngx-sp-infra';
 
 import { ProjectUtilservice } from '../../../../project/project-utils.service';
@@ -29,8 +29,9 @@ export class SecondaryDropdownComponent implements OnInit {
             this.backPrimaryDropdown.emit(true);
       }
 
-      public redirectToModulo(modulo: string): void {
-            const url: string = `${ this._projectUtilservice.getHostName() }/SisproErpCloud/${ modulo }`;
+      public redirectToModulo(urlModulo: string): void {
+            let url = `${ this._projectUtilservice.getHostName() }/SisproErpCloud`;
+            url += urlModulo.startsWith('/') ? urlModulo : '/' + urlModulo
 
             window.open(url, '_blank');
       }

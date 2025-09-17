@@ -9,8 +9,6 @@ export interface ICustomMenuService {
 
     get moduleName(): string;
 
-    get moduleImg(): string;
-
     get moduleSvg(): string;
     
     get themeColor(): string;
@@ -27,5 +25,8 @@ export interface ICustomMenuService {
 
     menuStaticOnInit(): void;
 
-    menuopenExpansibleMenu(ref: HTMLDivElement): void;
+    menuOpenExpansibleMenu(ref: HTMLDivElement): void;
+
+    menuEmitEstabelecimentoEvent(): void;
+
 }

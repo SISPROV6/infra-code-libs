@@ -262,6 +262,9 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
     if (this.emptyListTD && this.headers) {
       this.colspanWidth = (this.headers ? this.headers.length + (this.useSelection ? 1 : 0) : 12).toString();
       this._renderer.setAttribute(this.emptyListTD.nativeElement, 'colspan', this.colspanWidth);
+
+      const checkbox: HTMLInputElement | null = document.getElementById('tableCheckAll') as HTMLInputElement
+      checkbox.checked = false; //desmarca o checkbox geral quando a tabela está vazia
     }
 
     this._cdr.detectChanges();  // Forçar uma nova detecção após a atualização do colspan
