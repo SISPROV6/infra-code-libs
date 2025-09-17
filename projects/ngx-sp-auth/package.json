@@ -1,6 +1,6 @@
 {
   "name": "ngx-sp-auth",
-  "version": "3.3.5",
+  "version": "4.0.0",
   "description": "Biblioteca de utilitários da Infra.",
   "author": "P&D",
   "keywords": [
@@ -22,7 +22,7 @@
   "peerDependencies": {
     "@azure/msal-angular": "^4.0.16",
     "@azure/msal-browser": "^4.18.0",
-    "ngx-sp-infra": "^5.19.2",
+    "ngx-sp-infra": "^6.0.0",
     "ngx-toastr": "^19.0.0"
   },
   "sideEffects": false
