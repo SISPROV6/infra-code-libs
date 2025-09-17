@@ -235,11 +235,6 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
     this.setValidator();
     this.updateSelectedValue();
 
-    if(this.list != undefined && this.list.length > 5){
-      this.showSearchInput = true;
-    }else{
-      this.showSearchInput = false;
-    }
   }
 
   ngAfterViewInit(): void {
@@ -248,6 +243,11 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes["list"]?.currentValue) this.updateSelectedValue();
+
+    if(changes["list"] && this.list){
+      this.showSearchInput = this.list.length > 5;
+    }
+
     if (changes["libRequired"]?.currentValue != undefined) this.setValidator();
     
     if (changes["control"]?.currentValue) {
