@@ -73,7 +73,7 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
     
     if (value === false) {
       this.textoPesquisa = "";
-      this._searchInput.nativeElement.value = "";
+      this._searchInput!.nativeElement.value = "";
     }
   }
 
@@ -211,8 +211,14 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
   
 
   @ViewChild('mainInput') private _mainInput!: ElementRef<HTMLInputElement>;
-  @ViewChild('searchInput') private _searchInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('searchInput', { static: false }) private _searchInput?: ElementRef<HTMLInputElement>;
   @ViewChild('dropdownMenu') private _dropdownMenu!: ElementRef<HTMLDivElement>;
+
+  public showSearchInput: boolean = false;
+
+  public focusSearchInput(): void {
+  this._searchInput?.nativeElement.focus();
+}
   // #endregion PUBLIC
 
   // #endregion ==========> PROPERTIES <==========
@@ -228,6 +234,12 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
 
     this.setValidator();
     this.updateSelectedValue();
+
+    if(this.list != undefined && this.list.length > 5){
+      this.showSearchInput = true;
+    }else{
+      this.showSearchInput = false;
+    }
   }
 
   ngAfterViewInit(): void {
