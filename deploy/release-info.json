@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-auth",
-  "version": "3.3.5",
-  "tag": "auth-v3.3.5",
-  "notes": "Correções na seleção de estabelecimento",
-  "timestamp": "2025-09-17T19:52:40.461Z"
+  "project": "ngx-sp-infra",
+  "version": "5.22.1",
+  "tag": "infra-v5.22.1",
+  "notes": "Ícone de open-modal adicionado à pedido do Patrimônio",
+  "timestamp": "2025-09-17T20:04:51.593Z"
 }
