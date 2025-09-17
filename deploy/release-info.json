@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-infra",
-  "version": "5.19.9",
-  "tag": "infra-v5.19.9",
-  "notes": "Itens filhos também emitem evento de seleção",
-  "timestamp": "2025-09-15T20:03:40.733Z"
+  "version": "5.21.0",
+  "tag": "infra-v5.21.0",
+  "notes": "Mudanças feitas a pedido do Juliano Pereira da Rosa para ficar conforme os padrões definidos para a 6",
+  "timestamp": "2025-09-17T15:33:11.528Z"
 }
