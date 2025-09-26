@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-auth",
-  "version": "4.0.1",
-  "tag": "auth-v4.0.1",
+  "version": "4.0.2",
+  "tag": "auth-v4.0.2",
   "notes": "Implementação do Controle de Versões do Corporativo e Infra",
-  "timestamp": "2025-09-26T18:52:27.170Z"
+  "timestamp": "2025-09-26T19:07:27.026Z"
 }
