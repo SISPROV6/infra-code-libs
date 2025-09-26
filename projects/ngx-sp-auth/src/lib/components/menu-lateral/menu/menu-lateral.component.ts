@@ -156,6 +156,7 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
   @ContentChild(TemplateRef) public desiredContent?: TemplateRef<any>;
 
   public readonly MODAL_ESTABELECIMENTO: number = 1;
+  public readonly MODAL_VERSION: number = 2;
 
   public nomeEstabelecimento: string = 'Estabelecimento padrão';
   public titleSubmenu: string = "";

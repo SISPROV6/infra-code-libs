@@ -150,6 +150,9 @@
         <div routerLink="meu-perfil" style="cursor: pointer;" (click)="togglePopover(); $event.stopPropagation()">
           <lib-icon [iconSize]="'small'" iconName="contraparte"/> Meu Perfil
         </div>
+        <div class="mt-2" style="cursor: pointer;" (click)="openModal(modalVersion, MODAL_VERSION)">
+          <lib-icon [iconSize]="'small'" iconName="info"/> Versão
+        </div>        
         <div class="mt-2" (click)="logout()" style="cursor: pointer;">
           <lib-icon [iconSize]="'small'"  iconName="logout"/> Sair
         </div>
@@ -191,8 +194,17 @@
 <!-- #region MODAL SELECAO ESTABELECIMENTO -->
 <ng-template #modalEstabelecimento>
   <selecao-estabelecimentos-modal (onClose)="closeModal(MODAL_ESTABELECIMENTO)"
-    (onSelected)="closeModal(MODAL_ESTABELECIMENTO); updateLastLogEstabelecimento($event);"></selecao-estabelecimentos-modal>
+    (onSelected)="closeModal(MODAL_ESTABELECIMENTO); updateLastLogEstabelecimento($event);">
+  </selecao-estabelecimentos-modal>
 </ng-template>
 <!-- #endregion MODAL SELECAO ESTABELECIMENTO -->
+
+<!-- #region MODAL VERSION -->
+<ng-template #modalVersion>
+  <selecao-estabelecimentos-modal (onClose)="closeModal(MODAL_VERSION)"
+    (onSelected)="closeModal(MODAL_VERSION);">
+  </selecao-estabelecimentos-modal>
+</ng-template>
+<!-- #endregion MODAL VERSION -->
 
 <!-- #endregion TEMPLATES -->
