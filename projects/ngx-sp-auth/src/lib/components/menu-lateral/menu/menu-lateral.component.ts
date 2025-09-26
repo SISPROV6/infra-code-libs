@@ -28,8 +28,8 @@ import { Usuario_IMG } from '../model/usuario-img';
 import { DynamicMenuComponent } from '../submenus/dynamic-menu/dynamic-menu.component';
 import { NotifSubmenuComponent } from '../submenus/notif-submenu/notif-submenu.component';
 import { SelecaoEstabelecimentosModalComponent } from './selecao-estabelecimentos-modal/selecao-estabelecimentos-modal.component';
+import { VersoesModalComponent } from './versoes-modal/versoes-modal.component';
 import { DynamicMenu } from '../model/dynamic-menu';
-
 @Component({
   selector: 'app-menu-lateral',
   templateUrl: './menu-lateral.component.html',
@@ -39,6 +39,7 @@ import { DynamicMenu } from '../model/dynamic-menu';
     TooltipModule,
     InfraModule,
     SelecaoEstabelecimentosModalComponent,
+    VersoesModalComponent,
     NotifSubmenuComponent,
     DynamicMenuComponent,
     PrimaryDropdownComponent,
@@ -147,6 +148,9 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
   // #region PRIVATE
   private _hostServeUrlOutSystems: string = "";
 
+  private readonly MODAL_ESTABELECIMENTO: number = 1;
+  private readonly MODAL_VERSION: number = 2;
+
   // ERICK: vou manter este por enquanto para quando for necessário esta funcionalidade eu consiga refazê-las sem muito problema
   @ViewChild("notif_menu") private notif_template?: TemplateRef<any>;
 
@@ -154,8 +158,6 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
 
   @ViewChild('menuLink') public menuLink!: HTMLAnchorElement;
   @ContentChild(TemplateRef) public desiredContent?: TemplateRef<any>;
-
-  public readonly MODAL_ESTABELECIMENTO: number = 1;
 
   public nomeEstabelecimento: string = 'Estabelecimento padrão';
   public titleSubmenu: string = "";
@@ -374,25 +376,50 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
 
   // #region ==========> MODALS <==========
 
+  // #region modal - Seleção de Estabelecimentos
+
   /** Função simples com o objetivo de abrir os modais no centro da tela.
    * @param template Template HTML do modal que será aberto.
-   * @param modalID ID do modal que será aberto, para que possa ser referenciado depois.
   */
-  openModal(template: TemplateRef<any>, modalID: number) {
+  public openModalEstabelecimento(template: TemplateRef<any>) {
     this._bsModalService.show(template, {
       class: 'modal-dialog-centered modal-lg',
       ignoreBackdropClick: false,
       keyboard: false,
-      id: modalID
+      id: this.MODAL_ESTABELECIMENTO
     });
   }
 
   /** Função simples com o objetivo de fechar os modais que estiverem abertos (baseados pelo ID).
-   * @param modalID ID do modal que será fechado.
    */
-  closeModal(modalID: number) {
-    this._bsModalService.hide(modalID);
+  public closeModalEstabelecimento() {
+    this._bsModalService.hide(this.MODAL_ESTABELECIMENTO);
   }
 
+  // #endregion modal - Seleção de Estabelecimentos
+
+  // #region modal - Versões
+
+  /** Função simples com o objetivo de abrir os modais no centro da tela.
+   * @param template Template HTML do modal que será aberto.
+  */
+  public openModalVersion(template: TemplateRef<any>) {
+    this._bsModalService.show(template, {
+      class: 'modal-dialog-centered modal-sm',
+      ignoreBackdropClick: false,
+      keyboard: false,
+      id: this.MODAL_VERSION
+    });
+  }
+
+  /** Função simples com o objetivo de fechar os modais que estiverem abertos (baseados pelo ID).
+  */
+  public closeModalVersion() {
+    this._bsModalService.hide(this.MODAL_VERSION);
+  }
+
+  // #endregion modal - Versões
+
   // #endregion ==========> MODALS <==========
+
 }

@@ -15,12 +15,16 @@ import { RetNavSubMenu, RetSubmenuWithCards } from './model/ret-navsubmenu';
 import { NavSubmenuSearchItem } from './model/navsubmenu-searchitem';
 import { RetDynamicMenu } from './model/dynamic-menu';
 import { RetDropDown } from './model/ret-dropdown';
+import { RetVersion } from './model/ret-version';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MenuServicesService {
   private readonly _BASE_URL: string = ""; // SpInfra2ErpWS
+  private readonly _BASE_URL_VERSION_INFRA: string = ""; // SpInfra2Version
+  private readonly _BASE_URL_VERSION_CORPORATIVO: string = ""; // SpCrp2Version
+
   private readonly _HTTP_HEADERS = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(
@@ -28,8 +32,14 @@ export class MenuServicesService {
     private _httpClient: HttpClient,
     private _customEnvironmentService: LibCustomEnvironmentService
   ) {
-    this._BASE_URL = `${ this._customEnvironmentService.SpInfra2ErpWS }`; // SpInfra2ErpW
-    this._BASE_URL = !this._customEnvironmentService.production ? this._BASE_URL : `${this._customEnvironmentService.SpInfra2ErpWS}`;
+    this._BASE_URL = `${ this._customEnvironmentService.SpInfra2ErpWS }`; // SpInfra2ErpWS
+    this._BASE_URL = !this._customEnvironmentService.production ? this._BASE_URL : `${ this._customEnvironmentService.SpInfra2ErpWS }`;
+
+    this._BASE_URL_VERSION_INFRA = `${ this._customEnvironmentService.SpInfra2AuthWS.replace('SpInfra2AuthWS', 'SpInfra2VersionWS') }`; // SpInfra2VersionWS
+    this._BASE_URL_VERSION_INFRA = !this._customEnvironmentService.production ? this._BASE_URL_VERSION_INFRA : `${ this._customEnvironmentService.SpInfra2AuthWS.replace('SpInfra2AuthWS', 'SpInfra2VersionWS') }`;
+ 
+    this._BASE_URL_VERSION_CORPORATIVO = `${ this._customEnvironmentService.SpInfra2AuthWS.replace('/Infra', '/Corporativo').replace('SpInfra2AuthWS', 'SpCrp2VersionWS') }`; // SpCrp2VersionWS
+    this._BASE_URL_VERSION_CORPORATIVO = !this._customEnvironmentService.production ? this._BASE_URL_VERSION_CORPORATIVO : `${ this._customEnvironmentService.SpInfra2AuthWS.replace('/Infra', '/Corporativo').replace('SpInfra2AuthWS', 'SpCrp2VersionWS') }`;
   }
 
   // #region ==========> SERVICES <==========
@@ -132,6 +142,40 @@ export class MenuServicesService {
 
   // #endregion Get Usuario Email
 
+  // #region Menu: Version
+
+  public getVersionInfra(): Observable<RetVersion> {
+    const url = `${this._BASE_URL_VERSION_INFRA}/Version/GetVersion`;
+
+    return this._httpClient
+      .get<RetVersion>(url, { 'headers': this._HTTP_HEADERS })
+      .pipe(
+        take(1),
+        tap(response => {
+          if (response.Error) {
+            throw Error(response.ErrorMessage);
+          }
+        })
+      )
+  }
+
+  public getVersionCorporativo(): Observable<RetVersion> {
+    const url = `${this._BASE_URL_VERSION_CORPORATIVO}/Version/GetVersion`;
+
+    return this._httpClient
+      .get<RetVersion>(url, { 'headers': this._HTTP_HEADERS })
+      .pipe(
+        take(1),
+        tap(response => {
+          if (response.Error) {
+            throw Error(response.ErrorMessage);
+          }
+        })
+      )
+  }
+
+  // #endregion Menu: Version
+
   // #endregion GET
 
   // #region UPDATE
@@ -173,6 +217,7 @@ export class MenuServicesService {
         })
       )
   }
+
   // #endregion Menu: Estabelecimentos
 
   // #endregion UPDATE
