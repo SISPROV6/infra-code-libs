@@ -1,6 +1,6 @@
-import { NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { FormUtils } from 'ngx-sp-infra';
 import { InfraModule } from '../../../ngx-sp-infra/src/public-api';
 
@@ -9,7 +9,7 @@ import { InfraModule } from '../../../ngx-sp-infra/src/public-api';
   imports: [
     InfraModule,
     ReactiveFormsModule,
-    NgClass
+    NgxPaginationModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
@@ -23,6 +23,22 @@ export class AppComponent implements OnInit {
   // #endregion PRIVATE
 
   // #region PUBLIC
+  public page: number = 1;  // Propriedade necessária para explicitar qual página está selecionada atualmente
+  public itemsPerPage: number = 5;  // Propriedade necessária para renderizar apenas determinada quantidade por página inicialmente
+  public recordsList?: any[] = [
+    { nome: 'Nome', descricao: 'Descrição', isAtivo: true },
+    { nome: 'Nome', descricao: 'Descrição', isAtivo: true },
+    { nome: 'Nome', descricao: 'Descrição', isAtivo: true },
+    { nome: 'Nome', descricao: 'Descrição', isAtivo: true },
+    { nome: 'Nome', descricao: 'Descrição', isAtivo: true },
+    { nome: 'Nome', descricao: 'Descrição', isAtivo: true },
+    { nome: 'Nome', descricao: 'Descrição', isAtivo: true },
+    { nome: 'Nome', descricao: 'Descrição', isAtivo: true },
+    { nome: 'Nome', descricao: 'Descrição', isAtivo: true },
+    { nome: 'Nome', descricao: 'Descrição', isAtivo: true },
+    { nome: 'Nome', descricao: 'Descrição', isAtivo: true },
+  ];
+
   filteredItems: { name: string | number, surname: string }[] = [];
   items = [
     { name: 1, surname: 'Erick Carvalho Paulette de Oliveira' },
