@@ -73,7 +73,9 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
     
     if (value === false) {
       this.textoPesquisa = "";
-      this._searchInput!.nativeElement.value = "";
+
+      // Validação para caso o input de pesquisa esteja escondido
+      if (this._searchInput) this._searchInput.nativeElement.value = "";
     }
   }
 
@@ -216,9 +218,10 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
 
   public showSearchInput: boolean = false;
 
+  /** Foca no input de pesquisa interna, levando em consideração se ele está escondido ou não. */
   public focusSearchInput(): void {
-  this._searchInput?.nativeElement.focus();
-}
+    if (this._searchInput) this._searchInput.nativeElement.focus();
+  }
   // #endregion PUBLIC
 
   // #endregion ==========> PROPERTIES <==========

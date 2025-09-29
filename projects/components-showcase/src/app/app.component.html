@@ -19,6 +19,10 @@
 
         <lib-error-message [control]="control" ></lib-error-message>
       </div>
+
+      <div class="col-6">
+        <lib-combobox labelText="Pessoa" [list]="combobox" [control]="control" />
+      </div>
     </div>
 
     <button class="btn btn-primary" (click)="setValue()">SETAR VALORES</button>
