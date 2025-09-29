@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
-import { BsModalService } from 'ngx-bootstrap/modal';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 import { InfraEstabelecimentoFavoritoDefault, InfraModule, MessageService } from 'ngx-sp-infra';
@@ -23,7 +22,6 @@ import { MenuServicesService } from '../../menu-services.service';
 export class SelecaoEstabelecimentosModalComponent implements OnInit {
   constructor(
     private _authStorageService: AuthStorageService,
-    private _bsModalService: BsModalService,
     private _customMenuService: LibCustomMenuService,
     private _menuServicesService: MenuServicesService,
     private _messageService: MessageService,
@@ -202,39 +200,7 @@ export class SelecaoEstabelecimentosModalComponent implements OnInit {
   }
   // #endregion ==========> UTILITIES <==========
 
-
   // #region ==========> MODALS <==========
-
-  /**
-   * Função simples com o objetivo de abrir os modais no centro da tela.
-   * @param template Template HTML do modal que será aberto.
-   * @param modalID ID do modal que será aberto, para que possa ser referenciado depois.
-  */
-  public openModal(template: TemplateRef<any>, modalID: number) {
-    if (modalID == 4) {
-      this._bsModalService.show(template, {
-        id: modalID,
-        class: 'modal-dialog-centered modal-lg',
-        ignoreBackdropClick: false,
-        keyboard: false
-      });
-    } else {
-      this._bsModalService.show(template, {
-        id: modalID,
-        class: 'modal-dialog-centered',
-        ignoreBackdropClick: false,
-        keyboard: false
-      });
-    }
-  }
-
-  /**
-   * Função simples com o objetivo de fechar os modais que estiverem abertos (baseados pelo ID).
-   * @param modalID ID do modal que será fechado.
-   */
-  public closeModal(modalID: number) {
-    this._bsModalService.hide(modalID);
-  }
 
   public closeSelf() {
     this.onClose.emit();

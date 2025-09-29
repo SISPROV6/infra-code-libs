@@ -1,6 +1,7 @@
 import { NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { FormUtils } from 'ngx-sp-infra';
 import { InfraModule } from '../../../ngx-sp-infra/src/public-api';
 
@@ -9,6 +10,7 @@ import { InfraModule } from '../../../ngx-sp-infra/src/public-api';
   imports: [
     InfraModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
     NgClass
   ],
   templateUrl: './app.component.html',
@@ -23,6 +25,22 @@ export class AppComponent implements OnInit {
   // #endregion PRIVATE
 
   // #region PUBLIC
+  public page: number = 1;  // Propriedade necessária para explicitar qual página está selecionada atualmente
+  public itemsPerPage: number = 5;  // Propriedade necessária para renderizar apenas determinada quantidade por página inicialmente
+  public recordsList?: any[] = [
+    { nome: 'Nome', descricao: 'Descrição', isAtivo: true },
+    { nome: 'Nome', descricao: 'Descrição', isAtivo: true },
+    { nome: 'Nome', descricao: 'Descrição', isAtivo: true },
+    { nome: 'Nome', descricao: 'Descrição', isAtivo: true },
+    { nome: 'Nome', descricao: 'Descrição', isAtivo: true },
+    { nome: 'Nome', descricao: 'Descrição', isAtivo: true },
+    { nome: 'Nome', descricao: 'Descrição', isAtivo: true },
+    { nome: 'Nome', descricao: 'Descrição', isAtivo: true },
+    { nome: 'Nome', descricao: 'Descrição', isAtivo: true },
+    { nome: 'Nome', descricao: 'Descrição', isAtivo: true },
+    { nome: 'Nome', descricao: 'Descrição', isAtivo: true },
+  ];
+
   filteredItems: { name: string | number, surname: string }[] = [];
   items = [
     { name: 1, surname: 'Erick Carvalho Paulette de Oliveira' },
@@ -45,18 +63,18 @@ export class AppComponent implements OnInit {
     { ID: 1, LABEL: 'One' },
     { ID: 2, LABEL: 'Two' },
     { ID: 3, LABEL: 'Three' },
-    { ID: 4, LABEL: 'Four' },
-    { ID: 5, LABEL: 'Five' },
-    { ID: 6, LABEL: 'Six' },
-    { ID: 7, LABEL: 'Seven' },
-    { ID: 8, LABEL: 'Eight' },
-    { ID: 9, LABEL: 'Nine' },
-    { ID: 10, LABEL: 'Ten' },
-    { ID: 11, LABEL: 'Eleven' },
-    { ID: 12, LABEL: 'Twelve' },
-    { ID: 13, LABEL: 'Thirteen' },
-    { ID: 14, LABEL: 'Fourteen' },
-    { ID: 15, LABEL: 'Fifteen' },
+    // { ID: 4, LABEL: 'Four' },
+    // { ID: 5, LABEL: 'Five' },
+    // { ID: 6, LABEL: 'Six' },
+    // { ID: 7, LABEL: 'Seven' },
+    // { ID: 8, LABEL: 'Eight' },
+    // { ID: 9, LABEL: 'Nine' },
+    // { ID: 10, LABEL: 'Ten' },
+    // { ID: 11, LABEL: 'Eleven' },
+    // { ID: 12, LABEL: 'Twelve' },
+    // { ID: 13, LABEL: 'Thirteen' },
+    // { ID: 14, LABEL: 'Fourteen' },
+    // { ID: 15, LABEL: 'Fifteen' },
   ];
 
   public disabledInputs: Map<string, boolean> = new Map<string, boolean>();
@@ -72,7 +90,7 @@ export class AppComponent implements OnInit {
     { name: 3, surname: 'Mare Itami' },
   ], [ Validators.required ]);
 
-  public formCombobox5: FormGroup = new FormGroup({
+  public formCombobox: FormGroup = new FormGroup({
     // ...outros controls
     PESSOAPARTEID: new FormControl<string | null>(null),
     PESSOACONTRAPARTEID: new FormControl<string | null>(null)
