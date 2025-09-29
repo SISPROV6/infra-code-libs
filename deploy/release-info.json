@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-infra",
-  "version": "6.0.2",
-  "tag": "infra-v6.0.2",
-  "notes": "Tentativa de correção do erro Cannot set properties of null (setting 'checked') no componente da lib-table",
-  "timestamp": "2025-09-29T14:17:48.083Z"
+  "version": "6.0.3",
+  "tag": "infra-v6.0.3",
+  "notes": "Liberação semanal - contém as liberações e correções dos componentes desde a quinta-feira passada (25/09)",
+  "timestamp": "2025-09-29T21:00:40.513Z"
 }
