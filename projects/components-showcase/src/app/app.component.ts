@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -9,7 +10,8 @@ import { InfraModule } from '../../../ngx-sp-infra/src/public-api';
   imports: [
     InfraModule,
     ReactiveFormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgClass
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
@@ -88,7 +90,7 @@ export class AppComponent implements OnInit {
     { name: 3, surname: 'Mare Itami' },
   ], [ Validators.required ]);
 
-  public formCombobox5: FormGroup = new FormGroup({
+  public formCombobox: FormGroup = new FormGroup({
     // ...outros controls
     PESSOAPARTEID: new FormControl<string | null>(null),
     PESSOACONTRAPARTEID: new FormControl<string | null>(null)

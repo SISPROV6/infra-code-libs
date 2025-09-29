@@ -1,7 +1,7 @@
 <div class="content">
   <div class="filters">
     
-    <!-- <div class="row">
+    <div class="row">
       <div class="col-6">
         <label class="form-label" libRequired >Opções selecionadas</label>
         <lib-combobox-rework [multiple]="false" [innerFilter]="false" [list]="filteredItems" [formControl]="control"
@@ -22,12 +22,16 @@
 
       <div class="col-6">
         <lib-combobox labelText="Pessoa" [list]="combobox" [control]="control" />
+
+        <form [formGroup]="formCombobox">
+          <input type="text" class="form-control" formControlName="PESSOAPARTEID">
+        </form>
       </div>
     </div>
 
-    <button class="btn btn-primary" (click)="setValue()">SETAR VALORES</button> -->
+    <button class="btn btn-primary" (click)="setValue()">SETAR VALORES</button>
 
-    <lib-table [list]="recordsList" [counts]="[ 5, 10, 15 ]" paginationID="simpleTable" [usePreviousStyle]="false"
+    <!-- <lib-table [list]="recordsList" [counts]="[ 5, 10, 15 ]" paginationID="simpleTable" [usePreviousStyle]="false"
     [headers]="[
         { name: 'Nome', widthClass: 'w-20' },
         { name: 'Descrição', widthClass: 'w-50' },
@@ -48,7 +52,7 @@
           </td>
         </tr>
     }
-  </lib-table>
+  </lib-table> -->
 
   </div>
 </div>
