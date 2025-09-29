@@ -40,7 +40,7 @@ import { OrderingComponent } from '../ordering/ordering.component';
     NgClass,
     NgxPaginationModule,
     NgTemplateOutlet
-]
+  ]
 })
 export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
