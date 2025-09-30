@@ -26,6 +26,7 @@ export * from './lib/models/cep/endereco-by-cep';
 export * from './lib/models/cep/ret-cep';
 export * from './lib/models/combobox/record-combobox';
 export * from './lib/models/combobox/ret-records-combobox';
+export * from './lib/models/config-senha/2Ws/RetInfraSegConfig.model';
 export * from './lib/models/config-senha/7Db/InfraSegConfig.record';
 export * from './lib/models/config-senha/7Db/InfraSegConfigRecord.record';
 export * from './lib/models/container/container-tabs.model';
