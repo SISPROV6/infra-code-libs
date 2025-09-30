@@ -114,7 +114,7 @@ function commitTag() {
   }
   
   try {
-    let formattedTag = respostaProjeto == 'ngx-sp-infra' ? 'infra' : 'auth';
+    let formattedTag = respostaProjeto.split('-')[2];
 
     removeExistingTag(packageJson.version, formattedTag);
     createAndPushTag(packageJson.version, formattedTag);
@@ -179,7 +179,7 @@ async function main() {
       {
         message: 'Qual projeto você irá publicar?',
         type: 'list',
-        choices: ['ngx-sp-infra', 'ngx-sp-auth', 'Cancelar'],
+        choices: ['ngx-sp-infra', 'ngx-sp-auth', 'ngx-sp-views', 'Cancelar'],
         name: 'projeto'
       }
     ]).then(async answers => {

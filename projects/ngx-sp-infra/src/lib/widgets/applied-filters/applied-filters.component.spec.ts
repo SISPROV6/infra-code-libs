@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AppliedFiltersComponent } from './applied-filters.component';
 import { LibIconsComponent } from '../lib-icons/lib-icons.component';
+import { AppliedFiltersComponent } from './applied-filters.component';
 
 describe('Componente com badges de Filtros Aplicados', () => {
   let component: AppliedFiltersComponent;
@@ -9,9 +9,8 @@ describe('Componente com badges de Filtros Aplicados', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [AppliedFiltersComponent,
-        LibIconsComponent],
-}).compileComponents();
+      imports: [ AppliedFiltersComponent, LibIconsComponent ],
+    }).compileComponents();
 
     // Use runInInjectionContext para garantir que a injeção funciona corretamente
     TestBed.runInInjectionContext(() => {

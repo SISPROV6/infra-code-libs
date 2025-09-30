@@ -50,6 +50,13 @@ jobs:
 
             cd ../../
             npm run build:ngx-sp-auth:prod
+          
+          elif [ "${{ env.PROJECT }}" == "ngx-sp-views" ]; then
+            cd projects/ngx-sp-views
+            npm i
+
+            cd ../../
+            npm run build:ngx-sp-views:prod
 
           elif [ "${{ env.PROJECT }}" == "ngx-sp-infra" ]; then
             npm run build:ngx-sp-infra:prod
