@@ -6,7 +6,6 @@
 export * from './lib/infra.module';
 export * from './lib/modules/lib-directives.module';
 export * from './lib/modules/lib-pipes.module';
-export * from './lib/modules/lib-views.module';
 export * from './lib/modules/lib-widgets.module';
 
 /** Message */
@@ -27,6 +26,9 @@ export * from './lib/models/cep/endereco-by-cep';
 export * from './lib/models/cep/ret-cep';
 export * from './lib/models/combobox/record-combobox';
 export * from './lib/models/combobox/ret-records-combobox';
+export * from './lib/models/config-senha/2Ws/RetInfraSegConfig.model';
+export * from './lib/models/config-senha/7Db/InfraSegConfig.record';
+export * from './lib/models/config-senha/7Db/InfraSegConfigRecord.record';
 export * from './lib/models/container/container-tabs.model';
 export * from './lib/models/estabelecimento-modal/infra-estabelecimento';
 export * from './lib/models/estabelecimento-modal/ret-estabelecimentos';
@@ -37,7 +39,6 @@ export * from './lib/models/filtros-aplicados/filtros-aplicados.model';
 export * from './lib/models/forms/custom-form-control';
 export * from './lib/models/icons/icon.model';
 export * from './lib/models/misc/multi-status-list';
-export * from './lib/models/queue-service/JobRequest';
 export * from './lib/models/reports/report-file';
 export * from './lib/models/reports/ret-report-file';
 export * from './lib/models/table/header-structure.model';
@@ -86,7 +87,6 @@ export * from './lib/service/file.service';
 export * from './lib/service/global-loading.service';
 export * from './lib/service/ip-service.service';
 export * from './lib/service/modal-utils.service';
-export * from './lib/service/queue.service';
 export * from './lib/service/table-selection.service';
 export * from './lib/utils/filtros-aplicados.service';
 
@@ -94,28 +94,7 @@ export * from './lib/utils/filtros-aplicados.service';
 export * from './lib/validators/cpf-cnpj.validator';
 export * from './lib/validators/cpf-cnpj.validator.directive';
 
-/** Views */
-export * from './lib/views/lib-authentication-config/components/lib-authentication-config.component';
-export * from './lib/views/lib-integracao-ldap/components/lib-integracao-ldap.component';
-export * from './lib/views/lib-integracoes-externas/components/lib-integracoes-externas.component';
-export * from './lib/views/logs-api/components/detalhes-log-api/detalhes-log-api.component';
-export * from './lib/views/logs-api/components/home-log-api/home-log-api.component';
-export * from './lib/views/logs-data-access/components/detalhes-log-data-access/detalhes-log-data-access.component';
-export * from './lib/views/logs-data-access/components/home-log-data-access/home-log-data-access.component';
-export * from './lib/views/logs-email/components/detalhes-log-email/detalhes-log-email.component';
-export * from './lib/views/logs-email/components/home-log-email/home-log-email.component';
-export * from './lib/views/logs-geral/components/detalhes-logs-geral/detalhes-logs-geral.component';
-export * from './lib/views/logs-geral/components/home-logs-geral/home-logs-geral.component';
-export * from './lib/views/logs-report/components/detalhes-logs-report/detalhes-logs-report.component';
-export * from './lib/views/logs-report/components/home-logs-report/home-logs-report.component';
-export * from './lib/views/logs-timer/components/detalhes-log-timer/detalhes-log-timer.component';
-export * from './lib/views/logs-timer/components/home-log-timer/home-log-timer.component';
-export * from './lib/views/logs-ws/components/detalhes-log-ws/detalhes-log-ws.component';
-export * from './lib/views/logs-ws/components/home-log-ws/home-logs-ws.component';
-export * from './lib/views/page-not-authorized/page-not-authorized.component';
-
 /** Widgets */
-export * from './lib/views/lib-config-senha/lib-config-senha.component';
 export * from './lib/widgets/applied-filters/applied-filters.component';
 export * from './lib/widgets/auditoria-button/auditoria-button.component';
 export * from './lib/widgets/breadcrumb/infra-breadcrumb-item/infra-breadcrumb-item.component';
@@ -123,6 +102,7 @@ export * from './lib/widgets/breadcrumb/infra-breadcrumb/infra-breadcrumb.compon
 export * from './lib/widgets/breadcrumb/portalrh-breadcrumb/breadcrumb.component';
 export * from './lib/widgets/combobox-multiple-choice/combobox-multiple-choice.component';
 export * from './lib/widgets/combobox/combobox.component';
+export * from './lib/widgets/contador-caracteres/contador-caracteres.component';
 export * from './lib/widgets/content-container/content-container.component';
 export * from './lib/widgets/custom-acordion/custom-acordion.component';
 export * from './lib/widgets/dropdown-options/dropdown-options.component';
@@ -168,4 +148,4 @@ export * from './lib/widgets/tree/models/tree-item';
 export * from './lib/widgets/tree/pipes/search-tree.pipe';
 export * from './lib/widgets/tree/tree.component';
 export * from './lib/widgets/usuario-abas/usuario-abas.component';
-export * from './lib/widgets/contador-caracteres/contador-caracteres.component'
+
