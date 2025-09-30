@@ -1,10 +1,8 @@
-import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Injectable } from "@angular/core";
+import { JobRequest, MessageService, RetError } from 'ngx-sp-infra';
 
 import { Observable, take, tap } from 'rxjs';
-import { MessageService } from "../message/message.service";
-import { RetError } from "../../public-api";
-import { JobRequest } from "../models/queue-service/JobRequest";
 
 @Injectable({
   providedIn: 'root'

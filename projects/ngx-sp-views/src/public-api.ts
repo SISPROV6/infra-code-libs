@@ -22,3 +22,7 @@ export * from './lib/views/logs-timer/components/home-log-timer/home-log-timer.c
 export * from './lib/views/logs-ws/components/detalhes-log-ws/detalhes-log-ws.component';
 export * from './lib/views/logs-ws/components/home-log-ws/home-logs-ws.component';
 export * from './lib/views/page-not-authorized/page-not-authorized.component';
+
+/** Services */
+export * from './lib/services/queue.service';
+

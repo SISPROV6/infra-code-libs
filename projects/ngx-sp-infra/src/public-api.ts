@@ -87,7 +87,6 @@ export * from './lib/service/file.service';
 export * from './lib/service/global-loading.service';
 export * from './lib/service/ip-service.service';
 export * from './lib/service/modal-utils.service';
-export * from './lib/service/queue.service';
 export * from './lib/service/table-selection.service';
 export * from './lib/utils/filtros-aplicados.service';
 
