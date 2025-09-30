@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-infra",
-  "version": "6.0.4",
-  "tag": "infra-v6.0.4",
+  "project": "ngx-sp-auth",
+  "version": "4.0.4",
+  "tag": "auth-v4.0.4",
   "notes": "Liberação de teste para validar novo projeto de telas",
-  "timestamp": "2025-09-30T20:45:01.235Z"
+  "timestamp": "2025-09-30T20:50:23.174Z"
 }
