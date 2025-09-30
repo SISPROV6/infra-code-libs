@@ -15,6 +15,9 @@
       ],
       "ngx-sp-infra": [
         "./dist/ngx-sp-infra"
+      ],
+      "ngx-sp-views": [
+        "./dist/ngx-sp-views"
       ]
     },
     "esModuleInterop": true,

@@ -10,10 +10,6 @@ import { NgxCurrencyDirective } from 'ngx-currency';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import { NgxPaginationModule } from 'ngx-pagination';
 
-import { LibAuthenticationConfigComponent } from './views/lib-authentication-config/components/lib-authentication-config.component';
-import { LibConfigSenhaComponent } from './views/lib-config-senha/lib-config-senha.component';
-import { PageNotAuthorizedComponent } from './views/page-not-authorized/page-not-authorized.component';
-
 import { ClickOutsideDirective } from './directives/click-outside.directive';
 import { CopyClipboardDirective } from './directives/copy-clipboard.directive';
 import { DisableControlDirective } from './directives/disable-control.directive';
@@ -48,6 +44,7 @@ import { ComboboxMultipleChoiceComponent } from './widgets/combobox-multiple-cho
 import { ComboboxComponent } from './widgets/combobox/combobox.component';
 import { FilterByPipe } from './widgets/combobox/pipes/filter-by.pipe';
 import { LimitToPipe } from './widgets/combobox/pipes/limit-to.pipe';
+import { ContadorCaracteresComponent } from './widgets/contador-caracteres/contador-caracteres.component';
 import { ContentContainerComponent } from './widgets/content-container/content-container.component';
 import { CustomAcordionComponent } from './widgets/custom-acordion/custom-acordion.component';
 import { DropdownOptionsComponent } from './widgets/dropdown-options/dropdown-options.component';
@@ -90,7 +87,6 @@ import { TableComponent } from './widgets/table/table.component';
 import { SearchTreePipe } from './widgets/tree/pipes/search-tree.pipe';
 import { TreeComponent } from './widgets/tree/tree.component';
 import { UsuarioAbasComponent } from './widgets/usuario-abas/usuario-abas.component';
-import { ContadorCaracteresComponent } from './widgets/contador-caracteres/contador-caracteres.component';
 
 @NgModule({
     imports: [
@@ -105,8 +101,6 @@ import { ContadorCaracteresComponent } from './widgets/contador-caracteres/conta
         NgxPaginationModule,
         ReactiveFormsModule,
         RouterModule,
-        
-        PageNotAuthorizedComponent,
         LoadingComponent,
         FieldControlErrorComponent,
         FieldErrorMessageComponent,
@@ -167,7 +161,6 @@ import { ContadorCaracteresComponent } from './widgets/contador-caracteres/conta
         AppliedFiltersComponent,
         FormatByTypePipe,
         LibNavProdutosComponent,
-        LibConfigSenhaComponent,
         PasswordPolicyComponent,
         TextTruncateDirective,
         SearchInputComponent,
@@ -180,13 +173,11 @@ import { ContadorCaracteresComponent } from './widgets/contador-caracteres/conta
         ItemsAbasComponent,
         UsuarioAbasComponent,
         GrupoContabilAbasComponent,
-        LibAuthenticationConfigComponent,
         InnerRowsDirective,
         LibComboboxReworkComponent,
         ContadorCaracteresComponent
     ],
     exports: [
-        PageNotAuthorizedComponent,
         LoadingComponent,
         FieldControlErrorComponent,
         FieldErrorMessageComponent,
@@ -243,7 +234,6 @@ import { ContadorCaracteresComponent } from './widgets/contador-caracteres/conta
         AppliedFiltersComponent,
         FormatByTypePipe,
         LibNavProdutosComponent,
-        LibConfigSenhaComponent,
         PasswordPolicyComponent,
         TextTruncateDirective,
         SearchInputComponent,
@@ -256,7 +246,6 @@ import { ContadorCaracteresComponent } from './widgets/contador-caracteres/conta
         ItemsAbasComponent,
         UsuarioAbasComponent,
         GrupoContabilAbasComponent,
-        LibAuthenticationConfigComponent,
         InnerRowsDirective,
         LibComboboxReworkComponent,
         ContadorCaracteresComponent
