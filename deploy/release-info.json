@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-auth",
-  "version": "4.0.4",
-  "tag": "auth-v4.0.4",
-  "notes": "Liberação de teste para validar novo projeto de telas",
-  "timestamp": "2025-09-30T20:50:23.174Z"
+  "project": "ngx-sp-views",
+  "version": "1.0.0",
+  "tag": "views-v1.0.0",
+  "notes": "Primeira liberação oficial deste novo pacote",
+  "timestamp": "2025-09-30T21:08:04.645Z"
 }
