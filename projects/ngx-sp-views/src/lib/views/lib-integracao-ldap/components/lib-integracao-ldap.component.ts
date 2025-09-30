@@ -3,14 +3,14 @@ import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 
-
 import { FieldErrorMessageComponent, FormUtils, LibComboboxComponent, LibHeaderComponent, LibIconsComponent, MessageService, ModalUtilsService, RecordCombobox } from 'ngx-sp-infra';
+
 import { InfraLDAP } from '../models/InfraLDAP';
 import { LDAPValidateUser } from '../models/LDAPValidateUser';
 import { IntegracaoAdLdapService } from '../services/integracao-ad-ldap.service';
 
 @Component({
-  selector: 'lib-lib-integracao-ldap',
+  selector: 'lib-lib-integracao-ldap, lib-integracao-ldap',
   imports: [ RouterLink, NgIf, FormsModule, ReactiveFormsModule, LibIconsComponent, FieldErrorMessageComponent, LibComboboxComponent, LibHeaderComponent],
   templateUrl: './lib-integracao-ldap.component.html',
   styleUrl: './lib-integracao-ldap.component.scss'

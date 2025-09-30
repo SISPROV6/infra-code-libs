@@ -11,7 +11,7 @@ import { IntegrationAzureSSOForm } from '../models/3Rn/IntegrationAzureSSOForm';
 import { CadastroIntegracoesExternasService } from '../services/cadastro-integracoes-externas.service';
 
 @Component({
-  selector: 'lib-lib-integracoes-externas',
+  selector: 'lib-lib-integracoes-externas, lib-integracoes-externas',
   imports: [
     ReactiveFormsModule,
     FormsModule,

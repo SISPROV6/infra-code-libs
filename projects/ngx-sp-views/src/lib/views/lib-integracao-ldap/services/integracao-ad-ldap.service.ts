@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+import { RetError, RetRecordsCombobox } from 'ngx-sp-infra';
 import { Observable, take, tap } from 'rxjs';
 
-import { RetError, RetRecordsCombobox } from 'ngx-sp-infra';
 import { InfraLDAP } from '../models/InfraLDAP';
 import { LDAPValidateUser } from '../models/LDAPValidateUser';
 import { RetInfraLDAP } from '../models/RetInfraLDAP';

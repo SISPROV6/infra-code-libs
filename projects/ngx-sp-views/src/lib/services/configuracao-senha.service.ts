@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 
 import { Observable, take, tap } from 'rxjs';
 
-import { RetError } from 'ngx-sp-infra';
-import { AuthToken } from '../../../../ngx-sp-infra/src/lib/models/auth/auth-token.model';
-import { RetInfraSegConfig } from '../../../../ngx-sp-infra/src/lib/models/config-senha/2Ws/RetInfraSegConfig.model';
-import { InfraSegConfig } from '../../../../ngx-sp-infra/src/lib/models/config-senha/7Db/InfraSegConfig.record';
+import { InfraSegConfig, RetError } from 'ngx-sp-infra';
+import { AuthToken } from '../models/auth/auth-token.model';
+import { RetInfraSegConfig } from '../models/config-senha/2Ws/RetInfraSegConfig.model';
+
 
 @Injectable({
   providedIn: 'root'

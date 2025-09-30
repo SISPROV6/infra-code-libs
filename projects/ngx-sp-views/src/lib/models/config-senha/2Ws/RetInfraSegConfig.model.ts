@@ -1,5 +1,4 @@
-import { IError } from "../../utils/ierror";
-import { InfraSegConfig } from "../7Db/InfraSegConfig.record";
+import { IError, InfraSegConfig } from "ngx-sp-infra";
 
 export class RetInfraSegConfig implements IError {
   public Error: boolean = false;

@@ -2,15 +2,18 @@ import { NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { FormUtils, LibComboboxComponent, LibHeaderComponent, MessageService, RecordCombobox } from 'ngx-sp-infra';
+
 import { LibConfigSenhaComponent } from '../../lib-config-senha/lib-config-senha.component';
 import { LibIntegracaoLdapComponent } from '../../lib-integracao-ldap/components/lib-integracao-ldap.component';
 import { LibIntegracoesExternasComponent } from "../../lib-integracoes-externas/components/lib-integracoes-externas.component";
 import { InfraAuthentication } from '../models/InfraAuthentication';
 import { RadioOption } from '../models/RadioOption';
 import { InfraAuthenticationService } from '../services/infra-authentication.service';
+
 @Component({
-  selector: 'lib-lib-authentication-config',
+  selector: 'lib-lib-authentication-config, lib-authentication-config',
   imports: [NgIf,
             FormsModule,
             ReactiveFormsModule,

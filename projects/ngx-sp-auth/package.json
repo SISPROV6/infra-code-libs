@@ -1,7 +1,7 @@
 {
   "name": "ngx-sp-auth",
   "version": "4.0.3",
-  "description": "Biblioteca de utilitários da Infra.",
+  "description": "Biblioteca de utilitários de autenticação.",
   "author": "P&D",
   "keywords": [
     "Infra",

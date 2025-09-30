@@ -2,8 +2,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BsModalService } from 'ngx-bootstrap/modal';
-
 import { InfraModule, MessageService } from 'ngx-sp-infra';
+
 import { ConfiguracaoSenhaService } from '../../services/configuracao-senha.service';
 import { TenantService } from '../../services/tenant.service';
 import { LibConfigSenhaComponent } from './lib-config-senha.component';
