@@ -26,3 +26,5 @@ export * from './lib/views/page-not-authorized/page-not-authorized.component';
 /** Services */
 export * from './lib/services/queue.service';
 
+/** Models */
+export * from './lib/models/queue-service/JobRequest';

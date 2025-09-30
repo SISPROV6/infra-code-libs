@@ -39,7 +39,6 @@ export * from './lib/models/filtros-aplicados/filtros-aplicados.model';
 export * from './lib/models/forms/custom-form-control';
 export * from './lib/models/icons/icon.model';
 export * from './lib/models/misc/multi-status-list';
-export * from './lib/models/queue-service/JobRequest';
 export * from './lib/models/reports/report-file';
 export * from './lib/models/reports/ret-report-file';
 export * from './lib/models/table/header-structure.model';
