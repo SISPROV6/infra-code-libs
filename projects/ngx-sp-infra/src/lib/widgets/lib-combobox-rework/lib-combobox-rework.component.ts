@@ -70,8 +70,6 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   // Getter/Setter para o valor
   public get value(): T | T[] | null { return this._value; }
   public set value(val: T | T[] | null) {
-    console.log(val);
-    
     if (val !== this._value) {
       this._value = val;
       this._onChange(val); // Notifica o FormControl sobre a mudança
@@ -257,8 +255,6 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
 
   // // Método antigo
   // public writeValue(obj: T | T[] | null): void {
-  //   console.log(obj);
-    
   //   if (!obj) this.selectedValues = null;
     
   //   this._onTouched();
@@ -282,8 +278,6 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   // }
 
   public writeValue(obj: T | T[] | null): void {
-    console.log(obj);
-    
     if (!obj) this.selectedValues = null;
 
     this._onTouched();
