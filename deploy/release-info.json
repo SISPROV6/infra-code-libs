@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-infra",
-  "version": "6.0.6",
-  "tag": "infra-v6.0.6",
-  "notes": "Emissão de novo evento de mudança de sorting na lib-table",
-  "timestamp": "2025-10-01T19:10:40.476Z"
+  "version": "6.0.7",
+  "tag": "infra-v6.0.7",
+  "notes": "Tela de 'Página não encontrada' de volta para a Infra",
+  "timestamp": "2025-10-01T20:21:29.483Z"
 }

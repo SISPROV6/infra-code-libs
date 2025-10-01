@@ -35,6 +35,7 @@ import { TextFilterPipe } from './pipes/text-filter.pipe';
 import { TitleCasePipe } from './pipes/title-case-pipe.pipe';
 import { ToUrlPipe } from './pipes/to-url.pipe';
 
+import { PageNotAuthorizedComponent } from './views/page-not-authorized/page-not-authorized.component';
 import { AppliedFiltersComponent } from './widgets/applied-filters/applied-filters.component';
 import { AuditoriaButtonComponent } from './widgets/auditoria-button/auditoria-button.component';
 import { InfraBreadcrumbItemComponent } from './widgets/breadcrumb/infra-breadcrumb-item/infra-breadcrumb-item.component';
@@ -175,7 +176,9 @@ import { UsuarioAbasComponent } from './widgets/usuario-abas/usuario-abas.compon
         GrupoContabilAbasComponent,
         InnerRowsDirective,
         LibComboboxReworkComponent,
-        ContadorCaracteresComponent
+        ContadorCaracteresComponent,
+
+        PageNotAuthorizedComponent
     ],
     exports: [
         LoadingComponent,
@@ -248,7 +251,9 @@ import { UsuarioAbasComponent } from './widgets/usuario-abas/usuario-abas.compon
         GrupoContabilAbasComponent,
         InnerRowsDirective,
         LibComboboxReworkComponent,
-        ContadorCaracteresComponent
+        ContadorCaracteresComponent,
+
+        PageNotAuthorizedComponent
     ],
     providers: [],
 })
