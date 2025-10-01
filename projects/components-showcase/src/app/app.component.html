@@ -3,20 +3,8 @@
     
     <div class="row">
       <div class="col-6">
-        <label class="form-label" libRequired >Opções selecionadas</label>
-        <lib-combobox-rework [multiple]="false" [innerFilter]="false" [list]="filteredItems" [formControl]="control"
-          (selectionChange)="log($event)" (filterChange)="filter($event)" (filterButtonClick)="filter($event)"
-          customLabel="surname" customValue="name" [class.is-invalid]="formUtils.isInvalidField(control)" >
-
-          <ng-template #optionTemplate let-item let-selected="selected">
-            <div class="d-flex align-items-center justify-content-between option w-100" [ngClass]="{ 'active fw-bold text-primary': selected }" >
-              <div class="flex-grow-1"><b>Valor:</b> {{ item.name }} {{ item.surname }}</div>
-              @if (selected) { <small>✓</small> }
-            </div>
-          </ng-template>
-
-        </lib-combobox-rework>
-
+        <label class="form-label" libRequired >Opções disponíveis</label>
+        <lib-combobox-rework [list]="items" [formControl]="control" customLabel="surname" customValue="name" [class.is-invalid]="formUtils.isInvalidField(control)" />
         <lib-error-message [control]="control" ></lib-error-message>
       </div>
 
@@ -29,7 +17,8 @@
       </div>
     </div>
 
-    <button class="btn btn-primary" (click)="setValue()">SETAR VALORES</button>
+    <button class="btn btn-primary" (click)="setValue()">SETAR VALOR</button>
+    <button class="btn btn-primary" (click)="setValueList()">SETAR VALORES</button>
 
     <!-- <lib-table [list]="recordsList" [counts]="[ 5, 10, 15 ]" paginationID="simpleTable" [usePreviousStyle]="false"
     [headers]="[

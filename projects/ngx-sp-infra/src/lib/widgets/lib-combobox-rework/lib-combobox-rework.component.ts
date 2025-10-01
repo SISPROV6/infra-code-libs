@@ -70,6 +70,8 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   // Getter/Setter para o valor
   public get value(): T | T[] | null { return this._value; }
   public set value(val: T | T[] | null) {
+    console.log(val);
+    
     if (val !== this._value) {
       this._value = val;
       this._onChange(val); // Notifica o FormControl sobre a mudança
@@ -233,16 +235,63 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
 
     return this.compare(item, this.value as T);
   }
+
+  /**
+   * "Harmoniza" um valor primitivo de "ID" e encontra o seu item correspondente na lista
+   * @param val Valor a ser resolvido
+   * @returns O item correspondente ou null
+  */
+  private resolveValue(val: any): T | null {
+    // Se já é um objeto com a propriedade customValue, retorna direto
+    if (typeof val === 'object' && val !== null && val[this.customValue] !== undefined) {
+      return val;
+    }
+
+    // Se é um valor primitivo, tenta encontrar na lista
+    const match = this.list?.find((item: any) => item[this.customValue] === val);
+    return match ?? null;
+  }
   // #endregion Seleção
 
   // #region VALUE_ACCESSOR do Angular
-  public writeValue(obj: T | T[] | null): void {
-    if (!obj) this.selectedValues = null;
+
+  // // Método antigo
+  // public writeValue(obj: T | T[] | null): void {
+  //   console.log(obj);
     
+  //   if (!obj) this.selectedValues = null;
+    
+  //   this._onTouched();
+
+  //   if (this.multiple && obj) {
+  //     this.selectedValues = Array.isArray(obj) ? [...obj] : [];
+
+  //     if (this.selectedValues.length === 0) this.selectedValues = null;
+
+  //     this.value = this.selectedValues;
+  //     this._onChange(this.selectedValues);
+  //     this.selectionChange.emit(this.selectedValues);
+  //   }
+  //   else {
+  //     this.value = obj;
+  //     this._onChange(obj);
+  //     this.selectionChange.emit(obj);
+  //   }
+
+  //   this._cdr.markForCheck();
+  // }
+
+  public writeValue(obj: T | T[] | null): void {
+    console.log(obj);
+    
+    if (!obj) this.selectedValues = null;
+
     this._onTouched();
 
     if (this.multiple && obj) {
-      this.selectedValues = Array.isArray(obj) ? [...obj] : [];
+      this.selectedValues = Array.isArray(obj)
+        ? obj.map(val => this.resolveValue(val)).filter((v): v is T => v !== null)
+        : [];
 
       if (this.selectedValues.length === 0) this.selectedValues = null;
 
@@ -251,9 +300,11 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
       this.selectionChange.emit(this.selectedValues);
     }
     else {
-      this.value = obj;
-      this._onChange(obj);
-      this.selectionChange.emit(obj);
+      const resolved = this.resolveValue(obj);
+
+      this.value = resolved;
+      this._onChange(resolved);
+      this.selectionChange.emit(resolved);
     }
 
     this._cdr.markForCheck();
