@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-views",
-  "version": "1.0.1",
-  "tag": "views-v1.0.1",
-  "notes": "Liberação de ajuste dos services, foi feita uma implementação semelhante ao Auth",
-  "timestamp": "2025-10-01T13:32:13.693Z"
+  "version": "1.0.2",
+  "tag": "views-v1.0.2",
+  "notes": "Páginas adicionadas na ViewsModule para importação mais fácil",
+  "timestamp": "2025-10-01T14:27:21.561Z"
 }
