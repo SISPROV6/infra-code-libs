@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { Observable, take, tap } from 'rxjs';
 
-
+import { LibCustomConfigERPEnvironmentService } from '../../../custom/lib-custom-configerp-environment.service';
 import { RetLogDataAccess } from '../models/ret-log-data-access';
 import { RetLogsDataAccess } from '../models/ret-logs-data-access';
 import { SearchLogDataAccess } from '../models/search-log-data-access';
@@ -12,13 +12,17 @@ import { SearchLogDataAccess } from '../models/search-log-data-access';
   providedIn: 'root'
 })
 export class LogsDataAccessService {
-      private readonly _BASE_URL: string = window.location.hostname.includes('localhost') ? `https://SiscanDesV6.sispro.com.br/SisproErpCloud/Service_Private/Infra/SpInfra2ConfigErpWS/api/InfraLogDataAccess` : `https://${ window.location.hostname }/SisproErpCloud/Service_Private/Infra/SpInfra2ConfigErpWS/api/InfraLogDataAccess`; // SpInfra2ConfigErpWS
-
+  private readonly _BASE_URL: string = ''; // SpInfra2ConfigErpWS
 
   private readonly _HTTP_HEADERS: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
 
-  constructor(private _httpClient: HttpClient) {
- }
+  constructor(
+    private _httpClient: HttpClient,
+    private _customEnvironmentService: LibCustomConfigERPEnvironmentService
+  ) {
+    this._BASE_URL = `${ this._customEnvironmentService.SpInfra2ConfigErpWS }/InfraLogDataAccess`; // SpInfra2ConfigErpWS
+    this._BASE_URL = !this._customEnvironmentService.production ? this._BASE_URL : `${ this._customEnvironmentService.SpInfra2ConfigErpWS }/InfraLogDataAccess`;
+  }
 
  // #region ==========> SERVICE METHODS <==========
 

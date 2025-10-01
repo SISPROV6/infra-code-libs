@@ -2,6 +2,22 @@
  * Public API Surface of ngx-sp-views
 */
 
+/** Modules */
+export * from './lib/modules/views.module';
+
+/** Custom */
+export * from './lib/custom/models/icustom-configerp-environment-service';
+
+/** Providers */
+export * from './lib/custom/token';
+
+/** Services */
+export * from './lib/custom/lib-custom-configerp-environment.service';
+export * from './lib/services/queue.service';
+
+/** Models */
+export * from './lib/models/queue-service/JobRequest';
+
 /** Views */
 export * from './lib/views/lib-authentication-config/components/lib-authentication-config.component';
 export * from './lib/views/lib-config-senha/lib-config-senha.component';
@@ -23,8 +39,3 @@ export * from './lib/views/logs-ws/components/detalhes-log-ws/detalhes-log-ws.co
 export * from './lib/views/logs-ws/components/home-log-ws/home-logs-ws.component';
 export * from './lib/views/page-not-authorized/page-not-authorized.component';
 
-/** Services */
-export * from './lib/services/queue.service';
-
-/** Models */
-export * from './lib/models/queue-service/JobRequest';

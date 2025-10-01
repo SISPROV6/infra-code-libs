@@ -1,7 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
 import { RetRecordsCombobox } from 'ngx-sp-infra';
 import { Observable, take, tap } from 'rxjs';
+
+import { LibCustomConfigERPEnvironmentService } from '../../../custom/lib-custom-configerp-environment.service';
 import { InfraAuthentication } from '../models/InfraAuthentication';
 import { RetInfraAuthentication } from '../models/RetInfraAuthentication';
 import { RetRadioOptions } from '../models/RetRadioOptions';
@@ -12,11 +15,14 @@ import { RetRadioOptions } from '../models/RetRadioOptions';
 
 export class InfraAuthenticationService {
 
-  private readonly _BASE_URL: string = window.location.hostname.includes('localhost')
-    ? `https://siscandesV6.sispro.com.br/SisproErpCloud/Service_Private/Infra/SpInfra2ConfigErpWS/api/InfraAuthentication`
-    : `https://${window.location.hostname}/SisproErpCloud/Service_Private/Infra/SpInfra2ConfigErpWS/api/InfraAuthentication`;
+  private readonly _BASE_URL: string = '';
 
-  constructor(private httpClient: HttpClient) {
+  constructor(
+    private httpClient: HttpClient,
+    private _customEnvironmentService: LibCustomConfigERPEnvironmentService
+  ) {
+    this._BASE_URL = `${ this._customEnvironmentService.SpInfra2ConfigErpWS }/InfraAuthentication`; // SpInfra2ConfigErpWS
+    this._BASE_URL = !this._customEnvironmentService.production ? this._BASE_URL : `${ this._customEnvironmentService.SpInfra2ConfigErpWS }/InfraAuthentication`;
   }
 
   GetInfraAuthenticationByTenant(): Observable<RetInfraAuthentication> {

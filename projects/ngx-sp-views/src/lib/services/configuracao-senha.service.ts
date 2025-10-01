@@ -1,9 +1,10 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+import { InfraSegConfig, RetError, RetInfraSegConfig } from 'ngx-sp-infra';
 import { Observable, take, tap } from 'rxjs';
 
-import { InfraSegConfig, RetError, RetInfraSegConfig } from 'ngx-sp-infra';
+import { LibCustomConfigERPEnvironmentService } from '../custom/lib-custom-configerp-environment.service';
 import { AuthToken } from '../models/auth/auth-token.model';
 
 
@@ -16,9 +17,7 @@ export class ConfiguracaoSenhaService {
 
   // #region PRIVATE
 
-  private readonly _BASE_URL: string = window.location.hostname.includes('localhost')
-    ? `https://siscandesV6.sispro.com.br/SisproErpCloud/Service_Private/Infra/SpInfra2ConfigErpWS/api/InfraSegConfig`
-    : `https://${window.location.hostname}/SisproErpCloud/Service_Private/Infra/SpInfra2ConfigErpWS/api/InfraSegConfig`;
+  private readonly _BASE_URL: string = '';
 
   //private readonly _BASE_URL: string = `https://${ window.location.hostname }/SisproErpCloud/Service_Private/Infra/SpInfra2ConfigErpWS/api/InfraSegConfig`; // SpInfra2ConfigErpWS
   private readonly _HTTP_HEADERS = new HttpHeaders()
@@ -31,7 +30,13 @@ export class ConfiguracaoSenhaService {
 
 
   // #region ==========> INITIALIZATION <==========
-  constructor(private _httpClient: HttpClient) {
+  constructor(
+    private _httpClient: HttpClient,
+    private _customEnvironmentService: LibCustomConfigERPEnvironmentService
+  ) {
+    this._BASE_URL = `${ this._customEnvironmentService.SpInfra2ConfigErpWS }/InfraSegConfig`; // SpInfra2ConfigErpWS
+    this._BASE_URL = !this._customEnvironmentService.production ? this._BASE_URL : `${ this._customEnvironmentService.SpInfra2ConfigErpWS }/InfraSegConfig`;
+
     this.validateLocalToken();
   }
   // #endregion ==========> INITIALIZATION <==========

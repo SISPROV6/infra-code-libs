@@ -1,6 +1,9 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
 import { Observable, take, tap } from 'rxjs';
+
+import { LibCustomConfigERPEnvironmentService } from '../../../custom/lib-custom-configerp-environment.service';
 import { RetLogTimer } from '../models/ret-log-timer';
 import { RetLogsTimer } from '../models/ret-logs-timer';
 import { SearchLogTimer } from '../models/search-log-timer';
@@ -9,11 +12,16 @@ import { SearchLogTimer } from '../models/search-log-timer';
   providedIn: 'root'
 })
 export class LogsTimerService {
-      private readonly _BASE_URL: string = window.location.hostname.includes('localhost') ? `https://SiscanDesV6.sispro.com.br/SisproErpCloud/Service_Private/Infra/SpInfra2ConfigErpWS/api/InfraLogTimer` : `https://${ window.location.hostname }/SisproErpCloud/Service_Private/Infra/SpInfra2ConfigErpWS/api/InfraLogTimer`; // SpInfra2ConfigErpWS
+  private readonly _BASE_URL: string = ''; // SpInfra2ConfigErpWS
 
   private readonly _HTTP_HEADERS: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
 
-  constructor(private _httpClient: HttpClient) {
+  constructor(
+    private _httpClient: HttpClient,
+    private _customEnvironmentService: LibCustomConfigERPEnvironmentService
+  ) {
+    this._BASE_URL = `${ this._customEnvironmentService.SpInfra2ConfigErpWS }/InfraLogTimer`; // SpInfra2ConfigErpWS
+    this._BASE_URL = !this._customEnvironmentService.production ? this._BASE_URL : `${ this._customEnvironmentService.SpInfra2ConfigErpWS }/InfraLogTimer`;
   }
 
   // #region ==========> SERVICE METHODS <==========
