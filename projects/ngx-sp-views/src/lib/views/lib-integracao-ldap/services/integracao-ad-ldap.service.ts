@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { RetError, RetRecordsCombobox } from 'ngx-sp-infra';
 import { Observable, take, tap } from 'rxjs';
 
+import { LibCustomConfigERPEnvironmentService } from '../../../custom/lib-custom-configerp-environment.service';
 import { InfraLDAP } from '../models/InfraLDAP';
 import { LDAPValidateUser } from '../models/LDAPValidateUser';
 import { RetInfraLDAP } from '../models/RetInfraLDAP';
@@ -13,11 +14,14 @@ import { RetInfraLDAP } from '../models/RetInfraLDAP';
 })
 export class IntegracaoAdLdapService {
 
-  private readonly _BASE_URL: string = window.location.hostname.includes('localhost')
-    ? `https://siscandesV6.sispro.com.br/SisproErpCloud/Service_Private/Infra/SpInfra2ConfigErpWS/api/InfraLDAP`
-    : `https://${window.location.hostname}/SisproErpCloud/Service_Private/Infra/SpInfra2ConfigErpWS/api/InfraLDAP`;
+  private readonly _BASE_URL: string = '';
 
-  constructor(private httpClient: HttpClient) {
+  constructor(
+    private httpClient: HttpClient,
+    private _customEnvironmentService: LibCustomConfigERPEnvironmentService
+  ) {
+    this._BASE_URL = `${ this._customEnvironmentService.SpInfra2ConfigErpWS }/InfraLDAP`; // SpInfra2ConfigErpWS
+    this._BASE_URL = !this._customEnvironmentService.production ? this._BASE_URL : `${ this._customEnvironmentService.SpInfra2ConfigErpWS }/InfraLDAP`;
   }
 
   TENANT_ID: number = 0;

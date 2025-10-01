@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { Observable, take, tap } from 'rxjs';
 
-
+import { LibCustomConfigERPEnvironmentService } from '../../../custom/lib-custom-configerp-environment.service';
 import { RetLogReport } from '../models/ret-log-report';
 import { RetLogsReport } from '../models/ret-logs-report';
 import { SearchLogReport } from '../models/search-log-report';
@@ -12,63 +12,69 @@ import { SearchLogReport } from '../models/search-log-report';
   providedIn: 'root'
 })
 export class LogsReportService {
-      private readonly _BASE_URL: string = window.location.hostname.includes('localhost') ? `https://SiscanDesV6.sispro.com.br/SisproErpCloud/Service_Private/Infra/SpInfra2ConfigErpWS/api/InfraLogReport` : `https://${ window.location.hostname }/SisproErpCloud/Service_Private/Infra/SpInfra2ConfigErpWS/api/InfraLogReport`; // SpInfra2ConfigErpWS
+  private readonly _BASE_URL: string = ''; // SpInfra2ConfigErpWS
 
-private readonly _HTTP_HEADERS: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+  private readonly _HTTP_HEADERS: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
 
-constructor(private _httpClient: HttpClient) {
-}
+  constructor(
+    private _httpClient: HttpClient,
+    private _customEnvironmentService: LibCustomConfigERPEnvironmentService
+  ) {
+    this._BASE_URL = `${ this._customEnvironmentService.SpInfra2ConfigErpWS }/InfraLogReport`; // SpInfra2ConfigErpWS
+    this._BASE_URL = !this._customEnvironmentService.production ? this._BASE_URL : `${ this._customEnvironmentService.SpInfra2ConfigErpWS }/InfraLogReport`;
+  }
 
-// #region ==========> SERVICE METHODS <==========
+  // #region ==========> SERVICE METHODS <==========
 
-// #region Get
-getLog(id: number): Observable<RetLogReport> {
+  // #region Get
+  getLog(id: number): Observable<RetLogReport> {
 
-  const params = new HttpParams()
-    .set('id', id);
+    const params = new HttpParams()
+      .set('id', id);
 
-  const headers = new HttpHeaders()
-    .set('Content-Type', 'application/json');
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json');
 
-  const url = `${this._BASE_URL}/Get`;
+    const url = `${this._BASE_URL}/Get`;
 
-  return this._httpClient
-    .get<RetLogReport>(url, { 'params': params, 'headers': headers })
-      .pipe(
-        take(1),
-        tap(response => {
+    return this._httpClient
+      .get<RetLogReport>(url, { 'params': params, 'headers': headers })
+        .pipe(
+          take(1),
+          tap(response => {
 
-          if (response.Error) {
-            throw Error(response.ErrorMessage);
-          }
+            if (response.Error) {
+              throw Error(response.ErrorMessage);
+            }
 
-        })
-      );
-}
-// #endregion Get
+          })
+        );
+  }
+  // #endregion Get
 
-// #region GetList
-getLogsList(search: SearchLogReport): Observable<RetLogsReport> {
+  // #region GetList
+  getLogsList(search: SearchLogReport): Observable<RetLogsReport> {
 
-  const headers = new HttpHeaders()
-    .set('Content-Type', 'application/json');
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json');
 
-  const url = `${ this._BASE_URL }/GetLogsList`;
+    const url = `${ this._BASE_URL }/GetLogsList`;
 
-  return this._httpClient
-    .post<RetLogsReport>(url, JSON.stringify(search),{ 'headers': headers })
-      .pipe(
-        take(1),
-        tap(response => {
+    return this._httpClient
+      .post<RetLogsReport>(url, JSON.stringify(search),{ 'headers': headers })
+        .pipe(
+          take(1),
+          tap(response => {
 
-          if (response.Error) {
-            throw Error(response.ErrorMessage);
-          }
+            if (response.Error) {
+              throw Error(response.ErrorMessage);
+            }
 
-        })
-      );
-}
-// #endregion GetList
+          })
+        );
+  }
+  // #endregion GetList
 
-// #endregion ==========> SERVICE METHODS <==========
+  // #endregion ==========> SERVICE METHODS <==========
+
 }

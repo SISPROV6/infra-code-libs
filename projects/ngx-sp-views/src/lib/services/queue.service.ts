@@ -1,18 +1,25 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from "@angular/core";
-import { MessageService, RetError } from 'ngx-sp-infra';
 
+import { MessageService, RetError } from 'ngx-sp-infra';
 import { Observable, take, tap } from 'rxjs';
+
+import { LibCustomConfigERPEnvironmentService } from '../custom/lib-custom-configerp-environment.service';
 import { JobRequest } from '../models/queue-service/JobRequest';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QueueService {
-    private readonly _BASE_URL: string = window.location.hostname.includes('localhost') ? `https://SiscanDesV6.sispro.com.br/SisproErpCloud/Service_Private/Infra/SpInfra2QueueWS/api/Queue` : `https://${ window.location.hostname }/SisproErpCloud/Service_Private/Infra/SpInfra2QueueWS/api/Queue`; // SpInfra2ConfigErpWS
+  private readonly _BASE_URL: string = ''; // SpInfra2ConfigErpWS
 
-
-  constructor(private httpClient: HttpClient, private _messageService: MessageService) {
+  constructor(
+    private httpClient: HttpClient,
+    private _messageService: MessageService,
+    private _customEnvironmentService: LibCustomConfigERPEnvironmentService
+  ) {
+    this._BASE_URL = `${ this._customEnvironmentService.SpInfra2QueueWS }/Queue`; // SpInfra2QueueWS
+    this._BASE_URL = !this._customEnvironmentService.production ? this._BASE_URL : `${ this._customEnvironmentService.SpInfra2QueueWS }/Queue`;
   }
 
   private montarUrl(routePrefix: string, params: HttpParams): string {

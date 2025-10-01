@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { Observable, take, tap } from 'rxjs';
 
-
+import { LibCustomConfigERPEnvironmentService } from '../../../custom/lib-custom-configerp-environment.service';
 import { RetLogEmail } from '../models/ret-log-email';
 import { RetLogsEmail } from '../models/ret-logs-email';
 import { SearchLogEmail } from '../models/search-log-email';
@@ -13,11 +13,16 @@ import { SearchLogEmail } from '../models/search-log-email';
 })
 export class LogsEmailService {
 
-      private readonly _BASE_URL: string = window.location.hostname.includes('localhost') ? `https://SiscanDesV6.sispro.com.br/SisproErpCloud/Service_Private/Infra/SpInfra2ConfigErpWS/api/InfraLogEmail` : `https://${ window.location.hostname }/SisproErpCloud/Service_Private/Infra/SpInfra2ConfigErpWS/api/InfraLogEmail`; // SpInfra2ConfigErpWS
+  private readonly _BASE_URL: string = ''; // SpInfra2ConfigErpWS
 
   private readonly _HTTP_HEADERS: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
 
-  constructor(private _httpClient: HttpClient) {
+  constructor(
+    private _httpClient: HttpClient,
+    private _customEnvironmentService: LibCustomConfigERPEnvironmentService
+  ) {
+    this._BASE_URL = `${ this._customEnvironmentService.SpInfra2ConfigErpWS }/InfraLogEmail`; // SpInfra2ConfigErpWS
+    this._BASE_URL = !this._customEnvironmentService.production ? this._BASE_URL : `${ this._customEnvironmentService.SpInfra2ConfigErpWS }/InfraLogEmail`;
   }
 
   // #region ==========> SERVICE METHODS <==========
