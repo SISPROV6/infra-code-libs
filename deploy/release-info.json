@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-infra",
-  "version": "6.0.7",
-  "tag": "infra-v6.0.7",
-  "notes": "Tela de 'Página não encontrada' de volta para a Infra",
-  "timestamp": "2025-10-01T20:21:29.483Z"
+  "project": "ngx-sp-views",
+  "version": "2.0.1",
+  "tag": "views-v2.0.1",
+  "notes": "Remoção da página de PageNotFound do ngx-sp-views e movido novamente no ngx-sp-infra",
+  "timestamp": "2025-10-01T20:28:01.957Z"
 }
