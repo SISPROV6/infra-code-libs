@@ -63,18 +63,18 @@ export class AppComponent implements OnInit {
     { ID: 1, LABEL: 'One' },
     { ID: 2, LABEL: 'Two' },
     { ID: 3, LABEL: 'Three' },
-    // { ID: 4, LABEL: 'Four' },
-    // { ID: 5, LABEL: 'Five' },
-    // { ID: 6, LABEL: 'Six' },
-    // { ID: 7, LABEL: 'Seven' },
-    // { ID: 8, LABEL: 'Eight' },
-    // { ID: 9, LABEL: 'Nine' },
-    // { ID: 10, LABEL: 'Ten' },
-    // { ID: 11, LABEL: 'Eleven' },
-    // { ID: 12, LABEL: 'Twelve' },
-    // { ID: 13, LABEL: 'Thirteen' },
-    // { ID: 14, LABEL: 'Fourteen' },
-    // { ID: 15, LABEL: 'Fifteen' },
+    { ID: 4, LABEL: 'Four' },
+    { ID: 5, LABEL: 'Five' },
+    { ID: 6, LABEL: 'Six' },
+    { ID: 7, LABEL: 'Seven' },
+    { ID: 8, LABEL: 'Eight' },
+    { ID: 9, LABEL: 'Nine' },
+    { ID: 10, LABEL: 'Ten' },
+    { ID: 11, LABEL: 'Eleven' },
+    { ID: 12, LABEL: 'Twelve' },
+    { ID: 13, LABEL: 'Thirteen' },
+    { ID: 14, LABEL: 'Fourteen' },
+    { ID: 15, LABEL: 'Fifteen' },
   ];
 
   public disabledInputs: Map<string, boolean> = new Map<string, boolean>();
@@ -84,11 +84,7 @@ export class AppComponent implements OnInit {
 
 
   // #region ==========> FORM CONFIG <==========
-  public control = new FormControl<any>([
-    { name: 1, surname: 'Erick Carvalho Paulette de Oliveira' },
-    { name: 2, surname: 'Solturne' },
-    { name: 3, surname: 'Mare Itami' },
-  ], [ Validators.required ]);
+  public control = new FormControl<any>(null, [ Validators.required ]);
 
   public formCombobox: FormGroup = new FormGroup({
     // ...outros controls
@@ -132,13 +128,10 @@ export class AppComponent implements OnInit {
   }
 
   setValue() {
-    this.control.setValue([
-      { name: 1, surname: 'Erick Carvalho Paulette de Oliveira' },
-      { name: 2, surname: 'Solturne' },
-      { name: 3, surname: 'Mare Itami' },
-      { name: 4, surname: 'Wylow Zeppelli' },
-      { name: 5, surname: 'Sol' },
-    ]);
+    this.control.setValue(2);
+  }
+  setValueList() {
+    this.control.setValue([2, 3]);
   }
   // #endregion ==========> UTILS <==========
 
