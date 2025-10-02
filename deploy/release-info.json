@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-views",
-  "version": "2.0.1",
-  "tag": "views-v2.0.1",
-  "notes": "Remoção da página de PageNotFound do ngx-sp-views e movido novamente no ngx-sp-infra",
-  "timestamp": "2025-10-01T20:28:01.957Z"
+  "project": "ngx-sp-infra",
+  "version": "6.0.8",
+  "tag": "infra-v6.0.8",
+  "notes": "Seleção de valores integrada com formulários no componente lib-combobox-rework agora retorna o ID e o evento (selectionChange) retorna o objeto completo",
+  "timestamp": "2025-10-02T14:36:59.998Z"
 }

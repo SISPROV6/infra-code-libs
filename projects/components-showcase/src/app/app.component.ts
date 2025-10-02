@@ -93,15 +93,16 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.filteredItems = this.items;
 
+    // Usando via integração com formulários o valor será apenas o equivalente ao ID (customValue)
     this.control.valueChanges.subscribe(value => {
-      console.log("Valor(es) selecionado(s):", value);
+      console.log("Valor(es) ID selecionado(s):", value);
     });
   }
 
 
   // #region ==========> UTILS <==========
   log(value: any) {
-    console.log(value);
+    console.log("Valor(es) completo(s) selecionado(s):", value);
   }
 
   filter(search: string | null) {

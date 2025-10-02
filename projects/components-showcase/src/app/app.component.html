@@ -4,16 +4,9 @@
     <div class="row">
       <div class="col-6">
         <label class="form-label" libRequired >Opções disponíveis</label>
-        <lib-combobox-rework [returnID]="true" [multiple]="true" [list]="items" [formControl]="control" customLabel="surname" customValue="name" [class.is-invalid]="formUtils.isInvalidField(control)">
-          <ng-template #optionTemplate let-item let-selected="selected">
-            <div class="d-flex justify-content-between w-100">
-              <div>
-                <div><strong>Nome:</strong> {{ item.name }}</div>
-                <div><strong>Sobrenome:</strong> {{ item.surname }}</div>
-              </div>
-            </div>
-          </ng-template>
-        </lib-combobox-rework>
+        <lib-combobox-rework [multiple]="true" [list]="items" [formControl]="control" customLabel="surname" customValue="name"
+          (selectionChange)="log($event)"
+          />
 
         <lib-error-message [control]="control" ></lib-error-message>
       </div>

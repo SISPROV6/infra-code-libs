@@ -46,9 +46,6 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   // #region PUBLIC
   @Input({ required: true }) list: T[] = [];
 
-  /** Informa se, ao selecionar, deve retornar o ID ou o objeto completo */
-  @Input({ required: true }) returnID: boolean = false;
-
   @Input() placeholder = "Selecione uma opção...";
   @Input() searchPlaceholder = "Pesquisa...";
   @Input() noResultsText = "Nenhum registro encontrado com esta pesquisa...";
@@ -253,7 +250,7 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
 
   /** Formata o valor de retorno com base na configuração de retorno */
   private formatReturn(val: any) {
-    if (this.returnID && val) {
+    if (val) {
       if (this.multiple && Array.isArray(val)) {
         // Retorna a lista de IDs
         return val.map(v => (v as any)[this.customValue]);
