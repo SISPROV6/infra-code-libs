@@ -4,44 +4,19 @@
     <div class="row">
       <div class="col-6">
         <label class="form-label" libRequired >Opções disponíveis</label>
-        <lib-combobox-rework [list]="items" [formControl]="control" customLabel="surname" customValue="name" [class.is-invalid]="formUtils.isInvalidField(control)" />
+        <lib-combobox-rework [multiple]="true" [list]="items" [formControl]="control" customLabel="surname" customValue="name"
+          (selectionChange)="log($event)"
+          />
+
         <lib-error-message [control]="control" ></lib-error-message>
       </div>
 
       <div class="col-6">
-        <lib-combobox labelText="Pessoa" [list]="combobox" [control]="control" />
-
-        <form [formGroup]="formCombobox">
-          <input type="text" class="form-control" formControlName="PESSOAPARTEID">
-        </form>
+        <lib-combobox labelText="Valores teste" [list]="combobox" [control]="control"  />
       </div>
     </div>
 
-    <button class="btn btn-primary" (click)="setValue()">SETAR VALOR</button>
+    <button class="btn btn-primary me-3" (click)="setValue()">SETAR VALOR</button>
     <button class="btn btn-primary" (click)="setValueList()">SETAR VALORES</button>
-
-    <!-- <lib-table [list]="recordsList" [counts]="[ 5, 10, 15 ]" paginationID="simpleTable" [usePreviousStyle]="false"
-    [headers]="[
-        { name: 'Nome', widthClass: 'w-20' },
-        { name: 'Descrição', widthClass: 'w-50' },
-        { name: '', widthClass: 'w-30', customClasses: 'text-end' }
-    ]"
-    (itemsPerPageChange)="itemsPerPage = $event"
-    (pageChange)="page = $event" >
-
-    @for (item of recordsList! | paginate: { id: 'simpleTable', itemsPerPage: itemsPerPage, currentPage: page }; track item) {
-        <tr innerRows class="align-middle">
-          <td> <a class="text-primary text-decoration-none fw-bold" tooltip="Editar/Visualizar">{{ item.nome }}</a> </td>
-          <td>{{ item.descricao }}</td>
-          <td>
-              <div class="d-flex flex-row align-items-center justify-content-end">
-                <lib-icon iconName="editar" iconColor="blue" tooltip="Visualizar/Editar" />
-                <div class="form-check form-switch ms-2"> <input class="form-check-input" type="checkbox" role="switch" [checked]="item.isAtivo"> </div>
-              </div>
-          </td>
-        </tr>
-    }
-  </lib-table> -->
-
   </div>
 </div>

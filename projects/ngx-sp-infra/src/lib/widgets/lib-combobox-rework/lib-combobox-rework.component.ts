@@ -44,7 +44,7 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   // #endregion PRIVATE
 
   // #region PUBLIC
-  @Input() list: T[] = [];
+  @Input({ required: true }) list: T[] = [];
 
   @Input() placeholder = "Selecione uma opção...";
   @Input() searchPlaceholder = "Pesquisa...";
@@ -72,7 +72,7 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   public set value(val: T | T[] | null) {
     if (val !== this._value) {
       this._value = val;
-      this._onChange(val); // Notifica o FormControl sobre a mudança
+      this._onChange(this.formatReturn(val)); // Notifica o FormControl sobre a mudança
     }
   }
 
@@ -211,12 +211,10 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
       if (this.selectedValues.length === 0) this.selectedValues = null;
 
       this.value = this.selectedValues;
-      this._onChange(this.selectedValues);
       this.selectionChange.emit(this.selectedValues);
     }
     else {
       this.value = item;
-      this._onChange(item);
       this.selectionChange.emit(item);
       this.closeDropdown();
     }
@@ -249,33 +247,25 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
     const match = this.list?.find((item: any) => item[this.customValue] === val);
     return match ?? null;
   }
+
+  /** Formata o valor de retorno com base na configuração de retorno */
+  private formatReturn(val: any) {
+    if (val) {
+      if (this.multiple && Array.isArray(val)) {
+        // Retorna a lista de IDs
+        return val.map(v => (v as any)[this.customValue]);
+      }
+      else {
+        // Retorna o ID do item
+        return (val as any)[this.customValue]
+      }
+    }
+
+    return val;
+  }
   // #endregion Seleção
 
   // #region VALUE_ACCESSOR do Angular
-
-  // // Método antigo
-  // public writeValue(obj: T | T[] | null): void {
-  //   if (!obj) this.selectedValues = null;
-    
-  //   this._onTouched();
-
-  //   if (this.multiple && obj) {
-  //     this.selectedValues = Array.isArray(obj) ? [...obj] : [];
-
-  //     if (this.selectedValues.length === 0) this.selectedValues = null;
-
-  //     this.value = this.selectedValues;
-  //     this._onChange(this.selectedValues);
-  //     this.selectionChange.emit(this.selectedValues);
-  //   }
-  //   else {
-  //     this.value = obj;
-  //     this._onChange(obj);
-  //     this.selectionChange.emit(obj);
-  //   }
-
-  //   this._cdr.markForCheck();
-  // }
 
   public writeValue(obj: T | T[] | null): void {
     if (!obj) this.selectedValues = null;
@@ -290,14 +280,12 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
       if (this.selectedValues.length === 0) this.selectedValues = null;
 
       this.value = this.selectedValues;
-      this._onChange(this.selectedValues);
       this.selectionChange.emit(this.selectedValues);
     }
     else {
       const resolved = this.resolveValue(obj);
 
       this.value = resolved;
-      this._onChange(resolved);
       this.selectionChange.emit(resolved);
     }
 

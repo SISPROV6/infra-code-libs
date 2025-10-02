@@ -1,17 +1,16 @@
-import { NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { FormUtils } from 'ngx-sp-infra';
-import { InfraModule } from '../../../ngx-sp-infra/src/public-api';
+import { FormUtils, InfraModule, } from 'ngx-sp-infra';
 
 @Component({
   selector: 'app-root',
   imports: [
-    InfraModule,
     ReactiveFormsModule,
+    // NgClass,
+
+    InfraModule,
     NgxPaginationModule,
-    NgClass
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
@@ -43,38 +42,38 @@ export class AppComponent implements OnInit {
 
   filteredItems: { name: string | number, surname: string }[] = [];
   items = [
-    { name: 1, surname: 'Erick Carvalho Paulette de Oliveira' },
-    { name: 2, surname: 'Solturne' },
-    { name: 3, surname: 'Mare Itami' },
-    { name: 4, surname: 'Wylow Zeppelli' },
-    { name: 5, surname: 'Sol' },
-    { name: 6, surname: 'Saturno' },
-    { name: 7, surname: 'Seven' },
-    { name: 8, surname: 'Eight' },
-    { name: 9, surname: 'Nine' },
-    { name: 10, surname: 'Ten' },
-    { name: 11, surname: 'Eleven' },
-    { name: 12, surname: 'Twelve' },
-    { name: 13, surname: 'Thirteen' },
-    { name: 14, surname: 'Fourteen' },
-    { name: 15, surname: 'Fifteen' },
+    { name: 1, surname: 'Erick Carvalho Paulette de Oliveira', AdditionalStringProperty1: 'Additional Info 1' },
+    { name: 2, surname: 'Solturne', AdditionalStringProperty1: 'Additional Info 1' },
+    { name: 3, surname: 'Mare Itami', AdditionalStringProperty1: 'Additional Info 1' },
+    { name: 4, surname: 'Wylow Zeppelli', AdditionalStringProperty1: 'Additional Info 1' },
+    { name: 5, surname: 'Sol', AdditionalStringProperty1: 'Additional Info 1' },
+    { name: 6, surname: 'Saturno', AdditionalStringProperty1: 'Additional Info 1' },
+    { name: 7, surname: 'Seven', AdditionalStringProperty1: 'Additional Info 1' },
+    { name: 8, surname: 'Eight', AdditionalStringProperty1: 'Additional Info 1' },
+    { name: 9, surname: 'Nine', AdditionalStringProperty1: 'Additional Info 1' },
+    { name: 10, surname: 'Ten', AdditionalStringProperty1: 'Additional Info 1' },
+    { name: 11, surname: 'Eleven', AdditionalStringProperty1: 'Additional Info 1' },
+    { name: 12, surname: 'Twelve', AdditionalStringProperty1: 'Additional Info 1' },
+    { name: 13, surname: 'Thirteen', AdditionalStringProperty1: 'Additional Info 1' },
+    { name: 14, surname: 'Fourteen', AdditionalStringProperty1: 'Additional Info 1' },
+    { name: 15, surname: 'Fifteen', AdditionalStringProperty1: 'Additional Info 1' },
   ];
   combobox = [
-    { ID: 1, LABEL: 'One' },
-    { ID: 2, LABEL: 'Two' },
-    { ID: 3, LABEL: 'Three' },
-    { ID: 4, LABEL: 'Four' },
-    { ID: 5, LABEL: 'Five' },
-    { ID: 6, LABEL: 'Six' },
-    { ID: 7, LABEL: 'Seven' },
-    { ID: 8, LABEL: 'Eight' },
-    { ID: 9, LABEL: 'Nine' },
-    { ID: 10, LABEL: 'Ten' },
-    { ID: 11, LABEL: 'Eleven' },
-    { ID: 12, LABEL: 'Twelve' },
-    { ID: 13, LABEL: 'Thirteen' },
-    { ID: 14, LABEL: 'Fourteen' },
-    { ID: 15, LABEL: 'Fifteen' },
+    { ID: 1, LABEL: 'One', AdditionalStringProperty1: 'Additional Info 1' },
+    { ID: 2, LABEL: 'Two', AdditionalStringProperty1: 'Additional Info 1' },
+    { ID: 3, LABEL: 'Three', AdditionalStringProperty1: 'Additional Info 1' },
+    { ID: 4, LABEL: 'Four', AdditionalStringProperty1: 'Additional Info 1' },
+    { ID: 5, LABEL: 'Five', AdditionalStringProperty1: 'Additional Info 1' },
+    { ID: 6, LABEL: 'Six', AdditionalStringProperty1: 'Additional Info 1' },
+    { ID: 7, LABEL: 'Seven', AdditionalStringProperty1: 'Additional Info 1' },
+    { ID: 8, LABEL: 'Eight', AdditionalStringProperty1: 'Additional Info 1' },
+    { ID: 9, LABEL: 'Nine', AdditionalStringProperty1: 'Additional Info 1' },
+    { ID: 10, LABEL: 'Ten', AdditionalStringProperty1: 'Additional Info 1' },
+    { ID: 11, LABEL: 'Eleven', AdditionalStringProperty1: 'Additional Info 1' },
+    { ID: 12, LABEL: 'Twelve', AdditionalStringProperty1: 'Additional Info 1' },
+    { ID: 13, LABEL: 'Thirteen', AdditionalStringProperty1: 'Additional Info 1' },
+    { ID: 14, LABEL: 'Fourteen', AdditionalStringProperty1: 'Additional Info 1' },
+    { ID: 15, LABEL: 'Fifteen', AdditionalStringProperty1: 'Additional Info 1' },
   ];
 
   public disabledInputs: Map<string, boolean> = new Map<string, boolean>();
@@ -85,13 +84,6 @@ export class AppComponent implements OnInit {
 
   // #region ==========> FORM CONFIG <==========
   public control = new FormControl<any>(null, [ Validators.required ]);
-
-  public formCombobox: FormGroup = new FormGroup({
-    // ...outros controls
-    PESSOAPARTEID: new FormControl<string | null>(null),
-    PESSOACONTRAPARTEID: new FormControl<string | null>(null)
-  });
-
   public get formUtils(): typeof FormUtils { return FormUtils; }
   // #endregion ==========> FORM CONFIG <==========
 
@@ -101,19 +93,16 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.filteredItems = this.items;
 
-    // setTimeout(() => {
-    //   this.control.disable();
-    // }, 5000);
-
-    // setTimeout(() => {
-    //   this.control.enable();
-    // }, 6500);
+    // Usando via integração com formulários o valor será apenas o equivalente ao ID (customValue)
+    this.control.valueChanges.subscribe(value => {
+      console.log("Valor(es) ID selecionado(s):", value);
+    });
   }
 
 
   // #region ==========> UTILS <==========
   log(value: any) {
-    // console.log(value);
+    console.log("Valor(es) completo(s) selecionado(s):", value);
   }
 
   filter(search: string | null) {
