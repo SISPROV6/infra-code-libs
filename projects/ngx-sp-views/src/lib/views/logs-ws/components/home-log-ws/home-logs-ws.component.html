@@ -24,12 +24,19 @@
       resetPagination(this.$logList)
     "
     placeholder="Digite o id, nome ou método do Log"
-    class="d-flex col-12 mb-4"
+    class="col-12"
     [useIsActive]="false"
   >
+    <div class="form-check form-switch ms-3 mt-2">
+        <label class="form-check-label" for="isError">Erro</label>
+        <input type="checkbox" role="switch" id="isError" class="form-check-input" [(ngModel)]="isError">
+    </div>
+    <div class="form-check form-switch ms-3 mt-2">
+        <label class="form-check-label" for="isSlow">Lento</label>
+        <input type="checkbox" role="switch" id="isSlow" class="form-check-input" [(ngModel)]="isSlow">
+    </div>
   </app-search-filters>
-
-  <div class="row">
+  <div class="row mt-3">
     <div class="col-6">
       <label class="form-label">Data/Hora ocorrência:</label>
       <div class="input-group">

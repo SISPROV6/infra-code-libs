@@ -18,13 +18,21 @@
       resetPagination(this.$logList)
     "
     placeholder="Digite o id, nome, método e tipo de conexão do Log"
-    class="d-flex col-12 mb-4"
+    class="col-12"
     [useIsActive]="false"
   >
     <div class="input-group ms-3 w-75">
       <input class="form-control" type="datetime-local" [(ngModel)]="dateIni" />
       <span class="input-group-text">Até</span>
       <input class="form-control" type="datetime-local" [(ngModel)]="dateFin" />
+    </div>
+    <div class="form-check form-switch ms-3 mt-2">
+        <label class="form-check-label" for="isError">Erro</label>
+        <input type="checkbox" role="switch" id="isError" class="form-check-input" [(ngModel)]="isError">
+    </div>
+    <div class="form-check form-switch ms-3 mt-2">
+        <label class="form-check-label" for="isSlow">Lento</label>
+        <input type="checkbox" role="switch" id="isSlow" class="form-check-input" [(ngModel)]="isSlow">
     </div>
   </app-search-filters>
 
