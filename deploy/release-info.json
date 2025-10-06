@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-infra",
-  "version": "6.0.12",
-  "tag": "infra-v6.0.12",
-  "notes": "Nova funcionalidade que permite exibir conteúdo customizado como addon no componente lib-dynamic-input",
-  "timestamp": "2025-10-06T21:00:36.153Z"
+  "version": "6.1.0",
+  "tag": "infra-v6.1.0",
+  "notes": "Liberação da versão @latest semanal com todas implementações e correções incluídas da @next",
+  "timestamp": "2025-10-06T21:06:18.565Z"
 }
