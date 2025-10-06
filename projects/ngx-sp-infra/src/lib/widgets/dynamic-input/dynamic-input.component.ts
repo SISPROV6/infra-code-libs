@@ -1,15 +1,21 @@
-import { NgSwitch, NgSwitchCase } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { NgxMaskDirective } from 'ngx-mask';
 
 @Component({
-    selector: 'app-dynamic-input, lib-dynamic-input',
-    templateUrl: './dynamic-input.component.html',
-    styleUrls: ['./dynamic-input.component.scss'],
-    
-    imports: [NgSwitch, NgSwitchCase, FormsModule, NgxMaskDirective, NgxCurrencyDirective]
+  selector: 'app-dynamic-input, lib-dynamic-input',
+  imports: [
+    CommonModule,
+    FormsModule,
+    NgxMaskDirective,
+    NgxCurrencyDirective
+  ],
+  templateUrl: './dynamic-input.component.html',
+  styleUrls: ['./dynamic-input.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicInputComponent {
 
@@ -26,6 +32,9 @@ export class DynamicInputComponent {
   @Input() public qtInteiros?: number;
   @Input() public qtDecimais?: number;
   @Input() public txConteudoCarac: string = '';
+
+  @ContentChild("leftAddon", { read: TemplateRef, static: false }) leftAddon?: TemplateRef<any>;
+  @ContentChild("rightAddon", { read: TemplateRef, static: false }) rightAddon?: TemplateRef<any>;
 
   @Output() private updateCoCarac: EventEmitter<string> = new EventEmitter<string>();
 
