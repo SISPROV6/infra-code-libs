@@ -2,7 +2,6 @@ import { NgModule } from "@angular/core";
 
 import { LibAuthenticationConfigComponent } from "../views/lib-authentication-config/components/lib-authentication-config.component";
 import { LibConfigSenhaComponent } from "../views/lib-config-senha/lib-config-senha.component";
-import { PageNotAuthorizedComponent } from "../views/page-not-authorized/page-not-authorized.component";
 import { LibIntegracaoLdapComponent } from './../views/lib-integracao-ldap/components/lib-integracao-ldap.component';
 import { LibIntegracoesExternasComponent } from './../views/lib-integracoes-externas/components/lib-integracoes-externas.component';
 import { DetalhesLogApiComponent } from './../views/logs-api/components/detalhes-log-api/detalhes-log-api.component';
@@ -40,7 +39,6 @@ import { HomeLogsWSComponent } from './../views/logs-ws/components/home-log-ws/h
     HomeLogTimerComponent,
     DetalhesLogWSComponent,
     HomeLogsWSComponent,
-    PageNotAuthorizedComponent,
   ],
   exports: [
     LibAuthenticationConfigComponent,
@@ -61,7 +59,6 @@ import { HomeLogsWSComponent } from './../views/logs-ws/components/home-log-ws/h
     HomeLogTimerComponent,
     DetalhesLogWSComponent,
     HomeLogsWSComponent,
-    PageNotAuthorizedComponent,
   ]
 })
 export class LibViewsModule { }

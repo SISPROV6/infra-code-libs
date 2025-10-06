@@ -18,6 +18,7 @@
                @case('text') {
                   <button *ngIf="tab.visible" id="nav-tab-{{$index}}" type="button" role="tab" aria-controls="nav-home" aria-selected="true"
                      [class]="currentTab === tab.name ? 'nav-link active' : 'nav-link'"
+                     [class.use-border-tab]="useBorder && currentTab === tab.name"
                      [class.disabled]="tab.available === false" [class.tx-lib-muted]="!tab.available"
                      [ngClass]="{ 'tx-lib-light': documentation().theme === 'dark', 'tx-lib-dark': documentation().theme === 'light' }"
                      (click)="currentTab = tab.name; currentContent = $index" [attr.tabindex]="$index" > {{ tab.name }} </button>
@@ -26,6 +27,7 @@
                @case('link') {
                   <a *ngIf="tab.visible" id="nav-tab-{{$index}}" type="button" role="tab" aria-controls="nav-home" aria-selected="true"
                      [class]="currentTab === tab.name ? 'nav-link active' : 'nav-link'"
+                     [class.use-border-tab]="useBorder && currentTab === tab.name"
                      [class.disabled]="tab.available === false" [class.tx-lib-muted]="!tab.available"
                      [ngClass]="{ 'tx-lib-light': documentation().theme === 'dark', 'tx-lib-dark': documentation().theme === 'light' }"
                      (click)="currentTab = tab.name; currentContent = $index" (keyup.enter)="null" [attr.tabindex]="$index"
@@ -39,6 +41,7 @@
                @default {
                   <button *ngIf="tab.visible" id="nav-tab-{{$index}}" type="button" role="tab" aria-controls="nav-home" aria-selected="true"
                      [class]="currentTab === tab.name ? 'nav-link active' : 'nav-link'"
+                     [class.use-border-tab]="useBorder && currentTab === tab.name"
                      [class.disabled]="tab.available === false" [class.tx-lib-muted]="!tab.available"
                      [ngClass]="{ 'tx-lib-light': documentation().theme === 'dark', 'tx-lib-dark': documentation().theme === 'light' }"
                      (click)="currentTab = tab.name; currentContent = $index" [attr.tabindex]="$index" > {{ tab.name }} </button>
