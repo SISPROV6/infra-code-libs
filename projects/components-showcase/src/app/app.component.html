@@ -1,22 +1,26 @@
 <div class="content">
   <div class="filters">
     
-    <div class="row">
-      <div class="col-6">
-        <label class="form-label" libRequired >Opções disponíveis</label>
-        <lib-combobox-rework [multiple]="true" [list]="items" [formControl]="control" customLabel="surname" customValue="name"
-          (selectionChange)="log($event)"
-          />
-
-        <lib-error-message [control]="control" ></lib-error-message>
+    <lib-container [useBorder]="true" 
+      [advancedTabs]="[
+        { name: 'Dados básicos', visible: true, available: true, type: 'text' },
+        { name: 'Complementos', visible: true, available: false, type: 'text' },
+        { name: 'Endereços', visible: false, available: true, type: 'text' },
+        { name: 'Anexos', visible: true, available: true, type: 'link', linkText: '/inicio' }
+      ]" >
+      <div innerContent1 class="row">
+        <div class="col-6">
+          <label class="form-label" libRequired >Opções disponíveis</label>
+          <lib-combobox-rework [multiple]="true" [list]="items" [formControl]="control" customLabel="surname" customValue="name" (selectionChange)="log($event)" />
+  
+          <lib-error-message [control]="control" ></lib-error-message>
+        </div>
+  
+        <div class="col-6">
+          <lib-combobox labelText="Valores teste" [list]="combobox" [control]="control"  />
+        </div>
       </div>
+    </lib-container>
 
-      <div class="col-6">
-        <lib-combobox labelText="Valores teste" [list]="combobox" [control]="control"  />
-      </div>
-    </div>
-
-    <button class="btn btn-primary me-3" (click)="setValue()">SETAR VALOR</button>
-    <button class="btn btn-primary" (click)="setValueList()">SETAR VALORES</button>
   </div>
 </div>
