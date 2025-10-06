@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NavTabsComponent } from './nav-tabs/nav-tabs.component';
 import { ContentContainerComponent, LibIconsComponent } from 'ngx-sp-infra';
 import { MenuServicesService } from '../../../public-api';
 import { ProjectUtilservice } from '../../project/project-utils.service';
+import { NavTabsComponent } from './nav-tabs/nav-tabs.component';
 
 export class NavSubMenus {
   icon: string = '';
@@ -34,24 +34,25 @@ export class TelaItem {
 })
 export class SubMenuComponent implements OnInit {
 
-/**
- *
- */
-constructor(private _menuService:MenuServicesService, private _projectUtil:ProjectUtilservice) {
-}
+  // #region ==========> PROPERTIES <==========
 
+  // #region PUBLIC
   @Input() navSubmenus: NavSubMenus[] = [];
-
   @Input() isProduction: boolean = true;
-
   @Input() hostname: string = "https://siscandesv6.sispro.com.br";
+  @Input() activeItem?: string;
 
-  public hostNameOutSystems:string = "";
+  public hostNameOutSystems: string = "";
+  public listaSubMenus: SubMenuItem[] = [];
+  // #endregion PUBLIC
 
-  activeItem: string = '';
+  // #endregion ==========> PROPERTIES <==========
 
-  listaSubMenus: SubMenuItem[] = [];
 
+  constructor(
+    private _menuService: MenuServicesService,
+    private _projectUtil: ProjectUtilservice
+  ) { }
 
   ngOnInit(): void {
     this.GetHostName();
@@ -62,24 +63,24 @@ constructor(private _menuService:MenuServicesService, private _projectUtil:Proje
     ) {
       this.activeItem = this.navSubmenus[0].subMenuItem[0].titulo.toString();
     }
+
     this.listaFunction();
   }
 
-  listaFunction(){
-    for(let i = 0; i < this.navSubmenus.length; i++){
+
+  // #region ==========> UTILS <==========
+  public listaFunction(): void {
+    for(let i = 0; i < this.navSubmenus.length; i++) {
       this.listaSubMenus.push(...this.navSubmenus[i].subMenuItem);
     }
   }
 
-
-  public GetHostName(){
+  public GetHostName(): void {
     this._menuService.GetHostServerOutSystems().subscribe({
-      next:response => {
-        console.log(response.String)
-        this.hostNameOutSystems = response.String
-      },
-      error:error=> this._projectUtil.showHttpError(error)
+      next: response => this.hostNameOutSystems = response.String,
+      error: error => this._projectUtil.showHttpError(error)
     })
   }
+  // #endregion ==========> UTILS <==========
 
 }
