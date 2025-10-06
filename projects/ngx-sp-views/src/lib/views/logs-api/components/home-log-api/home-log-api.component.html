@@ -9,26 +9,31 @@
 <!-- #region Corpo -->
 <div class="glb-main-container p-3">
   <!-- #region SEARCH AND FILTERS -->
-  <div class="col-12 row">
-    <app-search-filters
-      (_executeGetBySearch)="getLogsList($event.toString())"
-      (_EMIT_CLEAR_EXTRA_INPUT)="
-        dateInicioIni = null;
-        dateInicioFin = null;
-        dateFinalIni = null;
-        dateFinalFin = null;
-        isError = true;
-        isSlow = false;
-        resetPagination(this.$logList)
-      "
-      placeholder="Digite o id, usuário, método ou API do Log"
-      class="mb-4"
-      [useIsActive]="false"
-    >
-    </app-search-filters>
-
-  </div>
-  <div class="row">
+  <app-search-filters
+    (_executeGetBySearch)="getLogsList($event.toString())"
+    (_EMIT_CLEAR_EXTRA_INPUT)="
+      dateInicioIni = null;
+      dateInicioFin = null;
+      dateFinalIni = null;
+      dateFinalFin = null;
+      isError = true;
+      isSlow = false;
+      resetPagination(this.$logList)
+    "
+    placeholder="Digite o id, usuário, método ou API do Log"
+    class="col-12"
+    [useIsActive]="false"
+  >
+    <div class="form-check form-switch ms-3 mt-2">
+        <label class="form-check-label" for="isError">Erro</label>
+        <input type="checkbox" role="switch" id="isError" class="form-check-input" [(ngModel)]="isError">
+    </div>
+    <div class="form-check form-switch ms-3 mt-2">
+        <label class="form-check-label" for="isSlow">Lento</label>
+        <input type="checkbox" role="switch" id="isSlow" class="form-check-input" [(ngModel)]="isSlow">
+    </div>
+  </app-search-filters>
+  <div class="row mt-3">
     <div class="col-6">
         <label class="form-label">Data/Hora ocorrência:</label>
         <div class="input-group">
