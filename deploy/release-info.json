@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-views",
-  "version": "2.0.0",
-  "tag": "views-v2.0.0",
-  "notes": "Liberação de primeira versão oficial do pacote 'ngx-sp-views'",
-  "timestamp": "2025-10-01T14:35:55.378Z"
+  "project": "ngx-sp-infra",
+  "version": "6.1.0",
+  "tag": "infra-v6.1.0",
+  "notes": "Liberação da versão @latest semanal com todas implementações e correções incluídas da @next",
+  "timestamp": "2025-10-06T21:06:18.565Z"
 }

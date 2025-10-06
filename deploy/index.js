@@ -199,9 +199,9 @@ async function main() {
           name: 'executaTestes'
         },
         {
-          message: 'Para qual repo os commits devem ser feitos? (github = "https://github.com/SISPROV6/infra-code-libs", azure = "https://SisproERP@dev.azure.com/SisproERP/PeD/_git/infra-code-libs")',
+          message: 'Para qual repo os commits devem ser feitos? (origin = "https://github.com/SISPROV6/infra-code-libs", azure = "https://SisproERP@dev.azure.com/SisproERP/PeD/_git/infra-code-libs")',
           type: 'list',
-          choices: ['github', 'azure'],
+          choices: ['origin', 'azure'],
           name: 'repo'
         },
         {

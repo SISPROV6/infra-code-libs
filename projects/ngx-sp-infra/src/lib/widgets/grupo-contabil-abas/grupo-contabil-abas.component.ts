@@ -1,7 +1,7 @@
 import { NgFor } from '@angular/common';
 import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
-import { links } from './models/links-record';
 import { Router } from '@angular/router';
+import { links } from './models/links-record';
 
 @Component({
   selector: 'lib-grupo-contabil-abas',
@@ -23,13 +23,13 @@ export class GrupoContabilAbasComponent {
 
     if(window.location.host.includes("localhost")){
       this.linksList.push(
-      { nome: 'Grupo Contabil', uri: `http://${window.location.host}/grupo-contabil/editar/${this.Id}`, isTargetSelf: true},
-      {nome: 'Dados Compras', uri: `http://${window.location.host}/SpCopConfiguracoes/GrpContabil/editar/${this.Id}`, isTargetSelf: false},
+      { nome: 'Grupo contabil', uri: `http://${window.location.host}/grupo-contabil/editar/${this.Id}`, isTargetSelf: true},
+      { nome: 'Dados compras', uri: `http://${window.location.host}/grupo-contabil/editar/${this.Id}`, isTargetSelf: false}
     );
     }else{
       this.linksList.push(
-      { nome: 'Grupo Contabil', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/grupo-contabil/editar/${this.Id}`, isTargetSelf: true},
-      {nome: 'Dados Compras', uri: `https://${window.location.host}/SisproErpCloud/Compras/SpCopConfiguracoes/GrpContabil/editar/${this.Id}`, isTargetSelf: false},
+      { nome: 'Grupo contabil', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/grupo-contabil/editar/${this.Id}`, isTargetSelf: true},
+      { nome: 'Dados compras', uri: `https://${window.location.host}/SisproErpCloud/Compras/grupo-contabil/editar/${this.Id}`, isTargetSelf: false},
     );
     }
 

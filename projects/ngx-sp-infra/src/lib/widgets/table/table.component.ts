@@ -142,6 +142,8 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   /** Caso seja usado um ícone na coluna e a opção ```headers.icon.emitClick``` for true, ao clicar nela emite este evento que leva consigo o nome da coluna em questão. */
   @Output() public iconClick: EventEmitter<string> = new EventEmitter<string>();
 
+  /** Evento emitido quando a ordenação é alterada. */
+  @Output() public sortChange: EventEmitter<{ direction: string, column: string }> = new EventEmitter<{ direction: string, column: string }>();
 
   /** Evento emitido quando as colunas são modificadas. */
   @Output() public colunasModificadas: EventEmitter<TableHeaderStructure[]> = new EventEmitter<TableHeaderStructure[]>();
@@ -305,6 +307,8 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
 	// Função chamada quando ocorre uma mudança na ordenação
 	onSortChange(event: { direction: string, column: string }) {
+		this.sortChange.emit(event);
+
 		const { column } = event;
 
 		// Verifica se a coluna atualmente selecionada é a mesma da nova seleção
@@ -329,7 +333,6 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
       // ERICK: Novo método de ordenação que abrange também números
       const attribute = this.currentSortColumn;
-      console.log(attribute);
       
       recordsList.sort((a, b) => {
         const propertyA = this.getProperty(a, attribute).toUpperCase(); // Puxa o nome da coluna que irá ordenar

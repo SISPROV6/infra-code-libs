@@ -94,6 +94,9 @@ export * from './lib/utils/filtros-aplicados.service';
 export * from './lib/validators/cpf-cnpj.validator';
 export * from './lib/validators/cpf-cnpj.validator.directive';
 
+/** Views */
+export * from './lib/views/page-not-authorized/page-not-authorized.component';
+
 /** Widgets */
 export * from './lib/widgets/applied-filters/applied-filters.component';
 export * from './lib/widgets/auditoria-button/auditoria-button.component';
