@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-infra",
-  "version": "6.0.11",
-  "tag": "infra-v6.0.11",
-  "notes": "Correção no componente lib-grupo-contabil-abas de nome das abas e rota do Compras",
-  "timestamp": "2025-10-06T20:05:14.027Z"
+  "version": "6.0.12",
+  "tag": "infra-v6.0.12",
+  "notes": "Nova funcionalidade que permite exibir conteúdo customizado como addon no componente lib-dynamic-input",
+  "timestamp": "2025-10-06T21:00:36.153Z"
 }

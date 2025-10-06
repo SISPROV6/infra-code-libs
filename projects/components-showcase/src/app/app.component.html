@@ -1,13 +1,7 @@
 <div class="content">
   <div class="filters">
     
-    <lib-container [useBorder]="true" 
-      [advancedTabs]="[
-        { name: 'Dados básicos', visible: true, available: true, type: 'text' },
-        { name: 'Complementos', visible: true, available: false, type: 'text' },
-        { name: 'Endereços', visible: false, available: true, type: 'text' },
-        { name: 'Anexos', visible: true, available: true, type: 'link', linkText: '/inicio' }
-      ]" >
+    <lib-container [tabs]="[ 'Primeiro', 'Segundo' ]" [currentTab]="'Segundo'" [useBorder]="true" >
       <div innerContent1 class="row">
         <div class="col-6">
           <label class="form-label" libRequired >Opções disponíveis</label>
@@ -18,6 +12,20 @@
   
         <div class="col-6">
           <lib-combobox labelText="Valores teste" [list]="combobox" [control]="control"  />
+        </div>
+      </div>
+
+      <div innerContent2>
+        <div class="d-flex gap-3">
+          <lib-dynamic-input [typeInput]="'decimal'" [qtDecimais]="2" (updateCoCarac)="log($event)">
+            <ng-template #leftAddon>
+              <button class="btn btn-outline-primary" type="button" id="button-addon1">Button</button>
+            </ng-template>
+
+            <ng-template #rightAddon>
+              <span class="input-group-text" id="basic-addon1">R$</span>
+            </ng-template>
+          </lib-dynamic-input>
         </div>
       </div>
     </lib-container>
