@@ -1,17 +1,25 @@
 import { NgClass, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+
 import { ContainerTabsModel } from '../../models/container/container-tabs.model';
 import { Utils } from '../../utils/utils';
 import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 
 @Component({
-    selector: 'lib-container',
-    templateUrl: './content-container.component.html',
-    styleUrls: ['./content-container.component.scss'],
-    
-    imports: [NgClass, NgIf, RouterLinkActive, TooltipModule, RouterLink, LibIconsComponent]
+  selector: 'lib-container',
+  templateUrl: './content-container.component.html',
+  styleUrls: ['./content-container.component.scss'],
+  imports: [
+    NgClass,
+    NgIf,
+    RouterLinkActive,
+    TooltipModule,
+    RouterLink,
+    LibIconsComponent
+  ]
 })
 export class ContentContainerComponent implements OnInit, OnChanges {
   // #region ==========> PROPERTIES <==========
@@ -24,12 +32,12 @@ export class ContentContainerComponent implements OnInit, OnChanges {
 
   /** Parâmetro secreto que informa se o componente deve adotar comportamento/visual igual exibido no portal de documentação */
   public documentation = input<{ use: boolean; theme: 'dark' | 'light' }>({ use: false, theme: 'light' });
-  
+
   @Input() public tabs?: string[];
   @Input() public advancedTabs?: ContainerTabsModel[];
 
   @Input() public containerTitle?: string;
-  
+
   @Input() public useBorder?: boolean = false;
 
   @Input()
