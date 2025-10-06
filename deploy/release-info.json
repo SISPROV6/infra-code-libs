@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-views",
-  "version": "2.0.2",
-  "tag": "views-v2.0.2",
-  "notes": "Adicionando filtros isError e is Slow nas listagens de logs.",
-  "timestamp": "2025-10-06T14:36:27.868Z"
+  "project": "ngx-sp-infra",
+  "version": "6.0.11",
+  "tag": "infra-v6.0.11",
+  "notes": "Correção no componente lib-grupo-contabil-abas de nome das abas e rota do Compras",
+  "timestamp": "2025-10-06T20:05:14.027Z"
 }
