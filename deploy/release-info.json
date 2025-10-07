@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-auth",
-  "version": "4.1.1",
-  "tag": "auth-v4.1.1",
-  "notes": "Implementação de novo parâmetro de entrada no componente de sub-menu para informar o item ativo de forma externa",
-  "timestamp": "2025-10-06T22:04:40.578Z"
+  "project": "ngx-sp-infra",
+  "version": "6.1.1",
+  "tag": "infra-v6.1.1",
+  "notes": "Correção nos addons do lib-dynamic-input",
+  "timestamp": "2025-10-07T13:50:51.925Z"
 }
