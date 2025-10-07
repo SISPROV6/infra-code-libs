@@ -17,7 +17,7 @@ export class NavSubmenuCards {
   template: `
     <div class="max-card-menu row">
       @for(card of subMenuCards; track $index) {
-        <a href="{{ card.isExternal ? GetExternalUrl(card.urlPath) : card.urlPath }}" class="card-link col-4" target="_blank">
+        <a href="{{ card.isExternal ? GetExternalUrl(card.urlPath) : card.urlPath }}" class="card-link col-4" [target]="card.isExternal ? '_blank' : '_self'">
           <div class="card">
             <div class="card-icon">
               <div class="card-icon2">
