@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-views",
-  "version": "2.1.0",
-  "tag": "views-v2.1.0",
-  "notes": "Liberação da versão @latest semanal com todas implementações e correções incluídas da @next",
-  "timestamp": "2025-10-06T21:28:59.671Z"
+  "project": "ngx-sp-infra",
+  "version": "6.1.1",
+  "tag": "infra-v6.1.1",
+  "notes": "Correção nos addons do lib-dynamic-input",
+  "timestamp": "2025-10-07T13:50:51.925Z"
 }
