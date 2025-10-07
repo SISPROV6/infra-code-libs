@@ -1,6 +1,6 @@
 {
   "name": "ngx-sp-views",
-  "version": "2.1.0",
+  "version": "2.1.2",
   "description": "Pacote que reúne telas de configuração da Infra.",
   "author": "P&D",
   "keywords": [
@@ -25,6 +25,5 @@
     "tslib": "^2.3.0"
   },
   "sideEffects": false,
-  "dependencies": {
-  }
+  "dependencies": {}
 }
