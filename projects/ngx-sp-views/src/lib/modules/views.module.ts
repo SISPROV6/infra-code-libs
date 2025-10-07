@@ -18,6 +18,7 @@ import { DetalhesLogTimerComponent } from './../views/logs-timer/components/deta
 import { HomeLogTimerComponent } from './../views/logs-timer/components/home-log-timer/home-log-timer.component';
 import { DetalhesLogWSComponent } from './../views/logs-ws/components/detalhes-log-ws/detalhes-log-ws.component';
 import { HomeLogsWSComponent } from './../views/logs-ws/components/home-log-ws/home-logs-ws.component';
+import { LibMonitoramentoFilaComponent } from "../../public-api";
 
 @NgModule({
   imports: [
@@ -39,6 +40,7 @@ import { HomeLogsWSComponent } from './../views/logs-ws/components/home-log-ws/h
     HomeLogTimerComponent,
     DetalhesLogWSComponent,
     HomeLogsWSComponent,
+    LibMonitoramentoFilaComponent
   ],
   exports: [
     LibAuthenticationConfigComponent,
@@ -59,6 +61,7 @@ import { HomeLogsWSComponent } from './../views/logs-ws/components/home-log-ws/h
     HomeLogTimerComponent,
     DetalhesLogWSComponent,
     HomeLogsWSComponent,
+    LibMonitoramentoFilaComponent
   ]
 })
 export class LibViewsModule { }
