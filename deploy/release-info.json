@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-infra",
-  "version": "6.1.1",
-  "tag": "infra-v6.1.1",
-  "notes": "Correção nos addons do lib-dynamic-input",
-  "timestamp": "2025-10-07T13:50:51.925Z"
+  "project": "ngx-sp-views",
+  "version": "2.1.3",
+  "tag": "views-v2.1.3",
+  "notes": "Atualização de rotina",
+  "timestamp": "2025-10-07T17:17:43.560Z"
 }

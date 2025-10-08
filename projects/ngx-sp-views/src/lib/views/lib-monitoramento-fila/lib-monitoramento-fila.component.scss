@@ -1,0 +1,154 @@
+.badge{
+    font-weight: 600;
+    padding: 5px 9px;
+    border-radius: 14px;
+}
+
+/* ==================== Base do card ==================== */
+.glb-card .card-body {
+  position: relative;           /* necessário para o ::before */
+  overflow: visible;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  background: white !important;
+  padding: 18px 16px;           /* ajuste se precisar (aumentei padding-top para a tarja) */
+  transition: all 0.18s ease-in-out;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ------------------ Tarja (pseudo-element) ------------------
+   O ::before é a "tarja" no topo. Por padrão fica transparente.
+   Ajuste --stripe-height se quiser mudar a altura. */
+
+.glb-card .card-body::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -2px;                                 /* ligeiro overlap com a borda para dar o efeito */
+  height: 12px;;
+  background: transparent;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  z-index: 2;
+  pointer-events: none;
+  box-shadow: none;
+}
+
+/* Remove possíveis backgrounds/pseudo-elements de terceiros (somente se existir) */
+.glb-card .card-body::after { content: none !important; }
+
+/* ==================== Reset de foco genérico ==================== */
+.glb-card .card-body:focus,
+.glb-card .card-body:active,
+.glb-card .card-body:focus-visible {
+  background: white !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* ==================== Comportamento por status (hover/active/focus-visible) ==================== */
+
+/* Processando - azul */
+.card-processando:hover,
+.card-processando.active,
+.card-processando:focus-visible {
+  border-color: #1976d2 !important;
+  box-shadow: 0 0 6px rgba(25,118,210,0.22) !important;
+  color: #1976d2 !important;
+}
+.card-processando:hover::before,
+.card-processando.active::before,
+.card-processando:focus-visible::before {
+  background: #1976d2 !important;
+}
+
+/* Pendente - cinza */
+.card-pendente:hover,
+.card-pendente.active,
+.card-pendente:focus-visible {
+  border-color: #9e9e9e !important;
+  box-shadow: 0 0 6px rgba(158,158,158,0.22) !important;
+  color: #9e9e9e !important;
+}
+.card-pendente:hover::before,
+.card-pendente.active::before,
+.card-pendente:focus-visible::before {
+  background: #9e9e9e !important;
+}
+
+/* Concluído - VERDE */
+.card-concluido:hover,
+.card-concluido.active,
+.card-concluido:focus-visible {
+  border-color: #2e7d32 !important;
+  box-shadow: 0 0 6px rgba(46,125,50,0.22) !important;
+  color: #2e7d32 !important;
+}
+.card-concluido:hover::before,
+.card-concluido.active::before,
+.card-concluido:focus-visible::before {
+  background: #2e7d32 !important;
+}
+
+/* Com falha - vermelho */
+.card-falha:hover,
+.card-falha.active,
+.card-falha:focus-visible {
+  border-color: #d32f2f !important;
+  box-shadow: 0 0 6px rgba(211,47,47,0.22) !important;
+  color: #d32f2f !important;
+}
+.card-falha:hover::before,
+.card-falha.active::before,
+.card-falha:focus-visible::before {
+  background: #d32f2f !important;
+}
+
+/* Cancelado - vermelho escuro */
+.card-cancelado:hover,
+.card-cancelado.active,
+.card-cancelado:focus-visible {
+  border-color: #8b0000 !important;
+  box-shadow: 0 0 6px rgba(139,0,0,0.22) !important;
+  color: #8b0000 !important;
+}
+.card-cancelado:hover::before,
+.card-cancelado.active::before,
+.card-cancelado:focus-visible::before {
+  background: #8b0000 !important;
+}
+
+/* Abandonado - preto */
+.card-abandonado:hover,
+.card-abandonado.active,
+.card-abandonado:focus-visible {
+  border-color: #000 !important;
+  box-shadow: 0 0 6px rgba(0,0,0,0.22) !important;
+  color: #000 !important;
+}
+.card-abandonado:hover::before,
+.card-abandonado.active::before,
+.card-abandonado:focus-visible::before {
+  background: #000 !important;
+}
+
+.card-processando:hover .glb-card-title,
+.card-processando.active .glb-card-title,
+.card-processando:hover .glb-card-count,
+.card-processando.active .glb-card-count { color: #1976d2 !important; }
+
+.card-concluido:hover .glb-card-title,
+.card-concluido.active .glb-card-title,
+.card-concluido:hover .glb-card-count,
+.card-concluido.active .glb-card-count { color: #2e7d32 !important; }
+
+.card-pendente:hover .glb-card-title,
+.card-pendente.active .glb-card-title,
+.card-pendente:hover .glb-card-count,
+.card-pendente.active .glb-card-count { color: #9e9e9e !important; }
+
+
+.text-download:hover{
+  color: #1976d2;
+}
