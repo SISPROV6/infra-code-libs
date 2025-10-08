@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Router, RouterStateSnapshot, ActivatedRouteSnapshot, Route, UrlTree } from '@angular/router';
+import { Router, UrlTree, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
-import { Observable, lastValueFrom, of } from 'rxjs';
-import { switchMap, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 import { MenuServicesService } from '../components/menu-lateral/menu-services.service';
 
@@ -18,26 +17,15 @@ export class IsMenuAllowedlGuard  {
 
   canActivate(_route: ActivatedRouteSnapshot, _state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree
   {
-    let route: string = "LOGS";
+    let route: string = _route.routeConfig?.path === undefined ? "" : _route.routeConfig?.path;
   
-    console.log('canActivate')
-    console.log(_route)
-    return this.isMenuAllowedGuard(route);
-  }
-
-  canLoad(_route: Route): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree
-  {
-    let route: string = "LOGS";
-  
-    console.log('canLoad')
-    console.log(_route)
     return this.isMenuAllowedGuard(route);
   }
 
   private navigateToError(): UrlTree {
-     let login: UrlTree = this.router.parseUrl("/error-404");
+    let notAllowed: UrlTree = this.router.parseUrl("/error-menu-not-allowed");
 
-    return login;
+    return notAllowed;
   }
 
   //  Valida a permissão do Menu

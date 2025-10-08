@@ -2,8 +2,7 @@
     <div class="image mb-4">
       <lib-icon iconName="cadeado" [iconSize]="128" />
     </div>
-    <h1 class="tittle">Página não encontrada :/</h1>
-    <h2 class="sub-tittle">Encontramos algum erro de conexão com o servidor.</h2>
+    <h1 class="tittle">Você não possui permissão para acessar esta tela!</h1>
     <button *ngIf="!this.authStorageService.isExternalLogin" class="btn button mt-3" (click)="onHome()">
       Voltar para a tela inicial
     </button>

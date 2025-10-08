@@ -182,12 +182,15 @@ export class MenuServicesService {
   /** Método executado para validar a permissão de acesso a uma opção do menu
   */
   public isMenuAllowed(route: string){
+    const params = new HttpParams()
+      .set('route', route)
+
     const headers = new HttpHeaders().set("Content-Type", "application/json");
 
     const url = `${this._BASE_URL}/Menu/IsMenuAllowed`;
 
     return this._httpClient
-      .get<RetIsMenuAllowed>(url, { headers: headers })
+      .get<RetIsMenuAllowed>(url, { 'params': params, headers: headers })
       .pipe(
         take(1),
         tap((response) => {
