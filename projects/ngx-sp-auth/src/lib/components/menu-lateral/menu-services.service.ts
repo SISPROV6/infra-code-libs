@@ -16,6 +16,7 @@ import { NavSubmenuSearchItem } from './model/navsubmenu-searchitem';
 import { RetDynamicMenu } from './model/dynamic-menu';
 import { RetDropDown } from './model/ret-dropdown';
 import { RetVersion } from './model/ret-version';
+import { RetIsMenuAllowed } from './model/ret-is-menu-allowed';
 
 @Injectable({
   providedIn: 'root'
@@ -175,6 +176,33 @@ export class MenuServicesService {
   }
 
   // #endregion Menu: Version
+
+  // #region Menu: IsMenuAllowed
+
+  /** Método executado para validar a permissão de acesso a uma opção do menu
+  */
+  public isMenuAllowed(route: string){
+    const params = new HttpParams()
+      .set('route', route)
+
+    const headers = new HttpHeaders().set("Content-Type", "application/json");
+
+    const url = `${this._BASE_URL}/Menu/IsMenuAllowed`;
+
+    return this._httpClient
+      .get<RetIsMenuAllowed>(url, { 'params': params, headers: headers })
+      .pipe(
+        take(1),
+        tap((response) => {
+          if (response.Error) {
+            throw Error(response.ErrorMessage);
+          }
+        })
+      );
+
+  }
+
+  // #endregion Menu: IsMenuAllowed
 
   // #endregion GET
 
