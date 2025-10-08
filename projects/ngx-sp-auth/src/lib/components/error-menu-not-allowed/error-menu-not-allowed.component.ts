@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthStorageService } from 'ngx-sp-auth';
 import { NgIf } from '@angular/common';
 import { InfraModule } from 'ngx-sp-infra';
+import { AuthStorageService } from '../../storage/auth-storage.service';
 
 @Component({
     selector: 'app-menu-not-allowed',
@@ -15,7 +15,7 @@ import { InfraModule } from 'ngx-sp-infra';
       InfraModule
     ]
 })
-export class Error404Component {
+export class ErrorMenuNotAllowed {
 
   constructor(private router: Router,
               public authStorageService: AuthStorageService
