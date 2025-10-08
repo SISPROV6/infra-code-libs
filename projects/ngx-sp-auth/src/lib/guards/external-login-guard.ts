@@ -15,7 +15,7 @@ export class ExternaLoginlGuard  {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private authStorageService: AuthStorageService,
+    private authStorageService: AuthStorageService
   ) { }
 
   canActivate(_route: ActivatedRouteSnapshot, _state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree

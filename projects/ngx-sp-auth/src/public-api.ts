@@ -21,6 +21,7 @@ export * from './lib/components/menu-lateral/menu/selecao-estabelecimentos-modal
 export * from './lib/components/menu-lateral/submenus/dynamic-menu/dynamic-menu.component';
 export * from './lib/components/menu-lateral/submenus/notif-submenu/notif-submenu.component';
 export * from './lib/components/nova-senha/nova-senhacomponent';
+export * from './lib/components/error-menu-not-allowed/error-menu-not-allowed.component';
 
 /** Models */
 export * from './lib/components/menu-lateral/model/imenu-item-structure.model';
@@ -45,6 +46,7 @@ export * from './lib/guards/auth-guard';
 export * from './lib/guards/external-login-guard';
 export * from './lib/guards/login-guard';
 export * from './lib/guards/login-os.guard';
+export * from './lib/guards/is-menu-allowed-guard';
 
 /** Interceptors */
 export * from './lib/interceptors/auth-aplic.interceptor';

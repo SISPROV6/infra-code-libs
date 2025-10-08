@@ -408,7 +408,7 @@ export class LoginComponent implements OnInit {
 					//Incialização de Senha
 					if (response.InitializePassword) {
 						let param: string = btoa(`true$${ this.dominio }$${ this.usuario }$${response.StatusSenha}`);
-						this._router.navigate([`auth/login/novaSenha/${ param }`]);
+						this._router.navigate([`auth/login/${ param }`]);
 						this._toastrService.success("Verifique no seu e-mail o código de validação.");
 					}
 	
@@ -464,7 +464,7 @@ export class LoginComponent implements OnInit {
 						//Incialização de Senha
 						if (response.InitializePassword) {
 							let param: string = btoa(`true$${ this.dominio }$${ this.usuarioAzure }$${response.StatusSenha}`);
-							this._router.navigate([`auth/login/novaSenha/${ param }`]);
+							this._router.navigate([`auth/login/${ param }`]);
 							this._toastrService.success("Verifique no seu e-mail o código de validação.");
 						}
 		
