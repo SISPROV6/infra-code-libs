@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-auth",
-  "version": "4.1.1",
-  "tag": "auth-v4.1.1",
-  "notes": "Implementação da validação de permissão de tela.",
-  "timestamp": "2025-10-08T18:57:29.605Z"
+  "project": "ngx-sp-views",
+  "version": "2.1.3",
+  "tag": "views-v2.1.3",
+  "notes": "Atualização de rotina",
+  "timestamp": "2025-10-07T17:17:43.560Z"
 }
