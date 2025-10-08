@@ -1,7 +1,7 @@
 import { IError } from "ngx-sp-infra";
 
-export class RetInfraUsuarioEmail implements IError{
+export class RetIsMenuAllowed implements IError{
   Error: boolean = false;
   ErrorMessage: string = "";
-  Email: string = "";
+  IsMenuAllowed: boolean = false;
 }
