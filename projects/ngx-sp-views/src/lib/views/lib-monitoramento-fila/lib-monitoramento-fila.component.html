@@ -1,0 +1,692 @@
+<lib-header
+  [breadcrumbList]="['Gerais', 'Monitoramento de fila']"
+  [pageTitle]="'Monitoramento de fila'"
+>
+  <button class="btn btn-primary" (click)="onOpenLogsModal(modalLogs)" *ngIf="this.isGlobalQueue">
+    <lib-icon iconName="auditoria" /> Ver Logs
+  </button>
+</lib-header>
+
+<div class="mb-2 d-flex gap-3">
+  <div *ngIf="this.numeroAgendados > 0">
+    <a
+      (click)="onOpenModelAgendados(modalAgendados)"
+      class="text-primary text-decoration-none fw-bold glb-cursor-pointer"
+      tooltip="Editar/Visualizar"
+      >Agendamentos para hoje
+      <span class="badge text-bg-primary">{{ this.numeroAgendados }}</span></a
+    >
+  </div>
+  <div *ngIf="this.numeroFalhas > 0">
+    <a
+      (click)="onOpenModelFalhas(modalFalhas)"
+      class="text-danger text-decoration-none fw-bold glb-cursor-pointer"
+      tooltip="Editar/Visualizar"
+      >Tarefas com falhas hoje
+      <span class="badge text-bg-danger">{{ this.numeroFalhas }}</span></a
+    >
+  </div>
+</div>
+
+<div class="row info-box mb-3 mt-3">
+  <!-- Processando -->
+  <div class="col">
+    <div class="glb-card text-center">
+      <div
+        class="card-body card-processando"
+        [class.active]="selectedCard === 1"
+        (click)="toggleCardSelection(1)"
+        tabindex="0"
+      >
+        <!-- tabindex para foco acessível -->
+        <h1 class="glb-card-title">Processando</h1>
+        <ng-container *ngIf="isLoadingCard">
+          <lib-spinner type="grow"></lib-spinner>
+        </ng-container>
+        <ng-container *ngIf="!isLoadingCard">
+          <span class="glb-card-count fs-4">{{ countProcessando }}</span>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pendente -->
+  <div class="col">
+    <div class="glb-card text-center">
+      <div
+        class="card-body card-pendente"
+        [class.active]="selectedCard === 2"
+        (click)="toggleCardSelection(2)"
+        tabindex="0"
+      >
+        <h1 class="glb-card-title">Pendente</h1>
+        <span class="glb-card-count fs-4">{{ countPendente }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Concluído -->
+  <div class="col">
+    <div class="glb-card text-center">
+      <div
+        class="card-body card-concluido"
+        [class.active]="selectedCard === 3"
+        (click)="toggleCardSelection(3)"
+        tabindex="0"
+      >
+        <h1 class="glb-card-title">Concluído</h1>
+        <span class="glb-card-count fs-4">{{ countConcluido }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Com falha -->
+  <div class="col">
+    <div class="glb-card text-center">
+      <div
+        class="card-body card-falha"
+        [class.active]="selectedCard === 4"
+        (click)="toggleCardSelection(4)"
+        tabindex="0"
+      >
+        <h1 class="glb-card-title">Com falha</h1>
+        <span class="glb-card-count fs-4">{{ countFalha }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cancelado -->
+  <div class="col">
+    <div class="glb-card text-center">
+      <div
+        class="card-body card-cancelado"
+        [class.active]="selectedCard === 5"
+        (click)="toggleCardSelection(5)"
+        tabindex="0"
+      >
+        <h1 class="glb-card-title">Cancelado</h1>
+        <span class="glb-card-count fs-4">{{ countCancelado }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Abandonado -->
+  <div class="col">
+    <div class="glb-card text-center">
+      <div
+        class="card-body card-abandonado"
+        [class.active]="selectedCard === 6"
+        (click)="toggleCardSelection(6)"
+        tabindex="0"
+      >
+        <h1 class="glb-card-title">Abandonado</h1>
+        <span class="glb-card-count fs-4">{{ countAbandonado }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<lib-container>
+  <div innerContent1>
+    <div class="mb-4">
+      <lib-basic-filters
+        [placeholder]="'Buscar por endpoint'"
+        [useIsActive]="false"
+        (_executeGetBySearch)="getTable($event)"
+      />
+    </div>
+    <p *ngIf="isDadosAtualizados" class="fst-italic opacity-75">
+      Dados atualizados até {{ horaFormatada }}. Atualize a página para receber
+      os dados mais recentes.
+    </p>
+
+    <div class="mb-4">
+      @if(this.isGlobalQueue){
+      <lib-table
+        [list]="infraQueueTableRows"
+        [counts]="[5, 10, 15]"
+        paginationID="simpleTable"
+        [headers]="[
+          { name: 'Método', widthClass: 'w-10' },
+          { name: 'Domínio', widthClass: 'w-10' },
+          { name: 'Tenant Id', widthClass: 'w-10' },
+          { name: 'Status', widthClass: 'w-10', customClasses: 'text-center' },
+          { name: 'Data de criação', widthClass: 'w-15' },
+          { name: 'Data de agendamento', widthClass: 'w-12' },
+          { name: 'Endpoint', widthClass: 'w-20' },
+          {
+            name: 'Re-tentativas',
+            widthClass: 'w-8',
+            customClasses: 'text-center'
+          },
+          { name: 'Execução paralela', widthClass: 'w-5' },
+          { name: '', widthClass: 'w-5' }
+        ]"
+        (itemsPerPageChange)="itemsPerPage = $event"
+        (pageChange)="page = $event"
+      >
+        @for (item of infraQueueTableRows! | paginate: { id: 'simpleTable',
+        itemsPerPage: itemsPerPage, currentPage: page }; track item) {
+        <tr innerRows class="align-middle">
+          <td>{{ item.HttpMethod }}</td>
+          <td>{{ item.Domain }}</td>
+          <td>{{ item.Tenant_Id }}</td>
+
+          <td class="text-center">
+            <span [class]="statusClasses[item.Status].classes">{{
+              item.Status
+            }}</span>
+          </td>
+          <td>{{ item.CreateDate | date : "dd/MM/yyyy, HH:mm:ss" }}</td>
+          <td>
+            {{
+              (item.ScheduleDate | date : "dd/MM/yyyy, HH:mm:ss") ==
+              "01/01/1900, 00:00:00"
+                ? ""
+                : (item.ScheduleDate | date : "dd/MM/yyyy, HH:mm:ss")
+            }}
+          </td>
+          <td>
+            <span [tooltip]="item.Endpoint">
+              {{
+                item.Endpoint.length > 50
+                  ? (item.Endpoint | slice : 0 : 50) + "..."
+                  : item.Endpoint
+              }}
+            </span>
+          </td>
+          <td class="text-center">{{ item.Attempts }}</td>
+          <td class="text-center">
+            <lib-icon
+              [iconName]="item.IsParallel ? 'check' : 'fechar'"
+              [iconColor]="item.IsParallel ? 'green' : 'red'"
+            ></lib-icon>
+          </td>
+          <td class="text-end">
+            <lib-icon
+              *ngIf="item.Status == 'PENDENTE'"
+              iconName="fechar"
+              iconColor="blue"
+              class="glb-cursor-pointer"
+              tooltip="Retirar da fila"
+              (click)="this.Dequeue(item.Id)"
+            ></lib-icon>
+            <lib-icon
+              iconName="olho"
+              class="glb-cursor-pointer"
+              (click)="onOpenModalDetails(item.Id, modalDetails)"
+            ></lib-icon>
+            <lib-icon
+              iconName="auditoria"
+              class="glb-cursor-pointer"
+              tooltip="Ver Logs"
+              (click)="onOpenModalLogs(item.Id, logDetails)"
+            ></lib-icon>
+          </td>
+        </tr>
+        }
+      </lib-table>
+
+      }@else {
+      <lib-table
+        [list]="infraQueueTableRows"
+        [counts]="[5, 10, 15]"
+        paginationID="simpleTable"
+        [headers]="[
+          { name: 'Método', widthClass: 'w-10' },
+          { name: 'Status', widthClass: 'w-10', customClasses: 'text-center' },
+          { name: 'Data de criação', widthClass: 'w-15' },
+          { name: 'Data de agendamento', widthClass: 'w-15' },
+          { name: 'Endpoint', widthClass: 'w-30' },
+          {
+            name: 'Re-tentativas',
+            widthClass: 'w-10',
+            customClasses: 'text-center'
+          },
+          { name: 'Execução paralela', widthClass: 'w-10' },
+          { name: '', widthClass: 'w-5' }
+        ]"
+        (itemsPerPageChange)="itemsPerPage = $event"
+        (pageChange)="page = $event"
+      >
+        @for (item of infraQueueTableRows! | paginate: { id: 'simpleTable',
+        itemsPerPage: itemsPerPage, currentPage: page }; track item) {
+        <tr innerRows class="align-middle">
+          <td>{{ item.HttpMethod }}</td>
+          <td class="text-center">
+            <span [class]="statusClasses[item.Status].classes">{{
+              item.Status
+            }}</span>
+          </td>
+          <td>{{ item.CreateDate | date : "dd/MM/yyyy, HH:mm:ss" }}</td>
+          <td>
+            {{
+              (item.ScheduleDate | date : "dd/MM/yyyy, HH:mm:ss") ==
+              "01/01/1900, 00:00:00"
+                ? ""
+                : (item.ScheduleDate | date : "dd/MM/yyyy, HH:mm:ss")
+            }}
+          </td>
+          <td>
+            <span [tooltip]="item.Endpoint">
+              {{
+                item.Endpoint.length > 50
+                  ? (item.Endpoint | slice : 0 : 50) + "..."
+                  : item.Endpoint
+              }}
+            </span>
+          </td>
+          <td class="text-center">{{ item.Attempts }}</td>
+          <td class="text-center">
+            <lib-icon
+              [iconName]="item.IsParallel ? 'check' : 'fechar'"
+              [iconColor]="item.IsParallel ? 'green' : 'red'"
+            ></lib-icon>
+          </td>
+          <td class="text-end">
+            <div class="d-flex gap-2">
+              <lib-icon
+                *ngIf="item.Status == 'PENDENTE'"
+                iconName="fechar"
+                iconColor="blue"
+                class="glb-cursor-pointer"
+                tooltip="Retirar da fila"
+                (click)="this.Dequeue(item.Id)"
+              ></lib-icon>
+              <lib-icon
+                iconName="olho"
+                class="glb-cursor-pointer"
+                tooltip="Ver detalhes"
+                (click)="onOpenModalDetails(item.Id, modalDetails)"
+              ></lib-icon>
+            </div>
+          </td>
+        </tr>
+        }
+      </lib-table>
+      }
+    </div>
+  </div>
+</lib-container>
+
+<div class="d-flex gap-3">
+  <div class="glb-card flex-grow-1 w-50">
+    <app-error-chart></app-error-chart>
+  </div>
+
+  <div class="glb-card flex-grow-1 w-50">
+    <app-error-semanal-chart></app-error-semanal-chart>
+  </div>
+</div>
+
+<ng-template #modalAgendados>
+  <div class="p-4">
+    <div class="d-flex justify-content-between mb-4">
+      <h3 class="glb-fs-18 glb-fw-600 mt-2">Agendados para hoje</h3>
+      <lib-icon
+        (click)="this.modalUtils.closeModal(1)"
+        iconName="fechar"
+      ></lib-icon>
+    </div>
+    <hr />
+
+    <div class="mb-4">
+      <lib-table
+        [list]="agendadosTableRows"
+        [counts]="[5, 10, 15]"
+        paginationID="simpleTableAgendamento"
+        [headers]="[
+          { name: 'Método', widthClass: 'w-10' },
+          { name: 'Status', widthClass: 'w-10' },
+          { name: 'Data de criação', widthClass: 'w-15' },
+          { name: 'Data de agendamento', widthClass: 'w-15' },
+          { name: 'Endpoint', widthClass: 'w-25' },
+          { name: 'Re-tentativas', widthClass: 'w-10' }
+        ]"
+        (itemsPerPageChange)="agendadositemsPerPage = $event"
+        (pageChange)="agendadospage = $event"
+      >
+        @for (item of agendadosTableRows! | paginate: { id:
+        'simpleTableAgendamento', itemsPerPage: agendadositemsPerPage,
+        currentPage: agendadospage }; track item) {
+        <tr innerRows class="align-middle">
+          <td>{{ item.HttpMethod }}</td>
+          <td>
+            <span [class]="statusClasses[item.Status].classes">{{
+              item.Status
+            }}</span>
+          </td>
+          <td>{{ item.CreateDate | date : "dd/MM/yyyy, HH:mm:ss" }}</td>
+          <td>
+            {{
+              (item.ScheduleDate | date : "dd/MM/yyyy, HH:mm:ss") ==
+              "01/01/1900, 00:00:00"
+                ? ""
+                : (item.ScheduleDate | date : "dd/MM/yyyy, HH:mm:ss")
+            }}
+          </td>
+          <td>
+            <span [tooltip]="item.Endpoint">{{
+              item.Endpoint.length > 30
+                ? (item.Endpoint | slice : 0 : 30) + "..."
+                : item.Endpoint
+            }}</span>
+          </td>
+          <td class="text-end">{{ item.Attempts }}</td>
+        </tr>
+        }
+      </lib-table>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #modalFalhas>
+  <div class="p-4">
+    <div class="d-flex justify-content-between mb-4">
+      <h3 class="glb-fs-18 glb-fw-600 mt-2">Tarefas com falha hoje</h3>
+      <lib-icon
+        (click)="this.modalUtils.closeModal(2)"
+        iconName="fechar"
+      ></lib-icon>
+    </div>
+    <hr />
+
+    <div class="mb-4">
+      <lib-table
+        [list]="falhasTableRows"
+        [counts]="[5, 10, 15]"
+        paginationID="simpleTableFalhas"
+        [headers]="[
+          { name: 'Método', widthClass: 'w-10' },
+          { name: 'Status', widthClass: 'w-10' },
+          { name: 'Data de criação', widthClass: 'w-15' },
+          { name: 'Data de agendamento', widthClass: 'w-15' },
+          { name: 'Endpoint', widthClass: 'w-25' },
+          { name: 'Re-tentativas', widthClass: 'w-10' }
+        ]"
+        (itemsPerPageChange)="falhasitemsPerPage = $event"
+        (pageChange)="falhaspage = $event"
+      >
+        @for (item of falhasTableRows! | paginate: { id: 'simpleTableFalhas',
+        itemsPerPage: falhasitemsPerPage, currentPage: falhaspage }; track item)
+        {
+        <tr
+          innerRows
+          class="align-middle glb-cursor-pointer"
+          (click)="this.navigateFromModalToDetailsModal(item.Id, modalDetails,2)"
+        >
+          <td>{{ item.HttpMethod }}</td>
+          <td>
+            <span [class]="statusClasses[item.Status].classes">{{
+              item.Status
+            }}</span>
+          </td>
+          <td>{{ item.CreateDate | date : "dd/MM/yyyy, HH:mm:ss" }}</td>
+          <td>
+            {{
+              (item.ScheduleDate | date : "dd/MM/yyyy, HH:mm:ss") ==
+              "01/01/1900, 00:00:00"
+                ? ""
+                : (item.ScheduleDate | date : "dd/MM/yyyy, HH:mm:ss")
+            }}
+          </td>
+          <td>
+            <span [tooltip]="item.Endpoint">{{
+              item.Endpoint.length > 30
+                ? (item.Endpoint | slice : 0 : 30) + "..."
+                : item.Endpoint
+            }}</span>
+          </td>
+          <td class="text-end">{{ item.Attempts }}</td>
+        </tr>
+        }
+      </lib-table>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #modalLogs>
+  <div class="mb-4 p-4">
+    <div class="mb-4">
+      <lib-basic-filters
+        [placeholder]="'Buscar por Status, ID da tarefa ou Mensagem'"
+        [useIsActive]="false"
+        (_executeGetBySearch)="GetLogs($event)"
+      />
+    </div>
+    <lib-table
+      [list]="logsTableRows"
+      [counts]="[5, 10, 15]"
+      paginationID="simpleTableLogs"
+      [headers]="[
+        { name: 'Data', widthClass: 'w-15' },
+        { name: 'Status', widthClass: 'w-10' },
+        { name: 'Mensagem de Erro', widthClass: 'w-20' },
+        { name: 'Stack Trace', widthClass: 'w-30' },
+        { name: 'ID da tarefa', widthClass: 'w-10' }
+      ]"
+      (itemsPerPageChange)="falhasitemsPerPage = $event"
+      (pageChange)="falhaspage = $event"
+    >
+      @for (item of logsTableRows! | paginate: { id: 'simpleTableLogs',
+      itemsPerPage: falhasitemsPerPage, currentPage: falhaspage }; track item) {
+      <tr innerRows class="align-middle glb-cursor-pointer" (click)="navigateFromModalToLogsModal(item.TaskId, logDetails,3)">
+        <td>{{ item.DtHora | date : "dd/MM/yyyy, HH:mm:ss" }}</td>
+        <td>
+          <span [class]="LogStatusClasses[item.Nivel].classes">{{
+            item.Nivel
+          }}</span>
+        </td>
+        <td>
+          <span [tooltip]="item.Msg">{{
+            item.Msg.length > 30
+              ? (item.Msg | slice : 0 : 30) + "..."
+              : item.Msg
+          }}</span>
+        </td>
+        <td>
+          <span [tooltip]="item.StackTrace">{{
+            item.StackTrace.length > 30
+              ? (item.StackTrace | slice : 0 : 30) + "..."
+              : item.StackTrace
+          }}</span>
+        </td>
+
+        <td class="text-end">{{ item.TaskId }}</td>
+      </tr>
+      }
+    </lib-table>
+  </div>
+</ng-template>
+
+<ng-template #modalDetails>
+  <div class="p-4" *ngIf="!this.isLoadingModal; else loading">
+    <div class="row">
+      @if(!this.showParamDetails){
+      <div class="mb-1 col-3 d-flex gap-2">
+        <span class="fw-bold">Domínio: </span>
+        <span>{{ this.infraQueueRecord.Domain }}</span>
+      </div>
+      <div class="mb-1 col-3 d-flex gap-2">
+        <span class="fw-bold">Tenant Id: </span>
+        <span>{{ this.infraQueueRecord.Tenant_Id }}</span>
+      </div>
+      <div class="d-flex justify-content-end align-items-start col-6">
+        <span [class]="statusClasses[this.infraQueueRecord.Status].classes">{{
+          this.infraQueueRecord.Status
+        }}</span>
+      </div>
+      }@else {
+      <div class="d-flex align-items-start">
+        <span (click)="this.showParamDetails = false" class="text-download"
+          ><lib-icon iconName="seta-esquerda"> </lib-icon>Voltar</span
+        >
+      </div>
+      }
+      <hr />
+    </div>
+    @if(!this.showParamDetails){
+    <ng-container>
+      <div class="d-flex justify-content-end">
+        <span
+          (click)="onShowBodyParams()"
+          *ngIf="
+            this.infraQueueRecord.BodyParameter != null &&
+            this.infraQueueRecord.BodyParameter != ''
+          "
+          class="text-end text-download glb-cursor-pointer"
+          >Ver parâmetros do corpo da req.<lib-icon iconName="seta-direita"
+        /></span>
+      </div>
+      <div class="mb-1 d-flex gap-2">
+        <span class="fw-bold">Método HTTP: </span>
+        <span>{{ this.infraQueueRecord.HttpMethod }}</span>
+      </div>
+      <div class="row">
+        <div class="mb-1 col-6 d-flex gap-2">
+          <span class="fw-bold">Data de criação: </span>
+          <span>{{
+            Utils.getDateddMMyyyyHhmmss(this.infraQueueRecord.CreateDate)
+          }}</span>
+        </div>
+        <div class="mb-1 col-6 d-flex gap-2">
+          <span class="fw-bold">Data de agendamento: </span>
+          <span>{{
+            Utils.getDateddMMyyyyHhmmss(
+              this.infraQueueRecord.ScheduleDate
+            ).includes("01/01/1900")
+              ? "Imediato"
+              : Utils.getDateddMMyyyyHhmmss(this.infraQueueRecord.ScheduleDate)
+          }}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="mb-1 col-12 d-flex gap-2">
+          <span class="fw-bold">Endpoint: </span>
+          <span style="max-width: 90%; word-wrap: break-word">{{
+            infraQueueRecord.Endpoint
+          }}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="mb-1 col-6 d-flex gap-2">
+          <span class="fw-bold">Re-tentativas de execução: </span>
+          <span>{{ this.infraQueueRecord.Attempts }}</span>
+        </div>
+        <div class="mb-1 col-6 d-flex gap-2">
+          <span class="fw-bold">Última atualização: </span>
+          <span>{{
+            Utils.getDateddMMyyyyHhmmss(
+              this.infraQueueRecord.LastUpdate
+            ).includes("01/01/1900")
+              ? "Ainda não recebeu atualizações"
+              : Utils.getDateddMMyyyyHhmmss(this.infraQueueRecord.LastUpdate)
+          }}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="mb-1 col-6 d-flex gap-2">
+          <span class="fw-bold">É executado em paralelo? </span>
+          <span
+            ><lib-icon
+              [iconName]="infraQueueRecord.IsParallel ? 'check' : 'fechar'"
+              [iconColor]="infraQueueRecord.IsParallel ? 'green' : 'red'"
+            ></lib-icon
+          ></span>
+        </div>
+      </div>
+      <div class="row mb-4">
+        <div class="d-flex justify-content-end">
+          <span class="fw-bold"
+            >Enfileirado pelo usuário {{ infraQueueRecord.UserName }}</span
+          >
+        </div>
+      </div>
+    </ng-container>
+    }@else {
+    <ng-container>
+      <div class="mb-4">
+        {{ this.infraQueueRecord.BodyParameter }}
+      </div>
+    </ng-container>
+    }
+    <div class="d-flex justify-content-end gap-3">
+      <button
+        (click)="onCloseDetailsModal()"
+        class="btn btn-outline-primary glb-cursor-pointer"
+      >
+        <lib-icon iconName="fechar"></lib-icon> Fechar
+      </button>
+      <button *ngIf="this.isGlobalQueue"
+        (click)="navigateFromModalToLogsModal(this.infraQueueRecord.Id, logDetails, 1); this.showParamDetails = false;"
+        class="btn btn-primary glb-cursor-pointer"
+      >
+        <lib-icon iconName="auditoria"></lib-icon> Ver Log
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #logDetails >
+  <div class="p-4" *ngIf="!this.isLoadingModal; else loading">
+    <div class="row">
+      <div class="mb-1 col-3 d-flex gap-2">
+        <span class="fw-bold">Domínio: </span>
+        <span>{{ this.logInfraQueueRecord.DominioOrigem }}</span>
+      </div>
+      <div class="mb-1 col-3 d-flex gap-2">
+        <span class="fw-bold">Tenant Id: </span>
+        <span>{{ this.logInfraQueueRecord.Tenant_Id }}</span>
+      </div>
+      <div class="d-flex justify-content-end align-items-start col-6">
+        <span [class]="LogStatusClasses[logInfraQueueRecord.Nivel].classes">{{
+          logInfraQueueRecord.Nivel
+        }}</span>
+      </div>
+    </div>
+    <hr />
+    <div class="row mb-4">
+      <div class="col-6">
+        <span class="fw-bold">Data/Hora:</span><span> {{Utils.getDateddMMyyyyHhmmss(logInfraQueueRecord.DtHora)}}</span>
+      </div>
+      <div class="col-6">
+        <span class="fw-bold">ID da Tarefa:</span><span> {{logInfraQueueRecord.TaskId}}</span>
+      </div>
+    </div>
+    <div class="row mb-4">
+      <div class="col-12">
+        <span class="fw-bold">Mensagem de erro:</span>
+        <span style="max-width: 90%; word-wrap: break-word"> {{logInfraQueueRecord.Msg}}</span>
+      </div>
+     
+    </div>
+    <div class="row mb-4" *ngIf="logInfraQueueRecord.StackTrace != null && logInfraQueueRecord.StackTrace != ''">
+      <div class="col-12">
+        <span class="fw-bold">Stack Trace:</span>
+        <span style="max-width: 90%; word-wrap: break-word"> {{logInfraQueueRecord.StackTrace}}</span>
+      </div>
+     
+    </div>
+    <div class="d-flex justify-content-end gap-3">
+      <button
+        (click)="modalUtils.closeModal(1)"
+        class="btn btn-outline-primary glb-cursor-pointer"
+      >
+        <lib-icon iconName="fechar"></lib-icon> Fechar
+      </button>
+      <button
+        (click)="navigateFromModalToDetailsModal(this.logInfraQueueRecord.TaskId, modalDetails, 1)"
+        class="btn btn-primary glb-cursor-pointer"
+      >
+        <lib-icon iconName="olho"></lib-icon> Ver detalhes da tarefa
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #loading>
+  <div class="d-flex justify-content-center align-items-center py-4">
+    <lib-spinner></lib-spinner>
+  </div>
+</ng-template>

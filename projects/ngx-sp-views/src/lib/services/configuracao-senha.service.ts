@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { InfraSegConfig, RetError, RetInfraSegConfig } from 'ngx-sp-infra';
+import {InfraSegConfig, RetError, RetInfraSegConfig } from 'ngx-sp-infra';
 import { Observable, take, tap } from 'rxjs';
 
 import { LibCustomConfigERPEnvironmentService } from '../custom/lib-custom-configerp-environment.service';

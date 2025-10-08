@@ -1,34 +1,59 @@
 <ng-container [ngSwitch]="typeInput">
 
-  <!-- Os inputs fazem parte de um input-group para facilitar a integração com ícones/botões na lateral -->
-  <div class="input-group">
-
-    <!-- Conteúdo referente ao addon do lado esquerdo -->
-    @if (leftAddon) { <ng-container *ngTemplateOutlet="leftAddon"></ng-container> }
-
+  <!-- Todos os inputs agora fazem parte de input-groups para facilitar a integração com ícones/botões na lateral -->
     <ng-container *ngSwitchCase="'date'">
-      <input type="date" class="form-control" id="dynamicInput_date"
-      [disabled]="disableInput ?? false" [(ngModel)]="txConteudoCarac" (change)="sendEventUpdateCoCarac()">
+      <div class="input-group">
+        @if (leftAddon) { <ng-container *ngTemplateOutlet="leftAddon"></ng-container> }
+
+        <input type="date" class="form-control" id="dynamicInput_date"
+          [disabled]="disableInput ?? false" [(ngModel)]="txConteudoCarac" (change)="sendEventUpdateCoCarac()">
+
+        @if (rightAddon) { <ng-container *ngTemplateOutlet="rightAddon"></ng-container> }
+      </div>
     </ng-container>
   
     <ng-container *ngSwitchCase="'integer'">
-      <input type="text" class="form-control" id="dynamicInput_integer" [mask]="intMask" placeholder="Números Inteiros"
-      [disabled]="disableInput ?? false" [(ngModel)]="txConteudoCarac" (change)="sendEventUpdateCoCarac()">
+      <div class="input-group">
+        @if (leftAddon) { <ng-container *ngTemplateOutlet="leftAddon"></ng-container> }
+
+        <input type="text" class="form-control" id="dynamicInput_integer" [mask]="intMask" placeholder="Números Inteiros"
+          [disabled]="disableInput ?? false" [(ngModel)]="txConteudoCarac" (change)="sendEventUpdateCoCarac()">
+
+        @if (rightAddon) { <ng-container *ngTemplateOutlet="rightAddon"></ng-container> }
+      </div>
     </ng-container>
   
     <ng-container *ngSwitchCase="'decimal'">
-      <input type="text" class="form-control" id="dynamicInput_decimal" currencyMask [options]="{ precision: qtDecimais }" placeholder="Conteúdo Decimal"
-      [disabled]="disableInput ?? false" [(ngModel)]="txConteudoCarac" (keyup)="sendEventUpdateCoCarac()">
+      <div class="input-group">
+        @if (leftAddon) { <ng-container *ngTemplateOutlet="leftAddon"></ng-container> }
+
+        <input type="text" class="form-control" id="dynamicInput_decimal" currencyMask [options]="{ precision: qtDecimais }" placeholder="Conteúdo Decimal"
+          [disabled]="disableInput ?? false" [(ngModel)]="txConteudoCarac" (keyup)="sendEventUpdateCoCarac()">
+
+        @if (rightAddon) { <ng-container *ngTemplateOutlet="rightAddon"></ng-container> }
+      </div>
     </ng-container>
   
     <ng-container *ngSwitchCase="'phone'">
+      <div class="input-group">
+        @if (leftAddon) { <ng-container *ngTemplateOutlet="leftAddon"></ng-container> }
+
         <input type="text" class="form-control" id="dynamicInput_phone" [(ngModel)]="txConteudoCarac" (change)="sendEventUpdateCoCarac()"
-        [disabled]="disableInput ?? false" [showMaskTyped]="false" mask="(00) 0000-0000||(00) 00000-0000" [dropSpecialCharacters]="false">
+          [disabled]="disableInput ?? false" [showMaskTyped]="false" mask="(00) 0000-0000||(00) 00000-0000" [dropSpecialCharacters]="false">
+
+        @if (rightAddon) { <ng-container *ngTemplateOutlet="rightAddon"></ng-container> }
+      </div>
     </ng-container>
   
     <ng-container *ngSwitchCase="'text'">
-      <textarea type="text" maxlength="100" class="form-control" id="dynamicInput_text" placeholder="Texto Livre" rows="1"
-      [disabled]="disableInput ?? false" [(ngModel)]="txConteudoCarac" (change)="sendEventUpdateCoCarac()"></textarea>
+      <div class="input-group">
+        @if (leftAddon) { <ng-container *ngTemplateOutlet="leftAddon"></ng-container> }
+
+        <textarea type="text" maxlength="100" class="form-control" id="dynamicInput_text" placeholder="Texto Livre" rows="1"
+          [disabled]="disableInput ?? false" [(ngModel)]="txConteudoCarac" (change)="sendEventUpdateCoCarac()"></textarea>
+
+        @if (rightAddon) { <ng-container *ngTemplateOutlet="rightAddon"></ng-container> }
+      </div>
   
       @if (showCharacterCounter) {
         <div class="d-flex justify-content-end position-relative">
@@ -38,8 +63,14 @@
     </ng-container>
   
     <ng-container *ngSwitchCase="'longtext'">
-      <textarea type="text" maxlength="1000" class="form-control" id="dynamicInput_longtext" placeholder="Texto Livre" rows="1"
-      [disabled]="disableInput ?? false" [(ngModel)]="txConteudoCarac" (change)="sendEventUpdateCoCarac()"></textarea>
+      <div class="input-group">
+        @if (leftAddon) { <ng-container *ngTemplateOutlet="leftAddon"></ng-container> }
+
+        <textarea type="text" maxlength="1000" class="form-control" id="dynamicInput_longtext" placeholder="Texto Livre" rows="1"
+          [disabled]="disableInput ?? false" [(ngModel)]="txConteudoCarac" (change)="sendEventUpdateCoCarac()"></textarea>
+
+        @if (rightAddon) { <ng-container *ngTemplateOutlet="rightAddon"></ng-container> }
+      </div>
   
       @if (showCharacterCounter) {
         <div class="d-flex justify-content-end position-relative">
@@ -49,17 +80,25 @@
     </ng-container>
   
     <ng-container *ngSwitchCase="'time'">
-      <input type="time" class="form-control" id="dynamicInput_time" placeholder="Horário"
-      [disabled]="disableInput ?? false" [(ngModel)]="txConteudoCarac" (change)="sendEventUpdateCoCarac()">
+      <div class="input-group">
+        @if (leftAddon) { <ng-container *ngTemplateOutlet="leftAddon"></ng-container> }
+
+        <input type="time" class="form-control" id="dynamicInput_time" placeholder="Horário"
+          [disabled]="disableInput ?? false" [(ngModel)]="txConteudoCarac" (change)="sendEventUpdateCoCarac()">
+
+        @if (rightAddon) { <ng-container *ngTemplateOutlet="rightAddon"></ng-container> }
+      </div>
     </ng-container>
   
     <ng-container *ngSwitchCase="'datetime'">
-      <input type="datetime-local" class="form-control" id="dynamicInput_datetime" placeholder="Data e hora"
-      [disabled]="disableInput ?? false" [(ngModel)]="txConteudoCarac" (change)="sendEventUpdateCoCarac()">
-    </ng-container>
+      <div class="input-group">
+        @if (leftAddon) { <ng-container *ngTemplateOutlet="leftAddon"></ng-container> }
 
-    <!-- Conteúdo referente ao addon do lado direito -->
-    @if (rightAddon) { <ng-container *ngTemplateOutlet="rightAddon"></ng-container> }
-  </div>
+        <input type="datetime-local" class="form-control" id="dynamicInput_datetime" placeholder="Data e hora"
+          [disabled]="disableInput ?? false" [(ngModel)]="txConteudoCarac" (change)="sendEventUpdateCoCarac()">
+
+        @if (rightAddon) { <ng-container *ngTemplateOutlet="rightAddon"></ng-container> }
+      </div>
+    </ng-container>
 
 </ng-container>
