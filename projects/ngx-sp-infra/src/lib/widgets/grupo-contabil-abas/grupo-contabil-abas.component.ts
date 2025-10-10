@@ -23,12 +23,12 @@ export class GrupoContabilAbasComponent {
 
     if(window.location.host.includes("localhost")){
       this.linksList.push(
-      { nome: 'Grupo contabil', uri: `http://${window.location.host}/grupo-contabil/editar/${this.Id}`, isTargetSelf: true},
+      { nome: 'Grupo contabil', uri: `http://${window.location.host}/grupo-contabil-corp/editar/${this.Id}`, isTargetSelf: true},
       { nome: 'Dados compras', uri: `http://${window.location.host}/grupo-contabil/editar/${this.Id}`, isTargetSelf: false}
     );
     }else{
       this.linksList.push(
-      { nome: 'Grupo contabil', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/grupo-contabil/editar/${this.Id}`, isTargetSelf: true},
+      { nome: 'Grupo contabil', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/grupo-contabil-corp/editar/${this.Id}`, isTargetSelf: true},
       { nome: 'Dados compras', uri: `https://${window.location.host}/SisproErpCloud/Compras/grupo-contabil/editar/${this.Id}`, isTargetSelf: false},
     );
     }
