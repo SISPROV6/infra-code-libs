@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-infra",
-  "version": "6.3.1",
-  "tag": "infra-v6.3.1",
-  "notes": "Pesquisa removida da filtragem por ID no componente lib-combobox",
-  "timestamp": "2025-10-10T18:14:53.818Z"
+  "version": "6.3.2",
+  "tag": "infra-v6.3.2",
+  "notes": "Atualização de rotina",
+  "timestamp": "2025-10-10T20:05:36.914Z"
 }

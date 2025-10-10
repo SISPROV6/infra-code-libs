@@ -27,7 +27,7 @@ export class PessoaAbasComponent {
   public activeItem: string = '';
   public isFornecedor: boolean = false;
   public tipoPessoa: number = 0;
-  
+
   constructor(
     private router: Router,
     private _pessoasService: PessoaService,
@@ -68,7 +68,7 @@ export class PessoaAbasComponent {
     this.activeItem = this.router.url;
 
     this.VerifyList();
-    
+
   }
 
   public async GetPapeisSelected(): Promise<void> {
@@ -133,7 +133,7 @@ export class PessoaAbasComponent {
       {nome: 'Contabilidade', uri: `https://${window.location.host}/SisproErpCloud/Contabilidade/Participantes?CrpPessoaId=${this.Id}`, isTargetSelf: false},
     );
     }
-    
+
 
     if (this.hasPapel && this.tipoPessoa === 2 && this.isFornecedor) {
 
