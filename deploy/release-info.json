@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-infra",
-  "version": "6.3.3",
-  "tag": "infra-v6.3.3",
-  "notes": "Atualização de rotina",
-  "timestamp": "2025-10-14T16:53:35.672Z"
+  "version": "6.3.4",
+  "tag": "infra-v6.3.4",
+  "notes": "Novos ícones adicionados a pedido da equipe de Contratos, sendo eles: folha-dupla-engrenagem, folha-docx-2, pasta-seta-cima, lista-relogio",
+  "timestamp": "2025-10-15T12:42:08.059Z"
 }

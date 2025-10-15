@@ -1,7 +1,7 @@
 <div class="content">
   <div class="filters">
     
-    <lib-container [tabs]="[ 'Primeiro', 'Segundo' ]" [currentTab]="'Segundo'" [useBorder]="true" >
+    <lib-container [tabs]="[ 'Primeiro', 'Segundo', 'Ícones' ]" [currentTab]="'Ícones'" [useBorder]="true" >
       <div innerContent1 class="row">
         <div class="col-6">
           <label class="form-label" libRequired >Opções disponíveis</label>
@@ -26,6 +26,27 @@
               <span class="input-group-text" id="basic-addon1">R$</span>
             </ng-template>
           </lib-dynamic-input>
+        </div>
+      </div>
+
+      <div innerContent3>
+        <div class="d-flex justify-content-evenly gap-3">
+          <div class="text-center">
+            <p>folha-dupla-engrenagem</p>
+            <lib-icon iconName="folha-dupla-engrenagem" [iconSize]="42" />
+          </div>
+          <div class="text-center">
+            <p>folha-docx-2</p>
+            <lib-icon iconName="folha-docx-2" [iconSize]="42" />
+          </div>
+          <div class="text-center">
+            <p>pasta-seta-cima</p>
+            <lib-icon iconName="pasta-seta-cima" [iconSize]="42" />
+          </div>
+          <div class="text-center">
+            <p>lista-relogio</p>
+            <lib-icon iconName="lista-relogio" [iconSize]="42" />
+          </div>
         </div>
       </div>
     </lib-container>
