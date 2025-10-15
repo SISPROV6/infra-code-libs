@@ -2,9 +2,12 @@
   @if(telasItem.length) {
     @for(clickLink of telasItem; track $index) {
       <li class="nav-item">
-        <a class="nav-link" [target]="clickLink.IsExternal ? '_blank' : '_self'"
-        [href]="clickLink.IsExternal ? (GetExternalUrl(clickLink.urlPath))
-        : ('/SisproErpCloud/' + clickLink.urlPath)">{{ clickLink.titulo }}</a>
+        <a class="nav-link" [target]="clickLink.IsExternal ? '_blank' : '_self'" (click)="onTelaSelecionada.emit(clickLink.titulo)"
+          [href]="clickLink.IsExternal
+            ? getExternalUrl(clickLink.urlPath)
+            : '/SisproErpCloud/' + clickLink.urlPath" >
+          {{ clickLink.titulo }}
+        </a>
       </li>
     }
   }

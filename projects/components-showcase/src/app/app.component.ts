@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NavSubMenus, NavSubmenuSearchItem, SubMenuComponent } from 'ngx-sp-auth';
 import { FormUtils, InfraModule, } from 'ngx-sp-infra';
 
 @Component({
@@ -10,6 +11,7 @@ import { FormUtils, InfraModule, } from 'ngx-sp-infra';
     // NgClass,
 
     InfraModule,
+    SubMenuComponent,
     NgxPaginationModule,
   ],
   templateUrl: './app.component.html',
@@ -77,6 +79,17 @@ export class AppComponent implements OnInit {
   ];
 
   public disabledInputs: Map<string, boolean> = new Map<string, boolean>();
+
+
+  public listSubmenus: NavSubMenus[] = [];
+  private submenusTelas: NavSubmenuSearchItem[] =
+  [
+    {
+      icon: '',
+      titulo: '',
+      submenusUnicoId: [290, 291, 292, 293, 294]
+    }
+  ]
   // #endregion PUBLIC
 
   // #endregion ==========> PROPERTIES <==========
