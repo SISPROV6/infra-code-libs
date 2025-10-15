@@ -9,7 +9,8 @@
           <span class="fw-bold fs-4 ms-1">{{ subMenu.titulo }}</span>
         }
 
-        <app-nav-tabs [activeItem]="activeItem" [subMenus]="navSubmenus[$index].subMenuItem" [hostName]="hostNameOutSystems" />
+        <app-nav-tabs [activeItem]="activeItem" [subMenus]="navSubmenus[$index].subMenuItem" [hostName]="hostNameOutSystems"
+          (onTelaSelecionada)="onTelaSelecionada.emit($event)" (onTituloSelecionado)="onTituloSelecionado.emit($event)" />
       </div>
 
       @if(!$last){ <hr /> }

@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-infra",
-  "version": "6.3.5",
-  "tag": "infra-v6.3.5",
-  "notes": "Ajuste nos nomes dos ícones previamente liberados: g-folha-dupla-engrenagem, g-folha-docx-2, g-pasta-seta-cima, p-lista-relogio",
-  "timestamp": "2025-10-15T13:12:52.816Z"
+  "project": "ngx-sp-auth",
+  "version": "4.1.2",
+  "tag": "auth-v4.1.2",
+  "notes": "Correção no componente de SubMenu com um novo parâmetro [activeItem] e eventos (onTituloSelecionado) e (onTelaSelecionada)",
+  "timestamp": "2025-10-15T20:34:28.370Z"
 }

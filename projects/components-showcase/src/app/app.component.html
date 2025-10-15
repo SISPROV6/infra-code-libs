@@ -1,7 +1,7 @@
 <div class="content">
   <div class="filters">
     
-    <lib-container [tabs]="[ 'Primeiro', 'Segundo', 'Ícones' ]" [currentTab]="'Ícones'" [useBorder]="true" >
+    <lib-container [tabs]="[ 'Primeiro', 'Segundo', 'Ícones', 'Crads de submenu' ]" [currentTab]="'Ícones'" [useBorder]="true" >
       <div innerContent1 class="row">
         <div class="col-6">
           <label class="form-label" libRequired >Opções disponíveis</label>
@@ -48,6 +48,10 @@
             <lib-icon iconName="p-lista-relogio" [iconSize]="42" />
           </div>
         </div>
+      </div>
+
+      <div innerContent4>
+        <app-nav-sub-menu [navSubmenus]="listSubmenus" [activeItem]="'Gestão de períodos'" ></app-nav-sub-menu>
       </div>
     </lib-container>
 
