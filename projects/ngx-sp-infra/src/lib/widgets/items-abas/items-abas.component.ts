@@ -23,13 +23,15 @@ export class ItemsAbasComponent {
 
     if(window.location.host.includes("localhost")){
       this.linksList.push(
+      { nome: 'Corporativo', uri: `http://${window.location.host}/itens/editar/${this.Id}`, isTargetSelf: true},
       { nome: 'Estoque', uri: `http://${window.location.host}/SpEtq1Etq/ItemParaSuprimentos/editar/${this.Id}`, isTargetSelf: true},
-      {nome: 'Dados Compras', uri: `http://${window.location.host}/SpCopConfiguracoes/ItemDadosCompras/editar/${this.Id}`, isTargetSelf: false},
+      {nome: 'Dados Compras', uri: `http://${window.location.host}/item-dados-compras/editar/${this.Id}`, isTargetSelf: false},
     );
     }else{
       this.linksList.push(
+      { nome: 'Corporativo', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/itens/editar/${this.Id}`, isTargetSelf: true},
       { nome: 'Estoque', uri: `https://${window.location.host}/SisproErpCloud/Estoque/SpEtq1Etq/ItemParaSuprimentos/editar/${this.Id}`, isTargetSelf: true},
-      {nome: 'Dados Compras', uri: `https://${window.location.host}/SisproErpCloud/Compras/SpCopConfiguracoes/ItemDadosCompras/editar/${this.Id}`, isTargetSelf: false},
+      {nome: 'Dados Compras', uri: `https://${window.location.host}/SisproErpCloud/Compras/item-dados-compras/editar/${this.Id}`, isTargetSelf: false},
     );
     }
 

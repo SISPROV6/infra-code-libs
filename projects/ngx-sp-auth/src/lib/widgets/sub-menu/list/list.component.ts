@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TelaItem } from '../sub-menu.component';
 
 @Component({
@@ -10,16 +10,11 @@ import { TelaItem } from '../sub-menu.component';
 })
 export class ListComponent {
 
-  /**
-   *
-   */
-  constructor() {
-  }
-GetExternalUrl(url: string) {
-  return `${ this.hostName }/${ url }`;
-}
-
   @Input() telasItem  : TelaItem[] = [];
+  @Input() hostName:string = '';
 
-  @Input() hostName:string = "";
+  @Output() onTelaSelecionada: EventEmitter<string | null> = new EventEmitter<string | null>();
+
+  public getExternalUrl = (url: string) => { return `${ this.hostName }/${ url }`; }
+
 }
