@@ -1,7 +1,7 @@
 <ul class="menu my-3">
   @for(menu of subMenus; track $index) {
-    <li class="menu-item" (click)="abaActive(menu.titulo)" [class.active]="menu.titulo === listaAtiva">
-      <a class="glb-cursor-pointer" (click)="abaActive(menu.titulo)" [tabindex]="$index">
+    <li class="menu-item" (click)="setAbaAtiva(menu.titulo)" [class.active]="menu.titulo === listaAtiva">
+      <a class="glb-cursor-pointer" (click)="setAbaAtiva(menu.titulo)" [tabindex]="$index" >
         {{ menu.titulo }}
       </a>
     </li>
@@ -9,5 +9,5 @@
 </ul>
 
 @if (telasItem) {
-  <app-list [telasItem]="telasItem" [hostName]="hostName" />
+  <app-list [telasItem]="telasItem" [hostName]="hostName" (onTelaSelecionada)="onTelaSelecionada.emit($event)" />
 }

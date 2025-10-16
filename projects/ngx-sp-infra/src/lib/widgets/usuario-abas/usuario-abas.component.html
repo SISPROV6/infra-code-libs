@@ -1,7 +1,7 @@
 <ul class="menu">
     @for(item of linksList; track $index) {
     <li class="menu-item" [class.active]="item.uri.includes(activeItem)">
-        <a [href]="item.uri" class="glb-cursor-pointer" [tabindex]="$index">{{ item.nome }}</a>
+        <a [href]="item.uri" class="glb-cursor-pointer" [target]="!item.isTargetSelf ? '_blank' : '_self'" [tabindex]="$index">{{ item.nome }}</a>
     </li>
     }
 </ul>

@@ -11,9 +11,9 @@ import { links } from './models/links-record';
 })
 export class GrupoContabilAbasComponent {
 
-   public linksList: links[] = [];
-    @Input() Id: string | number = "";
-    @Output() GrupoContabilId = new EventEmitter<string | number>();
+  public linksList: links[] = [];
+  @Input() Id: string | number = "";
+  @Output() GrupoContabilId = new EventEmitter<string | number>();
 
   public activeItem: string = '';
 
@@ -21,16 +21,16 @@ export class GrupoContabilAbasComponent {
 
   ngOnInit(): void {
 
-    if(window.location.host.includes("localhost")){
+    if (window.location.host.includes("localhost")) {
       this.linksList.push(
-      { nome: 'Grupo contabil', uri: `http://${window.location.host}/grupo-contabil/editar/${this.Id}`, isTargetSelf: true},
-      { nome: 'Dados compras', uri: `http://${window.location.host}/grupo-contabil/editar/${this.Id}`, isTargetSelf: false}
-    );
-    }else{
+        { nome: 'Grupo contábil', uri: `http://${window.location.host}/grupo-contabil/editar/${this.Id}`, isTargetSelf: true },
+        { nome: 'Dados compras', uri: `https://siscandesv6.sispro.com.br/SisproErpCloud/Compras/grupo-contabil/editar/${this.Id}`, isTargetSelf: false }
+      );
+    } else {
       this.linksList.push(
-      { nome: 'Grupo contabil', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/grupo-contabil/editar/${this.Id}`, isTargetSelf: true},
-      { nome: 'Dados compras', uri: `https://${window.location.host}/SisproErpCloud/Compras/grupo-contabil/editar/${this.Id}`, isTargetSelf: false},
-    );
+        { nome: 'Grupo contábil', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/grupo-contabil/editar/${this.Id}`, isTargetSelf: true },
+        { nome: 'Dados compras', uri: `https://${window.location.host}/SisproErpCloud/Compras/grupo-contabil/editar/${this.Id}`, isTargetSelf: false },
+      );
     }
 
     this.activeItem = this.router.url;
@@ -38,9 +38,9 @@ export class GrupoContabilAbasComponent {
   }
 
 
-    ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges) {
     if (changes['Id'] && changes['Id'].currentValue) {
-        this.GrupoContabilId.emit(this.Id);
+      this.GrupoContabilId.emit(this.Id);
     }
   }
 

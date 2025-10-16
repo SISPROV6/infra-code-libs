@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ContentContainerComponent, LibIconsComponent } from 'ngx-sp-infra';
 import { MenuServicesService } from '../../../public-api';
 import { ProjectUtilservice } from '../../project/project-utils.service';
@@ -42,6 +42,9 @@ export class SubMenuComponent implements OnInit {
   @Input() hostname: string = "https://siscandesv6.sispro.com.br";
   @Input() activeItem?: string;
 
+  @Output() onTituloSelecionado: EventEmitter<string | null> = new EventEmitter<string | null>();
+  @Output() onTelaSelecionada: EventEmitter<string | null> = new EventEmitter<string | null>();
+
   public hostNameOutSystems: string = "";
   public listaSubMenus: SubMenuItem[] = [];
   // #endregion PUBLIC
@@ -55,7 +58,8 @@ export class SubMenuComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.GetHostName();
+    this.getHostName();
+
     if (
       this.navSubmenus.length > 0 &&
       this.navSubmenus[0].subMenuItem &&
@@ -69,13 +73,13 @@ export class SubMenuComponent implements OnInit {
 
 
   // #region ==========> UTILS <==========
-  public listaFunction(): void {
+  private listaFunction(): void {
     for(let i = 0; i < this.navSubmenus.length; i++) {
       this.listaSubMenus.push(...this.navSubmenus[i].subMenuItem);
     }
   }
 
-  public GetHostName(): void {
+  private getHostName(): void {
     this._menuService.GetHostServerOutSystems().subscribe({
       next: response => this.hostNameOutSystems = response.String,
       error: error => this._projectUtil.showHttpError(error)
