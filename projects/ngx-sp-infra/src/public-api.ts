@@ -49,6 +49,7 @@ export * from './lib/models/utils/ipagination';
 export * from './lib/models/utils/ret-error';
 export * from './lib/models/utils/ret-feedback-message';
 export * from './lib/widgets/lib-nav-produtos/models/navigation-options.model';
+export * from './lib/widgets/search-input/models/ITelaRota';
 
 /** Pipes */
 export * from './lib/directives/a11y-click.directive';

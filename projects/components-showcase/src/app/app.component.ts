@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { NavSubMenus, NavSubmenuSearchItem, SubMenuComponent } from 'ngx-sp-auth';
-import { FormUtils, InfraModule, } from 'ngx-sp-infra';
+import { FormUtils, InfraModule, ITelaRota, } from 'ngx-sp-infra';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +10,6 @@ import { FormUtils, InfraModule, } from 'ngx-sp-infra';
     // NgClass,
 
     InfraModule,
-    SubMenuComponent,
     NgxPaginationModule,
   ],
   templateUrl: './app.component.html',
@@ -80,16 +78,21 @@ export class AppComponent implements OnInit {
 
   public disabledInputs: Map<string, boolean> = new Map<string, boolean>();
 
-
-  public listSubmenus: NavSubMenus[] = [];
-  private submenusTelas: NavSubmenuSearchItem[] =
-  [
-    {
-      icon: '',
-      titulo: '',
-      submenusUnicoId: [290, 291, 292, 293, 294]
-    }
-  ]
+  public customRoutes: ITelaRota[] = [
+    { icon: 'pp-menu-corporativo-ativo', modulo: 'Corporativo', menu: 'Administração', submenu: 'Usuários', label: 'Gestão de Usuários', route: 'gestao-usuarios' },
+    { icon: 'pp-menu-corporativo-ativo', modulo: 'Corporativo', menu: 'Administração', submenu: 'Empresas', label: 'Gestão de Empresas', route: 'gestao-empresas' },
+    { icon: 'pp-menu-corporativo-ativo', modulo: 'Corporativo', menu: 'Configurações', submenu: 'Listas Dinâmicas', label: 'Listas Dinâmicas', route: 'listas-dinamicas' },
+    { icon: 'pp-menu-corporativo-ativo', modulo: 'Corporativo', menu: 'Configurações', submenu: 'Auditoria', label: 'Auditoria do Sistema', route: 'auditoria' },
+    { icon: 'pp-menu-corporativo-ativo', modulo: 'Corporativo', menu: 'Pessoas', label: 'Pessoas', route: 'pessoas' },
+    { icon: 'pp-menu-corporativo-ativo', modulo: 'Corporativo', label: 'Controle de Acesso', route: 'controle-acesso' },
+    { icon: 'p-engrenagem', modulo: 'ERP Center', label: 'Cadastro de Produtos', route: 'produtos' },
+    { icon: 'pp-menu-completo-contrato-ativo', modulo: 'Contratos', menu: 'Administração', submenu: 'Usuários', label: 'Usuários', route: 'usuarios' },
+    { icon: 'pp-menu-completo-contrato-ativo', modulo: 'Contratos', menu: 'Cadastros', submenu: 'Unidades de Medida', label: 'Unidades de Medida', route: 'unidades-medida' },
+    { icon: 'pp-menu-completo-suprimentos-ativo', modulo: 'Suprimentos', label: 'Gerenciamento de Pedidos', route: 'pedidos' },
+    { icon: 'pp-menu-completo-suprimentos-ativo', modulo: 'Suprimentos', label: 'Histórico de Operações', route: 'historico' },
+    { icon: 'pp-menu-completo-suprimentos-ativo', modulo: 'Vendas', label: 'Painel de Indicadores', route: 'indicadores' },
+    { icon: 'pp-menu-completo-patrimonio-ativo', modulo: 'Patrimônio', label: 'Monitoramento de Serviços', route: 'monitoramento' },
+  ].sort((a, b) => a.modulo.localeCompare(b.modulo));
   // #endregion PUBLIC
 
   // #endregion ==========> PROPERTIES <==========

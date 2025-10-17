@@ -1,27 +1,51 @@
 @if (isVisible) {
-<div class="search-overlay">
-  <div class="search-wrapper">
-    <div class="search-container">
-      <input type="text" #searchInput [(ngModel)]="searchQuery" (input)="onSearch()"
-        placeholder="Pesquise por telas da aplicação..." class="form-control" />
-      <button (click)="closeSearch()" class="btn btn-outline-primary ms-2">Fechar</button>
-    </div>
+  <div class="search-overlay position-fixed w-100 h-100 d-flex flex-column align-items-center pt-3">
+    <div class="search-wrapper d-flex flex-column align-items-center w-100" style="--max-width: 800px">
+      <div class="search-container w-100 bg-light d-flex flex-column align-items-start p-3 rounded">
+        <h6>Pesquisa global de telas entre os produtos adquiridos</h6>
 
-    @if (searchQuery !== '') {
-      <div class="search-results">
-        <div class="scrollable-content">
-          <ul class="list-group list-group-flush">
-            @for (item of filteredItems; track $index) {
-              <li (click)="navigateTo(item.route)" style="cursor: pointer;" class="list-group-item">{{item.label}}</li>
-            } 
-            @empty {
-              <li class="list-group-item">Nenhum registro encontrado</li>
-            }
-          </ul>
+        <div class="input-group">
+          <span class="input-group-text" id="addon-wrapping"> <lib-icon iconName="p-lupa" iconSize="medium-small" /> </span>
+          <input #searchInput type="text" class="form-control" [(ngModel)]="searchQuery" placeholder="Pesquise pelo nome da tela"
+            (input)="onSearch(); highlightList(searchQuery)" />
+          <button (click)="resetSearch()" class="btn btn-outline-primary" tooltip="Limpar" > <lib-icon iconName="p-lixeira" iconSize="medium-small" /> </button>
+          <button (click)="closeSearch()" class="btn btn-outline-primary" tooltip="Fechar" > <lib-icon iconName="p-fechar" iconSize="medium-small" /> </button>
         </div>
       </div>
-      
-    }
+
+      @if (searchQuery !== '') {
+        <div class="search-results bg-light p-2 rounded mt-3 w-100">
+          <div class="scrollable-content overflow-y-auto rounded" style="--max-scrollable-height: 500px">
+            <ul class="options-list d-flex flex-column gap-2 p-0 m-0">
+              @for (item of filteredItems; track item.modulo+item.label) {
+                <li (click)="navigateTo(item.route)" class="glb-cursor-pointer option py-1 px-2 rounded border d-flex align-items-center gap-2">
+                  @if (item.icon) { <lib-icon class="text-primary" [iconName]="item.icon" iconSize="medium-small" /> }
+                  <span class="fw-bold text-primary"> {{ item.modulo ? item.modulo : '' }} </span>
+
+                  @if (item.menu) {
+                    <span class="fw-bold text-primary menu">
+                      / @if (showIcons) { <lib-icon iconName="p-menu-hamburguer" iconSize="small" /> } {{ item.menu }}
+                    </span>
+                  }
+
+                  @if (item.submenu) {
+                    <span class="fw-bold text-primary submenu">
+                      / @if (showIcons) { <lib-icon iconName="p-link" iconSize="small" /> } {{ item.submenu }}
+                    </span>
+                  }
+
+                  <span class="tela"> {{ item.label }} </span>
+                </li>
+              }
+              @empty {
+                <li class="list-group-item"> Nenhuma tela encontrada com este nome </li>
+              }
+            </ul>
+          </div>
+        </div>
+      }
+    </div>
   </div>
-</div>
 }
+
+
