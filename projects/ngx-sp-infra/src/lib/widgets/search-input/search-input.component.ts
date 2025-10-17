@@ -57,7 +57,10 @@ export class SearchInputComponent implements OnInit, AfterViewInit {
   private loadRoutes(): void {
     if (!this.customItems) {
       this._http.get<ITelaRota[]>('assets\/jsons\/routes.json').subscribe(
-        data => this._items = data,
+        data => {
+          this._items = data;
+          this.filteredItems = [ ...this._items ];
+        },
         error => console.error('Erro ao buscar as rotas.:', error)
       );
     }
@@ -134,10 +137,6 @@ export class SearchInputComponent implements OnInit, AfterViewInit {
       this.filteredItems = this._items.filter(item =>
         item.label.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
-
-      console.log(this.searchQuery);
-      console.log(this._items);
-      console.log(this.filteredItems);
     }
     else {
       this.filteredItems = [ ...this._items ];

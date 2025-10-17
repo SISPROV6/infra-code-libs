@@ -2,7 +2,10 @@
   <div class="search-overlay position-fixed w-100 h-100 d-flex flex-column align-items-center pt-3">
     <div class="search-wrapper d-flex flex-column align-items-center w-100" style="--max-width: 800px">
       <div class="search-container w-100 bg-light d-flex flex-column align-items-start p-3 rounded">
-        <h6>Pesquisa global de telas entre os produtos adquiridos</h6>
+        <h6>
+          <p class="fw-bold mb-0"> Pesquisa global de telas entre os produtos adquiridos </p>
+          <span class="text-muted fw-bold fst-italic" style="font-size: 12px;">(para fechar clique no botão ao lado ou aperte ESC)</span>
+        </h6>
 
         <div class="input-group">
           <span class="input-group-text" id="addon-wrapping"> <lib-icon iconName="p-lupa" iconSize="medium-small" /> </span>
@@ -13,37 +16,35 @@
         </div>
       </div>
 
-      @if (searchQuery !== '') {
-        <div class="search-results bg-light p-2 rounded mt-3 w-100">
-          <div class="scrollable-content overflow-y-auto rounded" style="--max-scrollable-height: 500px">
-            <ul class="options-list d-flex flex-column gap-2 p-0 m-0">
-              @for (item of filteredItems; track item.modulo+item.label) {
-                <li (click)="navigateTo(item.route)" class="glb-cursor-pointer option py-1 px-2 rounded border d-flex align-items-center gap-2">
-                  @if (item.icon) { <lib-icon class="text-primary" [iconName]="item.icon" iconSize="medium-small" /> }
-                  <span class="fw-bold text-primary"> {{ item.modulo ? item.modulo : '' }} </span>
+      <div class="search-results bg-light p-2 rounded mt-3 w-100">
+        <div class="scrollable-content overflow-y-auto rounded" style="--max-scrollable-height: 500px">
+          <ul class="options-list d-flex flex-column gap-2 p-0 m-0">
+            @for (item of filteredItems; track item.modulo+item.label) {
+              <li (click)="navigateTo(item.route)" class="glb-cursor-pointer option py-1 px-2 rounded border d-flex align-items-center gap-2">
+                @if (item.icon) { <lib-icon class="text-primary" [iconName]="item.icon" iconSize="medium-small" /> }
+                <span class="fw-bold text-primary"> {{ item.modulo ? item.modulo : '' }} </span>
 
-                  @if (item.menu) {
-                    <span class="fw-bold text-primary menu">
-                      / @if (showIcons) { <lib-icon iconName="p-menu-hamburguer" iconSize="small" /> } {{ item.menu }}
-                    </span>
-                  }
+                @if (item.menu) {
+                  <span class="fw-bold text-primary menu">
+                    / @if (showIcons) { <lib-icon iconName="p-menu-hamburguer" iconSize="small" /> } {{ item.menu }}
+                  </span>
+                }
 
-                  @if (item.submenu) {
-                    <span class="fw-bold text-primary submenu">
-                      / @if (showIcons) { <lib-icon iconName="p-link" iconSize="small" /> } {{ item.submenu }}
-                    </span>
-                  }
+                @if (item.submenu) {
+                  <span class="fw-bold text-primary submenu">
+                    / @if (showIcons) { <lib-icon iconName="p-link" iconSize="small" /> } {{ item.submenu }}
+                  </span>
+                }
 
-                  <span class="tela"> {{ item.label }} </span>
-                </li>
-              }
-              @empty {
-                <li class="list-group-item"> Nenhuma tela encontrada com este nome </li>
-              }
-            </ul>
-          </div>
+                <span class="tela"> {{ item.label }} </span>
+              </li>
+            }
+            @empty {
+              <li class="list-group-item"> Nenhuma tela encontrada com este nome </li>
+            }
+          </ul>
         </div>
-      }
+      </div>
     </div>
   </div>
 }
