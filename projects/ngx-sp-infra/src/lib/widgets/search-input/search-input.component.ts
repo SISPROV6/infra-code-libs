@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { escapeRegExp } from 'lodash';
@@ -28,6 +28,8 @@ export class SearchInputComponent implements OnInit, AfterViewInit {
   // #region PUBLIC
   @Input() public customItems?: ITelaRota[];
   @Input() public showIcons: boolean = false;
+
+  @Output() public onClose: EventEmitter<void> = new EventEmitter<void>();
 
   @ViewChild('searchInput') public searchInput!: ElementRef<HTMLInputElement>;
 
@@ -129,6 +131,8 @@ export class SearchInputComponent implements OnInit, AfterViewInit {
   // #region PESQUISA
   public closeSearch(): void {
     this.isVisible = false;
+    this.onClose.emit();
+    
     this.resetSearch();
   }
   

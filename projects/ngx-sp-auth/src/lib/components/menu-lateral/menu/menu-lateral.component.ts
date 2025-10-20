@@ -7,21 +7,22 @@ import { MSAL_GUARD_CONFIG, MsalGuardConfiguration, MsalService } from '@azure/m
 import { AuthenticationResult, LogLevel, PublicClientApplication } from '@azure/msal-browser';
 
 import { BsModalService } from 'ngx-bootstrap/modal';
-
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { InfraModule, MessageService } from 'ngx-sp-infra';
 import { ToastrService } from 'ngx-toastr';
 
-import { InfraModule, MessageService } from 'ngx-sp-infra';
-import { AuthStorageService } from '../../../storage/auth-storage.service'
 import { LibCustomMenuService } from '../../../custom/lib-custom-menu.service';
 import { ProjectUtilservice } from '../../../project/project-utils.service';
+import { AuthStorageService } from '../../../storage/auth-storage.service';
 import { MenuServicesService } from '../menu-services.service';
 
 import { AuthService } from '../../../auth.service';
-import { InfraInAuthTypeId } from '../../../models/infraInAuthTypeId';
 import { LibCustomEnvironmentService } from '../../../custom/lib-custom-environment.service';
+import { InfraInAuthTypeId } from '../../../models/infraInAuthTypeId';
+import { PesquisaTelasGlobalService } from '../../../services/pesquisa-telas-global.service';
 import { PrimaryDropdownComponent } from '../dropdown/primary-dropdown/primary-dropdown.component';
+import { DynamicMenu } from '../model/dynamic-menu';
 import { IMenuItemStructure } from '../model/imenu-item-structure.model';
 import { ISubmenuItemStructure } from '../model/isubmenu-item-structure.model';
 import { Usuario_IMG } from '../model/usuario-img';
@@ -29,7 +30,7 @@ import { DynamicMenuComponent } from '../submenus/dynamic-menu/dynamic-menu.comp
 import { NotifSubmenuComponent } from '../submenus/notif-submenu/notif-submenu.component';
 import { SelecaoEstabelecimentosModalComponent } from './selecao-estabelecimentos-modal/selecao-estabelecimentos-modal.component';
 import { VersoesModalComponent } from './versoes-modal/versoes-modal.component';
-import { DynamicMenu } from '../model/dynamic-menu';
+
 @Component({
   selector: 'app-menu-lateral',
   templateUrl: './menu-lateral.component.html',
@@ -62,7 +63,8 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
     private _messageService: MessageService,
     private _projectUtilService: ProjectUtilservice,
     private _router: Router,
-    private _authService: AuthService
+    private _authService: AuthService,
+    public _pesquisaTelasGlobalService: PesquisaTelasGlobalService
   ) {
     // Implementação que verifica eventos acionados na classe de service.
     this._menuServices.getNewUserImageEvent().subscribe( () => { this.getMenuUserImg(); })
