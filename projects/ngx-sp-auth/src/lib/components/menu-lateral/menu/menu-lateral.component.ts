@@ -55,7 +55,6 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
     @Inject(MSAL_GUARD_CONFIG) private _msalGuardConfiguration: MsalGuardConfiguration,
     private _msalService: MsalService,
     private _toastrService: ToastrService,
-    public _customMenuService: LibCustomMenuService,
     private _customEnvironmentService: LibCustomEnvironmentService,
     private _authStorageService: AuthStorageService,
     private _bsModalService: BsModalService,
@@ -64,7 +63,9 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
     private _projectUtilService: ProjectUtilservice,
     private _router: Router,
     private _authService: AuthService,
-    public _pesquisaTelasGlobalService: PesquisaTelasGlobalService
+    
+    public _customMenuService: LibCustomMenuService,
+    public _pesquisaTelas: PesquisaTelasGlobalService,
   ) {
     // Implementação que verifica eventos acionados na classe de service.
     this._menuServices.getNewUserImageEvent().subscribe( () => { this.getMenuUserImg(); })
