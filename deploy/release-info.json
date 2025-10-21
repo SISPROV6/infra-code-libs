@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-auth",
-  "version": "4.2.1",
-  "tag": "auth-v4.2.1",
-  "notes": "Leves ajustes no componente de pesquisa de telas globais, preparação para implementação via serviço",
-  "timestamp": "2025-10-20T18:19:20.668Z"
+  "project": "ngx-sp-infra",
+  "version": "6.4.3",
+  "tag": "infra-v6.4.3",
+  "notes": "Implementação inicial do componente visualmente (falta um novo visual corrigido dentro do menu lateral)",
+  "timestamp": "2025-10-21T11:54:49.894Z"
 }
