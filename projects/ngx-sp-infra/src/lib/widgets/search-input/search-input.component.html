@@ -15,35 +15,97 @@
       </div>
     </div>
 
-    <div class="search-results bg-light p-2 rounded mt-3 w-100" [class]="!filteredItems ? 'text-center' : ''" >
+    <div class="search-results bg-light p-3 rounded mt-3 w-100"
+      [class]="(!filteredMenus || !filteredSubmenus || !filteredTelas) ? 'text-center' : ''" >
 
-      @defer (when filteredItems) {
-        <div class="scrollable-content overflow-y-auto rounded" style="--max-scrollable-height: 500px">
-          <ul class="options-list d-flex flex-column gap-2 p-0 m-0">
-            @for (item of filteredItems; track item.modulo+item.label) {
-              <li (click)="navigateTo(item.route)" class="glb-cursor-pointer option py-1 px-2 rounded border d-flex align-items-center gap-2">
-                @if (item.icon) { <lib-icon class="text-primary" [iconName]="item.icon" iconSize="medium-small" /> }
-                <span class="fw-bold text-primary"> {{ item.modulo ? item.modulo : '' }} </span>
+      @defer (when filteredMenus || filteredSubmenus || filteredTelas) {
+        <div class="scrollable-content d-flex flex-column gap-4 overflow-y-auto rounded" style="--max-scrollable-height: 650px">
 
-                @if (item.menu) {
-                  <span class="fw-bold text-primary menu">
-                    / @if (showIcons) { <lib-icon iconName="p-menu-hamburguer" iconSize="small" /> } {{ item.menu }}
+          <div id="menus">
+            <h6 class="fw-bold">Menus</h6>
+            <ul class="options-list d-flex flex-column gap-2 p-0 m-0">
+              @for (menu of filteredMenus; track menu.Projeto+menu.Titulo) {
+                <li (click)="navigateTo(menu.Rota)" class="glb-cursor-pointer option py-1 px-2 rounded border d-flex align-items-center gap-2">
+                  <span class="fw-bold text-primary"> {{ menu.Projeto }} </span>
+
+                    <span class="fw-bold">
+                      / {{ menu.Titulo }}
+                    </span>
+                </li>
+              }
+              @empty {
+                <li class="list-group-item"> Nenhum menu encontrado com este nome </li>
+              }
+            </ul>
+          </div>
+
+          <div id="submenus">
+            <h6 class="fw-bold">Submenus</h6>
+            <ul class="options-list d-flex flex-column gap-2 p-0 m-0">
+              @for (submenu of filteredSubmenus; track submenu.Projeto+submenu.Titulo) {
+                <li (click)="navigateTo(submenu.Rota)" class="glb-cursor-pointer option py-1 px-2 rounded border d-flex align-items-center gap-2">
+                  <span class="fw-bold text-primary"> {{ submenu.Projeto }} </span>
+
+                  <span class="fw-bold">
+                    / {{ submenu.Titulo }}
                   </span>
-                }
+                </li>
+              }
+              @empty {
+                <li class="list-group-item"> Nenhum submenu encontrado com este nome </li>
+              }
+            </ul>
+          </div>
 
-                @if (item.submenu) {
-                  <span class="fw-bold text-primary submenu">
-                    / @if (showIcons) { <lib-icon iconName="p-link" iconSize="small" /> } {{ item.submenu }}
+          <div id="telas">
+            <h6 class="fw-bold">Telas</h6>
+            <ul class="options-list d-flex flex-column gap-2 p-0 m-0">
+              @for (tela of filteredTelas; track tela.Projeto+tela.Titulo) {
+                <li (click)="navigateTo(tela.Rota)" class="glb-cursor-pointer option py-1 px-2 rounded border d-flex align-items-center gap-2">
+                  <span class="fw-bold text-primary"> {{ tela.Projeto }} </span>
+
+                  <span class="fw-bold">
+                    / {{ tela.Titulo }}
                   </span>
-                }
+                </li>
+              }
+              @empty {
+                <li class="list-group-item"> Nenhuma tela encontrada com este nome </li>
+              }
+            </ul>
+          </div>
 
-                <span class="tela"> {{ item.label }} </span>
-              </li>
-            }
-            @empty {
-              <li class="list-group-item"> Nenhuma tela encontrada com este nome </li>
-            }
-          </ul>
+
+          <!-- TELAS DEPRECIADA -->
+          <!-- <div id="telas">
+            <h6 class="fw-bold">Telas</h6>
+            <ul class="options-list d-flex flex-column gap-2 p-0 m-0">
+              @for (item of filteredItems; track item.modulo+item.label) {
+                <li (click)="navigateTo(item.route)" class="glb-cursor-pointer option py-1 px-2 rounded border d-flex align-items-center gap-2">
+                  @if (item.icon) { <lib-icon class="text-primary" [iconName]="item.icon" iconSize="medium-small" /> }
+                  <span class="fw-bold text-primary"> {{ item.modulo ? item.modulo : '' }} </span>
+
+                  @if (item.menu) {
+                    <span class="fw-bold text-primary menu">
+                      / @if (showIcons) { <lib-icon iconName="p-menu-hamburguer" iconSize="small" /> } {{ item.menu }}
+                    </span>
+                  }
+
+                  @if (item.submenu) {
+                    <span class="fw-bold text-primary submenu">
+                      / @if (showIcons) { <lib-icon iconName="p-link" iconSize="small" /> } {{ item.submenu }}
+                    </span>
+                  }
+
+                  <span class="tela"> {{ item.label }} </span>
+                </li>
+              }
+              @empty {
+                <li class="list-group-item"> Nenhuma tela encontrada com este nome </li>
+              }
+            </ul>
+          </div> -->
+
         </div>
       }
       @placeholder {

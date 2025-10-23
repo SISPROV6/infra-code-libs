@@ -7,7 +7,11 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 import { LibSpinnerComponent } from "../spinner/spinner.component";
+
 import { ITelaRota } from './models/ITelaRota';
+import { IV6Menu } from './models/IV6Menu.model';
+import { IV6Submenu } from './models/IV6Submenu.model';
+import { IV6Tela } from './models/IV6Tela.model';
 
 @Component({
   selector: 'lib-search-input, lib-pesquisa-global',
@@ -16,7 +20,7 @@ import { ITelaRota } from './models/ITelaRota';
     LibIconsComponent,
     TooltipModule,
     LibSpinnerComponent
-],
+  ],
   templateUrl: './search-input.component.html',
   styleUrl: './search-input.component.scss',
 })
@@ -26,6 +30,10 @@ export class SearchInputComponent implements OnInit, AfterViewInit {
 
   // #region PRIVATE
   private _items?: ITelaRota[];
+
+  private _menus?: IV6Menu[];
+  private _submenus?: IV6Submenu[];
+  private _telas?: IV6Tela[];
   // #endregion PRIVATE
 
   // #region PUBLIC
@@ -37,13 +45,40 @@ export class SearchInputComponent implements OnInit, AfterViewInit {
   @ViewChild('searchInput') public searchInput!: ElementRef<HTMLInputElement>;
 
   public searchQuery = '';
+  public loading: boolean = false;
+
+  // #region GETTERS & SETTERS
   public filteredItems?: ITelaRota[];
+  public filteredTelas?: IV6Tela[];
+  public filteredSubmenus?: IV6Submenu[];
+  public filteredMenus?: IV6Submenu[];
+
 
   public get items(): ITelaRota[] | undefined { return this._items }
-  public set items(value: ITelaRota[]) {
+  public set items(value: ITelaRota[]| undefined) {
     this._items = value;
-    this.filteredItems = [ ...this._items ];
+    this.filteredItems = [ ...this._items ?? [] ];
   }
+
+  public get menus(): IV6Submenu[] | undefined { return this._menus }
+  public set menus(value: IV6Submenu[]| undefined) {
+    this._menus = value;
+    this.filteredMenus = [ ...this._menus ?? [] ];
+  }
+
+  public get submenus(): IV6Submenu[] | undefined { return this._submenus }
+  public set submenus(value: IV6Submenu[]| undefined) {
+    this._submenus = value;
+    this.filteredSubmenus = [ ...this._submenus ?? [] ];
+  }
+
+  public get telas(): IV6Tela[] | undefined { return this._telas }
+  public set telas(value: IV6Tela[]| undefined) {
+    this._telas = value;
+    this.filteredTelas = [ ...this._telas ?? [] ];
+  }
+  // #endregion GETTERS & SETTERS
+
   // #endregion PUBLIC
 
   // #endregion ==========> PROPERTIES <==========
@@ -66,14 +101,6 @@ export class SearchInputComponent implements OnInit, AfterViewInit {
 
   @HostListener('document:keydown', ['$event'])
   public onKeydown(event: KeyboardEvent): void {
-    // if (event.ctrlKey && event.key === 'p') {
-    //   event.preventDefault();
-
-    //   this.isVisible = !this.isVisible;
-
-    //   if (this.isVisible) setTimeout(() => this.focusInput(), 0);
-    //   else this.resetSearch();
-    // }
     if (event.key === 'Escape') {
       this.close();
     }

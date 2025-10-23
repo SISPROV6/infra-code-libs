@@ -1,9 +1,12 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ApplicationRef, ComponentFactoryResolver, ComponentRef, EmbeddedViewRef, Injectable, Injector } from '@angular/core';
-import { ITelaRota, RetError, SearchInputComponent } from 'ngx-sp-infra';
-import { Observable, Subject, Subscription, take, tap } from 'rxjs';
+
+import { RetError, SearchInputComponent } from 'ngx-sp-infra';
+import { debounceTime, distinctUntilChanged, filter, Observable, Subject, Subscription, switchMap, take, tap } from 'rxjs';
+
 import { LibCustomEnvironmentService } from '../custom/lib-custom-environment.service';
 import { RetTelasPesquisa } from '../models/ret-telas-pesquisa.model';
+import { ProjectUtilservice } from '../project/project-utils.service';
 
 /**
  * Serviço responsável por criar e gerenciar uma instância global do componente SearchInput.
@@ -47,6 +50,12 @@ export class PesquisaTelasGlobalService {
    * Ao invés de tratar o evento onClose diretamente, emitimos neste Subject para permitir um ponto único de tratamento no serviço.
   */
   private _onClose$ = new Subject<void>();
+  
+  /**
+   * Subject que centraliza eventos de pesquisa do componente.
+   * Ao invés de tratar o evento onSearch diretamente, emitimos neste Subject para permitir um ponto único de tratamento no serviço.
+  */
+  private _onSearch$ = new Subject<string>();
 
   /**
    * Agregador de subscriptions de longa duração.
@@ -61,6 +70,12 @@ export class PesquisaTelasGlobalService {
    * Null quando não há componente ativo.
   */
   private _componentCloseSub: Subscription | null = null;
+  
+  /**
+   * Subscription específica do evento onSearch do componente atual.
+   * Null quando não há componente ativo.
+  */
+  private _componentSearchSub: Subscription | null = null;
 
   // #endregion GERENCIAMENTO DINÂMICO DO COMPONENTE
 
@@ -70,8 +85,6 @@ export class PesquisaTelasGlobalService {
   // #endregion PRIVATE
 
   // #region PUBLIC
-
-  public telas: ITelaRota[] = [];
 
   // #endregion PUBLIC
 
@@ -84,7 +97,8 @@ export class PesquisaTelasGlobalService {
     private _injector: Injector,
 
     private _httpClient: HttpClient,
-    private _customEnvironmentService: LibCustomEnvironmentService
+    private _customEnvironmentService: LibCustomEnvironmentService,
+    private _projectUtils: ProjectUtilservice,
   ) {
 
     this._BASE_URL = this._customEnvironmentService.production
@@ -96,6 +110,35 @@ export class PesquisaTelasGlobalService {
     if (this._onClose$) {
       this._subscriptions.add(
         this._onClose$.subscribe(() => this.hide())
+      );
+    }
+
+    // Inscreve uma vez no Subject que receberá os eventos onSearch dos componentes
+    // Quando recebermos, executamos a ação desejada (aqui, chamar o backend)
+    if (this._onSearch$) {
+      this._subscriptions.add(
+        this._onSearch$
+          .pipe(
+            debounceTime(500),  // Aguarda 500ms de "silêncio" antes de emitir
+            distinctUntilChanged(), // Emite apenas se o valor mudou desde a última emissão
+            filter(pesquisa => pesquisa.length >= 3), // Emite apenas se a quantidade de caracteres da pesquisa for maior que 3
+            switchMap(pesquisa => this.getTelas(pesquisa) ) // Cancela a chamada anterior se uma nova pesquisa chegar
+          )
+          .subscribe({
+            next: res => {
+              this._componentRef!.instance.loading = false;
+              this._componentRef!.instance.items = res.Telas;
+              
+              this._componentRef!.instance.telas = res._Telas;
+              this._componentRef!.instance.menus = res.Menus;
+              this._componentRef!.instance.submenus = res.Submenus;
+            },
+            error: err => {
+              this._componentRef!.instance.loading = false;
+              this._projectUtils.showHttpError(err);
+            }
+          })
+          
       );
     }
 
@@ -115,19 +158,18 @@ export class PesquisaTelasGlobalService {
   */
   public ngOnDestroy(): void {
     // Tenta esconder/destruir componente ativo se houver
-    // Wrapped em try/catch pois pode haver erros ao destruir
-    // o componente se a aplicação estiver sendo encerrada
+    // Wrapped em try/catch pois pode haver erros ao destruir o componente se a aplicação estiver sendo encerrada
     if (this._componentRef) {
       try { this.hide(); } catch (e) { /* ignora */ }
     }
 
     // Cancela todas as inscrições de longa duração
-    // (principalmente a inscrição em _onClose$ feita no constructor)
     this._subscriptions.unsubscribe();
 
-    // Completa o Subject de eventos
+    // Completa os Subjects de eventos
     // Isso notifica todos os observadores que não haverá mais eventos
     this._onClose$.complete();
+    this._onSearch$.complete();
   }
 
 
@@ -135,21 +177,22 @@ export class PesquisaTelasGlobalService {
 
   // #region GET
 
+  /**
+   * Método responsável pela busca por telas via API.
+   * 
+   * @param pesquisa Termo de pesquisa para filtrar as telas.
+   * @returns Observable emitindo o resultado da pesquisa de telas.
+  */
   public getTelas(pesquisa: string): Observable<RetTelasPesquisa> {
+
+    // Sempre que iniciar uma nova pesquisa seta o loading para true para melhor feedback para o usuário
+    if (this._componentRef) this._componentRef!.instance.loading = true;
+
     const params = new HttpParams().set('pesquisa', pesquisa);
     const url = `${ this._BASE_URL }`;
 
     return this._httpClient.get<RetTelasPesquisa>(url, { 'params': params, 'headers': this._HTTP_HEADERS })
-      .pipe(
-        take(1), tap(response => {
-          this.showErrorMessage(response);
-
-          if (this._componentRef) {
-            this._componentRef.instance.items = response.Telas;
-            console.log('componente: items', this._componentRef.instance.items);
-          }
-        })
-      );
+      .pipe(take(1), tap(response => this.showErrorMessage(response) ));
   }
 
   // #endregion GET
@@ -202,14 +245,16 @@ export class PesquisaTelasGlobalService {
     const domElem = (this._componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
     document.body.appendChild(domElem);
 
-    // Em vez de tratar o hide() diretamente aqui, encaminhamos o evento para o Subject _onClose$
-    // e guardamos a subscription para poder removê-la quando escondermos o componente.
+    // 5. Define a variável inicial do componente para evitar o loading infinito (neste primeiro momento)
+    // TODO: Melhorar esta validação
+    this._componentRef.instance.items = [];
+
+    // 6. Configura os listeners dos eventos do componente
+    // Em vez de tratar o hide() diretamente aqui, encaminhamos o evento para o Subject _onClose$ e guardamos a subscription para poder removê-la quando escondermos o componente.
     this._componentCloseSub = this._componentRef.instance.onClose.subscribe(() => this._onClose$.next());
 
-
-    this._componentRef.instance.onSearch.subscribe(pesquisa => {
-      this.getTelas(pesquisa);
-    });
+    // Em vez de tratar o getTelas() diretamente aqui, encaminhamos o evento para o Subject _onSearch$ e guardamos a subscription para poder removê-la quando escondermos o componente.
+    this._componentSearchSub = this._componentRef.instance.onSearch.subscribe(pesquisa => this._onSearch$.next(pesquisa));
   }
 
   /**
@@ -239,6 +284,13 @@ export class PesquisaTelasGlobalService {
     if (this._componentCloseSub) {
       this._componentCloseSub.unsubscribe();
       this._componentCloseSub = null;
+    }
+
+    // Cancela a inscrição no evento onSearch do componente
+    // Isso é necessário mesmo que o componente seja destruído, pois a subscription pode manter referências vivas
+    if (this._componentSearchSub) {
+      this._componentSearchSub.unsubscribe();
+      this._componentSearchSub = null;
     }
   }
 
