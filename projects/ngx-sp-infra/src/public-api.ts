@@ -50,9 +50,6 @@ export * from './lib/models/utils/ret-error';
 export * from './lib/models/utils/ret-feedback-message';
 export * from './lib/widgets/lib-nav-produtos/models/navigation-options.model';
 export * from './lib/widgets/search-input/models/ITelaRota';
-export * from './lib/widgets/search-input/models/IV6Menu.model';
-export * from './lib/widgets/search-input/models/IV6Submenu.model';
-export * from './lib/widgets/search-input/models/IV6Tela.model';
 
 /** Pipes */
 export * from './lib/directives/a11y-click.directive';
