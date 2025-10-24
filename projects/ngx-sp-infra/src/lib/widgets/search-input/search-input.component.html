@@ -25,7 +25,8 @@
             <h6 class="fw-bold">Menus</h6>
             <ul class="options-list d-flex flex-column gap-2 p-0 m-0">
               @for (menu of filteredMenus; track menu.Projeto+menu.Titulo) {
-                <li (click)="navigateTo(menu.Rota)" class="glb-cursor-pointer option py-1 px-2 rounded border d-flex align-items-center gap-2">
+                <li (click)="redirect(menu)" class="glb-cursor-pointer option py-1 px-2 rounded border d-flex align-items-center gap-2">
+                  @if (menu.ProjetoIcone) { <lib-icon class="text-primary" [iconName]="menu.ProjetoIcone" iconSize="medium-small" /> }
                   <span class="fw-bold text-primary"> {{ menu.Projeto }} </span>
 
                     <span class="fw-bold">
@@ -43,7 +44,8 @@
             <h6 class="fw-bold">Submenus</h6>
             <ul class="options-list d-flex flex-column gap-2 p-0 m-0">
               @for (submenu of filteredSubmenus; track submenu.Projeto+submenu.Titulo) {
-                <li (click)="navigateTo(submenu.Rota)" class="glb-cursor-pointer option py-1 px-2 rounded border d-flex align-items-center gap-2">
+                <li (click)="redirect(submenu)" class="glb-cursor-pointer option py-1 px-2 rounded border d-flex align-items-center gap-2">
+                  @if (submenu.ProjetoIcone) { <lib-icon class="text-primary" [iconName]="submenu.ProjetoIcone" iconSize="medium-small" /> }
                   <span class="fw-bold text-primary"> {{ submenu.Projeto }} </span>
 
                   <span class="fw-bold">
@@ -61,7 +63,8 @@
             <h6 class="fw-bold">Telas</h6>
             <ul class="options-list d-flex flex-column gap-2 p-0 m-0">
               @for (tela of filteredTelas; track tela.Projeto+tela.Titulo) {
-                <li (click)="navigateTo(tela.Rota)" class="glb-cursor-pointer option py-1 px-2 rounded border d-flex align-items-center gap-2">
+                <li (click)="redirect(tela)" class="glb-cursor-pointer option py-1 px-2 rounded border d-flex align-items-center gap-2">
+                  @if (tela.ProjetoIcone) { <lib-icon class="text-primary" [iconName]="tela.ProjetoIcone" iconSize="medium-small" /> }
                   <span class="fw-bold text-primary"> {{ tela.Projeto }} </span>
 
                   <span class="fw-bold">

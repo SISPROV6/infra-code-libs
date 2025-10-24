@@ -1,5 +1,7 @@
 export interface IV6Submenu {
+  ProjetoIcone: string;
   Projeto: string;
   Titulo: string;
-  Rota: string;
+  RotaV6: string;
+  RotaOS: string;
 }

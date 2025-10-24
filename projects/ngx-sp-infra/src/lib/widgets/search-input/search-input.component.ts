@@ -31,9 +31,9 @@ export class SearchInputComponent implements OnInit, AfterViewInit {
   // #region PRIVATE
   private _items?: ITelaRota[];
 
-  private _menus?: IV6Menu[];
-  private _submenus?: IV6Submenu[];
-  private _telas?: IV6Tela[];
+  private _menus?: IV6Menu[] = [];
+  private _submenus?: IV6Submenu[] = [];
+  private _telas?: IV6Tela[] = [];
   // #endregion PRIVATE
 
   // #region PUBLIC
@@ -51,7 +51,7 @@ export class SearchInputComponent implements OnInit, AfterViewInit {
   public filteredItems?: ITelaRota[];
   public filteredTelas?: IV6Tela[];
   public filteredSubmenus?: IV6Submenu[];
-  public filteredMenus?: IV6Submenu[];
+  public filteredMenus?: IV6Menu[];
 
 
   public get items(): ITelaRota[] | undefined { return this._items }
@@ -60,8 +60,8 @@ export class SearchInputComponent implements OnInit, AfterViewInit {
     this.filteredItems = [ ...this._items ?? [] ];
   }
 
-  public get menus(): IV6Submenu[] | undefined { return this._menus }
-  public set menus(value: IV6Submenu[]| undefined) {
+  public get menus(): IV6Menu[] | undefined { return this._menus }
+  public set menus(value: IV6Menu[]| undefined) {
     this._menus = value;
     this.filteredMenus = [ ...this._menus ?? [] ];
   }
@@ -110,6 +110,26 @@ export class SearchInputComponent implements OnInit, AfterViewInit {
   public navigateTo(route: string): void {
     this._router.navigate([route]).then(() => this.close() );
   }
+
+  public redirect(item: IV6Tela | IV6Submenu | IV6Menu): void {
+    if (item.RotaV6 && item.RotaV6 !== '') {
+      this._router.navigate([item.RotaV6]).then(() => this.close() );
+    }
+    else {
+      const hostname = window.location.host.includes("localhost") ? "siscandesv6.sispro.com.br" : window.location.host;
+      const baseURL = `https://${hostname}/SisproErpCloud`;
+
+      // Se a RotaOS começar com '/', não adiciona outra '/'
+      const targetRoute = `${baseURL}${ item.RotaOS[0] === '/' ? '' : '/' }${item.RotaOS}`;
+      console.log('targetRoute:', targetRoute);
+
+      console.log('hostname:', hostname);
+      console.log('baseURL:', baseURL);
+      
+      window.location.replace(targetRoute);
+    }
+  }
+
 
   public highlightList(pesquisa: string): void {
     const list = document.querySelector('.options-list')?.querySelectorAll('li');
