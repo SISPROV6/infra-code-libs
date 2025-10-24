@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-auth",
-  "version": "4.2.2",
-  "tag": "auth-v4.2.2",
-  "notes": "Implementação inicial do componente visualmente (falta um novo visual corrigido dentro do menu lateral)",
-  "timestamp": "2025-10-21T12:17:07.995Z"
+  "project": "ngx-sp-infra",
+  "version": "6.4.4",
+  "tag": "infra-v6.4.4",
+  "notes": "Implementado ajuste para tratar URLs da OS e V6 simultaneamente",
+  "timestamp": "2025-10-24T22:00:20.719Z"
 }
