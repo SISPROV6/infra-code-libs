@@ -37,5 +37,6 @@ export * from './lib/views/logs-timer/components/detalhes-log-timer/detalhes-log
 export * from './lib/views/logs-timer/components/home-log-timer/home-log-timer.component';
 export * from './lib/views/logs-ws/components/detalhes-log-ws/detalhes-log-ws.component';
 export * from './lib/views/logs-ws/components/home-log-ws/home-logs-ws.component';
-export * from './lib/views/lib-monitoramento-fila/lib-monitoramento-fila.component'
+export * from './lib/views/lib-monitoramento-fila/lib-monitoramento-fila.component';
+export * from './lib/views/config-smtp/components/config-email/config-email.component'
 
