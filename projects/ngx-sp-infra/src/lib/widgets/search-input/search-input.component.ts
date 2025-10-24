@@ -121,11 +121,6 @@ export class SearchInputComponent implements OnInit, AfterViewInit {
 
       // Se a RotaOS começar com '/', não adiciona outra '/'
       const targetRoute = `${baseURL}${ item.RotaOS[0] === '/' ? '' : '/' }${item.RotaOS}`;
-      console.log('targetRoute:', targetRoute);
-
-      console.log('hostname:', hostname);
-      console.log('baseURL:', baseURL);
-      
       window.location.replace(targetRoute);
     }
   }
