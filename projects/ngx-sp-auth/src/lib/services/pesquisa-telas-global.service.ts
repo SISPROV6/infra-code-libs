@@ -127,11 +127,10 @@ export class PesquisaTelasGlobalService {
           .subscribe({
             next: res => {
               this._componentRef!.instance.loading = false;
-              this._componentRef!.instance.items = res.Telas;
-              
-              this._componentRef!.instance.telas = res._Telas;
-              this._componentRef!.instance.menus = res.Menus;
-              this._componentRef!.instance.submenus = res.Submenus;
+
+              this._componentRef!.instance.telas = res.MenuSubmenuTela.Telas;
+              this._componentRef!.instance.menus = res.MenuSubmenuTela.Menus;
+              this._componentRef!.instance.submenus = res.MenuSubmenuTela.Submenus;
             },
             error: err => {
               this._componentRef!.instance.loading = false;
@@ -245,11 +244,7 @@ export class PesquisaTelasGlobalService {
     const domElem = (this._componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
     document.body.appendChild(domElem);
 
-    // 5. Define a variável inicial do componente para evitar o loading infinito (neste primeiro momento)
-    // TODO: Melhorar esta validação
-    this._componentRef.instance.items = [];
-
-    // 6. Configura os listeners dos eventos do componente
+    // 5. Configura os listeners dos eventos do componente
     // Em vez de tratar o hide() diretamente aqui, encaminhamos o evento para o Subject _onClose$ e guardamos a subscription para poder removê-la quando escondermos o componente.
     this._componentCloseSub = this._componentRef.instance.onClose.subscribe(() => this._onClose$.next());
 

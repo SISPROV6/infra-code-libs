@@ -8,7 +8,6 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 import { LibSpinnerComponent } from "../spinner/spinner.component";
 
-import { ITelaRota } from './models/ITelaRota';
 import { IV6Menu } from './models/IV6Menu.model';
 import { IV6Submenu } from './models/IV6Submenu.model';
 import { IV6Tela } from './models/IV6Tela.model';
@@ -29,8 +28,6 @@ export class SearchInputComponent implements OnInit, AfterViewInit {
   // #region ==========> PROPERTIES <==========
 
   // #region PRIVATE
-  private _items?: ITelaRota[];
-
   private _menus?: IV6Menu[] = [];
   private _submenus?: IV6Submenu[] = [];
   private _telas?: IV6Tela[] = [];
@@ -48,17 +45,9 @@ export class SearchInputComponent implements OnInit, AfterViewInit {
   public loading: boolean = false;
 
   // #region GETTERS & SETTERS
-  public filteredItems?: ITelaRota[];
-  public filteredTelas?: IV6Tela[];
-  public filteredSubmenus?: IV6Submenu[];
-  public filteredMenus?: IV6Menu[];
-
-
-  public get items(): ITelaRota[] | undefined { return this._items }
-  public set items(value: ITelaRota[]| undefined) {
-    this._items = value;
-    this.filteredItems = [ ...this._items ?? [] ];
-  }
+  public filteredTelas?: IV6Tela[] = [];
+  public filteredSubmenus?: IV6Submenu[] = [];
+  public filteredMenus?: IV6Menu[] = [];
 
   public get menus(): IV6Menu[] | undefined { return this._menus }
   public set menus(value: IV6Menu[]| undefined) {

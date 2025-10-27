@@ -7,12 +7,18 @@
       </h6>
 
       <div class="input-group">
-        <span class="input-group-text" id="addon-wrapping"> <lib-icon iconName="p-lupa" iconSize="medium-small" /> </span>
+        <span class="input-group-text d-flex align-items-center justify-content-center" id="addon-wrapping">
+
+          @if (loading) { <lib-spinner [size]="20" /> }
+          @else { <lib-icon iconName="p-lupa" [iconSize]="24" /> }
+
+        </span>
         <input #searchInput type="text" class="form-control" [(ngModel)]="searchQuery" placeholder="Pesquise pelo nome da tela"
           (input)="search()" />
         <button (click)="resetSearch()" class="btn btn-outline-primary" tooltip="Limpar" > <lib-icon iconName="p-lixeira" iconSize="medium-small" /> </button>
         <button (click)="close()" class="btn btn-outline-primary" tooltip="Fechar" > <lib-icon iconName="p-fechar" iconSize="medium-small" /> </button>
       </div>
+      <span class="text-muted fw-bold fst-italic" style="font-size: 12px;">Digite pelo menos 3 caracteres para pesquisar...</span>
     </div>
 
     <div class="search-results bg-light p-3 rounded mt-3 w-100"
