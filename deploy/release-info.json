@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-auth",
-  "version": "4.2.1",
-  "tag": "auth-v4.2.1",
+  "version": "4.2.5",
+  "tag": "auth-v4.2.5",
   "notes": "Ajuste da validação de permissão das telas via guarda",
-  "timestamp": "2025-10-27T19:14:11.494Z"
+  "timestamp": "2025-10-27T19:17:15.225Z"
 }
