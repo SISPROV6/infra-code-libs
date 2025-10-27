@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-auth",
-  "version": "4.2.5",
-  "tag": "auth-v4.2.5",
-  "notes": "Ajuste da validação de permissão das telas via guarda",
-  "timestamp": "2025-10-27T19:17:15.225Z"
+  "project": "ngx-sp-infra",
+  "version": "6.4.6",
+  "tag": "infra-v6.4.6",
+  "notes": "Liberação de primeira versão do componente de busca de telas",
+  "timestamp": "2025-10-27T19:40:40.117Z"
 }

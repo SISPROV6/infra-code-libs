@@ -1,21 +1,93 @@
-@if (isVisible) {
-  <div class="search-overlay position-fixed w-100 h-100 d-flex flex-column align-items-center pt-3">
-    <div class="search-wrapper d-flex flex-column align-items-center w-100" style="--max-width: 800px">
-      <div class="search-container w-100 bg-light d-flex flex-column align-items-start p-3 rounded">
-        <h6>Pesquisa global de telas entre os produtos adquiridos</h6>
+<div class="search-overlay position-fixed w-100 h-100 d-flex flex-column align-items-center pt-3">
+  <div class="search-wrapper d-flex flex-column align-items-center w-100" style="--max-width: 800px">
+    <div class="search-container w-100 bg-light d-flex flex-column align-items-start p-3 rounded">
+      <h6>
+        <p class="fw-bold mb-0"> Pesquisa global de telas entre os produtos adquiridos </p>
+        <span class="text-muted fw-bold fst-italic" style="font-size: 12px;">(para fechar clique no botão ao lado ou aperte ESC)</span>
+      </h6>
 
-        <div class="input-group">
-          <span class="input-group-text" id="addon-wrapping"> <lib-icon iconName="p-lupa" iconSize="medium-small" /> </span>
-          <input #searchInput type="text" class="form-control" [(ngModel)]="searchQuery" placeholder="Pesquise pelo nome da tela"
-            (input)="onSearch(); highlightList(searchQuery)" />
-          <button (click)="resetSearch()" class="btn btn-outline-primary" tooltip="Limpar" > <lib-icon iconName="p-lixeira" iconSize="medium-small" /> </button>
-          <button (click)="closeSearch()" class="btn btn-outline-primary" tooltip="Fechar" > <lib-icon iconName="p-fechar" iconSize="medium-small" /> </button>
-        </div>
+      <div class="input-group">
+        <span class="input-group-text d-flex align-items-center justify-content-center" id="addon-wrapping">
+
+          @if (loading) { <lib-spinner [size]="20" /> }
+          @else { <lib-icon iconName="p-lupa" [iconSize]="24" /> }
+
+        </span>
+        <input #searchInput type="text" class="form-control" [(ngModel)]="searchQuery" placeholder="Pesquise pelo nome da tela"
+          (input)="search()" />
+        <button (click)="resetSearch()" class="btn btn-outline-primary" tooltip="Limpar" > <lib-icon iconName="p-lixeira" iconSize="medium-small" /> </button>
+        <button (click)="close()" class="btn btn-outline-primary" tooltip="Fechar" > <lib-icon iconName="p-fechar" iconSize="medium-small" /> </button>
       </div>
+      <span class="text-muted fw-bold fst-italic" style="font-size: 12px;">Digite pelo menos 3 caracteres para pesquisar...</span>
+    </div>
 
-      @if (searchQuery !== '') {
-        <div class="search-results bg-light p-2 rounded mt-3 w-100">
-          <div class="scrollable-content overflow-y-auto rounded" style="--max-scrollable-height: 500px">
+    <div class="search-results bg-light p-3 rounded mt-3 w-100"
+      [class]="(!filteredMenus || !filteredSubmenus || !filteredTelas) ? 'text-center' : ''" >
+
+      @defer (when filteredMenus || filteredSubmenus || filteredTelas) {
+        <div class="scrollable-content d-flex flex-column gap-4 overflow-y-auto rounded" style="--max-scrollable-height: 650px">
+
+          <div id="menus">
+            <h6 class="fw-bold">Menus</h6>
+            <ul class="options-list d-flex flex-column gap-2 p-0 m-0">
+              @for (menu of filteredMenus; track menu.Projeto+menu.Titulo) {
+                <li (click)="redirect(menu)" class="glb-cursor-pointer option py-1 px-2 rounded border d-flex align-items-center gap-2">
+                  @if (menu.ProjetoIcone) { <lib-icon class="text-primary" [iconName]="menu.ProjetoIcone" iconSize="medium-small" /> }
+                  <span class="fw-bold text-primary"> {{ menu.Projeto }} </span>
+
+                    <span class="fw-bold">
+                      / {{ menu.Titulo }}
+                    </span>
+                </li>
+              }
+              @empty {
+                <li class="list-group-item"> Nenhum menu encontrado com este nome </li>
+              }
+            </ul>
+          </div>
+
+          <div id="submenus">
+            <h6 class="fw-bold">Submenus</h6>
+            <ul class="options-list d-flex flex-column gap-2 p-0 m-0">
+              @for (submenu of filteredSubmenus; track submenu.Projeto+submenu.Titulo) {
+                <li (click)="redirect(submenu)" class="glb-cursor-pointer option py-1 px-2 rounded border d-flex align-items-center gap-2">
+                  @if (submenu.ProjetoIcone) { <lib-icon class="text-primary" [iconName]="submenu.ProjetoIcone" iconSize="medium-small" /> }
+                  <span class="fw-bold text-primary"> {{ submenu.Projeto }} </span>
+
+                  <span class="fw-bold">
+                    / {{ submenu.Titulo }}
+                  </span>
+                </li>
+              }
+              @empty {
+                <li class="list-group-item"> Nenhum submenu encontrado com este nome </li>
+              }
+            </ul>
+          </div>
+
+          <div id="telas">
+            <h6 class="fw-bold">Telas</h6>
+            <ul class="options-list d-flex flex-column gap-2 p-0 m-0">
+              @for (tela of filteredTelas; track tela.Projeto+tela.Titulo) {
+                <li (click)="redirect(tela)" class="glb-cursor-pointer option py-1 px-2 rounded border d-flex align-items-center gap-2">
+                  @if (tela.ProjetoIcone) { <lib-icon class="text-primary" [iconName]="tela.ProjetoIcone" iconSize="medium-small" /> }
+                  <span class="fw-bold text-primary"> {{ tela.Projeto }} </span>
+
+                  <span class="fw-bold">
+                    / {{ tela.Titulo }}
+                  </span>
+                </li>
+              }
+              @empty {
+                <li class="list-group-item"> Nenhuma tela encontrada com este nome </li>
+              }
+            </ul>
+          </div>
+
+
+          <!-- TELAS DEPRECIADA -->
+          <!-- <div id="telas">
+            <h6 class="fw-bold">Telas</h6>
             <ul class="options-list d-flex flex-column gap-2 p-0 m-0">
               @for (item of filteredItems; track item.modulo+item.label) {
                 <li (click)="navigateTo(item.route)" class="glb-cursor-pointer option py-1 px-2 rounded border d-flex align-items-center gap-2">
@@ -41,11 +113,14 @@
                 <li class="list-group-item"> Nenhuma tela encontrada com este nome </li>
               }
             </ul>
-          </div>
+          </div> -->
+
         </div>
       }
+      @placeholder {
+        <lib-spinner />
+      }
+
     </div>
   </div>
-}
-
-
+</div>

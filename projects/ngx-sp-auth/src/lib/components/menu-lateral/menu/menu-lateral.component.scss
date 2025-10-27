@@ -170,7 +170,8 @@
     align-items: center;
   }
 
-  .icon-estabelecimento {
+  .icon-estabelecimento,
+  .icon-pesquisa {
     button {
       display: flex;
       flex-direction: row;
@@ -299,7 +300,8 @@
     display: none;
   }
 
-  .sidebar.closed .icon-estabelecimento {
+  .sidebar.closed .icon-estabelecimento,
+  .sidebar.closed .icon-pesquisa {
     margin: 0;
 
     button {
