@@ -18,11 +18,11 @@
       .scrollable-content {
         max-height: var(--max-scrollable-height);
 
-        ::-webkit-scrollbar {
+        &::-webkit-scrollbar {
           width: 4px;
           background: transparent;
         }
-        ::-webkit-scrollbar-thumb {
+        &::-webkit-scrollbar-thumb {
           background-color: #636363;
           border-radius: 16px;
         }
