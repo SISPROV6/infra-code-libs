@@ -18,7 +18,11 @@ export class IsMenuAllowedlGuard  {
   canActivate(_route: ActivatedRouteSnapshot, _state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree
   {
     let route: string = _route.routeConfig?.path === undefined ? "" : _route.routeConfig?.path;
-  
+ 
+    if (route == '') {
+      route = _state.url.substring(1)
+    }
+
     return this.isMenuAllowedGuard(route);
   }
 
@@ -58,7 +62,7 @@ export class IsMenuAllowedlGuard  {
       return response;
     }
     catch (error) {
-      return false;
+       return false;
     }
 
   }
