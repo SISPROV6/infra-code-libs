@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-infra",
-  "version": "6.5.0",
-  "tag": "infra-v6.5.0",
+  "project": "ngx-sp-auth",
+  "version": "4.3.0",
+  "tag": "auth-v4.3.0",
   "notes": "Liberação de @latest semanal com todas correções e implementações das versões @next e @test desde a última liberação",
-  "timestamp": "2025-10-28T12:07:33.564Z"
+  "timestamp": "2025-10-28T12:12:41.186Z"
 }
