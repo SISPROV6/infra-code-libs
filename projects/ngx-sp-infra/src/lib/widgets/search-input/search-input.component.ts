@@ -106,18 +106,14 @@ export class SearchInputComponent implements OnInit, AfterViewInit {
 
     if (item.RotaV6 && item.RotaV6 !== '') {
       let isCorporativo = item.RotaV6.split('/')[0] != item.Projeto;
-      console.log('item:', item);
-      console.log('isCorporativo:', isCorporativo);
       
       const targetRoute = `${baseURL}/${ isCorporativo ? 'Corporativo/' : '' }${item.RotaV6}`;
-      console.log('targetRoute:', targetRoute);
-      
-      window.location.replace(targetRoute);
+      window.location.assign(targetRoute);
     }
     else {
       // Se a RotaOS começar com '/', não adiciona outra '/'
       const targetRoute = `${baseURL}${ item.RotaOS[0] === '/' ? '' : '/' }${item.RotaOS}`;
-      window.location.replace(targetRoute);
+      window.location.assign(targetRoute);
     }
   }
 

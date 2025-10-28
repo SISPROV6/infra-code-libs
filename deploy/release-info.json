@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-infra",
-  "version": "6.5.3",
-  "tag": "infra-v6.5.3",
-  "notes": "Correção na geração de rotas do componente",
-  "timestamp": "2025-10-28T15:32:09.114Z"
+  "version": "6.5.4",
+  "tag": "infra-v6.5.4",
+  "notes": "Atualização de rotina",
+  "timestamp": "2025-10-28T15:34:16.032Z"
 }
