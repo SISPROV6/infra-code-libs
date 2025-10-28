@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-infra",
-  "version": "6.5.4",
-  "tag": "infra-v6.5.4",
-  "notes": "Atualização de rotina",
-  "timestamp": "2025-10-28T15:34:16.032Z"
+  "project": "ngx-sp-auth",
+  "version": "4.3.2",
+  "tag": "auth-v4.3.2",
+  "notes": "Ajuste nos serviço de pesquisa de telas para manter a pesquisa sempre no servidor",
+  "timestamp": "2025-10-28T15:52:56.513Z"
 }
