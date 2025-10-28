@@ -105,7 +105,11 @@ export class SearchInputComponent implements OnInit, AfterViewInit {
     const baseURL = `https://${hostname}/SisproErpCloud`;
 
     if (item.RotaV6 && item.RotaV6 !== '') {
-      let isCorporativo = item.RotaV6.split('/')[0] != item.Projeto;
+      // Normaliza os nomes para remover acentos
+      const nomeProjeto = item.Projeto.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      const nomeProjetoRota = item.RotaV6.split('/')[0].normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+      let isCorporativo = nomeProjeto != nomeProjetoRota;
       
       const targetRoute = `${baseURL}/${ isCorporativo ? 'Corporativo/' : '' }${item.RotaV6}`;
       window.location.assign(targetRoute);
