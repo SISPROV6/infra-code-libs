@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-views",
-  "version": "2.3.1",
-  "tag": "views-v2.3.1",
-  "notes": "Atualização de rotina",
-  "timestamp": "2025-10-28T12:48:15.553Z"
+  "project": "ngx-sp-infra",
+  "version": "6.5.2",
+  "tag": "infra-v6.5.2",
+  "notes": "Correção de estilo do componente de pesquisa global",
+  "timestamp": "2025-10-28T14:36:04.545Z"
 }

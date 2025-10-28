@@ -1,6 +1,6 @@
 <div class="search-overlay position-fixed w-100 h-100 d-flex flex-column align-items-center pt-3">
   <div class="search-wrapper d-flex flex-column align-items-center w-100" style="--max-width: 800px">
-    <div class="search-container w-100 bg-light d-flex flex-column align-items-start p-3 rounded">
+    <div class="search-container w-100 bg-white d-flex flex-column align-items-start p-3 rounded">
       <h6>
         <p class="fw-bold mb-0"> Pesquisa global de telas entre os produtos adquiridos </p>
         <span class="text-muted fw-bold fst-italic" style="font-size: 12px;">(para fechar clique no botão ao lado ou aperte ESC)</span>
@@ -21,7 +21,7 @@
       <span class="text-muted fw-bold fst-italic" style="font-size: 12px;">Digite pelo menos 3 caracteres para pesquisar...</span>
     </div>
 
-    <div class="search-results bg-light p-3 rounded mt-3 w-100"
+    <div class="search-results bg-white p-3 rounded mt-3 w-100"
       [class]="(!filteredMenus || !filteredSubmenus || !filteredTelas) ? 'text-center' : ''" >
 
       @defer (when filteredMenus || filteredSubmenus || filteredTelas) {

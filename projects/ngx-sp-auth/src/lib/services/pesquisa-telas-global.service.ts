@@ -79,7 +79,7 @@ export class PesquisaTelasGlobalService {
 
   // #endregion GERENCIAMENTO DINÂMICO DO COMPONENTE
 
-  private readonly _BASE_URL: string = `${ this._customEnvironmentService.Sp2LocalhostWS }/PesquisaGlobalTela`; // SpInfra2ErpWS
+  private readonly _BASE_URL: string = `${ this._customEnvironmentService.SpInfra2ErpWS }/PesquisaGlobalTela`; // SpInfra2ErpWS
   private readonly _HTTP_HEADERS = new HttpHeaders().set('Content-Type', 'application/json');
 
   // #endregion PRIVATE
