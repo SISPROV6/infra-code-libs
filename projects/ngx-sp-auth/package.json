@@ -1,0 +1,29 @@
+{
+  "name": "ngx-sp-auth",
+  "version": "4.3.2",
+  "description": "Biblioteca de utilitários de autenticação.",
+  "author": "P&D",
+  "keywords": [
+    "Infra",
+    "Sispro",
+    "Utilitários",
+    "P&D",
+    "angular",
+    "typescript",
+    "bootstrap"
+  ],
+  "bugs": {
+    "email": "sispropesqdesenv@sispro.com.br"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SISPROV6/infra-code-libs"
+  },
+  "peerDependencies": {
+    "@azure/msal-angular": "^4.0.16",
+    "@azure/msal-browser": "^4.18.0",
+    "ngx-sp-infra": "^6.5.6",
+    "ngx-toastr": "^19.0.0"
+  },
+  "sideEffects": false
+}
