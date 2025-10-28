@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, OnInit, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -34,8 +34,6 @@ export class SearchInputComponent implements OnInit, AfterViewInit {
   // #endregion PRIVATE
 
   // #region PUBLIC
-  @Input() public showIcons: boolean = false;
-
   @Output() public onClose: EventEmitter<void> = new EventEmitter<void>();
   @Output() public onSearch: EventEmitter<string> = new EventEmitter<string>();
 
@@ -73,9 +71,7 @@ export class SearchInputComponent implements OnInit, AfterViewInit {
   // #endregion ==========> PROPERTIES <==========
 
 
-  constructor(
-    private _router: Router
-  ) { }
+  constructor( private _router: Router ) { }
 
   ngOnInit(): void {
     // 
@@ -85,9 +81,6 @@ export class SearchInputComponent implements OnInit, AfterViewInit {
     this.focusInput();
   }
 
-
-  // #region ==========> UTILS <==========
-
   @HostListener('document:keydown', ['$event'])
   public onKeydown(event: KeyboardEvent): void {
     if (event.key === 'Escape') {
@@ -96,29 +89,14 @@ export class SearchInputComponent implements OnInit, AfterViewInit {
   }
 
 
-  public navigateTo(route: string): void {
-    this._router.navigate([route]).then(() => this.close() );
-  }
-
   public redirect(item: IV6Tela | IV6Submenu | IV6Menu): void {
-    const hostname = window.location.host.includes("localhost") ? "siscandesv6.sispro.com.br" : window.location.host;
-    const baseURL = `https://${hostname}/SisproErpCloud`;
+    // Decide which route to use: prefer RotaV6, otherwise RotaOS
+    const routeToUse = (item.RotaV6 && item.RotaV6 !== '') ? item.RotaV6 : item.RotaOS;
+    const targetRoute = this.formatBaseURL(item, routeToUse);
 
-    if (item.RotaV6 && item.RotaV6 !== '') {
-      // Normaliza os nomes para remover acentos
-      const nomeProjeto = item.Projeto.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-      const nomeProjetoRota = item.RotaV6.split('/')[0].normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-
-      let isCorporativo = nomeProjeto != nomeProjetoRota;
-      
-      const targetRoute = `${baseURL}/${ isCorporativo ? 'Corporativo/' : '' }${item.RotaV6}`;
-      window.location.assign(targetRoute);
-    }
-    else {
-      // Se a RotaOS começar com '/', não adiciona outra '/'
-      const targetRoute = `${baseURL}${ item.RotaOS[0] === '/' ? '' : '/' }${item.RotaOS}`;
-      window.location.assign(targetRoute);
-    }
+    // For debugging: log the computed URL. Navigation is intentionally commented out.
+    console.log('Computed targetRoute:', targetRoute);
+    window.location.assign(targetRoute);
   }
 
 
@@ -135,6 +113,81 @@ export class SearchInputComponent implements OnInit, AfterViewInit {
       const highlighted = text.replace(regex, (match) => `<b style="color: #ebae00;">${match}</b>`);
       target.innerHTML = highlighted;
     });
+  }
+
+
+  // FORMATAÇÃO DA ROTA
+
+  /**
+   * Formata a string de rota para usar no redirecionamento, pode ser OS ou V6.
+   * 
+   * @param item Objeto selecionado da lista
+   * @param route Rota desejada (OS ou V6)
+   * @returns String formatada com a rota final
+   * 
+   * * O método foi fortemente modificado pelo Github Copilot para rastrear todos os cenários
+  */
+  private formatBaseURL(item: IV6Tela | IV6Submenu | IV6Menu, route: string): string {
+    // Return full target URL according to these scenarios:
+    // - local + RotaV6  => http(s)://localhost:PORT/<rotaReduzida>
+    // - local + RotaOS  => https://<productionHost>/<rotaOS>
+    // - server + RotaV6 => https://<serverHost>/<rotaV6>
+    // - server + RotaOS => https://<serverHost>/<rotaOS>
+
+    // Normalize route and item fields
+    const routeStr = route || '';
+    const isLocal = window.location.hostname.includes('localhost') || window.location.hostname === '127.0.0.1';
+
+    // Production host to use when we need to redirect to server from local
+    const productionHost = isLocal ? 'siscandesv6.sispro.com.br' : window.location.host;
+    
+    const protocol = window.location.protocol;
+    const host = window.location.host;
+
+    // Helper to remove diacritics / accents
+    const normalizarString = (s: string) => (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+    // Determine if given route corresponds to a V6 route (it will match item.RotaV6)
+    const isV6 = item.RotaV6 && routeStr === item.RotaV6;
+    const isOS = item.RotaOS && routeStr === item.RotaOS;
+
+    // Normalize project names for comparison (remove accents)
+    const nomeProjeto = normalizarString(item.Projeto || '');
+    const primeiroSegmentoRota = routeStr.split('/')[0] || '';
+    const nomeProjetoRota = normalizarString(primeiroSegmentoRota || '');
+
+    // If the first segment of the route equals the project name, we may remove it for local V6 routing
+    const primeiroSegmentoIsProjeto = nomeProjeto !== '' && nomeProjeto === nomeProjetoRota;
+
+    // Build final URL
+    let finalURL = '';
+
+    if (isV6) {
+      if (isLocal) {
+        // On local, route should point to the local app. Remove first segment when it's the project name.
+        const rotaReduzida = primeiroSegmentoIsProjeto && routeStr.includes('/') ? routeStr.split('/').slice(1).join('/') : routeStr;
+        finalURL = `${protocol}//${host}/${rotaReduzida.replace(/^\/+/, '')}`;
+      }
+      else {
+        // On server, use the server host and keep the full V6 route
+        // If the route doesn't start with a product name, it's a Corporativo route
+        const isCorporativo = !primeiroSegmentoIsProjeto;
+        finalURL = `https://${host}/SisproErpCloud/${isCorporativo ? 'Corporativo/' : ''}${routeStr.replace(/^\/+/, '')}`;
+      }
+    }
+    else if (isOS) {
+      // RotaOS always points to the server (production) using https
+      finalURL = `https://${productionHost}/${routeStr.replace(/^\/+/, '')}`;
+    }
+    else {
+      // Fallback: if route is empty or not matched, return current origin
+      finalURL = `${protocol}//${host}`;
+    }
+
+    console.log('[formatBaseURL] route:', routeStr);
+    console.log('[formatBaseURL] finalURL:', finalURL);
+
+    return finalURL;
   }
 
 
