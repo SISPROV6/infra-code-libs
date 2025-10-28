@@ -49,16 +49,18 @@
 
 
           <!-- #region PESQUISA -->
-          <li class="mx-3 mb-3">
-            <div class="icon-pesquisa">
-              <button class="d-flex align-items-center justify-content-start gap-2 bg-transparent border-0" (click)="_pesquisaTelas.show()"
-                [tooltip]="!sidebar.classList.contains('closed') ? '' : 'Pesquisar telas'" placement="right">
-
-                <lib-icon class="col-1" iconName="lupa" iconColor="white" />
-                @if (!sidebar.classList.contains('closed')) { <span class="col ps-2 text-start text-truncate"> Pesquisar telas </span> }
-              </button>
-            </div>
-          </li>
+          @if (_customMenuService.menuDynamic) {
+            <li class="mx-3 mb-3">
+              <div class="icon-pesquisa">
+                <button class="d-flex align-items-center justify-content-start gap-2 bg-transparent border-0" (click)="_pesquisaTelas.show()"
+                  [tooltip]="!sidebar.classList.contains('closed') ? '' : 'Pesquisar telas'" placement="right">
+  
+                  <lib-icon class="col-1" iconName="lupa" iconColor="white" />
+                  @if (!sidebar.classList.contains('closed')) { <span class="col ps-2 text-start text-truncate"> Pesquisar telas </span> }
+                </button>
+              </div>
+            </li>
+          }
           <!-- #endregion PESQUISA -->
 
         </ul>
