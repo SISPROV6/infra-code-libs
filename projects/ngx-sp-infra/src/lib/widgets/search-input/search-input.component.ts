@@ -101,13 +101,20 @@ export class SearchInputComponent implements OnInit, AfterViewInit {
   }
 
   public redirect(item: IV6Tela | IV6Submenu | IV6Menu): void {
+    const hostname = window.location.host.includes("localhost") ? "siscandesv6.sispro.com.br" : window.location.host;
+    const baseURL = `https://${hostname}/SisproErpCloud`;
+
     if (item.RotaV6 && item.RotaV6 !== '') {
-      this._router.navigate([item.RotaV6]).then(() => this.close() );
+      let isCorporativo = item.RotaV6.split('/')[0] != item.Projeto;
+      console.log('item:', item);
+      console.log('isCorporativo:', isCorporativo);
+      
+      const targetRoute = `${baseURL}/${ isCorporativo ? 'Corporativo/' : '' }${item.RotaV6}`;
+      console.log('targetRoute:', targetRoute);
+      
+      window.location.replace(targetRoute);
     }
     else {
-      const hostname = window.location.host.includes("localhost") ? "siscandesv6.sispro.com.br" : window.location.host;
-      const baseURL = `https://${hostname}/SisproErpCloud`;
-
       // Se a RotaOS começar com '/', não adiciona outra '/'
       const targetRoute = `${baseURL}${ item.RotaOS[0] === '/' ? '' : '/' }${item.RotaOS}`;
       window.location.replace(targetRoute);
