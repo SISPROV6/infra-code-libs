@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-auth",
-  "version": "4.2.6",
-  "tag": "auth-v4.2.6",
-  "notes": "Liberação de primeira versão do serviço de busca de telas",
-  "timestamp": "2025-10-27T19:49:55.485Z"
+  "project": "ngx-sp-views",
+  "version": "2.3.0",
+  "tag": "views-v2.3.0",
+  "notes": "Liberação de @latest semanal com todas correções e implementações das versões @next e @test desde a última liberação",
+  "timestamp": "2025-10-28T12:16:32.307Z"
 }
