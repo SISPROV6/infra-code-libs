@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-infra",
-  "version": "6.5.6",
-  "tag": "infra-v6.5.6",
-  "notes": "Correção no método de redirecionamento que permite utilizar a pesquisa de telas no localhost sem redirecionar para o servidor (em caso de V6, OS irá para o servidor siscandesv6)",
-  "timestamp": "2025-10-28T20:23:55.967Z"
+  "project": "ngx-sp-auth",
+  "version": "4.3.3",
+  "tag": "auth-v4.3.3",
+  "notes": "Ajuste no menu lateral para exibir o botão de pesquisa de telas apenas quando o menu é dinâmico (vem do banco)",
+  "timestamp": "2025-10-29T13:02:05.345Z"
 }
