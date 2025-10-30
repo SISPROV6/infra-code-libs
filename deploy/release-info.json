@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-infra",
-  "version": "6.5.7",
-  "tag": "infra-v6.5.7",
-  "notes": "Liberação de versão @latest com ajustes de autenticação e no componente de pesquisa de telas",
-  "timestamp": "2025-10-30T11:50:26.514Z"
+  "project": "ngx-sp-auth",
+  "version": "4.3.4",
+  "tag": "auth-v4.3.4",
+  "notes": "Liberação de versão @latest com ajustes na autenticação e serviço de pesquisa de telas",
+  "timestamp": "2025-10-30T11:57:20.742Z"
 }
