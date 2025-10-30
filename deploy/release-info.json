@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-infra",
-  "version": "6.5.5",
-  "tag": "infra-v6.5.5",
-  "notes": "Correção no caso do Patrimônio, onde as rotas do Patrimônio eram consideradas parte do Corporativo pois o nome do projeto na rota era diferente do nome do projeto geral",
-  "timestamp": "2025-10-28T17:27:31.416Z"
+  "version": "6.5.7",
+  "tag": "infra-v6.5.7",
+  "notes": "Liberação de versão @latest com ajustes de autenticação e no componente de pesquisa de telas",
+  "timestamp": "2025-10-30T11:50:26.514Z"
 }
