@@ -1,7 +1,6 @@
 name: Continuous Integration - Revisão de código e testes
 
 on:
-  pull_request:
   push:
     # branches de feature/custom
     branches-ignore:
