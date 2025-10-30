@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-auth",
-  "version": "4.3.3",
-  "tag": "auth-v4.3.3",
-  "notes": "Ajuste no menu lateral para exibir o botão de pesquisa de telas apenas quando o menu é dinâmico (vem do banco)",
-  "timestamp": "2025-10-29T13:02:05.345Z"
+  "project": "ngx-sp-infra",
+  "version": "6.5.7",
+  "tag": "infra-v6.5.7",
+  "notes": "Liberação de versão @latest com ajustes de autenticação e no componente de pesquisa de telas",
+  "timestamp": "2025-10-30T11:50:26.514Z"
 }
