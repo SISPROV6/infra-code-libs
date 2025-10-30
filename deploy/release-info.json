@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-auth",
-  "version": "4.3.4",
-  "tag": "auth-v4.3.4",
-  "notes": "Liberação de versão @latest com ajustes na autenticação e serviço de pesquisa de telas",
-  "timestamp": "2025-10-30T11:57:20.742Z"
+  "project": "ngx-sp-views",
+  "version": "2.3.2",
+  "tag": "views-v2.3.2",
+  "notes": "Liberação de rotina utilizando as versões @latest da infra e auth",
+  "timestamp": "2025-10-30T12:03:01.788Z"
 }
