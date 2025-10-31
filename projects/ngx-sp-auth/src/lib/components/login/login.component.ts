@@ -7,20 +7,20 @@ import { Router } from '@angular/router';
 import { Subscription, map, take, timer } from 'rxjs';
 
 import { MSAL_GUARD_CONFIG, MsalGuardConfiguration, MsalService } from '@azure/msal-angular';
-import { PublicClientApplication, RedirectRequest, LogLevel, AuthenticationResult } from '@azure/msal-browser';
+import { AuthenticationResult, LogLevel, PublicClientApplication, RedirectRequest } from '@azure/msal-browser';
 
 import { ToastrService } from 'ngx-toastr';
 
 import { FormUtils, InfraModule, MessageService } from 'ngx-sp-infra';
 
+import { AuthService } from '../../auth.service';
+import { LibCustomEnvironmentService } from '../../custom/lib-custom-environment.service';
 import { LibCustomLoginService } from '../../custom/lib-custom-login.service';
 import { ProjectUtilservice } from '../../project/project-utils.service';
-import { LibCustomEnvironmentService } from '../../custom/lib-custom-environment.service';
-import { AuthService } from '../../auth.service';
 import { AuthStorageService } from '../../storage/auth-storage.service';
 
-import { InfraInAuthTypeId } from '../../models/infraInAuthTypeId';
 import { InfraIn2FaTypeId } from '../../models/infraIn2FaTypeId';
+import { InfraInAuthTypeId } from '../../models/infraInAuthTypeId';
 
 export enum LoginProgress {
 	Domain = 1,
@@ -408,7 +408,7 @@ export class LoginComponent implements OnInit {
 					//Incialização de Senha
 					if (response.InitializePassword) {
 						let param: string = btoa(`true$${ this.dominio }$${ this.usuario }$${response.StatusSenha}`);
-						this._router.navigate([`auth/login/${ param }`]);
+						this._router.navigate([`auth/login/novaSenha/${ param }`]);
 						this._toastrService.success("Verifique no seu e-mail o código de validação.");
 					}
 	
@@ -464,7 +464,7 @@ export class LoginComponent implements OnInit {
 						//Incialização de Senha
 						if (response.InitializePassword) {
 							let param: string = btoa(`true$${ this.dominio }$${ this.usuarioAzure }$${response.StatusSenha}`);
-							this._router.navigate([`auth/login/${ param }`]);
+							this._router.navigate([`auth/login/novaSenha/${ param }`]);
 							this._toastrService.success("Verifique no seu e-mail o código de validação.");
 						}
 		
