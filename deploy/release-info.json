@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-auth",
-  "version": "4.3.5",
-  "tag": "auth-v4.3.5",
-  "notes": "Ajuste no redirecionamento para nova senha",
-  "timestamp": "2025-10-31T12:31:15.022Z"
+  "project": "ngx-sp-infra",
+  "version": "6.5.9",
+  "tag": "infra-v6.5.9",
+  "notes": "Correção do zindex",
+  "timestamp": "2025-10-31T12:49:53.929Z"
 }
