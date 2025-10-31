@@ -13,6 +13,8 @@ export interface ICustomConfigERPEnvironmentService {
 	
 	get SpInfra2QueueWS(): string,
 
+	get SpCrp2InfraWS(): string,
+
 	get needsAuthInfra(): Map<string, string[]>,
 
 	get needsAuthAplic(): Map<string, string[]>

@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-infra",
-  "version": "6.5.9",
-  "tag": "infra-v6.5.9",
-  "notes": "Correção do zindex",
-  "timestamp": "2025-10-31T12:49:53.929Z"
+  "project": "ngx-sp-views",
+  "version": "3.0.1",
+  "tag": "views-v3.0.1",
+  "notes": "Recuperação da tela de 'Configuração de SMTP'",
+  "timestamp": "2025-10-31T14:32:14.741Z"
 }

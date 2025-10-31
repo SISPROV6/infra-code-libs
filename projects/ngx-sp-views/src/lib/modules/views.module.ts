@@ -1,3 +1,4 @@
+import { ConfigEmailComponent } from './../views/config-smtp/components/config-email/config-email.component';
 import { NgModule } from "@angular/core";
 
 import { LibAuthenticationConfigComponent } from "../views/lib-authentication-config/components/lib-authentication-config.component";
@@ -40,7 +41,8 @@ import { LibMonitoramentoFilaComponent } from "../../public-api";
     HomeLogTimerComponent,
     DetalhesLogWSComponent,
     HomeLogsWSComponent,
-    LibMonitoramentoFilaComponent
+    LibMonitoramentoFilaComponent,
+    ConfigEmailComponent
   ],
   exports: [
     LibAuthenticationConfigComponent,
@@ -61,7 +63,8 @@ import { LibMonitoramentoFilaComponent } from "../../public-api";
     HomeLogTimerComponent,
     DetalhesLogWSComponent,
     HomeLogsWSComponent,
-    LibMonitoramentoFilaComponent
+    LibMonitoramentoFilaComponent,
+    ConfigEmailComponent
   ]
 })
 export class LibViewsModule { }

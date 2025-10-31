@@ -43,9 +43,13 @@ export class LibCustomConfigERPEnvironmentService {
 	public get SpInfra2ConfigErpWS(): string {
         return this._customEnvironmentService.SpInfra2ConfigErpWS;
     };
+
 	public get SpInfra2QueueWS(): string {
         return this._customEnvironmentService.SpInfra2QueueWS;
     };
 
+    public get SpCrp2InfraWS(): string {
+        return this._customEnvironmentService.SpCrp2InfraWS;
+    }
 }
 
