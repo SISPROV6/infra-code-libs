@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-views",
-  "version": "2.3.2",
-  "tag": "views-v2.3.2",
-  "notes": "Liberação de rotina utilizando as versões @latest da infra e auth",
-  "timestamp": "2025-10-30T12:03:01.788Z"
+  "project": "ngx-sp-infra",
+  "version": "6.5.8",
+  "tag": "infra-v6.5.8",
+  "notes": "Ajuste no index do header",
+  "timestamp": "2025-10-31T12:23:56.380Z"
 }
