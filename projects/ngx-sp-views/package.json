@@ -21,8 +21,8 @@
   },
   "peerDependencies": {
     "chart.js": "^4.5.0",
-    "ngx-sp-auth": "^4.3.4",
-    "ngx-sp-infra": "^6.5.7",
+    "ngx-sp-auth": "^4.3.5",
+    "ngx-sp-infra": "^6.5.9",
     "tslib": "^2.3.0"
   },
   "sideEffects": false
