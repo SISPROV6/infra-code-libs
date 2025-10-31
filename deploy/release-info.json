@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-views",
-  "version": "3.0.0",
-  "tag": "views-v3.0.0",
-  "notes": "Componentização do formulário de configuração SMTP",
-  "timestamp": "2025-10-24T17:34:26.824Z"
+  "version": "3.0.1",
+  "tag": "views-v3.0.1",
+  "notes": "Recuperação da tela de 'Configuração de SMTP'",
+  "timestamp": "2025-10-31T14:32:14.741Z"
 }
