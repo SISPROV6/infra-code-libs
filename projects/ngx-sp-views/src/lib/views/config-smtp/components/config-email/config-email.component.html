@@ -70,7 +70,7 @@
                         <label for="inputGroupSenha" class="form-label">Senha</label>
                         <div
                             tooltip="Informe sua senha de acesso (obrigatório caso seu provedor de email necessite autenticação para envio ou se desejar receber confirmações de entrega/leitura).">
-                            <input type="password" class="form-control" aria-label="Sizing example input"
+                            <input type="password" class="form-control" aria-label="Sizing example input" maxlength="50"
                                 placeholder="Informe a senha" aria-describedby="inputGroupSenha"
                                 formControlName="Password_Ang"
                                 [class.is-invalid]="FormUtils.isInvalidField(senhaForm.get('Password_Ang'))">
@@ -113,7 +113,7 @@
                         <label for="inputGroupPortaSMTP" class="form-label">Porta SMTP</label>
                         <div
                             tooltip="Informe a porta de acesso do Smtp, se não for informado, será usada a porta padrão 25.">
-                            <input type="number" class="form-control" aria-label="Sizing example input"
+                            <input type="text" class="form-control" aria-label="Sizing example input" maxlength="4"
                                 aria-describedby="inputGroupPortaSMTP" formControlName="SmtpPort"
                                 [class.is-invalid]="FormUtils.isInvalidField(form.get('SmtpPort'))">
                             <app-field-error-message [control]="form.get('SmtpPort')"
@@ -127,7 +127,7 @@
                         <div
                             tooltip="Tempo máximo para tentativa de acesso do sistema ao servidor em milissegundos (opcional).">
                             <input type="text" class="form-control" aria-label="Sizing example input"
-                                aria-describedby="inputTimeOut" formControlName="TimeOut"
+                                aria-describedby="inputTimeOut" formControlName="TimeOut" maxlength="4"
                                 [class.is-invalid]="FormUtils.isInvalidField(form.get('TimeOut'))">
                             <app-field-error-message [control]="form.get('TimeOut')"
                                 label="Time out"></app-field-error-message>
@@ -207,7 +207,7 @@
                     <div>
                         <label for="inputGrouUrlDoServidor" class="form-label">URL do servidor</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" aria-label="Sizing example input"
+                            <input type="text" class="form-control" aria-label="Sizing example input" maxlength="250"
                                 aria-describedby="inputGrouUrlDoServidor" formControlName="UrlServidor"
                                 [class.is-invalid]="FormUtils.isInvalidField(form.get('UrlServidor'))">
                             <app-field-error-message [control]="form.get('UrlServidor')"
