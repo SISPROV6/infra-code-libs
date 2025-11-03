@@ -43,9 +43,11 @@ export class ConfigEmailComponent {
   }
 
   // #region ==========> PROPERTIES <==========
-  @Input() module: 'ConfigErp' | 'Corporativo' = 'Corporativo'
+  @Input({ required: true }) tenantID: number = 0;
+  
+  @Input({ required: true }) module: 'ConfigErp' | 'Corporativo' = 'Corporativo'
 
-  @Input() isInfraStab: boolean = false;
+  @Input({ required: true }) isInfraStab: boolean = false;
 
   @Output() emitIsEditingMode = new EventEmitter<boolean>();
 
@@ -105,7 +107,7 @@ export class ConfigEmailComponent {
   // #region GET
 
   public getInfraEmail(infraEstabId: string = ""): void {
-    this._configuracoesSmtpService.GetInfraEmail(this.module,this._authStorageService.tenantId, infraEstabId).subscribe({
+    this._configuracoesSmtpService.GetInfraEmail(this.module,this.tenantID, infraEstabId).subscribe({
       next: response => {
         this.emailData = response.InfraEmailCfg;
 
@@ -142,7 +144,7 @@ export class ConfigEmailComponent {
   public SalvarCfgEmail(): void {
     if ((this.form.valid && this.editingMode) || (this.form.valid && this.senhaForm.valid && !this.editingMode)) {
       this.emailData = this.form.getRawValue() as InfraEmailCfgRecord;
-      this.emailData.Tenant_Id = this._authStorageService.tenantId
+      this.emailData.Tenant_Id = this.tenantID
       this.emailData.Id = this._infraEmailId;
       if (this.isInfraStab) {
         this.emailData.InfraEstabId = this._infraEstabelecimentoID
