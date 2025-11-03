@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-views",
-  "version": "3.0.1",
-  "tag": "views-v3.0.1",
-  "notes": "Recuperação da tela de 'Configuração de SMTP'",
-  "timestamp": "2025-10-31T14:32:14.741Z"
+  "version": "3.1.0",
+  "tag": "views-v3.1.0",
+  "notes": "O tenantID será passado por input pois o configerp utiliza o auth local",
+  "timestamp": "2025-11-03T11:33:05.311Z"
 }
