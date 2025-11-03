@@ -85,11 +85,11 @@ export class ConfigEmailComponent {
     Is_SSL: new FormControl<boolean>(false),
     Is_TLS: new FormControl<boolean>(false),
     Is_Authenticated: new FormControl<boolean>(false),
-    UrlServidor: new FormControl<string>(""),
+    UrlServidor: new FormControl<string>("", [Validators.maxLength(250)]),
   })
 
   public senhaForm: FormGroup = new FormGroup({
-    Password_Ang: new FormControl<string>("", [Validators.maxLength(1000)]),
+    Password_Ang: new FormControl<string>("", [Validators.maxLength(500)]),
   })
 
   public mailTestForm: FormGroup = new FormGroup({
