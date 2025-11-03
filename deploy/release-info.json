@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-auth",
-  "version": "4.3.6",
-  "tag": "auth-v4.3.6",
-  "notes": "Correção no nome das propriedades da class InfraUsuarioImg para igualarem-se aos nomes no 7Db do backend",
-  "timestamp": "2025-11-03T19:38:29.957Z"
+  "project": "ngx-sp-infra",
+  "version": "6.5.10",
+  "tag": "infra-v6.5.10",
+  "notes": "Atualização de rotina",
+  "timestamp": "2025-11-03T20:29:05.387Z"
 }
