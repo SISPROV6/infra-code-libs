@@ -213,7 +213,7 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
 
   private getMenuUserImg(): void {
     this._menuServices.getImagemMenu().subscribe({
-      next: response => { this.footerUserImgSrc = response.InfraUsuarioImg.IMAGEM; },
+      next: response => { this.footerUserImgSrc = response.InfraUsuarioImg.Imagem; },
       error: error => { this._projectUtilService.showHttpError(error); }
     })
   }

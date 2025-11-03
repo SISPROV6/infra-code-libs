@@ -1,22 +1,22 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 import { Observable, Subject, take, tap } from 'rxjs';
 
-import { AuthStorageService } from '../../storage/auth-storage.service';
-import { LibCustomEnvironmentService } from '../../custom/lib-custom-environment.service';
 import { RetError, RetEstabelecimentosModal, RetString } from 'ngx-sp-infra';
+import { LibCustomEnvironmentService } from '../../custom/lib-custom-environment.service';
+import { AuthStorageService } from '../../storage/auth-storage.service';
 
-import { Usuario_IMG } from './model/usuario-img';
+import { RetDynamicMenu } from './model/dynamic-menu';
+import { NavSubmenuSearchItem } from './model/navsubmenu-searchitem';
+import { RetDropDown } from './model/ret-dropdown';
+import { RetEstabelecimentoSession } from './model/ret-estabelecimento-session';
 import { RetInfraUsuarioEmail } from './model/ret-infrausuarioemail';
 import { RetInfraUsuarioImg } from './model/ret-infrausuarioimg';
-import { RetEstabelecimentoSession } from './model/ret-estabelecimento-session';
-import { RetNavSubMenu, RetSubmenuWithCards } from './model/ret-navsubmenu';
-import { NavSubmenuSearchItem } from './model/navsubmenu-searchitem';
-import { RetDynamicMenu } from './model/dynamic-menu';
-import { RetDropDown } from './model/ret-dropdown';
-import { RetVersion } from './model/ret-version';
 import { RetIsMenuAllowed } from './model/ret-is-menu-allowed';
+import { RetNavSubMenu, RetSubmenuWithCards } from './model/ret-navsubmenu';
+import { RetVersion } from './model/ret-version';
+import { Usuario_IMG } from './model/usuario-img';
 
 @Injectable({
   providedIn: 'root'
@@ -95,7 +95,7 @@ export class MenuServicesService {
             throw Error(response.ErrorMessage);
           }
 
-          this.saveImageToStorage(response.InfraUsuarioImg.IMAGEM, response.InfraUsuarioImg.FILENAME);
+          this.saveImageToStorage(response.InfraUsuarioImg.Imagem, response.InfraUsuarioImg.Filename);
         })
       )
   }
