@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-views",
-  "version": "3.1.1",
-  "tag": "views-v3.1.1",
-  "notes": "O tenantID será passado por input pois o configerp utiliza o auth local.",
-  "timestamp": "2025-11-03T11:42:05.682Z"
+  "project": "ngx-sp-auth",
+  "version": "4.3.6",
+  "tag": "auth-v4.3.6",
+  "notes": "Correção no nome das propriedades da class InfraUsuarioImg para igualarem-se aos nomes no 7Db do backend",
+  "timestamp": "2025-11-03T19:38:29.957Z"
 }
