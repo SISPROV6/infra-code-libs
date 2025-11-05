@@ -9,6 +9,7 @@ export * from './lib/custom/lib-custom-login.service';
 export * from './lib/custom/lib-custom-menu.service';
 export * from './lib/custom/lib-custom-storage.service';
 export * from './lib/custom/lib-menu-config.service';
+export * from './lib/services/indexed-db.service';
 export * from './lib/services/pesquisa-telas-global.service';
 export * from './lib/storage/auth-storage.service';
 

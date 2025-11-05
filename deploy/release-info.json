@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-views",
-  "version": "3.1.2",
-  "tag": "views-v3.1.2",
-  "notes": "Atualização de rotina",
-  "timestamp": "2025-11-03T20:39:36.645Z"
+  "project": "ngx-sp-auth",
+  "version": "4.3.7",
+  "tag": "auth-v4.3.7",
+  "notes": "Implementação do serviço de IndexedDB para armazenamento de filtros em navegador",
+  "timestamp": "2025-11-05T18:44:45.276Z"
 }
