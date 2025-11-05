@@ -122,8 +122,8 @@ export class IndexedDBService {
    * 
    * @param dbName Nome da base de dados que será usada
   */
-  public async initializeDatabase(dbName: string = this._dbName) {
-    this.request = await openDB(dbName, 1, {
+  public async initializeDatabase() {
+    this.request = await openDB(this._dbName, 1, {
       upgrade (db) {
 
         // Criar objectStore se não houver um mesmo com este nome
@@ -149,8 +149,8 @@ export class IndexedDBService {
    * 
    * @param name Nome da database
   */
-  public async deleteDatabase(name: string): Promise<void> {
-    return await deleteDB(name);
+  public async deleteDatabase(): Promise<void> {
+    return await deleteDB(this._dbName);
   }
 
 

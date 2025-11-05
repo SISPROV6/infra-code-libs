@@ -1,14 +1,15 @@
+import { HttpBackend, HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpBackend } from '@angular/common/http';
 import { BehaviorSubject, Observable, take, tap } from 'rxjs';
 
 import { Payload } from './../models/payload';
 
 import { Utils } from 'ngx-sp-infra';
-import { Token } from '../models/token';
-import { RetToken } from '../models/ret-token';
-import { LibCustomStorageService } from '../custom/lib-custom-storage.service';
 import { LibCustomEnvironmentService } from '../custom/lib-custom-environment.service';
+import { LibCustomStorageService } from '../custom/lib-custom-storage.service';
+import { RetToken } from '../models/ret-token';
+import { Token } from '../models/token';
+import { IndexedDBService } from '../services/indexed-db.service';
 
 @Injectable(
   { providedIn: 'root' }
@@ -31,6 +32,7 @@ export class AuthStorageService {
   constructor(
     private _httpBackend: HttpBackend,
     private _customStorageService: LibCustomStorageService,
+    private _indexedDBService: IndexedDBService,
     private _customEnvironmentService: LibCustomEnvironmentService
   ) {
     this._httpClient = new HttpClient(_httpBackend);
@@ -491,6 +493,9 @@ export class AuthStorageService {
     this.__azureClientId = "";
 
     localStorage.removeItem(this.__local_key);
+
+    // Limnpa o armazenamento local do navegador que contém os filtros de um produto específico (com base na prop 'product' do environment)
+    this._indexedDBService.deleteDatabase();
 
     // Método com customizações para finalizações da storage
     this._customStorageService.storageLogout();

@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-auth",
-  "version": "4.3.7",
-  "tag": "auth-v4.3.7",
-  "notes": "Implementação do serviço de IndexedDB para armazenamento de filtros em navegador",
-  "timestamp": "2025-11-05T18:44:45.276Z"
+  "version": "4.3.8",
+  "tag": "auth-v4.3.8",
+  "notes": "Implementação da limpeza do armazenamento de filtros local no momento de login e logout",
+  "timestamp": "2025-11-05T19:19:48.296Z"
 }

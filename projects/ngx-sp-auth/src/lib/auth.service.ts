@@ -21,6 +21,7 @@ import { IpServiceService, RetError } from 'ngx-sp-infra';
 import { LibCustomEnvironmentService } from './custom/lib-custom-environment.service';
 import { LibCustomLoginService } from './custom/lib-custom-login.service';
 import { ProjectUtilservice } from './project/project-utils.service';
+import { IndexedDBService } from './services/indexed-db.service';
 import { AuthStorageService } from './storage/auth-storage.service';
 @Injectable(
   { providedIn: 'root' }
@@ -54,7 +55,8 @@ export class AuthService {
     private _ipServiceService: IpServiceService,
     private _customLoginService: LibCustomLoginService,
     private _projectUtilservice: ProjectUtilservice,
-    private _customEnvironmentService: LibCustomEnvironmentService
+    private _customEnvironmentService: LibCustomEnvironmentService,
+    private _indexedDBService: IndexedDBService
   ) {
     this._BASE_URL = `${ this._customEnvironmentService.SpInfra2LoginWS }/LoginSisproERP`; // SpInfra2WS
     this._AUTH_BASE_URL = `${ this._customEnvironmentService.SpInfra2AuthWS }/Auth`; // SpInfra2AuthWS
@@ -186,6 +188,9 @@ export class AuthService {
       .pipe(
         take(1),
         tap((response) => {
+
+          // Limnpa o armazenamento local do navegador que contém os filtros de um produto específico (com base na prop 'product' do environment)
+          this._indexedDBService.deleteDatabase();
 
           if (response.FeedbackMessage != "") {
             return;
