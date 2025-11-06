@@ -2,12 +2,13 @@ import { Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { AuthStorageService } from 'ngx-sp-auth';
+import { ProjectUtilservice } from 'ngx-sp-auth/lib/project/project-utils.service';
 import { FormUtils, InfraModule, MessageService, ModalUtilsService } from 'ngx-sp-infra';
 import { ToastrService } from 'ngx-toastr';
-import { AuthStorageService } from 'ngx-sp-auth';
-import { ConfiguracoesSmtpService } from '../../service/configuracoes-smtp.service';
-import { InfraEmailCfgRecord } from '../../models/InfraEmailCfgRecord';
 import { EmailConfigTestModel } from '../../models/EmailConfigTestModel';
+import { InfraEmailCfgRecord } from '../../models/InfraEmailCfgRecord';
+import { ConfiguracoesSmtpService } from '../../service/configuracoes-smtp.service';
 
 @Component({
   selector: 'lib-config-email',
@@ -24,6 +25,8 @@ export class ConfigEmailComponent {
     private _route: ActivatedRoute,
     private _toastrService: ToastrService,
     private _authStorageService: AuthStorageService,
+    private _projectUtils: ProjectUtilservice,
+
     public modalUtils: ModalUtilsService
   ) { }
 
@@ -131,7 +134,7 @@ export class ConfigEmailComponent {
         }
 
       },
-      error: error => { this._messageService.showAlertDanger(error); }
+      error: error => this._projectUtils.showHttpError(error)
     });
   }
 
@@ -166,7 +169,7 @@ export class ConfigEmailComponent {
             this.getInfraEmail()
           }
         },
-        error: error => { this._messageService.showAlertDanger(error) }
+        error: error => this._projectUtils.showHttpError(error)
       });
     }
     else { FormUtils.validateFields(this.form) }
@@ -188,7 +191,7 @@ export class ConfigEmailComponent {
             this.getInfraEmail()
           }
         }, error: error => {
-          this._messageService.showAlertDanger(error)
+          this._projectUtils.showHttpError(error)
         }
       })
     }
@@ -227,7 +230,7 @@ export class ConfigEmailComponent {
           this._messageService.showAlertSuccess("Enviamos um e-mail para os destinatários escohidos! Verifique a caixa de entrada para garantir que tudo está correto (certifique-se de verificar também o seu lixo eletrônico).");
           this.modalUtils.closeModal(2)
         }, error: error => {
-          this._messageService.showAlertDanger(error);
+          this._projectUtils.showHttpError(error)
         }
       })
 
