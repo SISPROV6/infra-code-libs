@@ -494,8 +494,11 @@ export class AuthStorageService {
 
     localStorage.removeItem(this.__local_key);
 
-    // Limnpa o armazenamento local do navegador que contém os filtros de um produto específico (com base na prop 'product' do environment)
-    this._indexedDBService.deleteDatabase();
+    // Limpa o armazenamento local do navegador que contém os filtros de um produto específico
+    // Fecha a conexão local (se houver) antes de excluir a database para evitar o callback 'blocking'
+    this._indexedDBService.closeOpenConnection()
+      .then(() => this._indexedDBService.deleteDatabase())
+      .catch((err) => console.warn('logout() => falha ao limpar conexão', err) );
 
     // Método com customizações para finalizações da storage
     this._customStorageService.storageLogout();
