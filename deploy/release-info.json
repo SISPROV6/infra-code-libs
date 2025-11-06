@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-auth",
-  "version": "4.3.8",
-  "tag": "auth-v4.3.8",
-  "notes": "Implementação da limpeza do armazenamento de filtros local no momento de login e logout",
-  "timestamp": "2025-11-05T19:19:48.296Z"
+  "project": "ngx-sp-infra",
+  "version": "6.5.11",
+  "tag": "infra-v6.5.11",
+  "notes": "Liberação semanal com implementações das versões @next e @test incluídas desde a última liberação",
+  "timestamp": "2025-11-06T12:10:22.873Z"
 }
