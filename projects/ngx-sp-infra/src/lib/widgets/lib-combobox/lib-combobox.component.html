@@ -15,7 +15,7 @@
 
    <input  #mainInput class="form-select text-start rounded-end cursor-pointer" type="text"
             data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" readonly
-            [placeholder]="mainPlaceholder" [formControl]="innerControl" [class.is-invalid]="invalidControl" [id]="comboboxID"
+            [placeholder]="mainPlaceholder" [class.text-muted]="innerControl.value == null" [formControl]="innerControl" [class.is-invalid]="invalidControl" [id]="comboboxID"
             (click)="ariaExpanded = !ariaExpanded; focusSearchInput()" (focus)="focusSearchInput()">
 
    <ul  #dropdownMenu  class="dropdown-menu p-2 glb-max-height-350px overflow-y-scroll z-index-1020" [class.show]="ariaExpanded">

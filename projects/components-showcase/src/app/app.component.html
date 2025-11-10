@@ -1,17 +1,18 @@
 <div class="content">
   <div class="filters">
     
-    <lib-container [tabs]="['Combobox', 'Tabela']" [useBorder]="true" >
-      <div innerContent1 class="row">
-        <div class="col-12 d-flex gap-2 mb-3">
+    <lib-container [tabs]="[ 'Combobox', 'Tabela' ]" [useBorder]="true" >
+      <div innerContent1>
+        <div class="d-flex gap-2 mb-5">
           <input type="text" class="form-control" placeholder="Informe aqui o valor customizado" [(ngModel)]="valorCustomizado" (keyup.enter)="setExternalValue(valorCustomizado ?? '')" >
           <button class="btn btn-primary" (click)="setExternalValue(valorCustomizado ?? '')" >DEFINIR</button>
         </div>
 
         <form [formGroup]="form">
-          <div class="col-6">
-              <label class="form-label" libRequired >Opções disponíveis</label>
-              <lib-combobox-rework [list]="pokemons" formControlName="pokemon" customLabel="url" customValue="name" >
+          <div class="row">
+            <div class="col-6">
+              <label class="form-label" libRequired>Pokemons (lib-combobox-rework)</label>
+              <lib-combobox-rework [list]="pokemons" formControlName="pokemon" customLabel="url" customValue="name" (selectionChange)="log($event)" >
                 <ng-template #optionTemplate let-item let-selected="selected">
                   <div class="d-flex align-items-center justify-content-between option w-100" [ngClass]="{ 'active fw-bold text-primary': selected }" >
                     <div class="flex-grow-1">
@@ -21,30 +22,34 @@
                 </ng-template>
               </lib-combobox-rework>
             </div>
+  
+            <div class="col-6">
+              <lib-combobox labelText="Pokemons (lib-combobox)" [list]="pokemonsCombobox" [control]="form.controls['pokemon']" />
+            </div>
+          </div>
         </form>
       </div>
 
       <div innerContent2>
         <lib-table [list]="recordsList" [counts]="[ 5, 10, 15 ]" paginationID="simpleTable" [usePreviousStyle]="false"
+          (itemsPerPageChange)="itemsPerPage = $event" (pageChange)="page = $event"
           [headers]="[
-              { name: 'Nome', widthClass: 'w-20', tooltip: 'TESTE' },
-              { name: 'Descrição', widthClass: 'w-30' },
-              { name: '', widthClass: 'w-20', customClasses: 'text-end' }
-          ]"
-          (itemsPerPageChange)="itemsPerPage = $event"
-          (pageChange)="page = $event" >
+            { name: 'Nome', widthClass: 'w-20', tooltip: 'TESTE' },
+            { name: 'Descrição', widthClass: 'w-30' },
+            { name: '', widthClass: 'w-20', customClasses: 'text-end' }
+          ]" >
 
           @for (item of recordsList | paginate: { id: 'simpleTable', itemsPerPage: itemsPerPage, currentPage: page }; track item) {
-              <tr innerRows class="align-middle">
-                <td> <a class="text-primary text-decoration-none fw-bold" tooltip="Editar/Visualizar">{{ item.nome }}</a> </td>
-                <td>{{ item.descricao }}</td>
-                <td>
-                    <div class="d-flex flex-row align-items-center justify-content-end">
-                      <lib-icon iconName="editar" iconColor="blue" tooltip="Visualizar/Editar" />
-                      <div class="form-check form-switch ms-2"> <input class="form-check-input" type="checkbox" role="switch" [checked]="item.isAtivo"> </div>
-                    </div>
-                </td>
-              </tr>
+            <tr innerRows class="align-middle">
+              <td> <a class="text-primary text-decoration-none fw-bold" tooltip="Editar/Visualizar">{{ item.nome }}</a> </td>
+              <td>{{ item.descricao }}</td>
+              <td>
+                <div class="d-flex flex-row align-items-center justify-content-end">
+                  <lib-icon iconName="editar" iconColor="blue" tooltip="Visualizar/Editar" />
+                  <div class="form-check form-switch ms-2"> <input class="form-check-input" type="checkbox" role="switch" [checked]="item.isAtivo"> </div>
+                </div>
+              </td>
+            </tr>
           }
         </lib-table>
       </div>
