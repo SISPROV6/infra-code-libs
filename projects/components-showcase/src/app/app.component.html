@@ -1,54 +1,28 @@
-<lib-search-input [customItems]="customRoutes" />
-
 <div class="content">
   <div class="filters">
     
-    <lib-container [tabs]="[ 'Primeiro', 'Segundo', 'Ícones', 'Crads de submenu' ]" [currentTab]="'Ícones'" [useBorder]="true" >
+    <lib-container [useBorder]="true" >
       <div innerContent1 class="row">
+        <div class="col-12 d-flex gap-2 mb-3">
+          <input type="text" class="form-control" placeholder="Informe aqui o valor customizado" [(ngModel)]="valorCustomizado" (keyup.enter)="setExternalValue(valorCustomizado ?? '')" >
+          <button class="btn btn-primary" (click)="setExternalValue(valorCustomizado ?? '')" >DEFINIR</button>
+        </div>
+
         <div class="col-6">
-          <label class="form-label" libRequired >Opções disponíveis</label>
-          <lib-combobox-rework [multiple]="true" [list]="items" [formControl]="control" customLabel="surname" customValue="name" (selectionChange)="log($event)" />
-  
-          <lib-error-message [control]="control" ></lib-error-message>
-        </div>
-  
-        <div class="col-6">
-          <lib-combobox labelText="Valores teste" [list]="combobox" [control]="control"  />
-        </div>
-      </div>
+          <form [formGroup]="form">
+            <label class="form-label" libRequired >Opções disponíveis</label>
+            <lib-combobox-rework [list]="pokemons" formControlName="pokemon" customLabel="url" customValue="name" (selectionChange)="log($event)" [disabled]="true" >
+              <ng-template #optionTemplate let-item let-selected="selected">
+                <div class="d-flex align-items-center justify-content-between option w-100" [ngClass]="{ 'active fw-bold text-primary': selected }" >
+                  <div class="flex-grow-1">
+                    <b> Name: {{ item.name }} ||</b> URL: {{ item.url }}
+                  </div>
+                </div>
+              </ng-template>
+            </lib-combobox-rework>
 
-      <div innerContent2>
-        <div class="d-flex gap-3">
-          <lib-dynamic-input [typeInput]="'decimal'" [qtDecimais]="2" (updateCoCarac)="log($event)">
-            <ng-template #leftAddon>
-              <button class="btn btn-outline-primary" type="button" id="button-addon1">Button</button>
-            </ng-template>
-
-            <ng-template #rightAddon>
-              <span class="input-group-text" id="basic-addon1">R$</span>
-            </ng-template>
-          </lib-dynamic-input>
-        </div>
-      </div>
-
-      <div innerContent3>
-        <div class="d-flex justify-content-evenly gap-3">
-          <div class="text-center">
-            <p>g-folha-dupla-engrenagem</p>
-            <lib-icon iconName="g-folha-dupla-engrenagem" [iconSize]="42" />
-          </div>
-          <div class="text-center">
-            <p>g-folha-docx-2</p>
-            <lib-icon iconName="g-folha-docx-2" [iconSize]="42" />
-          </div>
-          <div class="text-center">
-            <p>g-pasta-seta-cima</p>
-            <lib-icon iconName="g-pasta-seta-cima" [iconSize]="42" />
-          </div>
-          <div class="text-center">
-            <p>p-lista-relogio</p>
-            <lib-icon iconName="p-lista-relogio" [iconSize]="42" />
-          </div>
+            <lib-error-message [control]="control" ></lib-error-message>
+          </form>
         </div>
       </div>
     </lib-container>
