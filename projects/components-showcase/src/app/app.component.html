@@ -11,17 +11,15 @@
         <div class="col-6">
           <form [formGroup]="form">
             <label class="form-label" libRequired >Opções disponíveis</label>
-            <lib-combobox-rework [list]="pokemons" formControlName="pokemon" customLabel="url" customValue="name" (selectionChange)="log($event)" [disabled]="true" >
+            <lib-combobox-rework [list]="pokemons" formControlName="pokemon" customLabel="url" customValue="name" >
               <ng-template #optionTemplate let-item let-selected="selected">
                 <div class="d-flex align-items-center justify-content-between option w-100" [ngClass]="{ 'active fw-bold text-primary': selected }" >
                   <div class="flex-grow-1">
-                    <b> Name: {{ item.name }} ||</b> URL: {{ item.url }}
+                    <b>{{ item.name }}</b> - {{ item.url }}
                   </div>
                 </div>
               </ng-template>
             </lib-combobox-rework>
-
-            <lib-error-message [control]="control" ></lib-error-message>
           </form>
         </div>
       </div>

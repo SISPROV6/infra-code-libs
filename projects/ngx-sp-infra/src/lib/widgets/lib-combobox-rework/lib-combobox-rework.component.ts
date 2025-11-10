@@ -44,7 +44,18 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   // #endregion PRIVATE
 
   // #region PUBLIC
-  @Input({ required: true }) list: T[] = [];
+  private _list: T[] = [];
+  @Input({ required: true }) 
+  set list(value: T[]) {
+    this._list = value;
+    // Re-resolve the current value when the list changes
+    if (this._value) {
+      this.writeValue(this._value);
+    }
+  }
+  get list(): T[] {
+    return this._list;
+  }
 
   @Input() placeholder = "Selecione uma opção...";
   @Input() searchPlaceholder = "Pesquisa...";
@@ -70,8 +81,10 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   // Getter/Setter para o valor
   public get value(): T | T[] | null { return this._value; }
   public set value(val: T | T[] | null) {
-    if (val !== this._value) {
-      this._value = val;
+    const previousValue = this._value;
+    this._value = val;
+    
+    if (val !== previousValue) {
       this._onChange(this.formatReturn(val)); // Notifica o FormControl sobre a mudança
     }
   }
@@ -243,6 +256,11 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
       return val;
     }
 
+    // Se a lista não tiver sido carregada ainda ou for vazia e houver um valor pré-definido retorna o mesmo
+    if ((!this.list || this.list.length === 0) && val) {
+      return val;
+    }
+
     // Se é um valor primitivo, tenta encontrar na lista
     const match = this.list?.find((item: any) => item[this.customValue] === val);
     return match ?? null;
@@ -267,7 +285,7 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
 
   // #region VALUE_ACCESSOR do Angular
 
-  public writeValue(obj: T | T[] | null): void {
+  public writeValue(obj: any): void {
     if (!obj) this.selectedValues = null;
 
     this._onTouched();
@@ -284,8 +302,8 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
     }
     else {
       const resolved = this.resolveValue(obj);
-
       this.value = resolved;
+      
       this.selectionChange.emit(resolved);
     }
 

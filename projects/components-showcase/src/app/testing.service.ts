@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RetError } from 'ngx-sp-infra';
-import { Observable, take, tap } from 'rxjs';
+import { Observable, of, take, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +31,12 @@ export class TestingService {
       .pipe(take(1), tap(response => this.showErrorMessage(response) ));
   }
 
+  /** Método para simular um retorno de objeto que preencherá um formulário. */
+  public simulateRecord(): Observable<any> {
+    return of({
+      pokemon: 'vulpix'
+    })
+  }
   // #endregion GET
 
   // #endregion ==========> API METHODS <==========
