@@ -1,13 +1,16 @@
+import { NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { FormUtils, InfraModule, ITelaRota, } from 'ngx-sp-infra';
+import { FormUtils, InfraModule, } from 'ngx-sp-infra';
+import { TestingService } from './testing.service';
 
 @Component({
   selector: 'app-root',
   imports: [
     ReactiveFormsModule,
-    // NgClass,
+    NgClass,
+    FormsModule,
 
     InfraModule,
     NgxPaginationModule,
@@ -20,10 +23,12 @@ export class AppComponent implements OnInit {
   // #region ==========> PROPERTIES <==========
 
   // #region PRIVATE
-  // [...]
+  private readonly _APIURL: string = "https://pokeapi.co/api/v2/pokemon?limit=100&offset=0";
   // #endregion PRIVATE
 
   // #region PUBLIC
+  public valorCustomizado?: string;
+
   public page: number = 1;  // Propriedade necessária para explicitar qual página está selecionada atualmente
   public itemsPerPage: number = 5;  // Propriedade necessária para renderizar apenas determinada quantidade por página inicialmente
   public recordsList?: any[] = [
@@ -76,23 +81,9 @@ export class AppComponent implements OnInit {
     { ID: 15, LABEL: 'Fifteen', AdditionalStringProperty1: 'Additional Info 1' },
   ];
 
-  public disabledInputs: Map<string, boolean> = new Map<string, boolean>();
+  public pokemons: { name: string, url: string }[] = [];
 
-  public customRoutes: ITelaRota[] = [
-    { icon: 'pp-menu-corporativo-ativo', modulo: 'Corporativo', menu: 'Administração', submenu: 'Usuários', label: 'Gestão de Usuários', route: 'gestao-usuarios' },
-    { icon: 'pp-menu-corporativo-ativo', modulo: 'Corporativo', menu: 'Administração', submenu: 'Empresas', label: 'Gestão de Empresas', route: 'gestao-empresas' },
-    { icon: 'pp-menu-corporativo-ativo', modulo: 'Corporativo', menu: 'Configurações', submenu: 'Listas Dinâmicas', label: 'Listas Dinâmicas', route: 'listas-dinamicas' },
-    { icon: 'pp-menu-corporativo-ativo', modulo: 'Corporativo', menu: 'Configurações', submenu: 'Auditoria', label: 'Auditoria do Sistema', route: 'auditoria' },
-    { icon: 'pp-menu-corporativo-ativo', modulo: 'Corporativo', menu: 'Pessoas', label: 'Pessoas', route: 'pessoas' },
-    { icon: 'pp-menu-corporativo-ativo', modulo: 'Corporativo', label: 'Controle de Acesso', route: 'controle-acesso' },
-    { icon: 'p-engrenagem', modulo: 'ERP Center', label: 'Cadastro de Produtos', route: 'produtos' },
-    { icon: 'pp-menu-completo-contrato-ativo', modulo: 'Contratos', menu: 'Administração', submenu: 'Usuários', label: 'Usuários', route: 'usuarios' },
-    { icon: 'pp-menu-completo-contrato-ativo', modulo: 'Contratos', menu: 'Cadastros', submenu: 'Unidades de Medida', label: 'Unidades de Medida', route: 'unidades-medida' },
-    { icon: 'pp-menu-completo-suprimentos-ativo', modulo: 'Suprimentos', label: 'Gerenciamento de Pedidos', route: 'pedidos' },
-    { icon: 'pp-menu-completo-suprimentos-ativo', modulo: 'Suprimentos', label: 'Histórico de Operações', route: 'historico' },
-    { icon: 'pp-menu-completo-suprimentos-ativo', modulo: 'Vendas', label: 'Painel de Indicadores', route: 'indicadores' },
-    { icon: 'pp-menu-completo-patrimonio-ativo', modulo: 'Patrimônio', label: 'Monitoramento de Serviços', route: 'monitoramento' },
-  ].sort((a, b) => a.modulo.localeCompare(b.modulo));
+  public disabledInputs: Map<string, boolean> = new Map<string, boolean>();
   // #endregion PUBLIC
 
   // #endregion ==========> PROPERTIES <==========
@@ -100,25 +91,61 @@ export class AppComponent implements OnInit {
 
   // #region ==========> FORM CONFIG <==========
   public control = new FormControl<any>(null, [ Validators.required ]);
+  
+  public form: FormGroup = new FormGroup({
+    pokemon: new FormControl<any>(null),
+    pokemonExterno: new FormControl<any>(null)
+  });
+
   public get formUtils(): typeof FormUtils { return FormUtils; }
   // #endregion ==========> FORM CONFIG <==========
 
 
-  constructor() { }
+  constructor(
+    private _testingService: TestingService
+  ) { }
 
   ngOnInit(): void {
     this.filteredItems = this.items;
 
     // Usando via integração com formulários o valor será apenas o equivalente ao ID (customValue)
     this.control.valueChanges.subscribe(value => {
-      console.log("Valor(es) ID selecionado(s):", value);
+      console.log("control.valueChanges.subscribe => value:", value);
+    });
+    
+    this.form.controls['pokemon'].valueChanges.subscribe(value => {
+      console.log("form.controls['pokemon'].valueChanges.subscribe => value:", value);
+    });
+
+    this.getPokemons();
+  }
+
+
+  // #region ==========> API METHODS <==========
+
+  // #region GET
+  public getPokemons() {
+    this._testingService.getPokemons().subscribe({
+      next: res => {
+        console.log('res.results:', res.results);
+        this.pokemons = res.results;
+
+        setTimeout(() => {
+          this.form.controls['pokemon'].setValue(this.pokemons[2].name);
+          this.form.controls['pokemon'].disable();
+        }, 5000);
+      },
+      error: err => console.error(err)
     });
   }
+  // #endregion GET
+
+  // #endregion ==========> API METHODS <==========
 
 
   // #region ==========> UTILS <==========
   log(value: any) {
-    console.log("Valor(es) completo(s) selecionado(s):", value);
+    console.log("log() => value:", value);
   }
 
   filter(search: string | null) {
@@ -137,6 +164,16 @@ export class AppComponent implements OnInit {
   }
   setValueList() {
     this.control.setValue([2, 3]);
+  }
+
+
+  /**
+   * Este método é para demonstração, ele possui as 3 principais formas de definir o valor pré-selecionado do combobox sem precisar selecioná-lo diretamente.
+   * Lembre-se também que o valor aqui deve ser referente ao ID, pois é por ele que o apontamento é feito.
+   * @param value Valor informado no input ou vindo de uma requisição. Sua origem não importa.
+  */
+  public setExternalValue(value: string): void {
+    this.form.get('pokemonExterno')?.setValue(value);
   }
   // #endregion ==========> UTILS <==========
 
