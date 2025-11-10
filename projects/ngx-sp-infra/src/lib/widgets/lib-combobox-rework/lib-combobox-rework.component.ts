@@ -33,6 +33,7 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
 
   
   /** Valor interno do componente */
+  private _list: T[] = [];
   private _value: T | T[] | null = null;
 
   private _search$ = new BehaviorSubject<string>("");
@@ -44,17 +45,14 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   // #endregion PRIVATE
 
   // #region PUBLIC
-  private _list: T[] = [];
   @Input({ required: true }) 
-  set list(value: T[]) {
+  public get list(): T[] { return this._list }
+  public set list(value: T[]) {
     this._list = value;
+
     // Re-resolve the current value when the list changes
-    if (this._value) {
-      this.writeValue(this._value);
-    }
-  }
-  get list(): T[] {
-    return this._list;
+    console.log('set list => _value', this._value);
+    if (this._value) this.writeValue(this._value);
   }
 
   @Input() placeholder = "Selecione uma opção...";
@@ -126,10 +124,10 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   };
 
   public displayValue(): string {
-    if (!this.value) return this.placeholder;
+    if (!this.value) return '';
     
     if (Array.isArray(this.value)) {
-      if (this.value.length === 0) return this.placeholder;
+      if (this.value.length === 0) return '';
 
       let extraSelected: number = 0;
 
@@ -248,9 +246,9 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   /**
    * "Harmoniza" um valor primitivo de "ID" e encontra o seu item correspondente na lista
    * @param val Valor a ser resolvido
-   * @returns O item correspondente ou null
+   * @returns O valor infromado, o item correspondente encontrado ou null
   */
-  private resolveValue(val: any): T | null {
+  private resolveValue(val: any): any {
     // Se já é um objeto com a propriedade customValue, retorna direto
     if (typeof val === 'object' && val !== null && val[this.customValue] !== undefined) {
       return val;
@@ -283,12 +281,15 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   }
   // #endregion Seleção
 
-  // #region VALUE_ACCESSOR do Angular
 
+  // #region VALUE_ACCESSOR do Angular
   public writeValue(obj: any): void {
     if (!obj) this.selectedValues = null;
 
     this._onTouched();
+
+    console.log('multiple', this.multiple);
+    console.log('obj', obj);
 
     if (this.multiple && obj) {
       this.selectedValues = Array.isArray(obj)
@@ -304,6 +305,7 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
       const resolved = this.resolveValue(obj);
       this.value = resolved;
       
+      console.log('writeValue() => resolved', resolved);
       this.selectionChange.emit(resolved);
     }
 
@@ -318,6 +320,7 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
     this._cdr.markForCheck();
   }
   // #endregion VALUE_ACCESSOR do Angular
+
 
   // #region UI
   public toggleDropdown() {
@@ -381,6 +384,7 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
     }
   }
   // #endregion UI
+
 
   // #region Mutation Observer
 

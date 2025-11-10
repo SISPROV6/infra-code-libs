@@ -2,7 +2,7 @@ import { NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { FormUtils, InfraModule, } from 'ngx-sp-infra';
+import { FormUtils, InfraModule, RecordCombobox, } from 'ngx-sp-infra';
 import { TestingService } from './testing.service';
 
 @Component({
@@ -31,6 +31,7 @@ export class AppComponent implements OnInit {
 
   public valorCustomizado?: string;
   public pokemons: { name: string, url: string }[] = [];
+  public pokemonsCombobox: RecordCombobox[] = [];
   // #endregion PUBLIC
 
   // #endregion ==========> PROPERTIES <==========
@@ -50,8 +51,12 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.form.valueChanges.subscribe(value => {
+      console.log('form.valueChanges.subscribe() => value', value);
+    });
+
     this.getPokemons();
-    this.getRecord();
+    // this.getRecord();
   }
 
 
