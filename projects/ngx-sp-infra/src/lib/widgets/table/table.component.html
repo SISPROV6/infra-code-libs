@@ -42,25 +42,26 @@
                               <th scope="col" class="align-middle text-dark-grey {{ header.customClasses }}
                                  {{ headersUseOldWidth ? header.col && header.col > 0 ? 'col-'+header.col : 'col' : header.widthClass }}
                                  {{ ($last && header.name === '') && scrollable ? 'fix' : '' }}"
-                                 [style.width]="scrollable ? header.widthPixels ? header.widthPixels+'px' : 250+'px' : null"
-                                 >
+                                 [style.width]="scrollable ? header.widthPixels ? header.widthPixels+'px' : 250+'px' : null" >
    
                                  @if (header.icon !== undefined) {
                                     <lib-icon *ngIf="header.icon.side === 'L'" iconSize="small"
                                        [iconName]="header.icon.name"
                                        [iconColor]="header.icon.theme !== 'currentColor' && header.icon.theme ? header.icon.theme : 'currentColor'"
                                        [tooltip]="header.icon.tooltip"
-                                       (click)="header.icon.emitClick ? iconClick.emit(header.name) : null"  />
-                                    {{ header.name }}
+                                       (click)="header.icon.emitClick ? iconClick.emit(header.name) : null" />
+
+                                    <span [tooltip]="header.tooltip" container="body"> {{ header.name }} </span>
+
                                     <lib-icon *ngIf="header.icon.side === 'R' || !header.icon.side" iconSize="small"
                                        [iconName]="header.icon.name"
                                        [iconColor]="header.icon.theme !== 'currentColor' && header.icon.theme ? header.icon.theme : 'currentColor'"
                                        [tooltip]="header.icon.tooltip"
                                        [class.cursor-pointer]="header.icon.emitClick"
-                                       (click)="header.icon.emitClick ? iconClick.emit(header.name) : null"  />
+                                       (click)="header.icon.emitClick ? iconClick.emit(header.name) : null" />
                                     }
                                     @else {
-                                       {{ header.name }}
+                                       <span [tooltip]="header.tooltip" container="body"> {{ header.name }} </span>
                                     }
    
                                  <app-ordering *ngIf="header.orderColumn" [(sortDirection)]="sortDirection[header.orderColumn]"
@@ -138,8 +139,7 @@
                                  <th scope="col" class="align-middle text-dark {{ header.customClasses }}
                                     {{ headersUseOldWidth ? header.col && header.col > 0 ? 'col-'+header.col : 'col' : header.widthClass }}
                                     {{ ($last && header.name === '') && scrollable ? 'fix' : '' }}"
-                                    [style.width]="scrollable ? header.widthPixels ? header.widthPixels+'px' : 250+'px' : null"
-                                    >
+                                    [style.width]="scrollable ? header.widthPixels ? header.widthPixels+'px' : 250+'px' : null" >
    
                                     @if (header.icon !== undefined) {
                                        <lib-icon *ngIf="header.icon.side === 'L'" iconSize="small"
@@ -147,7 +147,7 @@
                                           [iconColor]="header.icon.theme !== 'currentColor' && header.icon.theme ? header.icon.theme : 'currentColor'"
                                           [tooltip]="header.icon.tooltip"
                                           (click)="header.icon.emitClick ? iconClick.emit(header.name) : null"  />
-                                       {{ header.name }}
+                                       <span [tooltip]="header.tooltip" container="body"> {{ header.name }} </span>
                                        <lib-icon *ngIf="header.icon.side === 'R' || !header.icon.side" iconSize="small"
                                           [iconName]="header.icon.name"
                                           [iconColor]="header.icon.theme !== 'currentColor' && header.icon.theme ? header.icon.theme : 'currentColor'"
@@ -156,7 +156,7 @@
                                           (click)="header.icon.emitClick ? iconClick.emit(header.name) : null"  />
                                     }
                                     @else {
-                                       {{ header.name }}
+                                       <span [tooltip]="header.tooltip" container="body"> {{ header.name }} </span>
                                     }
    
                                     <app-ordering *ngIf="header.orderColumn" [(sortDirection)]="sortDirection[header.orderColumn]"

@@ -23,6 +23,12 @@ export class AppComponent implements OnInit {
   // #region ==========> PROPERTIES <==========
 
   // #region PUBLIC
+  public recordsList: any[] = [
+    { nome: 'AAAA', descricao: 'BBBBB' }
+  ];  // Lista a ser usada, pode ser de qualquer tipo
+  public page: number = 1;  // Propriedade necessária para explicitar qual página está selecionada atualmente
+  public itemsPerPage: number = 5;  // Propriedade necessária para renderizar apenas determinada quantidade por página inicialmente
+
   public valorCustomizado?: string;
   public pokemons: { name: string, url: string }[] = [];
   // #endregion PUBLIC

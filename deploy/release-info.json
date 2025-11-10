@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-infra",
-  "version": "6.5.13",
-  "tag": "infra-v6.5.13",
-  "notes": "Corrigido problema onde valores pré-definidos no lib-combobox-rework não marcavam como selecionados na lista",
-  "timestamp": "2025-11-10T17:56:40.561Z"
+  "version": "6.5.14",
+  "tag": "infra-v6.5.14",
+  "notes": "Implementado uso de tooltip no texto dos headers da lib-table",
+  "timestamp": "2025-11-10T18:46:09.571Z"
 }
