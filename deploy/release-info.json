@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-auth",
-  "version": "4.3.10",
-  "tag": "auth-v4.3.10",
-  "notes": "Correção para fechar conexões abertas ates de excluir uma database no IndexedDB",
-  "timestamp": "2025-11-06T20:01:48.976Z"
+  "project": "ngx-sp-infra",
+  "version": "6.5.12",
+  "tag": "infra-v6.5.12",
+  "notes": "Corrigida cor de background quando o lib-combobox-rework está desabilitado",
+  "timestamp": "2025-11-10T13:50:44.133Z"
 }
