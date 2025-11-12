@@ -44,8 +44,15 @@
           @else {
             <div class="w-100 original">
               <div class="d-flex justify-content-between">
-                <div>{{ (item[customLabel] ?? item[customValue]) }}</div>
-                <small class="text-muted" *ngIf="isSelected(item)">✓</small>
+                <div [ngClass]="{ 'text-primary fw-bold': isSelected(item) }">
+                  <!-- Se o valor do ID e do LABEL for vazio exibe apenas um risquinho para identificar que há uma opção ali -->
+                  @if ((item[customLabel] ?? item[customValue]) === '') {
+                    <span class="fst-italic text-muted">Nenhum título informado para esta opção</span>
+                  }
+                  @else {
+                    {{ (item[customLabel] ?? item[customValue]) }}
+                  }
+                </div>
               </div>
             </div>
           }

@@ -23,15 +23,27 @@ export class AppComponent implements OnInit {
   // #region ==========> PROPERTIES <==========
 
   // #region PUBLIC
-  public recordsList: any[] = [
-    { nome: 'AAAA', descricao: 'BBBBB' }
-  ];  // Lista a ser usada, pode ser de qualquer tipo
-  public page: number = 1;  // Propriedade necessária para explicitar qual página está selecionada atualmente
-  public itemsPerPage: number = 5;  // Propriedade necessária para renderizar apenas determinada quantidade por página inicialmente
-
   public valorCustomizado?: string;
   public pokemons: { name: string, url: string }[] = [];
-  public pokemonsCombobox: RecordCombobox[] = [];
+
+  public pokemonsCombobox: RecordCombobox[] = [
+    { ID: 1, LABEL: 'Pikachu' },
+    { ID: 2, LABEL: 'Bulbasaur' },
+    { ID: 3, LABEL: 'Charmander' },
+    { ID: 4, LABEL: 'Vulpix' },
+    { ID: 5, LABEL: 'Umbreon' },
+    { ID: 6, LABEL: 'Eevee' },
+    { ID: 7, LABEL: 'Jolteon' },
+    { ID: 8, LABEL: 'Glaceon' },
+    { ID: 9, LABEL: 'Flareon' },
+    { ID: 10, LABEL: '' },
+    { ID: 11, LABEL: 'Vaporeon' },
+    { ID: 12, LABEL: 'Mewtwo' },
+    { ID: 13, LABEL: 'Machomp' },
+    { ID: 14, LABEL: 'Lopunny' },
+    { ID: 15, LABEL: 'Lucario' },
+    { ID: 16, LABEL: 'Mew' },
+  ];
   // #endregion PUBLIC
 
   // #endregion ==========> PROPERTIES <==========
@@ -67,6 +79,9 @@ export class AppComponent implements OnInit {
     this._testingService.getPokemons().subscribe({
       next: res => {
         this.pokemons = res.results;
+
+        this.pokemons[5].url = '';
+        this.pokemons[5].name = '';
       },
       error: err => console.error(err)
     });

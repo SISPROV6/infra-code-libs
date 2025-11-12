@@ -51,8 +51,9 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
     this._list = value;
 
     // Re-resolve the current value when the list changes
-    console.log('set list => _value', this._value);
     if (this._value) this.writeValue(this._value);
+
+    this._cdr.detectChanges();
   }
 
   @Input() placeholder = "Selecione uma opção...";
@@ -288,9 +289,6 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
 
     this._onTouched();
 
-    console.log('multiple', this.multiple);
-    console.log('obj', obj);
-
     if (this.multiple && obj) {
       this.selectedValues = Array.isArray(obj)
         ? obj.map(val => this.resolveValue(val)).filter((v): v is T => v !== null)
@@ -304,8 +302,7 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
     else {
       const resolved = this.resolveValue(obj);
       this.value = resolved;
-      
-      console.log('writeValue() => resolved', resolved);
+
       this.selectionChange.emit(resolved);
     }
 
