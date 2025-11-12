@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-infra",
-  "version": "6.5.16",
-  "tag": "infra-v6.5.16",
-  "notes": "Correção dos problemas do R-61923, sobre a lista de opções sobrepor o input principal",
-  "timestamp": "2025-11-12T13:17:49.163Z"
+  "version": "6.5.17",
+  "tag": "infra-v6.5.17",
+  "notes": "Correção de outros pontos do R-62125",
+  "timestamp": "2025-11-12T14:34:14.170Z"
 }
