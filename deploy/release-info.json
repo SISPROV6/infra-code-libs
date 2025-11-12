@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-infra",
-  "version": "6.5.17",
-  "tag": "infra-v6.5.17",
-  "notes": "Correção de outros pontos do R-62125",
-  "timestamp": "2025-11-12T14:34:14.170Z"
+  "version": "6.5.18",
+  "tag": "infra-v6.5.18",
+  "notes": "Adição de novo seletor possível aos componentes de submenu chamados 'lib-submenu' e 'lib-submenu-card'",
+  "timestamp": "2025-11-12T18:44:43.614Z"
 }
