@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-infra",
-  "version": "6.5.15",
-  "tag": "infra-v6.5.15",
-  "notes": "Corrigida cor do texto de placeholder do input",
-  "timestamp": "2025-11-10T20:45:05.676Z"
+  "version": "6.5.16",
+  "tag": "infra-v6.5.16",
+  "notes": "Correção dos problemas do R-61923, sobre a lista de opções sobrepor o input principal",
+  "timestamp": "2025-11-12T13:17:49.163Z"
 }
