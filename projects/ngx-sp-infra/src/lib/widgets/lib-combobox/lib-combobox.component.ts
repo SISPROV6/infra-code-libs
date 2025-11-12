@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl, FormControlStatus, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
@@ -47,10 +47,7 @@ import { LibIconsComponent } from '../lib-icons/lib-icons.component';
     .form-label { font-size: 16px !important; }
     .z-index-1020 { z-index: 1020 !important; }
     .cursor-pointer { cursor: pointer !important; }
-
-    .dropdown-menu {
-      position: relative;
-    }
+    .dropdown-menu { position: relative; }
   `,
   
   imports: [
@@ -74,8 +71,6 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
   protected set ariaExpanded(value: boolean) {
     this._ariaExpanded = value;
     this.adjustDropdownWidth();
-
-    this._cdr.detectChanges();
     
     if (value === false) {
       this.textoPesquisa = "";
@@ -233,9 +228,7 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
   // #endregion ==========> PROPERTIES <==========
 
 
-  constructor( private _cdr: ChangeDetectorRef ) {
-    this._cdr.markForCheck();
-  }
+  constructor() { }
 
   ngOnInit(): void {
     this.comboboxID = `lib-combobox-${Math.random() * 100}`;

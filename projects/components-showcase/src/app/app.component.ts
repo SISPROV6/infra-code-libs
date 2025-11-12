@@ -67,7 +67,8 @@ export class AppComponent implements OnInit {
       console.log('form.valueChanges.subscribe() => value', value);
     });
 
-    this.getPokemons();
+    // this.getPokemons();
+    this.getPokemonsStatic();
     // this.getRecord();
   }
 
@@ -83,6 +84,13 @@ export class AppComponent implements OnInit {
         this.pokemons[5].url = '';
         this.pokemons[5].name = '';
       },
+      error: err => console.error(err)
+    });
+  }
+
+  public getPokemonsStatic(): void {
+    this._testingService.getPokemonsStatic().subscribe({
+      next: res => { this.pokemons = res },
       error: err => console.error(err)
     });
   }
