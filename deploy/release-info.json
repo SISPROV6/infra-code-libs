@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-infra",
-  "version": "6.5.18",
-  "tag": "infra-v6.5.18",
-  "notes": "Adição de novo seletor possível aos componentes de submenu chamados 'lib-submenu' e 'lib-submenu-card'",
-  "timestamp": "2025-11-12T18:44:43.614Z"
+  "project": "ngx-sp-auth",
+  "version": "4.3.11",
+  "tag": "auth-v4.3.11",
+  "notes": "Adição de novo seletor possível aos componentes de submenu chamados 'lib-submenu' e 'lib-submenu-card' (a atualização prévia deste assunto foi removida)",
+  "timestamp": "2025-11-12T21:54:45.989Z"
 }
