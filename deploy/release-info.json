@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-views",
-  "version": "3.1.6",
-  "tag": "views-v3.1.6",
-  "notes": "Correção da importação do serviço 'ProjectUtilService' do ngx-sp-auth para vir da biblioteca diretamente",
-  "timestamp": "2025-11-13T15:41:26.990Z"
+  "project": "ngx-sp-auth",
+  "version": "4.3.14",
+  "tag": "auth-v4.3.14",
+  "notes": "Ajuste nos componentes de submenu para não chamar WS caso estejam na Documentação V6",
+  "timestamp": "2025-11-13T21:20:22.002Z"
 }
