@@ -15,16 +15,16 @@
 
    <input  #mainInput class="form-select text-start rounded-end cursor-pointer" type="text"
             data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" readonly
-            [placeholder]="mainPlaceholder" [formControl]="innerControl" [class.is-invalid]="invalidControl" [id]="comboboxID"
+            [placeholder]="mainPlaceholder" [class.text-muted]="innerControl.value == null" [formControl]="innerControl" [class.is-invalid]="invalidControl" [id]="comboboxID"
             (click)="ariaExpanded = !ariaExpanded; focusSearchInput()" (focus)="focusSearchInput()">
 
    <ul  #dropdownMenu  class="dropdown-menu p-2 glb-max-height-350px overflow-y-scroll z-index-1020" [class.show]="ariaExpanded">
       @if(showSearchInput){
-      <div class="input-group mb-2">
-         <input #searchInput type="text" id="searchInput-{{comboboxID}}" class="searchInput form-control glb-input-no-glow" [placeholder]="searchPlaceholder" (keyup.enter)="reloadList()"
-         [(ngModel)]="textoPesquisa" (ngModelChange)="changePesquisa.emit(textoPesquisa)" >
-         <button class="btn btn-{{theme}}" (click)="reloadList()"> <lib-icon iconName="lupa" iconSize="medium-small" /> </button>
-      </div>
+         <div class="input-group mb-2">
+            <input #searchInput type="text" id="searchInput-{{comboboxID}}" class="searchInput form-control glb-input-no-glow" [placeholder]="searchPlaceholder" (keyup.enter)="reloadList()"
+            [(ngModel)]="textoPesquisa" (ngModelChange)="changePesquisa.emit(textoPesquisa)" >
+            <button class="btn btn-{{theme}}" (click)="reloadList()"> <lib-icon iconName="lupa" iconSize="medium-small" /> </button>
+         </div>
       }
 
       @if (list) {

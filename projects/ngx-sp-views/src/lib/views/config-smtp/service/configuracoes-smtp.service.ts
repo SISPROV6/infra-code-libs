@@ -1,11 +1,11 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, take, tap } from 'rxjs';
-import { RetInfraEmailCfg } from '../models/RetInfraEmailCfg';
-import { InfraEmailCfgRecord } from '../models/InfraEmailCfgRecord';
-import { EmailConfigTestModel } from '../models/EmailConfigTestModel';
-import { LibCustomConfigERPEnvironmentService } from '../../../custom/lib-custom-configerp-environment.service';
 import { RetError } from 'ngx-sp-infra';
+import { Observable, take, tap } from 'rxjs';
+import { LibCustomConfigERPEnvironmentService } from '../../../custom/lib-custom-configerp-environment.service';
+import { EmailConfigTestModel } from '../models/EmailConfigTestModel';
+import { InfraEmailCfgRecord } from '../models/InfraEmailCfgRecord';
+import { RetInfraEmailCfg } from '../models/RetInfraEmailCfg';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class ConfiguracoesSmtpService {
     this._BASE_URL_CONFIG_ERP = `${ this._customEnvironmentService.Sp2LocalhostWS }/ConfigSMTP`; // SpInfra2ConfigErpWS
     this._BASE_URL_CONFIG_ERP = !this._customEnvironmentService.production ? this._BASE_URL_CONFIG_ERP : `${ this._customEnvironmentService.SpInfra2ConfigErpWS }/ConfigSMTP`;
 
-    this._BASE_URL_CRP = `${ this._customEnvironmentService.Sp2LocalhostWS }/InfraEmailCfg`; // SpInfra2ConfigErpWS
+    this._BASE_URL_CRP = `${ this._customEnvironmentService.SpCrp2InfraWS }/InfraEmailCfg`; // SpCrp2InfraWS
     this._BASE_URL_CRP = !this._customEnvironmentService.production ? this._BASE_URL_CRP : `${ this._customEnvironmentService.SpCrp2InfraWS }/InfraEmailCfg`;
   }
 
@@ -66,7 +66,7 @@ export class ConfiguracoesSmtpService {
     }
 
     return this.httpClient.post<RetInfraEmailCfg>(url, record,{ 'headers': headers })
-      .pipe(take(1),tap(response => {if (response.Error) {throw Error(response.ErrorMessage);}}));
+      .pipe(take(1),tap(response => {if (response.Error) { throw Error(response.ErrorMessage) }}));
   }
 
   UpdateSenha(modulo: string, senha: string, ID:number): Observable<RetInfraEmailCfg > {

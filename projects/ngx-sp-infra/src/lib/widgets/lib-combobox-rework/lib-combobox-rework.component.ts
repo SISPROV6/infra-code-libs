@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostListener, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef, TrackByFunction, ViewChild } from '@angular/core';
 import { ControlValueAccessor, FormControl, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
-import { BehaviorSubject, debounceTime, distinctUntilChanged, map, Observable, Subject, takeUntil } from 'rxjs';
+import { BehaviorSubject, debounceTime, map, Observable, Subject, takeUntil } from 'rxjs';
 import { RecordCombobox } from '../../models/combobox/record-combobox';
 import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 
@@ -33,6 +33,7 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
 
   
   /** Valor interno do componente */
+  private _list: T[] = [];
   private _value: T | T[] | null = null;
 
   private _search$ = new BehaviorSubject<string>("");
@@ -44,7 +45,15 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   // #endregion PRIVATE
 
   // #region PUBLIC
-  @Input({ required: true }) list: T[] = [];
+  @Input({ required: true }) 
+  public get list(): T[] { return this._list }
+  public set list(value: T[]) {
+    this._list = value;
+
+    // Re-resolve the current value when the list changes
+    if (this._value) this.writeValue(this._value);
+    this.searchControl.setValue('', { emitEvent: true });
+  }
 
   @Input() placeholder = "Selecione uma opção...";
   @Input() searchPlaceholder = "Pesquisa...";
@@ -70,8 +79,10 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   // Getter/Setter para o valor
   public get value(): T | T[] | null { return this._value; }
   public set value(val: T | T[] | null) {
-    if (val !== this._value) {
-      this._value = val;
+    const previousValue = this._value;
+    this._value = val;
+    
+    if (val !== previousValue) {
       this._onChange(this.formatReturn(val)); // Notifica o FormControl sobre a mudança
     }
   }
@@ -83,7 +94,6 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
 
   public filteredItems$: Observable<T[]> = this._search$.pipe(
     debounceTime(150),
-    distinctUntilChanged(),
     map((term) => this.filterItems(term))
   );
   
@@ -113,10 +123,10 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   };
 
   public displayValue(): string {
-    if (!this.value) return this.placeholder;
+    if (!this.value) return '';
     
     if (Array.isArray(this.value)) {
-      if (this.value.length === 0) return this.placeholder;
+      if (this.value.length === 0) return '';
 
       let extraSelected: number = 0;
 
@@ -145,7 +155,9 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   constructor(
     private _cdr: ChangeDetectorRef,
     private _elementRef: ElementRef
-  ) { }
+  ) {
+    this._cdr.markForCheck();
+  }
 
   ngOnInit() {
     this.searchControl.valueChanges
@@ -154,6 +166,8 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
         if (this.innerFilter) this._search$.next(v ?? "");
         else this.filterChange.emit(v);
       });
+    
+    this.searchControl.setValue('', { emitEvent: true });
     
     this.registerObserver();
   }
@@ -167,7 +181,10 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    // [...]
+    if (changes['list'] && changes['list'].currentValue) {
+      this.searchControl.setValue('', { emitEvent: true });
+      this._cdr.detectChanges();
+    }
   }
 
   ngOnDestroy() {
@@ -189,10 +206,9 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
     
     const t = term.toLowerCase();
     return this.list.filter((item) => {
-      const label =
-      typeof item === 'object'
-      ? (item as unknown as any)[this.customLabel] ?? ''
-      : String(item);
+      const label = typeof item === 'object'
+        ? (item as unknown as any)[this.customLabel] ?? ''
+        : String(item);
 
       return label.toLowerCase().includes(t);
     });
@@ -235,11 +251,16 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   /**
    * "Harmoniza" um valor primitivo de "ID" e encontra o seu item correspondente na lista
    * @param val Valor a ser resolvido
-   * @returns O item correspondente ou null
+   * @returns O valor infromado, o item correspondente encontrado ou null
   */
-  private resolveValue(val: any): T | null {
+  private resolveValue(val: any): any {
     // Se já é um objeto com a propriedade customValue, retorna direto
     if (typeof val === 'object' && val !== null && val[this.customValue] !== undefined) {
+      return val;
+    }
+
+    // Se a lista não tiver sido carregada ainda ou for vazia e houver um valor pré-definido retorna o mesmo
+    if ((!this.list || this.list.length === 0) && val) {
       return val;
     }
 
@@ -265,9 +286,9 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   }
   // #endregion Seleção
 
-  // #region VALUE_ACCESSOR do Angular
 
-  public writeValue(obj: T | T[] | null): void {
+  // #region VALUE_ACCESSOR do Angular
+  public writeValue(obj: any): void {
     if (!obj) this.selectedValues = null;
 
     this._onTouched();
@@ -284,8 +305,8 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
     }
     else {
       const resolved = this.resolveValue(obj);
-
       this.value = resolved;
+
       this.selectionChange.emit(resolved);
     }
 
@@ -300,6 +321,7 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
     this._cdr.markForCheck();
   }
   // #endregion VALUE_ACCESSOR do Angular
+
 
   // #region UI
   public toggleDropdown() {
@@ -318,21 +340,21 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
     this._cdr.markForCheck();
   }
 
-  public openDropdown() {
-    if (this.disabled) return;
+  // public openDropdown() {
+  //   if (this.disabled) return;
 
-    this.isOpen = true;
+  //   this.isOpen = true;
 
-    if (this.isOpen) {
-      this.searchControl.setValue("", { emitEvent: true });
-      setTimeout(() => {
-        const inputEl: HTMLInputElement | null = document.querySelector('.reusable-combobox .dropdown-search input');
-        inputEl?.focus();
-      }, 0);
-    }
+  //   if (this.isOpen) {
+  //     this.searchControl.setValue("", { emitEvent: true });
+  //     setTimeout(() => {
+  //       const inputEl: HTMLInputElement | null = document.querySelector('.reusable-combobox .dropdown-search input');
+  //       inputEl?.focus();
+  //     }, 0);
+  //   }
 
-    this._cdr.markForCheck();
-  }
+  //   this._cdr.markForCheck();
+  // }
 
   public closeDropdown(): void {
     this.isOpen = false;
@@ -363,6 +385,7 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
     }
   }
   // #endregion UI
+
 
   // #region Mutation Observer
 

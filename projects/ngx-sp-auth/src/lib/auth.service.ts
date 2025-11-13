@@ -190,7 +190,9 @@ export class AuthService {
         tap((response) => {
 
           // Limnpa o armazenamento local do navegador que contém os filtros de um produto específico (com base na prop 'product' do environment)
-          this._indexedDBService.deleteDatabase();
+          this._indexedDBService.closeOpenConnection()
+            .then(() => this._indexedDBService.deleteDatabase())
+            .catch((err) => console.warn('login() => falha ao limpar conexão', err) );
 
           if (response.FeedbackMessage != "") {
             return;

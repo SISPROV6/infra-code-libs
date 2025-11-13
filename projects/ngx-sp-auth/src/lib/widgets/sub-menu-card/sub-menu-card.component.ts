@@ -12,7 +12,7 @@ export class NavSubmenuCards {
 };
 
 @Component({
-  selector: 'sub-menu-card',
+  selector: 'sub-menu-card, lib-submenu-card',
   imports: [LibIconsComponent],
   template: `
     <div class="max-card-menu row">

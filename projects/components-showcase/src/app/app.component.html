@@ -1,55 +1,45 @@
-<lib-search-input [customItems]="customRoutes" />
+<lib-header [breadcrumbList]="[ 'Demonstração', 'Componentes' ]" pageTitle="Demonstração de componentes" />
 
 <div class="content">
   <div class="filters">
     
-    <lib-container [tabs]="[ 'Primeiro', 'Segundo', 'Ícones', 'Crads de submenu' ]" [currentTab]="'Ícones'" [useBorder]="true" >
-      <div innerContent1 class="row">
-        <div class="col-6">
-          <label class="form-label" libRequired >Opções disponíveis</label>
-          <lib-combobox-rework [multiple]="true" [list]="items" [formControl]="control" customLabel="surname" customValue="name" (selectionChange)="log($event)" />
+    <lib-container [tabs]="[ 'Combobox' ]" [useBorder]="true" >
+      <div innerContent1>
+        <div class="d-flex gap-2 mb-5">
+          <input type="text" class="form-control" placeholder="Informe aqui o valor customizado" [(ngModel)]="valorCustomizado" (keyup.enter)="setExternalValue(valorCustomizado ?? '')" >
+          <button class="btn btn-outline-primary" (click)="setExternalValue(valorCustomizado ?? '')" >DEFINIR</button>
+        </div>
+
+        <form [formGroup]="form">
+          <div class="row">
+            <div class="col-6">
+              <label class="form-label" libRequired>Pokemons (lib-combobox-rework)</label>
+              <lib-combobox-rework [list]="pokemons" formControlName="pokemon" (selectionChange)="log($event)" >
+                <ng-template #leftButtonTemplate >
+                  <button type="button" class="btn btn-outline-primary"> <lib-icon iconName="seta-esquerda" iconSize="medium-small" /> </button>
+                </ng-template>
+
+                <ng-template #rightButtonTemplate >
+                  <button type="button" class="btn btn-outline-primary"> <lib-icon iconName="seta-direita" iconSize="medium-small" /> </button>
+                </ng-template>
+              </lib-combobox-rework>
+            </div>
   
-          <lib-error-message [control]="control" ></lib-error-message>
-        </div>
-  
-        <div class="col-6">
-          <lib-combobox labelText="Valores teste" [list]="combobox" [control]="control"  />
-        </div>
-      </div>
+            <div class="col-6">
+              <!-- <lib-combobox labelText="Pokemons (lib-combobox)" [list]="pokemonsCombobox" [control]="form.controls['pokemon']" mainPlaceholder="Selecione um Pokemón" /> -->
+              <label class="form-label" libRequired>Pokemons (lib-combobox-rework)</label>
+              <lib-combobox-rework [list]="pokemons" formControlName="pokemon" (selectionChange)="log($event)" >
+                <ng-template #leftButtonTemplate >
+                  <button type="button" class="btn btn-outline-primary"> <lib-icon iconName="seta-esquerda" iconSize="medium-small" /> </button>
+                </ng-template>
 
-      <div innerContent2>
-        <div class="d-flex gap-3">
-          <lib-dynamic-input [typeInput]="'decimal'" [qtDecimais]="2" (updateCoCarac)="log($event)">
-            <ng-template #leftAddon>
-              <button class="btn btn-outline-primary" type="button" id="button-addon1">Button</button>
-            </ng-template>
-
-            <ng-template #rightAddon>
-              <span class="input-group-text" id="basic-addon1">R$</span>
-            </ng-template>
-          </lib-dynamic-input>
-        </div>
-      </div>
-
-      <div innerContent3>
-        <div class="d-flex justify-content-evenly gap-3">
-          <div class="text-center">
-            <p>g-folha-dupla-engrenagem</p>
-            <lib-icon iconName="g-folha-dupla-engrenagem" [iconSize]="42" />
+                <ng-template #rightButtonTemplate >
+                  <button type="button" class="btn btn-outline-primary"> <lib-icon iconName="seta-direita" iconSize="medium-small" /> </button>
+                </ng-template>
+              </lib-combobox-rework>
+            </div>
           </div>
-          <div class="text-center">
-            <p>g-folha-docx-2</p>
-            <lib-icon iconName="g-folha-docx-2" [iconSize]="42" />
-          </div>
-          <div class="text-center">
-            <p>g-pasta-seta-cima</p>
-            <lib-icon iconName="g-pasta-seta-cima" [iconSize]="42" />
-          </div>
-          <div class="text-center">
-            <p>p-lista-relogio</p>
-            <lib-icon iconName="p-lista-relogio" [iconSize]="42" />
-          </div>
-        </div>
+        </form>
       </div>
     </lib-container>
 

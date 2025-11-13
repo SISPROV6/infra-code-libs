@@ -43,7 +43,7 @@ export class IndexedDBService {
       alert("Seu navegador não suporta uma versão estável do IndexedDB. Salvamento de filtros em sessão não estará disponível.");
     }
 
-    this._dbName = `Sp_${ _customEnvironment.product }_Filtros`;
+    this._dbName = `Sp_${ _customEnvironment.product ?? 'Modelo' }_Filtros`;
   }
 
 
@@ -59,7 +59,13 @@ export class IndexedDBService {
    */
   async add(value: ObjectToStore<any>): Promise<void> {
     const db = await openDB(this._dbName, 1);
-    await db.add('filters', value);
+
+    try {
+      await db.add('filters', value);
+    }
+    finally {
+      try { db.close(); } catch (e) { /* não faz nada */ }
+    }
   }
 
   // #endregion ADD
@@ -76,7 +82,13 @@ export class IndexedDBService {
    */
   async get(key: string): Promise<ObjectToStore<any>> {
     const db = await openDB(this._dbName, 1);
-    return await db.get('filters', key);
+
+    try {
+      return await db.get('filters', key);
+    }
+    finally {
+      try { db.close(); } catch (e) { /* não faz nada */ }
+    }
   }
 
   // #endregion GET
@@ -90,7 +102,13 @@ export class IndexedDBService {
    */
   async update(value: ObjectToStore<any>): Promise<void> {
     const db = await openDB(this._dbName, 1);
-    await db.put('filters', value)
+
+    try {
+      await db.put('filters', value)
+    }
+    finally {
+      try { db.close(); } catch (e) { /* não faz nada */ }
+    }
   }
 
   // #endregion UPDATE
@@ -104,7 +122,13 @@ export class IndexedDBService {
    */
   async delete(key: string): Promise<void> {
     const db = await openDB(this._dbName, 1);
-    await db.delete('filters', key);
+
+    try {
+      await db.delete('filters', key);
+    }
+    finally {
+      try { db.close(); } catch (e) { /* não faz nada */ }
+    }
   }
 
   // #endregion DELETE
@@ -150,7 +174,37 @@ export class IndexedDBService {
    * @param name Nome da database
   */
   public async deleteDatabase(): Promise<void> {
+    // Fecha a conexão persistente local, se existir, antes de tentar excluir a DB
+    if (this.request) {
+      try {
+        this.request.close();
+      }
+      catch (err) {
+        console.warn('deleteDatabase() => erro ao fechar conexão local', err);
+      }
+
+      this.request = undefined;
+    }
+
     return await deleteDB(this._dbName);
+  }
+
+
+  /**
+   * Fecha a conexão persistente (se existir) sem excluir a database.
+   * Útil para cenários onde se precisa liberar a conexão antes de chamar `deleteDatabase()`.
+  */
+  public async closeOpenConnection(): Promise<void> {
+    if (this.request) {
+      try {
+        this.request.close();
+      }
+      catch (err) {
+        console.warn('closeOpenConnection() => erro ao fechar conexão', err);
+      }
+
+      this.request = undefined;
+    }
   }
 
 

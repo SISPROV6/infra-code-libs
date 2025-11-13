@@ -22,7 +22,7 @@ export class TelaItem {
 }
 
 @Component({
-  selector: 'app-nav-sub-menu',
+  selector: 'app-nav-sub-menu, lib-submenu',
   imports: [
     NavTabsComponent,
     LibIconsComponent,

@@ -2,15 +2,14 @@
   @if (leftButtonTemplate) { <ng-container *ngTemplateOutlet="leftButtonTemplate"></ng-container> }
 
   <div class="dropdown w-100">
-    <div #toggleButton id="toggle-button" class="form-select d-flex align-items-center text-start" type="button" data-bs-toggle="dropdown"
+
+    <input #toggleButton id="toggle-button" class="form-select d-flex align-items-center text-start w-100 overflow-hidden text-truncate" data-bs-toggle="dropdown"
       data-bs-auto-close="outside" [attr.aria-expanded]="isOpen" [attr.aria-haspopup]="true" [attr.aria-label]="placeholder" [class.disabled]="disabled"
-      [class.is-invalid]="invalid" (click)="toggleDropdown()" readonly
+      [class.is-invalid]="invalid" (click)="toggleDropdown()" [value]="displayValue()" [placeholder]="placeholder" readonly
       [ngClass]="{
         'rounded-start-0': leftButtonTemplate,
         'rounded-end-0': rightButtonTemplate,
-      }" >
-      <span class="w-100 overflow-hidden text-truncate"> {{ displayValue() }} </span>  
-    </div>
+      }" />
 
     <div class="dropdown-menu p-2 w-100" [class.show]="isOpen" style="max-height: 320px; overflow-y: auto;" >
       <div class="dropdown-search input-group mb-2">
@@ -45,8 +44,15 @@
           @else {
             <div class="w-100 original">
               <div class="d-flex justify-content-between">
-                <div>{{ (item[customLabel] ?? item[customValue]) }}</div>
-                <small class="text-muted" *ngIf="isSelected(item)">✓</small>
+                <div [ngClass]="{ 'text-primary fw-bold': isSelected(item) }">
+                  <!-- Se o valor do ID e do LABEL for vazio exibe apenas um risquinho para identificar que há uma opção ali -->
+                  @if ((item[customLabel] ?? item[customValue]) === '') {
+                    <span class="fst-italic text-muted">Nenhum título informado para esta opção</span>
+                  }
+                  @else {
+                    {{ (item[customLabel] ?? item[customValue]) }}
+                  }
+                </div>
               </div>
             </div>
           }
