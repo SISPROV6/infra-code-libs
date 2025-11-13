@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-auth",
-  "version": "4.3.13",
-  "tag": "auth-v4.3.13",
-  "notes": "Liberação de serviço ProjectUtilService na biblioteca - é uma solução temporária para corrigir outro problema na ngx-sp-views",
-  "timestamp": "2025-11-13T15:30:04.851Z"
+  "project": "ngx-sp-views",
+  "version": "3.1.6",
+  "tag": "views-v3.1.6",
+  "notes": "Correção da importação do serviço 'ProjectUtilService' do ngx-sp-auth para vir da biblioteca diretamente",
+  "timestamp": "2025-11-13T15:41:26.990Z"
 }
