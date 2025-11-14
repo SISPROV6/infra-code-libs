@@ -244,21 +244,14 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, AfterContent
 
     this.setValidator();
     this.updateSelectedValue();
-
-    console.log('btnLeft', this.btnLeft);
-    console.log('btnRight', this.btnRight);
   }
 
   ngAfterViewInit(): void {
     this.adjustDropdownWidth();
-
-    console.log('btnLeft', this.btnLeft);
-    console.log('btnRight', this.btnRight);
   }
 
   ngAfterContentInit(): void {
-    console.log('btnLeft', this.btnLeft);   // undefined
-    console.log('btnRight', this.btnRight); // undefined
+    // [...]
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -274,9 +267,6 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, AfterContent
       this.setValidator();
       this.updateSelectedValue((changes["control"].currentValue as FormControl).value);
     }
-
-    console.log('btnLeft', this.btnLeft);
-    console.log('btnRight', this.btnRight);
   }
 
   ngOnDestroy(): void {

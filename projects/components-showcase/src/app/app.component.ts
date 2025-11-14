@@ -13,7 +13,7 @@ import { TestingService } from './testing.service';
     FormsModule,
 
     InfraModule,
-    NgxPaginationModule,
+    NgxPaginationModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -44,6 +44,28 @@ export class AppComponent implements OnInit {
     { ID: 15, LABEL: 'Lucario' },
     { ID: 16, LABEL: 'Mew' },
   ];
+
+
+  public recordsList?: any[] = [
+    { ID: 1, LABEL: 'Pikachu' },
+    { ID: 2, LABEL: 'Bulbasaur' },
+    { ID: 3, LABEL: 'Charmander' },
+    { ID: 4, LABEL: 'Vulpix' },
+    { ID: 5, LABEL: 'Umbreon' },
+    { ID: 6, LABEL: 'Eevee' },
+    { ID: 7, LABEL: 'Jolteon' },
+    { ID: 8, LABEL: 'Glaceon' },
+    { ID: 9, LABEL: 'Flareon' },
+    { ID: 10, LABEL: '' },
+    { ID: 11, LABEL: 'Vaporeon' },
+    { ID: 12, LABEL: 'Mewtwo' },
+    { ID: 13, LABEL: 'Machomp' },
+    { ID: 14, LABEL: 'Lopunny' },
+    { ID: 15, LABEL: 'Lucario' },
+    { ID: 16, LABEL: 'Mew' },
+  ];  // Lista a ser usada, pode ser de qualquer tipo
+  public page: number = 1;  // Propriedade necessária para explicitar qual página está selecionada atualmente
+  public itemsPerPage: number = 5;  // Propriedade necessária para renderizar apenas determinada quantidade por página inicialmente
   // #endregion PUBLIC
 
   // #endregion ==========> PROPERTIES <==========
