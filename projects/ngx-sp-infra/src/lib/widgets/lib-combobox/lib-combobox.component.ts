@@ -1,14 +1,17 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ContentChild, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl, FormControlStatus, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
 
 import { NgIf } from '@angular/common';
+import { BtnLeftDirective } from '../../directives/btn-left.directive';
+import { BtnRightDirective } from '../../directives/btn-right.directive';
 import { RequiredDirective } from '../../directives/required.directive';
 import { RecordCombobox } from '../../models/combobox/record-combobox';
 import { TextFilterPipe } from '../../pipes/text-filter.pipe';
 import { FieldErrorMessageComponent } from '../field-error-message/field-error-message.component';
 import { LibIconsComponent } from '../lib-icons/lib-icons.component';
+
 
 /**
  * @component LibComboboxComponent
@@ -47,7 +50,6 @@ import { LibIconsComponent } from '../lib-icons/lib-icons.component';
     .form-label { font-size: 16px !important; }
     .z-index-1020 { z-index: 1020 !important; }
     .cursor-pointer { cursor: pointer !important; }
-    .dropdown-menu { position: relative; }
   `,
   
   imports: [
@@ -60,7 +62,7 @@ import { LibIconsComponent } from '../lib-icons/lib-icons.component';
     TextFilterPipe,
   ],
 })
-export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
+export class LibComboboxComponent implements OnInit, AfterViewInit, AfterContentInit, OnDestroy, OnChanges {
 
   // #region ==========> PROPERTIES <==========
 
@@ -211,7 +213,11 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
    * @emits EventEmitter<string> que leva o valor string da pesquisa feita para ser enviada para o GET
    * @type {EventEmitter<string>} */
   @Output() public changePesquisa: EventEmitter<string> = new EventEmitter<string>();
-  
+
+
+  @ContentChild(BtnLeftDirective) btnLeft?: any;
+  @ContentChild(BtnRightDirective) btnRight?: any;
+
 
   @ViewChild('mainInput') private _mainInput!: ElementRef<HTMLInputElement>;
   @ViewChild('searchInput', { static: false }) private _searchInput?: ElementRef<HTMLInputElement>;
@@ -239,10 +245,20 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
     this.setValidator();
     this.updateSelectedValue();
 
+    console.log('btnLeft', this.btnLeft);
+    console.log('btnRight', this.btnRight);
   }
 
   ngAfterViewInit(): void {
     this.adjustDropdownWidth();
+
+    console.log('btnLeft', this.btnLeft);
+    console.log('btnRight', this.btnRight);
+  }
+
+  ngAfterContentInit(): void {
+    console.log('btnLeft', this.btnLeft);   // undefined
+    console.log('btnRight', this.btnRight); // undefined
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -258,6 +274,9 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, OnDestroy, O
       this.setValidator();
       this.updateSelectedValue((changes["control"].currentValue as FormControl).value);
     }
+
+    console.log('btnLeft', this.btnLeft);
+    console.log('btnRight', this.btnRight);
   }
 
   ngOnDestroy(): void {
