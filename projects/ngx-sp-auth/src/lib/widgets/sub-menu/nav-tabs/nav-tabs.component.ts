@@ -44,17 +44,20 @@ export class NavTabsComponent implements OnInit, OnChanges {
     }
 
     if ((changes['subMenus'].currentValue && changes['subMenus'].currentValue !== "") && this.activeItem !== '') {
-      this.setAbaAtiva(this.activeItem!);
+      this.setAbaAtiva(this.activeItem ?? '');
     }
   }
 
 
   // #region ==========> UTILS <==========
   public setAbaAtiva(titulo: string): void {
+    
+    // Se não encontrar o nome, sai do método
     const index = this.subMenus.findIndex(submenu => submenu.titulo == titulo);
-
-    this.telasItem = this.subMenus[index].telasItem;
-    this.listaAtiva = this.subMenus[index].titulo;
+    if (index === -1) return;
+    
+    this.telasItem = this.subMenus[index]?.telasItem;
+    this.listaAtiva = this.subMenus[index]?.titulo;
 
     this.onTituloSelecionado.emit(titulo);
   }

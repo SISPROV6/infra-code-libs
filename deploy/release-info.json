@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-auth",
-  "version": "4.3.11",
-  "tag": "auth-v4.3.11",
-  "notes": "Adição de novo seletor possível aos componentes de submenu chamados 'lib-submenu' e 'lib-submenu-card' (a atualização prévia deste assunto foi removida)",
-  "timestamp": "2025-11-12T21:54:45.989Z"
+  "project": "ngx-sp-infra",
+  "version": "6.5.20",
+  "tag": "infra-v6.5.20",
+  "notes": "Corrigido componente lib-combobox e seu posicionamento da lista de opções",
+  "timestamp": "2025-11-14T17:22:25.542Z"
 }

@@ -2,8 +2,7 @@ import { Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { AuthStorageService } from 'ngx-sp-auth';
-import { ProjectUtilservice } from 'ngx-sp-auth/lib/project/project-utils.service';
+import { AuthStorageService, ProjectUtilservice } from 'ngx-sp-auth';
 import { FormUtils, InfraModule, MessageService, ModalUtilsService } from 'ngx-sp-infra';
 import { ToastrService } from 'ngx-toastr';
 import { EmailConfigTestModel } from '../../models/EmailConfigTestModel';
