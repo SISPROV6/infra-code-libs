@@ -61,10 +61,10 @@ table.old {
       .fix {
          position: sticky;
          background: white !important;
+         z-index: 1 !important;
       }
       .fix:first-child {
          left: 0;
-         z-index: 100;
       }
       .fix:last-child {
          right: 0;
