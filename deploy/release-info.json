@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-auth",
-  "version": "4.3.14",
-  "tag": "auth-v4.3.14",
-  "notes": "Ajuste nos componentes de submenu para não chamar WS caso estejam na Documentação V6",
-  "timestamp": "2025-11-13T21:20:22.002Z"
+  "project": "ngx-sp-infra",
+  "version": "6.5.20",
+  "tag": "infra-v6.5.20",
+  "notes": "Corrigido componente lib-combobox e seu posicionamento da lista de opções",
+  "timestamp": "2025-11-14T17:22:25.542Z"
 }
