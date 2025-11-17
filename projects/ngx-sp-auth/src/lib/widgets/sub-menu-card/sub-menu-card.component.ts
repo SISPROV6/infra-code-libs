@@ -39,7 +39,7 @@ export class NavSubmenuCards {
           </a>
         }
         @else {
-          <a [routerLink]="[ card.urlPath ]" class="card-link col-4">
+          <a [routerLink]="[ '/'+card.urlPath ]" class="card-link col-4">
             <div class="card w-100 border-0 rounded text-center glb-cursor-pointer">
               <div class="card-icon">
                 <div class="card-icon2">

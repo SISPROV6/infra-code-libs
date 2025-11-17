@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-auth",
-  "version": "4.3.15",
-  "tag": "auth-v4.3.15",
-  "notes": "Ajuste para maior controle do uso dos cards de submenu",
-  "timestamp": "2025-11-17T13:14:45.815Z"
+  "version": "4.3.16",
+  "tag": "auth-v4.3.16",
+  "notes": "Atualização de rotina",
+  "timestamp": "2025-11-17T13:48:19.676Z"
 }
