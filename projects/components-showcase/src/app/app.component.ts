@@ -110,8 +110,8 @@ export class AppComponent implements OnInit {
     });
   }
 
-  public getPokemonsStatic(): void {
-    this._testingService.getPokemonsStatic().subscribe({
+  public getPokemonsStatic(filter: string = ""): void {
+    this._testingService.getPokemonsStatic(filter).subscribe({
       next: res => { this.pokemons = res },
       error: err => console.error(err)
     });
