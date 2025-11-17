@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { LibIconsComponent } from 'ngx-sp-infra';
 
+import { RouterLink } from "@angular/router";
 import { MenuServicesService } from '../../components/menu-lateral/menu-services.service';
 import { LibCustomEnvironmentService } from '../../custom/lib-custom-environment.service';
 import { ProjectUtilservice } from '../../project/project-utils.service';
@@ -11,27 +12,46 @@ export class NavSubmenuCards {
   icon: string = '';
   descricao: string = '';
   urlPath: string = '';
-  isExternal:boolean = false;
+  isExternal: boolean = false;
 }
 
 @Component({
   selector: 'sub-menu-card, lib-submenu-card',
-  imports: [ LibIconsComponent ],
+  imports: [
+    LibIconsComponent,
+    RouterLink
+  ],
   template: `
     <div class="max-card-menu row">
       @for(card of subMenuCards; track $index) {
-        <a [href]="card.isExternal ? getExternalUrl(card.urlPath) : card.urlPath" target="_blank" class="card-link col-4">
-          <div class="card w-100 border-0 rounded text-center glb-cursor-pointer">
-            <div class="card-icon">
-              <div class="card-icon2">
-                <lib-icon class="bold" [iconName]="card.icon ? card.icon : 'engrenagem'" iconColor="blue" [iconSize]="35" />
+        @if (card.isExternal) {
+          <a [href]="getExternalUrl(card.urlPath)" target="_blank" class="card-link col-4">
+            <div class="card w-100 border-0 rounded text-center glb-cursor-pointer">
+              <div class="card-icon">
+                <div class="card-icon2">
+                  <lib-icon class="bold" [iconName]="card.icon ? card.icon : 'engrenagem'" iconColor="blue" [iconSize]="35" />
+                </div>
               </div>
-            </div>
 
-            <h3 class="card-title">{{ card.titulo }}</h3>
-            <p class="card-text" [title]="card.descricao"> {{ card.descricao }} </p>
-          </div>
-        </a>
+              <h3 class="card-title">{{ card.titulo }}</h3>
+              <p class="card-text" [title]="card.descricao"> {{ card.descricao }} </p>
+            </div>
+          </a>
+        }
+        @else {
+          <a [routerLink]="[ card.urlPath ]" class="card-link col-4">
+            <div class="card w-100 border-0 rounded text-center glb-cursor-pointer">
+              <div class="card-icon">
+                <div class="card-icon2">
+                  <lib-icon class="bold" [iconName]="card.icon ? card.icon : 'engrenagem'" iconColor="blue" [iconSize]="35" />
+                </div>
+              </div>
+
+              <h3 class="card-title">{{ card.titulo }}</h3>
+              <p class="card-text" [title]="card.descricao"> {{ card.descricao }} </p>
+            </div>
+          </a>
+        }
       }
     </div>
   `,
