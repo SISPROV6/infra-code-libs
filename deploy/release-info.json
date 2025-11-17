@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-infra",
-  "version": "6.5.21",
-  "tag": "infra-v6.5.21",
-  "notes": "Ajustado z-index das colunas fixas da table-scrollável para 1",
-  "timestamp": "2025-11-14T18:19:13.152Z"
+  "version": "6.5.22",
+  "tag": "infra-v6.5.22",
+  "notes": "Correção da chamada de API repetir infinitamente (lib-combobox-rework)",
+  "timestamp": "2025-11-17T12:21:43.221Z"
 }

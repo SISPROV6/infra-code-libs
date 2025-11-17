@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostListener, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef, TrackByFunction, ViewChild } from '@angular/core';
 import { ControlValueAccessor, FormControl, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
-import { BehaviorSubject, debounceTime, map, Observable, Subject, takeUntil } from 'rxjs';
+import { BehaviorSubject, debounceTime, distinctUntilChanged, map, Observable, Subject, takeUntil } from 'rxjs';
 import { RecordCombobox } from '../../models/combobox/record-combobox';
 import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 
@@ -50,9 +50,13 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   public set list(value: T[]) {
     this._list = value;
 
+    
+
     // Re-resolve the current value when the list changes
     if (this._value) this.writeValue(this._value);
-    this.searchControl.setValue('', { emitEvent: true });
+
+    const search = this.searchControl.value;
+    this.searchControl.setValue(search == '' ? '' : search, { emitEvent: true });
   }
 
   @Input() placeholder = "Selecione uma opção...";
@@ -161,8 +165,11 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
 
   ngOnInit() {
     this.searchControl.valueChanges
-      .pipe(takeUntil(this._destroy$), debounceTime(200))
-      .subscribe((v) => {
+      .pipe(
+        takeUntil(this._destroy$),
+        distinctUntilChanged(),
+        debounceTime(200)
+      ).subscribe((v) => {
         if (this.innerFilter) this._search$.next(v ?? "");
         else this.filterChange.emit(v);
       });
@@ -182,8 +189,8 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['list'] && changes['list'].currentValue) {
-      this.searchControl.setValue('', { emitEvent: true });
-      this._cdr.detectChanges();
+      const search = this.searchControl.value;
+      this.searchControl.setValue(search == '' ? '' : search, { emitEvent: true });
     }
   }
 
@@ -195,7 +202,7 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   }
 
   // O que fazer quando o evento de redimensionamento da tela ocorrer
-  @HostListener('window:resize', ['$event'])
+  @HostListener('window:resize', [ '$event' ])
   onResize(): void { this.setMaxWidth(); }
 
 
