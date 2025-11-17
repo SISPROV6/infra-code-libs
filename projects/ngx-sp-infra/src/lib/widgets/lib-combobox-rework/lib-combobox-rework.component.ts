@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostListener, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef, TrackByFunction, ViewChild } from '@angular/core';
 import { ControlValueAccessor, FormControl, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
-import { BehaviorSubject, debounceTime, distinctUntilChanged, map, Observable, Subject, takeUntil } from 'rxjs';
+import { BehaviorSubject, combineLatest, debounceTime, distinctUntilChanged, map, Observable, Subject, takeUntil } from 'rxjs';
 import { RecordCombobox } from '../../models/combobox/record-combobox';
 import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 
@@ -33,9 +33,11 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
 
   
   /** Valor interno do componente */
-  private _list: T[] = [];
+  // private _list: T[] = [];
   private _value: T | T[] | null = null;
-
+  
+  // BehaviorSubject para a lista
+  private _list$ = new BehaviorSubject<T[]>([]);
   private _search$ = new BehaviorSubject<string>("");
 
   private _onTouched = () => {};
@@ -46,17 +48,13 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
 
   // #region PUBLIC
   @Input({ required: true }) 
-  public get list(): T[] { return this._list }
+  public get list(): T[] { return this._list$.value }
   public set list(value: T[]) {
-    this._list = value;
-
-    
+    // this._list = value;
+    this._list$.next(value);
 
     // Re-resolve the current value when the list changes
     if (this._value) this.writeValue(this._value);
-
-    const search = this.searchControl.value;
-    this.searchControl.setValue(search == '' ? '' : search, { emitEvent: true });
   }
 
   @Input() placeholder = "Selecione uma opção...";
@@ -96,10 +94,11 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   public isOpen = false;
   public searchControl = new FormControl("");
 
-  public filteredItems$: Observable<T[]> = this._search$.pipe(
-    debounceTime(150),
-    map((term) => this.filterItems(term))
-  );
+  public filteredItems$: Observable<T[]> = combineLatest([ this._search$, this._list$ ])
+    .pipe(
+      debounceTime(150),
+      map(([term, list]) => this.filterItems(term, list))
+    );
   
   public compare = (a: T, b: T): boolean => {
     if (!a || !b) return false;
@@ -189,8 +188,7 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['list'] && changes['list'].currentValue) {
-      const search = this.searchControl.value;
-      this.searchControl.setValue(search == '' ? '' : search, { emitEvent: true });
+      
     }
   }
 
@@ -208,17 +206,19 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
 
   // #region ==========> UTILS <==========
 
-  private filterItems(term: string): T[] {
-    if (!term) return this.list;
+  private filterItems(term: string, list: T[]): T[] {
+    if (!term) return list;
     
     const t = term.toLowerCase();
-    return this.list.filter((item) => {
+    const filtered = list.filter((item) => {
       const label = typeof item === 'object'
         ? (item as unknown as any)[this.customLabel] ?? ''
         : String(item);
 
       return label.toLowerCase().includes(t);
     });
+
+    return filtered;
   }
 
 
