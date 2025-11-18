@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-auth",
-  "version": "4.4.0",
-  "tag": "auth-v4.4.0",
+  "project": "ngx-sp-views",
+  "version": "3.2.0",
+  "tag": "views-v3.2.0",
   "notes": "Liberação de versão @latest com todas as alterações e correções nas versões @next e @test",
-  "timestamp": "2025-11-18T12:54:33.656Z"
+  "timestamp": "2025-11-18T13:05:58.369Z"
 }
