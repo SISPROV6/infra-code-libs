@@ -1607,7 +1607,7 @@ table tbody {
       td.fix {
         position: sticky;
         background: white !important;
-        z-index: 100;
+        z-index: 1 !important;
       }
       td.fix:first-child {
         left: 0;

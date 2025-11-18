@@ -35,6 +35,8 @@ import { TextFilterPipe } from './pipes/text-filter.pipe';
 import { TitleCasePipe } from './pipes/title-case-pipe.pipe';
 import { ToUrlPipe } from './pipes/to-url.pipe';
 
+import { BtnLeftDirective } from './directives/btn-left.directive';
+import { BtnRightDirective } from './directives/btn-right.directive';
 import { PageNotAuthorizedComponent } from './views/page-not-authorized/page-not-authorized.component';
 import { AppliedFiltersComponent } from './widgets/applied-filters/applied-filters.component';
 import { AuditoriaButtonComponent } from './widgets/auditoria-button/auditoria-button.component';
@@ -177,6 +179,8 @@ import { UsuarioAbasComponent } from './widgets/usuario-abas/usuario-abas.compon
         InnerRowsDirective,
         LibComboboxReworkComponent,
         ContadorCaracteresComponent,
+        BtnLeftDirective,
+        BtnRightDirective,
 
         PageNotAuthorizedComponent
     ],
@@ -252,6 +256,8 @@ import { UsuarioAbasComponent } from './widgets/usuario-abas/usuario-abas.compon
         InnerRowsDirective,
         LibComboboxReworkComponent,
         ContadorCaracteresComponent,
+        BtnLeftDirective,
+        BtnRightDirective,
 
         PageNotAuthorizedComponent
     ],

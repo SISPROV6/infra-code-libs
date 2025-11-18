@@ -1,7 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
 import { ContentContainerComponent, LibIconsComponent } from 'ngx-sp-infra';
-import { MenuServicesService } from '../../../public-api';
+
+import { MenuServicesService } from '../../components/menu-lateral/menu-services.service';
 import { ProjectUtilservice } from '../../project/project-utils.service';
+import { LibCustomEnvironmentService } from './../../custom/lib-custom-environment.service';
 import { NavTabsComponent } from './nav-tabs/nav-tabs.component';
 
 export class NavSubMenus {
@@ -54,7 +57,8 @@ export class SubMenuComponent implements OnInit {
 
   constructor(
     private _menuService: MenuServicesService,
-    private _projectUtil: ProjectUtilservice
+    private _projectUtil: ProjectUtilservice,
+    private _customEnv: LibCustomEnvironmentService
   ) { }
 
   ngOnInit(): void {
@@ -80,6 +84,9 @@ export class SubMenuComponent implements OnInit {
   }
 
   private getHostName(): void {
+    // Validação adicionada para ignorar esta chamada caso o componente seja exibido na docs
+    if (this._customEnv.product === "InfraCodeDocs") return;
+
     this._menuService.GetHostServerOutSystems().subscribe({
       next: response => this.hostNameOutSystems = response.String,
       error: error => this._projectUtil.showHttpError(error)

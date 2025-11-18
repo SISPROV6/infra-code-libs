@@ -1,6 +1,6 @@
 <ul class="nav flex-column mt-3">
-  @if(telasItem.length) {
-    @for(clickLink of telasItem; track $index) {
+  @if (telasItem && telasItem.length > 0) {
+    @for (clickLink of telasItem; track $index) {
       <li class="nav-item">
         <a class="nav-link" [target]="clickLink.IsExternal ? '_blank' : '_self'" (click)="onTelaSelecionada.emit(clickLink.titulo)"
           [href]="clickLink.IsExternal

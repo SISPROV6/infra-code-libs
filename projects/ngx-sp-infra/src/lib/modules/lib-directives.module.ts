@@ -11,6 +11,8 @@ import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 import { A11yClickDirective } from '../directives/a11y-click.directive';
+import { BtnLeftDirective } from '../directives/btn-left.directive';
+import { BtnRightDirective } from '../directives/btn-right.directive';
 import { ClickOutsideDirective } from '../directives/click-outside.directive';
 import { CopyClipboardDirective } from '../directives/copy-clipboard.directive';
 import { DisableControlDirective } from '../directives/disable-control.directive';
@@ -45,6 +47,8 @@ import { InnerRowsDirective } from './../directives/inner-rows.directive';
 
     A11yClickDirective,
     InnerRowsDirective,
+    BtnLeftDirective,
+    BtnRightDirective,
   ],
   exports: [
     ClickOutsideDirective,
@@ -57,6 +61,8 @@ import { InnerRowsDirective } from './../directives/inner-rows.directive';
 
     A11yClickDirective,
     InnerRowsDirective,
+    BtnLeftDirective,
+    BtnRightDirective,
   ]
 })
 export class LibDirectivesModule { }

@@ -70,6 +70,8 @@ export * from './lib/widgets/combobox/pipes/filter-by.pipe';
 export * from './lib/widgets/combobox/pipes/limit-to.pipe';
 
 /** Directives */
+export * from './lib/directives/btn-left.directive';
+export * from './lib/directives/btn-right.directive';
 export * from './lib/directives/click-outside.directive';
 export * from './lib/directives/copy-clipboard.directive';
 export * from './lib/directives/disable-control.directive';

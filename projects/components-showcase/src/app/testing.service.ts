@@ -31,7 +31,9 @@ export class TestingService {
       .pipe(take(1), tap(response => this.showErrorMessage(response) ));
   }
 
-  public getPokemonsStatic(): Observable<any> {
+  public getPokemonsStatic(filter: string = ""): Observable<any> {
+    console.log('getPokemonsStatic()', filter);
+    
     return of([
       { ID: 1, LABEL: 'Pikachu' },
       { ID: 2, LABEL: 'Bulbasaur' },
@@ -49,7 +51,8 @@ export class TestingService {
       { ID: 14, LABEL: 'Lopunny' },
       { ID: 15, LABEL: 'Lucario' },
       { ID: 16, LABEL: 'Mew' },
-    ]).pipe( delay(1500) );
+    ].filter(e => e.LABEL.toLowerCase().includes(filter.toLowerCase()))
+  ).pipe( delay(1500) );
   }
 
   /** Método para simular um retorno de objeto que preencherá um formulário. */
