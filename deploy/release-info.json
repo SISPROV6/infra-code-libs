@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-infra",
-  "version": "6.6.0",
-  "tag": "infra-v6.6.0",
+  "project": "ngx-sp-auth",
+  "version": "4.4.0",
+  "tag": "auth-v4.4.0",
   "notes": "Liberação de versão @latest com todas as alterações e correções nas versões @next e @test",
-  "timestamp": "2025-11-18T12:26:22.058Z"
+  "timestamp": "2025-11-18T12:54:33.656Z"
 }
