@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { PessoaService } from './service/pessoa.service';
 import { PessoasUriRecord } from './models/PessoasUriRecord';
@@ -8,7 +8,7 @@ import { CrpInPapelRecord } from './models/CrpInPapelRecord';
 
 @Component({
   selector: 'lib-pessoa-abas',
-  imports: [NgFor],
+  imports: [NgFor, RouterModule],
   templateUrl: './pessoa-abas.component.html',
   styleUrl: './pessoa-abas.component.scss'
 })
@@ -112,7 +112,7 @@ export class PessoaAbasComponent {
       this.UrisList.push(
       {nome: 'Dados básicos', uri: `http://${window.location.host}/pessoas/editar/${this.Id}`, isTargetSelf: true},
       {nome: 'Dados comerciais', uri: `http://${window.location.host}/pessoas-comercial/${this.Id}`, isTargetSelf: false},
-      {nome: 'Dados financeiros', uri: `http://${window.location.host}/dados-financeiros`, isTargetSelf: false},
+      {nome: 'Dados financeiros', uri: `http://${window.location.host}/dados-financeiros?id=${this.Id}`, isTargetSelf: false},
       {nome: 'Compras - Dados da pessoa para suprimentos', uri: `http://${window.location.host}/pessoas-dados-suprimentos/editar/${this.Id}`, isTargetSelf: false},
       {nome: 'Compras - Dados do fornecedor', uri: `http://${window.location.host}/pessoas-dados-fornecedor/editar/${this.Id}`, isTargetSelf: false},
       {nome: 'Dados auxiliares', uri: `http://${window.location.host}/pessoas/dadosAuxiliares/${this.Id}`, isTargetSelf: false},
@@ -124,7 +124,7 @@ export class PessoaAbasComponent {
       this.UrisList.push(
       {nome: 'Dados básicos', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/pessoas/editar/${this.Id}`, isTargetSelf: true},
       {nome: 'Dados comerciais', uri: `https://${window.location.host}/SisproErpCloud/Vendas/pessoas-comercial/${this.Id}`, isTargetSelf: false},
-      {nome: 'Dados financeiros', uri: `https://${window.location.host}/SisproErpCloud/Financeiro/dados-financeiros`, isTargetSelf: false},
+      {nome: 'Dados financeiros', uri: `https://${window.location.host}/SisproErpCloud/Financeiro/dados-financeiros?id=${this.Id}`, isTargetSelf: false},
       {nome: 'Compras - Dados da pessoa para suprimentos', uri: `https://${window.location.host}/SisproErpCloud/Compras/pessoas-dados-suprimentos/editar/${this.Id}`, isTargetSelf: false},
       {nome: 'Compras - Dados do fornecedor', uri: `https://${window.location.host}/SisproErpCloud/Compras/pessoas-dados-fornecedor/editar/${this.Id}`, isTargetSelf: false},
       {nome: 'Dados auxiliares', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/pessoas/dadosAuxiliares/${this.Id}`, isTargetSelf: false},
