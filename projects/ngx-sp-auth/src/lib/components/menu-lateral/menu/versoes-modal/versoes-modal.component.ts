@@ -11,8 +11,8 @@ import { MenuServicesService } from '../../menu-services.service';
     templateUrl: './versoes-modal.component.html',
     styleUrls: ['./versoes-modal.component.scss'],
     imports: [
-        InfraModule,
-        CommonModule
+      InfraModule,
+      CommonModule
     ]
 })
 export class VersoesModalComponent implements OnInit {
@@ -33,6 +33,14 @@ export class VersoesModalComponent implements OnInit {
   public versionInfra: string = '';
   public versionCorporativo: string = '';
 
+  public get releaseNotesUrl(): string {
+    let url: string = '';
+
+    if (window.location.host === 'localhost:4200') url = "https://siscandesinfra.sispro.com.br/SisproErpCloud/V6ReleaseNotes/home";
+    else url = `https://${window.location.host}/SisproErpCloud/V6ReleaseNotes/home`;
+
+    return url;
+  }
   // #endregion PUBLIC
 
   // #endregion ==========> PROPERTIES <==========
