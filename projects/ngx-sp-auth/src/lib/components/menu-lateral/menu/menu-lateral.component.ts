@@ -31,6 +31,7 @@ import { DynamicMenuComponent } from '../submenus/dynamic-menu/dynamic-menu.comp
 import { NotifSubmenuComponent } from '../submenus/notif-submenu/notif-submenu.component';
 import { SelecaoEstabelecimentosModalComponent } from './selecao-estabelecimentos-modal/selecao-estabelecimentos-modal.component';
 import { VersoesModalComponent } from './versoes-modal/versoes-modal.component';
+
 @Component({
   selector: 'app-menu-lateral',
   templateUrl: './menu-lateral.component.html',
@@ -408,7 +409,7 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
   */
   public openModalVersion(template: TemplateRef<any>) {
     this._bsModalService.show(template, {
-      class: 'modal-dialog-centered modal-sm',
+      class: 'modal-dialog-centered',
       ignoreBackdropClick: false,
       keyboard: false,
       id: this.MODAL_VERSION
