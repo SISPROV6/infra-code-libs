@@ -1,18 +1,20 @@
 <div class="main-container">
-  <div class="modal-header modal-style modal-dialog-centered">
-    <h4 class="modal-title pull-left color-modal" style="font-size: 20px; font-weight: bold;"> Versões </h4>
+  <div class="modal-header modal-style modal-dialog-centered modal-lg">
+    <h4 class="modal-title pull-left color-modal fw-bold" style="font-size: 20px;"> Versões desta instalação </h4>
     <button (click)="closeSelf()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
  </div>
   <div class="modal-body">
     <div class="row">
       <div class="col">
-        <span><strong>Versão Infra:</strong> {{versionInfra}}</span>
+        <span><strong>Versão Infra:</strong> {{ versionInfra }}</span>
       </div>
     </div>
     <div class="row">
       <div class="col">
-        <span><strong>Versão Corporativo:</strong> {{versionCorporativo}}</span>
+        <span><strong>Versão Corporativo:</strong> {{ versionCorporativo }}</span>
       </div>
     </div>
+
+    <p class="mb-0 mt-3">Acesse as release notes de todas as versões do ERP <a [href]="releaseNotesUrl" target="_blank" class="fw-bold text-decoration-none text-primary">clicando aqui</a> </p>
   </div>
 </div>
