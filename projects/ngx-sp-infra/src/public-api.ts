@@ -87,6 +87,7 @@ export * from './lib/utils/check-url-and-method.service';
 export * from './lib/utils/form-utils';
 export * from './lib/utils/settings.service';
 export * from './lib/utils/utils';
+export * from './lib/utils/cnpj-mask-config';
 
 /** Services */
 export * from './lib/service/file.service';
