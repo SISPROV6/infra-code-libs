@@ -1,4 +1,4 @@
-import { CommonModule, NgIf } from '@angular/common';
+import { CommonModule, NgClass, NgIf } from '@angular/common';
 import { Component, ContentChild, ElementRef, Inject, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { filter, Subject } from 'rxjs';
@@ -31,6 +31,7 @@ import { DynamicMenuComponent } from '../submenus/dynamic-menu/dynamic-menu.comp
 import { NotifSubmenuComponent } from '../submenus/notif-submenu/notif-submenu.component';
 import { SelecaoEstabelecimentosModalComponent } from './selecao-estabelecimentos-modal/selecao-estabelecimentos-modal.component';
 import { VersoesModalComponent } from './versoes-modal/versoes-modal.component';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 @Component({
   selector: 'app-menu-lateral',
   templateUrl: './menu-lateral.component.html',
@@ -47,7 +48,8 @@ import { VersoesModalComponent } from './versoes-modal/versoes-modal.component';
     CommonModule,
     RouterLink,
     RouterOutlet,
-    NgIf
+    NgIf,
+    NgClass
   ]
 })
 export class MenuLateralComponent implements OnInit, OnDestroy  {
@@ -63,7 +65,7 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
     private _projectUtilService: ProjectUtilservice,
     private _router: Router,
     private _authService: AuthService,
-    
+    private _breakpointObserver: BreakpointObserver,
     public _customMenuService: LibCustomMenuService,
     public _pesquisaTelas: PesquisaTelasGlobalService,
   ) {
@@ -131,7 +133,7 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
     if (this._authStorageService.infraInAuthTypeId == InfraInAuthTypeId.Azure && this._authStorageService.user.toLowerCase() != "admin") {
       await this.initMsal();
     }
-
+    this.initMobileObserver();
   }
 
   ngOnDestroy(): void {
@@ -150,6 +152,8 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
 
   // #region PRIVATE
   private _hostServeUrlOutSystems: string = "";
+
+  private _isMobile: boolean = false;
 
   private readonly MODAL_ESTABELECIMENTO: number = 1;
   private readonly MODAL_VERSION: number = 2;
@@ -190,6 +194,10 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
   public showBalloon: boolean = false;
 
   public get HostServerOutSystems():string { return this._hostServeUrlOutSystems }
+
+  public get isMobile() {return this._isMobile}
+
+  protected isMenuOpened = false;
 
   // #endregion PUBLIC
 
@@ -250,13 +258,19 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
   public dropdownWasOpened(value: boolean): void { this.messageIfClicked.next(value); }
 
   public openExpansibleMenu(ref: HTMLDivElement): void {
+      if(this.isMobile){
+        document.querySelector(".sidebar-control")?.classList.toggle("position-absolute");
+        document.querySelector(".sidebar-control")?.classList.toggle("position-relative");
+
+        ref.classList.toggle("opened-mobile");
+    }
     ref.classList.toggle("closed");
     ref.classList.toggle("col");
     document.querySelector(".sidebar-control")?.classList.toggle("col");
-
     // Método com customizações para inicialização do Menu Estático
     this._customMenuService.menuOpenExpansibleMenu(ref);
   }
+
 
   public openSubmenu(menu: IMenuItemStructure, ref: HTMLDivElement, desiredMenu: TemplateRef<any>): void {
 
@@ -424,5 +438,14 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
   // #endregion modal - Versões
 
   // #endregion ==========> MODALS <==========
-
+ public initMobileObserver(){
+      this._breakpointObserver.observe([
+      Breakpoints.HandsetLandscape,
+      Breakpoints.HandsetPortrait
+    ]).subscribe(result => {
+      if (result.matches) {
+        this._isMobile = true;
+      }
+    });
+  }
 }

@@ -8,10 +8,19 @@ $typography-font-size: 0.875rem;
   margin: 1.5rem 0;
   font-size: $typography-font-size;
   color: $footer-text-color;
-  white-space: nowrap;
+  .footer-position-desktop{
+    white-space: nowrap;
+  }
 
   .sispro { margin: 0 5px; }
 
   .icons .icon-item { margin: 0 10px; }
 }
+
+.footer-text-mobile{
+  font-size: .80rem !important;
+
+}
+
+
 // #endregion FOOTER
