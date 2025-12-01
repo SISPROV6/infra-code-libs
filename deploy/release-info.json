@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-auth",
-  "version": "4.4.5",
-  "tag": "auth-v4.4.5",
-  "notes": "Implementado botão para 'Limpar dados de filtros', que exclui a database do IndexedDB",
-  "timestamp": "2025-12-01T13:54:11.999Z"
+  "project": "ngx-sp-infra",
+  "version": "6.6.8",
+  "tag": "infra-v6.6.8",
+  "notes": "Z-Index do header aumentado para 6, era 3",
+  "timestamp": "2025-12-01T14:45:42.882Z"
 }
