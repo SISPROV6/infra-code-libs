@@ -1,10 +1,22 @@
   <!-- #region FOOTER -->
 
-<div class="footer-position d-flex align-items-end justify-content-center position-relative">
+<div class="footer-position d-flex justify-content-center position-relative" [ngClass]="{'align-items-end': isMobile, 'footer-position-desktop': !isMobile}">
   <footer>
-    <p class="footer-text d-flex justify-content-center">
-      Desenvolvido por <a href="https://www.sispro.com.br/" target="_blank" class="sispro text-decoration-none fw-bold text-primary"> SISPRO </a> - Serviços e Tecnologia da informação LTDA © {{ year }} Todos os direitos reservados
+   @if(!isMobile){
+ <p class="footer-text d-flex justify-content-center">
+      Desenvolvido por <a href="https://www.sispro.com.br/" target="_blank" class="sispro text-decoration-none fw-bold text-primary">
+        SISPRO </a> - Serviços e Tecnologia da informação LTDA © {{ year }} Todos os direitos reservados
     </p>
+   }@else{
+     <div class="d-flex flex-column justify-content-center footer-text-mobile mx-2">
+        <div class="text-center">Desenvolvido por <a href="https://www.sispro.com.br/" target="_blank" class="sispro text-decoration-none fw-bold text-primary">
+        SISPRO </a>
+      </div>
+        <div class="text-center">
+          Serviços e Tecnologia da informação LTDA © {{ year }} Todos os direitos reservados
+        </div>
+    </div>
+   }
 
     <div class="icons d-flex align-items-center justify-content-center mt-3">
       <a href="https://pt-br.facebook.com/SisproERP/" target="_blank" class="icon-item">

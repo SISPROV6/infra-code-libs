@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-infra",
-  "version": "6.6.6",
-  "tag": "infra-v6.6.6",
-  "notes": "Novo ícone 'olho-cerrado' adicionado para o Contratos",
-  "timestamp": "2025-11-28T17:44:06.177Z"
+  "project": "ngx-sp-auth",
+  "version": "4.4.4",
+  "tag": "auth-v4.4.4",
+  "notes": "Atualização de rotina",
+  "timestamp": "2025-12-01T13:23:40.461Z"
 }

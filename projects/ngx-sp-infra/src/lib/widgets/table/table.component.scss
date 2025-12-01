@@ -1,45 +1,56 @@
-@use '../../styles/ngx-pagination' as *;
+@use "../../styles/ngx-pagination" as *;
 @use "../../styles/styles.scss" as *;
 
-.text-dark-grey { color: #63676b !important; }
-
+.text-dark-grey {
+  color: #63676b !important;
+}
 
 // #region VISUAL ANTERIOR
 table.old {
-   border-color: #C4C4C4;
+  border-color: #c4c4c4;
 
-   thead {
-      height: 50px;
-      font-size: 1rem;
+  thead {
+    height: 50px;
+    font-size: 1rem;
+    background-color: #f9fafb !important;
+
+    > tr {
       background-color: #f9fafb !important;
+    }
+    > tr > th {
+      background-color: #f9fafb !important;
+    }
+  }
 
-      > tr { background-color: #f9fafb !important; }
-      > tr > th { background-color: #f9fafb !important; }
-   }
+  tbody {
+    border-top: none;
+    font-size: 0.875rem;
 
-   tbody {
-      border-top: none;
-      font-size: .875rem;
-
-      > tr { height: 50px; }
-      > tr:hover { background-color: #CCE5FF; }
-   }
+    > tr {
+      height: 50px;
+    }
+    > tr:hover {
+      background-color: #cce5ff;
+    }
+  }
 }
 // #endregion VISUAL ANTERIOR
 
 // #region VISUAL NOVO
 .table-list-inner {
-   border-radius: 8px;
-   border: 1px solid #eee;
+  border-radius: 8px;
+  border: 1px solid #eee;
 
-   table.new > thead {
-      > tr { background-color: #EEE !important; }
-      > tr > th { background-color: #EEE !important; }
-   }
+  table.new > thead {
+    > tr {
+      background-color: #eee !important;
+    }
+    > tr > th {
+      background-color: #eee !important;
+    }
+  }
 }
 // #endregion VISUAL NOVO
-
-
 
 // #region TABLE SCROLLÁVEL
 .scrollable-wrapper {
@@ -47,51 +58,64 @@ table.old {
   width: 100%;
 
   table {
-      table-layout: fixed; 
-      width: 100% !important;
-      border-collapse: collapse;
+    table-layout: fixed;
+    width: 100% !important;
+    border-collapse: collapse;
 
-      td, th {
-         vertical-align: top;
-         text-align: left;
-         width: 250px;
-         padding: 5px;
-      }
+    td,
+    th {
+      vertical-align: top;
+      text-align: left;
+      width: 250px;
+      padding: 5px;
+    }
 
-      .fix {
-         position: sticky;
-         background: white !important;
-         z-index: 1 !important;
-      }
-      .fix:first-child {
-         left: 0;
-      }
-      .fix:last-child {
-         right: 0;
-         min-width: 200px !important;
-      }
-   }
+    .fix {
+      position: sticky;
+      background: white !important;
+      z-index: 1 !important;
+    }
+    .fix:first-child {
+      left: 0;
+    }
+    .fix:last-child {
+      right: 0;
+      min-width: 200px !important;
+    }
+  }
 }
 // #endregion TABLE SCROLLÁVEL
 
-
-
 // #region LARGURAS EM PORCENTAGEM
-$percents:
-   1%, 2%, 3%, 4%, 5%, 6%, 7%, 8%, 9%, 10%, 
-   11%, 12%, 13%, 14%, 15%, 16%, 17%, 18%, 19%, 20%, 
-   21%, 22%, 23%, 24%, 25%, 26%, 27%, 28%, 29%, 30%, 
-   31%, 32%, 33%, 34%, 35%, 36%, 37%, 38%, 39%, 40%, 
-   41%, 42%, 43%, 44%, 45%, 46%, 47%, 48%, 49%, 50%, 
-   51%, 52%, 53%, 54%, 55%, 56%, 57%, 58%, 59%, 60%, 
-   61%, 62%, 63%, 64%, 65%, 66%, 67%, 68%, 69%, 70%, 
-   71%, 72%, 73%, 74%, 75%, 76%, 77%, 78%, 79%, 80%, 
-   81%, 82%, 83%, 84%, 85%, 86%, 87%, 88%, 89%, 90%, 
-   91%, 92%, 93%, 94%, 95%, 96%, 97%, 98%, 99%, 100%;
+$percents: 1%, 2%, 3%, 4%, 5%, 6%, 7%, 8%, 9%, 10%, 11%, 12%, 13%, 14%, 15%, 16%,
+  17%, 18%, 19%, 20%, 21%, 22%, 23%, 24%, 25%, 26%, 27%, 28%, 29%, 30%, 31%, 32%,
+  33%, 34%, 35%, 36%, 37%, 38%, 39%, 40%, 41%, 42%, 43%, 44%, 45%, 46%, 47%, 48%,
+  49%, 50%, 51%, 52%, 53%, 54%, 55%, 56%, 57%, 58%, 59%, 60%, 61%, 62%, 63%, 64%,
+  65%, 66%, 67%, 68%, 69%, 70%, 71%, 72%, 73%, 74%, 75%, 76%, 77%, 78%, 79%, 80%,
+  81%, 82%, 83%, 84%, 85%, 86%, 87%, 88%, 89%, 90%, 91%, 92%, 93%, 94%, 95%, 96%,
+  97%, 98%, 99%, 100%;
 
 @for $i from 1 through 100 {
-   .w-#{$i} {
-     width: nth($list: $percents, $n: $i) !important;
-   }
+  .w-#{$i} {
+    width: nth($list: $percents, $n: $i) !important;
+  }
 }
 // #endregion LARGURAS EM PORCENTAGEM
+
+// #region VISUAIS MOBILE
+.font-size-mobile {
+  th,td,span, tbody {
+    font-size: 0.85rem !important;
+  }
+}
+
+.pagination-mobile {
+  select {
+    padding: 0.275rem 1.75rem 0.375rem 0.75rem !important;
+  }
+  * {
+    font-size: 0.85rem !important;
+  }
+
+}
+// #endregion TABLE SCROLLÁVEL
