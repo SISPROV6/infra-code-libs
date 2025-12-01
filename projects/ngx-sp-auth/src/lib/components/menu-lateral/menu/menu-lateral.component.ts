@@ -18,6 +18,7 @@ import { ProjectUtilservice } from '../../../project/project-utils.service';
 import { AuthStorageService } from '../../../storage/auth-storage.service';
 import { MenuServicesService } from '../menu-services.service';
 
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AuthService } from '../../../auth.service';
 import { LibCustomEnvironmentService } from '../../../custom/lib-custom-environment.service';
 import { InfraInAuthTypeId } from '../../../models/infraInAuthTypeId';
@@ -32,7 +33,6 @@ import { DynamicMenuComponent } from '../submenus/dynamic-menu/dynamic-menu.comp
 import { NotifSubmenuComponent } from '../submenus/notif-submenu/notif-submenu.component';
 import { SelecaoEstabelecimentosModalComponent } from './selecao-estabelecimentos-modal/selecao-estabelecimentos-modal.component';
 import { VersoesModalComponent } from './versoes-modal/versoes-modal.component';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-menu-lateral',
@@ -68,6 +68,7 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
     private _router: Router,
     private _authService: AuthService,
     private _breakpointObserver: BreakpointObserver,
+
     public _customMenuService: LibCustomMenuService,
     public _pesquisaTelas: PesquisaTelasGlobalService,
     public idb: IndexedDBService
@@ -454,6 +455,8 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
   // #endregion modal - Versões
 
   // #endregion ==========> MODALS <==========
+
+
  public initMobileObserver(){
       this._breakpointObserver.observe([
       Breakpoints.HandsetLandscape,
