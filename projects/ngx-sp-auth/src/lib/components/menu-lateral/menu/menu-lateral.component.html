@@ -166,9 +166,15 @@
         <div routerLink="meu-perfil" style="cursor: pointer;" (click)="togglePopover(); $event.stopPropagation()">
           <lib-icon [iconSize]="'small'" iconName="contraparte"/> Meu Perfil
         </div>
+        
         <div class="mt-2" style="cursor: pointer;" (click)="openModalVersion(modalVersion)">
           <lib-icon [iconSize]="'small'" iconName="info"/> Versão
         </div>
+
+        <div class="mt-2" style="cursor: pointer;" (click)="deleteIDB()">
+          <lib-icon [iconSize]="'small'" iconName="lixeira"/> Limpar filtros salvos
+        </div>
+
         <div class="mt-2" (click)="logout()" style="cursor: pointer;">
           <lib-icon [iconSize]="'small'"  iconName="logout"/> Sair
         </div>

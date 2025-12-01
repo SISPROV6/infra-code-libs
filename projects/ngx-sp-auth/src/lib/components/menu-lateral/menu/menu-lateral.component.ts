@@ -18,9 +18,11 @@ import { ProjectUtilservice } from '../../../project/project-utils.service';
 import { AuthStorageService } from '../../../storage/auth-storage.service';
 import { MenuServicesService } from '../menu-services.service';
 
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AuthService } from '../../../auth.service';
 import { LibCustomEnvironmentService } from '../../../custom/lib-custom-environment.service';
 import { InfraInAuthTypeId } from '../../../models/infraInAuthTypeId';
+import { IndexedDBService } from '../../../services/indexed-db.service';
 import { PesquisaTelasGlobalService } from '../../../services/pesquisa-telas-global.service';
 import { PrimaryDropdownComponent } from '../dropdown/primary-dropdown/primary-dropdown.component';
 import { DynamicMenu } from '../model/dynamic-menu';
@@ -31,7 +33,6 @@ import { DynamicMenuComponent } from '../submenus/dynamic-menu/dynamic-menu.comp
 import { NotifSubmenuComponent } from '../submenus/notif-submenu/notif-submenu.component';
 import { SelecaoEstabelecimentosModalComponent } from './selecao-estabelecimentos-modal/selecao-estabelecimentos-modal.component';
 import { VersoesModalComponent } from './versoes-modal/versoes-modal.component';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-menu-lateral',
@@ -67,8 +68,10 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
     private _router: Router,
     private _authService: AuthService,
     private _breakpointObserver: BreakpointObserver,
+
     public _customMenuService: LibCustomMenuService,
     public _pesquisaTelas: PesquisaTelasGlobalService,
+    public idb: IndexedDBService
   ) {
     // Implementação que verifica eventos acionados na classe de service.
     this._menuServices.getNewUserImageEvent().subscribe( () => { this.getMenuUserImg(); })
@@ -149,6 +152,8 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
       this.openExpansibleMenu(this.sidebar.nativeElement);
     }
   };
+
+
   // #region ==========> PROPERTIES <==========
 
   // #region PRIVATE
@@ -161,6 +166,7 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
 
   // ERICK: vou manter este por enquanto para quando for necessário esta funcionalidade eu consiga refazê-las sem muito problema
   @ViewChild("notif_menu") private notif_template?: TemplateRef<any>;
+  // #endregion PRIVATE
 
   // #region PUBLIC
 
@@ -203,6 +209,7 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
   // #endregion PUBLIC
 
   // #endregion ==========> PROPERTIES <==========
+
 
   // #region ==========> SERVICES <==========
 
@@ -252,6 +259,7 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
 
   // #endregion ==========> SERVICES <==========
 
+  
   // #region ==========> UTILITIES <==========
 
   public togglePopover() { this.showBalloon = !this.showBalloon; }
@@ -342,7 +350,13 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
     return menus;
   }
 
+
+  public async deleteIDB(): Promise<void> {
+    await this.idb.deleteDatabase();
+  }
+
   // #endregion ==========> UTILITIES <==========
+
 
   // #region Azure
 
@@ -390,6 +404,8 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
       });
     });
   }
+
+  // #endregion Azure
 
 
   // #region ==========> MODALS <==========
@@ -439,6 +455,8 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
   // #endregion modal - Versões
 
   // #endregion ==========> MODALS <==========
+
+
  public initMobileObserver(){
       this._breakpointObserver.observe([
       Breakpoints.HandsetLandscape,
