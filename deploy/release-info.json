@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-infra",
-  "version": "6.6.3",
-  "tag": "infra-v6.6.3",
-  "notes": "Atualização de rotina",
-  "timestamp": "2025-11-25T20:38:25.780Z"
+  "version": "6.6.6",
+  "tag": "infra-v6.6.6",
+  "notes": "Novo ícone 'olho-cerrado' adicionado para o Contratos",
+  "timestamp": "2025-11-28T17:44:06.177Z"
 }
