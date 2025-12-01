@@ -106,13 +106,13 @@
     font-size: 14px;
   }
 
-  // BODY CONTAINER 
+  // BODY CONTAINER
   .container {
     display: flex;
     width: max-content;
   }
 
-  // SIDEBAR ABERTA 
+  // SIDEBAR ABERTA
 
   .sidebar {
     display: flex;
@@ -129,7 +129,7 @@
     }
   }
 
-  // HEADER SIDEBAR ABERTA 
+  // HEADER SIDEBAR ABERTA
 
   .menu-header {
     display: flex;
@@ -137,7 +137,7 @@
     white-space: nowrap;
     padding: 32px 0 0px 0;
     background-color: #213B70;
-    
+
     ul li {
       margin-left: 16px;
       margin-right: 16px;
@@ -242,7 +242,7 @@
 
     .li-main {
       padding: 10px 7px;
-      border-radius: 8px;    
+      border-radius: 8px;
     }
 
     .onSelect {
@@ -339,7 +339,7 @@
     background-color: transparent;
   }
 
-  // FOOTER SIDEBAR ABERTA 
+  // FOOTER SIDEBAR ABERTA
 
   .footer-menu {
     display: flex;
@@ -347,7 +347,7 @@
     // padding: 8px 0;
     //box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
 
-    .footer-components {    
+    .footer-components {
       border-top: 1px solid $blue-light /* default */;
 
       .button-closed {
@@ -379,7 +379,7 @@
     }
   }
 
-  // SUBMENU 
+  // SUBMENU
 
   .submenu {
     width: 341px;
@@ -499,7 +499,7 @@
     }
   }
 
-  // SUBMENUS ESTÁTICOS 
+  // SUBMENUS ESTÁTICOS
 
   .search-bar {
     max-width: 368px;
@@ -522,10 +522,18 @@
   // SIDEBAR FECHADA
   .sidebar.closed {
     max-width: 73px;
-
+    transition: 0.5s;
     span {
       display: none;
     }
+  }
+
+  .closed-mobile{
+    width: 42px;
+  }
+
+  .opened-mobile{
+    width: 80vw;
   }
 
   // HEADER SIDEBAR FECHADA
@@ -625,12 +633,12 @@
 
 
   .profile-picture {
-    display: inline-block; 
-    position: relative; 
-    width: 100px; 
-    height: 100px; 
-    border-radius: 50%; 
-    overflow: hidden; 
+    display: inline-block;
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
   }
 
   .profile-picture img {
@@ -649,7 +657,7 @@
     position: relative;
     overflow: hidden;
     z-index: 1;
-  
+
     #photoUser {
       width: 146px;
       height: 146px;
@@ -664,13 +672,13 @@
   }
 
   .dynamic-container {
-    display: inline-block; 
-    white-space: nowrap; 
-    overflow: hidden; 
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   .custom-popover {
-    width: 1000px; 
+    width: 1000px;
   }
 
 

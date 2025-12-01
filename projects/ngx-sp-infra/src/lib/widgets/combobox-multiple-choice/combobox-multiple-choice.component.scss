@@ -18,3 +18,15 @@ button.form-select {
 .filtro {
   width: calc(100% - 78.21px);
 }
+
+.mobile-combobox-sizes{
+  button{
+    height: 90%;
+    display: flex;
+    align-items: center;
+    font-size: 0.85rem;
+  }
+}
+.mobile-opened-combobox-size{
+  min-width: 212px !important;
+}

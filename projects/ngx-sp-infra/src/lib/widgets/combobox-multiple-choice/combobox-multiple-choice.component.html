@@ -1,14 +1,18 @@
 <div class="w-100 d-flex">
-  <div class="dropdown flex-fill glb-max-height-350px" [class]="selectedOptions.length > 0 ? 'filtro' : 'w-100'">
+  <div class="dropdown flex-fill glb-max-height-350px" [class]="selectedOptions.length > 0 ? 'filtro' : 'w-100'" [ngClass]="{'mobile-combobox-sizes': isMobile}">
 
     <button class="form-select text-start border glb-cursor-pointer-none" type="button" [disabled]="disabled"
       data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"
       [class.glb-text-gray]="selectedLabels.length === 0" [class]="showLimparBtn && selectedOptions.length > 0 && !disabled ? 'border-radius-filter' : ''">
       <!-- [class.glb-text-gray]="selectedLabels.length === 0" [class]="selectedOptions.length > 0 && !disabled ? 'border-radius-filter' : ''"> -->
-      {{ selectedLabels.length > 0 ? selectedLabels : placeholder }}
+      @if(!isMobile){
+              {{ selectedLabels.length > 0 ? selectedLabels : placeholder }}
+      }@else{
+              {{ selectedLabels.length > 0 ? LimitarTexto(selectedLabels, 10) : placeholder }}
+      }
     </button>
 
-    <ul class="dropdown-menu p-2 w-100 glb-max-height-350px overflow-y-scroll">
+    <ul class="dropdown-menu p-2 w-100 glb-max-height-350px overflow-y-scroll mobile-opened-combobox-size">
       <div class="input-group mb-2">
         <span class="input-group-text">
           <lib-icon iconName="lupa" iconSize="medium-small"/>
@@ -58,7 +62,7 @@
 
   @if (showLimparBtn && selectedOptions.length > 0) {
     <div>
-      <button class="btn btn-outline-primary border-radius-limpar" type="button"
+      <button class="btn btn-outline-primary border-radius-limpar" [ngClass]="{'btn-sm': isMobile}" type="button"
         (click)="resetFilter()"> Limpar </button>
     </div>
   }

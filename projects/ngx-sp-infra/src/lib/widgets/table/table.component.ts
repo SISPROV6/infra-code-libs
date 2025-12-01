@@ -13,6 +13,7 @@ import { TableHeaderStructure } from '../../models/table/header-structure.model'
 import { Utils } from '../../utils/utils';
 import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 import { OrderingComponent } from '../ordering/ordering.component';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 /**
  * Componente de Tabela Customizável
@@ -29,7 +30,7 @@ import { OrderingComponent } from '../ordering/ordering.component';
   selector: 'lib-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
-  
+
   imports: [
     NgIf,
     FormsModule,
@@ -49,7 +50,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   // #region PRIVATE
   private _paginationID: string = "libTablePagination";
   private _recordsList: unknown[] | undefined;
-
+  private _isMobile: boolean = false;
   private _currentPage: number = 1;
   private _currentItemsPerPage: number = 0;
   // #endregion PRIVATE
@@ -67,7 +68,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   /** Determina se a tabela deve usar paginação.
    * @default true */
   @Input() public usePagination: boolean = true;
-  
+
   /** Lista de registros a serem exibidos na tabela.
    * @required */
   @Input({ required: true })
@@ -97,7 +98,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   /** Informa se as rows da tabela devem ter o efeito de hover.
    * @default true */
   @Input() public hoverable: boolean = true;
-  
+
   /** Informa se a table deve ser exibida com o estilo anterior à atualização.
    * @default false */
   @Input() public usePreviousStyle: boolean = false;
@@ -113,13 +114,13 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
   /**
    * DEVE ser utilizada em caso de paginação visível.
-   * 
+   *
    * Informa um ID para a paginação da tabela específica, usada para distinguir tabelas distintas.
-   * 
+   *
    * Não está como required pois caso a paginação não seja visível não deve ser obrigatório.
-   * 
+   *
    * Por obrigatoriedade neste contexto refiro-me ao usar o seletor no seu HTML
-   * 
+   *
    * @example
    * ```html
    * <lib-table paginationID="simpleTableExample"></lib-table>
@@ -157,6 +158,9 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   public get itemsPerPage(): number { return this._currentItemsPerPage; }
 	public set itemsPerPage(value: number) { this._currentItemsPerPage = value; }
 
+   /** Se é Mobile baseado na resolução da tela do usuário. */
+  public get isMobile(){ return this._isMobile }
+
 
   public get firstItemOfPage(): number {
     return (this.page - 1) * this.itemsPerPage + 1;
@@ -170,13 +174,13 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
     return `Exibindo ${ this.counts ? this.firstItemOfPage+"-"+this.lastItemOfPage + " de" : "" } ${this.list?.length ?? 0} registros`;
   }
 
-  
+
   public headersUseOldWidth?: boolean;
 
   // Usadas para controlar as classes de borda dos elementos .table-list e <table>
   @Input() divBorderClass: string = "rounded-bottom rounded";
   @Input() tableBorderClass: string = "";
-  
+
 
   @ViewChild('emptyListTd') emptyListTD?: ElementRef<HTMLTableCellElement>;
 
@@ -195,11 +199,13 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   // #region ==========> INICIALIZAÇÃO <==========
   constructor(
     private readonly _cdr: ChangeDetectorRef,
-    private readonly _renderer: Renderer2
+    private readonly _renderer: Renderer2,
+    private readonly _breakpointObserver: BreakpointObserver
   ) { }
 
   /** Inicializa o componente e define o número inicial de itens por página. */
   ngOnInit(): void {
+    this.initMobileObserver();
     this.updateCounterInfo();
     this.validateHeaders();
   }
@@ -217,7 +223,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
       this.updateCounterInfo();
       this.updateColspanWidth();
     }
-    
+
     if (changes['headers']) {
       this.validateHeaders();
       this.updateColspanWidth();
@@ -236,7 +242,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
   private validateHeaders(): void {
     const headersUseOldWidth: boolean = this.headers.every(header => header.col && header.col != undefined);
-    
+
     const headersUseCol: boolean = this.headers.every(header => header.widthClass && header.widthClass.includes('col'));
     const headersUsePercent: boolean = this.headers.every(header => header.widthClass && header.widthClass.includes('w-'));
 
@@ -272,6 +278,17 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
     this._cdr.detectChanges();  // Forçar uma nova detecção após a atualização do colspan
   }
 
+public initMobileObserver(){
+      this._breakpointObserver.observe([
+      Breakpoints.HandsetLandscape,
+      Breakpoints.HandsetPortrait
+    ]).subscribe(result => {
+      if (result.matches) {
+        this._isMobile = true;
+      }
+    });
+    console.log("isMobile: " + this.isMobile)
+  }
 
   /** Modifica a quantidade de itens a ser mostrada na lista.
    * @param event parâmetro de evento que irá selecionar a nova quantidade. */
@@ -297,7 +314,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
 	//#region Ordering, Sorting ou apenas Ordenação
 
-	/** Método que faz a ordenação dos contratos na tela de listagem, em cada uma das células do cabeçalho da tabela, onde cada um  
+	/** Método que faz a ordenação dos contratos na tela de listagem, em cada uma das células do cabeçalho da tabela, onde cada um
 	 *  dos elementos <th> representa uma coluna, de acordo com a lista de contratos que retorna do backend. */
 	// Objeto para armazenar a direção de ordenação de cada coluna
 	public sortDirection: { [key: string]: 'asc' | 'desc' } = {};
@@ -333,7 +350,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
       // ERICK: Novo método de ordenação que abrange também números
       const attribute = this.currentSortColumn;
-      
+
       recordsList.sort((a, b) => {
         const propertyA = this.getProperty(a, attribute).toUpperCase(); // Puxa o nome da coluna que irá ordenar
         const propertyB = this.getProperty(b, attribute).toUpperCase(); // Puxa o nome da coluna que irá ordenar

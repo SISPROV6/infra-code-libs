@@ -1,21 +1,26 @@
-import { NgIf } from '@angular/common';
+import { OnInit } from '@angular/core';
+import { NgIf, NgClass } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BasicFilters } from '../../models/filters/basic-filters';
 import { LibIconsComponent } from '../lib-icons/lib-icons.component';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
     selector: 'app-search-filters, lib-basic-filters',
     templateUrl: './search-filters.component.html',
     styleUrls: ['./search-filters.component.scss'],
-    
-    imports: [LibIconsComponent, FormsModule, NgIf]
+
+    imports: [LibIconsComponent, FormsModule, NgIf, NgClass]
 })
-export class SearchFiltersComponent {
+export class SearchFiltersComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _breakpointObserver: BreakpointObserver) { }
 
 
+  ngOnInit(): void {
+    this.initMobileObserver();
+  }
   // #region ==========> PROPERTIES <==========
 
   // #region PRIVATE
@@ -27,8 +32,9 @@ export class SearchFiltersComponent {
   /** Evento emitido quando o botão de 'Limpar' for clicado. Serve para sinalizar o compoenente pai que deve limpar o valor de quaisquer inputs customizados que foram adicionados por meio do <ng-content>. */
   @Output() private readonly _EMIT_CLEAR_EXTRA_INPUT: EventEmitter<void> = new EventEmitter<void>();
 
+  private _isMobile: boolean = false;
   // #endregion PRIVATE
-  
+
   // #region PUBLIC
 
   /** Placeholder a ser exibido no campo de pesquisa de texto. */
@@ -39,10 +45,11 @@ export class SearchFiltersComponent {
 
   /** [EXPERIMENTAL] Valores externos do filtro de pesquisa, ainda em fase de testes, servirão para compartilhar os mesmos valores da pesquisa entre componente pai e filho sem a necessidade de '@Inputs' e '@Outputs'. */
   @Input() public basicFilters: BasicFilters = new BasicFilters();
-  
+
   public search: string = '';
   public selected: unknown;
   public isActive: boolean = true;
+  public get isMobile(){ return this._isMobile }
   // #endregion PUBLIC
 
   // #endregion ==========> PROPERTIES <==========
@@ -75,6 +82,17 @@ export class SearchFiltersComponent {
   public syncFilters(): void {
     this.basicFilters.TEXTO_PESQUISA = this.search.trim();
     this.basicFilters.IS_ATIVO = this.isActive;
+  }
+
+  public initMobileObserver(){
+      this._breakpointObserver.observe([
+      Breakpoints.HandsetLandscape,
+      Breakpoints.HandsetPortrait
+    ]).subscribe(result => {
+      if (result.matches) {
+        this._isMobile = true;
+      }
+    });
   }
   // #endregion ==========> UTILITIES <==========
 
