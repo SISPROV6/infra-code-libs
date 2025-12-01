@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-auth",
-  "version": "4.4.4",
-  "tag": "auth-v4.4.4",
-  "notes": "Atualização de rotina",
-  "timestamp": "2025-12-01T13:23:40.461Z"
+  "version": "4.4.5",
+  "tag": "auth-v4.4.5",
+  "notes": "Implementado botão para 'Limpar dados de filtros', que exclui a database do IndexedDB",
+  "timestamp": "2025-12-01T13:54:11.999Z"
 }
