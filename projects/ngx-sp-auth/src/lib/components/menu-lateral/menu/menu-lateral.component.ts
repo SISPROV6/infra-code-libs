@@ -1,4 +1,4 @@
-import { CommonModule, NgIf } from '@angular/common';
+import { CommonModule, NgClass, NgIf } from '@angular/common';
 import { Component, ContentChild, ElementRef, Inject, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { filter, Subject } from 'rxjs';
@@ -18,9 +18,11 @@ import { ProjectUtilservice } from '../../../project/project-utils.service';
 import { AuthStorageService } from '../../../storage/auth-storage.service';
 import { MenuServicesService } from '../menu-services.service';
 
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AuthService } from '../../../auth.service';
 import { LibCustomEnvironmentService } from '../../../custom/lib-custom-environment.service';
 import { InfraInAuthTypeId } from '../../../models/infraInAuthTypeId';
+import { IndexedDBService } from '../../../services/indexed-db.service';
 import { PesquisaTelasGlobalService } from '../../../services/pesquisa-telas-global.service';
 import { PrimaryDropdownComponent } from '../dropdown/primary-dropdown/primary-dropdown.component';
 import { DynamicMenu } from '../model/dynamic-menu';
@@ -48,7 +50,8 @@ import { VersoesModalComponent } from './versoes-modal/versoes-modal.component';
     CommonModule,
     RouterLink,
     RouterOutlet,
-    NgIf
+    NgIf,
+    NgClass
   ]
 })
 export class MenuLateralComponent implements OnInit, OnDestroy  {
@@ -64,9 +67,11 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
     private _projectUtilService: ProjectUtilservice,
     private _router: Router,
     private _authService: AuthService,
-    
+    private _breakpointObserver: BreakpointObserver,
+
     public _customMenuService: LibCustomMenuService,
     public _pesquisaTelas: PesquisaTelasGlobalService,
+    public idb: IndexedDBService
   ) {
     // Implementação que verifica eventos acionados na classe de service.
     this._menuServices.getNewUserImageEvent().subscribe( () => { this.getMenuUserImg(); })
@@ -132,7 +137,7 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
     if (this._authStorageService.infraInAuthTypeId == InfraInAuthTypeId.Azure && this._authStorageService.user.toLowerCase() != "admin") {
       await this.initMsal();
     }
-
+    this.initMobileObserver();
   }
 
   ngOnDestroy(): void {
@@ -147,16 +152,21 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
       this.openExpansibleMenu(this.sidebar.nativeElement);
     }
   };
+
+
   // #region ==========> PROPERTIES <==========
 
   // #region PRIVATE
   private _hostServeUrlOutSystems: string = "";
+
+  private _isMobile: boolean = false;
 
   private readonly MODAL_ESTABELECIMENTO: number = 1;
   private readonly MODAL_VERSION: number = 2;
 
   // ERICK: vou manter este por enquanto para quando for necessário esta funcionalidade eu consiga refazê-las sem muito problema
   @ViewChild("notif_menu") private notif_template?: TemplateRef<any>;
+  // #endregion PRIVATE
 
   // #region PUBLIC
 
@@ -192,9 +202,14 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
 
   public get HostServerOutSystems():string { return this._hostServeUrlOutSystems }
 
+  public get isMobile() {return this._isMobile}
+
+  protected isMenuOpened = false;
+
   // #endregion PUBLIC
 
   // #endregion ==========> PROPERTIES <==========
+
 
   // #region ==========> SERVICES <==========
 
@@ -244,6 +259,7 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
 
   // #endregion ==========> SERVICES <==========
 
+  
   // #region ==========> UTILITIES <==========
 
   public togglePopover() { this.showBalloon = !this.showBalloon; }
@@ -251,13 +267,19 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
   public dropdownWasOpened(value: boolean): void { this.messageIfClicked.next(value); }
 
   public openExpansibleMenu(ref: HTMLDivElement): void {
+      if(this.isMobile){
+        document.querySelector(".sidebar-control")?.classList.toggle("position-absolute");
+        document.querySelector(".sidebar-control")?.classList.toggle("position-relative");
+
+        ref.classList.toggle("opened-mobile");
+    }
     ref.classList.toggle("closed");
     ref.classList.toggle("col");
     document.querySelector(".sidebar-control")?.classList.toggle("col");
-
     // Método com customizações para inicialização do Menu Estático
     this._customMenuService.menuOpenExpansibleMenu(ref);
   }
+
 
   public openSubmenu(menu: IMenuItemStructure, ref: HTMLDivElement, desiredMenu: TemplateRef<any>): void {
 
@@ -328,7 +350,13 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
     return menus;
   }
 
+
+  public async deleteIDB(): Promise<void> {
+    await this.idb.deleteDatabase();
+  }
+
   // #endregion ==========> UTILITIES <==========
+
 
   // #region Azure
 
@@ -376,6 +404,8 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
       });
     });
   }
+
+  // #endregion Azure
 
 
   // #region ==========> MODALS <==========
@@ -426,4 +456,15 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
 
   // #endregion ==========> MODALS <==========
 
+
+ public initMobileObserver(){
+      this._breakpointObserver.observe([
+      Breakpoints.HandsetLandscape,
+      Breakpoints.HandsetPortrait
+    ]).subscribe(result => {
+      if (result.matches) {
+        this._isMobile = true;
+      }
+    });
+  }
 }

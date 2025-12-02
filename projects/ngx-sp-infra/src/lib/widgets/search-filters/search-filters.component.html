@@ -1,21 +1,21 @@
-<div class="d-flex flex-row w-100">
+<div class="w-100" [ngClass]="{'d-flex flex-row': !isMobile}">
 
   <!-- #region SEARCH -->
-  <div class="input-group search-input">
+  <div class="input-group search-input" [ngClass]="{'input-group-md': isMobile}">
     <span class="input-group-text search px-2 glb-bg-color-white"> <lib-icon iconName="lupa" iconColor="gray" iconSize="medium-small" class="d-flex align-items-center"/> </span>
-    <input type="text" class="form-control border-left-none ps-0" data-cy="searchFilters-input" [placeholder]="placeholder" [(ngModel)]="search"
+    <input type="text" class="form-control border-left-none ps-0" [ngClass]="{'form-control-sm': isMobile}" data-cy="searchFilters-input" [placeholder]="placeholder" [(ngModel)]="search"
       (ngModelChange)="syncFilters()" (keyup.enter)="applyFilters()" >
   </div>
   <!-- #endregion SEARCH -->
-  
+
   <!-- #region CAMPOS DE FILTRO CUSTOMIZADO -->
   <ng-content></ng-content>
   <!-- #endregion CAMPOS DE FILTRO CUSTOMIZADO -->
-  
+
   <!-- #region FILTERS -->
-  <div class="d-flex filter-buttons ms-3">
-    <button data-cy="searchFilters-clear-btn" class="btn me-2 clear btn-outline-primary" (click)="clearFilters()"> Limpar </button>
-    <button data-cy="searchFilters-search-btn" class="btn ms-2 btn-outline-primary" (click)="applyFilters()"> Pesquisar </button>
+  <div class="d-flex filter-buttons ms-3" [ngClass]="{'justify-content-end mt-2': isMobile}">
+    <button data-cy="searchFilters-clear-btn" class="btn me-2 clear btn-outline-primary" [ngClass]="{'btn-sm mobile-button': isMobile}" [style]="isMobile? 'max-height: 38px; height: 100%' : ''" (click)="clearFilters()"> Limpar </button>
+    <button data-cy="searchFilters-search-btn" class="btn ms-2 btn-outline-primary" [ngClass]="{'btn-sm mobile-button': isMobile}" [style]="isMobile? 'max-height: 38px; height: 100%' : ''" (click)="applyFilters()"> Pesquisar </button>
   </div>
   <div *ngIf="useIsActive" class="d-flex filter-switch align-items-center ms-3">
     <label class="form-check-label me-2" for="flexSwitchCheckChecked"> Ativos </label>

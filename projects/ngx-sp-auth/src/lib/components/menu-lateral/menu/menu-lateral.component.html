@@ -1,15 +1,15 @@
 <!-- #region MAIN CONTENT -->
 <div id="menu" class="main col-12">
 
-  <div style="height: 100vh; z-index: 3;" class="sidebar-control position-relative d-flex flex-row"
+  <div style="height: 100vh; z-index: 3;" class="sidebar-control position-relative d-flex flex-row" #menuContainer
     (clickOutside)="closeMenu == true ? onClickedOutside($event, submenu_ref) : closeMenu = true">
-    <div class="sidebar {{_customMenuService.themeColor}} closed" #sidebar>
+    <div class="sidebar {{_customMenuService.themeColor}} closed" [ngClass]="{'closed-mobile': isMobile && !isMenuOpened}" #sidebar>
       <div class="menu-header">
         <ul>
           <li class="mb-3">
             <div class="logo-hamburguer">
               <img src="assets/icons/logotipo-sispro.svg" alt="logo-sispro" class="logo-sispro" title="logo" width="136px" height="48px">
-              <button class="button-hamburguer" (click)="openExpansibleMenu(sidebar)">
+              <button class="button-hamburguer" (click)="isMenuOpened = !isMenuOpened; openExpansibleMenu(sidebar);">
                 <img src="assets/icons/menu.svg" alt="menu hamburguer">
               </button>
             </div>
@@ -54,7 +54,7 @@
               <div class="icon-pesquisa">
                 <button class="d-flex align-items-center justify-content-start gap-2 bg-transparent border-0" (click)="_pesquisaTelas.show()"
                   [tooltip]="!sidebar.classList.contains('closed') ? '' : 'Pesquisar telas'" placement="right">
-  
+
                   <lib-icon class="col-1" iconName="lupa" iconColor="white" />
                   @if (!sidebar.classList.contains('closed')) { <span class="col ps-2 text-start text-truncate"> Pesquisar telas </span> }
                 </button>
@@ -166,9 +166,15 @@
         <div routerLink="meu-perfil" style="cursor: pointer;" (click)="togglePopover(); $event.stopPropagation()">
           <lib-icon [iconSize]="'small'" iconName="contraparte"/> Meu Perfil
         </div>
+        
         <div class="mt-2" style="cursor: pointer;" (click)="openModalVersion(modalVersion)">
           <lib-icon [iconSize]="'small'" iconName="info"/> Versão
-        </div>        
+        </div>
+
+        <div class="mt-2" style="cursor: pointer;" (click)="deleteIDB()">
+          <lib-icon [iconSize]="'small'" iconName="lixeira"/> Limpar filtros salvos
+        </div>
+
         <div class="mt-2" (click)="logout()" style="cursor: pointer;">
           <lib-icon [iconSize]="'small'"  iconName="logout"/> Sair
         </div>

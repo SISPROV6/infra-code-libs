@@ -4,6 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { LibIconsComponent } from '../lib-icons/lib-icons.component';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 /**
  * @description Este arquivo contém a implementação do componente SimpleHeaderComponent, um cabeçalho genérico
@@ -49,7 +50,7 @@ import { LibIconsComponent } from '../lib-icons/lib-icons.component';
     selector: 'lib-header',
     templateUrl: './lib-header.component.html',
     styleUrls: ['./lib-header.component.scss'],
-    
+
     imports: [
       LibIconsComponent,
       RouterModule,
@@ -62,6 +63,7 @@ export class LibHeaderComponent implements OnInit {
 
   // #region PRIVATE
   // [...]
+  private _isMobile: boolean = false;
   // #endregion PRIVATE
 
   // #region PROTECTED
@@ -108,14 +110,16 @@ export class LibHeaderComponent implements OnInit {
   @Output() public onUpdate = new EventEmitter<void>();
   @Output() public update = new EventEmitter<void>();
   // #endregion PUBLIC
+  public get isMobile(){ return this._isMobile }
 
   // #endregion ==========> PROPERTIES <==========
 
 
-  constructor() { }
+  constructor(private _breakpointObserver: BreakpointObserver) { }
 
   ngOnInit(): void {
       this.initializeAuditoriaRoute();
+      this.initMobileObserver();
   }
 
 
@@ -144,12 +148,22 @@ export class LibHeaderComponent implements OnInit {
     else return "Salvar";
   }
 
+   public initMobileObserver(){
+      this._breakpointObserver.observe([
+      Breakpoints.HandsetLandscape,
+      Breakpoints.HandsetPortrait
+    ]).subscribe(result => {
+      if (result.matches) {
+        this._isMobile = true;
+      }
+    });
+  }
 
   protected initializeAuditoriaRoute(): void {
     // const match = this._router.url.match(/^[^/]+\/[^/]+\/([^/]+)\/[^/]+/);
     // const currentProduct = match ? match[1] : null;
     const currentHostName = window.location.hostname;
-    
+
     const localHostnames: string[] = [
       "localhost",
       "127.0.0.1"
@@ -164,7 +178,7 @@ export class LibHeaderComponent implements OnInit {
     }
     else {
       this.auditoriaRoute = `https://${currentHostName}/SisproErpCloud/Corporativo/auditoria`;
-  
+
       if (this.auditoria) {
         this.auditoriaRoute = `${this.auditoriaRoute}?Entidade=${this.auditoria.Entidade}${ this.auditoria.RegistroId ? "&RegistroId="+this.auditoria.RegistroId : "" }${this.auditoria.IsContratos ? "&IsContratos=" + this.auditoria.IsContratos : ""}`;
       }

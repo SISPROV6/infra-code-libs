@@ -1,25 +1,36 @@
+import { OnInit } from '@angular/core';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf, NgClass } from '@angular/common';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { RecordCombobox } from '../../models/combobox/record-combobox';
 import { FilterMultipleChoicePipe } from '../../pipes/filter-multiple-choice.pipe';
 import { LibIconsComponent } from '../lib-icons/lib-icons.component';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
-    selector: 'app-combobox-multiple-choice, lib-combobox-multiple',
-    templateUrl: './combobox-multiple-choice.component.html',
-    styleUrls: ['./combobox-multiple-choice.component.scss'],
-    
-    imports: [LibIconsComponent, NgIf, NgFor, TooltipModule, FilterMultipleChoicePipe]
-})
-export class ComboboxMultipleChoiceComponent {
+  selector: 'app-combobox-multiple-choice, lib-combobox-multiple',
+  templateUrl: './combobox-multiple-choice.component.html',
+  styleUrls: ['./combobox-multiple-choice.component.scss'],
 
+  imports: [LibIconsComponent, NgIf, NgFor, NgClass, TooltipModule, FilterMultipleChoicePipe]
+})
+export class ComboboxMultipleChoiceComponent implements OnInit {
+
+  /**
+   *
+   */
+  constructor(private _breakpointObserver: BreakpointObserver) { }
+
+  ngOnInit(): void {
+    this.initMobileObserver();
+  }
 
   // #region ==========> PROPERTIES <==========
 
   // #region PRIVATE
   @Output('resetFilter') private readonly _EMIT_RESET_FILTER: EventEmitter<void> = new EventEmitter<void>();
+  private _isMobile: boolean = false;
   // #endregion PRIVATE
 
   // #region PROTECTED
@@ -35,6 +46,7 @@ export class ComboboxMultipleChoiceComponent {
   @Input({ required: true }) public options!: RecordCombobox[];
   @Input() public placeholder: string = 'Selecione uma ou mais opções';
   @Input() public disabled: boolean = false;
+  public get isMobile(): boolean { return this._isMobile };
   // REVISAR
   @Input() public showLimparBtn: boolean = true;
   // #endregion PUBLIC
@@ -48,6 +60,31 @@ export class ComboboxMultipleChoiceComponent {
     this._EMIT_RESET_FILTER.emit();
     this.EMIT_CHANGE.emit();
   }
+
+  public initMobileObserver() {
+    this._breakpointObserver.observe([
+      Breakpoints.HandsetLandscape,
+      Breakpoints.HandsetPortrait
+    ]).subscribe(result => {
+      if (result.matches) {
+        this._isMobile = true;
+      }
+    });
+    console.log("isMobile: " + this.isMobile)
+  }
+
+  public LimitarTexto(texto: string, limite: number) {
+    if (texto == null || texto == "") {
+      return (texto);
+    }
+
+    if (texto.length <= limite) {
+      return texto;
+    }
+
+    return texto.substring(0, limite) + "...";
+  }
+
   // #endregion ==========> UTILITIES <==========
 
 
