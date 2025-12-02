@@ -14,15 +14,7 @@
           <div class="row">
             <div class="col">
               <label class="form-label" libRequired>Pokemons (lib-combobox-rework)</label>
-              <lib-combobox-rework [list]="pokemons" formControlName="pokemon" (selectionChange)="log($event)" >
-                <ng-template #leftButtonTemplate >
-                  <button type="button" class="btn btn-outline-primary"> <lib-icon iconName="seta-esquerda" iconSize="medium-small" /> </button>
-                </ng-template>
-
-                <ng-template #rightButtonTemplate >
-                  <button type="button" class="btn btn-outline-primary"> <lib-icon iconName="seta-direita" iconSize="medium-small" /> </button>
-                </ng-template>
-              </lib-combobox-rework>
+              <lib-combobox-rework [list]="pokemons" formControlName="pokemon" (selectionChange)="log($event)" [innerFilter]="false" (filterChange)="filterRecords($event)" />
             </div>
   
             <div class="col">
@@ -30,12 +22,6 @@
                 <button btnLeft class="btn btn-sm btn-primary" tooltip="Abrir modal com listagem completa"> <lib-icon iconName="usuario-quadro" /> </button>
                 <button btnRight class="btn btn-sm btn-primary" tooltip="Abrir modal com listagem completa"> <lib-icon iconName="usuario-quadro" /> </button>
               </lib-combobox>
-            </div>
-
-            <div class="col">
-              <label class="form-label">Pokémons (lib-combobox-multiple)</label>
-              <app-combobox-multiple-choice [options]="pokemonsCombobox" placeholder="Placeholder de exibição na documentação"
-                [disabled]="false" [showLimparBtn]="true" (change)="null" ></app-combobox-multiple-choice>
             </div>
           </div>
         </form>

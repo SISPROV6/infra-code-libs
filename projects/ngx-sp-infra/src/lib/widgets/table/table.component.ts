@@ -9,11 +9,11 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 import { cloneDeep } from 'lodash';
 
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { TableHeaderStructure } from '../../models/table/header-structure.model';
 import { Utils } from '../../utils/utils';
 import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 import { OrderingComponent } from '../ordering/ordering.component';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 /**
  * Componente de Tabela Customizável
@@ -287,7 +287,6 @@ public initMobileObserver(){
         this._isMobile = true;
       }
     });
-    console.log("isMobile: " + this.isMobile)
   }
 
   /** Modifica a quantidade de itens a ser mostrada na lista.

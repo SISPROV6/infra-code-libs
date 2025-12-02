@@ -32,8 +32,6 @@ export class TestingService {
   }
 
   public getPokemonsStatic(filter: string = ""): Observable<any> {
-    console.log('getPokemonsStatic()', filter);
-    
     return of([
       { ID: 1, LABEL: 'Pikachu' },
       { ID: 2, LABEL: 'Bulbasaur' },

@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
 
   // #region PUBLIC
   public valorCustomizado?: string;
-  public pokemons: { name: string, url: string }[] = [];
+  public pokemons: any[] = [];
 
   public pokemonsCombobox: RecordCombobox[] = [
     { ID: 1, LABEL: 'Pikachu', AdditionalStringProperty1: '1' },
@@ -102,9 +102,6 @@ export class AppComponent implements OnInit {
     this._testingService.getPokemons().subscribe({
       next: res => {
         this.pokemons = res.results;
-
-        this.pokemons[5].url = '';
-        this.pokemons[5].name = '';
       },
       error: err => console.error(err)
     });
@@ -117,17 +114,17 @@ export class AppComponent implements OnInit {
     });
   }
 
-  public getRecord(): void {
-    this._testingService.simulateRecord().subscribe({
-      next: res => {
+  // public getRecord(): void {
+  //   this._testingService.simulateRecord().subscribe({
+  //     next: res => {
 
-        this.form.patchValue({
-          ...res
-        });
+  //       this.form.patchValue({
+  //         ...res
+  //       });
 
-      }
-    });
-  }
+  //     }
+  //   });
+  // }
   // #endregion GET
 
   // #endregion ==========> API METHODS <==========
@@ -145,6 +142,13 @@ export class AppComponent implements OnInit {
   */
   public setExternalValue(value: string): void {
     this.form.get('pokemon')?.setValue(value);
+  }
+
+  public filterRecords(pesquisa: string | null): void {
+    this.pokemons = this.pokemons.filter( e => e.LABEL.toLowerCase().includes((pesquisa ?? "").toLowerCase()) );
+
+    console.log('pesquisa =>', pesquisa);
+    console.log('pokemons =>', this.pokemons);
   }
   // #endregion ==========> UTILS <==========
 

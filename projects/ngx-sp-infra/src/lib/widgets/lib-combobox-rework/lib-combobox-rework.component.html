@@ -20,7 +20,7 @@
       @if (multiple && selectedValues?.length) {
         <div class="d-flex flex-row gap-2 flex-wrap my-2">
           <span *ngFor="let value of selectedValues; trackBy: trackByFn" class="px-3 badge rounded-pill text-primary bg-primary-subtle">
-            {{ value[customLabel] }} <lib-icon class="glb-cursor-pointer" iconName="fechar" iconSize="small" (click)="select(value)" />
+            {{ value[customLabel] }} <lib-icon class="glb-cursor-pointer" iconName="fechar" iconSize="small" (click)="select(value, true)" />
           </span>
         </div>
       }
@@ -36,7 +36,7 @@
         }
 
         <button *ngFor="let item of items; trackBy: trackByFn" class="dropdown-item d-flex align-items-center" type="button"
-          (click)="select(item)" [attr.aria-selected]="isSelected(item)" >
+          (click)="select(item, true)" [attr.aria-selected]="isSelected(item)" >
 
           @if (optionTemplate) {
             <ng-container *ngTemplateOutlet="optionTemplate; context: { $implicit: item, selected: isSelected(item) }"></ng-container>
