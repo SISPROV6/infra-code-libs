@@ -12,7 +12,7 @@
 
         <form [formGroup]="form">
           <div class="row">
-            <div class="col-6">
+            <div class="col">
               <label class="form-label" libRequired>Pokemons (lib-combobox-rework)</label>
               <lib-combobox-rework [list]="pokemons" formControlName="pokemon" (selectionChange)="log($event)" >
                 <ng-template #leftButtonTemplate >
@@ -25,11 +25,17 @@
               </lib-combobox-rework>
             </div>
   
-            <div class="col-6">
+            <div class="col">
               <lib-combobox labelText="Pokemons (lib-combobox)" [list]="pokemonsCombobox" [control]="form.controls['pokemon']" mainPlaceholder="Selecione um Pokemón">
                 <button btnLeft class="btn btn-sm btn-primary" tooltip="Abrir modal com listagem completa"> <lib-icon iconName="usuario-quadro" /> </button>
                 <button btnRight class="btn btn-sm btn-primary" tooltip="Abrir modal com listagem completa"> <lib-icon iconName="usuario-quadro" /> </button>
               </lib-combobox>
+            </div>
+
+            <div class="col">
+              <label class="form-label">Pokémons (lib-combobox-multiple)</label>
+              <app-combobox-multiple-choice [options]="pokemonsCombobox" placeholder="Placeholder de exibição na documentação"
+                [disabled]="false" [showLimparBtn]="true" (change)="null" ></app-combobox-multiple-choice>
             </div>
           </div>
         </form>
