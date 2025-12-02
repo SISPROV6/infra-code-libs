@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-infra",
-  "version": "6.6.8",
-  "tag": "infra-v6.6.8",
-  "notes": "Z-Index do header aumentado para 6, era 3",
-  "timestamp": "2025-12-01T14:45:42.882Z"
+  "version": "6.7.0",
+  "tag": "infra-v6.7.0",
+  "notes": "Primeira liberação semanal @latest da ngx-sp-infra",
+  "timestamp": "2025-12-02T11:50:17.717Z"
 }
