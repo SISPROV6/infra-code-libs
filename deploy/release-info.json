@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-infra",
-  "version": "6.6.8",
-  "tag": "infra-v6.6.8",
-  "notes": "Z-Index do header aumentado para 6, era 3",
-  "timestamp": "2025-12-01T14:45:42.882Z"
+  "project": "ngx-sp-auth",
+  "version": "4.5.0",
+  "tag": "auth-v4.5.0",
+  "notes": "Primeira liberação semanal @latest da ngx-sp-auth",
+  "timestamp": "2025-12-02T11:57:24.575Z"
 }
