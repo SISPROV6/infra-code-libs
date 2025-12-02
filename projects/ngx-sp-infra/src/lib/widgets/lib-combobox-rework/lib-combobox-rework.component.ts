@@ -54,7 +54,7 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
     this._list$.next(value);
 
     // Re-resolve the current value when the list changes
-    if (this._value) this.writeValue(this._value);
+    if (this._value) this.writeValue(this._value, false);
   }
 
   @Input() placeholder = "Selecione uma opção...";
@@ -73,7 +73,7 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
   @ViewChild("toggleButton", { static: true }) toggleButton?: ElementRef<HTMLButtonElement>;
 
   @Output() selectionChange = new EventEmitter<any>();
-  @Output() filterChange = new EventEmitter<string | null>();
+  @Output() filterChange = new EventEmitter<any>();
   @Output() filterButtonClick = new EventEmitter<string | null>();
 
   public selectedValues: T[] | null = null;
@@ -170,7 +170,7 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
         debounceTime(200)
       ).subscribe((v) => {
         if (this.innerFilter) this._search$.next(v ?? "");
-        else this.filterChange.emit(v);
+        else this.filterChange.emit(v ?? "");
       });
     
     this.searchControl.setValue('', { emitEvent: true });
@@ -223,7 +223,7 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
 
 
   // #region Seleção
-  public select(item: T): void {
+  public select(item: T, emitEvent: boolean = false): void {
     if (this.multiple) {
       this.selectedValues = Array.isArray(this.value) ? [...this.value] : [];
       const index = this.selectedValues.findIndex(v => this.compare(v, item));
@@ -234,14 +234,13 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
       if (this.selectedValues.length === 0) this.selectedValues = null;
 
       this.value = this.selectedValues;
-      this.selectionChange.emit(this.selectedValues);
     }
     else {
       this.value = item;
-      this.selectionChange.emit(item);
       this.closeDropdown();
     }
-
+    
+    if (emitEvent) this.selectionChange.emit(this.value);
     this._onTouched();
   }
 
@@ -295,7 +294,7 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
 
 
   // #region VALUE_ACCESSOR do Angular
-  public writeValue(obj: any): void {
+  public writeValue(obj: any, emitEvent: boolean = false): void {
     if (!obj) this.selectedValues = null;
 
     this._onTouched();
@@ -308,15 +307,13 @@ export class LibComboboxReworkComponent<T = RecordCombobox> implements ControlVa
       if (this.selectedValues.length === 0) this.selectedValues = null;
 
       this.value = this.selectedValues;
-      this.selectionChange.emit(this.selectedValues);
     }
     else {
       const resolved = this.resolveValue(obj);
       this.value = resolved;
-
-      this.selectionChange.emit(resolved);
     }
-
+    
+    if (emitEvent) this.selectionChange.emit(this.value);
     this._cdr.markForCheck();
   }
 
