@@ -1,6 +1,6 @@
 {
   "name": "ngx-sp-auth",
-  "version": "4.4.5",
+  "version": "4.5.0",
   "description": "Biblioteca de utilitários de autenticação.",
   "author": "P&D",
   "keywords": [
@@ -23,7 +23,7 @@
     "@azure/msal-angular": "^4.0.16",
     "@azure/msal-browser": "^4.18.0",
     "idb": "^8.0.3",
-    "ngx-sp-infra": "^6.6.7",
+    "ngx-sp-infra": "^6.7.0",
     "ngx-toastr": "^19.0.0"
   },
   "sideEffects": false
