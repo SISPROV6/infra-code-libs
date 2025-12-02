@@ -2,7 +2,7 @@ import { NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { FormUtils, InfraModule, RecordCombobox, } from 'ngx-sp-infra';
+import { FormUtils, InfraModule, MessageService, RecordCombobox, } from 'ngx-sp-infra';
 import { TestingService } from './testing.service';
 
 @Component({
@@ -81,7 +81,8 @@ export class AppComponent implements OnInit {
 
 
   constructor(
-    private _testingService: TestingService
+    private _testingService: TestingService,
+    private _message: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -149,6 +150,11 @@ export class AppComponent implements OnInit {
 
     console.log('pesquisa =>', pesquisa);
     console.log('pokemons =>', this.pokemons);
+  }
+
+
+  public openConfirm(): void {
+    this._message.showConfirm('TITULO', 'CONTEUDO', 'ACEITAR', 'CANCELAR');
   }
   // #endregion ==========> UTILS <==========
 
