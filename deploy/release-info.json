@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-views",
-  "version": "3.2.2",
-  "tag": "views-v3.2.2",
-  "notes": "Liberação semanal com atualização das versões internas",
-  "timestamp": "2025-12-04T13:00:31.976Z"
+  "project": "ngx-sp-infra",
+  "version": "6.7.5",
+  "tag": "infra-v6.7.5",
+  "notes": "Atualização de rotina",
+  "timestamp": "2025-12-04T20:03:13.951Z"
 }
