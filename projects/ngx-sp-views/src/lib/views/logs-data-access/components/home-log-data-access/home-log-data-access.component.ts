@@ -60,8 +60,7 @@ export class HomeLogDataAccessComponent implements OnInit {
     }
   }
 
-  @ViewChild(SearchFiltersComponent)
-  componentPesquisa: SearchFiltersComponent = new SearchFiltersComponent;
+  @ViewChild(SearchFiltersComponent) componentPesquisa?: SearchFiltersComponent;
 
   ngOnInit(): void {
   }
@@ -70,7 +69,9 @@ export class HomeLogDataAccessComponent implements OnInit {
     const estado = localStorage.getItem('estado-log-data-access');
     if (estado) {
       const dados = JSON.parse(estado);
-      this.componentPesquisa.search = dados.textoPesquisa;
+
+      if (this.componentPesquisa) this.componentPesquisa.search = dados.textoPesquisa;
+
       this.dateIni = dados.dateIni;
       this.dateFin = dados.dateFin;
       this.isError = dados.isError;
@@ -79,7 +80,7 @@ export class HomeLogDataAccessComponent implements OnInit {
       this.itemsPerPage = dados.itemsPerPage;
     }
 
-    this.getLogsList(this.componentPesquisa.search);
+    this.getLogsList(this.componentPesquisa?.search);
 
     this.cdRef.detectChanges();
 
@@ -217,7 +218,7 @@ export class HomeLogDataAccessComponent implements OnInit {
       dateFin: this.dateFin,
       isError: this.isError,
       isSlow: this.isSlow,
-      textoPesquisa: this.componentPesquisa.search
+      textoPesquisa: this.componentPesquisa?.search
     }));
   }
 

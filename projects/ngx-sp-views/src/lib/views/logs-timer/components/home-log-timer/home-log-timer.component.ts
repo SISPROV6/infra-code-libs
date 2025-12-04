@@ -62,8 +62,7 @@ export class HomeLogTimerComponent implements OnInit {
     }
   }
 
-  @ViewChild(SearchFiltersComponent)
-  componentPesquisa: SearchFiltersComponent = new SearchFiltersComponent;
+  @ViewChild(SearchFiltersComponent) componentPesquisa?: SearchFiltersComponent;
 
   ngOnInit(): void {
   }
@@ -72,7 +71,9 @@ export class HomeLogTimerComponent implements OnInit {
     const estado = localStorage.getItem('estado-log-timer');
     if (estado) {
       const dados = JSON.parse(estado);
-      this.componentPesquisa.search = dados.textoPesquisa
+
+      if (this.componentPesquisa) this.componentPesquisa.search = dados.textoPesquisa;
+
       this.dateInicioIni = dados.dateInicioIni
       this.dateInicioFin = dados.dateInicioFin
       this.dateFinalIni = dados.dateFinalIni
@@ -83,7 +84,7 @@ export class HomeLogTimerComponent implements OnInit {
       this.itemsPerPage = dados.itemsPerPage;
     }
 
-    this.getLogsList(this.componentPesquisa.search);
+    this.getLogsList(this.componentPesquisa?.search);
 
     this.cdRef.detectChanges();
 
@@ -222,7 +223,7 @@ export class HomeLogTimerComponent implements OnInit {
       dateFinalFin: this.dateFinalFin,
       isError: this.isError,
       isSlow: this.isSlow,
-      textoPesquisa: this.componentPesquisa.search
+      textoPesquisa: this.componentPesquisa?.search
     }));
   }
 

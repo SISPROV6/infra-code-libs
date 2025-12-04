@@ -65,7 +65,7 @@ export class HomeLogApiComponent implements OnInit, AfterViewInit {
     }
   }
 
-  @ViewChild(SearchFiltersComponent) componentPesquisa: SearchFiltersComponent = new SearchFiltersComponent;
+  @ViewChild(SearchFiltersComponent) componentPesquisa?: SearchFiltersComponent;
 
   ngOnInit(): void {
   }
@@ -74,7 +74,9 @@ export class HomeLogApiComponent implements OnInit, AfterViewInit {
     const estado = localStorage.getItem('estado-log-api');
     if (estado) {
       const dados = JSON.parse(estado);
-      this.componentPesquisa.search = dados.textoPesquisa
+
+      if (this.componentPesquisa) this.componentPesquisa.search = dados.textoPesquisa;
+
       this.dateInicioIni = dados.dateInicioIni
       this.dateInicioFin = dados.dateInicioFin
       this.dateFinalIni = dados.dateFinalIni
@@ -85,7 +87,7 @@ export class HomeLogApiComponent implements OnInit, AfterViewInit {
       this.itemsPerPage = dados.itemsPerPage;
     }
 
-    this.getLogsList(this.componentPesquisa.search);
+    this.getLogsList(this.componentPesquisa?.search);
 
     this.cdRef.detectChanges();
 
@@ -233,7 +235,7 @@ export class HomeLogApiComponent implements OnInit, AfterViewInit {
       dateFinalFin: this.dateFinalFin,
       isError: this.isError,
       isSlow: this.isSlow,
-      textoPesquisa: this.componentPesquisa.search
+      textoPesquisa: this.componentPesquisa?.search
     }));
   }
 

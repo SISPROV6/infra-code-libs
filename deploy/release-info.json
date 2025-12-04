@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-auth",
-  "version": "4.5.1",
-  "tag": "auth-v4.5.1",
-  "notes": "Liberação semanal com melhorias e correções implementadas na next desde a última liberação",
-  "timestamp": "2025-12-04T12:38:31.190Z"
+  "project": "ngx-sp-views",
+  "version": "3.2.2",
+  "tag": "views-v3.2.2",
+  "notes": "Liberação semanal com atualização das versões internas",
+  "timestamp": "2025-12-04T13:00:31.976Z"
 }
