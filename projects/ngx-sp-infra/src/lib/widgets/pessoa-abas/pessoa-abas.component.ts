@@ -112,7 +112,7 @@ export class PessoaAbasComponent {
       this.UrisList.push(
       {nome: 'Dados básicos', uri: `http://${window.location.host}/pessoas/editar/${this.Id}`, isTargetSelf: true},
       {nome: 'Dados comerciais', uri: `http://${window.location.host}/pessoas-comercial/${this.Id}`, isTargetSelf: false},
-      {nome: 'Dados financeiros', uri: `http://${window.location.host}/dados-financeiros?id=${this.Id}`, isTargetSelf: false},
+      {nome: 'Dados financeiros', uri: `http://${window.location.host}/clientes-fornecedores/${this.Id}`, isTargetSelf: false},
       {nome: 'Compras - Dados da pessoa para suprimentos', uri: `http://${window.location.host}/pessoas-dados-suprimentos/editar/${this.Id}`, isTargetSelf: false},
       {nome: 'Compras - Dados do fornecedor', uri: `http://${window.location.host}/pessoas-dados-fornecedor/editar/${this.Id}`, isTargetSelf: false},
       {nome: 'Dados auxiliares', uri: `http://${window.location.host}/pessoas/dadosAuxiliares/${this.Id}`, isTargetSelf: false},
@@ -124,7 +124,7 @@ export class PessoaAbasComponent {
       this.UrisList.push(
       {nome: 'Dados básicos', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/pessoas/editar/${this.Id}`, isTargetSelf: true},
       {nome: 'Dados comerciais', uri: `https://${window.location.host}/SisproErpCloud/Vendas/pessoas-comercial/${this.Id}`, isTargetSelf: false},
-      {nome: 'Dados financeiros', uri: `https://${window.location.host}/SisproErpCloud/Financeiro/dados-financeiros?id=${this.Id}`, isTargetSelf: false},
+      {nome: 'Dados financeiros', uri: `https://${window.location.host}/SisproErpCloud/Financeiro/clientes-fornecedores/${this.Id}`, isTargetSelf: false},
       {nome: 'Compras - Dados da pessoa para suprimentos', uri: `https://${window.location.host}/SisproErpCloud/Compras/pessoas-dados-suprimentos/editar/${this.Id}`, isTargetSelf: false},
       {nome: 'Compras - Dados do fornecedor', uri: `https://${window.location.host}/SisproErpCloud/Compras/pessoas-dados-fornecedor/editar/${this.Id}`, isTargetSelf: false},
       {nome: 'Dados auxiliares', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/pessoas/dadosAuxiliares/${this.Id}`, isTargetSelf: false},
