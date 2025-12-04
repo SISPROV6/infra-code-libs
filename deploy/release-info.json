@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-infra",
-  "version": "6.7.2",
-  "tag": "infra-v6.7.2",
-  "notes": "Correção do botão de \"Fechar\" do modal de Confirmação",
-  "timestamp": "2025-12-02T19:30:39.535Z"
+  "version": "6.7.3",
+  "tag": "infra-v6.7.3",
+  "notes": "Novos ícones adicionados à pedido do Contratos: 'filtro-preenchido' e 'etiquetas-preenchido'",
+  "timestamp": "2025-12-04T12:15:19.923Z"
 }
