@@ -1,12 +1,11 @@
-import { OnInit } from '@angular/core';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { NgFor, NgIf, NgClass } from '@angular/common';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { RecordCombobox } from '../../models/combobox/record-combobox';
 import { FilterMultipleChoicePipe } from '../../pipes/filter-multiple-choice.pipe';
 import { LibIconsComponent } from '../lib-icons/lib-icons.component';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-combobox-multiple-choice, lib-combobox-multiple',
@@ -70,7 +69,6 @@ export class ComboboxMultipleChoiceComponent implements OnInit {
         this._isMobile = true;
       }
     });
-    console.log("isMobile: " + this.isMobile)
   }
 
   public LimitarTexto(texto: string, limite: number) {
