@@ -60,8 +60,7 @@ public headerOrdering: { [key: string]: { isAsc: boolean, orderingId: string, is
 		}
 	}
 
-	@ViewChild(SearchFiltersComponent)
-	componentPesquisa: SearchFiltersComponent= new SearchFiltersComponent;
+	@ViewChild(SearchFiltersComponent) componentPesquisa?: SearchFiltersComponent;
 
 	ngOnInit(): void {
 	}
@@ -71,7 +70,9 @@ public headerOrdering: { [key: string]: { isAsc: boolean, orderingId: string, is
 		const estado = localStorage.getItem('estado-log-ws');
 		if (estado) {
 			const dados = JSON.parse(estado);
-			this.componentPesquisa.search = dados.textoPesquisa
+
+			if (this.componentPesquisa) this.componentPesquisa.search = dados.textoPesquisa;
+
 			this.dateInicioIni = dados.dateInicioIni
 			this.dateInicioFin = dados.dateInicioFin
 			this.dateFinalIni = dados.dateFinalIni
@@ -83,7 +84,7 @@ public headerOrdering: { [key: string]: { isAsc: boolean, orderingId: string, is
 
 		}
 
-		this.getLogsList(this.componentPesquisa.search);
+		this.getLogsList(this.componentPesquisa?.search);
 
 		this.cdRef.detectChanges();
 
@@ -221,7 +222,7 @@ public headerOrdering: { [key: string]: { isAsc: boolean, orderingId: string, is
 			dateFinalFin: this.dateFinalFin,
 			isError: this.isError,
 			isSlow: this.isSlow,
-			textoPesquisa: this.componentPesquisa.search
+			textoPesquisa: this.componentPesquisa?.search
 		}));
 	}
   public GetTableCounter(rowLimit:number, totalCount:number) {
