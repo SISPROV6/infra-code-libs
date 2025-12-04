@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-infra",
-  "version": "6.7.4",
-  "tag": "infra-v6.7.4",
+  "project": "ngx-sp-auth",
+  "version": "4.5.1",
+  "tag": "auth-v4.5.1",
   "notes": "Liberação semanal com melhorias e correções implementadas na next desde a última liberação",
-  "timestamp": "2025-12-04T12:30:35.228Z"
+  "timestamp": "2025-12-04T12:38:31.190Z"
 }
