@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormUtils, InfraModule, MessageService, RecordCombobox, } from 'ngx-sp-infra';
-import { TestingService } from './testing.service';
+import { Item, TestingService } from './testing.service';
 
 @Component({
   selector: 'app-root',
@@ -63,9 +63,13 @@ export class AppComponent implements OnInit {
     { ID: 14, LABEL: 'Lopunny' },
     { ID: 15, LABEL: 'Lucario' },
     { ID: 16, LABEL: 'Mew' },
-  ];  // Lista a ser usada, pode ser de qualquer tipo
+  ];
+
   public page: number = 1;  // Propriedade necessária para explicitar qual página está selecionada atualmente
   public itemsPerPage: number = 5;  // Propriedade necessária para renderizar apenas determinada quantidade por página inicialmente
+
+
+  public tableRecords?: Item[];
   // #endregion PUBLIC
 
   // #endregion ==========> PROPERTIES <==========
@@ -110,6 +114,14 @@ export class AppComponent implements OnInit {
 
   public getPokemonsStatic(filter: string = ""): void {
     this._testingService.getPokemonsStatic(filter).subscribe({
+      next: res => { this.pokemons = res },
+      error: err => console.error(err)
+    });
+  }
+
+
+  public getTableRecords(): void {
+    this._testingService.getPokemonsStatic().subscribe({
       next: res => { this.pokemons = res },
       error: err => console.error(err)
     });
