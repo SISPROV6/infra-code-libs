@@ -86,6 +86,8 @@ export class TableSelectionService {
     if (list) {
       list.forEach(item => { this.selecaoMap.set(item[idColumnName], selecao ?? false) });
     }
+
+    this.selecaoGeral = selecao ?? false
   }
 
   // ================= Composite Key Support =================
@@ -139,6 +141,8 @@ export class TableSelectionService {
         this.selecaoMap.set(key, selecao ?? false);
       });
     }
+
+    this.selecaoGeral = selecao ?? false
   }
   // #endregion ==========> UTILS <==========
 

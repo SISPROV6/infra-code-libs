@@ -3,7 +3,7 @@
 <div class="content">
   <div class="filters">
     
-    <lib-container [tabs]="[ 'Combobox', 'Table' ]" [useBorder]="true" >
+    <lib-container [tabs]="[ 'Combobox', 'Table' ]" currentTab="Table" [useBorder]="true" >
       <div innerContent1>
         <div class="d-flex gap-2 mb-5">
           <input type="text" class="form-control" placeholder="Informe aqui o valor customizado" [(ngModel)]="valorCustomizado" (keyup.enter)="setExternalValue(valorCustomizado ?? '')" >
