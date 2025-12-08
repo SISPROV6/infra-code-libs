@@ -104,7 +104,7 @@ export class CpfCnpjValidator implements Validator {
     // CNPJ ALFANUMÉRICO ===========================================
 
     // Rejeita todos iguais
-    if (/^([A-Z0-9])\1*$/.test(valor)) {
+    if (/^([A-Z0-9])\1*$/.test(valor) && valor !== '00000000000000') {
       return { cpcnpjInvalid: true };
     }
 
