@@ -1,8 +1,8 @@
 import { NgClass } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { FormUtils, InfraModule, MessageService, RecordCombobox, } from 'ngx-sp-infra';
+import { FormUtils, InfraModule, MessageService, RecordCombobox, TableSelectionService } from 'ngx-sp-infra';
 import { Item, TestingService } from './testing.service';
 
 @Component({
@@ -17,12 +17,20 @@ import { Item, TestingService } from './testing.service';
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
+  providers: [
+    { provide: 'TableSelectionService1', useClass: TableSelectionService },
+    { provide: 'TableSelectionService2', useClass: TableSelectionService },
+  ]
 })
 export class AppComponent implements OnInit {
 
   // #region ==========> PROPERTIES <==========
 
   // #region PUBLIC
+  public selecaoMap1: Map<string | number, boolean> = new Map<string, boolean>();
+  public selecaoMap2: Map<string | number, boolean> = new Map<string, boolean>();
+
+
   public valorCustomizado?: string;
   public pokemons: any[] = [];
 
@@ -66,8 +74,7 @@ export class AppComponent implements OnInit {
   ];
 
   public page: number = 1;  // Propriedade necessária para explicitar qual página está selecionada atualmente
-  public itemsPerPage: number = 5;  // Propriedade necessária para renderizar apenas determinada quantidade por página inicialmente
-
+  public itemsPerPage: number = 15;  // Propriedade necessária para renderizar apenas determinada quantidade por página inicialmente
 
   public tableRecords?: Item[];
   // #endregion PUBLIC
@@ -86,7 +93,10 @@ export class AppComponent implements OnInit {
 
   constructor(
     private _testingService: TestingService,
-    private _message: MessageService
+    private _message: MessageService,
+
+    @Inject('TableSelectionService1') public selecaoService1: TableSelectionService, // Injetamos o serviço no constructor
+    @Inject('TableSelectionService2') public selecaoService2: TableSelectionService, // Injetamos o serviço no constructor
   ) { }
 
   ngOnInit(): void {
@@ -97,6 +107,8 @@ export class AppComponent implements OnInit {
     // this.getPokemons();
     this.getPokemonsStatic();
     // this.getRecord();
+
+    this.getTableRecords();
   }
 
 
@@ -121,8 +133,8 @@ export class AppComponent implements OnInit {
 
 
   public getTableRecords(): void {
-    this._testingService.getPokemonsStatic().subscribe({
-      next: res => { this.pokemons = res },
+    this._testingService.getTableRecords().subscribe({
+      next: res => { this.tableRecords = res },
       error: err => console.error(err)
     });
   }

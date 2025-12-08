@@ -79,6 +79,9 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
    * @required */
   @Input() public counts?: number[];
 
+
+  @Input() public itemsPerPage?: number;
+
   /** Posicionamento dos controles de paginação.
    * @default 'end' */
   @Input() public placement: 'start' | 'center' | 'end' | 'between' = 'end';
@@ -155,18 +158,18 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 	public set page(value: number) { this._currentPage = value; }
 
   /** Número de itens a serem exibidos por página. */
-  public get itemsPerPage(): number { return this._currentItemsPerPage; }
-	public set itemsPerPage(value: number) { this._currentItemsPerPage = value; }
+  public get currentItemsPerPage(): number { return this._currentItemsPerPage; }
+	public set currentItemsPerPage(value: number) { this._currentItemsPerPage = value; }
 
    /** Se é Mobile baseado na resolução da tela do usuário. */
   public get isMobile(){ return this._isMobile }
 
 
   public get firstItemOfPage(): number {
-    return (this.page - 1) * this.itemsPerPage + 1;
+    return (this.page - 1) * this.currentItemsPerPage + 1;
   }
   public get lastItemOfPage(): number {
-    return Math.min(this.page * this.itemsPerPage, this.list?.length ?? 0);
+    return Math.min(this.page * this.currentItemsPerPage, this.list?.length ?? 0);
   }
 
   public get itemsDisplayText(): string {
@@ -258,10 +261,10 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
   private updateCounterInfo(): void {
     if (this.list && this.showCounter && this.usePagination) {
-      this.itemsPerPage = this.counts ? this.counts[0] : this.list.length;
+      this.currentItemsPerPage = this.counts ? this.counts[0] : this.list.length;
     }
     else if (!this.list && this.showCounter && this.usePagination) {
-      this.itemsPerPage = 1;
+      this.currentItemsPerPage = 1;
     }
   }
 
@@ -292,16 +295,16 @@ public initMobileObserver(){
   /** Modifica a quantidade de itens a ser mostrada na lista.
    * @param event parâmetro de evento que irá selecionar a nova quantidade. */
   public onSelectChange(event: any) {
-    this.itemsPerPage = parseInt(event.target.value, 10);
+    this.currentItemsPerPage = parseInt(event.target.value, 10);
     this.page = 1;
     this.pageChange.emit(this.page);
-    this.itemsPerPageChange.emit(this.itemsPerPage);
+    this.itemsPerPageChange.emit(this.currentItemsPerPage);
   }
 
   /** Reseta a paginação da listagem com base no número atual de registros.
    * @param list Lista de registros para resetar a paginação. */
   public resetPagination(list: unknown[]): void {
-    const startIndex = (this.page - 1) * this.itemsPerPage;
+    const startIndex = (this.page - 1) * this.currentItemsPerPage;
     if (list.length <= startIndex) this.page = 1;
   }
 
