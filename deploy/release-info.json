@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-infra",
-  "version": "6.7.9",
-  "tag": "infra-v6.7.9",
-  "notes": "Ajustes na seleção da lib-table: agora permite informar múltiplas colunas usadas como identificação e correção do bug onde desmarcar um registro não desmarca o checkbox geral",
-  "timestamp": "2025-12-08T19:09:15.674Z"
+  "version": "6.7.10",
+  "tag": "infra-v6.7.10",
+  "notes": "Corrigido dois pontos na lib-table: tamanho da fonte no header passada para 14px e barra de scroll da tabela scrollável apenas aparece quando o scroll é usado",
+  "timestamp": "2025-12-08T20:30:05.019Z"
 }
