@@ -32,17 +32,31 @@
       </div>
 
       <div innerContent2>
-        <lib-table [list]="recordsList" [counts]="[ 5, 10, 15 ]" paginationID="simpleTable" [usePreviousStyle]="true"
+        <div class="d-flex gap-3 mb-3">
+          <button class="btn btn-outline-primary" (click)="itemsPerPage = 5" >5</button>
+          <button class="btn btn-outline-primary" (click)="itemsPerPage = 10" >10</button>
+          <button class="btn btn-outline-primary" (click)="itemsPerPage = 15" >15</button>
+        </div>
+
+        <lib-table [list]="recordsList" [counts]="[ 5, 10, 15 ]" [itemsPerPage]="itemsPerPage" paginationID="simpleTable" [usePreviousStyle]="true"
           (itemsPerPageChange)="itemsPerPage = $event" (pageChange)="page = $event" [scrollable]="true"
+          
+          [useSelection]="true" [selection]="selecaoService1.selecaoGeral" [selectedCount]="selecaoService1.quantidadeSelecionados()"
+          (selectionChange)="selecaoService1.definirSelecaoTotal(recordsList, $event, 'id')"
+
           [headers]="[
-              { name: 'Nome', widthPixels: 250 },
-              { name: 'Descrição', widthPixels: 250 },
-              { name: 'Valor', customClasses: 'text-start', widthPixels: 250 },
-              { name: '', customClasses: 'text-start', widthPixels: 250 }
+            { name: 'Nome', widthPixels: 250 },
+            { name: 'Descrição', widthPixels: 250 },
+            { name: 'Valor', customClasses: 'text-start', widthPixels: 250 },
+            { name: '', customClasses: 'text-start', widthPixels: 250 }
           ]" >
 
           @for (item of recordsList! | paginate: { id: 'simpleTable', itemsPerPage: itemsPerPage, currentPage: page }; track item) {
               <tr innerRows class="align-middle">
+                <td>
+                    <div class="form-check"> <input class="form-check-input" type="checkbox" [ngModel]="selecaoMap1.get(item.id)" (ngModelChange)="selecaoService1.inverterSelecao(item.id)"> </div>
+                </td>
+
                 <td> <a class="text-primary text-decoration-none fw-bold" tooltip="Editar/Visualizar">{{ item.ID }}</a> </td>
                 <td>{{ item.LABEL }}</td>
                 <td class="text-start">{{ 5.55 }}</td>
