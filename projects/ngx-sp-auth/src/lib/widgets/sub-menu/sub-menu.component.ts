@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ContentContainerComponent, LibIconsComponent } from 'ngx-sp-infra';
 
 import { MenuServicesService } from '../../components/menu-lateral/menu-services.service';
-import { ProjectUtilservice } from '../../project/project-utils.service';
+import { AuthUtilService } from '../../utils/auth-utils.service';
 import { LibCustomEnvironmentService } from './../../custom/lib-custom-environment.service';
 import { NavTabsComponent } from './nav-tabs/nav-tabs.component';
 
@@ -57,7 +57,7 @@ export class SubMenuComponent implements OnInit {
 
   constructor(
     private _menuService: MenuServicesService,
-    private _projectUtil: ProjectUtilservice,
+    private _authUtilService: AuthUtilService,
     private _customEnv: LibCustomEnvironmentService
   ) { }
 
@@ -89,7 +89,7 @@ export class SubMenuComponent implements OnInit {
 
     this._menuService.GetHostServerOutSystems().subscribe({
       next: response => this.hostNameOutSystems = response.String,
-      error: error => this._projectUtil.showHttpError(error)
+      error: error => this._authUtilService.showHttpError(error)
     })
   }
   // #endregion ==========> UTILS <==========

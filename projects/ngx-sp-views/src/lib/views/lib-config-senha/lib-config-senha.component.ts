@@ -72,7 +72,7 @@ export class LibConfigSenhaComponent implements OnInit {
     private _dominio: TenantService,
     private _title: Title
 
-    // private _projectUtilservice: ProjectUtilservice,
+    // private _authUtilService: AuthUtilService,
     // private _projectService: ProjectService,
     // private _authStorage: AuthStorageService,
   ) {
@@ -106,7 +106,7 @@ export class LibConfigSenhaComponent implements OnInit {
         this.onSelectLevel(this.Level);
       },
       error: error => {
-        // this._projectUtilservice.showHttpError(error)
+        // this._authUtilService.showHttpError(error)
         this.onSelectLevel(this.Level);
         this.$infraSegConfigRecord = new InfraSegConfig();
 
@@ -135,7 +135,7 @@ export class LibConfigSenhaComponent implements OnInit {
           this.getInfraSegConfig();
         },
         error: error => {
-          // this._projectUtilservice.showHttpError(error);
+          // this._authUtilService.showHttpError(error);
           this._messageService.showAlertDanger(error);
           throw new Error(error);
         }

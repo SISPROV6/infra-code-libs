@@ -4,9 +4,9 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { FormUtils, InfraModule, MessageService } from 'ngx-sp-infra';
-import { ProjectUtilservice } from '../../project/project-utils.service';
 import { AuthService } from '../../auth.service';
 import { AuthStorageService } from '../../storage/auth-storage.service';
+import { AuthUtilService } from '../../utils/auth-utils.service';
 
 @Component( {
     selector: 'app-nova-senha',
@@ -22,7 +22,7 @@ export class NovaSenhaComponent implements OnInit {
 
 	constructor (
 		private _formBuilder: FormBuilder,
-		private _projectUtilservice: ProjectUtilservice,
+		private _authUtilService: AuthUtilService,
 		private _messageService: MessageService,
 		private _authService: AuthService,
 		private _authStorageService: AuthStorageService,
@@ -143,7 +143,7 @@ export class NovaSenhaComponent implements OnInit {
 				next: response => {
 				},
 				error: (error) => {
-					this._projectUtilservice.showHttpError(error);
+					this._authUtilService.showHttpError(error);
 				},
 			})
 		} else {
@@ -166,7 +166,7 @@ export class NovaSenhaComponent implements OnInit {
 				},
 				error: (error) => {
 					this.isLoading = false;
-					this._projectUtilservice.showHttpError(error);
+					this._authUtilService.showHttpError(error);
 				},
 			})
 
@@ -189,7 +189,7 @@ export class NovaSenhaComponent implements OnInit {
 				},
 				error: (error) => {
 					this.isLoading = false;
-					this._projectUtilservice.showHttpError(error);
+					this._authUtilService.showHttpError(error);
 				}
 			});
 
@@ -203,7 +203,7 @@ export class NovaSenhaComponent implements OnInit {
 				},
 				error: (error) => {
 					this.isLoading = false;
-					this._projectUtilservice.showHttpError(error);
+					this._authUtilService.showHttpError(error);
 				}
 			});
 		}

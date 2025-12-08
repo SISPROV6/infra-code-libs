@@ -14,8 +14,8 @@ import { ToastrService } from 'ngx-toastr';
 
 import { InfraModule, MessageService } from 'ngx-sp-infra';
 import { LibCustomMenuService } from '../../../custom/lib-custom-menu.service';
-import { ProjectUtilservice } from '../../../project/project-utils.service';
 import { AuthStorageService } from '../../../storage/auth-storage.service';
+import { AuthUtilService } from '../../../utils/auth-utils.service';
 import { MenuServicesService } from '../menu-services.service';
 
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
@@ -64,7 +64,7 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
     private _bsModalService: BsModalService,
     private _menuServices: MenuServicesService,
     private _messageService: MessageService,
-    private _projectUtilService: ProjectUtilservice,
+    private _authUtilService: AuthUtilService,
     private _router: Router,
     private _authService: AuthService,
     private _breakpointObserver: BreakpointObserver,
@@ -222,7 +222,7 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
         this._authStorageService.infraEmpresaNome = response.InfraEmpresaNome;
       },
       error: error => {
-        this._projectUtilService.showHttpError(error);
+        this._authUtilService.showHttpError(error);
       }
     })
   }
@@ -230,14 +230,14 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
   private getMenuUserImg(): void {
     this._menuServices.getImagemMenu().subscribe({
       next: response => { this.footerUserImgSrc = response.InfraUsuarioImg.Imagem; },
-      error: error => { this._projectUtilService.showHttpError(error); }
+      error: error => { this._authUtilService.showHttpError(error); }
     })
   }
 
   public getUserEmail(): void {
     this._menuServices.getUsuarioEmail().subscribe({
       next: response => { this.footerUserEmail = response.Email; },
-      error: error => { this._projectUtilService.showHttpError(error); }
+      error: error => { this._authUtilService.showHttpError(error); }
     })
   }
   // #endregion GET
@@ -341,7 +341,7 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
   }
 
   public getExternalUrl(url: string) {
-     return `${ this._hostServeUrlOutSystems == "" ? this._projectUtilService.getHostName() : this._hostServeUrlOutSystems }/${ url }`;
+     return `${ this._hostServeUrlOutSystems == "" ? this._authUtilService.getHostName() : this._hostServeUrlOutSystems }/${ url }`;
   }
 
   public constroiRegrasDynamicMenu(menus: DynamicMenu[]) {

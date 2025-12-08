@@ -16,8 +16,8 @@ import { FormUtils, InfraModule, MessageService } from 'ngx-sp-infra';
 import { AuthService } from '../../auth.service';
 import { LibCustomEnvironmentService } from '../../custom/lib-custom-environment.service';
 import { LibCustomLoginService } from '../../custom/lib-custom-login.service';
-import { ProjectUtilservice } from '../../project/project-utils.service';
 import { AuthStorageService } from '../../storage/auth-storage.service';
+import { AuthUtilService } from '../../utils/auth-utils.service';
 
 import { InfraIn2FaTypeId } from '../../models/infraIn2FaTypeId';
 import { InfraInAuthTypeId } from '../../models/infraInAuthTypeId';
@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
 		private _msalService: MsalService,		
 		public _customLoginService: LibCustomLoginService,
 		private _formBuilder: FormBuilder,
-		private _projectUtilservice: ProjectUtilservice,
+		private _authUtilService: AuthUtilService,
 		private _authService: AuthService,
 		private _customEnvironmentService: LibCustomEnvironmentService,
 		private _authStorageService: AuthStorageService,
@@ -378,7 +378,7 @@ export class LoginComponent implements OnInit {
 				error: (error) => {
 					this.isLoadingDomain = false;
 
-					this._projectUtilservice.showHttpError(error);
+					this._authUtilService.showHttpError(error);
 				},
 			})
 		} else {
@@ -425,7 +425,7 @@ export class LoginComponent implements OnInit {
 				},
 				error: (error) => {
 					this.isLoadingLogin = false;
-					this._projectUtilservice.showHttpError(error);
+					this._authUtilService.showHttpError(error);
 				},
 			});
 		} else {
@@ -481,7 +481,7 @@ export class LoginComponent implements OnInit {
 					},
 					error: (error) => {
 						this.isLoadingAzure = false;
-						this._projectUtilservice.showHttpError(error);
+						this._authUtilService.showHttpError(error);
 					},
 				});
 		
@@ -524,7 +524,7 @@ export class LoginComponent implements OnInit {
 
 				this._router.navigate(["/auth/login"]);
 
-				this._projectUtilservice.showHttpError(error);
+				this._authUtilService.showHttpError(error);
 			},
 		});
 
@@ -542,7 +542,7 @@ export class LoginComponent implements OnInit {
 				},
 				error: (error) => {
 					this.isLoadingForgottenPassword = false;
-					this._projectUtilservice.showHttpError(error);
+					this._authUtilService.showHttpError(error);
 				}
 			});
 		} else {
@@ -564,7 +564,7 @@ export class LoginComponent implements OnInit {
 			},
 			error: (error) => {
 				this.isLoadingForgottenPassword = false;
-				this._projectUtilservice.showHttpError(error);
+				this._authUtilService.showHttpError(error);
 			},
 		});
 
@@ -595,7 +595,7 @@ export class LoginComponent implements OnInit {
 			error: (error) => {
 				this.isLoadingSendAuthentication2Fa = false;
 
-				this._projectUtilservice.showHttpError(error);
+				this._authUtilService.showHttpError(error);
 			},
 		});
 
@@ -614,7 +614,7 @@ export class LoginComponent implements OnInit {
 				this.GetNewCode2Fa();
 			},
 			error: (error) => {
-				this._projectUtilservice.showHttpError(error);
+				this._authUtilService.showHttpError(error);
 			},
 		});
 
@@ -632,7 +632,7 @@ export class LoginComponent implements OnInit {
 			error: (error) => {
 				this.isLoadingGetNewCode = false;
 				
-				this._projectUtilservice.showHttpError(error);
+				this._authUtilService.showHttpError(error);
 			},
 		});
 

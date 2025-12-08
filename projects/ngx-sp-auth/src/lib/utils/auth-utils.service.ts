@@ -8,7 +8,7 @@ import { AuthStorageService } from '../storage/auth-storage.service';
 @Injectable({
   providedIn: 'root'
 })
-export class ProjectUtilservice {
+export class AuthUtilService {
 
   constructor(
     private router: Router,
