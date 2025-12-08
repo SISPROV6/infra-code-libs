@@ -137,7 +137,7 @@ export class AppComponent implements OnInit {
       next: res => {
         this.tableRecords = res;
 
-        this.selecaoMap1 = this.selecaoService1.initSelecaoPorColunas(res, ['id', 'name']);
+        this.selecaoMap1 = this.selecaoService1.initSelecao(res, ['id', 'name']);
       },
       error: err => console.error(err)
     });

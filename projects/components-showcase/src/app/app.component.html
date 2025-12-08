@@ -42,7 +42,7 @@
           (itemsPerPageChange)="itemsPerPage = $event" (pageChange)="page = $event" [scrollable]="true"
           
           [useSelection]="true" [selection]="selecaoService1.selecaoGeral" [selectedCount]="selecaoService1.quantidadeSelecionados()"
-          (selectionChange)="selecaoService1.definirSelecaoTotalPorColunas(tableRecords, $event, ['id', 'name'])"
+          (selectionChange)="selecaoService1.definirSelecaoTotal(tableRecords, $event, ['id', 'name'])"
 
           [headers]="[
             { name: 'Nome', widthPixels: 250 },
@@ -55,7 +55,7 @@
               <tr innerRows class="align-middle">
                 <td>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" [ngModel]="selecaoService1.isSelecionadoPorItem(item, ['id', 'name'])" (ngModelChange)="selecaoService1.inverterSelecaoPorItem(item, ['id', 'name'])">
+                    <input class="form-check-input" type="checkbox" [ngModel]="selecaoService1.isSelecionadoPorItem(item, ['id', 'name'])" (ngModelChange)="selecaoService1.inverterSelecao(null, item, ['id', 'name'])">
                   </div>
                 </td>
 
