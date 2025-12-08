@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { InfraModule } from 'ngx-sp-infra';
 
-import { ProjectUtilservice } from '../../../../project/project-utils.service';
+import { AuthUtilService } from '../../../../utils/auth-utils.service';
 
 @Component({
     selector: 'app-secondary-dropdown',
@@ -20,7 +20,7 @@ export class SecondaryDropdownComponent implements OnInit {
       ;
       @Output() public backPrimaryDropdown = new EventEmitter<boolean>();
 
-      constructor(private _projectUtilservice: ProjectUtilservice) { }
+      constructor(private _authUtilService: AuthUtilService) { }
 
       ngOnInit(): void {
       }
@@ -30,7 +30,7 @@ export class SecondaryDropdownComponent implements OnInit {
       }
 
       public redirectToModulo(urlModulo: string): void {
-            let url = `${ this._projectUtilservice.getHostName() }/SisproErpCloud`;
+            let url = `${ this._authUtilService.getHostName() }/SisproErpCloud`;
             url += urlModulo.startsWith('/') ? urlModulo : '/' + urlModulo
 
             window.open(url, '_blank');

@@ -20,9 +20,9 @@ import { RetLogin } from './models/ret-login';
 import { IpServiceService, RetError } from 'ngx-sp-infra';
 import { LibCustomEnvironmentService } from './custom/lib-custom-environment.service';
 import { LibCustomLoginService } from './custom/lib-custom-login.service';
-import { ProjectUtilservice } from './project/project-utils.service';
 import { IndexedDBService } from './services/indexed-db.service';
 import { AuthStorageService } from './storage/auth-storage.service';
+import { AuthUtilService } from './utils/auth-utils.service';
 @Injectable(
   { providedIn: 'root' }
 )
@@ -54,7 +54,7 @@ export class AuthService {
     private _authStorageService: AuthStorageService,
     private _ipServiceService: IpServiceService,
     private _customLoginService: LibCustomLoginService,
-    private _projectUtilservice: ProjectUtilservice,
+    private _authUtilService: AuthUtilService,
     private _customEnvironmentService: LibCustomEnvironmentService,
     private _indexedDBService: IndexedDBService
   ) {
@@ -111,7 +111,7 @@ export class AuthService {
       product = "";
     }
 
-    return this._projectUtilservice.getHostName() + product;   }
+    return this._authUtilService.getHostName() + product;   }
 
   // #endregion GET
 

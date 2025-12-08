@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-infra",
-  "version": "6.7.8",
-  "tag": "infra-v6.7.8",
-  "notes": "Ajuste que permite informar a quantidade de 'Itens por página' selecionada externamente",
-  "timestamp": "2025-12-08T15:11:29.104Z"
+  "project": "ngx-sp-auth",
+  "version": "4.5.3",
+  "tag": "auth-v4.5.3",
+  "notes": "Renomeado 'ProjectUtilsService' para 'AuthUtilsService'",
+  "timestamp": "2025-12-08T15:24:52.677Z"
 }

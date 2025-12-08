@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { AuthStorageService, ProjectUtilservice } from 'ngx-sp-auth';
+import { AuthStorageService, AuthUtilService } from 'ngx-sp-auth';
 import { FormUtils, InfraModule, MessageService, ModalUtilsService } from 'ngx-sp-infra';
 import { ToastrService } from 'ngx-toastr';
 import { EmailConfigTestModel } from '../../models/EmailConfigTestModel';
@@ -24,7 +24,7 @@ export class ConfigEmailComponent {
     private _route: ActivatedRoute,
     private _toastrService: ToastrService,
     private _authStorageService: AuthStorageService,
-    private _projectUtils: ProjectUtilservice,
+    private _authUtilService: AuthUtilService,
 
     public modalUtils: ModalUtilsService
   ) { }
@@ -133,7 +133,7 @@ export class ConfigEmailComponent {
         }
 
       },
-      error: error => this._projectUtils.showHttpError(error)
+      error: error => this._authUtilService.showHttpError(error)
     });
   }
 
@@ -168,7 +168,7 @@ export class ConfigEmailComponent {
             this.getInfraEmail()
           }
         },
-        error: error => this._projectUtils.showHttpError(error)
+        error: error => this._authUtilService.showHttpError(error)
       });
     }
     else { FormUtils.validateFields(this.form) }
@@ -190,7 +190,7 @@ export class ConfigEmailComponent {
             this.getInfraEmail()
           }
         }, error: error => {
-          this._projectUtils.showHttpError(error)
+          this._authUtilService.showHttpError(error)
         }
       })
     }
@@ -229,7 +229,7 @@ export class ConfigEmailComponent {
           this._messageService.showAlertSuccess("Enviamos um e-mail para os destinatários escohidos! Verifique a caixa de entrada para garantir que tudo está correto (certifique-se de verificar também o seu lixo eletrônico).");
           this.modalUtils.closeModal(2)
         }, error: error => {
-          this._projectUtils.showHttpError(error)
+          this._authUtilService.showHttpError(error)
         }
       })
 

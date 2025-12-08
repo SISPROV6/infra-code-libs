@@ -3,7 +3,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import { InfraModule } from 'ngx-sp-infra';
 
-import { ProjectUtilservice } from '../../../../project/project-utils.service';
+import { AuthUtilService } from '../../../../utils/auth-utils.service';
 import { MenuServicesService } from '../../menu-services.service';
 
 @Component({
@@ -18,7 +18,7 @@ import { MenuServicesService } from '../../menu-services.service';
 export class VersoesModalComponent implements OnInit {
   constructor(
     private _menuServicesService: MenuServicesService,
-    private _projectUtilService: ProjectUtilservice
+    private _authUtilService: AuthUtilService
   ) { }
 
   ngOnInit(): void {
@@ -57,7 +57,7 @@ export class VersoesModalComponent implements OnInit {
         this.versionInfra = response.Version;
       },
       error: error => {
-        this._projectUtilService.showHttpError(error);
+        this._authUtilService.showHttpError(error);
       }
     })
 
@@ -67,7 +67,7 @@ export class VersoesModalComponent implements OnInit {
         this.versionCorporativo = response.Version;
       },
       error: error => {
-        this._projectUtilService.showHttpError(error);
+        this._authUtilService.showHttpError(error);
       }
     })
 

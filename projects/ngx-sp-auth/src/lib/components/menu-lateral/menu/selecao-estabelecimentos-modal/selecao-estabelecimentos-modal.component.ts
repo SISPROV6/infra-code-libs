@@ -4,9 +4,9 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 import { InfraEstabelecimentoFavoritoDefault, InfraModule, MessageService } from 'ngx-sp-infra';
-import { AuthStorageService } from '../../../../storage/auth-storage.service';
-import { ProjectUtilservice } from '../../../../project/project-utils.service';
 import { LibCustomMenuService } from '../../../../custom/lib-custom-menu.service';
+import { AuthStorageService } from '../../../../storage/auth-storage.service';
+import { AuthUtilService } from '../../../../utils/auth-utils.service';
 import { MenuServicesService } from '../../menu-services.service';
 
 @Component({
@@ -25,7 +25,7 @@ export class SelecaoEstabelecimentosModalComponent implements OnInit {
     private _customMenuService: LibCustomMenuService,
     private _menuServicesService: MenuServicesService,
     private _messageService: MessageService,
-    private _projectUtilService: ProjectUtilservice
+    private _authUtilService: AuthUtilService
   ) { }
 
   ngOnInit(): void {
@@ -89,7 +89,7 @@ export class SelecaoEstabelecimentosModalComponent implements OnInit {
         }
       },
       error: error => {
-        this._projectUtilService.showHttpError(error);
+        this._authUtilService.showHttpError(error);
 
         this.$estabelecimentosList = [];
       }
@@ -119,7 +119,7 @@ export class SelecaoEstabelecimentosModalComponent implements OnInit {
           : this._messageService.showAlertSuccess('Estabelecimento padrão removido para o usuário');
       },
       error: error => {
-        this._projectUtilService.showHttpError(error);
+        this._authUtilService.showHttpError(error);
       }
     })
   }
