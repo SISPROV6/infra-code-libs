@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-auth",
-  "version": "4.5.2",
-  "tag": "auth-v4.5.2",
-  "notes": "Implementada possível solução para os problemas do IndexedDB, em fase de testes",
-  "timestamp": "2025-12-05T19:26:43.725Z"
+  "project": "ngx-sp-infra",
+  "version": "6.7.7",
+  "tag": "infra-v6.7.7",
+  "notes": "Atualização de rotina",
+  "timestamp": "2025-12-08T14:42:09.974Z"
 }

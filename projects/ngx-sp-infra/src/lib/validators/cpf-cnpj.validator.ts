@@ -22,8 +22,7 @@ export class CpfCnpjValidator implements Validator {
     if (digit < 2 && isCpf) {
       return 0;
     }
-    else if (digit < 2) 
-    {
+    else if (digit < 2) {
       return 0;
     }
 
@@ -81,7 +80,7 @@ export class CpfCnpjValidator implements Validator {
 
     // CPF ===========================================
     if (isCPF) {
-      if (/^(\d)\1+$/.test(valor)) return { cpcnpjInvalid: true };
+      if (/^(\d)\1+$/.test(valor) && valor !== '00000000000') return { cpcnpjInvalid: true };
 
       const calcDV = (base: string) => {
         let soma = 0;
@@ -105,7 +104,7 @@ export class CpfCnpjValidator implements Validator {
     // CNPJ ALFANUMÉRICO ===========================================
 
     // Rejeita todos iguais
-    if (/^([A-Z0-9])\1*$/.test(valor)) {
+    if (/^([A-Z0-9])\1*$/.test(valor) && valor !== '00000000000000') {
       return { cpcnpjInvalid: true };
     }
 
