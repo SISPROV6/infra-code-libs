@@ -95,7 +95,6 @@ export class SearchInputComponent implements OnInit, AfterViewInit {
     const targetRoute = this.formatBaseURL(item, routeToUse);
 
     // For debugging: log the computed URL. Navigation is intentionally commented out.
-    console.log('Computed targetRoute:', targetRoute);
     window.location.assign(targetRoute);
   }
 
@@ -183,9 +182,6 @@ export class SearchInputComponent implements OnInit, AfterViewInit {
       // Fallback: if route is empty or not matched, return current origin
       finalURL = `${protocol}//${host}`;
     }
-
-    console.log('[formatBaseURL] route:', routeStr);
-    console.log('[formatBaseURL] finalURL:', finalURL);
 
     return finalURL;
   }

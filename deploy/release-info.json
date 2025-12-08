@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-views",
-  "version": "3.2.3",
-  "tag": "views-v3.2.3",
-  "notes": "Ajuste nas telas que utilizavam o ProjectUtilsService do auth para usarem o novo nome deste service",
-  "timestamp": "2025-12-08T15:33:23.447Z"
+  "project": "ngx-sp-infra",
+  "version": "6.7.9",
+  "tag": "infra-v6.7.9",
+  "notes": "Ajustes na seleção da lib-table: agora permite informar múltiplas colunas usadas como identificação e correção do bug onde desmarcar um registro não desmarca o checkbox geral",
+  "timestamp": "2025-12-08T19:09:15.674Z"
 }

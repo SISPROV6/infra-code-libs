@@ -74,7 +74,7 @@ export class AppComponent implements OnInit {
   ];
 
   public page: number = 1;  // Propriedade necessária para explicitar qual página está selecionada atualmente
-  public itemsPerPage: number = 15;  // Propriedade necessária para renderizar apenas determinada quantidade por página inicialmente
+  public itemsPerPage: number = 5;  // Propriedade necessária para renderizar apenas determinada quantidade por página inicialmente
 
   public tableRecords?: Item[];
   // #endregion PUBLIC
@@ -100,12 +100,12 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.form.valueChanges.subscribe(value => {
-      console.log('form.valueChanges.subscribe() => value', value);
-    });
+    // this.form.valueChanges.subscribe(value => {
+    //   console.log('form.valueChanges.subscribe() => value', value);
+    // });
 
     // this.getPokemons();
-    this.getPokemonsStatic();
+    // this.getPokemonsStatic();
     // this.getRecord();
 
     this.getTableRecords();
@@ -134,7 +134,11 @@ export class AppComponent implements OnInit {
 
   public getTableRecords(): void {
     this._testingService.getTableRecords().subscribe({
-      next: res => { this.tableRecords = res },
+      next: res => {
+        this.tableRecords = res;
+
+        this.selecaoMap1 = this.selecaoService1.initSelecao(res, ['id', 'name']);
+      },
       error: err => console.error(err)
     });
   }
