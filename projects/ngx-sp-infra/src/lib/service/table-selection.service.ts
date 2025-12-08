@@ -6,6 +6,13 @@ import { SelectionModel } from '../models/table/selection-model.model';
   providedIn: 'any'
 })
 export class TableSelectionService {
+  // ...existing code...
+
+  /** Verifica se um item está selecionado usando múltiplas colunas como chave composta. */
+  public isSelecionadoPorItem(item: any, idColumnNames: string[] = ["id"]): boolean {
+    const key = this.makeCompositeKeyFromItem(item, idColumnNames);
+    return this.selecaoMap.get(key) === true;
+  }
 
   // #region ==========> PROPERTIES <==========
   
@@ -78,6 +85,59 @@ export class TableSelectionService {
   public definirSelecaoTotal(list?: any[], selecao?: boolean, idColumnName: string = "id") {
     if (list) {
       list.forEach(item => { this.selecaoMap.set(item[idColumnName], selecao ?? false) });
+    }
+  }
+
+  // ================= Composite Key Support =================
+  /**
+   * Gera uma chave estável a partir de um objeto e de uma lista de colunas.
+   * A chave é criada concatenando os valores das colunas com um separador estável.
+   */
+  private makeCompositeKeyFromItem(item: any, columns: string[]): string {
+    const values = columns.map(col => {
+      // suporta caminhos tipo 'a.b.c'
+      const parts = col.split('.');
+      const value = parts.reduce((acc, p) => acc ? acc[p] : undefined, item);
+      return value === undefined || value === null ? '' : String(value);
+    });
+
+    // use JSON.stringify para evitar colisões simples e manter previsibilidade
+    return JSON.stringify(values);
+  }
+
+  /** Inicializa a seleção usando múltiplas colunas como chave composta.
+   * @param list lista de objetos
+   * @param idColumnNames array de nomes de colunas (pode usar paths como 'pessoa.id')
+   */
+  public initSelecaoPorColunas(list?: any[], idColumnNames: string[] = ["id"]): Map<string | number, boolean> {
+    if (list) {
+      list.forEach(item => {
+        const key = this.makeCompositeKeyFromItem(item, idColumnNames);
+        this.selecaoMap.set(key, false);
+      });
+      return this.selecaoMap;
+    }
+
+    return new Map<string | number, boolean>();
+  }
+
+  /** Inverte a seleção com base em um item completo, usando colunas para gerar a chave composta. */
+  public inverterSelecaoPorItem(item: any, idColumnNames: string[] = ["id"]) {
+    const key = this.makeCompositeKeyFromItem(item, idColumnNames);
+    const selecionado = this.selecaoMap.get(key) || false;
+    this.selecaoMap.set(key, !selecionado);
+
+    const todosSelecionados: boolean = Array.from(this.selecaoMap.values()).every(v => v);
+    this.selecaoGeral = todosSelecionados;
+  }
+
+  /** Define seleção total usando colunas compostas como chave. */
+  public definirSelecaoTotalPorColunas(list?: any[], selecao?: boolean, idColumnNames: string[] = ["id"]) {
+    if (list) {
+      list.forEach(item => {
+        const key = this.makeCompositeKeyFromItem(item, idColumnNames);
+        this.selecaoMap.set(key, selecao ?? false);
+      });
     }
   }
   // #endregion ==========> UTILS <==========

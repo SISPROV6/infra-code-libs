@@ -134,7 +134,11 @@ export class AppComponent implements OnInit {
 
   public getTableRecords(): void {
     this._testingService.getTableRecords().subscribe({
-      next: res => { this.tableRecords = res },
+      next: res => {
+        this.tableRecords = res;
+
+        this.selecaoMap1 = this.selecaoService1.initSelecaoPorColunas(res, ['id', 'name']);
+      },
       error: err => console.error(err)
     });
   }

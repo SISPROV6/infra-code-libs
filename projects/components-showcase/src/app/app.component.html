@@ -38,11 +38,11 @@
           <button class="btn btn-outline-primary" (click)="itemsPerPage = 15" >15</button>
         </div>
 
-        <lib-table [list]="recordsList" [counts]="[ 5, 10, 15 ]" [itemsPerPage]="itemsPerPage" paginationID="simpleTable" [usePreviousStyle]="true"
+        <lib-table [list]="tableRecords" [counts]="[ 5, 10, 15 ]" [itemsPerPage]="itemsPerPage" paginationID="simpleTable" [usePreviousStyle]="true"
           (itemsPerPageChange)="itemsPerPage = $event" (pageChange)="page = $event" [scrollable]="true"
           
           [useSelection]="true" [selection]="selecaoService1.selecaoGeral" [selectedCount]="selecaoService1.quantidadeSelecionados()"
-          (selectionChange)="selecaoService1.definirSelecaoTotal(recordsList, $event, 'id')"
+          (selectionChange)="selecaoService1.definirSelecaoTotalPorColunas(tableRecords, $event, ['id', 'name'])"
 
           [headers]="[
             { name: 'Nome', widthPixels: 250 },
@@ -51,19 +51,21 @@
             { name: '', customClasses: 'text-start', widthPixels: 250 }
           ]" >
 
-          @for (item of recordsList! | paginate: { id: 'simpleTable', itemsPerPage: itemsPerPage, currentPage: page }; track item) {
+          @for (item of tableRecords! | paginate: { id: 'simpleTable', itemsPerPage: itemsPerPage, currentPage: page }; track item) {
               <tr innerRows class="align-middle">
                 <td>
-                    <div class="form-check"> <input class="form-check-input" type="checkbox" [ngModel]="selecaoMap1.get(item.id)" (ngModelChange)="selecaoService1.inverterSelecao(item.id)"> </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" [ngModel]="selecaoService1.isSelecionadoPorItem(item, ['id', 'name'])" (ngModelChange)="selecaoService1.inverterSelecaoPorItem(item, ['id', 'name'])">
+                  </div>
                 </td>
 
-                <td> <a class="text-primary text-decoration-none fw-bold" tooltip="Editar/Visualizar">{{ item.ID }}</a> </td>
-                <td>{{ item.LABEL }}</td>
+                <td> <a class="text-primary text-decoration-none fw-bold" tooltip="Editar/Visualizar">{{ item.id }}</a> </td>
+                <td>{{ item.name }}</td>
                 <td class="text-start">{{ 5.55 }}</td>
                 <td class="fix">
                     <div class="d-flex flex-row align-items-center justify-content-end">
                       <lib-icon iconName="editar" iconColor="blue" tooltip="Visualizar/Editar" />
-                      <div class="form-check form-switch ms-2"> <input class="form-check-input" type="checkbox" role="switch" [checked]="item.isAtivo"> </div>
+                      <div class="form-check form-switch ms-2"> <input class="form-check-input" type="checkbox" role="switch" [checked]="item.active"> </div>
                     </div>
                 </td>
               </tr>
