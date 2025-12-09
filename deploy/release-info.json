@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-infra",
-  "version": "6.7.10",
-  "tag": "infra-v6.7.10",
-  "notes": "Corrigido dois pontos na lib-table: tamanho da fonte no header passada para 14px e barra de scroll da tabela scrollável apenas aparece quando o scroll é usado",
-  "timestamp": "2025-12-08T20:30:05.019Z"
+  "version": "6.8.0",
+  "tag": "infra-v6.8.0",
+  "notes": "Liberação de versão @latest com todas as correções e melhorias implementadas nas versões @next e @test desde a últimaliberação",
+  "timestamp": "2025-12-09T03:20:49.250Z"
 }
