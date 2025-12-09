@@ -6,7 +6,7 @@ import { debounceTime, distinctUntilChanged, filter, Observable, Subject, Subscr
 
 import { LibCustomEnvironmentService } from '../custom/lib-custom-environment.service';
 import { RetTelasPesquisa } from '../models/ret-telas-pesquisa.model';
-import { ProjectUtilservice } from '../project/project-utils.service';
+import { AuthUtilService } from '../utils/auth-utils.service';
 
 /**
  * Serviço responsável por criar e gerenciar uma instância global do componente SearchInput.
@@ -98,7 +98,7 @@ export class PesquisaTelasGlobalService {
 
     private _httpClient: HttpClient,
     private _customEnvironmentService: LibCustomEnvironmentService,
-    private _projectUtils: ProjectUtilservice,
+    private _authUtils: AuthUtilService,
   ) {
 
     this._BASE_URL = this._customEnvironmentService.production
@@ -134,7 +134,7 @@ export class PesquisaTelasGlobalService {
             },
             error: err => {
               this._componentRef!.instance.loading = false;
-              this._projectUtils.showHttpError(err);
+              this._authUtils.showHttpError(err);
             }
           })
           

@@ -11,7 +11,7 @@ table.old {
 
   thead {
     height: 50px;
-    font-size: 1rem;
+    font-size: 14px;
     background-color: #f9fafb !important;
 
     > tr {
@@ -54,7 +54,7 @@ table.old {
 
 // #region TABLE SCROLLÁVEL
 .scrollable-wrapper {
-  overflow-x: scroll;
+  overflow-x: auto;
   width: 100%;
 
   table {

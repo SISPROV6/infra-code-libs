@@ -5,7 +5,7 @@ import { LibIconsComponent } from 'ngx-sp-infra';
 import { RouterLink } from "@angular/router";
 import { MenuServicesService } from '../../components/menu-lateral/menu-services.service';
 import { LibCustomEnvironmentService } from '../../custom/lib-custom-environment.service';
-import { ProjectUtilservice } from '../../project/project-utils.service';
+import { AuthUtilService } from '../../utils/auth-utils.service';
 
 export class NavSubmenuCards {
   titulo: string = '';
@@ -74,7 +74,7 @@ export class SubMenuCardComponent implements OnInit {
 
   constructor(
     private _menuService: MenuServicesService,
-    private _projectUtil: ProjectUtilservice,
+    private _authUtilService: AuthUtilService,
 
     private _customEnv: LibCustomEnvironmentService
   ) { }
@@ -94,7 +94,7 @@ export class SubMenuCardComponent implements OnInit {
 
     this._menuService.GetHostServerOutSystems().subscribe({
       next:response => this.hostName = response.String,
-      error:error => this._projectUtil.showHttpError(error)
+      error:error => this._authUtilService.showHttpError(error)
     })
   }
 

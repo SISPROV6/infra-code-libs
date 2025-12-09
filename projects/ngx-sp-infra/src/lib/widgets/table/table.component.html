@@ -99,8 +99,14 @@
                <div class="d-flex align-items-center me-2">
                   <label for="countSelect" class="me-2" style="white-space: nowrap;"> Itens por página </label>
                   <select id="countSelect" class="form-select select-search" (change)="onSelectChange($event)">
-                  <option *ngFor="let count of counts; let i = index" [value]="count"
-                     [selected]="counts ? (counts.length > 0 && i === 0) : false">{{ count }}</option>
+                     @for (count of counts; track count) {
+                        <option [value]="count"
+                           [selected]="!!itemsPerPage
+                              ? itemsPerPage === count
+                              : counts
+                                 ? (counts.length > 0 && $first)
+                                 : false" >{{ count }}</option>
+                     }
                   </select>
                </div>
 
@@ -195,8 +201,14 @@
                <div class="d-flex align-items-center me-2"  >
                   <label for="countSelect" class="me-2" style="white-space: nowrap;"> Itens por página </label>
                   <select id="countSelect" class="form-select select-search" (change)="onSelectChange($event)">
-                     <option *ngFor="let count of counts; let i = index" [value]="count"
-                        [selected]="counts ? (counts.length > 0 && i === 0) : false">{{ count }}</option>
+                     @for (count of counts; track count) {
+                        <option [value]="count"
+                           [selected]="!!itemsPerPage
+                              ? itemsPerPage === count
+                              : counts
+                                 ? (counts.length > 0 && $first)
+                                 : false" >{{ count }}</option>
+                     }
                   </select>
                </div>
 

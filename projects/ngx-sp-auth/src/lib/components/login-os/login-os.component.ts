@@ -5,8 +5,8 @@ import { Subscription, take, timer } from 'rxjs';
 import { AuthService } from '../../auth.service';
 import { LoginForm } from '../../models/login-form';
 import { LoginOSModel } from '../../models/login-os.model';
-import { ProjectUtilservice } from '../../project/project-utils.service';
 import { AuthStorageService } from '../../storage/auth-storage.service';
+import { AuthUtilService } from '../../utils/auth-utils.service';
 
 @Component({
   selector: 'login-os',
@@ -89,7 +89,7 @@ export class LoginOSComponent implements OnInit, OnDestroy {
   // #region ==========> INITIALIZATION <==========
   constructor(
     private _authService: AuthService,
-		private _projectUtilService: ProjectUtilservice,
+		private _authUtilService: AuthUtilService,
     private _route: ActivatedRoute,
     private _router: Router,
     private _storageService: AuthStorageService,
@@ -140,13 +140,13 @@ export class LoginOSComponent implements OnInit, OnDestroy {
             },
             error: (error) => {
               this.loginStatus = "error";
-              this._projectUtilService.showHTTPErrorOS(error);
+              this._authUtilService.showHTTPErrorOS(error);
             },
           });
         },
         error: (error) => {
           this.loginStatus = "error";
-          this._projectUtilService.showHTTPErrorOS(error);
+          this._authUtilService.showHTTPErrorOS(error);
         }
       });
 

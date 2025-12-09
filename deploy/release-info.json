@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-infra",
-  "version": "6.7.6",
-  "tag": "infra-v6.7.6",
-  "notes": "Atualização de rotina",
-  "timestamp": "2025-12-04T20:16:31.351Z"
+  "version": "6.8.0",
+  "tag": "infra-v6.8.0",
+  "notes": "Liberação de versão @latest com todas as correções e melhorias implementadas nas versões @next e @test desde a últimaliberação",
+  "timestamp": "2025-12-09T03:20:49.250Z"
 }

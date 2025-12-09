@@ -5,10 +5,10 @@ import { Observable } from 'rxjs';
 import { InfraModule } from 'ngx-sp-infra';
 
 import { LibCustomMenuService } from '../../../../custom/lib-custom-menu.service';
-import { ProjectUtilservice } from '../../../../project/project-utils.service';
-import { SecondaryDropdownComponent } from '../secondary-dropdown/secondary-dropdown.component';
+import { AuthUtilService } from '../../../../utils/auth-utils.service';
 import { MenuServicesService } from '../../menu-services.service';
 import { IProjeto } from '../../model/iprojeto';
+import { SecondaryDropdownComponent } from '../secondary-dropdown/secondary-dropdown.component';
 
 @Component({
     selector: 'app-primary-dropdown',
@@ -31,7 +31,7 @@ export class PrimaryDropdownComponent implements OnInit {
       ]
 
       constructor(private _customMenuService: LibCustomMenuService,
-                  private _projectUtilservice: ProjectUtilservice,
+                  private _authUtilService: AuthUtilService,
                   private _menuServices: MenuServicesService
       ) { }
 
@@ -76,13 +76,13 @@ export class PrimaryDropdownComponent implements OnInit {
       }
 
       public redirectToPrePortal(): void {
-            const url: string = `${ this._projectUtilservice.getHostName() }/SisproErpCloud/PrePortal`;
+            const url: string = `${ this._authUtilService.getHostName() }/SisproErpCloud/PrePortal`;
 
             window.open(url, '_blank');
       }
 
       public redirectToModulo(urlModulo: string): void {
-            let url = `${ this._projectUtilservice.getHostName() }/SisproErpCloud`;
+            let url = `${ this._authUtilService.getHostName() }/SisproErpCloud`;
             url += urlModulo.startsWith('/') ? urlModulo : '/' + urlModulo
 
             window.open(url, '_blank');

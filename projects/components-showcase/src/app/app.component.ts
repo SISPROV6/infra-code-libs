@@ -1,9 +1,9 @@
 import { NgClass } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { FormUtils, InfraModule, MessageService, RecordCombobox, } from 'ngx-sp-infra';
-import { TestingService } from './testing.service';
+import { FormUtils, InfraModule, MessageService, RecordCombobox, TableSelectionService } from 'ngx-sp-infra';
+import { Item, TestingService } from './testing.service';
 
 @Component({
   selector: 'app-root',
@@ -17,12 +17,20 @@ import { TestingService } from './testing.service';
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
+  providers: [
+    { provide: 'TableSelectionService1', useClass: TableSelectionService },
+    { provide: 'TableSelectionService2', useClass: TableSelectionService },
+  ]
 })
 export class AppComponent implements OnInit {
 
   // #region ==========> PROPERTIES <==========
 
   // #region PUBLIC
+  public selecaoMap1: Map<string | number, boolean> = new Map<string, boolean>();
+  public selecaoMap2: Map<string | number, boolean> = new Map<string, boolean>();
+
+
   public valorCustomizado?: string;
   public pokemons: any[] = [];
 
@@ -63,9 +71,12 @@ export class AppComponent implements OnInit {
     { ID: 14, LABEL: 'Lopunny' },
     { ID: 15, LABEL: 'Lucario' },
     { ID: 16, LABEL: 'Mew' },
-  ];  // Lista a ser usada, pode ser de qualquer tipo
+  ];
+
   public page: number = 1;  // Propriedade necessária para explicitar qual página está selecionada atualmente
   public itemsPerPage: number = 5;  // Propriedade necessária para renderizar apenas determinada quantidade por página inicialmente
+
+  public tableRecords?: Item[];
   // #endregion PUBLIC
 
   // #endregion ==========> PROPERTIES <==========
@@ -82,17 +93,22 @@ export class AppComponent implements OnInit {
 
   constructor(
     private _testingService: TestingService,
-    private _message: MessageService
+    private _message: MessageService,
+
+    @Inject('TableSelectionService1') public selecaoService1: TableSelectionService, // Injetamos o serviço no constructor
+    @Inject('TableSelectionService2') public selecaoService2: TableSelectionService, // Injetamos o serviço no constructor
   ) { }
 
   ngOnInit(): void {
-    this.form.valueChanges.subscribe(value => {
-      console.log('form.valueChanges.subscribe() => value', value);
-    });
+    // this.form.valueChanges.subscribe(value => {
+    //   console.log('form.valueChanges.subscribe() => value', value);
+    // });
 
     // this.getPokemons();
-    this.getPokemonsStatic();
+    // this.getPokemonsStatic();
     // this.getRecord();
+
+    this.getTableRecords();
   }
 
 
@@ -111,6 +127,18 @@ export class AppComponent implements OnInit {
   public getPokemonsStatic(filter: string = ""): void {
     this._testingService.getPokemonsStatic(filter).subscribe({
       next: res => { this.pokemons = res },
+      error: err => console.error(err)
+    });
+  }
+
+
+  public getTableRecords(): void {
+    this._testingService.getTableRecords().subscribe({
+      next: res => {
+        this.tableRecords = res;
+
+        this.selecaoMap1 = this.selecaoService1.initSelecao(res, ['id', 'name']);
+      },
       error: err => console.error(err)
     });
   }
