@@ -8,7 +8,8 @@ on:
       - test
 
 permissions:
-  contents: write
+  id-token: write  # Required for OIDC
+  contents: read
 
 jobs:
   run-unit-tests:
@@ -119,6 +120,9 @@ jobs:
         elif [ "${{ env.PROJECT }}" == "ngx-sp-infra" ]; then
           npm run build:ngx-sp-infra:prod
         fi
+
+    - name: Update npm
+      run: npm install -g npm@latest
 
     - name: Publish to NPM
       if: env.should_publish == 'true'
