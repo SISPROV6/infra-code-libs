@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-views",
-  "version": "3.3.0",
-  "tag": "views-v3.3.0",
-  "notes": "Liberação de versão @latest com todas as correções e melhorias implementadas nas versões @next e @test desde a última liberação",
-  "timestamp": "2025-12-09T03:40:52.781Z"
+  "project": "ngx-sp-infra",
+  "version": "6.8.1",
+  "tag": "infra-v6.8.1",
+  "notes": "Atualização de rotina",
+  "timestamp": "2025-12-10T19:39:14.468Z"
 }

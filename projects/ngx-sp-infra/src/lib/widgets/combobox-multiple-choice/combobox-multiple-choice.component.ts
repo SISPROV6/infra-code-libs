@@ -67,6 +67,8 @@ export class ComboboxMultipleChoiceComponent implements OnInit {
     ]).subscribe(result => {
       if (result.matches) {
         this._isMobile = true;
+      }else{
+        this._isMobile = false;
       }
     });
   }

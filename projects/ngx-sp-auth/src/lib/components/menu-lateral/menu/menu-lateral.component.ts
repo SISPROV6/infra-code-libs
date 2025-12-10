@@ -259,7 +259,7 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
 
   // #endregion ==========> SERVICES <==========
 
-  
+
   // #region ==========> UTILITIES <==========
 
   public togglePopover() { this.showBalloon = !this.showBalloon; }
@@ -464,6 +464,8 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
     ]).subscribe(result => {
       if (result.matches) {
         this._isMobile = true;
+      }else{
+        this._isMobile = false;
       }
     });
   }
