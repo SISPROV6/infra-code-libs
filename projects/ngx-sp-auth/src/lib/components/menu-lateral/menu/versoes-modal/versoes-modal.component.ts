@@ -7,23 +7,29 @@ import { AuthUtilService } from '../../../../utils/auth-utils.service';
 import { MenuServicesService } from '../../menu-services.service';
 
 @Component({
-    selector: 'versoes-modal',
-    templateUrl: './versoes-modal.component.html',
-    styleUrls: ['./versoes-modal.component.scss'],
-    imports: [
-      InfraModule,
-      CommonModule
-    ]
+  selector: 'versoes-modal',
+  templateUrl: './versoes-modal.component.html',
+  imports: [
+    InfraModule,
+    CommonModule
+  ],
+  styles: `
+    ul {
+      list-style-type: none !important;
+    }
+  `,
 })
 export class VersoesModalComponent implements OnInit {
+
   constructor(
-    private _menuServicesService: MenuServicesService,
-    private _authUtilService: AuthUtilService
+    private _menuService: MenuServicesService,
+    private _authUtils: AuthUtilService
   ) { }
 
   ngOnInit(): void {
     this.getVersions();
   }
+
 
   // #region ==========> PROPERTIES <==========
 
@@ -33,6 +39,8 @@ export class VersoesModalComponent implements OnInit {
   public versionInfra: string = '';
   public versionCorporativo: string = '';
 
+  public versions?: any[];
+
   public get releaseNotesUrl(): string {
     let url: string = '';
 
@@ -41,34 +49,31 @@ export class VersoesModalComponent implements OnInit {
 
     return url;
   }
+
+  public closeSelf = (): void => { this.onClose.emit() }
   // #endregion PUBLIC
 
   // #endregion ==========> PROPERTIES <==========
+
 
   // #region ==========> SERVICES <==========
 
   // #region PREPARATION
 
+  /** Obtém Versão instalada da Infra e dos outros produtos.
+   * 
+   * Este método receberá no futuro uma lista de Versões de produtos cadastrados e listados em ordem.
+  */
   private getVersions(): void {
-    
-    // Obtém Versão da Infra
-    this._menuServicesService.getVersionInfra().subscribe({
-      next: response => {
-        this.versionInfra = response.Version;
-      },
-      error: error => {
-        this._authUtilService.showHttpError(error);
-      }
+    this._menuService.getVersionInfra().subscribe({
+      next: response => this.versionInfra = response.Version,
+      error: error => this._authUtils.showHttpError(error)
     })
 
-    // Obtém Versão do Corporativo
-    this._menuServicesService.getVersionCorporativo().subscribe({
-      next: response => {
-        this.versionCorporativo = response.Version;
-      },
-      error: error => {
-        this._authUtilService.showHttpError(error);
-      }
+    // Versão do Corporativo
+    this._menuService.getVersionCorporativo().subscribe({
+      next: response => this.versionCorporativo = response.Version,
+      error: error => this._authUtils.showHttpError(error)
     })
 
   }
@@ -77,12 +82,9 @@ export class VersoesModalComponent implements OnInit {
 
   // #endregion ==========> SERVICES <==========
 
-  // #region ==========> MODALS <==========
 
-  public closeSelf() {
-    this.onClose.emit();
-  }
-
-  // #endregion ==========> MODALS <==========
+  // #region ==========> UTILS <==========
+  // [...]
+  // #endregion ==========> UTILS <==========
 
 }

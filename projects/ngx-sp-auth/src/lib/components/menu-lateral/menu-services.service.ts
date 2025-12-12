@@ -22,6 +22,7 @@ import { Usuario_IMG } from './model/usuario-img';
   providedIn: 'root'
 })
 export class MenuServicesService {
+
   private readonly _BASE_URL: string = ""; // SpInfra2ErpWS
   private readonly _BASE_URL_VERSION_INFRA: string = ""; // SpInfra2Version
   private readonly _BASE_URL_VERSION_CORPORATIVO: string = ""; // SpCrp2Version
@@ -43,6 +44,7 @@ export class MenuServicesService {
     this._BASE_URL_VERSION_CORPORATIVO = !this._customEnvironmentService.production ? this._BASE_URL_VERSION_CORPORATIVO : `${ this._customEnvironmentService.SpInfra2AuthWS.replace('/Infra', '/Corporativo').replace('SpInfra2AuthWS', 'SpCrp2VersionWS') }`;
   }
 
+
   // #region ==========> SERVICES <==========
 
   // #region PREPARATION
@@ -52,18 +54,14 @@ export class MenuServicesService {
   // #endregion Menu: Usuário
 
   // #region Menu: Estabelecimentos
-
   public getEstabelecimentosModalList(usuarioID: string, pesquisa: string): Observable<RetEstabelecimentosModal> {
     const params = new HttpParams()
       .set('pesquisa', pesquisa)
 
-    const headers = new HttpHeaders()
-      .set('Content-Type', 'application/json');
-
-    const url = `${this._BASE_URL}/InfraEstabelecimento/GetEstabelecimentosModal`;
+    const url = `${ this._BASE_URL }/InfraEstabelecimento/GetEstabelecimentosModal`;
 
     return this._httpClient
-      .get<RetEstabelecimentosModal>(url, { 'params': params, 'headers': headers })
+      .get<RetEstabelecimentosModal>(url, { 'params': params, 'headers': this._HTTP_HEADERS })
       .pipe(
         take(1),
         tap(response => {
@@ -73,18 +71,16 @@ export class MenuServicesService {
         })
       )
   }
-
   // #endregion Menu: Estabelecimentos
 
   // #endregion PREPARATION
 
+
   // #region GET
 
   // #region Menu: Usuário
-
   public getImagemMenu(): Observable<RetInfraUsuarioImg> {
-
-    const url = `${this._BASE_URL}/InfraUsuario/GetImagemMenu`;
+    const url = `${ this._BASE_URL }/InfraUsuario/GetImagemMenu`;
 
     return this._httpClient
       .get<RetInfraUsuarioImg>(url, { 'headers': this._HTTP_HEADERS })
@@ -99,16 +95,14 @@ export class MenuServicesService {
         })
       )
   }
-
   // #endregion Menu: Usuário
 
   // #region Menu: Estabelecimentos
-
   public getEstabelecimentoSession(estabID: string): Observable<RetEstabelecimentoSession> {
     const params = new HttpParams()
       .set('id', estabID);
 
-    const url = `${this._BASE_URL}/InfraEstabelecimento/GetEstabelecimentoSession`;
+    const url = `${ this._BASE_URL }/InfraEstabelecimento/GetEstabelecimentoSession`;
 
     return this._httpClient
       .get<RetEstabelecimentoSession>(url, { 'params': params, 'headers': this._HTTP_HEADERS })
@@ -121,13 +115,11 @@ export class MenuServicesService {
         })
       )
   }
-
   // #endregion Menu: Estabelecimentos
 
   // #region Get Usuario Email
-
   public getUsuarioEmail(): Observable<RetInfraUsuarioEmail> {
-    const url = `${this._BASE_URL}/InfraUsuario/GetUsuarioEmail`;
+    const url = `${ this._BASE_URL }/InfraUsuario/GetUsuarioEmail`;
 
     return this._httpClient
       .get<RetInfraUsuarioEmail>(url, { 'headers': this._HTTP_HEADERS })
@@ -140,13 +132,11 @@ export class MenuServicesService {
         })
       )
   }
-
   // #endregion Get Usuario Email
 
   // #region Menu: Version
-
   public getVersionInfra(): Observable<RetVersion> {
-    const url = `${this._BASE_URL_VERSION_INFRA}/Version/GetVersion`;
+    const url = `${ this._BASE_URL_VERSION_INFRA }/Version/GetVersion`;
 
     return this._httpClient
       .get<RetVersion>(url, { 'headers': this._HTTP_HEADERS })
@@ -161,7 +151,7 @@ export class MenuServicesService {
   }
 
   public getVersionCorporativo(): Observable<RetVersion> {
-    const url = `${this._BASE_URL_VERSION_CORPORATIVO}/Version/GetVersion`;
+    const url = `${ this._BASE_URL_VERSION_CORPORATIVO }/Version/GetVersion`;
 
     return this._httpClient
       .get<RetVersion>(url, { 'headers': this._HTTP_HEADERS })
@@ -174,23 +164,19 @@ export class MenuServicesService {
         })
       )
   }
-
   // #endregion Menu: Version
 
   // #region Menu: IsMenuAllowed
 
-  /** Método executado para validar a permissão de acesso a uma opção do menu
-  */
+  /** Método executado para validar a permissão de acesso a uma opção do menu. */
   public isMenuAllowed(route: string){
     const params = new HttpParams()
-      .set('route', route)
+      .set('route', route);
 
-    const headers = new HttpHeaders().set("Content-Type", "application/json");
-
-    const url = `${this._BASE_URL}/Menu/IsMenuAllowed`;
+    const url = `${ this._BASE_URL }/Menu/IsMenuAllowed`;
 
     return this._httpClient
-      .get<RetIsMenuAllowed>(url, { 'params': params, headers: headers })
+      .get<RetIsMenuAllowed>(url, { 'params': params, headers: this._HTTP_HEADERS })
       .pipe(
         take(1),
         tap((response) => {
@@ -201,7 +187,6 @@ export class MenuServicesService {
       );
 
   }
-
   // #endregion Menu: IsMenuAllowed
 
   // #endregion GET
@@ -213,7 +198,7 @@ export class MenuServicesService {
     const params = new HttpParams()
       .set('estabID', estabID)
 
-    const url = `${this._BASE_URL}/InfraUsuario/UpdateLastSelectedEstabelecimento`;
+    const url = `${ this._BASE_URL }/InfraUsuario/UpdateLastSelectedEstabelecimento`;
 
     return this._httpClient
       .post<RetError>(url, null, { 'params': params, 'headers': this._HTTP_HEADERS })
@@ -232,7 +217,7 @@ export class MenuServicesService {
       .set('estabID', estabID)
       .set('isDefault', isDefault)
 
-    const url = `${this._BASE_URL}/InfraEstabelecimento/DefineDefaultEstab`;
+    const url = `${ this._BASE_URL }/InfraEstabelecimento/DefineDefaultEstab`;
 
     return this._httpClient
       .post<RetError>(url, null, { 'params': params, 'headers': this._HTTP_HEADERS })
@@ -245,7 +230,6 @@ export class MenuServicesService {
         })
       )
   }
-
   // #endregion Menu: Estabelecimentos
 
   // #endregion UPDATE
@@ -253,18 +237,16 @@ export class MenuServicesService {
   // #region Menu Dinâmico
 
   /** Método executado para pegar o Menu lateral levando em conta as permissões do usuário, grupo e o tenant ativo
-  * Executado caso o getter do boolean Menu Dynamic seja true
+   * Executado caso o getter do boolean Menu Dynamic seja true
   */
-  public getMenuLateral(projetoId: number){
-    const headers = new HttpHeaders().set("Content-Type", "application/json");
-
-    const url = `${this._BASE_URL}/Menu/GetMenuLateral`;
+  public getMenuLateral(projetoId: number) {
+    const url = `${ this._BASE_URL }/Menu/GetMenuLateral`;
 
     const params: HttpParams = new HttpParams()
       .set('projetoId', projetoId)
 
     return this._httpClient
-      .get<RetDynamicMenu>(url, {params:params, headers: headers })
+      .get<RetDynamicMenu>(url, { 'params': params, 'headers': this._HTTP_HEADERS })
       .pipe(
         take(1),
         tap((response) => {
@@ -276,19 +258,15 @@ export class MenuServicesService {
 
   }
 
-  /** Método executado para montar estrutura de título, submenu e telas de acordo com os modelos presentes na ngx-sp-infra
-  * envia-se o título deste grupo de submenus, ícone e enum daqueles submenus que
-  * ficarão alocados no grupo de determinado título enviado
+  /** Método executado para montar estrutura de título, submenu e telas de acordo com os modelos presentes na **ngx-sp-infra**
+   * envia-se o título deste grupo de submenus, ícone e enum daqueles submenus que
+   * ficarão alocados no grupo de determinado título enviado
   */
-  public getTelaSubmenus(NavSubmenuSearchItems: NavSubmenuSearchItem[]): Observable < RetNavSubMenu > {
-
-    const headers = new HttpHeaders()
-      .set('Content-Type', 'application/json');
-
-    const url = `${this._BASE_URL}/Menu/GetTelaSubmenus`;
+  public getTelaSubmenus(NavSubmenuSearchItems: NavSubmenuSearchItem[]): Observable <RetNavSubMenu> {
+    const url = `${ this._BASE_URL }/Menu/GetTelaSubmenus`;
 
     return this._httpClient
-    .post<RetNavSubMenu>(url, JSON.stringify(NavSubmenuSearchItems), {'headers': headers })
+    .post<RetNavSubMenu>(url, JSON.stringify(NavSubmenuSearchItems), { 'headers': this._HTTP_HEADERS })
       .pipe(
         take(1),
         tap(response => {
@@ -300,20 +278,15 @@ export class MenuServicesService {
 
   }
 
-  /** Método executado para montar estrutura da tela de submenu com os cards baseado no IdUnico do menu acessado em específico
-  */
-  public getTelaSubmenusWithCards(MenuIdUnico:number): Observable < RetSubmenuWithCards > {
-
-    const headers = new HttpHeaders()
-      .set('Content-Type', 'application/json');
-
-    const url = `${this._BASE_URL}/Menu/GetTelaSubmenusWithCards`;
+  /** Método executado para montar estrutura da tela de submenu com os cards baseado no IdUnico do menu acessado em específico. */
+  public getTelaSubmenusWithCards(MenuIdUnico:number): Observable <RetSubmenuWithCards> {
+    const url = `${ this._BASE_URL }/Menu/GetTelaSubmenusWithCards`;
 
     const params : HttpParams = new HttpParams()
     .set('MenuIdUnico', MenuIdUnico)
 
     return this._httpClient
-      .get<RetSubmenuWithCards>(url, {'params':params, 'headers': headers })
+      .get<RetSubmenuWithCards>(url, {'params':params, 'headers': this._HTTP_HEADERS })
       .pipe(
         take(1),
         tap(response => {
@@ -325,15 +298,12 @@ export class MenuServicesService {
 
   }
 
-  /** Método executado para pegar os produtos para monta o MenuDropdown
-  */
-  public getProjects(){
-    const headers = new HttpHeaders().set("Content-Type", "application/json");
-
-    const url = `${this._BASE_URL}/Menu/GetProjects`;
+  /** Método executado para pegar os produtos para monta o MenuDropdown. */
+  public getProjects() {
+    const url = `${ this._BASE_URL }/Menu/GetProjects`;
 
     return this._httpClient
-      .get<RetDropDown>(url, { headers: headers })
+      .get<RetDropDown>(url, { headers: this._HTTP_HEADERS })
       .pipe(
         take(1),
         tap((response) => {
@@ -345,15 +315,12 @@ export class MenuServicesService {
 
   }
 
-  /** Método executado para pegar o HostName de direcionamento para OS
-  */
+  /** Método executado para pegar o HostName de direcionamento para OS. */
   public GetHostServerOutSystems(){
-    const headers = new HttpHeaders().set("Content-Type", "application/json");
-
-    const url = `${this._BASE_URL}/Menu/GetHostServerOutSystems`;
+    const url = `${ this._BASE_URL }/Menu/GetHostServerOutSystems`;
 
     return this._httpClient
-      .get<RetString>(url, {headers: headers })
+      .get<RetString>(url, { headers: this._HTTP_HEADERS })
       .pipe(
         take(1),
         tap((response) => {
@@ -364,7 +331,6 @@ export class MenuServicesService {
       );
 
   }
-
   // #endregion Menu Dinâmico
 
   // #endregion ==========> SERVICES <==========
@@ -395,13 +361,8 @@ export class MenuServicesService {
   // Implementação de lógica vista no link: https://hasangalakdinu.medium.com/how-to-call-a-function-in-another-component-angular-using-rxjs-3f2e85920705
   private _subject = new Subject<any>();
 
-  public newUserImageEvent(value: any): void {
-    this._subject.next(value);
-  }
-
-  public getNewUserImageEvent(): Observable<any> {
-    return this._subject.asObservable();
-  }
+  public newUserImageEvent(value: any): void { this._subject.next(value) }
+  public getNewUserImageEvent(): Observable<any> { return this._subject.asObservable() }
 
   // #endregion NewImg Event
 
