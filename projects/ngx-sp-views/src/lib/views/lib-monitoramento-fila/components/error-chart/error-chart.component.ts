@@ -76,7 +76,7 @@ export class ErrorChartComponent implements OnInit, OnDestroy {
         labels: labels,
         datasets: [
           {
-            label: 'Falhas por Hora',
+            label: 'Falhas por hora',
             data: valores,
             backgroundColor: ['rgba(255, 99, 132, 0.2)'],
             borderColor: ['rgba(255, 99, 132, 1)'],
@@ -103,7 +103,7 @@ export class ErrorChartComponent implements OnInit, OnDestroy {
           x: {
             title: {
               display: true,
-              text: 'Hora do Dia'
+              text: 'Hora do dia'
             }
           }
         },
