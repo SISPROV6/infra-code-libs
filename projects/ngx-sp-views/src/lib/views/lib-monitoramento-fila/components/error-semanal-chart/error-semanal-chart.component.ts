@@ -50,7 +50,7 @@ export class ErrorSemanalChartComponent {
         labels: Datas,
         datasets: [
           {
-            label: 'Total de Requisições',
+            label: 'Total de requisições',
             data: TotalRequests,
             backgroundColor: 'rgba(0, 123, 255, 0.2)',
             borderColor: 'rgba(0, 123, 255, 1)',
@@ -60,7 +60,7 @@ export class ErrorSemanalChartComponent {
             fill: true,
           },
           {
-            label: 'Taxa de Falha (%)',
+            label: 'Taxa de falha (%)',
             data: TaxaFalhaPercentual,
             backgroundColor: 'rgba(220, 53, 69, 0.2)',
             borderColor: 'rgba(220, 53, 69, 1)',
@@ -83,7 +83,7 @@ export class ErrorSemanalChartComponent {
             beginAtZero: true,
             title: {
               display: true,
-              text: 'Total de Requisições'
+              text: 'Total de requisições'
             }
           },
           y1: {
@@ -91,7 +91,7 @@ export class ErrorSemanalChartComponent {
             position: 'right',
             title: {
               display: true,
-              text: 'Taxa de Falha (%)'
+              text: 'Taxa de falha (%)'
             },
             ticks: {
               callback: value => `${value}%`
@@ -102,10 +102,10 @@ export class ErrorSemanalChartComponent {
           tooltip: {
             callbacks: {
               label: function (context) {
-                if (context.dataset.label === 'Taxa de Falha (%)') {
-                  return `Taxa de Falha: ${context.raw}%`;
+                if (context.dataset.label === 'Taxa de falha (%)') {
+                  return `Taxa de falha: ${context.raw}%`;
                 } else {
-                  return `Total de Requisições: ${context.raw}`;
+                  return `Total de requisições: ${context.raw}`;
                 }
               }
             }

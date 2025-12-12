@@ -1,5 +1,5 @@
 import { CommonModule, DatePipe, NgFor, NgIf, SlicePipe } from '@angular/common';
-import { Component, inject, Input, OnDestroy, OnInit, TemplateRef } from '@angular/core';
+import { AfterViewInit, Component, Inject, inject, Input, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { GlobalLoadingService, InfraModule, MessageService, ModalUtilsService, RecordCombobox, Utils } from 'ngx-sp-infra';
@@ -13,6 +13,7 @@ import { interval, startWith, Subject, switchMap, takeUntil, takeWhile } from 'r
 import { LogInfraQueueRecord } from './models/LogInfraQueue';
 import { LibMonitoramentoFilaService } from './services/lib-monitoramento-fila.service';
 import { InfraQueueRecord } from './models/InfraQueueRecord';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'lib-monitoramento-fila',
@@ -20,31 +21,35 @@ import { InfraQueueRecord } from './models/InfraQueueRecord';
   templateUrl: './lib-monitoramento-fila.component.html',
   styleUrl: './lib-monitoramento-fila.component.scss'
 })
-export class LibMonitoramentoFilaComponent implements OnInit, OnDestroy {
+export class LibMonitoramentoFilaComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
 
   constructor(
     private _messageService: MessageService,
     private _filaMonitoramentoDeFilaService: LibMonitoramentoFilaService,
-
+    private _titleService:Title,
 
     public modalUtils: ModalUtilsService
   ) {
   }
+
 
   ngOnDestroy(): void {
     this._filaMonitoramentoDeFilaService.setIsGlobalQueue(false);
   }
 
   ngOnInit(): void {
-    this._filaMonitoramentoDeFilaService.setIsGlobalQueue(this.isGlobalQueue)
 
     this.GetTableOnPoolling();
     this.GetNumeroAgendadosParaHoje();
     this.GetNumeroFalhasHoje();
     this._globalLoadingProperty.show();
   }
+
+    ngAfterViewInit(): void {
+          this._titleService.setTitle("Monitoramento de fila");
+    }
 
   @Input() isGlobalQueue: boolean = false;
 
@@ -113,7 +118,7 @@ export class LibMonitoramentoFilaComponent implements OnInit, OnDestroy {
     'COM FALHA': { classes: "badge text-bg-danger" },
     'CANCELADO': { classes: "badge text-bg-danger" },
     'PROCESSANDO': { classes: "badge text-bg-primary" },
-    'ABANDONADO': { classes: "badge bg-dark text-white" },
+    'ABANDONADO': { classes: "badge bg-abandonado" },
   }
 
   public LogStatusClasses: { [key: string]: { classes: string } } = {
