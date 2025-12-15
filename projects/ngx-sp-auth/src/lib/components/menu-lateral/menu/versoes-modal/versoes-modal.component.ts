@@ -68,7 +68,7 @@ export class VersoesModalComponent implements OnInit {
   */
   private getVersions(): void {
     this._menuService.getVersionBase().subscribe({
-      next: response => this.versionBase = response.Version,
+      next: response => this.versionBase = response.Data,
       error: error => this._authUtils.showHttpError(error)
     });
 
