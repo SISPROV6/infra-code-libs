@@ -24,7 +24,7 @@ import { Usuario_IMG } from './model/usuario-img';
 export class MenuServicesService {
 
   private readonly _BASE_URL: string = ""; // SpInfra2ErpWS
-  private readonly _BASE_URL_VERSION_INFRA: string = ""; // SpInfra2Version
+  private readonly _BASE_URL_VERSION_INFRA: string = ""; // SpInfra2VersionCore
   private readonly _BASE_URL_VERSION_CORPORATIVO: string = ""; // SpCrp2Version
 
   private readonly _HTTP_HEADERS = new HttpHeaders().set('Content-Type', 'application/json');
@@ -37,8 +37,8 @@ export class MenuServicesService {
     this._BASE_URL = `${ this._customEnvironmentService.SpInfra2ErpWS }`; // SpInfra2ErpWS
     this._BASE_URL = !this._customEnvironmentService.production ? this._BASE_URL : `${ this._customEnvironmentService.SpInfra2ErpWS }`;
 
-    this._BASE_URL_VERSION_INFRA = `${ this._customEnvironmentService.SpInfra2AuthWS.replace('SpInfra2AuthWS', 'SpInfra2VersionWS') }`; // SpInfra2VersionWS
-    this._BASE_URL_VERSION_INFRA = !this._customEnvironmentService.production ? this._BASE_URL_VERSION_INFRA : `${ this._customEnvironmentService.SpInfra2AuthWS.replace('SpInfra2AuthWS', 'SpInfra2VersionWS') }`;
+    this._BASE_URL_VERSION_INFRA = `${ this._customEnvironmentService.SpInfra2AuthWS.replace('SpInfra2AuthWS', 'SpInfra2VersionCoreWS') }`; // SpInfra2VersionCoreWS
+    this._BASE_URL_VERSION_INFRA = !this._customEnvironmentService.production ? this._BASE_URL_VERSION_INFRA : `${ this._customEnvironmentService.SpInfra2AuthWS.replace('SpInfra2AuthWS', 'SpInfra2VersionCoreWS') }`;
  
     this._BASE_URL_VERSION_CORPORATIVO = `${ this._customEnvironmentService.SpInfra2AuthWS.replace('/Infra', '/Corporativo').replace('SpInfra2AuthWS', 'SpCrp2VersionWS') }`; // SpCrp2VersionWS
     this._BASE_URL_VERSION_CORPORATIVO = !this._customEnvironmentService.production ? this._BASE_URL_VERSION_CORPORATIVO : `${ this._customEnvironmentService.SpInfra2AuthWS.replace('/Infra', '/Corporativo').replace('SpInfra2AuthWS', 'SpCrp2VersionWS') }`;
@@ -158,6 +158,31 @@ export class MenuServicesService {
       .pipe(
         take(1),
         tap(response => {
+          if (response.Error) {
+            throw Error(response.ErrorMessage);
+          }
+        })
+      )
+  }
+
+
+  public getVersionBase(): Observable<RetVersion> {
+    const url = `${ this._BASE_URL_VERSION_INFRA }/Version/base`;
+
+    return this._httpClient.get<RetVersion>(url, { 'headers': this._HTTP_HEADERS })
+      .pipe( take(1), tap(response => {
+          if (response.Error) {
+            throw Error(response.ErrorMessage);
+          }
+        })
+      )
+  }
+
+  public getVersionModulos(): Observable<any> {
+    const url = `${ this._BASE_URL_VERSION_INFRA }/Version/modulos`;
+
+    return this._httpClient.get<any>(url, { 'headers': this._HTTP_HEADERS })
+      .pipe( take(1), tap(response => {
           if (response.Error) {
             throw Error(response.ErrorMessage);
           }
