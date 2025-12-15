@@ -166,10 +166,10 @@ export class MenuServicesService {
   }
 
 
-  public getVersionBase(): Observable<RetVersion> {
+  public getVersionBase(): Observable<any> {
     const url = `${ this._BASE_URL_VERSION_INFRA }/Version/base`;
 
-    return this._httpClient.get<RetVersion>(url, { 'headers': this._HTTP_HEADERS })
+    return this._httpClient.get<any>(url, { 'headers': this._HTTP_HEADERS })
       .pipe( take(1), tap(response => {
           if (response.Error) {
             throw Error(response.ErrorMessage);
