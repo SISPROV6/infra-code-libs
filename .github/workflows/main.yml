@@ -85,16 +85,12 @@ jobs:
         echo "NOTES=$NOTES" >> $GITHUB_ENV
         echo "TAG=$TAG" >> $GITHUB_ENV
 
-    - name: Checar se package.json destino foi modificado
+    - name: Definir variável de publicação
       id: changes
-      run: |
-        if git diff --name-only HEAD~1 HEAD | grep -q "projects/${{ env.PROJECT }}/package.json"; then
-          echo "projects/${{ env.PROJECT }}/package.json foi modificado."
-          echo "should_publish=true" >> $GITHUB_ENV
-        else
-          echo "projects/${{ env.PROJECT }}/package.json não foi modificado."
-          echo "should_publish=false" >> $GITHUB_ENV
-        fi
+      run: echo "should_publish=true" >> $GITHUB_ENV
+
+    - name: Atualizar npm para versão mais recente
+      run: npm install -g npm@latest
 
     - name: Install dependencies
       if: env.should_publish == 'true'
@@ -121,9 +117,6 @@ jobs:
           npm run build:ngx-sp-infra:prod
         fi
 
-    - name: Update npm
-      run: npm install -g npm@latest
-
     - name: Publish to NPM
       if: env.should_publish == 'true'
       env:
@@ -141,15 +134,15 @@ jobs:
           npm publish --access public --tag fix
         fi
 
-    - name: Criar Release automático
-      if: env.should_publish == 'true'
-      uses: actions/create-release@v1
-      with:
-        tag_name: ${{ env.TAG }}
-        release_name: ${{ env.PROJECT }} v${{ env.VERSION }}
-        body: |
-          ## O que mudou?
+    # - name: Criar Release automático
+    #   if: env.should_publish == 'true'
+    #   uses: actions/create-release@v1
+    #   with:
+    #     tag_name: ${{ env.TAG }}
+    #     release_name: ${{ env.PROJECT }} v${{ env.VERSION }}
+    #     body: |
+    #       ## O que mudou?
 
-          ${{ env.NOTES }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #       ${{ env.NOTES }}
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
