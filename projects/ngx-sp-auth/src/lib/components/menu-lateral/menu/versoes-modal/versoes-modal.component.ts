@@ -46,8 +46,8 @@ export class VersoesModalComponent implements OnInit {
   public get releaseNotesUrl(): string {
     let url: string = '';
 
-    if (window.location.host === 'localhost:4200') url = "https://siscandesinfra.sispro.com.br/SisproErpCloud/V6ReleaseNotes";
-    else url = `https://${window.location.host}/SisproErpCloud/V6ReleaseNotes`;
+    if (window.location.host.includes('localhost') || window.location.host.includes('siscandesinfra')) url = "https://siscandesinfra.sispro.com.br/SisproErpCloud/V6ReleaseNotes";
+    else url = `https://erpsrvv6.sisprocloud.com.br/SisproErpCloud/V6ReleaseNotes`;
 
     return url;
   }

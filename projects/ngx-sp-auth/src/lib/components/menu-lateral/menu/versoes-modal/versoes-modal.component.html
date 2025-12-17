@@ -9,7 +9,7 @@
     <ul class="p-0">
       @for (versao of versions; track versao.Projeto) {
         <li>
-          <span class="fw-bold">{{ versao.Projeto }} | <a type="button" class="text-decoration-none text-primary fw-bold" tooltip="Clique aqui para acessar o que mudou nesta versão" [href]="releaseNotesUrl+'/versoes/'+versionBase+'/'+versao.Projeto" target="_blank" >{{ versao.Versao }} <lib-icon iconName="acessoexterno" iconSize="small" /> </a></span>
+          <span class="fw-bold">{{ versao.Projeto }} | <a type="button" class="text-decoration-none text-primary fw-bold" tooltip="Clique aqui para acessar o que mudou nesta versão" [href]="releaseNotesUrl+'/versoes/'+versionBase+'/'+versao.Projeto" target="_blank" >{{ versionBase + '.' + versao.Versao }} <lib-icon iconName="acessoexterno" iconSize="small" /> </a></span>
         </li>
       }
     </ul>
