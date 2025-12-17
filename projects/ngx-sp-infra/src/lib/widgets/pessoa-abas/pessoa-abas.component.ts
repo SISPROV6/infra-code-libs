@@ -17,7 +17,7 @@ export class PessoaAbasComponent {
   public UrisList: PessoasUriRecord[] = [];
   @Input() Id!: string | number;
   @Input() recarregar?: boolean = false;
-
+  @Input() hostServerOutsystemValue: string = "";
   @Output() recarregarChange = new EventEmitter<boolean>();
   @Output() PessoaId = new EventEmitter<string | number>();
 
@@ -123,12 +123,12 @@ export class PessoaAbasComponent {
     }else{
       this.UrisList.push(
       {nome: 'Dados básicos', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/pessoas/editar/${this.Id}`, isTargetSelf: true},
-      {nome: 'Dados comerciais', uri: `https://${window.location.host}/SisproErpCloud/Vendas/pessoas-comercial/${this.Id}`, isTargetSelf: false},
-      {nome: 'Dados financeiros', uri: `https://${window.location.host}/SisproErpCloud/Financeiro/clientes-fornecedores/${this.Id}`, isTargetSelf: false},
-      {nome: 'Compras - Dados da pessoa para suprimentos', uri: `https://${window.location.host}/SisproErpCloud/Compras/pessoas-dados-suprimentos/editar/${this.Id}`, isTargetSelf: false},
-      {nome: 'Compras - Dados do fornecedor', uri: `https://${window.location.host}/SisproErpCloud/Compras/pessoas-dados-fornecedor/editar/${this.Id}`, isTargetSelf: false},
+      {nome: 'Dados comerciais', uri: `${this.hostServerOutsystemValue}/SisproErpCloud/Vendas/pessoas-comercial/${this.Id}`, isTargetSelf: false},
+      {nome: 'Dados financeiros', uri: `${this.hostServerOutsystemValue}/SisproErpCloud/Financeiro/clientes-fornecedores/${this.Id}`, isTargetSelf: false},
+      {nome: 'Compras - Dados da pessoa para suprimentos', uri: `${this.hostServerOutsystemValue}/SisproErpCloud/Compras/pessoas-dados-suprimentos/editar/${this.Id}`, isTargetSelf: false},
+      {nome: 'Compras - Dados do fornecedor', uri: `${this.hostServerOutsystemValue}/SisproErpCloud/Compras/pessoas-dados-fornecedor/editar/${this.Id}`, isTargetSelf: false},
       {nome: 'Dados auxiliares', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/pessoas/dadosAuxiliares/${this.Id}`, isTargetSelf: false},
-      {nome: 'Tipo', uri: `https://siscandesv10.sispro.com.br/SpMnt3Manutencao/TipoPessoa.aspx?IsCorp=True&CrpPessoaId=${this.Id}`, isTargetSelf: false},
+      {nome: 'Tipo', uri: `${this.hostServerOutsystemValue}/SpMnt3Manutencao/TipoPessoa.aspx?IsCorp=True&CrpPessoaId=${this.Id}`, isTargetSelf: false},
       {nome: 'Fiscal', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/pessoas/pessoaFiscal/${this.Id}`, isTargetSelf: false},
       {nome: 'Contabilidade', uri: `https://${window.location.host}/SisproErpCloud/Contabilidade/Participantes?CrpPessoaId=${this.Id}`, isTargetSelf: false},
     );
