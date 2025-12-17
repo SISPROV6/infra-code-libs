@@ -44,11 +44,11 @@ export class EmpresaAbasComponent implements OnInit{
       {nome: 'Compras', uri: `${this.hostServerOutsystemValue}/SisproErpCloud/Compras/empresa-compras/editar/${this.Id}`, isTargetSelf: false},
       {nome: 'Recebimento', uri: `${this.hostServerOutsystemValue}/SisproErpCloud/Recebimento/configuracao-empresa/editar/${this.Id}`, isTargetSelf: false},
       {nome: 'Fiscal', uri: `${this.hostServerOutsystemValue}/SisproErpCloud/Efd-Reinf/perfil-da-empresa/editar/${this.Id}`, isTargetSelf: false},
-      {nome: 'Patrimônio', uri: `https://siscandesv10.sispro.com.br/SpPat1Conf/EmpresaPatrimonio.aspx?IsCorp=True&InfraEmpresaId=${this.Id}`, isTargetSelf: false},
+      {nome: 'Patrimônio', uri: `${this.hostServerOutsystemValue}/SpPat1Conf/EmpresaPatrimonio.aspx?IsCorp=True&InfraEmpresaId=${this.Id}`, isTargetSelf: false},
       {nome: 'Aprovação', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/empresas/editar/aprovacao/${this.Id}`, isTargetSelf: false},
       {nome: 'Financeiro', uri: `${this.hostServerOutsystemValue}/SisproErpCloud/Financeiro/empresa-estab/editar/empresa/${this.Id}`, isTargetSelf: false},
-      {nome: 'Reinf', uri: `https://siscandesv10.sispro.com.br/SpReinf1Cad/ReinfEmpresa_List.aspx?InfraEmpresaId=${this.Id}&IsCorp=True`, isTargetSelf: false},
-      {nome: 'ECF/TAX', uri: `https://siscandesv10.sispro.com.br/SpGcf2Cadastros/GcfEmpresa_List.aspx?IsCorp=True&InfraEmpresaId=${this.Id}`, isTargetSelf: false},
+      {nome: 'Reinf', uri: `${this.hostServerOutsystemValue}/SpReinf1Cad/ReinfEmpresa_List.aspx?InfraEmpresaId=${this.Id}&IsCorp=True`, isTargetSelf: false},
+      {nome: 'ECF/TAX', uri: `${this.hostServerOutsystemValue}/SpGcf2Cadastros/GcfEmpresa_List.aspx?IsCorp=True&InfraEmpresaId=${this.Id}`, isTargetSelf: false},
       {nome: 'SCP', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/empresas/editar/SCP/${this.Id}`, isTargetSelf: false},
     );
     }
