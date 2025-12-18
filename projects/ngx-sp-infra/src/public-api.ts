@@ -17,12 +17,12 @@ export * from './lib/message/message.service';
 export * from './lib/message/save/save.component';
 
 /** Models */
-export * from './lib/models/basic-ret-types/ret-base-model';
 export * from './lib/models/basic-ret-types/ret-boolean';
 export * from './lib/models/basic-ret-types/ret-number';
 export * from './lib/models/basic-ret-types/ret-object-list';
 export * from './lib/models/basic-ret-types/ret-string';
 export * from './lib/models/basic-ret-types/ret-string-list';
+export * from './lib/models/basic-ret-types/return.model';
 export * from './lib/models/cep/endereco-by-cep';
 export * from './lib/models/cep/ret-cep';
 export * from './lib/models/combobox/record-combobox';

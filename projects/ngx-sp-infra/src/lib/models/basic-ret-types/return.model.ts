@@ -1,7 +1,7 @@
 import { IError } from "../utils/ierror";
 
-export class RetBaseModel implements IError {
+export class ReturnModel<T> implements IError {
   Error: boolean = false;
   ErrorMessage: string = '';
-  Data: any = null;
+  Data: T | null = null;
 }
