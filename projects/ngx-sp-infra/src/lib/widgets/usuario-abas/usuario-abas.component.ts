@@ -32,7 +32,8 @@ export class UsuarioAbasComponent {
       this.linksList.push(
       { nome: 'Usuário', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/usuarios/editarUsuarios/${this.Id}`, isTargetSelf: true},
       {nome: 'Pessoa', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/usuarios/pessoas/${this.Id}`, isTargetSelf: false},
-      {nome: 'Estoque', uri: `${this.hostServerOutsystemValue}/SisproErpCloud/Estoque/SpEtq1Etq/usuarios/editar/${this.Id}`, isTargetSelf: false},
+      // {nome: 'Estoque', uri: `${this.hostServerOutsystemValue}/SpEtq1Etq/usuarios/editar/${this.Id}`, isTargetSelf: false},
+      {nome: 'Estoque', uri: `${this.hostServerOutsystemValue}/SpEtq1Etq/UsuarioEstoque.aspx?IsCorp=True&UsuarioId=${this.Id}`, isTargetSelf: false},
     );
     }
 

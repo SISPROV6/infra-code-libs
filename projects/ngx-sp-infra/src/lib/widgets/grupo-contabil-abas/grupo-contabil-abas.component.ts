@@ -30,7 +30,8 @@ export class GrupoContabilAbasComponent {
     } else {
       this.linksList.push(
         { nome: 'Grupo contábil', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/grupo-contabil-corp/editar/${this.Id}`, isTargetSelf: true },
-        { nome: 'Dados compras', uri: `${this.hostServerOutsystemValue}/SisproErpCloud/Compras/grupo-contabil/editar/${this.Id}`, isTargetSelf: false },
+        // { nome: 'Dados compras', uri: `${this.hostServerOutsystemValue}/SisproErpCloud/Compras/grupo-contabil/editar/${this.Id}`, isTargetSelf: false },
+        { nome: 'Dados compras', uri: `${this.hostServerOutsystemValue}/SpCop3Configuracoes/CopConfigGrCont_Edit.aspx?&CrpGrupoContabilId=${this.Id}&IsCorp=True`, isTargetSelf: false },
       );
     }
 
