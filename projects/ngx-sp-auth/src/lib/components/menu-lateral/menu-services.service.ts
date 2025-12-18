@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { Observable, Subject, take, tap } from 'rxjs';
 
-import { RetBaseModel, RetError, RetEstabelecimentosModal, RetString } from 'ngx-sp-infra';
+import { RetError, RetEstabelecimentosModal, RetString, ReturnModel } from 'ngx-sp-infra';
 import { LibCustomEnvironmentService } from '../../custom/lib-custom-environment.service';
 import { AuthStorageService } from '../../storage/auth-storage.service';
 
@@ -132,10 +132,10 @@ export class MenuServicesService {
   // #region Menu: Version
 
   /** Busca a versão base da Infra dentro do mesmo servidor. */
-  public getVersionBase(): Observable<RetBaseModel> {
+  public getVersionBase(): Observable<ReturnModel<string>> {
     const url = `${ this._BASE_URL_VERSION_INFRA }/Version/base`;
 
-    return this._httpClient.get<RetBaseModel>(url, { 'headers': this._HTTP_HEADERS })
+    return this._httpClient.get<ReturnModel<string>>(url, { 'headers': this._HTTP_HEADERS })
       .pipe( take(1), tap(response => {
           if (response.Error) {
             throw Error(response.ErrorMessage);
@@ -145,10 +145,10 @@ export class MenuServicesService {
   }
 
   /** Busca as versões dos módulos instalados e disponíveis dentro do mesmo servidor. */
-  public getVersionModulos(): Observable<RetBaseModel> {
+  public getVersionModulos(): Observable<ReturnModel<any[]>> {
     const url = `${ this._BASE_URL_VERSION_INFRA }/Version/modulos`;
 
-    return this._httpClient.get<RetBaseModel>(url, { 'headers': this._HTTP_HEADERS })
+    return this._httpClient.get<ReturnModel<any[]>>(url, { 'headers': this._HTTP_HEADERS })
       .pipe( take(1), tap(response => {
           if (response.Error) {
             throw Error(response.ErrorMessage);

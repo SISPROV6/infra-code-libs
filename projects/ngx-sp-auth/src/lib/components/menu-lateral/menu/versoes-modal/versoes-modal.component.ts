@@ -66,7 +66,7 @@ export class VersoesModalComponent implements OnInit {
   */
   private getVersions(): void {
     this._menuService.getVersionBase().subscribe({
-      next: response => this.versionBase = response.Data,
+      next: response => this.versionBase = response.Data!,
       error: error => this._authUtils.showHttpError(error)
     });
 
@@ -75,7 +75,11 @@ export class VersoesModalComponent implements OnInit {
       next: response => {
         console.log(response);
 
-        this.versions = response.Data;
+        // Deve formatar as versões que forem 0 converter para "Base"
+        this.versions = response.Data?.map(e => {
+          if (e.Versao === '0') return "Base";
+          else return e.Versao;
+        });
       },
       error: error => this._authUtils.showHttpError(error)
     });

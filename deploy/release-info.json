@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-infra",
-  "version": "6.11.2",
-  "tag": "infra-v6.11.2",
+  "project": "ngx-sp-auth",
+  "version": "4.6.11",
+  "tag": "auth-v4.6.11",
   "notes": "Atualização de rotina",
-  "timestamp": "2025-12-18T20:54:32.558Z"
+  "timestamp": "2025-12-18T21:02:11.195Z"
 }
