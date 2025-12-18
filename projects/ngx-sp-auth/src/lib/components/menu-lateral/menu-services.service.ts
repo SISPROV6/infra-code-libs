@@ -15,7 +15,6 @@ import { RetInfraUsuarioEmail } from './model/ret-infrausuarioemail';
 import { RetInfraUsuarioImg } from './model/ret-infrausuarioimg';
 import { RetIsMenuAllowed } from './model/ret-is-menu-allowed';
 import { RetNavSubMenu, RetSubmenuWithCards } from './model/ret-navsubmenu';
-import { RetVersion } from './model/ret-version';
 import { Usuario_IMG } from './model/usuario-img';
 
 @Injectable({
@@ -25,7 +24,6 @@ export class MenuServicesService {
 
   private readonly _BASE_URL: string = ""; // SpInfra2ErpWS
   private readonly _BASE_URL_VERSION_INFRA: string = ""; // SpInfra2VersionCore
-  private readonly _BASE_URL_VERSION_CORPORATIVO: string = ""; // SpCrp2Version
 
   private readonly _HTTP_HEADERS = new HttpHeaders().set('Content-Type', 'application/json');
 
@@ -39,9 +37,6 @@ export class MenuServicesService {
 
     this._BASE_URL_VERSION_INFRA = `${ this._customEnvironmentService.SpInfra2AuthWS.replace('SpInfra2AuthWS', 'SpInfra2VersionCoreWS') }`; // SpInfra2VersionCoreWS
     this._BASE_URL_VERSION_INFRA = !this._customEnvironmentService.production ? this._BASE_URL_VERSION_INFRA : `${ this._customEnvironmentService.SpInfra2AuthWS.replace('SpInfra2AuthWS', 'SpInfra2VersionCoreWS') }`;
- 
-    this._BASE_URL_VERSION_CORPORATIVO = `${ this._customEnvironmentService.SpInfra2AuthWS.replace('/Infra', '/Corporativo').replace('SpInfra2AuthWS', 'SpCrp2VersionWS') }`; // SpCrp2VersionWS
-    this._BASE_URL_VERSION_CORPORATIVO = !this._customEnvironmentService.production ? this._BASE_URL_VERSION_CORPORATIVO : `${ this._customEnvironmentService.SpInfra2AuthWS.replace('/Infra', '/Corporativo').replace('SpInfra2AuthWS', 'SpCrp2VersionWS') }`;
   }
 
 
@@ -135,37 +130,8 @@ export class MenuServicesService {
   // #endregion Get Usuario Email
 
   // #region Menu: Version
-  public getVersionInfra(): Observable<RetVersion> {
-    const url = `${ this._BASE_URL_VERSION_INFRA }/Version/GetVersion`;
 
-    return this._httpClient
-      .get<RetVersion>(url, { 'headers': this._HTTP_HEADERS })
-      .pipe(
-        take(1),
-        tap(response => {
-          if (response.Error) {
-            throw Error(response.ErrorMessage);
-          }
-        })
-      )
-  }
-
-  public getVersionCorporativo(): Observable<RetVersion> {
-    const url = `${ this._BASE_URL_VERSION_CORPORATIVO }/Version/GetVersion`;
-
-    return this._httpClient
-      .get<RetVersion>(url, { 'headers': this._HTTP_HEADERS })
-      .pipe(
-        take(1),
-        tap(response => {
-          if (response.Error) {
-            throw Error(response.ErrorMessage);
-          }
-        })
-      )
-  }
-
-
+  /** Busca a versão base da Infra dentro do mesmo servidor. */
   public getVersionBase(): Observable<any> {
     const url = `${ this._BASE_URL_VERSION_INFRA }/Version/base`;
 
@@ -178,6 +144,7 @@ export class MenuServicesService {
       )
   }
 
+  /** Busca as versões dos módulos instalados e disponíveis dentro do mesmo servidor. */
   public getVersionModulos(): Observable<any> {
     const url = `${ this._BASE_URL_VERSION_INFRA }/Version/modulos`;
 

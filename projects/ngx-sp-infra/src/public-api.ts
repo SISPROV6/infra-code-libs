@@ -17,6 +17,7 @@ export * from './lib/message/message.service';
 export * from './lib/message/save/save.component';
 
 /** Models */
+export * from './lib/models/basic-ret-types/ret-base-model';
 export * from './lib/models/basic-ret-types/ret-boolean';
 export * from './lib/models/basic-ret-types/ret-number';
 export * from './lib/models/basic-ret-types/ret-object-list';
@@ -84,10 +85,10 @@ export * from './lib/widgets/field-contador-message/field-contador-message.compo
 
 /** Utils */
 export * from './lib/utils/check-url-and-method.service';
+export * from './lib/utils/cnpj-mask-config';
 export * from './lib/utils/form-utils';
 export * from './lib/utils/settings.service';
 export * from './lib/utils/utils';
-export * from './lib/utils/cnpj-mask-config';
 
 /** Services */
 export * from './lib/service/file.service';

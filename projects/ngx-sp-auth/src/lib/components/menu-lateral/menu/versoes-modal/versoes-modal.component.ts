@@ -3,7 +3,6 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import { InfraModule } from 'ngx-sp-infra';
 
-import { RouterLink } from '@angular/router';
 import { AuthUtilService } from '../../../../utils/auth-utils.service';
 import { MenuServicesService } from '../../menu-services.service';
 
@@ -11,9 +10,8 @@ import { MenuServicesService } from '../../menu-services.service';
   selector: 'versoes-modal',
   templateUrl: './versoes-modal.component.html',
   imports: [
-    InfraModule,
-    RouterLink,
     CommonModule,
+    InfraModule,
   ],
   styles: `
     ul {
@@ -69,13 +67,6 @@ export class VersoesModalComponent implements OnInit {
   private getVersions(): void {
     this._menuService.getVersionBase().subscribe({
       next: response => this.versionBase = response.Data,
-      error: error => this._authUtils.showHttpError(error)
-    });
-
-    // Versão do Corporativo
-    // TODO: Excluir
-    this._menuService.getVersionCorporativo().subscribe({
-      next: response => this.versionCorporativo = response.Version,
       error: error => this._authUtils.showHttpError(error)
     });
 
