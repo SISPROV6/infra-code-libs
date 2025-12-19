@@ -3,7 +3,6 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import { InfraModule } from 'ngx-sp-infra';
 
-import { RouterLink } from '@angular/router';
 import { AuthUtilService } from '../../../../utils/auth-utils.service';
 import { MenuServicesService } from '../../menu-services.service';
 
@@ -11,9 +10,8 @@ import { MenuServicesService } from '../../menu-services.service';
   selector: 'versoes-modal',
   templateUrl: './versoes-modal.component.html',
   imports: [
-    InfraModule,
-    RouterLink,
     CommonModule,
+    InfraModule,
   ],
   styles: `
     ul {
@@ -46,8 +44,8 @@ export class VersoesModalComponent implements OnInit {
   public get releaseNotesUrl(): string {
     let url: string = '';
 
-    if (window.location.host === 'localhost:4200') url = "https://siscandesinfra.sispro.com.br/SisproErpCloud/V6ReleaseNotes";
-    else url = `https://${window.location.host}/SisproErpCloud/V6ReleaseNotes`;
+    if (window.location.host.includes('localhost') || window.location.host.includes('siscandesinfra')) url = "https://siscandesinfra.sispro.com.br/SisproErpCloud/V6ReleaseNotes";
+    else url = `https://erpsrvv6.sisprocloud.com.br/SisproErpCloud/V6ReleaseNotes`;
 
     return url;
   }
@@ -68,14 +66,7 @@ export class VersoesModalComponent implements OnInit {
   */
   private getVersions(): void {
     this._menuService.getVersionBase().subscribe({
-      next: response => this.versionBase = response.Data,
-      error: error => this._authUtils.showHttpError(error)
-    });
-
-    // Versão do Corporativo
-    // TODO: Excluir
-    this._menuService.getVersionCorporativo().subscribe({
-      next: response => this.versionCorporativo = response.Version,
+      next: response => this.versionBase = response.Data!,
       error: error => this._authUtils.showHttpError(error)
     });
 
@@ -84,7 +75,11 @@ export class VersoesModalComponent implements OnInit {
       next: response => {
         console.log(response);
 
-        this.versions = response.Data;
+        // Deve formatar as versões que forem 0 converter para "Base"
+        this.versions = response.Data?.map(e => {
+          if (e.Versao === '0') return { Projeto: e.Projeto, Versao: "Base" };
+          else return { Projeto: e.Projeto, Versao: e.Versao };
+        });
       },
       error: error => this._authUtils.showHttpError(error)
     });

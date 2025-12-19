@@ -22,6 +22,7 @@ export * from './lib/models/basic-ret-types/ret-number';
 export * from './lib/models/basic-ret-types/ret-object-list';
 export * from './lib/models/basic-ret-types/ret-string';
 export * from './lib/models/basic-ret-types/ret-string-list';
+export * from './lib/models/basic-ret-types/return.model';
 export * from './lib/models/cep/endereco-by-cep';
 export * from './lib/models/cep/ret-cep';
 export * from './lib/models/combobox/record-combobox';
@@ -84,10 +85,10 @@ export * from './lib/widgets/field-contador-message/field-contador-message.compo
 
 /** Utils */
 export * from './lib/utils/check-url-and-method.service';
+export * from './lib/utils/cnpj-mask-config';
 export * from './lib/utils/form-utils';
 export * from './lib/utils/settings.service';
 export * from './lib/utils/utils';
-export * from './lib/utils/cnpj-mask-config';
 
 /** Services */
 export * from './lib/service/file.service';

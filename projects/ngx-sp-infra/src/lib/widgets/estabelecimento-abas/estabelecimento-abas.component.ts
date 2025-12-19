@@ -14,6 +14,7 @@ export class EstabelecimentoAbasComponent {
   public linksList: estabelecimentoUriRecord[] = [];
   @Input() Id: string | number = "";
   @Input() empresaId: string | null = "";
+  @Input() hostServerOutsystemValue: string = "";
   @Output() EstabId = new EventEmitter<string | number>();
 
   public activeItem: string = '';
@@ -37,14 +38,18 @@ export class EstabelecimentoAbasComponent {
     }else{
       this.linksList.push(
       { nome: 'Estabelecimento', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/estabelecimentos/editar/${this.Id}`, isTargetSelf: true},
-      {nome: 'Recebimento', uri: `https://${window.location.host}/SisproErpCloud/Recebimento/configuracao-estabelecimento/editar/${this.Id}`, isTargetSelf: false},
-      {nome: 'Financeiro', uri: `https://${window.location.host}/SisproErpCloud/Financeiro/empresa-estab/editar/estab/0?id=${this.Id}&empresaId=${this.empresaId}`, isTargetSelf: false},
-      {nome: 'Fiscal', uri: `https://${window.location.host}/SisproErpCloud/Efd-Reinf/identificacao-da-entidade/editar/${this.Id}`, isTargetSelf: false},
-      {nome: 'Compras', uri: `https://${window.location.host}/SisproErpCloud/Compras/estabelecimento-compras/editar/${this.Id}`, isTargetSelf: false},
-      {nome: 'Contratos', uri: `https://siscandesv10.sispro.com.br/SpCtr1Param/CtrGnCfgApl_Edit.aspx?EstabelecimentoId=${this.Id}&IsCorp=True`, isTargetSelf: false},
-      {nome: 'Vendas', uri: `https://siscandesv10.sispro.com.br/SpNeg3Cfg/CfgEstabelecimento.aspx?IsCorp=True&EstabelecimentoId=${this.Id}`, isTargetSelf: false},
+      // {nome: 'Recebimento', uri: `${this.hostServerOutsystemValue}/SisproErpCloud/Recebimento/configuracao-estabelecimento/editar/${this.Id}`, isTargetSelf: false},
+      {nome: 'Recebimento', uri: `${this.hostServerOutsystemValue}/SpRec1Cfg/EstabRecebimento.aspx?EstabelecimentoId=${this.Id}&IsCorp=True`, isTargetSelf: false},
+      // {nome: 'Financeiro', uri: `${this.hostServerOutsystemValue}/SisproErpCloud/Financeiro/empresa-estab/editar/estab/0?id=${this.Id}&empresaId=${this.empresaId}`, isTargetSelf: false},
+      {nome: 'Financeiro', uri: `${this.hostServerOutsystemValue}/SpFin1Cadastros/FinEstabParam_Edit.aspx?IsCorp=True&EstabelecimentoId=${this.Id}`, isTargetSelf: false},
+      // {nome: 'Fiscal', uri: `${this.hostServerOutsystemValue}/SisproErpCloud/Efd-Reinf/identificacao-da-entidade/editar/${this.Id}`, isTargetSelf: false},
+      {nome: 'Fiscal', uri: `${this.hostServerOutsystemValue}/SpSped1Conf/IdentificacaoDaEntidade_list.aspx?IsFiscal=False&StartWizard=False&EstabelecimentoId=${this.Id}&IsCorp=True`, isTargetSelf: false},
+      // {nome: 'Compras', uri: `${this.hostServerOutsystemValue}/SisproErpCloud/Compras/estabelecimento-compras/editar/${this.Id}`, isTargetSelf: false},
+      {nome: 'Compras', uri: `${this.hostServerOutsystemValue}/SpCop3Configuracoes/EstabCompras.aspx?IsCorp=True&EstabelecimentoId=${this.Id}`, isTargetSelf: false},
+      {nome: 'Contratos', uri: `${this.hostServerOutsystemValue}/SpCtr1Param/CtrGnCfgApl_Edit.aspx?EstabelecimentoId=${this.Id}&IsCorp=True`, isTargetSelf: false},
+      {nome: 'Vendas', uri: `${this.hostServerOutsystemValue}/SpNeg3Cfg/CfgEstabelecimento.aspx?IsCorp=True&EstabelecimentoId=${this.Id}`, isTargetSelf: false},
       {nome: 'CNO', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/estabelecimentos/EstabCnoDet/${this.Id}`, isTargetSelf: false},
-      {nome: 'Tributos', uri: `https://siscandesv10.sispro.com.br/SpFis1Interface/ConfigOrdemCalcImpostos.aspx?IsCorp=True&EstabelecimentoId=${this.Id}`, isTargetSelf: false},
+      {nome: 'Tributos', uri: `${this.hostServerOutsystemValue}/SpFis1Interface/ConfigOrdemCalcImpostos.aspx?IsCorp=True&EstabelecimentoId=${this.Id}`, isTargetSelf: false},
     )
     }
 

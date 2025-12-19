@@ -13,6 +13,7 @@ export class ItemsAbasComponent {
 
    public linksList: links[] = [];
   @Input() Id: string | number = "";
+  @Input() hostServerOutsystemValue: string = "";
   @Output() ItemId = new EventEmitter<string | number>();
 
   public activeItem: string = '';
@@ -30,8 +31,10 @@ export class ItemsAbasComponent {
     }else{
       this.linksList.push(
       { nome: 'Corporativo', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/itens/editar/${this.Id}`, isTargetSelf: true},
-      { nome: 'Estoque', uri: `https://${window.location.host}/SisproErpCloud/Estoque/SpEtq1Etq/ItemParaSuprimentos/editar/${this.Id}`, isTargetSelf: true},
-      {nome: 'Dados Compras', uri: `https://${window.location.host}/SisproErpCloud/Compras/item-dados-compras/editar/${this.Id}`, isTargetSelf: false},
+      // { nome: 'Estoque', uri: `${this.hostServerOutsystemValue}/SpEtq1Etq/ItemParaSuprimentos/editar/${this.Id}`, isTargetSelf: true},
+      { nome: 'Estoque', uri: `${this.hostServerOutsystemValue}/SpEtq1Etq/ItemEstoque.aspx?IsCorp=True&CrpItemId=${this.Id}`, isTargetSelf: true},
+      // {nome: 'Dados Compras', uri: `${this.hostServerOutsystemValue}/item-dados-compras/editar/${this.Id}`, isTargetSelf: false},
+      {nome: 'Dados Compras', uri: `${this.hostServerOutsystemValue}/SpCop3Configuracoes/ItemDadosCompras.aspx?CrpItemId=${this.Id}`, isTargetSelf: false},
     );
     }
 
