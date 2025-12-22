@@ -74,14 +74,14 @@
     </a>
   }
 
-  @if(showButton){
-  <a type="button" style="position: absolute; right: 0;" class="text-decoration-none text-primary fw-bold mt-1" [href]="buttonRoute" target="_blank">
+  @if(button?.showButton){
+  <a type="button" style="position: absolute; right: 0;" class="text-decoration-none text-primary fw-bold mt-1" [href]="button?.buttonRoute" target="_blank">
     
-    @if(showButtonIcon && showButton){
-      <lib-icon [iconName]="iconName" />
+    @if(button?.showButtonIcon && button?.showButton){
+      <lib-icon [iconName]="button?.iconName ?? ''" />
     }
     
-    {{buttonText}}
+    {{button?.buttonText}}
 
   </a>
   }

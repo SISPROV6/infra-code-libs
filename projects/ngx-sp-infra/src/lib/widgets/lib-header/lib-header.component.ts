@@ -96,20 +96,8 @@ export class LibHeaderComponent implements OnInit {
   /** Dados que devem ser informados caso deseje se redirecionar para a página de Auditoria. */
   @Input() public auditoria: { Entidade: string, RegistroId?: string | number, IsContratos?: boolean } | null = null;
 
-  /** Booleano para informar em caso de exibir o botão */
-  @Input() public showButton: boolean = false;
-
-  /** Variável do texto do botão */
-  @Input() public buttonText: string = "";
-
-  /** Rota da tela para onde o botão direciona */
-  @Input() public buttonRoute: string = "";
-
-  /** Nome do icone que fica no botão */
-  @Input() public iconName: string = "";
-
-  /** Booleano para informar em caso de exibir o ícone */
-  @Input() public showButtonIcon: boolean = false;
+  /** Dados que devem ser informados caso deseje mostrar o botão*/
+  @Input() public button: {showButton?: boolean, buttonText?: string, buttonRoute?: string, showButtonIcon?: boolean, iconName?: string | null} | null = null;
 
   /** [DEPRECIADO EM BREVE] Emissor de evento ao clicar no "Cancelar". Será depreciado em breve, utilize 'return'. */
 	@Output() public onReturn = new EventEmitter<void>();
