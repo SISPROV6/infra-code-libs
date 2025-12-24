@@ -36,9 +36,7 @@ export class VersoesModalComponent implements OnInit {
   // #region PUBLIC
   @Output() public onClose = new EventEmitter<any>();
   
-  public versionBase: string = '';
-  public versionCorporativo: string = '';
-
+  public versionBase?: string;
   public versions?: any[];
 
   public get releaseNotesUrl(): string {
