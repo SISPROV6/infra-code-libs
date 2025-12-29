@@ -150,13 +150,11 @@ export class SearchInputComponent implements OnInit, AfterViewInit {
     const isV6 = item.RotaV6 && routeStr === item.RotaV6;
     const isOS = item.RotaOS && routeStr === item.RotaOS;
 
-    // Normalize project names for comparison (remove accents)
-    const nomeProjeto = normalizarString(item.Projeto || '');
     const primeiroSegmentoRota = routeStr.split('/')[0] || '';
     const nomeProjetoRota = normalizarString(primeiroSegmentoRota || '');
 
     // If the first segment of the route equals the project name, we may remove it for local V6 routing
-    const primeiroSegmentoIsProjeto = nomeProjeto !== '' && nomeProjeto === nomeProjetoRota;
+    const primeiroSegmentoIsProjeto = item.ProjetoURLHome !== '' && item.ProjetoURLHome === nomeProjetoRota;
 
     // Build final URL
     let finalURL = '';
