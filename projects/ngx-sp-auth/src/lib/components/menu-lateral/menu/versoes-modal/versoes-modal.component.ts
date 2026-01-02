@@ -36,9 +36,7 @@ export class VersoesModalComponent implements OnInit {
   // #region PUBLIC
   @Output() public onClose = new EventEmitter<any>();
   
-  public versionBase: string = '';
-  public versionCorporativo: string = '';
-
+  public versionBase?: string;
   public versions?: any[];
 
   public get releaseNotesUrl(): string {
@@ -77,7 +75,7 @@ export class VersoesModalComponent implements OnInit {
 
         // Deve formatar as versões que forem 0 converter para "Base"
         this.versions = response.Data?.map(e => {
-          if (e.Versao === '0') return { Projeto: e.Projeto, Versao: "Base" };
+          if (e.Versao === '0' || e.Versao === '' || e.Versao === null || e.Versao === undefined) return { Projeto: e.Projeto, Versao: "Base" };
           else return { Projeto: e.Projeto, Versao: e.Versao };
         });
       },
