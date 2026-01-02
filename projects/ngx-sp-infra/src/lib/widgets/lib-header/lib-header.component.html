@@ -2,7 +2,7 @@
 <!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 
 <div class="header zindex-sticky sticky-top mb-3 pt-3">
-  <div class="row">
+  <div class="row mb-3">
     @if(!isMobile){
       <div class="w-35">
       <nav aria-label="breadcrumb">
@@ -68,11 +68,22 @@
     </div>
   </div>
 
-  <hr class="mt-3">
-
   @if (auditoria) {
     <a type="button" class="text-decoration-none text-primary fw-bold mt-1" [href]="auditoriaRoute" target="_blank" >
       <lib-icon iconName="auditoria" /> Auditoria
     </a>
   }
+
+  @if(button?.showButton){
+  <a type="button" style="position: absolute; right: 0;" class="text-decoration-none text-primary fw-bold mt-1" [href]="button?.buttonRoute" target="_blank">
+    
+    @if(button?.showButtonIcon && button?.showButton){
+      <lib-icon [iconName]="button?.iconName ?? ''" />
+    }
+    
+    {{button?.buttonText}}
+
+  </a>
+  }
+   <hr class="mt-1">
 </div>
