@@ -133,30 +133,19 @@ export class SearchInputComponent implements OnInit, AfterViewInit {
     // - server + RotaV6 => https://<serverHost>/<rotaV6>
     // - server + RotaOS => https://<serverHost>/<rotaOS>
 
-    // Normalize route and item fields
-    const routeStr = route || '';
     const isLocal = window.location.hostname.includes('localhost') || window.location.hostname === '127.0.0.1';
 
     // Production host to use when we need to redirect to server from local
-    const productionHost = isLocal ? 'siscandesv6.sispro.com.br' : window.location.host;
-    
+    const productionHost = isLocal ? 'siscandesv6.sispro.com.br' : window.location.host;    
     const protocol = window.location.protocol;
     const host = window.location.host;
 
-    // Helper to remove diacritics / accents
-    const normalizarString = (s: string) => (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-
     // Determine if given route corresponds to a V6 route (it will match item.RotaV6)
-    const isV6 = item.RotaV6 && routeStr === item.RotaV6;
-    const isOS = item.RotaOS && routeStr === item.RotaOS;
+    const isV6 = item.RotaV6 && route === item.RotaV6;
+    const isOS = item.RotaOS && route === item.RotaOS;
 
-    // Normalize project names for comparison (remove accents)
-    const nomeProjeto = normalizarString(item.Projeto || '');
-    const primeiroSegmentoRota = routeStr.split('/')[0] || '';
-    const nomeProjetoRota = normalizarString(primeiroSegmentoRota || '');
-
-    // If the first segment of the route equals the project name, we may remove it for local V6 routing
-    const primeiroSegmentoIsProjeto = nomeProjeto !== '' && nomeProjeto === nomeProjetoRota;
+    const primeiroSegmentoRota = route.split('/')[0] == '' ? route.split('/')[1] : route.split('/')[0];
+    const projetoPresenteNaRota = item.ProjetoURLHome !== '' && item.ProjetoURLHome.split('/')[0] === primeiroSegmentoRota;
 
     // Build final URL
     let finalURL = '';
@@ -164,19 +153,18 @@ export class SearchInputComponent implements OnInit, AfterViewInit {
     if (isV6) {
       if (isLocal) {
         // On local, route should point to the local app. Remove first segment when it's the project name.
-        const rotaReduzida = primeiroSegmentoIsProjeto && routeStr.includes('/') ? routeStr.split('/').slice(1).join('/') : routeStr;
+        const rotaReduzida = projetoPresenteNaRota && route.includes('/') ? route.split('/').slice(1).join('/') : route;
         finalURL = `${protocol}//${host}/${rotaReduzida.replace(/^\/+/, '')}`;
       }
       else {
         // On server, use the server host and keep the full V6 route
         // If the route doesn't start with a product name, it's a Corporativo route
-        const isCorporativo = !primeiroSegmentoIsProjeto;
-        finalURL = `https://${host}/SisproErpCloud/${isCorporativo ? 'Corporativo/' : ''}${routeStr.replace(/^\/+/, '')}`;
+        finalURL = `https://${host}/SisproErpCloud/${!projetoPresenteNaRota ? `${item.ProjetoURLHome.split('/')[0]}/` : ''}${route.replace(/^\/+/, '')}`;
       }
     }
     else if (isOS) {
       // RotaOS always points to the server (production) using https
-      finalURL = `https://${productionHost}/${routeStr.replace(/^\/+/, '')}`;
+      finalURL = `https://${productionHost}/${route.replace(/^\/+/, '')}`;
     }
     else {
       // Fallback: if route is empty or not matched, return current origin
