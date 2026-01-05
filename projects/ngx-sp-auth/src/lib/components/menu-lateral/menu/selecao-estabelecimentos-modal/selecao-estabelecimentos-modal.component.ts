@@ -8,6 +8,7 @@ import { LibCustomMenuService } from '../../../../custom/lib-custom-menu.service
 import { AuthStorageService } from '../../../../storage/auth-storage.service';
 import { AuthUtilService } from '../../../../utils/auth-utils.service';
 import { MenuServicesService } from '../../menu-services.service';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @Component({
     selector: 'selecao-estabelecimentos-modal',
@@ -16,7 +17,8 @@ import { MenuServicesService } from '../../menu-services.service';
     imports: [
         NgxPaginationModule,
         InfraModule,
-        CommonModule
+        CommonModule,
+        TooltipModule
     ]
 })
 export class SelecaoEstabelecimentosModalComponent implements OnInit {
@@ -42,7 +44,7 @@ export class SelecaoEstabelecimentosModalComponent implements OnInit {
   @Output() public onClose = new EventEmitter<any>();
   @Output() public onSelected = new EventEmitter<any>();
 
-  public $estabelecimentosList!: InfraEstabelecimentoFavoritoDefault[];
+  public $estabelecimentosList?: InfraEstabelecimentoFavoritoDefault[];
 
   public page: number = 1;
   public itemsPerPage: number = 10;
@@ -78,6 +80,9 @@ export class SelecaoEstabelecimentosModalComponent implements OnInit {
   }
 
   private getEstabelecimentos(pesquisa: string = ""): void {
+
+    this.$estabelecimentosList = undefined;
+
     this._menuServicesService.getEstabelecimentosModalList(this._authStorageService.infraUsuarioId, pesquisa).subscribe({
       next: response => {
         this.$estabelecimentosList = response.InfraEstabelecimentos;

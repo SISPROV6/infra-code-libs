@@ -6,7 +6,7 @@
   </div>
   <div class="modal-body">
     <div class="modal-message">
-      <div class="search-and-filters d-flex flex-row align-items-center justify-content-between">
+      <div class="search-and-filters d-flex flex-row align-items-center justify-content-between mb-2">
         <div class="d-flex flex-row w-100">
           <div class="input-group">
             <span class="input-group-text px-2" id="basic-addon1"
@@ -93,7 +93,7 @@
         
       <!-- </div> -->
       
-      <lib-table [list]="$estabelecimentosList" paginationID="simpleTable" *ngIf="$estabelecimentosList; else loading"
+      <lib-table [list]="$estabelecimentosList" paginationID="simpleTable"
         [counts]="[ 10, 30, 50 ]" [headers]="[
                           { name: 'Estabelecimento', col: 11, orderColumn: 'CODIGO'},
                           { name: 'Ações', col: 1},
@@ -114,8 +114,9 @@
             <div class="action-icons d-flex flex-row align-items-center justify-content-around">
               <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"
-                  tooltip="Estabelecimento padrão" [checked]="estabelecimento.IS_DEFAULT"
+                  [checked]="estabelecimento.IS_DEFAULT"
                   style="transform: translateY(3px); height: 1rem; width: 28px;" #isDefaultRow
+                  tooltip="Marcar como estabelecimento padrão para este usuário. Esta ação irá realocar a exibição do estabelecimento para o topo da lista."
                   (click)="estabelecimento.IS_DEFAULT = !estabelecimento.IS_DEFAULT; defineDefaultEstabelecimento(estabelecimento.ID, estabelecimento.IS_DEFAULT)">
               </div>
             </div>
