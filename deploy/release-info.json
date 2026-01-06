@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-views",
-  "version": "3.4.1",
-  "tag": "views-v3.4.1",
-  "notes": "Adicionando modal para gerenciar usuários LDAP",
-  "timestamp": "2026-01-06T13:34:19.066Z"
+  "version": "3.4.3",
+  "tag": "views-v3.4.3",
+  "notes": "Commit para atualizar as libs",
+  "timestamp": "2026-01-06T13:49:33.881Z"
 }
