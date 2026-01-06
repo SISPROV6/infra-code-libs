@@ -1,0 +1,57 @@
+<div class="modal-header tx-dark">
+    <h5 class="mb-0">Usuários</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modalUtils.closeModal(1)"></button>
+</div>
+<div class="modal-body tx-dark">
+    <div class="row mb-2">
+        <div class="col">
+            <span class="subtitle">Ao interagir com o checkbox a informação será salva automaticamente.</span>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col">
+            <div class="input-group">
+                <input id="filtroDisponiveis" type="text" class="form-control" placeholder="Pesquise por nome ou usuário" [(ngModel)]="search">
+                <button class="btn btn-light" type="button" (click)="search=''"><lib-icon iconName="lixeira"></lib-icon></button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="border rounded p-2 list-box">
+            @if(isloading)
+            {
+                <div class="h-100 d-flex align-items-center justify-content-center">
+                    <lib-spinner></lib-spinner>
+                </div>
+            }
+            @else 
+            {
+                @if(usuarios.length > 0)
+                {
+                    <ul class="list-group">
+                      @for (item of usuariosFiltrados; track item.Id) 
+                      {
+                        <li class="list-group-item text-start">
+                          <input type="checkbox"
+                                [id]="item.Id + 'U'"
+                                 class="form-check-input me-2 glb-cursor-pointer"
+                                 [(ngModel)]="item.IsLDAP"
+                                 (change)="SetInfraConfigLDAP(item.Id, item.IsLDAP)"
+                                 >
+                          {{ item.Nome }}
+                        </li>
+                      }
+                    </ul>
+                }
+                @else 
+                {
+                    <div class="h-100 d-flex align-items-center justify-content-center">
+                        <h6>Nenhum usuário encontrado</h6>
+                    </div>
+                }
+            }
+        </div>
+        </div>
+    </div>
+</div>
