@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { RetError, RetRecordsCombobox } from 'ngx-sp-infra';
@@ -8,6 +8,7 @@ import { LibCustomConfigERPEnvironmentService } from '../../../custom/lib-custom
 import { InfraLDAP } from '../models/InfraLDAP';
 import { LDAPValidateUser } from '../models/LDAPValidateUser';
 import { RetInfraLDAP } from '../models/RetInfraLDAP';
+import { RetUsuariosLDAP } from '../models/RetUsuariosLDAP';
 
 @Injectable({
   providedIn: 'root'
@@ -98,6 +99,26 @@ export class IntegracaoAdLdapService {
         })
       );
 
+  }
+
+  GetLDAPUsuariosList(): Observable<RetUsuariosLDAP> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+    const url = `${ this._BASE_URL }/GetLDAPUsuariosList`;
+
+    return this.httpClient.get<RetUsuariosLDAP>(url, {'headers': headers })
+    .pipe( take(1), tap(response => {if (response.Error) {throw Error(response.ErrorMessage)}}));
+  }
+
+  SetInfraConfigLDAP(id: string, isLDAP: boolean, idConfigLDAP: number): Observable<RetError> {
+    const params = new HttpParams().set('id', id).set('isLDAP', isLDAP).set('idConfigLDAP', idConfigLDAP);
+
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+    const url = `${ this._BASE_URL }/SetInfraConfigLDAP`;
+
+    return this.httpClient.post<RetError>(url, null, { 'params': params, 'headers': headers })
+    .pipe( take(1), tap(response => {if (response.Error) {throw Error(response.ErrorMessage)}}));
   }
 
 }

@@ -8,10 +8,12 @@ import { FieldErrorMessageComponent, FormUtils, LibComboboxComponent, LibHeaderC
 import { InfraLDAP } from '../models/InfraLDAP';
 import { LDAPValidateUser } from '../models/LDAPValidateUser';
 import { IntegracaoAdLdapService } from '../services/integracao-ad-ldap.service';
+import { ModalOptions } from 'ngx-bootstrap/modal';
+import { UsuariosLDAPComponent } from './usuarios-ldap/usuarios-ldap.component';
 
 @Component({
   selector: 'lib-lib-integracao-ldap, lib-integracao-ldap',
-  imports: [ RouterLink, NgIf, FormsModule, ReactiveFormsModule, LibIconsComponent, FieldErrorMessageComponent, LibComboboxComponent, LibHeaderComponent],
+  imports: [ RouterLink, NgIf, FormsModule, ReactiveFormsModule, LibIconsComponent, FieldErrorMessageComponent, LibComboboxComponent, LibHeaderComponent, UsuariosLDAPComponent],
   templateUrl: './lib-integracao-ldap.component.html',
   styleUrl: './lib-integracao-ldap.component.scss'
 })
@@ -35,6 +37,10 @@ export class LibIntegracaoLdapComponent {
     }
 
     this.getInitialValues();
+  }
+  public modalOptions: ModalOptions = {
+    id: 1,
+    class: 'modal-dialog-centered modal-lg',
   }
 
   private _ldapID: number = 0;

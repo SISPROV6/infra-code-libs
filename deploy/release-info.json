@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-auth",
-  "version": "4.7.2",
-  "tag": "auth-v4.7.2",
-  "notes": "Atualização de rotina",
-  "timestamp": "2026-01-05T12:27:55.087Z"
+  "project": "ngx-sp-views",
+  "version": "3.4.1",
+  "tag": "views-v3.4.1",
+  "notes": "Adicionando modal para gerenciar usuários LDAP",
+  "timestamp": "2026-01-06T13:34:19.066Z"
 }
