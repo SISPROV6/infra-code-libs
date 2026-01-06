@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, TemplateRef } from '@angular/core';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 
@@ -9,6 +9,8 @@ import { AuthStorageService } from '../../../../storage/auth-storage.service';
 import { AuthUtilService } from '../../../../utils/auth-utils.service';
 import { MenuServicesService } from '../../menu-services.service';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { FavoritarModel } from '../../model/favoritarModel';
 
 @Component({
     selector: 'selecao-estabelecimentos-modal',
@@ -27,6 +29,7 @@ export class SelecaoEstabelecimentosModalComponent implements OnInit {
     private _customMenuService: LibCustomMenuService,
     private _menuServicesService: MenuServicesService,
     private _messageService: MessageService,
+    private _bsModalService: BsModalService,
     private _authUtilService: AuthUtilService
   ) { }
 
@@ -48,6 +51,8 @@ export class SelecaoEstabelecimentosModalComponent implements OnInit {
 
   public page: number = 1;
   public itemsPerPage: number = 10;
+
+  public favoritarModel: FavoritarModel = new FavoritarModel();
 
   public response_messages = {
     'emptyMessage': 'Consulta não retornou registros...',
@@ -87,11 +92,33 @@ export class SelecaoEstabelecimentosModalComponent implements OnInit {
       next: response => {
         this.$estabelecimentosList = response.InfraEstabelecimentos;
 
-        this.resetPagination(this.$estabelecimentosList);
+        // this.resetPagination(this.$estabelecimentosList);
 
         if (response.InfraEstabelecimentos.length == 0) {
           this._messageService.showAlertDanger(this.response_messages.emptyMessage);
         }
+      },
+      error: error => {
+        this._authUtilService.showHttpError(error);
+
+        this.$estabelecimentosList = [];
+      }
+    })
+  }
+
+  public favoritar(isFavorite: boolean, estabId: string): void {
+
+   const estabelecimento = this.$estabelecimentosList?.find(id => id.ID == estabId)
+
+    this.favoritarModel.Tenant_Id = estabelecimento!.TENANT_ID;
+    this.favoritarModel.Id = estabelecimento!.ESTABFAVORITOID;
+    this.favoritarModel.InfraEstabId = estabelecimento!.ID;
+    this.favoritarModel.Is_Default = estabelecimento!.IS_DEFAULT;
+
+    this._menuServicesService.Favoritar(isFavorite, this.favoritarModel).subscribe({
+      next: () => {
+
+
       },
       error: error => {
         this._authUtilService.showHttpError(error);
@@ -117,6 +144,7 @@ export class SelecaoEstabelecimentosModalComponent implements OnInit {
   public defineDefaultEstabelecimento(estabID: string, isDefault: boolean): void {
     this._menuServicesService.defineDefaultEstabelecimento(estabID, this._authStorageService.infraUsuarioId, isDefault).subscribe({
       next: () => {
+        this.closeModalEstabelecimento(2);
         this.getEstabelecimentos("");
 
         isDefault
@@ -209,6 +237,21 @@ export class SelecaoEstabelecimentosModalComponent implements OnInit {
 
   public closeSelf() {
     this.onClose.emit();
+  }
+
+  public openModalEstabelecimento(template: TemplateRef<any>, id: number) {
+    this._bsModalService.show(template, {
+      class: 'modal-dialog-centered modal-lg',
+      ignoreBackdropClick: false,
+      keyboard: false,
+      id: id,
+    });
+  }
+
+  /** Função simples com o objetivo de fechar os modais que estiverem abertos (baseados pelo ID).
+   */
+  public closeModalEstabelecimento(id: number) {
+    this._bsModalService.hide(id);
   }
 
   // #endregion ==========> MODALS <==========

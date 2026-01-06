@@ -16,6 +16,7 @@ import { RetInfraUsuarioImg } from './model/ret-infrausuarioimg';
 import { RetIsMenuAllowed } from './model/ret-is-menu-allowed';
 import { RetNavSubMenu, RetSubmenuWithCards } from './model/ret-navsubmenu';
 import { Usuario_IMG } from './model/usuario-img';
+import { FavoritarModel } from './model/favoritarModel';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +33,7 @@ export class MenuServicesService {
     private _httpClient: HttpClient,
     private _customEnvironmentService: LibCustomEnvironmentService
   ) {
-    this._BASE_URL = `${ this._customEnvironmentService.SpInfra2ErpWS }`; // SpInfra2ErpWS
+    this._BASE_URL = `${ this._customEnvironmentService.Sp2LocalhostWS }`; // SpInfra2ErpWS
     this._BASE_URL = !this._customEnvironmentService.production ? this._BASE_URL : `${ this._customEnvironmentService.SpInfra2ErpWS }`;
 
     this._BASE_URL_VERSION_INFRA = `${ this._customEnvironmentService.SpInfra2AuthWS.replace('SpInfra2AuthWS', 'SpInfra2VersionCoreWS') }`; // SpInfra2VersionCoreWS
@@ -213,6 +214,24 @@ export class MenuServicesService {
 
     return this._httpClient
       .post<RetError>(url, null, { 'params': params, 'headers': this._HTTP_HEADERS })
+      .pipe(
+        take(1),
+        tap(response => {
+          if (response.Error) {
+            throw Error(response.ErrorMessage);
+          }
+        })
+      )
+  }
+
+  public Favoritar(isFavorite: boolean, EstabTableList: FavoritarModel): Observable<RetError> {
+    const params = new HttpParams()
+      .set('isFavorite', isFavorite)
+
+    const url = `${this._BASE_URL}/InfraEstabelecimento/Favoritar`;
+
+    return this._httpClient
+      .post<RetError>(url, EstabTableList, { 'params': params, 'headers': this._HTTP_HEADERS })
       .pipe(
         take(1),
         tap(response => {

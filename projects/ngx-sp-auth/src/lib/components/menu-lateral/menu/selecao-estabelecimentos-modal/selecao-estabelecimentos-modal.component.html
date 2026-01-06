@@ -106,24 +106,53 @@
           <td>
             <div style="cursor: pointer;" (click)="selectEstabelecimento(estabelecimento.ID, estabelecimento.NOMEEXIBICAO)">
               <span class="row-name"> {{ estabelecimento.CODIGO }} - {{ estabelecimento.NOMEEXIBICAO }} </span>
-              <span class="subname"> {{ estabelecimento.IS_MATRIZ ? "Matriz " : null }} CNPJ: {{ estabelecimento.CNPJ
-                }} </span>
+              <span class="subname"> {{ estabelecimento.IS_MATRIZ ? "Matriz " : null }} CNPJ: {{ estabelecimento.CNPJ}} </span>
             </div>
           </td>
           <td class="text-center align-middle">
             <div class="action-icons d-flex flex-row align-items-center justify-content-around">
-              <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"
+              <div class="form-check form-switch p-0">
+                <lib-icon class="glb-cursor-pointer" [iconName]="estabelecimento.IS_DEFAULT ? 'toggle-on' : 'toggle-off' "
+                  [tooltip]="estabelecimento.IS_DEFAULT ? 'Inativar' : 'Ativar' " [iconSize]="30" class="glb-cursor-pointer text-primary"
+                  (click)="openModalEstabelecimento(modalEstabelecimento, 2)"
+                   />
+
+                <!-- <input class="form-check-input glb-cursor-pointer" type="checkbox" role="switch" id="flexSwitchCheckChecked"
                   [checked]="estabelecimento.IS_DEFAULT"
-                  style="transform: translateY(3px); height: 1rem; width: 28px;" #isDefaultRow
-                  tooltip="Marcar como estabelecimento padrão para este usuário. Esta ação irá realocar a exibição do estabelecimento para o topo da lista."
-                  (click)="estabelecimento.IS_DEFAULT = !estabelecimento.IS_DEFAULT; defineDefaultEstabelecimento(estabelecimento.ID, estabelecimento.IS_DEFAULT)">
+                  (click)="openModalEstabelecimento(modalEstabelecimento)"
+                  style="transform: translateY(3px); height: 1rem; width: 28px;" #isDefaultRow> -->
               </div>
             </div>
+
+              <ng-template #modalEstabelecimento>
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Atualização de estados</h5>
+                    <button (click)="closeModalEstabelecimento(2)" type="button" class="btn-close" data-bs-dismiss="modal"
+                      aria-label="Close"></button>
+                  </div>
+              
+                  <div class="modal-body">
+                    <p>{{!estabelecimento.IS_DEFAULT ? 'Marcar como estabelecimento padrão para este usuário. Esta ação irá realocar a exibição do estabelecimento para
+                      o topo da lista.' : 
+                      'Desmarcar como estabelecimento padrão para este usuário. Esta ação irá remover a exibição do estabelecimento do topo da lista.'}}</p>
+                  </div>
+              
+                  <div class="modal-footer">
+                    <button (click)="closeModalEstabelecimento(2)" type="button" class="btn btn-outline-primary"
+                      data-bs-dismiss="modal">Cancelar</button>
+                    <button
+                      (click)="estabelecimento.IS_DEFAULT = !estabelecimento.IS_DEFAULT; defineDefaultEstabelecimento(estabelecimento.ID, estabelecimento.IS_DEFAULT)"
+                      type="button" class="btn btn-primary">Ativar</button>
+                  </div>
+                </div>
+              </ng-template>
           </td>
         </tr>
         }
       </lib-table>
+
+
 
       <!-- <div class="d-flex justify-content-between align-items-center mt-3">
         <span style="color: #6C757D"> Registros {{$estabelecimentosList.length}} de {{$estabelecimentosList.length}} </span>
@@ -145,3 +174,4 @@
     </div>
   </div>
 </div>
+
