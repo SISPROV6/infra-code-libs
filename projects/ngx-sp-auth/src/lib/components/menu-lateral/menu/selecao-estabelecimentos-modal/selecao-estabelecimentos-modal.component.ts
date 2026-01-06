@@ -92,7 +92,7 @@ export class SelecaoEstabelecimentosModalComponent implements OnInit {
       next: response => {
         this.$estabelecimentosList = response.InfraEstabelecimentos;
 
-        // this.resetPagination(this.$estabelecimentosList);
+        this.resetPagination(this.$estabelecimentosList);
 
         if (response.InfraEstabelecimentos.length == 0) {
           this._messageService.showAlertDanger(this.response_messages.emptyMessage);
@@ -111,13 +111,14 @@ export class SelecaoEstabelecimentosModalComponent implements OnInit {
    const estabelecimento = this.$estabelecimentosList?.find(id => id.ID == estabId)
 
     this.favoritarModel.Tenant_Id = estabelecimento!.TENANT_ID;
-    this.favoritarModel.Id = estabelecimento!.ESTABFAVORITOID;
-    this.favoritarModel.InfraEstabId = estabelecimento!.ID;
+    this.favoritarModel.InfraEstabFavoritoId = estabelecimento!.ESTABFAVORITOID;
+    this.favoritarModel.Id = estabelecimento!.ID;
     this.favoritarModel.Is_Default = estabelecimento!.IS_DEFAULT;
 
     this._menuServicesService.Favoritar(isFavorite, this.favoritarModel).subscribe({
       next: () => {
 
+        estabelecimento!.IS_FAVORITE = isFavorite;
 
       },
       error: error => {

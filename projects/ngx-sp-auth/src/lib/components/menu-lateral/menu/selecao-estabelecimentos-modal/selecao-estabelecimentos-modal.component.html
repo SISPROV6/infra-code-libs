@@ -104,7 +104,7 @@
         page }; track estabelecimento) {
         <tr innerRows class="align-middle">
           <td>
-            <div style="cursor: pointer;" (click)="selectEstabelecimento(estabelecimento.ID, estabelecimento.NOMEEXIBICAO)">
+            <div style="cursor: pointer; display: flex; flex-direction: column;" (click)="selectEstabelecimento(estabelecimento.ID, estabelecimento.NOMEEXIBICAO)">
               <span class="row-name"> {{ estabelecimento.CODIGO }} - {{ estabelecimento.NOMEEXIBICAO }} </span>
               <span class="subname"> {{ estabelecimento.IS_MATRIZ ? "Matriz " : null }} CNPJ: {{ estabelecimento.CNPJ}} </span>
             </div>
@@ -112,10 +112,11 @@
           <td class="text-center align-middle">
             <div class="action-icons d-flex flex-row align-items-center justify-content-around">
               <div class="form-check form-switch p-0">
+                <lib-icon [iconName]="estabelecimento.IS_FAVORITE ? 'pp-menu-star-ativo' : 'estrela'"  iconColor="gray" class="glb-cursor-pointer"
+                  (click)="favoritar(!estabelecimento.IS_FAVORITE, estabelecimento.ID)"/>
                 <lib-icon class="glb-cursor-pointer" [iconName]="estabelecimento.IS_DEFAULT ? 'toggle-on' : 'toggle-off' "
                   [tooltip]="estabelecimento.IS_DEFAULT ? 'Inativar' : 'Ativar' " [iconSize]="30" class="glb-cursor-pointer text-primary"
-                  (click)="openModalEstabelecimento(modalEstabelecimento, 2)"
-                   />
+                  (click)="openModalEstabelecimento(modalEstabelecimento, 2)"/>
 
                 <!-- <input class="form-check-input glb-cursor-pointer" type="checkbox" role="switch" id="flexSwitchCheckChecked"
                   [checked]="estabelecimento.IS_DEFAULT"
@@ -143,7 +144,7 @@
                       data-bs-dismiss="modal">Cancelar</button>
                     <button
                       (click)="estabelecimento.IS_DEFAULT = !estabelecimento.IS_DEFAULT; defineDefaultEstabelecimento(estabelecimento.ID, estabelecimento.IS_DEFAULT)"
-                      type="button" class="btn btn-primary">Ativar</button>
+                      type="button" class="btn btn-primary">{{!estabelecimento.IS_DEFAULT ? 'Ativar' : 'Inativar'}}</button>
                   </div>
                 </div>
               </ng-template>
