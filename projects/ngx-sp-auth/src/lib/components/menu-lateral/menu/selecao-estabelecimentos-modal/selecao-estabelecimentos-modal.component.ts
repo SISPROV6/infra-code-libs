@@ -3,7 +3,7 @@ import { Component, EventEmitter, OnInit, Output, TemplateRef } from '@angular/c
 
 import { NgxPaginationModule } from 'ngx-pagination';
 
-import { InfraEstabelecimentoFavoritoDefault, InfraModule, MessageService } from 'ngx-sp-infra';
+import {  InfraModule, MessageService } from 'ngx-sp-infra';
 import { LibCustomMenuService } from '../../../../custom/lib-custom-menu.service';
 import { AuthStorageService } from '../../../../storage/auth-storage.service';
 import { AuthUtilService } from '../../../../utils/auth-utils.service';
@@ -12,6 +12,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { FavoritarModel } from '../../model/favoritarModel';
 import { firstValueFrom } from 'rxjs';
+import { InfraEstabelecimentoFavoritoDefault } from '../../../../../../../ngx-sp-infra/src/lib/models/estabelecimento-modal/infra-estabelecimento';
 
 @Component({
     selector: 'selecao-estabelecimentos-modal',
