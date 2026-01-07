@@ -16,6 +16,7 @@ import { RetInfraUsuarioImg } from './model/ret-infrausuarioimg';
 import { RetIsMenuAllowed } from './model/ret-is-menu-allowed';
 import { RetNavSubMenu, RetSubmenuWithCards } from './model/ret-navsubmenu';
 import { Usuario_IMG } from './model/usuario-img';
+import { GrupoProjeto } from './model/VersoesByGrupo.model';
 
 @Injectable({
   providedIn: 'root'
@@ -145,10 +146,11 @@ export class MenuServicesService {
   }
 
   /** Busca as versões dos módulos instalados e disponíveis dentro do mesmo servidor. */
-  public getVersionModulos(): Observable<ReturnModel<any[]>> {
+  public getVersionModulos(): Observable<ReturnModel<GrupoProjeto[]>> {
     const url = `${ this._BASE_URL_VERSION_INFRA }/Version/modulos`;
-
-    return this._httpClient.get<ReturnModel<any[]>>(url, { 'headers': this._HTTP_HEADERS })
+    console.log('url:', url);
+    
+    return this._httpClient.get<ReturnModel<GrupoProjeto[]>>(url, { 'headers': this._HTTP_HEADERS })
       .pipe( take(1), tap(response => {
           if (response.Error) {
             throw Error(response.ErrorMessage);
