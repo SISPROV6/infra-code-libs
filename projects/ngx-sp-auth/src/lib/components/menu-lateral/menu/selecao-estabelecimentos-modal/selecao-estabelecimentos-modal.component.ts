@@ -51,7 +51,7 @@ export class SelecaoEstabelecimentosModalComponent implements OnInit {
   @Output() public onClose = new EventEmitter<any>();
   @Output() public onSelected = new EventEmitter<any>();
 
-  public $estabelecimentosList?: InfraEstabelecimentoFavoritoDefault[];
+  public $estabelecimentosList: InfraEstabelecimentoFavoritoDefault[] | null = [];
 
   public page: number = 1;
   public itemsPerPage: number = 10;
@@ -90,7 +90,7 @@ export class SelecaoEstabelecimentosModalComponent implements OnInit {
 
   private async getEstabelecimentos(pesquisa: string = ""): Promise<void> {
 
-    this.$estabelecimentosList = undefined;
+    this.$estabelecimentosList = null;
 
     try {
       const response = await firstValueFrom(
@@ -102,7 +102,7 @@ export class SelecaoEstabelecimentosModalComponent implements OnInit {
 
       this.$estabelecimentosList = response.InfraEstabelecimentos;
 
-      this.resetPagination(this.$estabelecimentosList);
+      this.resetPagination(this.$estabelecimentosList ?? []);
 
       if (response.InfraEstabelecimentos.length == 0) {
         this._messageService.showAlertDanger(this.response_messages.emptyMessage);

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { Observable, Subject, take, tap } from 'rxjs';
 
-import { RetError, RetEstabelecimentosModal, RetString, ReturnModel } from 'ngx-sp-infra';
+import { RetError, RetString, ReturnModel } from 'ngx-sp-infra';
 import { LibCustomEnvironmentService } from '../../custom/lib-custom-environment.service';
 import { AuthStorageService } from '../../storage/auth-storage.service';
 
@@ -17,6 +17,8 @@ import { RetIsMenuAllowed } from './model/ret-is-menu-allowed';
 import { RetNavSubMenu, RetSubmenuWithCards } from './model/ret-navsubmenu';
 import { Usuario_IMG } from './model/usuario-img';
 import { FavoritarModel } from './model/favoritarModel';
+import { RetEstabelecimentosModal } from './model/ret-estabelecimentos-modal';
+
 
 @Injectable({
   providedIn: 'root'
