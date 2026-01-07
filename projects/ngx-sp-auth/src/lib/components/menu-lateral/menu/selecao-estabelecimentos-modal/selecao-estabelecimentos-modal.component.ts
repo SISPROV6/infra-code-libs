@@ -1,13 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, TemplateRef } from '@angular/core';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 
-import { InfraEstabelecimentoFavoritoDefault, InfraModule, MessageService } from 'ngx-sp-infra';
+import {  InfraModule, MessageService } from 'ngx-sp-infra';
 import { LibCustomMenuService } from '../../../../custom/lib-custom-menu.service';
 import { AuthStorageService } from '../../../../storage/auth-storage.service';
 import { AuthUtilService } from '../../../../utils/auth-utils.service';
 import { MenuServicesService } from '../../menu-services.service';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { FavoritarModel } from '../../model/favoritarModel';
+import { firstValueFrom } from 'rxjs';
+import { InfraEstabelecimentoFavoritoDefault } from '../../model/InfraEstabelecimentoFavoritoDefault';
 
 @Component({
     selector: 'selecao-estabelecimentos-modal',
@@ -16,7 +21,8 @@ import { MenuServicesService } from '../../menu-services.service';
     imports: [
         NgxPaginationModule,
         InfraModule,
-        CommonModule
+        CommonModule,
+        TooltipModule
     ]
 })
 export class SelecaoEstabelecimentosModalComponent implements OnInit {
@@ -25,11 +31,14 @@ export class SelecaoEstabelecimentosModalComponent implements OnInit {
     private _customMenuService: LibCustomMenuService,
     private _menuServicesService: MenuServicesService,
     private _messageService: MessageService,
+    private _bsModalService: BsModalService,
     private _authUtilService: AuthUtilService
   ) { }
 
-  ngOnInit(): void {
-    this.getEstabelecimentos("");
+  async ngOnInit() {
+
+    await this.getEstabelecimentos("");
+
   }
 
   // #region ==========> PROPERTIES <==========
@@ -42,10 +51,12 @@ export class SelecaoEstabelecimentosModalComponent implements OnInit {
   @Output() public onClose = new EventEmitter<any>();
   @Output() public onSelected = new EventEmitter<any>();
 
-  public $estabelecimentosList!: InfraEstabelecimentoFavoritoDefault[];
+  public $estabelecimentosList?: InfraEstabelecimentoFavoritoDefault[];
 
   public page: number = 1;
   public itemsPerPage: number = 10;
+
+  public favoritarModel: FavoritarModel = new FavoritarModel();
 
   public response_messages = {
     'emptyMessage': 'Consulta não retornou registros...',
@@ -77,16 +88,46 @@ export class SelecaoEstabelecimentosModalComponent implements OnInit {
     this.getEstabelecimentos(pesquisa);
   }
 
-  private getEstabelecimentos(pesquisa: string = ""): void {
-    this._menuServicesService.getEstabelecimentosModalList(this._authStorageService.infraUsuarioId, pesquisa).subscribe({
-      next: response => {
-        this.$estabelecimentosList = response.InfraEstabelecimentos;
+  private async getEstabelecimentos(pesquisa: string = ""): Promise<void> {
 
-        this.resetPagination(this.$estabelecimentosList);
+    this.$estabelecimentosList = undefined;
 
-        if (response.InfraEstabelecimentos.length == 0) {
-          this._messageService.showAlertDanger(this.response_messages.emptyMessage);
-        }
+    try {
+      const response = await firstValueFrom(
+        this._menuServicesService.getEstabelecimentosModalList(
+          this._authStorageService.infraUsuarioId,
+          pesquisa
+        )
+      );
+
+      this.$estabelecimentosList = response.InfraEstabelecimentos ?? [];
+
+      this.resetPagination(this.$estabelecimentosList ?? []);
+
+      if (response.InfraEstabelecimentos.length == 0) {
+        this._messageService.showAlertDanger(this.response_messages.emptyMessage);
+      }
+
+    } catch (error) {
+      this._authUtilService.showHttpError(error);
+      this.$estabelecimentosList = [];
+    }
+  }
+
+  public favoritar(isFavorite: boolean, estabId: string): void {
+
+   const estabelecimento = this.$estabelecimentosList?.find(id => id.ID == estabId)
+
+    this.favoritarModel.Tenant_Id = estabelecimento!.TENANT_ID;
+    this.favoritarModel.InfraEstabFavoritoId = estabelecimento!.ESTABFAVORITOID;
+    this.favoritarModel.Id = estabelecimento!.ID;
+    this.favoritarModel.Is_Default = estabelecimento!.IS_DEFAULT;
+
+    this._menuServicesService.Favoritar(isFavorite, this.favoritarModel).subscribe({
+      next: () => {
+
+        estabelecimento!.IS_FAVORITE = isFavorite;
+
       },
       error: error => {
         this._authUtilService.showHttpError(error);
@@ -110,8 +151,12 @@ export class SelecaoEstabelecimentosModalComponent implements OnInit {
    * @param isDefault Informa se ele é Padrão ou não
    */
   public defineDefaultEstabelecimento(estabID: string, isDefault: boolean): void {
+
+    this.closeModalEstabelecimento(2);
+
     this._menuServicesService.defineDefaultEstabelecimento(estabID, this._authStorageService.infraUsuarioId, isDefault).subscribe({
       next: () => {
+        
         this.getEstabelecimentos("");
 
         isDefault
@@ -204,6 +249,21 @@ export class SelecaoEstabelecimentosModalComponent implements OnInit {
 
   public closeSelf() {
     this.onClose.emit();
+  }
+
+  public openModalEstabelecimento(template: TemplateRef<any>, id: number) {
+    this._bsModalService.show(template, {
+      class: 'modal-dialog-centered modal-lg',
+      ignoreBackdropClick: false,
+      keyboard: false,
+      id: id,
+    });
+  }
+
+  /** Função simples com o objetivo de fechar os modais que estiverem abertos (baseados pelo ID).
+   */
+  public closeModalEstabelecimento(id: number) {
+    this._bsModalService.hide(id);
   }
 
   // #endregion ==========> MODALS <==========
