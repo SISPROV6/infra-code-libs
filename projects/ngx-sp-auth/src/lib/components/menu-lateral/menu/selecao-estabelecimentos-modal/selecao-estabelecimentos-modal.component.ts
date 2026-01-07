@@ -11,6 +11,7 @@ import { MenuServicesService } from '../../menu-services.service';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { FavoritarModel } from '../../model/favoritarModel';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
     selector: 'selecao-estabelecimentos-modal',
@@ -33,8 +34,10 @@ export class SelecaoEstabelecimentosModalComponent implements OnInit {
     private _authUtilService: AuthUtilService
   ) { }
 
-  ngOnInit(): void {
-    this.getEstabelecimentos("");
+  async ngOnInit() {
+
+    await this.getEstabelecimentos("");
+
   }
 
   // #region ==========> PROPERTIES <==========
@@ -84,26 +87,30 @@ export class SelecaoEstabelecimentosModalComponent implements OnInit {
     this.getEstabelecimentos(pesquisa);
   }
 
-  private getEstabelecimentos(pesquisa: string = ""): void {
+  private async getEstabelecimentos(pesquisa: string = ""): Promise<void> {
 
     this.$estabelecimentosList = undefined;
 
-    this._menuServicesService.getEstabelecimentosModalList(this._authStorageService.infraUsuarioId, pesquisa).subscribe({
-      next: response => {
-        this.$estabelecimentosList = response.InfraEstabelecimentos;
+    try {
+      const response = await firstValueFrom(
+        this._menuServicesService.getEstabelecimentosModalList(
+          this._authStorageService.infraUsuarioId,
+          pesquisa
+        )
+      );
 
-        this.resetPagination(this.$estabelecimentosList);
+      this.$estabelecimentosList = response.InfraEstabelecimentos;
 
-        if (response.InfraEstabelecimentos.length == 0) {
-          this._messageService.showAlertDanger(this.response_messages.emptyMessage);
-        }
-      },
-      error: error => {
-        this._authUtilService.showHttpError(error);
+      this.resetPagination(this.$estabelecimentosList);
 
-        this.$estabelecimentosList = [];
+      if (response.InfraEstabelecimentos.length == 0) {
+        this._messageService.showAlertDanger(this.response_messages.emptyMessage);
       }
-    })
+
+    } catch (error) {
+      this._authUtilService.showHttpError(error);
+      this.$estabelecimentosList = [];
+    }
   }
 
   public favoritar(isFavorite: boolean, estabId: string): void {
@@ -143,9 +150,12 @@ export class SelecaoEstabelecimentosModalComponent implements OnInit {
    * @param isDefault Informa se ele é Padrão ou não
    */
   public defineDefaultEstabelecimento(estabID: string, isDefault: boolean): void {
+
+    this.closeModalEstabelecimento(2);
+
     this._menuServicesService.defineDefaultEstabelecimento(estabID, this._authStorageService.infraUsuarioId, isDefault).subscribe({
       next: () => {
-        this.closeModalEstabelecimento(2);
+        
         this.getEstabelecimentos("");
 
         isDefault

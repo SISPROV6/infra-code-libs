@@ -1,7 +1,7 @@
 import { CommonModule, NgClass, NgIf } from '@angular/common';
 import { Component, ContentChild, ElementRef, Inject, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
-import { filter, Subject } from 'rxjs';
+import { filter, firstValueFrom, Subject } from 'rxjs';
 
 import { MSAL_GUARD_CONFIG, MsalGuardConfiguration, MsalService } from '@azure/msal-angular';
 import { AuthenticationResult, LogLevel, PublicClientApplication } from '@azure/msal-browser';
@@ -138,6 +138,13 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
       await this.initMsal();
     }
     this.initMobileObserver();
+
+    await this.getDefaultEstab();
+
+    if(this.defaultEstabId != ""){
+      this.getEstabelecimentoSession(this.defaultEstabId);
+    }
+    
   }
 
   ngOnDestroy(): void {
@@ -158,6 +165,8 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
 
   // #region PRIVATE
   private _hostServeUrlOutSystems: string = "";
+
+  private defaultEstabId: string = "";
 
   private _isMobile: boolean = false;
 
@@ -214,6 +223,20 @@ export class MenuLateralComponent implements OnInit, OnDestroy  {
   // #region ==========> SERVICES <==========
 
   // #region GET
+
+  private async getDefaultEstab(): Promise<void> {
+    try {
+      const response = await firstValueFrom(
+        this._menuServices.GetDefaultEstab()
+      );
+
+      this.defaultEstabId = response.String;
+
+    } catch (error) {
+      this._authUtilService.showHttpError(error);
+    }
+  }
+
   private getEstabelecimentoSession(estabID: string): void {
     this._menuServices.getEstabelecimentoSession(estabID).subscribe({
       next: response => {

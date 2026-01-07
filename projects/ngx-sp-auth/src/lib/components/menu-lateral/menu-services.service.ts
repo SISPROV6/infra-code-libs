@@ -33,7 +33,7 @@ export class MenuServicesService {
     private _httpClient: HttpClient,
     private _customEnvironmentService: LibCustomEnvironmentService
   ) {
-    this._BASE_URL = `${ this._customEnvironmentService.Sp2LocalhostWS }`; // SpInfra2ErpWS
+    this._BASE_URL = `${ this._customEnvironmentService.SpInfra2ErpWS }`; // SpInfra2ErpWS
     this._BASE_URL = !this._customEnvironmentService.production ? this._BASE_URL : `${ this._customEnvironmentService.SpInfra2ErpWS }`;
 
     this._BASE_URL_VERSION_INFRA = `${ this._customEnvironmentService.SpInfra2AuthWS.replace('SpInfra2AuthWS', 'SpInfra2VersionCoreWS') }`; // SpInfra2VersionCoreWS
@@ -232,6 +232,22 @@ export class MenuServicesService {
 
     return this._httpClient
       .post<RetError>(url, EstabTableList, { 'params': params, 'headers': this._HTTP_HEADERS })
+      .pipe(
+        take(1),
+        tap(response => {
+          if (response.Error) {
+            throw Error(response.ErrorMessage);
+          }
+        })
+      )
+  }
+
+  public GetDefaultEstab(): Observable<RetString> {
+
+    const url = `${this._BASE_URL}/InfraEstabelecimento/GetDefaultEstab`;
+
+    return this._httpClient
+      .get<RetString>(url, { 'headers': this._HTTP_HEADERS })
       .pipe(
         take(1),
         tap(response => {
