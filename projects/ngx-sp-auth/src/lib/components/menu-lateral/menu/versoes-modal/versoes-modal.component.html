@@ -15,7 +15,7 @@
 
     @defer (when versions) {
       <div class="accordion" id="accordionVersoes">
-        @for (grupo of versoesTeste; track $index) {
+        @for (grupo of versions; track $index) {
 
           @if (!grupo.projetos) {
             <div class="accordion-item">

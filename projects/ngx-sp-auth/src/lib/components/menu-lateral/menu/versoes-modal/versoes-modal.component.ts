@@ -40,49 +40,6 @@ export class VersoesModalComponent implements OnInit {
   public versionBase?: string;
   public versions?: GrupoProjeto[];
 
-  public versoesTeste: GrupoProjeto[] = [
-    {
-      "grupo": "Corporativo",
-      "baseUrl": "SisproErpCloud/Service_Private/Corporativo/SpCrp2VersionWS/api/Version/GetVersion",
-      "versao": "0"
-    },
-    {
-      "grupo": "Solução Fiscal",
-      "projetos": [
-        {
-          "nome": "GCF",
-          "baseUrl": "SisproErpCloud/Service_Private/GCF/SpCont2UtilWS/api/versoes/actions/getversao",
-          "versao": "0"
-        }
-      ]
-    },
-    {
-      "grupo": "Gestão de Pessoas",
-      "projetos": [
-        {
-          "nome": "RH Básicos",
-          "baseUrl": "SisproErpCloud/Service_Private/RhBase/SpRh2VersionWS/api/Version/GetVersion",
-          "versao": ""
-        },
-        {
-          "nome": "Folha de Pagamento",
-          "baseUrl": "SisproErpCloud/Service_Private/Folha/SpRhFol2VersionWS/api/Version/GetVersion",
-          "versao": ""
-        },
-        {
-          "nome": "SeuRh Workflow",
-          "baseUrl": "SisproErpCloud/Service_Private/Workflow/SpRhWfl2VersionWS/api/Version/GetVersion",
-          "versao": ""
-        },
-        {
-          "nome": "Portal RH",
-          "baseUrl": "SisproErpCloud/Service_Private/PortalRh/SpRhFun2VersionWS/api/Version/GetVersion",
-          "versao": ""
-        }
-      ]
-    }
-  ];
-
   public get releaseNotesUrl(): string {
     let url: string = '';
 

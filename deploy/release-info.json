@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-views",
-  "version": "3.4.3",
-  "tag": "views-v3.4.3",
-  "notes": "Commit para atualizar as libs",
-  "timestamp": "2026-01-06T13:49:33.881Z"
+  "project": "ngx-sp-auth",
+  "version": "4.7.3",
+  "tag": "auth-v4.7.3",
+  "notes": "Atualização de rotina",
+  "timestamp": "2026-01-07T18:24:15.490Z"
 }
