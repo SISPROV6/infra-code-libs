@@ -97,6 +97,14 @@
                         </div>
                     </div>
                 </div>
+                <div class="row mt-3">
+                    <div class="col">
+                        <span class="link" (click)="this._modalUtils.openModalCustom(usuariosLDAP, 1,this.modalOptions)">Gerenciar usuários que usam LDAP</span>
+                        <ng-template #usuariosLDAP>
+                            <usuarios-ldap></usuarios-ldap>
+                        </ng-template>
+                    </div>
+                </div>
             </div>
         </form>
     </div>
