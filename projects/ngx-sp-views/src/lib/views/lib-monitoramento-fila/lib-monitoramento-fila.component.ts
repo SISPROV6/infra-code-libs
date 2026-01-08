@@ -40,6 +40,7 @@ export class LibMonitoramentoFilaComponent implements OnInit, OnDestroy, AfterVi
   }
 
   ngOnInit(): void {
+    this._filaMonitoramentoDeFilaService.setIsGlobalQueue(this.isGlobalQueue);
 
     this.GetTableOnPoolling();
     this.GetNumeroAgendadosParaHoje();
