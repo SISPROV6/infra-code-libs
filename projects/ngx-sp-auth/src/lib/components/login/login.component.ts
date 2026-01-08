@@ -1,4 +1,4 @@
-import { CommonModule, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
@@ -27,26 +27,27 @@ export enum LoginProgress {
 	Local = 2,
 	Azure = 3
 }
-// ajustes ERICK
+
+// Ajustes ERICK
 export enum SituacaoLogin {
 	LOGIN = 0,
 	AUTENTICACAO_2_FATORES = 1,
 	ESQUECEU_SENHA = 2
 };
-// ajustes ERICK
+// Ajustes ERICK
+
 
 @Component( {
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss'],
-    imports: [
-        ReactiveFormsModule,
-        InfraModule,
-        CommonModule,
-		NgIf
-    ],
-    preserveWhitespaces: true
-} )
+	selector: 'app-login',
+	templateUrl: './login.component.html',
+	styleUrls: ['./login.component.scss'],
+	imports: [
+		ReactiveFormsModule,
+		InfraModule,
+		CommonModule,
+	],
+	preserveWhitespaces: true
+})
 export class LoginComponent implements OnInit {
 
 	constructor(
@@ -342,12 +343,6 @@ export class LoginComponent implements OnInit {
 	// #endregion Azure
 	
 	// #region GET
-
-	// Obtém a Url do Config Erp
-	public geturlErpConfig(): string {
-		// verificar depois 
-		return `${this._customEnvironmentService.hostName}/SisproErpCloud/ConfigErp`;
-	}
 
 	/*
 	* Obtém os parâmetros de método de autenticação
