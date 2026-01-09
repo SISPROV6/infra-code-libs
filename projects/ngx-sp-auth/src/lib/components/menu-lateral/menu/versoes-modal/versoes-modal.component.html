@@ -2,7 +2,9 @@
   <div class="modal-header modal-style modal-dialog-centered modal-lg">
     <h4 class="modal-title pull-left color-modal fw-bold placeholder-glow w-100" style="font-size: 20px;">
       
-      @defer (when versionBase) { Versão atual: {{ versionBase }} }
+      @defer (when versionBase) {
+        Versão atual: <a type="button" class="text-decoration-none text-primary fw-bold" tooltip="Clique aqui para acessar o que mudou nesta versão" [href]="releaseNotesUrl+'/versoes/'+versionBase+'/_'" target="_blank">{{ versionBase }}</a>
+      }
       @placeholder { <span class="placeholder w-100"></span> }
       
     </h4>
@@ -12,13 +14,42 @@
     <p>Patches dos módulos específicos:</p>
 
     @defer (when versions) {
-      <ul class="p-0">
-        @for (versao of versions; track versao.Projeto) {
-          <li>
-            <span class="fw-bold">{{ versao.Projeto }} | <a type="button" class="text-decoration-none text-primary fw-bold" tooltip="Clique aqui para acessar o que mudou nesta versão" [href]="releaseNotesUrl+'/versoes/'+versionBase+'/'+versao.Projeto" target="_blank" >{{ versionBase + '_' + versao.Versao }} <lib-icon iconName="acessoexterno" iconSize="small" /> </a></span>
-          </li>
+      <div class="accordion" id="accordionVersoes">
+        @for (grupo of versions; track $index) {
+
+          @if (!grupo.projetos) {
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <div class="accordion-button collapsed fw-bold" type="button">
+                  <span>{{ grupo.grupo }} | <a type="button" class="text-decoration-none text-primary fw-bold" tooltip="Clique aqui para acessar o que mudou nesta versão" [href]="releaseNotesUrl+'/versoes/'+versionBase+'/'+grupo.grupo" target="_blank" >{{ versionBase + '_' + grupo.versao }} <lib-icon iconName="acessoexterno" iconSize="small" /> </a></span>
+                </div>
+              </h2>
+            </div>
+          }
+          @else {
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse-'+$index" aria-expanded="false" [attr.aria-controls]="'#collapse-'+$index">
+                  {{ grupo.grupo }}
+                </button>
+              </h2>
+        
+              <div [id]="'collapse-'+$index" class="accordion-collapse collapse">
+                <div class="accordion-body p-3 border border-top-0 border-bottom-0">
+                  <ul class="p-0 m-0 d-flex flex-column gap-2">
+                    @for (projeto of grupo.projetos; track projeto.nome) {
+                      <li>
+                        <span class="fw-bold">{{ projeto.nome }} | <a type="button" class="text-decoration-none text-primary fw-bold" tooltip="Clique aqui para acessar o que mudou nesta versão" [href]="releaseNotesUrl+'/versoes/'+versionBase+'/'+projeto.nome" target="_blank" >{{ versionBase + '_' + projeto.versao }} <lib-icon iconName="acessoexterno" iconSize="small" /> </a></span>
+                      </li>
+                    }
+                  </ul>
+                </div>
+              </div>
+            </div>
+          }
+
         }
-      </ul>
+      </div>
     }
     @placeholder {
       <span class="placeholder-glow">

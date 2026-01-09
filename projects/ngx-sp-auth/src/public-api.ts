@@ -36,6 +36,10 @@ export * from './lib/components/menu-lateral/model/ret-menu-item-structure';
 export * from './lib/components/menu-lateral/model/ret-menu-lateral';
 export * from './lib/components/menu-lateral/model/ret-menu-promise';
 export * from './lib/components/menu-lateral/model/ret-navsubmenu';
+export * from './lib/components/menu-lateral/model/favoritarModel';
+export * from './lib/components/menu-lateral/model/InfraEstabelecimentoFavoritoDefault';
+export * from './lib/components/menu-lateral/model/ret-estabelecimentos-modal';
+
 
 /** Custom */
 export * from './lib/custom/models/icustom-environment-service';

@@ -5,6 +5,7 @@ import { InfraModule } from 'ngx-sp-infra';
 
 import { AuthUtilService } from '../../../../utils/auth-utils.service';
 import { MenuServicesService } from '../../menu-services.service';
+import { GrupoProjeto } from '../../model/VersoesByGrupo.model';
 
 @Component({
   selector: 'versoes-modal',
@@ -37,7 +38,7 @@ export class VersoesModalComponent implements OnInit {
   @Output() public onClose = new EventEmitter<any>();
   
   public versionBase?: string;
-  public versions?: any[];
+  public versions?: GrupoProjeto[];
 
   public get releaseNotesUrl(): string {
     let url: string = '';
@@ -74,10 +75,7 @@ export class VersoesModalComponent implements OnInit {
         console.log(response);
 
         // Deve formatar as versões que forem 0 converter para "Base"
-        this.versions = response.Data?.map(e => {
-          if (e.Versao === '0' || e.Versao === '' || e.Versao === null || e.Versao === undefined) return { Projeto: e.Projeto, Versao: "Base" };
-          else return { Projeto: e.Projeto, Versao: e.Versao };
-        });
+        this.versions = this.formatVersions(response.Data ?? []);
       },
       error: error => this._authUtils.showHttpError(error)
     });
@@ -89,7 +87,34 @@ export class VersoesModalComponent implements OnInit {
 
 
   // #region ==========> UTILS <==========
-  // [...]
+  
+  /**
+   * Formata as "versões" de cada registro da lista para que caso estejam vazios, zerados ou nulos retornem "Base" para ficar mais legível.
+   * 
+   * @param list Lista a ser formatada
+   * @returns Lista após processod e formatação correto
+  */
+  private formatVersions(list: GrupoProjeto[]): GrupoProjeto[] {
+    if (!list) return [];
+
+    list = list.map(g => {
+      if (!g.projetos) {
+        g.versao = g.versao === '' || g.versao === '0' ? "Base" : g.versao;
+        return g;
+      }
+      else {
+        g.projetos = g.projetos.map(p => {
+          if (p.versao === '' || p.versao === '0') p.versao = "Base";
+          return p;
+        })
+
+        return g;
+      }
+    });
+
+    return list;
+  }
+
   // #endregion ==========> UTILS <==========
 
 }
