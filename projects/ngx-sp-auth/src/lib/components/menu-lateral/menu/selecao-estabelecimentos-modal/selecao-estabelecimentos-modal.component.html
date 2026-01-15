@@ -113,10 +113,9 @@
             <div class="action-icons d-flex flex-row align-items-center justify-content-around">
               <div class="form-check form-switch p-0">
                 <lib-icon [iconName]="estabelecimento.IS_FAVORITE ? 'pp-menu-star-ativo' : 'estrela'"  iconColor="gray" class="glb-cursor-pointer"
-                  (click)="favoritar(!estabelecimento.IS_FAVORITE, estabelecimento.ID)"/>
+                  [tooltip]="estabelecimento.IS_FAVORITE ? 'Desmarcar favorito' : 'Marcar favorito'" (click)="favoritar(!estabelecimento.IS_FAVORITE, estabelecimento.ID)"/>
                 <lib-icon class="glb-cursor-pointer" [iconName]="estabelecimento.IS_DEFAULT ? 'toggle-on' : 'toggle-off' "
-                  [tooltip]="estabelecimento.IS_DEFAULT ? 'Inativar' : 'Ativar' " [iconSize]="30" class="glb-cursor-pointer text-primary"
-                  (click)="openModalEstabelecimento(modalEstabelecimento, 2)"/>
+                  [iconSize]="30" class="glb-cursor-pointer text-primary" (click)="openModalEstabelecimento(modalEstabelecimento, 2)"/>
 
                 <!-- <input class="form-check-input glb-cursor-pointer" type="checkbox" role="switch" id="flexSwitchCheckChecked"
                   [checked]="estabelecimento.IS_DEFAULT"
@@ -128,7 +127,7 @@
               <ng-template #modalEstabelecimento>
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title">Atualização de estados</h5>
+                    <h5 class="modal-title">{{!estabelecimento.IS_DEFAULT ? 'Marcar como padrão' : 'Desmarcar como padrão'}}</h5>
                     <button (click)="closeModalEstabelecimento(2)" type="button" class="btn-close" data-bs-dismiss="modal"
                       aria-label="Close"></button>
                   </div>
@@ -144,7 +143,7 @@
                       data-bs-dismiss="modal">Cancelar</button>
                     <button
                       (click)="estabelecimento.IS_DEFAULT = !estabelecimento.IS_DEFAULT; defineDefaultEstabelecimento(estabelecimento.ID, estabelecimento.IS_DEFAULT)"
-                      type="button" class="btn btn-primary">{{!estabelecimento.IS_DEFAULT ? 'Ativar' : 'Inativar'}}</button>
+                      type="button" class="btn btn-primary">{{!estabelecimento.IS_DEFAULT ? 'Marcar' : 'Desmarcar'}}</button>
                   </div>
                 </div>
               </ng-template>
