@@ -1,6 +1,6 @@
 {
   "name": "ngx-sp-views",
-  "version": "3.4.8",
+  "version": "3.4.9",
   "description": "Pacote que reúne telas de configuração da Infra.",
   "author": "P&D",
   "keywords": [
@@ -22,7 +22,7 @@
   "peerDependencies": {
     "chart.js": "^4.5.0",
     "ngx-sp-auth": "^4.13.1",
-    "ngx-sp-infra": "^6.13.2"
+    "ngx-sp-infra": "^6.13.3"
   },
   "sideEffects": false
 }
