@@ -13,6 +13,7 @@ export class NavSubmenuCards {
   descricao: string = '';
   urlPath: string = '';
   isExternal: boolean = false;
+  is_OutroModulo: boolean = false;
 }
 
 @Component({
@@ -24,8 +25,8 @@ export class NavSubmenuCards {
   template: `
     <div class="max-card-menu row">
       @for(card of subMenuCards; track $index) {
-        @if (card.isExternal) {
-          <a [href]="getExternalUrl(card.urlPath)" target="_blank" class="card-link col-4">
+        @if (card.isExternal || card.is_OutroModulo) {
+          <a [href]="getExternalUrl(card.urlPath, card.is_OutroModulo)" target="_blank" class="card-link col-4">
             <div class="card w-100 border-0 rounded text-center glb-cursor-pointer">
               <div class="card-icon">
                 <div class="card-icon2">
@@ -66,7 +67,7 @@ export class SubMenuCardComponent implements OnInit {
 
   public hostName:string = "";
 
-  public getExternalUrl = (url: string): string => { return `${ this.hostName == "" ? `https://${ window.location.host }` : this.hostName }/${ url }` }
+  public getExternalUrl = (url: string, isOutroModulo:boolean): string => { return (isOutroModulo? `${ this.hostName }/SisproErpCloud/${ url }`: `${ this.hostName == "" ? `https://${ window.location.host }` : this.hostName }/${ url }`) }
   // #endregion PUBLIC
 
   // #endregion ==========> PROPERTIES <==========
@@ -87,7 +88,7 @@ export class SubMenuCardComponent implements OnInit {
   // #region ==========> API METHODS <==========
 
   // #region GET
-  
+
   public GetHostName() {
     // Validação adicionada para ignorar esta chamada caso o componente seja exibido na docs
     if (this._customEnv.product === "InfraCodeDocs") return;
