@@ -26,5 +26,8 @@
     "ngx-sp-infra": "^6.13.11",
     "ngx-toastr": "^19.0.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "dependencies": {
+    "ngx-sp-auth": "^4.13.4"
+  }
 }
