@@ -15,7 +15,6 @@ export class EmpresaAbasComponent implements OnInit {
   public hostServerOutsystem = ""
   public linksList: links[] = [];
   @Input() Id: string | number = "";
-  @Input() hostServerOutsystemValue: string = "";
   @Output() EmpresaId = new EventEmitter<string | number>();
 
   public activeItem: string = '';
