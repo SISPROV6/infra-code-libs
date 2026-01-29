@@ -54,6 +54,7 @@ export * from './lib/widgets/search-input/models/IV6Menu.model';
 export * from './lib/widgets/search-input/models/IV6Submenu.model';
 export * from './lib/widgets/search-input/models/IV6Tela.model';
 export * from './lib/widgets/search-input/models/MenuSubmenuTela.model';
+export * from './lib/models/basic-ret-types/return.model'
 
 /** Pipes */
 export * from './lib/directives/a11y-click.directive';
