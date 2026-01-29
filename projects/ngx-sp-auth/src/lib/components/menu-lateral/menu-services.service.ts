@@ -36,8 +36,8 @@ export class MenuServicesService {
     private _httpClient: HttpClient,
     private _customEnvironmentService: LibCustomEnvironmentService
   ) {
-    this._BASE_URL = `${ this._customEnvironmentService.Sp2LocalhostWS }`; // SpInfra2ErpWS
-    this._BASE_URL = !this._customEnvironmentService.production ? this._BASE_URL : `${ this._customEnvironmentService.Sp2LocalhostWS }`;
+    this._BASE_URL = `${ this._customEnvironmentService.SpInfra2ErpWS  }`; // SpInfra2ErpWS
+    this._BASE_URL = !this._customEnvironmentService.production ? this._BASE_URL : `${ this._customEnvironmentService.SpInfra2ErpWS  }`;
 
     this._BASE_URL_VERSION_INFRA = `${ this._customEnvironmentService.SpInfra2AuthWS.replace('SpInfra2AuthWS', 'SpInfra2VersionCoreWS') }`; // SpInfra2VersionCoreWS
     this._BASE_URL_VERSION_INFRA = !this._customEnvironmentService.production ? this._BASE_URL_VERSION_INFRA : `${ this._customEnvironmentService.SpInfra2AuthWS.replace('SpInfra2AuthWS', 'SpInfra2VersionCoreWS') }`;
