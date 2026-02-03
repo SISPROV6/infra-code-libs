@@ -36,8 +36,8 @@ export class MenuServicesService {
     private _httpClient: HttpClient,
     private _customEnvironmentService: LibCustomEnvironmentService
   ) {
-    this._BASE_URL = `${ this._customEnvironmentService.SpInfra2ErpWS }`; // SpInfra2ErpWS
-    this._BASE_URL = !this._customEnvironmentService.production ? this._BASE_URL : `${ this._customEnvironmentService.SpInfra2ErpWS }`;
+    this._BASE_URL = `${ this._customEnvironmentService.SpInfra2ErpWS  }`; // SpInfra2ErpWS
+    this._BASE_URL = !this._customEnvironmentService.production ? this._BASE_URL : `${ this._customEnvironmentService.SpInfra2ErpWS  }`;
 
     this._BASE_URL_VERSION_INFRA = `${ this._customEnvironmentService.SpInfra2AuthWS.replace('SpInfra2AuthWS', 'SpInfra2VersionCoreWS') }`; // SpInfra2VersionCoreWS
     this._BASE_URL_VERSION_INFRA = !this._customEnvironmentService.production ? this._BASE_URL_VERSION_INFRA : `${ this._customEnvironmentService.SpInfra2AuthWS.replace('SpInfra2AuthWS', 'SpInfra2VersionCoreWS') }`;
@@ -152,7 +152,7 @@ export class MenuServicesService {
   public getVersionModulos(): Observable<ReturnModel<GrupoProjeto[]>> {
     const url = `${ this._BASE_URL_VERSION_INFRA }/Version/modulos`;
     console.log('url:', url);
-    
+
     return this._httpClient.get<ReturnModel<GrupoProjeto[]>>(url, { 'headers': this._HTTP_HEADERS })
       .pipe( take(1), tap(response => {
           if (response.Error) {
