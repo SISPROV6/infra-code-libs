@@ -84,11 +84,9 @@
                       }
                       @else {
                         <!-- Caso não haja template custom, usa o valor genérico -->
-                        <ng-template #defaultCell>
-                          <td [ngClass]="header.customClasses">
-                            {{ item[idxHeader] }}
-                          </td>
-                        </ng-template>
+                        <td class="bg-simplified-table">
+                          <lib-icon iconName="atencao" iconColor="red" iconSize="small" /> <i>Sem template de conteúdo</i>
+                        </td>
                       }
 
                     }
