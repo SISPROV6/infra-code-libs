@@ -8,16 +8,16 @@ import { LibCustomEnvironmentService } from '../../custom/lib-custom-environment
 import { AuthStorageService } from '../../storage/auth-storage.service';
 
 import { RetDynamicMenu } from './model/dynamic-menu';
+import { FavoritarModel } from './model/favoritarModel';
 import { NavSubmenuSearchItem } from './model/navsubmenu-searchitem';
 import { RetDropDown } from './model/ret-dropdown';
 import { RetEstabelecimentoSession } from './model/ret-estabelecimento-session';
+import { RetEstabelecimentosModal } from './model/ret-estabelecimentos-modal';
 import { RetInfraUsuarioEmail } from './model/ret-infrausuarioemail';
 import { RetInfraUsuarioImg } from './model/ret-infrausuarioimg';
 import { RetIsMenuAllowed } from './model/ret-is-menu-allowed';
 import { RetNavSubMenu, RetSubmenuWithCards } from './model/ret-navsubmenu';
 import { Usuario_IMG } from './model/usuario-img';
-import { FavoritarModel } from './model/favoritarModel';
-import { RetEstabelecimentosModal } from './model/ret-estabelecimentos-modal';
 
 import { GrupoProjeto } from './model/VersoesByGrupo.model';
 
@@ -39,8 +39,8 @@ export class MenuServicesService {
     this._BASE_URL = `${ this._customEnvironmentService.SpInfra2ErpWS  }`; // SpInfra2ErpWS
     this._BASE_URL = !this._customEnvironmentService.production ? this._BASE_URL : `${ this._customEnvironmentService.SpInfra2ErpWS  }`;
 
-    this._BASE_URL_VERSION_INFRA = `${ this._customEnvironmentService.SpInfra2AuthWS.replace('SpInfra2AuthWS', 'SpInfra2VersionCoreWS') }`; // SpInfra2VersionCoreWS
-    this._BASE_URL_VERSION_INFRA = !this._customEnvironmentService.production ? this._BASE_URL_VERSION_INFRA : `${ this._customEnvironmentService.SpInfra2AuthWS.replace('SpInfra2AuthWS', 'SpInfra2VersionCoreWS') }`;
+    this._BASE_URL_VERSION_INFRA = `${ this._customEnvironmentService.SpInfra2AuthWS.replace('SpInfra2AuthWS', 'SpInfra2VersionWS') }`; // SpInfra2VersionWS
+    this._BASE_URL_VERSION_INFRA = !this._customEnvironmentService.production ? this._BASE_URL_VERSION_INFRA : `${ this._customEnvironmentService.SpInfra2AuthWS.replace('SpInfra2AuthWS', 'SpInfra2VersionWS') }`;
   }
 
 
@@ -151,7 +151,6 @@ export class MenuServicesService {
   /** Busca as versões dos módulos instalados e disponíveis dentro do mesmo servidor. */
   public getVersionModulos(): Observable<ReturnModel<GrupoProjeto[]>> {
     const url = `${ this._BASE_URL_VERSION_INFRA }/Version/modulos`;
-    console.log('url:', url);
 
     return this._httpClient.get<ReturnModel<GrupoProjeto[]>>(url, { 'headers': this._HTTP_HEADERS })
       .pipe( take(1), tap(response => {
