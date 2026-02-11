@@ -1,19 +1,19 @@
-import { NgClass } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxMaskPipe } from 'ngx-mask';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { FormUtils, InfraModule, MessageService, RecordCombobox, TableSelectionService } from 'ngx-sp-infra';
+import { FormUtils, InfraModule, MessageService, RecordCombobox, TableHeaderStructure, TableSelectionService } from 'ngx-sp-infra';
 import { Item, TestingService } from './testing.service';
 
 @Component({
   selector: 'app-root',
   imports: [
     ReactiveFormsModule,
-    NgClass,
     FormsModule,
 
     InfraModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgxMaskPipe
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -77,6 +77,29 @@ export class AppComponent implements OnInit {
   public itemsPerPage: number = 5;  // Propriedade necessária para renderizar apenas determinada quantidade por página inicialmente
 
   public tableRecords?: Item[];
+
+
+
+  // A lista de Headers está no TS apenas para simplicidade, sinta-se à vontade para usá-la da forma que achar melhor
+  public headersList: TableHeaderStructure[] = [
+    { name: 'Nome', widthClass: 'w-10' },
+    { name: 'Descrição', widthClass: 'w-10' },
+
+    { name: 'Teste 1', widthClass: 'w-10' },
+    { name: 'Teste 2', widthClass: 'w-10' },
+    { name: 'Teste 3', widthClass: 'w-10' },
+    { name: 'Teste 4', widthClass: 'w-10' },
+    { name: 'Teste 5', widthClass: 'w-10' },
+    { name: 'Teste 6', widthClass: 'w-10' },
+
+    { name: 'Teste 7', widthClass: 'w-10' },
+    { name: 'Teste 8', widthClass: 'w-10' },
+    { name: 'Teste 9', widthClass: 'w-10' },
+    { name: 'Teste 10', widthClass: 'w-10' },
+
+    { name: 'Valor', widthClass: 'w-10' },
+    { name: '', widthClass: 'w-10', customClasses: 'text-end' }
+  ];
   // #endregion PUBLIC
 
   // #endregion ==========> PROPERTIES <==========
