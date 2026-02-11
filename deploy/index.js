@@ -247,13 +247,13 @@ async function main() {
         console.log(chalk.yellow('\n📦 Buildando projeto...'));
         buildProject();
 
-        // Atualiza versão do projeto com ou sem tags
-        console.log(chalk.yellow('\n🔄 Atualizando versão...'));
-        updateVersion();
-
         // Rodar testes unitários
         console.log(chalk.yellow('\n🧪 Executando testes unitários...'));
         executarTestes();
+
+        // Atualiza versão do projeto com ou sem tags
+        console.log(chalk.yellow('\n🔄 Atualizando versão...'));
+        updateVersion();
 
         // Commit e push da tag de versão
         console.log(chalk.yellow('\n📤 Realizando commit das tags de versão...'));

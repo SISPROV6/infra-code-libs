@@ -84,11 +84,9 @@
                       }
                       @else {
                         <!-- Caso não haja template custom, usa o valor genérico -->
-                        <ng-template #defaultCell>
-                          <td [ngClass]="header.customClasses">
-                            {{ item[idxHeader] }}
-                          </td>
-                        </ng-template>
+                        <td class="bg-simplified-table">
+                          <lib-icon iconName="atencao" iconColor="red" iconSize="small" /> <i>Sem template de conteúdo</i>
+                        </td>
                       }
 
                     }
@@ -108,7 +106,7 @@
     @else {
       <div class="table-list {{divBorderClass}}" [class.scrollable-wrapper]="scrollable" >
         <div class="table-list-inner">
-          <table class="table new mb-0 {{tableBorderClass}}" [class.table-hover]="hoverable" style="table-layout: fixed;" >
+          <table class="table new mb-0 {{tableBorderClass}}" [class.table-hover]="hoverable" >
             <thead>
               <tr>
                 <th *ngIf="useSelection" scope="col" style="width: 40px; padding: 12px;" [class.fix]="scrollable" >
@@ -118,8 +116,8 @@
                 </th>
 
                 @for (header of headers; track header.name) {
-                  @if (header.isVisible === undefined || header.isVisible === true) {
-                    <th scope="col" class="align-middle text-dark {{ header.customClasses }} {{ header.widthClass }}
+                  @if (header.isVisible !== false) {
+                    <th class="align-middle text-dark {{ header.customClasses }} {{ header.widthClass }}
                       {{ ($last && header.name === '') && scrollable ? 'fix' : '' }}"
                       [style.width]="scrollable ? header.widthPixels ? header.widthPixels+'px' : 250+'px' : null" >
 
