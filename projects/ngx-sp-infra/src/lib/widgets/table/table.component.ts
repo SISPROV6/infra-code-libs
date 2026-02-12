@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, Renderer2, SimpleChanges, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -34,7 +34,6 @@ import { OrderingComponent } from '../ordering/ordering.component';
   imports: [
     NgIf,
     FormsModule,
-    NgFor,
     LibIconsComponent,
     TooltipModule,
     OrderingComponent,
@@ -52,7 +51,6 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   private _recordsList: unknown[] | undefined;
   private _isMobile: boolean = false;
   private _currentPage: number = 1;
-  private _currentItemsPerPage: number = 0;
   // #endregion PRIVATE
 
   // #region PUBLIC
@@ -79,8 +77,8 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
    * @required */
   @Input() public counts?: number[];
 
-
-  @Input() public itemsPerPage?: number;
+  /** Número de itens a serem exibidos por página. */
+  @Input() public itemsPerPage: number = 0;
 
   /** Posicionamento dos controles de paginação.
    * @default 'end' */
@@ -157,24 +155,20 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 	public get page(): number { return this._currentPage; }
 	public set page(value: number) { this._currentPage = value; }
 
-  /** Número de itens a serem exibidos por página. */
-  public get currentItemsPerPage(): number { return this._currentItemsPerPage; }
-	public set currentItemsPerPage(value: number) { this._currentItemsPerPage = value; }
-
-   /** Se é Mobile baseado na resolução da tela do usuário. */
+  /** Se é Mobile baseado na resolução da tela do usuário. */
   public get isMobile(){ return this._isMobile }
 
 
   public get firstItemOfPage(): number {
-    return (this.page - 1) * this.currentItemsPerPage + 1;
+    return (this.page - 1) * this.itemsPerPage + 1;
   }
   public get lastItemOfPage(): number {
-    return Math.min(this.page * this.currentItemsPerPage, this.list?.length ?? 0);
+    return Math.min(this.page * this.itemsPerPage, this.list?.length ?? 0);
   }
 
   public get itemsDisplayText(): string {
-    if (this.list && this.list.length === 0) { return `Exibindo ${this.list?.length ?? 0} registros`; }
-    return `Exibindo ${ this.counts ? this.firstItemOfPage+"-"+this.lastItemOfPage + " de" : "" } ${this.list?.length ?? 0} registros`;
+    if (this.list && this.list.length === 0) { return `Exibindo ${ this.list?.length ?? 0 } registros`; }
+    return `Exibindo ${ this.counts ? this.firstItemOfPage + "-" + this.lastItemOfPage + " de" : "" } ${ this.list?.length ?? 0 } registros`;
   }
 
 
@@ -188,12 +182,6 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   @ViewChild('emptyListTd') emptyListTD?: ElementRef<HTMLTableCellElement>;
 
   public colspanWidth: string = "";
-
-
-  // #region FIXED COLUMNS
-  // [...]
-  // #endregion FIXED COLUMNS
-
   // #endregion PUBLIC
 
   // #endregion ==========> PROPRIEDADES <==========
@@ -261,10 +249,16 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
   private updateCounterInfo(): void {
     if (this.list && this.showCounter && this.usePagination) {
-      this.currentItemsPerPage = this.counts ? this.counts[0] : this.list.length;
+      this.itemsPerPage = this.itemsPerPage
+        ? this.itemsPerPage
+        : this.counts
+          ? this.counts[0]
+          : this.list.length;
     }
     else if (!this.list && this.showCounter && this.usePagination) {
-      this.currentItemsPerPage = 1;
+      this.itemsPerPage = this.itemsPerPage
+        ? this.itemsPerPage
+        : 1;
     }
   }
 
@@ -281,7 +275,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
     this._cdr.detectChanges();  // Forçar uma nova detecção após a atualização do colspan
   }
 
-public initMobileObserver(){
+  public initMobileObserver(){
       this._breakpointObserver.observe([
       Breakpoints.HandsetLandscape,
       Breakpoints.HandsetPortrait
@@ -297,16 +291,16 @@ public initMobileObserver(){
   /** Modifica a quantidade de itens a ser mostrada na lista.
    * @param event parâmetro de evento que irá selecionar a nova quantidade. */
   public onSelectChange(event: any) {
-    this.currentItemsPerPage = parseInt(event.target.value, 10);
+    this.itemsPerPage = parseInt(event.target.value, 10);
     this.page = 1;
     this.pageChange.emit(this.page);
-    this.itemsPerPageChange.emit(this.currentItemsPerPage);
+    this.itemsPerPageChange.emit(this.itemsPerPage);
   }
 
   /** Reseta a paginação da listagem com base no número atual de registros.
    * @param list Lista de registros para resetar a paginação. */
   public resetPagination(list: unknown[]): void {
-    const startIndex = (this.page - 1) * this.currentItemsPerPage;
+    const startIndex = (this.page - 1) * this.itemsPerPage;
     if (list.length <= startIndex) this.page = 1;
   }
 
@@ -380,8 +374,7 @@ public initMobileObserver(){
 		if (typeof path === 'string') path = path.split('.');
 
     const property = path.reduce((value, property) => value ? value[property] : '', obj);
-    return property ? property.toString() : "";
-    // .toString() adicionado para permitir todos os tipos de dados
+    return property ? property.toString() : "";   // .toString() adicionado para permitir todos os tipos de dados
 	}
 	//#endregion Ordering, Sorting ou apenas Ordenação
 
