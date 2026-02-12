@@ -36,9 +36,7 @@ export class LibCustomizableTableComponent implements OnInit, AfterViewInit, OnC
   // #region PRIVATE
   private _paginationID: string = "libTablePagination";
   private _recordsList: unknown[] | undefined;
-
   private _currentPage: number = 1;
-  private _currentItemsPerPage: number = 0;
   // #endregion PRIVATE
 
   // #region PUBLIC
@@ -56,6 +54,9 @@ export class LibCustomizableTableComponent implements OnInit, AfterViewInit, OnC
   /** Opções de contagem de itens por página disponíveis para o usuário.
    * @required */
   @Input() public counts?: number[];
+
+  /** Número de itens a serem exibidos por página. */
+  @Input() public itemsPerPage: number = 0;
 
   /** Determina se haverá uma coluna inicial para seleção de registros na tabela. */
   @Input() public useSelection: boolean = false;
@@ -132,24 +133,17 @@ export class LibCustomizableTableComponent implements OnInit, AfterViewInit, OnC
   public get page(): number { return this._currentPage; }
   public set page(value: number) { this._currentPage = value; }
 
-  /** Número de itens a serem exibidos por página. */
-  public get itemsPerPage(): number { return this._currentItemsPerPage; }
-  public set itemsPerPage(value: number) { this._currentItemsPerPage = value; }
-
   // Cálculos auxiliares
   public get firstItemOfPage(): number {
     return (this.page - 1) * this.itemsPerPage + 1;
   }
-
   public get lastItemOfPage(): number {
     return Math.min(this.page * this.itemsPerPage, this.list?.length ?? 0);
   }
 
   public get itemsDisplayText(): string {
-    if (this.list && this.list.length === 0) {
-      return `Exibindo ${this.list?.length ?? 0} registros`;
-    }
-    return `Exibindo ${this.counts ? this.firstItemOfPage + "-" + this.lastItemOfPage + " de" : ""} ${this.list?.length ?? 0} registros`;
+    if (this.list && this.list.length === 0) { return `Exibindo ${ this.list?.length ?? 0 } registros`; }
+    return `Exibindo ${ this.counts ? this.firstItemOfPage + "-" + this.lastItemOfPage + " de" : "" } ${ this.list?.length ?? 0 } registros`;
   }
 
   // ViewChilds e demais
@@ -228,9 +222,16 @@ export class LibCustomizableTableComponent implements OnInit, AfterViewInit, OnC
   /** Atualiza as informações relacionadas ao contador (usado no footer da tabela, por exemplo) */
   private updateCounterInfo(): void {
     if (this.list && this.showCounter && this.usePagination) {
-      this.itemsPerPage = this.counts ? this.counts[0] : this.list.length;
-    } else if (!this.list && this.showCounter && this.usePagination) {
-      this.itemsPerPage = 1;
+      this.itemsPerPage = this.itemsPerPage
+        ? this.itemsPerPage
+        : this.counts
+          ? this.counts[0]
+          : this.list.length;
+    }
+    else if (!this.list && this.showCounter && this.usePagination) {
+      this.itemsPerPage = this.itemsPerPage
+        ? this.itemsPerPage
+        : 1;
     }
   }
 
@@ -308,7 +309,7 @@ export class LibCustomizableTableComponent implements OnInit, AfterViewInit, OnC
     if (typeof path === 'string') path = path.split('.');
 
     const property = path.reduce((value, property) => value ? value[property] : '', obj);
-    return property ? property.toString() : "";
+    return property ? property.toString() : "";   // .toString() adicionado para permitir todos os tipos de dados
   }
 
   // #endregion Ordering, Sorting ou apenas Ordenação

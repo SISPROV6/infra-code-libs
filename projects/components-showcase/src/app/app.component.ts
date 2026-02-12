@@ -74,7 +74,7 @@ export class AppComponent implements OnInit {
   ];
 
   public page: number = 1;  // Propriedade necessária para explicitar qual página está selecionada atualmente
-  public itemsPerPage: number = 5;  // Propriedade necessária para renderizar apenas determinada quantidade por página inicialmente
+  public itemsPerPage: number = 25;  // Propriedade necessária para renderizar apenas determinada quantidade por página inicialmente
 
   public tableRecords?: Item[];
 
