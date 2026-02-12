@@ -187,9 +187,10 @@
     <div *ngIf="!useCustomPagination && usePagination && list.length > 0" class="d-flex flex-wrap justify-content-end mt-2">
         <div class="d-flex align-items-center me-2">
           <label for="countSelect" class="me-2" style="white-space: nowrap;"> Itens por página </label>
-          <select id="countSelect" class="form-select select-search" (change)="onSelectChange($event)">
-          <option *ngFor="let count of counts; let i = index" [value]="count"
-            [selected]="counts ? (counts.length > 0 && i === 0) : false">{{ count }}</option>
+          <select id="countSelect" class="form-select select-search" [(ngModel)]="itemsPerPage" (change)="onSelectChange($event)">
+            @for (count of counts; track count) {
+              <option [value]="count" >{{ count }}</option>
+            }
           </select>
         </div>
 
