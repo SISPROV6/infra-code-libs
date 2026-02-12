@@ -2,7 +2,7 @@
 
 <div class="content">
   <div class="filters">
-    
+
     <lib-container [tabs]="[ 'Combobox', 'Table' ]" currentTab="Table" [useBorder]="true" >
       <div innerContent1>
         <div class="d-flex gap-2 mb-5">
@@ -20,7 +20,7 @@
               <label class="form-label" libRequired>Pokemons (lib-combobox-rework)</label>
               <lib-combobox-rework [list]="pokemons" formControlName="pokemon" (selectionChange)="log($event)" [innerFilter]="false" (filterChange)="filterRecords($event)" />
             </div>
-  
+
             <div class="col">
               <lib-combobox labelText="Pokemons (lib-combobox)" [list]="pokemonsCombobox" [control]="form.controls['pokemon']" mainPlaceholder="Selecione um Pokemón">
                 <button btnLeft class="btn btn-sm btn-primary" tooltip="Abrir modal com listagem completa"> <lib-icon iconName="usuario-quadro" /> </button>
@@ -44,7 +44,7 @@
 
         <lib-table [list]="tableRecords" [counts]="[ 5, 10, 15, 25, 50 ]" [itemsPerPage]="itemsPerPage" paginationID="simpleTable" [usePreviousStyle]="true"
           (itemsPerPageChange)="itemsPerPage = $event" (pageChange)="page = $event" [scrollable]="true" [itemsPerPage]="itemsPerPage"
-          
+
           [useSelection]="true" [selection]="selecaoService1.selecaoGeral" [selectedCount]="selecaoService1.quantidadeSelecionados()"
           (selectionChange)="selecaoService1.definirSelecaoTotal(tableRecords, $event, ['id', 'name'])"
 
