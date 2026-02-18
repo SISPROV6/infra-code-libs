@@ -8,7 +8,7 @@ on:
       - test
 
 permissions:
-  id-token: write  # Required for OIDC
+  # id-token: write  # Required for OIDC
   contents: read
 
 jobs:
@@ -134,15 +134,15 @@ jobs:
           npm publish --access public --tag fix
         fi
 
-    # - name: Criar Release automático
-    #   if: env.should_publish == 'true'
-    #   uses: actions/create-release@v1
-    #   with:
-    #     tag_name: ${{ env.TAG }}
-    #     release_name: ${{ env.PROJECT }} v${{ env.VERSION }}
-    #     body: |
-    #       ## O que mudou?
+    - name: Criar Release automático
+      if: env.should_publish == 'true'
+      uses: actions/create-release@v1
+      with:
+        tag_name: ${{ env.TAG }}
+        release_name: ${{ env.PROJECT }} v${{ env.VERSION }}
+        body: |
+          ## O que mudou?
 
-    #       ${{ env.NOTES }}
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ${{ env.NOTES }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
