@@ -139,7 +139,7 @@ jobs:
       uses: softprops/action-gh-release@v2
       if: env.should_publish == 'true'
       with:
-        release_name: ${{ env.PROJECT }} v${{ env.VERSION }}
+        name: ${{ env.PROJECT }} v${{ env.VERSION }}
         tag_name: ${{ env.TAG }}
         body: |
           ## O que mudou?
