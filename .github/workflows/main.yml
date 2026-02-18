@@ -133,29 +133,3 @@ jobs:
         elif [ "${{ github.ref }}" == "refs/heads/fixes" ]; then
           npm publish --access public --tag fix
         fi
-
-
-    - name: Criar Release automático
-      uses: softprops/action-gh-release@v2
-      if: env.should_publish == 'true'
-      with:
-        name: ${{ env.PROJECT }} v${{ env.VERSION }}
-        tag_name: ${{ env.TAG }}
-        body: |
-          ## O que mudou?
-
-          ${{ env.NOTES }}
-        token: ${{ secrets.GITHUB_TOKEN }}
-
-    # - name: Criar Release automático
-    #   if: env.should_publish == 'true'
-    #   uses: actions/create-release@v1
-    #   with:
-    #     tag_name: ${{ env.TAG }}
-    #     release_name: ${{ env.PROJECT }} v${{ env.VERSION }}
-    #     body: |
-    #       ## O que mudou?
-
-    #       ${{ env.NOTES }}
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
