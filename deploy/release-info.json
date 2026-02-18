@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-infra",
-  "version": "6.14.5",
-  "tag": "infra-v6.14.5",
-  "notes": "Teste para correção no erro de geração de Releases",
-  "timestamp": "2026-02-18T12:35:03.879Z"
+  "version": "6.14.6",
+  "tag": "infra-v6.14.6",
+  "notes": "Utilizando outro serviço de geração de Releases",
+  "timestamp": "2026-02-18T12:51:54.232Z"
 }
