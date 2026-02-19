@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 import { Observable, from, lastValueFrom } from 'rxjs';
 
-import { AuthStorageService } from '../storage/auth-storage.service';
 import { CheckUrlAndMethodService } from 'ngx-sp-infra';
 import { LibCustomEnvironmentService } from '../custom/lib-custom-environment.service';
+import { AuthStorageService } from '../storage/auth-storage.service';
 /**
  * \brief Intercepta uma chamada HTTP para inserir o usuário logado no header em conjunto
  *        com o login para uso da API.
@@ -41,7 +41,10 @@ export class AuthAplicInterceptor implements HttpInterceptor {
         `Bearer ${this.token.authToken}`
       );
 
-      changedReq = req.clone({ headers: headers });
+      changedReq = req.clone({
+        headers: headers,
+        withCredentials: true   // Erick: Adicionado devido à implementação dos Cookies como autenticação
+      });
     }
 
     return await lastValueFrom(next.handle(changedReq));
