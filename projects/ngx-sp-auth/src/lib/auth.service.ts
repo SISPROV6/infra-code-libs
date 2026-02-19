@@ -167,7 +167,6 @@ export class AuthService {
     }
 
     const params = new HttpParams()
-
       .set('dominio', domain)
       .set('urlServidor', this.getHostName())
       .set('ip', this.ip)
@@ -182,7 +181,7 @@ export class AuthService {
     const headers = this._HTTP_HEADERS;
 
     return this._httpClient
-      .post<RetLogin>(url, login,  { 'params': params, 'headers': headers, withCredentials: true })   // Necessário o withCredentials mesmo neste endpoint para que o navegador consiga armazenar o Cookie que retornar corretamente
+      .post<RetLogin>(url, login,  { 'params': params, 'headers': headers })
       .pipe(
         take(1),
         tap((response) => {
