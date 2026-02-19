@@ -23,10 +23,8 @@ import { LibCustomLoginService } from './custom/lib-custom-login.service';
 import { IndexedDBService } from './services/indexed-db.service';
 import { AuthStorageService } from './storage/auth-storage.service';
 import { AuthUtilService } from './utils/auth-utils.service';
-@Injectable(
-  { providedIn: 'root' }
-)
 
+@Injectable({ providedIn: 'root' })
 export class AuthService {
 
   // #region ==========> PROPERTIES <==========
@@ -58,7 +56,7 @@ export class AuthService {
     private _customEnvironmentService: LibCustomEnvironmentService,
     private _indexedDBService: IndexedDBService
   ) {
-    this._BASE_URL = `${ this._customEnvironmentService.SpInfra2LoginWS }/LoginSisproERP`; // SpInfra2WS
+    this._BASE_URL = `${ this._customEnvironmentService.Sp2LocalhostInfra2LoginWS }/LoginSisproERP`; // SpInfra2WS
     this._AUTH_BASE_URL = `${ this._customEnvironmentService.SpInfra2AuthWS }/Auth`; // SpInfra2AuthWS
     this._BASE_OS_URL = `${ this._customEnvironmentService.SpInfra2LoginWS }/LoginIntegradoOS`; // SpInfra2LoginWS
 
@@ -169,7 +167,6 @@ export class AuthService {
     }
 
     const params = new HttpParams()
-
       .set('dominio', domain)
       .set('urlServidor', this.getHostName())
       .set('ip', this.ip)
