@@ -16,18 +16,18 @@ import { LibIconsComponent } from '../lib-icons/lib-icons.component';
 /**
  * @component LibComboboxComponent
  * @selector lib-combobox
- * 
+ *
  * @description
  * O componente LibComboboxComponent é projetado para fornecer aos usuários uma interface para pesquisar e selecionar itens de uma lista.
  * Ele suporta a filtragem de itens com base na entrada do usuário, permitindo uma seleção mais fácil em listas extensas.
- * 
+ *
  * ## Funcionalidades:
  * - Pesquisa e filtragem de itens na lista do combobox.
  * - Seleção de itens com feedback visual.
  * - Emissão de eventos personalizados para interações do usuário, como recarregar a lista ou selecionar um item.
  * - Ajuste dinâmico da largura do dropdown para corresponder ao input principal.
  * - Inicialização de um valor selecionado, se fornecido.
- * 
+ *
  * ## Inputs:
  * - `control` (FormControl | AbstractControl): Control para seleção dos valores, atualizará automaticamente o control do componente pai também
  * - `comboboxList` (RecordCombobox[]): Lista de registros que serão exibidos no combo, enquanto eles estiverem carregando será exibido um spinner
@@ -38,7 +38,7 @@ import { LibIconsComponent } from '../lib-icons/lib-icons.component';
  * - `searchInputPlaceholder` (string): Placeholder do campo de pesquisa dentro do combo
  * - `colorTheme` ("primary" | "secondary" | "success" | "danger" | "warning" | "info" | "light" | "dark"): Define o tema de cor do componente, como "primary", "success", ou "danger"
  * - `returnRecord` (boolean): Define se o tipo de retorno ao selecionar uma opção será o Record inteiro ou apenas o ID
- * 
+ *
  * ## Outputs:
  * - `onReloadList` (EventEmitter<string>): Evento emitido quando a lista precisa ser recarregada.
  */
@@ -51,7 +51,7 @@ import { LibIconsComponent } from '../lib-icons/lib-icons.component';
     .z-index-1020 { z-index: 1020 !important; }
     .cursor-pointer { cursor: pointer !important; }
   `,
-  
+
   imports: [
     NgIf,
     RequiredDirective,
@@ -73,7 +73,7 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, AfterContent
   protected set ariaExpanded(value: boolean) {
     this._ariaExpanded = value;
     this.adjustDropdownWidth();
-    
+
     if (value === false) {
       this.textoPesquisa = "";
 
@@ -206,8 +206,8 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, AfterContent
    * @emits EventEmitter<string|number|null> que leva o valor string da pesquisa feita para ser enviada para o GET
    * @type {EventEmitter<string | number | null>} */
   @Output() public changeValue: EventEmitter<RecordCombobox | string | number | null> = new EventEmitter<RecordCombobox | string | number | null>();
-  
-  
+
+
   /** Evento emitido ao mudar o valor do campo de pesquisa
    * @example Ao ser emitido, o componente pai pode realizar uma validação ou nova query com o valor selecionado.
    * @emits EventEmitter<string> que leva o valor string da pesquisa feita para ser enviada para o GET
@@ -262,7 +262,7 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, AfterContent
     }
 
     if (changes["libRequired"]?.currentValue != undefined) this.setValidator();
-    
+
     if (changes["control"]?.currentValue) {
       this.setValidator();
       this.updateSelectedValue((changes["control"].currentValue as FormControl).value);
@@ -279,7 +279,7 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, AfterContent
     this.textoPesquisa = "";
     this.innerControl.markAsDirty();
     this._outerControl.markAsDirty();
-    
+
     this._outerControl.setValue(item.ID);
     this.innerControl.setValue(
       `${item.AdditionalStringProperty1 && item.AdditionalStringProperty1 != '' ? item.AdditionalStringProperty1 : ""}${this.separator === undefined ? " " : " "+this.separator+" "}${item.LABEL}`
@@ -287,7 +287,7 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, AfterContent
 
     this.ariaExpanded = false;
     this.setControlStatus(this.innerControl.status);
-    
+
     this.changeValue.emit(this.returnRecord ? item as RecordCombobox : item.ID);
   }
 
@@ -307,11 +307,12 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, AfterContent
 
   private updateSelectedValue(value?: string | number | null, noChange: boolean = true): void {
     this.innerControl.setValue(null); // Limpa o campo antes de qualquer coisa
-    
+
     const selectedValue: string | number | null = value ?? this._outerControl.value;
     if (!this.list || (selectedValue === null && selectedValue === '')) return;
-    
+
     const initializedValue = this.list.find(item => item.ID === selectedValue)
+
     if (initializedValue) this.innerControl.setValue(
       `${initializedValue.AdditionalStringProperty1 && initializedValue.AdditionalStringProperty1 != '' ? initializedValue.AdditionalStringProperty1 : ""}${this.separator === undefined ? "" : " "+this.separator+" "}${initializedValue.LABEL}`,
       { emitEvent: noChange }
@@ -384,8 +385,16 @@ export class LibComboboxComponent implements OnInit, AfterViewInit, AfterContent
         break;
     }
   }
+public normalizeText(texto: string): string {
+  if (!texto) return texto;
 
-  public reloadList(): void { this.reloadListChange.emit(this.textoPesquisa) }
+  return texto
+    .normalize('NFD')
+    // regex pra retirar acentos
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+}
+  public reloadList(): void { this.reloadListChange.emit(this.normalizeText(this.textoPesquisa)) }
   // #endregion ==========> UTILS <==========
 
 }

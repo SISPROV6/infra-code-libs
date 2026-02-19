@@ -2,7 +2,7 @@
 
 <div class="content">
   <div class="filters">
-    
+
     <lib-container [tabs]="[ 'Combobox', 'Table' ]" currentTab="Table" [useBorder]="true" >
       <div innerContent1>
         <div class="d-flex gap-2 mb-5">
@@ -20,7 +20,7 @@
               <label class="form-label" libRequired>Pokemons (lib-combobox-rework)</label>
               <lib-combobox-rework [list]="pokemons" formControlName="pokemon" (selectionChange)="log($event)" [innerFilter]="false" (filterChange)="filterRecords($event)" />
             </div>
-  
+
             <div class="col">
               <lib-combobox labelText="Pokemons (lib-combobox)" [list]="pokemonsCombobox" [control]="form.controls['pokemon']" mainPlaceholder="Selecione um Pokemón">
                 <button btnLeft class="btn btn-sm btn-primary" tooltip="Abrir modal com listagem completa"> <lib-icon iconName="usuario-quadro" /> </button>
@@ -36,11 +36,15 @@
           <button class="btn btn-outline-primary" (click)="itemsPerPage = 5" >5</button>
           <button class="btn btn-outline-primary" (click)="itemsPerPage = 10" >10</button>
           <button class="btn btn-outline-primary" (click)="itemsPerPage = 15" >15</button>
+          <button class="btn btn-outline-primary" (click)="itemsPerPage = 25" >25</button>
+          <button class="btn btn-outline-primary" (click)="itemsPerPage = 50" >50</button>
         </div>
 
-        <lib-table [list]="tableRecords" [counts]="[ 5, 10, 15 ]" [itemsPerPage]="itemsPerPage" paginationID="simpleTable" [usePreviousStyle]="true"
-          (itemsPerPageChange)="itemsPerPage = $event" (pageChange)="page = $event" [scrollable]="true"
-          
+        <!-- Duas tables diferentes, alternar conforme necessidade de testes -->
+
+        <lib-table [list]="tableRecords" [counts]="[ 5, 10, 15, 25, 50 ]" [itemsPerPage]="itemsPerPage" paginationID="simpleTable" [usePreviousStyle]="true"
+          (itemsPerPageChange)="itemsPerPage = $event" (pageChange)="page = $event" [scrollable]="true" [itemsPerPage]="itemsPerPage"
+
           [useSelection]="true" [selection]="selecaoService1.selecaoGeral" [selectedCount]="selecaoService1.quantidadeSelecionados()"
           (selectionChange)="selecaoService1.definirSelecaoTotal(tableRecords, $event, ['id', 'name'])"
 
@@ -71,6 +75,44 @@
               </tr>
           }
         </lib-table>
+
+
+        <!-- <lib-customizable-table innerContent1 paginationID="simpleTable" [list]="tableRecords" [counts]="[ 5, 10, 15, 25, 50 ]" [headers]="headersList"
+          (itemsPerPageChange)="itemsPerPage = $event" (pageChange)="page = $event" [usePreviousStyle]="true" [itemsPerPage]="itemsPerPage"
+          [templates]="{
+            'Nome': tpNome,
+            'Descrição': tpDescricao,
+            'Teste 1': tpTeste1,
+            'Valor': tpValor,
+            '': tpAcoes
+          }" />
+
+        <ng-template #tpNome let-item>
+          <td class="align-middle">
+            <a class="text-primary text-decoration-none fw-bold" tooltip="Editar/Visualizar">{{ item.id }}</a>
+          </td>
+        </ng-template>
+
+        <ng-template #tpDescricao let-item>
+          <td class="align-middle">{{ item.name }}</td>
+        </ng-template>
+
+        <ng-template #tpTeste1 let-item>
+          <td class="align-middle">Teste 1</td>
+        </ng-template>
+
+        <ng-template #tpValor let-item>
+          <td class="align-middle">{{ 5.55 | mask: 'separator': {  thousandSeparator: '.', suffix: ' R$' } }}</td>
+        </ng-template>
+
+        <ng-template #tpAcoes let-item>
+          <td class="align-middle">
+            <div class="d-flex flex-row align-items-center justify-content-end">
+              <lib-icon iconName="editar" iconColor="blue" tooltip="Visualizar/Editar" />
+              <div class="form-check form-switch ms-2"> <input class="form-check-input" type="checkbox" role="switch" [checked]="item.isAtivo"> </div>
+            </div>
+          </td>
+        </ng-template> -->
       </div>
     </lib-container>
 

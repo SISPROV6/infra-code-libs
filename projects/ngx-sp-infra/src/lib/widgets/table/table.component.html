@@ -98,14 +98,9 @@
                }">
                <div class="d-flex align-items-center me-2">
                   <label for="countSelect" class="me-2" style="white-space: nowrap;"> Itens por página </label>
-                  <select id="countSelect" class="form-select select-search" (change)="onSelectChange($event)">
+                  <select id="countSelect" class="form-select select-search" [(ngModel)]="itemsPerPage" (change)="onSelectChange($event)" >
                      @for (count of counts; track count) {
-                        <option [value]="count"
-                           [selected]="!!itemsPerPage
-                              ? itemsPerPage === count
-                              : counts
-                                 ? (counts.length > 0 && $first)
-                                 : false" >{{ count }}</option>
+                        <option [value]="count">{{ count }}</option>
                      }
                   </select>
                </div>
@@ -200,14 +195,9 @@
                }">
                <div class="d-flex align-items-center me-2"  >
                   <label for="countSelect" class="me-2" style="white-space: nowrap;"> Itens por página </label>
-                  <select id="countSelect" class="form-select select-search" (change)="onSelectChange($event)">
+                  <select id="countSelect" class="form-select select-search" [(ngModel)]="itemsPerPage" (change)="onSelectChange($event)">
                      @for (count of counts; track count) {
-                        <option [value]="count"
-                           [selected]="!!itemsPerPage
-                              ? itemsPerPage === count
-                              : counts
-                                 ? (counts.length > 0 && $first)
-                                 : false" >{{ count }}</option>
+                        <option [value]="count" >{{ count }}</option>
                      }
                   </select>
                </div>
