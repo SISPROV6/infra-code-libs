@@ -1,7 +1,7 @@
 <div #submenu class="header-submenu">
   <h1 class="titulo pb-3 pt-4">{{ titleSubmenu }}</h1>
   <div class="itens-list">
-    <ul style="width: 100%">
+    <ul style="width: 100%; max-height: 100%">
 
       <li *ngFor="let itemList of submenuList; let i = index" [id]="itemList!.id"
         class="d-flex justify-content-between align-items-center"
