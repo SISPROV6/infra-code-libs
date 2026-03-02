@@ -1,10 +1,10 @@
 /* eslint-disable @angular-eslint/no-output-on-prefix */
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { LibIconsComponent } from '../lib-icons/lib-icons.component';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 /**
  * @description Este arquivo contém a implementação do componente SimpleHeaderComponent, um cabeçalho genérico
@@ -82,7 +82,7 @@ export class LibHeaderComponent implements OnInit {
   /** Modo em que o Header será inicializado.
    * Impacta em algumas situações como por exemplo a exibição dos botões padrão e o título
    * @default "list" */
-  @Input() public mode: "add" | "edit" | "list" = "list";
+  @Input() public mode: "add" | "edit" | "list" | "form" = "list";
 
   /** Deve ser informada caso você deseje que um dos botões seja escondido */
   @Input() public hideButtons?: string[];
@@ -110,8 +110,12 @@ export class LibHeaderComponent implements OnInit {
   /** [DEPRECIADO EM BREVE] Emissor de evento ao clicar no "Salvar" em modo de edição. Será depreciado em breve, utilize 'update'. */
   @Output() public onUpdate = new EventEmitter<void>();
   @Output() public update = new EventEmitter<void>();
-  // #endregion PUBLIC
+  
+  @Output() public save = new EventEmitter<void>();
+
   public get isMobile(){ return this._isMobile }
+  // #endregion PUBLIC
+  
 
   // #endregion ==========> PROPERTIES <==========
 
@@ -144,8 +148,15 @@ export class LibHeaderComponent implements OnInit {
     this.update.emit();
   }
 
+  /** Emite um evento quando o botão de "Salvar" em modo de criação ou edição foi clicado
+   * Usado com o novo modo 'form' */
+  protected emitCreateOrUpdate(): void {
+    this.save.emit();
+  }
+
+
   protected setSaveText(): string {
-    if (this.mode == "list") return "Adicionar";
+    if (this.mode === "list") return "Adicionar";
     else return "Salvar";
   }
 
