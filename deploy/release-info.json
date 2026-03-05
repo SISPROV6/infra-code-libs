@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-auth",
-  "version": "4.14.5",
-  "tag": "auth-v4.14.5",
-  "notes": "Atualização de rotina",
-  "timestamp": "2026-03-02T11:56:04.662Z"
+  "project": "ngx-sp-infra",
+  "version": "6.15.0",
+  "tag": "infra-v6.15.0",
+  "notes": "Novo componente de uplaod de arquivos + diretiva de fileDrop",
+  "timestamp": "2026-03-05T14:32:19.746Z"
 }

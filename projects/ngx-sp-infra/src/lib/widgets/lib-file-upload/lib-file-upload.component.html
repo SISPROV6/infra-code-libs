@@ -1,0 +1,33 @@
+<input hidden type="file" #fileUploader (change)="receiveFile($event)" [accept]="[ allowed.join(', ') ]" />
+
+@if (!activeFile) {
+  <a  libFileDrop [allowed]="[ 'application/json' ]"  type="button" id="upload-card" class="card border-2 border-dotted flex-row align-items-center gap-3 p-3  text-decoration-none"
+    (click)="fileUploader.click()" (dropped)="dropFile($event)" (error)="uploadError = $event" >
+    <lib-icon id="upload-card-idle-icon" [iconName]="uploadError ? 'fechar' : 'g-pasta-seta-cima'" [iconSize]="72" />
+
+    <div class="card-body">
+      <h4 id="upload-card-idle-title" class="card-title fw-bold"> {{ uploadError ? 'TIPO DE ARQUIVO INVÁLIDO' : 'UPLOAD DE ARQUIVO' }} </h4>
+      <p id="upload-card-idle-text" class="card-text mb-0">
+        {{ uploadError
+            ? 'Este formato não é permitido para este upload, utilize apenas os formatos válidos'
+            : 'Clique aqui ou arraste um arquivo da sua máquina e largue-o para fazer o upload'
+        }}
+      </p>
+
+      @if (allowed.length > 0) { <span>Tipos permitidos: <b>{{ allowed.join(', ') }}</b> </span> }
+    </div>
+  </a>
+}
+@else {
+  <a  libFileDrop [allowed]="[ 'application/json' ]" (dropped)="dropFile($event)"  type="button" id="upload-card" class="card border-2 border-success border-dotted bg-success-subtle flex-row align-items-center justify-content-between p-3 text-success text-decoration-none" >
+    <div class="d-flex align-items-center gap-2 w-100" (click)="fileUploader.click()" >
+      <lib-icon iconName="folha-linhas" />
+      <p class="mb-0 fw-bold"> {{ activeFile.name }} <span><code class="text-success ms-2 py-1 px-2 bg-secondary-subtle rounded">{{ FileUtils.convertfileSize(activeFile.size) }}</code></span> </p>
+    </div>
+
+    <div class="d-flex gap-3">
+      <a type="button" class="text-danger" tooltip="Excluir arquivo" > <lib-icon iconName="fechar" (click)="activeFile = undefined" /> </a>
+      <a type="button" class="text-success" tooltip="Confirmar upload" > <lib-icon iconName="check" (click)="confirmUpload.emit()" /> </a>
+    </div>
+  </a>
+}

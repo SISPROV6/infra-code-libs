@@ -54,7 +54,6 @@ export * from './lib/widgets/search-input/models/IV6Menu.model';
 export * from './lib/widgets/search-input/models/IV6Submenu.model';
 export * from './lib/widgets/search-input/models/IV6Tela.model';
 export * from './lib/widgets/search-input/models/MenuSubmenuTela.model';
-export * from './lib/models/basic-ret-types/return.model'
 
 /** Pipes */
 export * from './lib/directives/a11y-click.directive';
@@ -77,6 +76,7 @@ export * from './lib/directives/btn-right.directive';
 export * from './lib/directives/click-outside.directive';
 export * from './lib/directives/copy-clipboard.directive';
 export * from './lib/directives/disable-control.directive';
+export * from './lib/directives/file-drop.directive';
 export * from './lib/directives/highlight.directive';
 export * from './lib/directives/inner-rows.directive';
 export * from './lib/directives/loading-btn.directive';
@@ -134,6 +134,7 @@ export * from './lib/widgets/lib-combobox-rework/lib-combobox-rework.component';
 export * from './lib/widgets/lib-combobox/lib-combobox.component';
 export * from './lib/widgets/lib-customizable-table/lib-customizable-table.component';
 export * from './lib/widgets/lib-date-range-picker/lib-date-range-picker.component';
+export * from './lib/widgets/lib-file-upload/lib-file-upload.component';
 export * from './lib/widgets/lib-header/lib-header.component';
 export * from './lib/widgets/lib-icons/lib-icons.component';
 export * from './lib/widgets/lib-nav-produtos/lib-nav-produtos.component';
