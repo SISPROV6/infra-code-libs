@@ -37,6 +37,7 @@ import { ToUrlPipe } from './pipes/to-url.pipe';
 
 import { BtnLeftDirective } from './directives/btn-left.directive';
 import { BtnRightDirective } from './directives/btn-right.directive';
+import { FileDropDirective } from './directives/file-drop.directive';
 import { PageNotAuthorizedComponent } from './views/page-not-authorized/page-not-authorized.component';
 import { AppliedFiltersComponent } from './widgets/applied-filters/applied-filters.component';
 import { AuditoriaButtonComponent } from './widgets/auditoria-button/auditoria-button.component';
@@ -66,6 +67,7 @@ import { LibComboboxReworkComponent } from './widgets/lib-combobox-rework/lib-co
 import { LibComboboxComponent } from './widgets/lib-combobox/lib-combobox.component';
 import { LibCustomizableTableComponent } from './widgets/lib-customizable-table/lib-customizable-table.component';
 import { LibDateRangePickerComponent } from './widgets/lib-date-range-picker/lib-date-range-picker.component';
+import { LibFileUploadComponent } from './widgets/lib-file-upload/lib-file-upload.component';
 import { LibHeaderComponent } from './widgets/lib-header/lib-header.component';
 import { LibIconsComponent } from './widgets/lib-icons/lib-icons.component';
 import { LibNavProdutosComponent } from './widgets/lib-nav-produtos/lib-nav-produtos.component';
@@ -181,6 +183,8 @@ import { UsuarioAbasComponent } from './widgets/usuario-abas/usuario-abas.compon
         ContadorCaracteresComponent,
         BtnLeftDirective,
         BtnRightDirective,
+        LibFileUploadComponent,
+        FileDropDirective,
 
         PageNotAuthorizedComponent
     ],
@@ -258,6 +262,8 @@ import { UsuarioAbasComponent } from './widgets/usuario-abas/usuario-abas.compon
         ContadorCaracteresComponent,
         BtnLeftDirective,
         BtnRightDirective,
+        LibFileUploadComponent,
+        FileDropDirective,
 
         PageNotAuthorizedComponent
     ],
