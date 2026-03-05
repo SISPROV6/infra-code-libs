@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-infra",
-  "version": "6.15.0",
-  "tag": "infra-v6.15.0",
-  "notes": "Novo componente de uplaod de arquivos + diretiva de fileDrop",
-  "timestamp": "2026-03-05T14:32:19.746Z"
+  "version": "6.15.1",
+  "tag": "infra-v6.15.1",
+  "notes": "Atualização de rotina",
+  "timestamp": "2026-03-05T15:44:35.845Z"
 }
