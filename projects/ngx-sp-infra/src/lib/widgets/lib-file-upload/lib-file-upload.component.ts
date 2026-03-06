@@ -8,7 +8,7 @@ import { FileUtils } from '../../utils/file-utils';
 import { LibIconsComponent } from "../lib-icons/lib-icons.component";
 
 @Component({
-  selector: 'lib-lib-file-upload',
+  selector: 'lib-file-upload',
   imports: [
     LibIconsComponent,
     FileDropDirective,

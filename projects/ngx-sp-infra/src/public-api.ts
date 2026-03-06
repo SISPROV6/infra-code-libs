@@ -87,6 +87,7 @@ export * from './lib/widgets/field-contador-message/field-contador-message.compo
 /** Utils */
 export * from './lib/utils/check-url-and-method.service';
 export * from './lib/utils/cnpj-mask-config';
+export * from './lib/utils/file-utils';
 export * from './lib/utils/form-utils';
 export * from './lib/utils/settings.service';
 export * from './lib/utils/utils';
