@@ -16,6 +16,7 @@ import { BtnRightDirective } from '../directives/btn-right.directive';
 import { ClickOutsideDirective } from '../directives/click-outside.directive';
 import { CopyClipboardDirective } from '../directives/copy-clipboard.directive';
 import { DisableControlDirective } from '../directives/disable-control.directive';
+import { FileDropDirective } from '../directives/file-drop.directive';
 import { HighlightDirective } from '../directives/highlight.directive';
 import { LoadingBtnDirective } from '../directives/loading-btn.directive';
 import { RequiredDirective } from '../directives/required.directive';
@@ -49,6 +50,7 @@ import { InnerRowsDirective } from './../directives/inner-rows.directive';
     InnerRowsDirective,
     BtnLeftDirective,
     BtnRightDirective,
+    FileDropDirective,
   ],
   exports: [
     ClickOutsideDirective,
@@ -63,6 +65,7 @@ import { InnerRowsDirective } from './../directives/inner-rows.directive';
     InnerRowsDirective,
     BtnLeftDirective,
     BtnRightDirective,
+    FileDropDirective,
   ]
 })
 export class LibDirectivesModule { }
