@@ -78,7 +78,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() public counts?: number[];
 
   /** Número de itens a serem exibidos por página. */
-  @Input() public itemsPerPage: number = 0;
+  @Input() public itemsPerPage: number = this.counts? this.counts[0] : 0;
 
   /** Posicionamento dos controles de paginação.
    * @default 'end' */
