@@ -1,5 +1,5 @@
-import { Injectable } from "@angular/core";
 import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from "@angular/common/http";
+import { Injectable } from "@angular/core";
 
 import { Observable } from "rxjs";
 
@@ -29,7 +29,10 @@ export class AuthInfraInterceptor implements HttpInterceptor {
                 `Basic ${btoa(`${ localStorage.getItem('configServerUser') }:${ localStorage.getItem('configServerPassword') }`) }
                 `);
 
-            changedReq = req.clone({ headers: headers });
+            changedReq = req.clone({
+                headers: headers,
+                withCredentials: true   // Erick: Adicionado devido à implementação dos Cookies como autenticação
+            });
         }
 
         return next.handle(changedReq);
