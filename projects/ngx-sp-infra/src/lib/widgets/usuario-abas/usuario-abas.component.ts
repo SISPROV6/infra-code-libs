@@ -25,7 +25,7 @@ export class UsuarioAbasComponent {
     if(window.location.host.includes("localhost")){
       this.linksList.push(
       { nome: 'Usuário', uri: `http://${window.location.host}/usuarios/editarUsuarios/${this.Id}`, isTargetSelf: true},
-      //{nome: 'Pessoa', uri: `http://${window.location.host}/usuarios/pessoas/${this.Id}`, isTargetSelf: false},
+      //{nome: 'Pessoa', uri: `http://${window.location.host}/usuarios/pessoas/${this.Id}`, isTargetSelf: false} ,
       {nome: 'Pessoa', uri: `${this.hostServerOutsystemValue}/SpCrp1Empresa/UsuarioPessoa.aspx?IsCorp=True&UsuarioId=${this.Id}`, isTargetSelf: false},
       {nome: 'Estoque', uri: `http://${window.location.host}/SpEtq1Etq/usuarios/editar/${this.Id}`, isTargetSelf: false},
     );
