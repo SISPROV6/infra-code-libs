@@ -195,7 +195,7 @@ async function main() {
         {
           message: 'Deseja rodar testes unitários antes da publicação?',
           type: 'confirm',
-          default: true,
+          default: false,
           name: 'executaTestes'
         },
         {
