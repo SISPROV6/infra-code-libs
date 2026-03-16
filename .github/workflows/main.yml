@@ -94,7 +94,7 @@ jobs:
 
     - name: Install dependencies
       if: env.should_publish == 'true'
-      run: npm install
+      run: npm install -f
 
     - name: Build the library and add tags
       if: env.should_publish == 'true'
