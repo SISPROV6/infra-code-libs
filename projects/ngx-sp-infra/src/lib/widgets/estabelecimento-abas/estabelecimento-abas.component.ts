@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { estabelecimentoUriRecord } from './models/estabelecimentoUriRecord';
 import { HostOutsystemsServerService } from '../empresa-abas/host-outsystems-server.service';
 import { MessageService } from '../../message/message.service';
+import { EstabelecimentoService } from './service/estabelecimento.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'lib-estabelecimento-abas',
@@ -22,13 +24,24 @@ export class EstabelecimentoAbasComponent {
 
   public activeItem: string = '';
 
+  public hasRecebimento: boolean = true;
+  public hasFinanceiro: boolean = true;
+  public hasFiscal: boolean = true;
+  public hasCompras: boolean = true;
+
   constructor(
     private router: Router,
     private _hostOutsystemsServerService: HostOutsystemsServerService,
     private _messageService: MessageService,
+    private _estabelecimentoService: EstabelecimentoService,
   ) { }
 
-  ngOnInit(): void {
+ async ngOnInit(){
+
+    this.hasRecebimento = await this.getProdutosByLicensing("EstabRecebimento.aspx", "SpRec1Cfg");
+    this.hasFinanceiro = await this.getProdutosByLicensing("EstabFinanceiro.aspx", "SpFin1Cadastros");
+    this.hasFiscal = await this.getProdutosByLicensing("EstabSped_List.aspx", "SpSped1Conf");
+    this.hasCompras = await this.getProdutosByLicensing("EstabCompras.aspx", "SpCop3Configuracoes");
 
     this.GetHostServerOutSystems();
     this.activeItem = this.router.url;
@@ -49,15 +62,48 @@ export class EstabelecimentoAbasComponent {
         if (window.location.host.includes("localhost")) {
           this.linksList.push(
             { nome: 'Estabelecimento', uri: `http://${window.location.host}/estabelecimentos/editar/${this.Id}`, isTargetSelf: true },
-            { nome: 'Recebimento', uri: `http://${window.location.host}/configuracao-estabelecimento/editar/${this.Id}`, isTargetSelf: false },
-            { nome: 'Financeiro', uri: `http://${window.location.host}/empresa-estab/editar/estab/0?id=${this.Id}&empresaId=${this.empresaId}`, isTargetSelf: false },
-            { nome: 'Fiscal', uri: `http://${window.location.host}/identificacao-da-entidade/editar/${this.Id}`, isTargetSelf: false },
-            { nome: 'Compras', uri: `http://${window.location.host}/estabelecimento-compras/editar/${this.Id}`, isTargetSelf: false },
+          )
+
+          if (this.hasRecebimento) {
+            this.linksList.push(
+              { nome: 'Recebimento', uri: `http://${window.location.host}/configuracao-estabelecimento/editar/${this.Id}`, isTargetSelf: false },
+            )
+          }
+          
+          if (this.hasFinanceiro) {
+            this.linksList.push(
+              { nome: 'Financeiro', uri: `http://${window.location.host}/empresa-estab/editar/estab/0?id=${this.Id}&empresaId=${this.empresaId}`, isTargetSelf: false },
+            )
+          }
+          
+          if (this.hasFiscal) {
+            this.linksList.push(
+              { nome: 'Fiscal', uri: `http://${window.location.host}/identificacao-da-entidade/editar/${this.Id}`, isTargetSelf: false },
+            )
+          }
+           
+          if (this.hasCompras) {
+            this.linksList.push(
+              { nome: 'Compras', uri: `http://${window.location.host}/estabelecimento-compras/editar/${this.Id}`, isTargetSelf: false },
+            )
+          }
+          
+          this.linksList.push(
             { nome: 'Contratos', uri: `http://siscandesv10.sispro.com.br/SpCtr1Param/CtrGnCfgApl_Edit.aspx?EstabelecimentoId=${this.Id}&IsCorp=True`, isTargetSelf: false },
+          )
+          
+          this.linksList.push(
             { nome: 'Vendas', uri: `http://siscandesv10.sispro.com.br/SpNeg3Cfg/CfgEstabelecimento.aspx?IsCorp=True&EstabelecimentoId=${this.Id}`, isTargetSelf: false },
+          )
+          
+          this.linksList.push(
             { nome: 'CNO', uri: `http://${window.location.host}/estabelecimentos/EstabCnoDet/${this.Id}`, isTargetSelf: false },
+          )
+
+          this.linksList.push(
             { nome: 'Tributos', uri: `http://siscandesv10.sispro.com.br/SpFis1Interface/ConfigOrdemCalcImpostos.aspx?IsCorp=True&EstabelecimentoId=${this.Id}`, isTargetSelf: false },
           )
+            
         } else {
           this.linksList.push(
             { nome: 'Estabelecimento', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/estabelecimentos/editar/${this.Id}`, isTargetSelf: true },
@@ -83,5 +129,20 @@ export class EstabelecimentoAbasComponent {
       }
     });
   }
+
+    public async getProdutosByLicensing(PageName:string, EspaceName:string): Promise<boolean> {
+      try {
+        const response = await firstValueFrom(
+          this._estabelecimentoService.GetValidAcesso_NoAbortTransaction(PageName, EspaceName)
+        );
+  
+        return response.ValidAcesso;
+  
+      } catch (error) {
+        const msg = error instanceof Error ? error.message : String(error);
+        this._messageService.showAlertDanger(msg);
+        throw new Error(msg);
+      }
+    }
 
 }

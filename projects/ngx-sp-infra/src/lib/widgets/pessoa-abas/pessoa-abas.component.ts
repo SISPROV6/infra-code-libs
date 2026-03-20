@@ -7,6 +7,7 @@ import { NgFor } from '@angular/common';
 import { CrpInPapelRecord } from './models/CrpInPapelRecord';
 import { HostOutsystemsServerService } from '../empresa-abas/host-outsystems-server.service';
 import { MessageService } from '../../message/message.service';
+import { InfraErpModuloRecord } from './models/InfraErpModuloRecord';
 
 @Component({
   selector: 'lib-pessoa-abas',
@@ -31,12 +32,17 @@ export class PessoaAbasComponent {
   public isFornecedor: boolean = false;
   public tipoPessoa: number = 0;
 
+  public InfraErpModuloList: InfraErpModuloRecord[] = [];
+  public IsEstoqueLicensed: boolean = false;
+  public IsProducaoLicensed: boolean = false;
+  public IsComprasLicensed: boolean = false;
+
   constructor(
     private router: Router,
     private _pessoasService: PessoaService,
     private cdr: ChangeDetectorRef,
     private _hostOutsystemsServerService: HostOutsystemsServerService,
-    private _messageService: MessageService
+    private _messageService: MessageService,
   ) { }
 
   async ngOnChanges(changes: SimpleChanges) {
@@ -76,6 +82,12 @@ export class PessoaAbasComponent {
 
     this.GetHostServerOutSystems();
     //this.VerifyList();
+
+    await this.getProdutosByLicensing();
+
+    this.IsEstoqueLicensed = this.GetProductLicense("ESTOQUE");
+    this.IsProducaoLicensed = this.GetProductLicense("PRODUÇÃO");
+    this.IsComprasLicensed = this.GetProductLicense("COMPRAS");
 
   }
 
@@ -180,6 +192,29 @@ export class PessoaAbasComponent {
         throw new Error(error);
       }
     });
+  }
+
+  public async getProdutosByLicensing(): Promise<void> {
+    try {
+      const response = await firstValueFrom(
+        this._pessoasService.GetProdutosByLicensing()
+      );
+
+      this.InfraErpModuloList = response.GetProdutosByLicensing;
+
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : String(error);
+      this._messageService.showAlertDanger(msg);
+      throw new Error(msg);
+    }
+  }
+
+  public GetProductLicense(produto: string): boolean {
+
+    return this.InfraErpModuloList.some(modulo =>
+      modulo.Nome.toUpperCase() === produto.toUpperCase()
+    );
+
   }
 
 }

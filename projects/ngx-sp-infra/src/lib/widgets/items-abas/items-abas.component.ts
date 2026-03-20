@@ -4,6 +4,9 @@ import { links } from './models/links-record';
 import { NgFor } from '@angular/common';
 import { HostOutsystemsServerService } from '../empresa-abas/host-outsystems-server.service';
 import { MessageService } from '../../message/message.service';
+import { InfraErpModuloRecord } from '../pessoa-abas/models/InfraErpModuloRecord';
+import { firstValueFrom } from 'rxjs';
+import { PessoaService } from '../pessoa-abas/service/pessoa.service';
 
 @Component({
   selector: 'lib-items-abas',
@@ -21,12 +24,23 @@ export class ItemsAbasComponent {
 
   public activeItem: string = '';
 
+  public InfraErpModuloList: InfraErpModuloRecord[] = [];
+  public IsEstoqueLicensed: boolean = false;
+  public IsComprasLicensed: boolean = false;
+
   constructor(
     private router: Router,
     private _hostOutsystemsServerService: HostOutsystemsServerService,
-    private _messageService: MessageService) { }
+    private _messageService: MessageService,
+    private _pessoasService: PessoaService,
+  ) { }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+
+    await this.getProdutosByLicensing();
+
+    this.IsEstoqueLicensed = this.GetProductLicense("ESTOQUE");
+    this.IsComprasLicensed = this.GetProductLicense("COMPRAS");
 
     this.GetHostServerOutSystems();
     this.activeItem = this.router.url;
@@ -47,10 +61,21 @@ export class ItemsAbasComponent {
 
         if (window.location.host.includes("localhost")) {
           this.linksList.push(
-            { nome: 'Corporativo', uri: `http://${window.location.host}/itens/editar/${this.Id}`, isTargetSelf: true },
-            { nome: 'Estoque', uri: `http://${window.location.host}/SpEtq1Etq/ItemParaSuprimentos/editar/${this.Id}`, isTargetSelf: true },
-            { nome: 'Dados Compras', uri: `http://${window.location.host}/item-dados-compras/editar/${this.Id}`, isTargetSelf: false },
+            { nome: 'Corporativo', uri: `http://${window.location.host}/itens/editar/${this.Id}`, isTargetSelf: true }
           );
+
+          if (this.IsEstoqueLicensed) {
+            this.linksList.push(
+              { nome: 'Estoque', uri: `http://${window.location.host}/SpEtq1Etq/ItemParaSuprimentos/editar/${this.Id}`, isTargetSelf: true }
+            );
+          }
+
+          if (this.IsComprasLicensed) {
+            this.linksList.push(
+              { nome: 'Dados Compras', uri: `http://${window.location.host}/item-dados-compras/editar/${this.Id}`, isTargetSelf: false }
+            );
+          }
+
         } else {
           this.linksList.push(
             { nome: 'Corporativo', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/itens/editar/${this.Id}`, isTargetSelf: true },
@@ -67,6 +92,31 @@ export class ItemsAbasComponent {
         throw new Error(error);
       }
     });
+  }
+
+  public async getProdutosByLicensing(): Promise<void> {
+    try {
+      const response = await firstValueFrom(
+        this._pessoasService.GetProdutosByLicensing()
+      );
+
+      this.InfraErpModuloList = response.GetProdutosByLicensing;
+
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : String(error);
+      this._messageService.showAlertDanger(msg);
+      throw new Error(msg);
+    }
+  }
+
+  public GetProductLicense(produto: string): boolean {
+    console.log('GetProductLicense');
+    return this.InfraErpModuloList.some(modulo =>{
+      console.log("Comparando com:", modulo.Nome);
+     return modulo.Nome.toUpperCase() === produto.toUpperCase()
+ 
+  });
+
   }
 
 }
