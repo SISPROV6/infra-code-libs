@@ -52,8 +52,8 @@
 
         <!-- Duas tables diferentes, alternar conforme necessidade de testes -->
 
-        <lib-table [list]="tableRecords" [counts]="[ 5, 10, 15, 25, 50 ]" [itemsPerPage]="itemsPerPage" paginationID="simpleTable" [usePreviousStyle]="true"
-          (itemsPerPageChange)="itemsPerPage = $event" (pageChange)="page = $event" [scrollable]="true" [itemsPerPage]="itemsPerPage"
+        <lib-table [list]="tableRecords" [counts]="[ 5, 10, 15, 25, 50 ]" paginationID="simpleTable" [usePreviousStyle]="true"
+          (itemsPerPageChange)="itemsPerPage = $event" (pageChange)="page = $event" [scrollable]="true"
 
           [useSelection]="true" [selection]="selecaoService1.selecaoGeral" [selectedCount]="selecaoService1.quantidadeSelecionados()"
           (selectionChange)="selecaoService1.definirSelecaoTotal(tableRecords, $event, ['id', 'name'])"
