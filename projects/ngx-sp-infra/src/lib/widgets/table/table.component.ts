@@ -51,6 +51,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   private _recordsList: unknown[] | undefined;
   private _isMobile: boolean = false;
   private _currentPage: number = 1;
+  private _itemsPerPage: number = 0;
   // #endregion PRIVATE
 
   // #region PUBLIC
@@ -78,7 +79,9 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() public counts?: number[];
 
   /** Número de itens a serem exibidos por página. */
-  @Input() public itemsPerPage: number = this.counts? this.counts[0] : 0;
+  @Input()
+  public get itemsPerPage(): number { return this._itemsPerPage }
+  public set itemsPerPage(value: number) { this._itemsPerPage = this.counts? this.counts[0] : value }
 
   /** Posicionamento dos controles de paginação.
    * @default 'end' */
