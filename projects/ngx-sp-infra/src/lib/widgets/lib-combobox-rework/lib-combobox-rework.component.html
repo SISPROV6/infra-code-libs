@@ -3,7 +3,7 @@
 
   <div class="dropdown w-100">
 
-    <input #toggleButton id="toggle-button" class="form-select d-flex align-items-center text-start w-100 overflow-hidden text-truncate" data-bs-toggle="dropdown"
+    <input #toggleButton id="toggle-button" class="form-select d-flex align-items-center text-start w-100 overflow-hidden text-truncate glb-cursor-pointer" data-bs-toggle="dropdown"
       data-bs-auto-close="outside" [attr.aria-expanded]="isOpen" [attr.aria-haspopup]="true" [attr.aria-label]="placeholder" [class.disabled]="disabled"
       [class.is-invalid]="invalid" (click)="toggleDropdown()" [value]="displayValue()" [placeholder]="placeholder" readonly
       [ngClass]="{

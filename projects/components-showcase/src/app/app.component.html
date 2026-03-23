@@ -33,17 +33,27 @@
 
       <div innerContent2>
         <div class="d-flex gap-3 mb-3">
-          <button class="btn btn-outline-primary" (click)="itemsPerPage = 5" >5</button>
-          <button class="btn btn-outline-primary" (click)="itemsPerPage = 10" >10</button>
-          <button class="btn btn-outline-primary" (click)="itemsPerPage = 15" >15</button>
-          <button class="btn btn-outline-primary" (click)="itemsPerPage = 25" >25</button>
-          <button class="btn btn-outline-primary" (click)="itemsPerPage = 50" >50</button>
+          <button class="btn btn-outline-primary" (click)="itemsPerPage = 5" >
+            <lib-icon iconName="calculadora-cifrao" /> 5
+          </button>
+          <button class="btn btn-outline-primary" (click)="itemsPerPage = 10" >
+            <lib-icon iconName="calculadora-cifrao" /> 10
+          </button>
+          <button class="btn btn-outline-primary" (click)="itemsPerPage = 15" >
+            <lib-icon iconName="calculadora-cifrao" /> 15
+          </button>
+          <button class="btn btn-outline-primary" (click)="itemsPerPage = 25" >
+            <lib-icon iconName="calculadora-cifrao" /> 25
+          </button>
+          <button class="btn btn-outline-primary" (click)="itemsPerPage = 50" >
+            <lib-icon iconName="calculadora-cifrao" /> 50
+          </button>
         </div>
 
         <!-- Duas tables diferentes, alternar conforme necessidade de testes -->
 
-        <lib-table [list]="tableRecords" [counts]="[ 5, 10, 15, 25, 50 ]" [itemsPerPage]="itemsPerPage" paginationID="simpleTable" [usePreviousStyle]="true"
-          (itemsPerPageChange)="itemsPerPage = $event" (pageChange)="page = $event" [scrollable]="true" [itemsPerPage]="itemsPerPage"
+        <lib-table [list]="tableRecords" [counts]="[ 5, 10, 15, 25, 50 ]" paginationID="simpleTable" [usePreviousStyle]="true"
+          (itemsPerPageChange)="itemsPerPage = $event" (pageChange)="page = $event" [scrollable]="true"
 
           [useSelection]="true" [selection]="selecaoService1.selecaoGeral" [selectedCount]="selecaoService1.quantidadeSelecionados()"
           (selectionChange)="selecaoService1.definirSelecaoTotal(tableRecords, $event, ['id', 'name'])"
