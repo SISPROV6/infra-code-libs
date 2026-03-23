@@ -51,6 +51,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   private _recordsList: unknown[] | undefined;
   private _isMobile: boolean = false;
   private _currentPage: number = 1;
+  private _itemsPerPage: number = 0;
   // #endregion PRIVATE
 
   // #region PUBLIC
@@ -78,7 +79,13 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() public counts?: number[];
 
   /** Número de itens a serem exibidos por página. */
-  @Input() public itemsPerPage: number = 0;
+  @Input()
+  public get itemsPerPage(): number { return this._itemsPerPage }
+  public set itemsPerPage(value: number) {
+    console.log(value);
+    
+    this._itemsPerPage = this.counts? this.counts[0] : value
+  }
 
   /** Posicionamento dos controles de paginação.
    * @default 'end' */
@@ -290,8 +297,8 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
   /** Modifica a quantidade de itens a ser mostrada na lista.
    * @param event parâmetro de evento que irá selecionar a nova quantidade. */
-  public onSelectChange(event: any) {
-    this.itemsPerPage = parseInt(event.target.value, 10);
+  public onSelectChange(event: number) {
+    this.itemsPerPage = event;
     this.page = 1;
     this.pageChange.emit(this.page);
     this.itemsPerPageChange.emit(this.itemsPerPage);
