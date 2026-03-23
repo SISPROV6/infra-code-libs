@@ -1,7 +1,7 @@
 {
   "project": "ngx-sp-infra",
-  "version": "6.16.3",
-  "tag": "infra-v6.16.3",
-  "notes": "Atualização de rotina",
-  "timestamp": "2026-03-23T11:59:50.450Z"
+  "version": "6.17.0",
+  "tag": "infra-v6.17.0",
+  "notes": "Liberação semanal",
+  "timestamp": "2026-03-23T12:05:29.234Z"
 }
