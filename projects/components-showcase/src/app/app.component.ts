@@ -1,8 +1,10 @@
 import { NgClass } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { NgxPaginationModule } from 'ngx-pagination';
-import { FormUtils, InfraModule, MessageService, RecordCombobox, TableSelectionService } from 'ngx-sp-infra';
+import { FormUtils, InfraModule, MessageService, RecordCombobox, TableSelectionService, TransferListConfig } from 'ngx-sp-infra';
+
 import { Item, TestingService } from './testing.service';
 
 @Component({
@@ -77,6 +79,14 @@ export class AppComponent implements OnInit {
   public itemsPerPage: number = 5;  // Propriedade necessária para renderizar apenas determinada quantidade por página inicialmente
 
   public tableRecords?: Item[];
+
+
+  public firstConfigExample: TransferListConfig = new TransferListConfig();
+  public secondConfigExample: TransferListConfig = new TransferListConfig();
+  
+  public completeListExample!: RecordCombobox[];
+  public availableListExample!: RecordCombobox[];
+  public selectedListExample!: RecordCombobox[];
   // #endregion PUBLIC
 
   // #endregion ==========> PROPERTIES <==========
@@ -109,6 +119,38 @@ export class AppComponent implements OnInit {
     // this.getRecord();
 
     this.getTableRecords();
+
+    this.completeListExample = [
+      { ID: '1ROBERTO2', LABEL: 'Descrição 12' },
+      { ID: '2BC', LABEL: 'Descrição 2' },
+      { ID: '7KL', LABEL: 'Descrição 7' },
+      { ID: '8JOSE', LABEL: 'Descrição 8' },
+      { ID: '9', LABEL: 'Descrição 9' },
+      { ID: '10', LABEL: 'Descrição 10' },
+      { ID: '17', LABEL: 'Descrição 17' },
+      { ID: 'A3', LABEL: 'Descrição 3' },
+      { ID: 'A4', LABEL: 'Descrição 4' },
+      { ID: 'AB3', LABEL: 'Descrição 1' },
+      { ID: 'GH6', LABEL: 'Descrição 6' },
+      { ID: 'J5', LABEL: 'Descrição 5' },
+      { ID: 'JBL', LABEL: 'Descrição 20' },
+    ].sort();
+
+    this.availableListExample = [
+      { ID: '1ROBERTO2', LABEL: 'Descrição 12' },
+      { ID: '2BC', LABEL: 'Descrição 2' },
+      { ID: '7KL', LABEL: 'Descrição 7' },
+      { ID: '8JOSE', LABEL: 'Descrição 8' },
+      { ID: '9', LABEL: 'Descrição 9' },
+      { ID: '10', LABEL: 'Descrição 10' },
+      { ID: '17', LABEL: 'Descrição 17' },
+      { ID: 'A3', LABEL: 'Descrição 3' },
+      { ID: 'A4', LABEL: 'Descrição 4' },
+      { ID: 'AB3', LABEL: 'Descrição 1' },
+      { ID: 'GH6', LABEL: 'Descrição 6' },
+      { ID: 'J5', LABEL: 'Descrição 5' },
+      { ID: 'JBL', LABEL: 'Descrição 20' },
+    ].sort();
   }
 
 
