@@ -1,15 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, Renderer2, SimpleChanges, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+import { cloneDeep } from 'lodash';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { NgxPaginationModule } from 'ngx-pagination';
 
-import { cloneDeep } from 'lodash';
-
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { TableHeaderStructure } from '../../models/table/header-structure.model';
 import { Utils } from '../../utils/utils';
 import { LibIconsComponent } from '../lib-icons/lib-icons.component';
@@ -30,7 +29,6 @@ import { OrderingComponent } from '../ordering/ordering.component';
   selector: 'lib-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
-
   imports: [
     NgIf,
     FormsModule,
@@ -51,7 +49,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   private _recordsList: unknown[] | undefined;
   private _isMobile: boolean = false;
   private _currentPage: number = 1;
-  private _itemsPerPage: number = 0;
+  private _itemsPerPage!: number;
   // #endregion PRIVATE
 
   // #region PUBLIC
@@ -81,11 +79,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   /** Número de itens a serem exibidos por página. */
   @Input()
   public get itemsPerPage(): number { return this._itemsPerPage }
-  public set itemsPerPage(value: number) {
-    console.log(value);
-    
-    this._itemsPerPage = this.counts? this.counts[0] : value
-  }
+  public set itemsPerPage(value: number) { this._itemsPerPage = value }
 
   /** Posicionamento dos controles de paginação.
    * @default 'end' */
@@ -265,7 +259,9 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
     else if (!this.list && this.showCounter && this.usePagination) {
       this.itemsPerPage = this.itemsPerPage
         ? this.itemsPerPage
-        : 1;
+        : this.counts
+          ? this.counts[0]
+          : 1;
     }
   }
 

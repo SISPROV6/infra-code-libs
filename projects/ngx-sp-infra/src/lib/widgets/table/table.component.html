@@ -98,7 +98,7 @@
                }">
                <div class="d-flex align-items-center me-2">
                   <label for="countSelect" class="me-2" style="white-space: nowrap;"> Itens por página </label>
-                  <select id="countSelect" class="form-select select-search" [(ngModel)]="itemsPerPage" (ngModelChange)="onSelectChange(itemsPerPage)" >
+                  <select id="countSelect" class="form-select select-search" [(ngModel)]="itemsPerPage" (ngModelChange)="onSelectChange($event)" >
                      @for (count of counts; track count) {
                         <option [value]="count">{{ count }}</option>
                      }
@@ -195,7 +195,7 @@
                }">
                <div class="d-flex align-items-center me-2"  >
                   <label for="countSelect" class="me-2" style="white-space: nowrap;"> Itens por página </label>
-                  <select id="countSelect" class="form-select select-search" [(ngModel)]="itemsPerPage" (ngModelChange)="onSelectChange(itemsPerPage)" >
+                  <select id="countSelect" class="form-select select-search" [(ngModel)]="itemsPerPage" (ngModelChange)="onSelectChange($event)" >
                      @for (count of counts; track count) {
                         <option [value]="count" >{{ count }}</option>
                      }
