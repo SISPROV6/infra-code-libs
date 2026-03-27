@@ -153,8 +153,8 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
 
   /** Página atual da tabela. */
-	public get page(): number { return this._currentPage; }
-	public set page(value: number) { this._currentPage = value; }
+	public get page(): number { return this._currentPage }
+	public set page(value: number) { this._currentPage = value }
 
   /** Se é Mobile baseado na resolução da tela do usuário. */
   public get isMobile(){ return this._isMobile }
@@ -249,14 +249,14 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   private updateCounterInfo(): void {
-    if (this.list && this.showCounter && this.usePagination) {
+    if (this.list && this.usePagination) {
       this.itemsPerPage = this.itemsPerPage
         ? this.itemsPerPage
         : this.counts
           ? this.counts[0]
           : this.list.length;
     }
-    else if (!this.list && this.showCounter && this.usePagination) {
+    else if (!this.list && this.usePagination) {
       this.itemsPerPage = this.itemsPerPage
         ? this.itemsPerPage
         : this.counts
