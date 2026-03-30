@@ -1,19 +1,19 @@
-import { CommonModule, DatePipe, NgFor, NgIf, SlicePipe } from '@angular/common';
-import { AfterViewInit, Component, Inject, inject, Input, OnDestroy, OnInit, TemplateRef } from '@angular/core';
+import { CommonModule, DatePipe, NgIf, SlicePipe } from '@angular/common';
+import { AfterViewInit, Component, inject, Input, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgxPaginationModule } from 'ngx-pagination';
-import { GlobalLoadingService, InfraModule, MessageService, ModalUtilsService, RecordCombobox, Utils } from 'ngx-sp-infra';
-import { InfraQueueTableRows } from './models/InfraQueueTableRows';
-import { Count } from './models/Count';
+import { Title } from '@angular/platform-browser';
 import { ModalOptions } from 'ngx-bootstrap/modal';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { GlobalLoadingService, InfraModule, MessageService, ModalUtilsService, RecordCombobox, Utils } from 'ngx-sp-infra';
+import { interval, startWith, Subject, switchMap, takeUntil, takeWhile } from 'rxjs';
 import { ErrorChartComponent } from './components/error-chart/error-chart.component';
 import { ErrorSemanalChartComponent } from './components/error-semanal-chart/error-semanal-chart.component';
-import { interval, startWith, Subject, switchMap, takeUntil, takeWhile } from 'rxjs';
+import { Count } from './models/Count';
+import { InfraQueueRecord } from './models/InfraQueueRecord';
+import { InfraQueueTableRows } from './models/InfraQueueTableRows';
 import { LogInfraQueueRecord } from './models/LogInfraQueue';
 import { LibMonitoramentoFilaService } from './services/lib-monitoramento-fila.service';
-import { InfraQueueRecord } from './models/InfraQueueRecord';
-import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'lib-monitoramento-fila',
@@ -215,7 +215,6 @@ export class LibMonitoramentoFilaComponent implements OnInit, OnDestroy, AfterVi
       }
       card.contagem = count;
     });
-    console.log(this.cardInfo)
 
   }
 
