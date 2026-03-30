@@ -153,7 +153,7 @@ export class LibAuthenticationConfigComponent {
         },
         error: error => {
           this._messageService.showAlertDanger(error);
-          console.log(error);
+          console.error(error);
         }
       });
     }

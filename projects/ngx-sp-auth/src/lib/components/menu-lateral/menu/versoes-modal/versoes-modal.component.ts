@@ -72,8 +72,6 @@ export class VersoesModalComponent implements OnInit {
     // Versão dos Módulos
     this._menuService.getVersionModulos().subscribe({
       next: response => {
-        console.log(response);
-
         // Deve formatar as versões que forem 0 converter para "Base"
         this.versions = this.formatVersions(response.Data ?? []);
       },
