@@ -115,9 +115,9 @@ export class HomeLogDataAccessComponent implements OnInit {
         this.$retLogList = response;
         this.$logList = response.LogsDataAccess;
         this.counter = response.Count;
-        console.log(this.itemsPerPage)
+
         this.isListLoading = false;
-                this.GetTableCounter(this.SearchLogDataAccess.ROW_LIMIT, response.Count)
+        this.GetTableCounter(this.SearchLogDataAccess.ROW_LIMIT, response.Count)
 
       },
       error: error => {
