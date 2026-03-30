@@ -14,7 +14,7 @@
    <div class="mb-2 p-0">
       <lib-table divBorderClass="rounded-0" tableBorderClass="border-top-0 border-start-0 border-end-0"
          [useSelection]="useSelection ?? true" [selection]="selecaoGeral" [selectedCount]="selected.length"
-         [paginationID]="paginationID" [list]="registrosFiltrados" [showCounter]="false" [counts]="counts ?? [ 5, 10, 20 ]"
+         [paginationID]="paginationID" [list]="registrosFiltrados" [showCounter]="false" [counts]="[ 5, 10, 20 ]"
          [headers]="[
             { name: identifierColumn ?? 'Código', widthClass: 'col-3' },
             { name: labelColumn ?? 'Descrição', widthClass: 'col' }

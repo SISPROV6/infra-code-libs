@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { RecordCombobox } from './../../models/combobox/record-combobox';
+
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 import { TransferListConfig } from '../../models/transfer-list/list-transfer-config.model';
-
-import { NgIf } from '@angular/common';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { Utils } from '../../utils/utils';
 import { LibIconsComponent } from '../lib-icons/lib-icons.component';
+import { RecordCombobox } from './../../models/combobox/record-combobox';
 import { InnerListComponent } from './inner-list/inner-list.component';
 
 @Component({
