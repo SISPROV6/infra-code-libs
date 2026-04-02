@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
 import { Observable, take, tap } from 'rxjs';
 import { RetPapeis } from '../models/RetPapeis';
 import { RetTipoPessoa } from '../models/RetTipoPessoa';
-import { RetGetProdutosByLicensing } from '../models/RetGetProdutosByLicensing';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +13,6 @@ export class PessoaService {
   private readonly PAPEL_BASE_URL: string = window.location.hostname.includes('localhost') ? `http://localhost:44384/api/Papeis` : `https://${ window.location.hostname }/SisproErpCloud/Service_Private/Corporativo/SpCrp2CrpPessoaWS/api/Papeis`;
 
   private readonly PESSOA_BASE_URL: string = window.location.hostname.includes('localhost') ? `http://localhost:44384/api/Pessoas` : `https://${ window.location.hostname }/SisproErpCloud/Service_Private/Corporativo/SpCrp2CrpPessoaWS/api/Pessoas`;
-
-  private readonly GENERICS_BASE_URL: string = window.location.hostname.includes('localhost') ? `http://localhost:44384/api/Generics` : `https://${ window.location.hostname }/SisproErpCloud/Service_Private/Infra/SpInfra2ErpWS/api/Generics`;
 
   constructor(private _httpClient: HttpClient) {
   }
@@ -70,25 +67,4 @@ export class PessoaService {
 
   }
 
-  GetProdutosByLicensing(): Observable<RetGetProdutosByLicensing> {
-
-    const headers = new HttpHeaders()
-      .set('Content-Type', 'application/json');
-
-    const url = `${this.GENERICS_BASE_URL}/getProdutosByLicensing`
-
-    return this._httpClient
-      .get<RetGetProdutosByLicensing>(url, { 'headers': headers })
-      .pipe(
-        take(1),
-        tap(response => {
-
-          if (response.Error) {
-            throw Error(response.ErrorMessage);
-          }
-
-        })
-      );
-
-  }
 }

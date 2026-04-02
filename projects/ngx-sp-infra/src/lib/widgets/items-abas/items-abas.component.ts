@@ -7,6 +7,7 @@ import { MessageService } from '../../message/message.service';
 import { InfraErpModuloRecord } from '../pessoa-abas/models/InfraErpModuloRecord';
 import { firstValueFrom } from 'rxjs';
 import { PessoaService } from '../pessoa-abas/service/pessoa.service';
+import { ProjetosLicenciadRecord } from '../empresa-abas/models/ProjetosLicenciadoRecord';
 
 @Component({
   selector: 'lib-items-abas',
@@ -24,23 +25,21 @@ export class ItemsAbasComponent {
 
   public activeItem: string = '';
 
-  public InfraErpModuloList: InfraErpModuloRecord[] = [];
-  public IsEstoqueLicensed: boolean = false;
-  public IsComprasLicensed: boolean = false;
+  public hasCompras: boolean = false;
+  public hasCorporativo: boolean = false;
+  public hasEstoque: boolean = false;
+
+  public ProjetosLicenciadoList: ProjetosLicenciadRecord[] = [];
 
   constructor(
     private router: Router,
     private _hostOutsystemsServerService: HostOutsystemsServerService,
     private _messageService: MessageService,
-    private _pessoasService: PessoaService,
   ) { }
 
   async ngOnInit() {
 
-    await this.getProdutosByLicensing();
-
-    this.IsEstoqueLicensed = this.GetProductLicense("ESTOQUE");
-    this.IsComprasLicensed = this.GetProductLicense("COMPRAS");
+    await this.GetProjetosLicenciado();
 
     this.GetHostServerOutSystems();
     this.activeItem = this.router.url;
@@ -60,30 +59,45 @@ export class ItemsAbasComponent {
         this.hostServerOutsystem = response.String;
 
         if (window.location.host.includes("localhost")) {
-          this.linksList.push(
-            { nome: 'Corporativo', uri: `http://${window.location.host}/itens/editar/${this.Id}`, isTargetSelf: true }
-          );
+          if (this.hasCorporativo) {
+            this.linksList.push(
+              { nome: 'Corporativo', uri: `http://${window.location.host}/itens/editar/${this.Id}`, isTargetSelf: true }
+            );
+          }
 
-          if (this.IsEstoqueLicensed) {
+          if (this.hasEstoque) {
             this.linksList.push(
               { nome: 'Estoque', uri: `http://${window.location.host}/SpEtq1Etq/ItemParaSuprimentos/editar/${this.Id}`, isTargetSelf: true }
             );
           }
 
-          if (this.IsComprasLicensed) {
+          if (this.hasCompras) {
             this.linksList.push(
               { nome: 'Dados Compras', uri: `http://${window.location.host}/item-dados-compras/editar/${this.Id}`, isTargetSelf: false }
             );
           }
 
         } else {
-          this.linksList.push(
-            { nome: 'Corporativo', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/itens/editar/${this.Id}`, isTargetSelf: true },
-            // { nome: 'Estoque', uri: `${this.hostServerOutsystemValue}/SpEtq1Etq/ItemParaSuprimentos/editar/${this.Id}`, isTargetSelf: true},
-            { nome: 'Estoque', uri: `${this.hostServerOutsystem}/SpEtq1Etq/ItemEstoque.aspx?IsCorp=True&CrpItemId=${this.Id}`, isTargetSelf: true },
-            // {nome: 'Dados Compras', uri: `${this.hostServerOutsystemValue}/item-dados-compras/editar/${this.Id}`, isTargetSelf: false},
-            { nome: 'Dados Compras', uri: `${this.hostServerOutsystem}/SpCop3Configuracoes/ItemDadosCompras.aspx?CrpItemId=${this.Id}`, isTargetSelf: false },
-          );
+          if (this.hasCorporativo) {
+            this.linksList.push(
+              { nome: 'Corporativo', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/itens/editar/${this.Id}`, isTargetSelf: true },
+            );
+          }
+
+          if (this.hasEstoque) {
+            this.linksList.push(
+              // { nome: 'Estoque', uri: `${this.hostServerOutsystemValue}/SpEtq1Etq/ItemParaSuprimentos/editar/${this.Id}`, isTargetSelf: true},
+              { nome: 'Estoque', uri: `${this.hostServerOutsystem}/SpEtq1Etq/ItemEstoque.aspx?IsCorp=True&CrpItemId=${this.Id}`, isTargetSelf: true },
+            );
+          }
+          
+          if (this.hasCompras) {
+            this.linksList.push(
+              // {nome: 'Dados Compras', uri: `${this.hostServerOutsystemValue}/item-dados-compras/editar/${this.Id}`, isTargetSelf: false},
+              { nome: 'Dados Compras', uri: `${this.hostServerOutsystem}/SpCop3Configuracoes/ItemDadosCompras.aspx?CrpItemId=${this.Id}`, isTargetSelf: false },
+            );
+          }
+
         }
 
       },
@@ -94,29 +108,42 @@ export class ItemsAbasComponent {
     });
   }
 
-  public async getProdutosByLicensing(): Promise<void> {
+  public async GetProjetosLicenciado(): Promise<void> {
     try {
       const response = await firstValueFrom(
-        this._pessoasService.GetProdutosByLicensing()
+        this._hostOutsystemsServerService.GetProjetosLicenciado()
       );
 
-      this.InfraErpModuloList = response.GetProdutosByLicensing;
+      this.ProjetosLicenciadoList = response.ProjetosLicenciado;
+
+      this.ProjetosLicenciadoList.forEach(projeto => {
+
+        switch (projeto.Item1) {
+
+
+          case 9:
+            this.hasCompras = true;
+            break;
+
+          case 11:
+            this.hasEstoque = true;
+            break;
+
+          case 1:
+            this.hasCorporativo = true;
+            break;
+
+          default:
+            break;
+        }
+
+      });
 
     } catch (error) {
       const msg = error instanceof Error ? error.message : String(error);
       this._messageService.showAlertDanger(msg);
       throw new Error(msg);
     }
-  }
-
-  public GetProductLicense(produto: string): boolean {
-    console.log('GetProductLicense');
-    return this.InfraErpModuloList.some(modulo =>{
-      console.log("Comparando com:", modulo.Nome);
-     return modulo.Nome.toUpperCase() === produto.toUpperCase()
- 
-  });
-
   }
 
 }

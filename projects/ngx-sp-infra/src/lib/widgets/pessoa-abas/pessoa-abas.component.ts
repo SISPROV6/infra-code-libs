@@ -8,6 +8,7 @@ import { CrpInPapelRecord } from './models/CrpInPapelRecord';
 import { HostOutsystemsServerService } from '../empresa-abas/host-outsystems-server.service';
 import { MessageService } from '../../message/message.service';
 import { InfraErpModuloRecord } from './models/InfraErpModuloRecord';
+import { ProjetosLicenciadRecord } from '../empresa-abas/models/ProjetosLicenciadoRecord';
 
 @Component({
   selector: 'lib-pessoa-abas',
@@ -32,10 +33,16 @@ export class PessoaAbasComponent {
   public isFornecedor: boolean = false;
   public tipoPessoa: number = 0;
 
-  public InfraErpModuloList: InfraErpModuloRecord[] = [];
-  public IsEstoqueLicensed: boolean = false;
-  public IsProducaoLicensed: boolean = false;
-  public IsComprasLicensed: boolean = false;
+  public hasDadosBasicos: boolean = false;
+  public hasDadosComerciais: boolean = false;
+  public hasDadosFinanceiros: boolean = false;
+  public hasCompras: boolean = false;
+  public hasDadosAuxiliares: boolean = false;
+  public hasTipo: boolean = false;
+  public hasFiscal: boolean = false;
+  public hasContabilidade: boolean = false;
+
+  public ProjetosLicenciadoList: ProjetosLicenciadRecord[] = [];
 
   constructor(
     private router: Router,
@@ -75,6 +82,8 @@ export class PessoaAbasComponent {
       throw new Error('O parâmetro "Id" é obrigatório.');
     }
 
+    await this.GetProjetosLicenciado();
+
     await this.GetPapeisSelected();
     await this.GetTipoPessoa();
 
@@ -82,13 +91,6 @@ export class PessoaAbasComponent {
 
     this.GetHostServerOutSystems();
     //this.VerifyList();
-
-    await this.getProdutosByLicensing();
-
-    this.IsEstoqueLicensed = this.GetProductLicense("ESTOQUE");
-    this.IsProducaoLicensed = this.GetProductLicense("PRODUÇÃO");
-    this.IsComprasLicensed = this.GetProductLicense("COMPRAS");
-
   }
 
   public async GetPapeisSelected(): Promise<void> {
@@ -130,34 +132,109 @@ export class PessoaAbasComponent {
     this.UrisList = [];
 
     if (window.location.host.includes("localhost")) {
+
+      if (this.hasDadosBasicos) {
+        this.UrisList.push(
+          { nome: 'Dados básicos', uri: `http://${window.location.host}/pessoas/editar/${this.Id}`, isTargetSelf: true },
+        );
+      }
+
+      if (this.hasDadosComerciais) {
+        this.UrisList.push(
+          { nome: 'Dados comerciais', uri: `http://${window.location.host}/pessoas-comercial/${this.Id}`, isTargetSelf: false },
+        );
+      }
+
+      if (this.hasDadosFinanceiros) {
+        this.UrisList.push(
+          { nome: 'Dados financeiros', uri: `http://${window.location.host}/clientes-fornecedores/${this.Id}`, isTargetSelf: false },
+        );
+      }
+
+      if (this.hasCompras) {
+        this.UrisList.push(
+          { nome: 'Compras - Dados da pessoa para suprimentos', uri: `http://${window.location.host}/pessoas-dados-suprimentos/editar/${this.Id}`, isTargetSelf: false },
+          { nome: 'Compras - Dados do fornecedor', uri: `http://${window.location.host}/pessoas-dados-fornecedor/editar/${this.Id}`, isTargetSelf: false },
+        );
+      }
+
+      if (this.hasDadosAuxiliares) {
+        this.UrisList.push(
+          { nome: 'Dados auxiliares', uri: `http://${window.location.host}/pessoas/dadosAuxiliares/${this.Id}`, isTargetSelf: false },
+        );
+      }
+
       this.UrisList.push(
-        { nome: 'Dados básicos', uri: `http://${window.location.host}/pessoas/editar/${this.Id}`, isTargetSelf: true },
-        { nome: 'Dados comerciais', uri: `http://${window.location.host}/pessoas-comercial/${this.Id}`, isTargetSelf: false },
-        { nome: 'Dados financeiros', uri: `http://${window.location.host}/clientes-fornecedores/${this.Id}`, isTargetSelf: false },
-        { nome: 'Compras - Dados da pessoa para suprimentos', uri: `http://${window.location.host}/pessoas-dados-suprimentos/editar/${this.Id}`, isTargetSelf: false },
-        { nome: 'Compras - Dados do fornecedor', uri: `http://${window.location.host}/pessoas-dados-fornecedor/editar/${this.Id}`, isTargetSelf: false },
-        { nome: 'Dados auxiliares', uri: `http://${window.location.host}/pessoas/dadosAuxiliares/${this.Id}`, isTargetSelf: false },
         { nome: 'Tipo', uri: `http://siscandesv10.sispro.com.br/SpMnt3Manutencao/TipoPessoa.aspx?IsCorp=True&CrpPessoaId=${this.Id}`, isTargetSelf: false },
-        { nome: 'Fiscal', uri: `http://${window.location.host}/pessoas/pessoaFiscal/${this.Id}`, isTargetSelf: false },
-        { nome: 'Contabilidade', uri: `http://${window.location.host}/Participantes?CrpPessoaId=${this.Id}`, isTargetSelf: false },
       );
+
+      if (this.hasFiscal) {
+        this.UrisList.push(
+          { nome: 'Fiscal', uri: `http://${window.location.host}/pessoas/pessoaFiscal/${this.Id}`, isTargetSelf: false },
+        );
+      }
+
+      if (this.hasContabilidade) {
+        this.UrisList.push(
+          { nome: 'Contabilidade', uri: `http://${window.location.host}/Participantes?CrpPessoaId=${this.Id}`, isTargetSelf: false },
+        );
+      }
+      
     } else {
-      this.UrisList.push(
-        { nome: 'Dados básicos', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/pessoas/editar/${this.Id}`, isTargetSelf: true },
-        // {nome: 'Dados comerciais', uri: `${this.hostServerOutsystemValue}/SisproErpCloud/Vendas/pessoas-comercial/${this.Id}`, isTargetSelf: false},
-        { nome: 'Dados comerciais', uri: `${this.hostServerOutsystem}/SpNeg3Cfg/PessoaDadosComerciais.aspx?IsCorp=True&CrpPessoaId=${this.Id}`, isTargetSelf: false },
-        // {nome: 'Dados financeiros', uri: `${this.hostServerOutsystemValue}/SisproErpCloud/Financeiro/clientes-fornecedores/${this.Id}`, isTargetSelf: false},
-        { nome: 'Dados financeiros', uri: `${this.hostServerOutsystem}/SpFin1Cadastros/PessoaDadosFinanceiros.aspx?CrpPessoaId=${this.Id}&IsCorp=True`, isTargetSelf: false },
-        { nome: 'Compras - Dados da pessoa para suprimentos', uri: `${this.hostServerOutsystem}/SisproErpCloud/Compras/pessoas-dados-suprimentos/editar/${this.Id}`, isTargetSelf: false },
-        // {nome: 'Compras - Dados do fornecedor', uri: `${this.hostServerOutsystemValue}/SisproErpCloud/Compras/pessoas-dados-fornecedor/editar/${this.Id}`, isTargetSelf: false},
-        { nome: 'Compras - Dados do fornecedor', uri: `${this.hostServerOutsystem}/SpCop3Configuracoes/PessoaDadosCompras.aspx?CrpPessoaId=${this.Id}&IsCorp=True`, isTargetSelf: false },
-        // {nome: 'Dados auxiliares', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/pessoas/dadosAuxiliares/${this.Id}`, isTargetSelf: false},
-        { nome: 'Dados auxiliares', uri: `${this.hostServerOutsystem}/SpCrp1Pessoa/PessoaDadosAuxiliares.aspx?IsCorp=True&CrpPessoaId=${this.Id}`, isTargetSelf: false },
-        { nome: 'Tipo', uri: `${this.hostServerOutsystem}/SpMnt3Manutencao/TipoPessoa.aspx?IsCorp=True&CrpPessoaId=${this.Id}`, isTargetSelf: false },
-        // {nome: 'Fiscal', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/pessoas/pessoaFiscal/${this.Id}`, isTargetSelf: false},
-        { nome: 'Fiscal', uri: `${this.hostServerOutsystem}/SpCrp1Pessoa/PessoaFiscal.aspx?CrpPessoaId=${this.Id}&IsCorp=True`, isTargetSelf: false },
-        { nome: 'Contabilidade', uri: `https://${window.location.host}/SisproErpCloud/Contabilidade/Participantes?CrpPessoaId=${this.Id}`, isTargetSelf: false },
-      );
+      if (this.hasDadosBasicos) {
+        this.UrisList.push(
+          { nome: 'Dados básicos', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/pessoas/editar/${this.Id}`, isTargetSelf: true },
+        );
+      }
+
+      if (this.hasDadosComerciais) {
+        this.UrisList.push(
+          // {nome: 'Dados comerciais', uri: `${this.hostServerOutsystemValue}/SisproErpCloud/Vendas/pessoas-comercial/${this.Id}`, isTargetSelf: false},
+          { nome: 'Dados comerciais', uri: `${this.hostServerOutsystem}/SpNeg3Cfg/PessoaDadosComerciais.aspx?IsCorp=True&CrpPessoaId=${this.Id}`, isTargetSelf: false },
+        );
+      }
+     
+      if (this.hasDadosFinanceiros) {
+        this.UrisList.push(
+          // {nome: 'Dados financeiros', uri: `${this.hostServerOutsystemValue}/SisproErpCloud/Financeiro/clientes-fornecedores/${this.Id}`, isTargetSelf: false},
+          { nome: 'Dados financeiros', uri: `${this.hostServerOutsystem}/SpFin1Cadastros/PessoaDadosFinanceiros.aspx?CrpPessoaId=${this.Id}&IsCorp=True`, isTargetSelf: false },
+        );
+      }
+
+      if (this.hasCompras) {
+        this.UrisList.push(
+          { nome: 'Compras - Dados da pessoa para suprimentos', uri: `${this.hostServerOutsystem}/SisproErpCloud/Compras/pessoas-dados-suprimentos/editar/${this.Id}`, isTargetSelf: false },
+          // {nome: 'Compras - Dados do fornecedor', uri: `${this.hostServerOutsystemValue}/SisproErpCloud/Compras/pessoas-dados-fornecedor/editar/${this.Id}`, isTargetSelf: false},
+          { nome: 'Compras - Dados do fornecedor', uri: `${this.hostServerOutsystem}/SpCop3Configuracoes/PessoaDadosCompras.aspx?CrpPessoaId=${this.Id}&IsCorp=True`, isTargetSelf: false },
+        );
+      }
+
+      if (this.hasDadosAuxiliares) {
+        this.UrisList.push(
+          // {nome: 'Dados auxiliares', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/pessoas/dadosAuxiliares/${this.Id}`, isTargetSelf: false},
+          { nome: 'Dados auxiliares', uri: `${this.hostServerOutsystem}/SpCrp1Pessoa/PessoaDadosAuxiliares.aspx?IsCorp=True&CrpPessoaId=${this.Id}`, isTargetSelf: false },
+        );
+      }
+
+      if (this.hasTipo) {
+        this.UrisList.push(
+          { nome: 'Tipo', uri: `${this.hostServerOutsystem}/SpMnt3Manutencao/TipoPessoa.aspx?IsCorp=True&CrpPessoaId=${this.Id}`, isTargetSelf: false },
+        );
+      }
+
+      if (this.hasFiscal) {
+        this.UrisList.push(
+          // {nome: 'Fiscal', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/pessoas/pessoaFiscal/${this.Id}`, isTargetSelf: false},
+          { nome: 'Fiscal', uri: `${this.hostServerOutsystem}/SpCrp1Pessoa/PessoaFiscal.aspx?CrpPessoaId=${this.Id}&IsCorp=True`, isTargetSelf: false },
+        );
+      }
+
+      if (this.hasContabilidade) {
+        this.UrisList.push(
+          { nome: 'Contabilidade', uri: `https://${window.location.host}/SisproErpCloud/Contabilidade/Participantes?CrpPessoaId=${this.Id}`, isTargetSelf: false },
+        );
+      }
+
     }
 
 
@@ -194,27 +271,55 @@ export class PessoaAbasComponent {
     });
   }
 
-  public async getProdutosByLicensing(): Promise<void> {
+    public async GetProjetosLicenciado(): Promise<void> {
     try {
       const response = await firstValueFrom(
-        this._pessoasService.GetProdutosByLicensing()
+        this._hostOutsystemsServerService.GetProjetosLicenciado()
       );
 
-      this.InfraErpModuloList = response.GetProdutosByLicensing;
+      this.ProjetosLicenciadoList = response.ProjetosLicenciado;
+
+      this.ProjetosLicenciadoList.forEach(projeto => {
+
+        switch (projeto.Item1) {
+          case 1:
+            this.hasDadosBasicos = true;
+            this.hasDadosAuxiliares = true;
+            this.hasFiscal = true;
+          break;
+
+          case 7:
+            this.hasDadosComerciais = true;
+          break;
+
+          case 10:
+            this.hasDadosFinanceiros = true;
+          break;
+
+          case 9:
+            this.hasCompras = true;
+          break;
+
+          case 5:
+            this.hasTipo = true;
+          break;
+
+          case 2:
+            this.hasContabilidade = true;
+          break;
+
+          default:
+            console.log('Desconhecido');
+            break;
+        }
+
+      });
 
     } catch (error) {
       const msg = error instanceof Error ? error.message : String(error);
       this._messageService.showAlertDanger(msg);
       throw new Error(msg);
     }
-  }
-
-  public GetProductLicense(produto: string): boolean {
-
-    return this.InfraErpModuloList.some(modulo =>
-      modulo.Nome.toUpperCase() === produto.toUpperCase()
-    );
-
   }
 
 }
