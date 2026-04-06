@@ -34,6 +34,16 @@ export class EstabelecimentoAbasComponent {
   public hasTributos: boolean = false;
   public hasEstabelecimento: boolean = false;
 
+  public isRecebimentoActive: boolean = false;
+  public isFinanceiroActive: boolean = false;
+  public isFiscalActive: boolean = false;
+  public isComprasActive: boolean = false;
+  public isContratosActive: boolean = false;
+  public isVendasActive: boolean = false;
+  public isCnoActive: boolean = false;
+  public isTributosActive: boolean = false;
+  public isEstabelecimentoActive: boolean = false;
+
   public ProjetosLicenciadoList: ProjetosLicenciadRecord[] = [];
 
   constructor(
@@ -65,55 +75,55 @@ export class EstabelecimentoAbasComponent {
         if (window.location.host.includes("localhost")) {
           if (this.hasEstabelecimento) {
             this.linksList.push(
-              { nome: 'Estabelecimento', uri: `http://${window.location.host}/estabelecimentos/editar/${this.Id}`, isTargetSelf: true },
+              { nome: 'Estabelecimento', uri: `http://${window.location.host}/estabelecimentos/editar/${this.Id}`, isTargetSelf: true, disable: this.isEstabelecimentoActive },
             )
           }
 
           if (this.hasRecebimento) {
             this.linksList.push(
-              { nome: 'Recebimento', uri: `http://${window.location.host}/configuracao-estabelecimento/editar/${this.Id}`, isTargetSelf: false },
+              { nome: 'Recebimento', uri: `http://${window.location.host}/configuracao-estabelecimento/editar/${this.Id}`, isTargetSelf: false, disable: this.isRecebimentoActive },
             )
           }
           
           if (this.hasFinanceiro) {
             this.linksList.push(
-              { nome: 'Financeiro', uri: `http://${window.location.host}/empresa-estab/editar/estab/0?id=${this.Id}&empresaId=${this.empresaId}`, isTargetSelf: false },
+              { nome: 'Financeiro', uri: `http://${window.location.host}/empresa-estab/editar/estab/0?id=${this.Id}&empresaId=${this.empresaId}`, isTargetSelf: false, disable: this.isFinanceiroActive },
             )
           }
           
           if (this.hasFiscal) {
             this.linksList.push(
-              { nome: 'Fiscal', uri: `http://${window.location.host}/identificacao-da-entidade/editar/${this.Id}`, isTargetSelf: false },
+              { nome: 'Fiscal', uri: `http://${window.location.host}/identificacao-da-entidade/editar/${this.Id}`, isTargetSelf: false, disable: this.isFiscalActive },
             )
           }
            
           if (this.hasCompras) {
             this.linksList.push(
-              { nome: 'Compras', uri: `http://${window.location.host}/estabelecimento-compras/editar/${this.Id}`, isTargetSelf: false },
+              { nome: 'Compras', uri: `http://${window.location.host}/estabelecimento-compras/editar/${this.Id}`, isTargetSelf: false, disable: this.isComprasActive },
             )
           }
           
           if (this.hasContratos) {
             this.linksList.push(
-              { nome: 'Contratos', uri: `http://siscandesv10.sispro.com.br/SpCtr1Param/CtrGnCfgApl_Edit.aspx?EstabelecimentoId=${this.Id}&IsCorp=True`, isTargetSelf: false },
+              { nome: 'Contratos', uri: `http://siscandesv10.sispro.com.br/SpCtr1Param/CtrGnCfgApl_Edit.aspx?EstabelecimentoId=${this.Id}&IsCorp=True`, isTargetSelf: false, disable: this.isContratosActive },
             )
           }
 
           if (this.hasVendas) {
             this.linksList.push(
-              { nome: 'Vendas', uri: `http://siscandesv10.sispro.com.br/SpNeg3Cfg/CfgEstabelecimento.aspx?IsCorp=True&EstabelecimentoId=${this.Id}`, isTargetSelf: false },
+              { nome: 'Vendas', uri: `http://siscandesv10.sispro.com.br/SpNeg3Cfg/CfgEstabelecimento.aspx?IsCorp=True&EstabelecimentoId=${this.Id}`, isTargetSelf: false, disable: this.isVendasActive },
             )
           }
 
           if (this.hasCno) {
             this.linksList.push(
-              { nome: 'CNO', uri: `http://${window.location.host}/estabelecimentos/EstabCnoDet/${this.Id}`, isTargetSelf: false },
+              { nome: 'CNO', uri: `http://${window.location.host}/estabelecimentos/EstabCnoDet/${this.Id}`, isTargetSelf: false, disable: this.isCnoActive },
             )
           }
 
           if (this.hasTributos) {
             this.linksList.push(
-              { nome: 'Tributos', uri: `http://siscandesv10.sispro.com.br/SpFis1Interface/ConfigOrdemCalcImpostos.aspx?IsCorp=True&EstabelecimentoId=${this.Id}`, isTargetSelf: false },
+              { nome: 'Tributos', uri: `http://siscandesv10.sispro.com.br/SpFis1Interface/ConfigOrdemCalcImpostos.aspx?IsCorp=True&EstabelecimentoId=${this.Id}`, isTargetSelf: false, disable: this.isTributosActive },
             )
           }
 
@@ -121,60 +131,60 @@ export class EstabelecimentoAbasComponent {
         } else {
           if (this.hasEstabelecimento) {
             this.linksList.push(
-              { nome: 'Estabelecimento', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/estabelecimentos/editar/${this.Id}`, isTargetSelf: true },
+              { nome: 'Estabelecimento', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/estabelecimentos/editar/${this.Id}`, isTargetSelf: true, disable: this.isEstabelecimentoActive },
             )
           }
 
           if (this.hasRecebimento) {
             this.linksList.push(
               // {nome: 'Recebimento', uri: `${this.hostServerOutsystemValue}/SisproErpCloud/Recebimento/configuracao-estabelecimento/editar/${this.Id}`, isTargetSelf: false},
-              { nome: 'Recebimento', uri: `${this.hostServerOutsystem}/SpRec1Cfg/EstabRecebimento.aspx?EstabelecimentoId=${this.Id}&IsCorp=True`, isTargetSelf: false },
+              { nome: 'Recebimento', uri: `${this.hostServerOutsystem}/SpRec1Cfg/EstabRecebimento.aspx?EstabelecimentoId=${this.Id}&IsCorp=True`, isTargetSelf: false, disable: this.isRecebimentoActive },
             )
           }
 
           if (this.hasFinanceiro) {
             this.linksList.push(
               // {nome: 'Financeiro', uri: `${this.hostServerOutsystemValue}/SisproErpCloud/Financeiro/empresa-estab/editar/estab/0?id=${this.Id}&empresaId=${this.empresaId}`, isTargetSelf: false},
-              { nome: 'Financeiro', uri: `${this.hostServerOutsystem}/SpFin1Cadastros/FinEstabParam_Edit.aspx?IsCorp=True&EstabelecimentoId=${this.Id}`, isTargetSelf: false },
+              { nome: 'Financeiro', uri: `${this.hostServerOutsystem}/SpFin1Cadastros/FinEstabParam_Edit.aspx?IsCorp=True&EstabelecimentoId=${this.Id}`, isTargetSelf: false, disable: this.isFinanceiroActive },
             )
           }
 
           if (this.hasFiscal) {
             this.linksList.push(
               // {nome: 'Fiscal', uri: `${this.hostServerOutsystemValue}/SisproErpCloud/Efd-Reinf/identificacao-da-entidade/editar/${this.Id}`, isTargetSelf: false},
-              { nome: 'Fiscal', uri: `${this.hostServerOutsystem}/SpSped1Conf/IdentificacaoDaEntidade_list.aspx?IsFiscal=False&StartWizard=False&EstabelecimentoId=${this.Id}&IsCorp=True`, isTargetSelf: false },
+              { nome: 'Fiscal', uri: `${this.hostServerOutsystem}/SpSped1Conf/IdentificacaoDaEntidade_list.aspx?IsFiscal=False&StartWizard=False&EstabelecimentoId=${this.Id}&IsCorp=True`, isTargetSelf: false, disable: this.isFiscalActive },
             )
           }
 
           if (this.hasCompras) {
             this.linksList.push(
               // {nome: 'Compras', uri: `${this.hostServerOutsystemValue}/SisproErpCloud/Compras/estabelecimento-compras/editar/${this.Id}`, isTargetSelf: false},
-              { nome: 'Compras', uri: `${this.hostServerOutsystem}/SpCop3Configuracoes/EstabCompras.aspx?IsCorp=True&EstabelecimentoId=${this.Id}`, isTargetSelf: false },
+              { nome: 'Compras', uri: `${this.hostServerOutsystem}/SpCop3Configuracoes/EstabCompras.aspx?IsCorp=True&EstabelecimentoId=${this.Id}`, isTargetSelf: false, disable: this.isComprasActive },
             )
           }
 
 
           if (this.hasContratos) {
             this.linksList.push(
-              { nome: 'Contratos', uri: `${this.hostServerOutsystem}/SpCtr1Param/CtrGnCfgApl_Edit.aspx?EstabelecimentoId=${this.Id}&IsCorp=True`, isTargetSelf: false },
+              { nome: 'Contratos', uri: `${this.hostServerOutsystem}/SpCtr1Param/CtrGnCfgApl_Edit.aspx?EstabelecimentoId=${this.Id}&IsCorp=True`, isTargetSelf: false, disable: this.isContratosActive },
             )
           }
 
           if (this.hasVendas) {
             this.linksList.push(
-              { nome: 'Vendas', uri: `${this.hostServerOutsystem}/SpNeg3Cfg/CfgEstabelecimento.aspx?IsCorp=True&EstabelecimentoId=${this.Id}`, isTargetSelf: false },
+              { nome: 'Vendas', uri: `${this.hostServerOutsystem}/SpNeg3Cfg/CfgEstabelecimento.aspx?IsCorp=True&EstabelecimentoId=${this.Id}`, isTargetSelf: false, disable: this.isComprasActive },
             )
           }
 
           if (this.hasCno) {
             this.linksList.push(
-              { nome: 'CNO', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/estabelecimentos/EstabCnoDet/${this.Id}`, isTargetSelf: false },
+              { nome: 'CNO', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/estabelecimentos/EstabCnoDet/${this.Id}`, isTargetSelf: false, disable: this.isCnoActive },
             )
           }
 
           if (this.hasTributos) {
             this.linksList.push(
-              { nome: 'Tributos', uri: `${this.hostServerOutsystem}/SpFis1Interface/ConfigOrdemCalcImpostos.aspx?IsCorp=True&EstabelecimentoId=${this.Id}`, isTargetSelf: false },
+              { nome: 'Tributos', uri: `${this.hostServerOutsystem}/SpFis1Interface/ConfigOrdemCalcImpostos.aspx?IsCorp=True&EstabelecimentoId=${this.Id}`, isTargetSelf: false, disable: this.isTributosActive },
             )
           }
          
@@ -196,21 +206,27 @@ export class EstabelecimentoAbasComponent {
 
       this.ProjetosLicenciadoList = response.ProjetosLicenciado;
 
-      this.ProjetosLicenciadoList.forEach(projeto => {
+      for (const projeto of this.ProjetosLicenciadoList){
 
         switch (projeto.Item1) {
 
 
           case 9:
             this.hasCompras = true;
+
+            this.isComprasActive = await this.IsMenuAllowed("Compras/estabelecimento-compras");
           break;
 
           case 8:
             this.hasRecebimento = true;
+
+            this.isRecebimentoActive = await this.IsMenuAllowed("Recebimento/configuracao-estabelecimento");
           break;
 
           case 32:
             this.hasFiscal = true;
+
+            this.isFiscalActive = await this.IsMenuAllowed("");
           break;
 
           case 10:
@@ -238,7 +254,22 @@ export class EstabelecimentoAbasComponent {
             break;
         }
 
-      });
+      };
+
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : String(error);
+      this._messageService.showAlertDanger(msg);
+      throw new Error(msg);
+    }
+  }
+
+  public async IsMenuAllowed(route: string): Promise<boolean> {
+    try {
+      const response = await firstValueFrom(
+        this._hostOutsystemsServerService.IsMenuAllowed(route)
+      );
+
+      return response.Boolean;
 
     } catch (error) {
       const msg = error instanceof Error ? error.message : String(error);

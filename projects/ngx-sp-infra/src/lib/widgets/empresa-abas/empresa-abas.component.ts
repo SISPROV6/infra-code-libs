@@ -5,9 +5,6 @@ import { HostOutsystemsServerService } from './host-outsystems-server.service';
 import { MessageService } from '../../message/message.service';
 import { firstValueFrom } from 'rxjs';
 import { ProjetosLicenciadRecord } from './models/ProjetosLicenciadoRecord';
-import { ReactiveFormsModule } from '@angular/forms';
-import { InfraModule } from '../../infra.module';
-import { CommonModule } from '@angular/common';
 
 
 @Component({
@@ -251,37 +248,37 @@ export class EmpresaAbasComponent implements OnInit {
           case 2:
             this.hasContabil = true;
 
-            this.isContabilActive = await this.IsMenuAllowed("perfilDaEmpresa");
+            this.isContabilActive = await this.IsMenuAllowed("Contabilidade/perfilDaEmpresa");
           break;
 
           case 11:
             this.hasEstoque = true;
 
-            this.isEstoqueActive = await this.IsMenuAllowed("SpEtq1Etq/EmpresaEstoque");
+            this.isEstoqueActive = await this.IsMenuAllowed("Estoque/SpEtq1Etq/EmpresaEstoque");
           break;
 
           case 9:
             this.hasCompras = true;
 
-            this.isComprasActive = await this.IsMenuAllowed("empresa-compras");
+            this.isComprasActive = await this.IsMenuAllowed("Compras/empresa-compras");
           break;
 
           case 8:
             this.hasRecebimento = true;
 
-            this.isRecebimentoActive = await this.IsMenuAllowed("empresa-compras");
+            this.isRecebimentoActive = await this.IsMenuAllowed("Recebimento/configuracao-empresa");
           break;
 
           case 32:
             this.hasFiscal = true;
 
-
+            this.isFiscalActive = await this.IsMenuAllowed("");
           break;
 
           case 5:
             this.hasPatrimonio = true;
 
-            this.isPatrimonioActive = await this.IsMenuAllowed("configuracoes");
+            this.isPatrimonioActive = await this.IsMenuAllowed("Patrimonio/configuracoes/perfil-empresa");
           break;
 
           case 19:
@@ -292,14 +289,20 @@ export class EmpresaAbasComponent implements OnInit {
 
           case 10:
             this.hasFinanceiro = true;
+
+            this.isFinanceiroActive = await this.IsMenuAllowed("Financeiro/empresa-estab");
           break;
 
           case 6:
             this.hasReinf = true;
+
+            this.isReinfActive = await this.IsMenuAllowed("/informacoes-do-contribuinte");
           break;
 
           case 24:
              this.hasEcfTax = true;
+
+             this.isEcfTaxActive = await this.IsMenuAllowed("Corporativo/empresas");
           break;
 
           case 1:
