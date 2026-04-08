@@ -1,7 +1,7 @@
 {
-  "project": "ngx-sp-auth",
-  "version": "4.17.0",
-  "tag": "auth-v4.17.0",
-  "notes": "Atualização de rotina",
-  "timestamp": "2026-03-30T12:50:51.734Z"
+  "project": "ngx-sp-views",
+  "version": "3.4.13",
+  "tag": "views-v3.4.13",
+  "notes": "Componente de personalização de logotipo adicionado na ngx-sp-views",
+  "timestamp": "2026-04-07T19:38:19.835Z"
 }

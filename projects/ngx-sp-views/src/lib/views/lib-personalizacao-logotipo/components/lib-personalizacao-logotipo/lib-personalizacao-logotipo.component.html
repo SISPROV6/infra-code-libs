@@ -1,0 +1,153 @@
+<!-- #region HEADER -->
+<lib-header [breadcrumbList]="this.module == 'Corporativo' ? [ 'Corporativo', 'Personalização de logotipo' ] : [ 'Configuração ERP', 'Personalização de logotipo' ]"
+[pageTitle]="'Personalização de Logotipo'">
+<button class="btn btn-outline-primary" (click)="returnToList()">
+    Voltar
+</button>
+<button class="btn btn-primary" (click)="Salvar()" [disabled]="showSpinner1">
+    Salvar
+    @if(showSpinner1)
+    {
+        <span class="ms-1 spinner-border spinner-border-sm" aria-hidden="true"></span>
+    }
+</button>
+</lib-header>
+<!-- #endregion HEADER -->
+
+<div class="d-flex gap-3">
+  <div class="card border-0 rounded text-center align-items-center ">
+    <div class="d-flex justify-content-end w-100 gap-1">
+        @if(imagemCortadaLogin)
+        {
+            <lib-icon class="glb-cursor-pointer" tooltip="Limpar imagem selecionada" iconName="p-fechar" [iconSize]="36" iconColor="#404040" (click)="imagemCortadaLogin = null"/>
+        }
+        @else 
+        {
+            <lib-icon iconName="fechar" [iconSize]="36" iconColor="#dfe2e6"/>
+        }
+        @if(loginImg.Binary)
+        {
+            <lib-icon class="glb-cursor-pointer" tooltip="Excluir imagem" iconName="p-lixeira" [iconSize]="30" iconColor="#c40000" (click)="DeleteLoginImg()"/>
+        }
+        @else 
+        {
+            <lib-icon iconName="lixeira" [iconSize]="30" iconColor="#dfe2e6"/>
+        }
+    </div>
+    <div class="preview glb-cursor-pointer" (click)="abrirDialogDeImagemLogin()">
+        @if(imagemCortadaLogin)
+        {
+              <img [src]="imagemCortadaLogin">
+        }
+        @else
+        {
+            @if(loginImg.Binary)
+            {
+                <div class="moldura d-flex justify-content-center align-items-center mb-2">
+                    <img [src]="'data:image/jpeg;base64,'+loginImg.Binary">
+                </div>
+            }
+            @else 
+            {
+                <lib-icon iconName="sem-imagem" [iconSize]="45" iconColor="#ced4da"/>
+            }
+        }
+    </div>
+    <h3 class="card-title">Imagem de login</h3>
+    <span class="card-description">Imagem exibida acima dos campos de credenciais na tela de login.</span>
+    <button class="select-btn" (click)="abrirDialogDeImagemLogin()">
+        <span>Selecionar</span>
+    </button>
+    <app-image-cropper #cropperLogin (imageOut)="receberImagemLogin($event)"></app-image-cropper>
+  </div>
+  <div class="card border-0 rounded text-center align-items-center ">
+    <div class="d-flex justify-content-end w-100 gap-1">
+        @if(imagemCortadaMenu)
+        {
+            <lib-icon class="glb-cursor-pointer" tooltip="Limpar imagem selecionada" iconName="p-fechar" [iconSize]="36" iconColor="#404040" (click)="imagemCortadaMenu = null"/>
+        }
+        @else 
+        {
+            <lib-icon iconName="fechar" [iconSize]="36" iconColor="#dfe2e6"/>
+        }
+        @if(menuImg.Binary)
+        {
+            <lib-icon class="glb-cursor-pointer" tooltip="Excluir imagem" iconName="p-lixeira" [iconSize]="30" iconColor="#c40000" (click)="DeleteMenuImg()"/>
+        }
+        @else 
+        {
+            <lib-icon iconName="lixeira" [iconSize]="30" iconColor="#dfe2e6"/>
+        }
+    </div>
+    <div class="preview glb-cursor-pointer" (click)="abrirDialogDeImagemMenu()">
+        @if(imagemCortadaMenu)
+        {
+              <img [src]="imagemCortadaMenu">
+        }
+        @else
+        {
+            @if(menuImg.Binary)
+            {
+                <div class="moldura d-flex justify-content-center align-items-center mb-2">
+                    <img [src]="'data:image/jpeg;base64,'+menuImg.Binary">
+                </div>
+            }
+            @else 
+            {
+                <lib-icon iconName="sem-imagem" [iconSize]="45" iconColor="#ced4da"/>
+            }
+        }
+    </div>
+    <h3 class="card-title">Imagem de menu</h3>
+    <span class="card-description">Imagem exibida no topo do menu lateral quando expandido.</span>
+    <button class="select-btn" (click)="abrirDialogDeImagemMenu()">
+        <span>Selecionar</span>
+    </button>
+    <app-image-cropper #cropperMenu (imageOut)="receberImagemMenu($event)"></app-image-cropper>
+  </div>
+  <div class="card border-0 rounded text-center align-items-center ">
+    <div class="d-flex justify-content-end w-100 gap-1">
+        @if(imagemCortadaEmail)
+        {
+            <lib-icon class="glb-cursor-pointer" tooltip="Limpar imagem selecionada" iconName="p-fechar" [iconSize]="36" iconColor="#404040" (click)="imagemCortadaEmail = null"/>
+        }
+        @else 
+        {
+            <lib-icon iconName="fechar" [iconSize]="36" iconColor="#dfe2e6"/>
+        }
+        @if(emailImg.Binary)
+        {
+            <lib-icon class="glb-cursor-pointer" tooltip="Excluir imagem" iconName="p-lixeira" [iconSize]="30" iconColor="#c40000" (click)="DeleteEmailImg()"/>
+        }
+        @else 
+        {
+            <lib-icon iconName="lixeira" [iconSize]="30" iconColor="#dfe2e6"/>
+        }
+    </div>
+    <div class="preview glb-cursor-pointer" (click)="abrirDialogDeImagemEmail()">
+        @if(imagemCortadaEmail)
+        {
+              <img [src]="imagemCortadaEmail">
+        }
+        @else
+        {
+            @if(emailImg.Binary)
+            {
+                <div class="moldura d-flex justify-content-center align-items-center mb-2">
+                    <img [src]="'data:image/jpeg;base64,'+emailImg.Binary">
+                </div>
+            }
+            @else 
+            {
+                <lib-icon iconName="sem-imagem" [iconSize]="45" iconColor="#ced4da"/>
+            }
+        }
+    </div>
+    <h3 class="card-title">Imagem de email</h3>
+    <span class="card-description">Imagem exibida nos e-mails informativos do sistema.</span>
+    <button class="select-btn" (click)="abrirDialogDeImagemEmail()">
+        <span>Selecionar</span>
+    </button>
+    <app-image-cropper #cropperEmail (imageOut)="receberImagemEmail($event)"></app-image-cropper>
+  </div>
+</div>

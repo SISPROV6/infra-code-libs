@@ -38,5 +38,5 @@ export * from './lib/views/logs-timer/components/home-log-timer/home-log-timer.c
 export * from './lib/views/logs-ws/components/detalhes-log-ws/detalhes-log-ws.component';
 export * from './lib/views/logs-ws/components/home-log-ws/home-logs-ws.component';
 export * from './lib/views/lib-monitoramento-fila/lib-monitoramento-fila.component';
-export * from './lib/views/config-smtp/components/config-email/config-email.component'
-
+export * from './lib/views/config-smtp/components/config-email/config-email.component';
+export * from './lib/views/lib-personalizacao-logotipo/components/lib-personalizacao-logotipo/lib-personalizacao-logotipo.component'

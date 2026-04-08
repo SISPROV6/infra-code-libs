@@ -1,0 +1,71 @@
+.moldura {
+  border: 2px solid #ced4da;
+  border-radius: 5px;
+  width: 566px;
+  height: 200px;
+}
+
+.molduta-container
+{
+    width: 566px;
+}
+
+img {
+    border-radius: 5px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+  width: 100%;
+}
+
+.card {
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  padding: 8px 24px 24px 24px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  width: 33%;
+}
+
+.card-title {
+  font-size: 16px;
+  margin-bottom: 12px;
+  color: #333333;
+  font-weight: 500;
+}
+
+.card-description{
+  font-size: 12px;
+  margin-bottom: 12px;
+  color: #474747;
+}
+
+.preview {
+  width: 100%;
+  height: 160px;
+  border: 2px solid #ced4da;
+  border-radius: 5px;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+.preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.select-btn {
+    width: 140px;
+    height: 30px;
+    border: 1px solid #ced4da;
+    border-radius: 25px;
+    background-color: #EEEEEE;
+}
