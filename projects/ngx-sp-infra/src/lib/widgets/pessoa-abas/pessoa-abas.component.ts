@@ -7,7 +7,6 @@ import { NgFor } from '@angular/common';
 import { CrpInPapelRecord } from './models/CrpInPapelRecord';
 import { HostOutsystemsServerService } from '../empresa-abas/host-outsystems-server.service';
 import { MessageService } from '../../message/message.service';
-import { InfraErpModuloRecord } from './models/InfraErpModuloRecord';
 import { ProjetosLicenciadRecord } from '../empresa-abas/models/ProjetosLicenciadoRecord';
 
 @Component({
@@ -41,6 +40,15 @@ export class PessoaAbasComponent {
   public hasTipo: boolean = false;
   public hasFiscal: boolean = false;
   public hasContabilidade: boolean = false;
+
+  public isDadosBasicosValid: boolean = false;
+  public isDadosComerciaisValid: boolean = false;
+  public isDadosFinanceirosValid: boolean = false;
+  public isComprasValid: boolean = false;
+  public isDadosAuxiliaresValid: boolean = false;
+  public isTipoValid: boolean = false;
+  public isFiscalValid: boolean = false;
+  public isContabilidadeValid: boolean = false;
 
   public ProjetosLicenciadoList: ProjetosLicenciadRecord[] = [];
 
@@ -271,7 +279,7 @@ export class PessoaAbasComponent {
     });
   }
 
-    public async GetProjetosLicenciado(): Promise<void> {
+  public async GetProjetosLicenciado(): Promise<void> {
     try {
       const response = await firstValueFrom(
         this._hostOutsystemsServerService.GetProjetosLicenciado()
@@ -279,41 +287,74 @@ export class PessoaAbasComponent {
 
       this.ProjetosLicenciadoList = response.ProjetosLicenciado;
 
-      this.ProjetosLicenciadoList.forEach(projeto => {
+      for (const projeto of this.ProjetosLicenciadoList){
 
         switch (projeto.Item1) {
           case 1:
             this.hasDadosBasicos = true;
             this.hasDadosAuxiliares = true;
             this.hasFiscal = true;
-          break;
+
+            this.isDadosBasicosValid = await this.IsMenuAllowed("pessoas");
+
+            if(this.isDadosBasicosValid){
+              this.isDadosAuxiliaresValid = true;
+              this.isFiscalValid = true;
+            }
+
+            break;
 
           case 7:
             this.hasDadosComerciais = true;
-          break;
+
+            this.isDadosComerciaisValid = await this.IsMenuAllowed("Vendas/pessoas");
+            break;
 
           case 10:
             this.hasDadosFinanceiros = true;
-          break;
+
+            this.isDadosFinanceirosValid = await this.IsMenuAllowed("Financeiro/dados-financeiros");
+            break;
 
           case 9:
             this.hasCompras = true;
-          break;
+
+            this.isComprasValid = await this.IsMenuAllowed("");
+            break;
 
           case 5:
             this.hasTipo = true;
-          break;
+
+            this.isTipoValid = await this.IsMenuAllowed("");
+            break;
 
           case 2:
             this.hasContabilidade = true;
-          break;
+
+            this.isContabilidadeValid = await this.IsMenuAllowed("");
+            break;
 
           default:
             console.log('Desconhecido');
             break;
         }
 
-      });
+      };
+
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : String(error);
+      this._messageService.showAlertDanger(msg);
+      throw new Error(msg);
+    }
+  }
+
+  public async IsMenuAllowed(route: string): Promise<boolean> {
+    try {
+      const response = await firstValueFrom(
+        this._hostOutsystemsServerService.IsMenuAllowed(route)
+      );
+
+      return response.Boolean;
 
     } catch (error) {
       const msg = error instanceof Error ? error.message : String(error);

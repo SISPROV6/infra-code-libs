@@ -29,6 +29,10 @@ export class ItemsAbasComponent {
   public hasCorporativo: boolean = false;
   public hasEstoque: boolean = false;
 
+  public isComprasValid: boolean = false;
+  public isCorporativoValid: boolean = false;
+  public isEstoqueValid: boolean = false;
+
   public ProjetosLicenciadoList: ProjetosLicenciadRecord[] = [];
 
   constructor(
@@ -61,40 +65,40 @@ export class ItemsAbasComponent {
         if (window.location.host.includes("localhost")) {
           if (this.hasCorporativo) {
             this.linksList.push(
-              { nome: 'Corporativo', uri: `http://${window.location.host}/itens/editar/${this.Id}`, isTargetSelf: true }
+              { nome: 'Corporativo', uri: `http://${window.location.host}/itens/editar/${this.Id}`, isTargetSelf: true, disable: this.isCorporativoValid }
             );
           }
 
           if (this.hasEstoque) {
             this.linksList.push(
-              { nome: 'Estoque', uri: `http://${window.location.host}/SpEtq1Etq/ItemParaSuprimentos/editar/${this.Id}`, isTargetSelf: true }
+              { nome: 'Estoque', uri: `http://${window.location.host}/SpEtq1Etq/ItemParaSuprimentos/editar/${this.Id}`, isTargetSelf: true, disable: this.isEstoqueValid }
             );
           }
 
           if (this.hasCompras) {
             this.linksList.push(
-              { nome: 'Dados Compras', uri: `http://${window.location.host}/item-dados-compras/editar/${this.Id}`, isTargetSelf: false }
+              { nome: 'Dados Compras', uri: `http://${window.location.host}/item-dados-compras/editar/${this.Id}`, isTargetSelf: false, disable: this.isComprasValid }
             );
           }
 
         } else {
           if (this.hasCorporativo) {
             this.linksList.push(
-              { nome: 'Corporativo', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/itens/editar/${this.Id}`, isTargetSelf: true },
+              { nome: 'Corporativo', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/itens/editar/${this.Id}`, isTargetSelf: true, disable: this.isCorporativoValid },
             );
           }
 
           if (this.hasEstoque) {
             this.linksList.push(
               // { nome: 'Estoque', uri: `${this.hostServerOutsystemValue}/SpEtq1Etq/ItemParaSuprimentos/editar/${this.Id}`, isTargetSelf: true},
-              { nome: 'Estoque', uri: `${this.hostServerOutsystem}/SpEtq1Etq/ItemEstoque.aspx?IsCorp=True&CrpItemId=${this.Id}`, isTargetSelf: true },
+              { nome: 'Estoque', uri: `${this.hostServerOutsystem}/SpEtq1Etq/ItemEstoque.aspx?IsCorp=True&CrpItemId=${this.Id}`, isTargetSelf: true, disable: this.isEstoqueValid  },
             );
           }
           
           if (this.hasCompras) {
             this.linksList.push(
               // {nome: 'Dados Compras', uri: `${this.hostServerOutsystemValue}/item-dados-compras/editar/${this.Id}`, isTargetSelf: false},
-              { nome: 'Dados Compras', uri: `${this.hostServerOutsystem}/SpCop3Configuracoes/ItemDadosCompras.aspx?CrpItemId=${this.Id}`, isTargetSelf: false },
+              { nome: 'Dados Compras', uri: `${this.hostServerOutsystem}/SpCop3Configuracoes/ItemDadosCompras.aspx?CrpItemId=${this.Id}`, isTargetSelf: false, disable: this.isComprasValid },
             );
           }
 
@@ -116,28 +120,34 @@ export class ItemsAbasComponent {
 
       this.ProjetosLicenciadoList = response.ProjetosLicenciado;
 
-      this.ProjetosLicenciadoList.forEach(projeto => {
+      for (const projeto of this.ProjetosLicenciadoList){
 
         switch (projeto.Item1) {
 
 
           case 9:
             this.hasCompras = true;
+
+            this.isComprasValid = await this.IsMenuAllowed("Compras/item-dados-compras");
             break;
 
           case 11:
             this.hasEstoque = true;
+
+            this.isEstoqueValid = await this.IsMenuAllowed("Estoque//SpEtq1Etq/ItemParaSuprimentos");
             break;
 
           case 1:
             this.hasCorporativo = true;
+
+            this.isCorporativoValid = await this.IsMenuAllowed("itens");
             break;
 
           default:
             break;
         }
 
-      });
+      };
 
     } catch (error) {
       const msg = error instanceof Error ? error.message : String(error);
@@ -146,4 +156,18 @@ export class ItemsAbasComponent {
     }
   }
 
+  public async IsMenuAllowed(route: string): Promise<boolean> {
+    try {
+      const response = await firstValueFrom(
+        this._hostOutsystemsServerService.IsMenuAllowed(route)
+      );
+
+      return response.Boolean;
+
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : String(error);
+      this._messageService.showAlertDanger(msg);
+      throw new Error(msg);
+    }
+  }
 }

@@ -226,28 +226,42 @@ export class EstabelecimentoAbasComponent {
           case 32:
             this.hasFiscal = true;
 
-            this.isFiscalActive = await this.IsMenuAllowed("");
+            this.isFiscalActive = await this.IsMenuAllowed("/identificacao-da-entidade");
           break;
 
           case 10:
             this.hasFinanceiro = true;
+
+            this.isFinanceiroActive = await this.IsMenuAllowed("Financeiro/empresa-estab");
           break;
 
           case 4:
             this.hasContratos = true;
+
+            this.isContratosActive = await this.IsMenuAllowed(""); //Essa tela existe???
           break;
 
           case 7:
             this.hasVendas = true;
+
+            this.isVendasActive = await this.IsMenuAllowed("Vendas/configuracoes-de-impressao");
           break;
 
           case 1:
             this.hasCno = true;
             this.hasEstabelecimento = true;
+
+            this.isEstabelecimentoActive = await this.IsMenuAllowed("estabelecimentos");
+
+            if(this.isEstabelecimentoActive){
+              this.isCnoActive = true;
+            }
           break;
 
           case 34:
             this.hasTributos = true;
+
+            this.isTributosActive = await this.IsMenuAllowed("");
           break;
 
           default:

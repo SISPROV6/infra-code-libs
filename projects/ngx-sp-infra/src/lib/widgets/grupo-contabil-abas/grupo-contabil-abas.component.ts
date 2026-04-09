@@ -25,6 +25,9 @@ export class GrupoContabilAbasComponent {
   public hasContabil: boolean = false;
   public hasCompras: boolean = false;
 
+  public isContabilValid: boolean = false;
+  public isComprasValid: boolean = false;
+
   public ProjetosLicenciadoList: ProjetosLicenciadRecord[] = [];
 
   constructor(
@@ -40,13 +43,13 @@ export class GrupoContabilAbasComponent {
 
       if (this.hasContabil) {
         this.linksList.push(
-          { nome: 'Grupo contábil', uri: `http://${window.location.host}/grupo-contabil-corp/editar/${this.Id}`, isTargetSelf: true },
+          { nome: 'Grupo contábil', uri: `http://${window.location.host}/grupo-contabil-corp/editar/${this.Id}`, isTargetSelf: true, disable: this.isContabilValid },
         );
       }
 
       if (this.hasCompras) {
         this.linksList.push(
-          { nome: 'Dados compras', uri: `https://siscandesv6.sispro.com.br/SisproErpCloud/Compras/grupo-contabil/editar/${this.Id}`, isTargetSelf: false }
+          { nome: 'Dados compras', uri: `https://siscandesv6.sispro.com.br/SisproErpCloud/Compras/grupo-contabil/editar/${this.Id}`, isTargetSelf: false, disable: this.isComprasValid }
         );
       }
 
@@ -55,14 +58,14 @@ export class GrupoContabilAbasComponent {
 
       if (this.hasContabil) {
         this.linksList.push(
-          { nome: 'Grupo contábil', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/grupo-contabil-corp/editar/${this.Id}`, isTargetSelf: true },
+          { nome: 'Grupo contábil', uri: `https://${window.location.host}/SisproErpCloud/Corporativo/grupo-contabil-corp/editar/${this.Id}`, isTargetSelf: true, disable: this.isContabilValid },
         );
       }
 
       if (this.hasCompras) {
         this.linksList.push(
           // { nome: 'Dados compras', uri: `${this.hostServerOutsystemValue}/SisproErpCloud/Compras/grupo-contabil/editar/${this.Id}`, isTargetSelf: false },
-          { nome: 'Dados compras', uri: `${this.hostServerOutsystemValue}/SpCop3Configuracoes/CopConfigGrCont_Edit.aspx?&CrpGrupoContabilId=${this.Id}&IsCorp=True`, isTargetSelf: false },
+          { nome: 'Dados compras', uri: `${this.hostServerOutsystemValue}/SpCop3Configuracoes/CopConfigGrCont_Edit.aspx?&CrpGrupoContabilId=${this.Id}&IsCorp=True`, isTargetSelf: false, disable: this.isComprasValid },
         );
       }
 
@@ -87,24 +90,43 @@ export class GrupoContabilAbasComponent {
 
       this.ProjetosLicenciadoList = response.ProjetosLicenciado;
 
-      this.ProjetosLicenciadoList.forEach(projeto => {
+      for (const projeto of this.ProjetosLicenciadoList){
 
         switch (projeto.Item1) {
 
 
           case 9:
             this.hasCompras = true;
+
+            this.isComprasValid = await this.IsMenuAllowed("Compras/empresa-compras");
             break;
 
           case 2:
             this.hasContabil = true;
+
+            this.isContabilValid = await this.IsMenuAllowed("grupo-contabil-corp");
             break;
 
           default:
             break;
         }
 
-      });
+      };
+
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : String(error);
+      this._messageService.showAlertDanger(msg);
+      throw new Error(msg);
+    }
+  }
+
+  public async IsMenuAllowed(route: string): Promise<boolean> {
+    try {
+      const response = await firstValueFrom(
+        this._hostOutsystemsServerService.IsMenuAllowed(route)
+      );
+
+      return response.Boolean;
 
     } catch (error) {
       const msg = error instanceof Error ? error.message : String(error);
