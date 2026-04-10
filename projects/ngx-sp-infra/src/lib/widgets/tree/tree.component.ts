@@ -71,26 +71,26 @@ export class TreeComponent {
   }
 
   public onCheck(items: TreeItem[], item: TreeItem): void {
-    if (item.has_children && item.children) {
-      item.children.forEach((firstNode) => {
-        if (firstNode.is_selected != item.is_selected) {
-          firstNode.is_selected = !firstNode.is_selected;
-        }
-        if (firstNode.has_children && firstNode.children) {
-          firstNode.children.forEach((secondNode) => {
-            if (secondNode.is_selected != firstNode.is_selected) {
-              secondNode.is_selected = !secondNode.is_selected;
-            }
-          });
-        }
-      });
-    }
+    this.toggleChildren(item, item.is_selected);
 
     if (this.indeterminateCheck(items)) {
       this.onSelect.emit(true);
     } else if (!this.indeterminateCheck(items)) {
       this.onSelect.emit(false);
     }
+  }
+
+  private toggleChildren(node: TreeItem, value: boolean): void {
+    if(node.is_selected !== value)
+    {
+      node.is_selected = !node.is_selected;
+    }
+
+    if (!node.children) return;
+
+    node.children.forEach((child:any) => {
+      this.toggleChildren(child, node.is_selected);
+    })
   }
   // #endregion ==========> PUBLIC METHODS <==========
 
