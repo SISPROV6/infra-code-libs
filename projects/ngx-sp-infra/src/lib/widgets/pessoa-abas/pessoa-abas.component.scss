@@ -63,3 +63,9 @@ li.menu-item {
   opacity: 1;
   transition: all 0.2s ease-in-out; /* Velocidade da transição */
 }
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+}

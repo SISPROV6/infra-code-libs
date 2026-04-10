@@ -261,7 +261,7 @@ export class EstabelecimentoAbasComponent {
           case 34:
             this.hasTributos = true;
 
-            this.isTributosActive = await this.IsMenuAllowed("");
+            this.isTributosActive = await this.IsMenuAllowed("Vendas/ordem-calculo-imposto");
           break;
 
           default:

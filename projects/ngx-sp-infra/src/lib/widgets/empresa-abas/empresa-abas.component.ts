@@ -314,7 +314,7 @@ export class EmpresaAbasComponent implements OnInit {
             break;
 
           default:
-            console.log('Desconhecido');
+         
             break;
         }
 
